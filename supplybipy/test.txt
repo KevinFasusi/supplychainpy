@@ -1,0 +1,12 @@
+jan|400
+feb|386
+mar|203
+apr|234
+may|433
+jun|506
+jul|532
+aug|453
+sep|503
+oct|654
+nov|634
+dec|532
