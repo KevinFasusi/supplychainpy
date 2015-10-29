@@ -17,8 +17,16 @@ class OrdersUncertainDemand:
     __reorder_cost = Decimal(00.00)
     __CONST_HOLDING_COST_FACTOR = Decimal(0.25)
     __fixed_reorder_quantity = 0
+    __DAYS = Decimal(7)
+    __WEEKS = Decimal(4)
+    __MONTHS = Decimal(12)
+    __QUARTER = Decimal(4)
+    __period = 0
+    _sku_revenue = 0
 
-    def __init__(self, orders, sku, lead_time, unit_cost, reorder_cost, z_value=Decimal(1.28)):
+
+
+    def __init__(self, orders, sku, lead_time, unit_cost, reorder_cost, z_value=Decimal(1.28), period=0):
         # need to check all orders entered are integers
 
         self.__orders = orders
@@ -26,7 +34,7 @@ class OrdersUncertainDemand:
         self.__lead_time = Decimal(lead_time)
         self.__unit_cost = Decimal(unit_cost)
         self.__z_value = z_value
-        self.__count_orders = len(self.__orders.values())
+        self.__count_orders = len(self.__orders)
         if len(orders) < 2:
             self.__average_order = Decimal(self.average_order_row())
             self.__orders_standard_deviation = self._standard_deviation_orders_row()
@@ -138,6 +146,8 @@ class OrdersUncertainDemand:
                 'demand variability': '{:.3f}'.format(self.__demand_variability),
                 'reorder level': '{:.0f}'.format(self.__reorder_level),
                 'reorder quantity': '{:.0f}'.format(self.__fixed_reorder_quantity)}
+
+
 
     def __del__(self):
 

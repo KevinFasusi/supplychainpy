@@ -10,7 +10,7 @@ class TestBuildModel(TestCase):
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplybipy/test_row.txt'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
-        d = build_model.analyse_orders_from_file_row(abs_file_path, 1.28, 400, 45, 3)
+        d = build_model.analyse_orders_from_file_row(abs_file_path, 1.28, 400)
         # act
 
         # assert
@@ -32,7 +32,7 @@ class TestBuildModel(TestCase):
         rel_path = 'supplybipy/test_row.txt'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
         # act
-        d = build_model.analyse_orders_from_file_row(abs_file_path, 1.28, 400, 45, 3)
+        d = build_model.analyse_orders_from_file_row(abs_file_path, 1.28, 400)
 
         for row in d:
             std = row.get('standard deviation')

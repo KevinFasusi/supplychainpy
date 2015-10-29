@@ -13,7 +13,7 @@ def main():
     summary = analyse_orders_from_file_col('test.txt', 'RX9887-90', 4, 45, 400, 1.28)
     print(summary)
 
-    big_summary = analyse_orders_from_file_row('test_row.txt', 1.28, 400, 45, 3)
+    big_summary = analyse_orders_from_file_row('test_row.txt', 1.28, 400)
     print(big_summary)
 
 
