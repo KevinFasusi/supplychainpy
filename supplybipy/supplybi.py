@@ -1,4 +1,5 @@
-from supplybipy.build_model import model_orders, analyse_orders_from_file_col, analyse_orders_from_file_row
+from supplybipy.build_model import model_orders, analyse_orders_from_file_col, analyse_orders_from_file_row, \
+    analyse_orders_abcxyz_from_file
 
 __author__ = 'kevin'
 
@@ -10,12 +11,14 @@ def main():
     summary = model_orders(r, 'RX983-90', 3, 50.99, 400, 1.28)
     print(summary)
 
-    summary = analyse_orders_from_file_col('test.txt', 'RX9887-90', 4, 45, 400, 1.28)
-    print(summary)
+    #summary = analyse_orders_from_file_col('test.txt', 'RX9887-90', 4, 45, 400, 1.28)
+    #print(summary)
 
-    big_summary = analyse_orders_from_file_row('test_row.txt', 1.28, 400)
-    print(big_summary)
+    #big_summary = analyse_orders_from_file_row('test_row.txt', 1.28, 400)
+    #print(big_summary)
 
+    abc = analyse_orders_abcxyz_from_file('test_row.txt', 1.28, 400)
 
+    print(abc)
 
 if __name__ == '__main__': main()
