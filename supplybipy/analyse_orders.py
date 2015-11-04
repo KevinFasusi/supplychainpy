@@ -30,9 +30,6 @@ class OrdersUncertainDemand:
     __abc_classification = ""
     __xyz_classification = ""
     __economic_order_quantity = economic_order_quantity
-    _reorder_quantity = Decimal(0)
-
-
 
     def __init__(self, orders, sku, lead_time, unit_cost, reorder_cost, z_value=Decimal(1.28), period=0):
         # need to check all orders entered are integers
@@ -157,6 +154,22 @@ class OrdersUncertainDemand:
     def demand_variability(self, demand_variability):
         self.__demand_variability = demand_variability
 
+    @property
+    def fixed_order_quantity(self):
+        return self.__fixed_reorder_quantity
+
+    @fixed_order_quantity.setter
+    def fixed_order_quantity(self, order):
+        self.__fixed_reorder_quantity = order
+
+    @property
+    def eoq(self):
+        return self.__economic_order_quantity
+
+    @eoq.setter
+    def eoq(self, eoq):
+        self.__economic_order_quantity = eoq
+
     def _revenue(self):
         total_order = 0
         for items in self.__orders:
@@ -220,7 +233,6 @@ class OrdersUncertainDemand:
                 'reorder level': '{:.0f}'.format(self.__reorder_level),
                 'reorder quantity': '{:.0f}'.format(self.__fixed_reorder_quantity),
                 'revenue': '{}'.format(self.__sku_revenue)}
-
 
     def __del__(self):
 

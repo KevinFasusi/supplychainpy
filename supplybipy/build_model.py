@@ -49,7 +49,6 @@ def analyse_orders_from_file_row(input_file_path, z_value, reorder_cost):
                                                                        unit_cost,
                                                                        reorder_cost, z_value)
                 analysed_orders_collection.append(analysed_orders)
-                print(analysed_orders.orders_summary())
                 analysed_orders_summary.append(analysed_orders.orders_summary())
                 orders = {}
                 sku_id = []
@@ -90,6 +89,13 @@ def analyse_orders_abcxyz_from_file(input_file_path, z_value, reorder_cost):
                 analysed_orders = analyse_orders.OrdersUncertainDemand(orders, sku_id, lead_time,
                                                                        unit_cost,
                                                                        reorder_cost, z_value)
+                average_orders = analysed_orders.get_average_orders
+                reorder_quantity = analysed_orders.fixed_order_quantity
+                analyse_orders.OrdersUncertainDemand.eoq = analyse_orders.economic_order_quantity.EconomicOrderQuantity(
+                    reorder_quantity, 0.25, reorder_cost, average_orders)
+                average_orders = 0
+                reorder_quantity = 0
+
                 analysed_orders_summary.append(analysed_orders.orders_summary())
                 analysed_orders_collection.append(analysed_orders)
                 orders = {}
@@ -99,6 +105,7 @@ def analyse_orders_abcxyz_from_file(input_file_path, z_value, reorder_cost):
                 del analysed_orders
                 # sort from top to bottom calculate the percentage of revenue
                 # probably best to serialise and deserialise the output for the analysed orders classs
+
             abc = AbcXyz(analysed_orders_collection)
             abc.percentage_revenue()
             abc.cumulative_percentage_revenue()
@@ -111,6 +118,8 @@ def analyse_orders_abcxyz_from_file(input_file_path, z_value, reorder_cost):
                 print('{}'.format(sku.abc_classification))
                 print('{}'.format(sku.xyz_classification))
                 print(sku.abcxyz_classification)
+            for order in analysed_orders_collection:
+                print(order.eoq.minimum_variable)
 
         except IOError as e:
             print("invalid file path: ", e)

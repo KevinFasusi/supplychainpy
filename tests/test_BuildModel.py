@@ -8,7 +8,7 @@ class TestBuildModel(TestCase):
     def test_standard_deviation_row_count(self):
         # arrange
         app_dir = os.path.dirname(__file__, )
-        rel_path = 'supplybipy/test_row.txt'
+        rel_path = 'supplybipy/test_row_small.txt'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
         d = build_model.analyse_orders_from_file_row(abs_file_path, 1.28, 400)
         # act
@@ -29,7 +29,7 @@ class TestBuildModel(TestCase):
     def test_standard_deviation_row_value(self):
         # arrange
         app_dir = os.path.dirname(__file__, )
-        rel_path = 'supplybipy/test_row.txt'
+        rel_path = 'supplybipy/test_row_small.txt'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
         # act
         d = build_model.analyse_orders_from_file_row(abs_file_path, 1.28, 400)
