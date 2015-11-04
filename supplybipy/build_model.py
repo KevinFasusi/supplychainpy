@@ -66,8 +66,12 @@ def analyse_orders_from_file_row(input_file_path, z_value, reorder_cost):
 
 
 # need to extract unit cost and lead time from file so can order skus by value and then ABC XYZ analysis
-def analyse_orders_abcxyz_from_file(input_file_path, z_value, reorder_cost):
-    """Retrieve data for multiple skus from a .txt file with the format 'sku|value|value..."""
+def analyse_orders_abcxyz_from_file(input_file_path, z_value: Decimal, reorder_cost: Decimal) -> list:
+    """Retrieve data for multiple skus from a .txt file with the format 'sku|value|value...
+    :param reorder_cost: cost to raise a purchase order. Can be calculated using the ops cost centre divide by number of
+            purchase orders raised.
+    :param z_value: The z-value for the service level required e.g. 1.28 for a 95% service level.
+    """
 
     if input_file_path.endswith(".txt"):
         try:
