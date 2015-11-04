@@ -19,8 +19,8 @@ def main():
     #print(summary)
 
     start_time = time.time()
-    big_summary = analyse_orders_from_file_row('test_row.txt', 1.28, 400)
-    #print(big_summary)
+    big_summary = analyse_orders_from_file_row('test_row_small.txt', 1.28, 400)
+    print(big_summary)
     end_time = time.time()
     secs = end_time - start_time
     print('model_orders took {} seconds to run', secs)

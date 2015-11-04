@@ -1,10 +1,11 @@
 import unittest
-import pytest as pytest
+import pytest
 from supplybipy import analyse_orders
 from unittest import TestCase
 
 
 class TestAnalyseOrders(TestCase):
+
     @pytest.fixture(scope="function")
     def data_set(self):
         return {'jan': 25, 'feb': 25, 'mar': 25, 'apr': 25, 'may': 25, 'jun': 25, 'jul': 75,
