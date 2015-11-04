@@ -19,7 +19,11 @@ def main():
     #print(summary)
 
     start_time = time.time()
+<<<<<<< HEAD
     big_summary = analyse_orders_from_file_row('test_row.txt', 1.28, 400)
+=======
+    big_summary = analyse_orders_from_file_row('test_row_small.txt', 1.28, 400)
+>>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
     print(big_summary)
     end_time = time.time()
     secs = end_time - start_time

@@ -9,7 +9,7 @@ env/
 __pycache__/
 *.so
 *~
-
+.idea/workspace.xml
 # due to using tox and pytest
 .tox
 .cache
