@@ -9,7 +9,7 @@ class EconomicOrderQuantity:
     __reorder_quantity = Decimal(0)
 
     @property
-    def minimum_variable(self):
+    def minimum_variable_cost(self):
         return self.__min_variable_cost
 
     @property
@@ -36,7 +36,7 @@ class EconomicOrderQuantity:
             eoq_variable_cost = ((Decimal(average_orders) * Decimal(reorder_cost)) / reorder_quantity) + (
                 Decimal(reorder_quantity) * Decimal(Decimal(holding_cost) * Decimal(reorder_quantity)))
             reorder_quantity *= step
-        return Decimal(previous_eoq_variable_cost)
+        return Decimal(eoq_variable_cost)
         # probabaly missing the addition
 
     def _eoq_for_minimum_variable_cost(self, average_orders, reorder_cost):

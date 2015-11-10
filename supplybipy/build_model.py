@@ -124,7 +124,7 @@ def analyse_orders_abcxyz_from_file(input_file_path, z_value, reorder_cost):
                 print('{}'.format(sku.xyz_classification))
                 print(sku.abcxyz_classification)
             for order in analysed_orders_collection:
-                print(order.eoq.minimum_variable)
+                print(order.eoq.minimum_variable_cost)
 
         except IOError as e:
             print("invalid file path: ", e)

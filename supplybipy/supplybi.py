@@ -25,10 +25,12 @@ def main():
     secs = end_time - start_time
     print('model_orders took {} seconds to run', secs)
 
-    #start_time = time.time()
-    #abc = analyse_orders_abcxyz_from_file('test_row.txt', 1.28, 400)
-    #print(abc)
-    #end_time = time.time()
-    #secs = end_time - start_time
-    #print('model_orders took {} seconds to run', secs)
+    start_time = time.time()
+    abc = analyse_orders_abcxyz_from_file('test_row_small.txt', 1.28, 400)
+    for sku in abc:
+        print(sku.eoq.economic_order_quantity)
+    end_time = time.time()
+    secs = end_time - start_time
+    print('model_orders took {} seconds to run', secs)
+
 if __name__ == '__main__': main()
