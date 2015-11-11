@@ -27,7 +27,7 @@ def analyse_orders_from_file_col(file_path, sku_id, lead_time, unit_cost, reorde
 
 
 # need more output
-def analyse_orders_from_file_row(input_file_path, z_value: Decimal, reorder_cost: Decimal) ->list:
+def analyse_orders_from_file_row(input_file_path, z_value: Decimal, reorder_cost: Decimal) ->list :
     """Retrieve data for multiple skus from a .txt file with the format 'sku|value|value...
     :param input_file_path: the file containing the orders in the format 'sku|value|value...|unit cost|lead+time
     :param reorder_cost: cost to raise a purchase order. Can be calculated using the operations cost centre value
