@@ -1,10 +1,9 @@
-from enum import Enum
 from decimal import Decimal
-from operator import itemgetter, attrgetter
-from supplybipy import analyse_orders
-from supplybipy.analyse_orders import OrdersUncertainDemand
-from supplybipy.lib import data_cleansing
-from supplybipy.lib.abc_xyz import AbcXyz
+from enum import Enum
+
+from .orders import analyse_orders, economic_order_quantity
+from .orders.abc_xyz import AbcXyz
+from . import data_cleansing
 
 Period = Enum('Period', 'years quarters months week')
 
@@ -27,8 +26,13 @@ def analyse_orders_from_file_col(file_path, sku_id, lead_time, unit_cost, reorde
 
 
 # need more output
-def analyse_orders_from_file_row(input_file_path, z_value, reorder_cost):
-    """Retrieve data for multiple skus from a .txt file with the format 'sku|value|value..."""
+def analyse_orders_from_file_row(input_file_path, z_value: Decimal, reorder_cost: Decimal) ->list:
+    """Retrieve data for multiple skus from a .txt file with the format 'sku|value|value...
+    :param input_file_path: the file containing the orders in the format 'sku|value|value...|unit cost|lead+time
+    :param reorder_cost: cost to raise a purchase order. Can be calculated using the operations cost centre value
+            divided by number of purchase orders raised.
+    :param z_value: The z-value for the service level required e.g. 1.28 for a 95% service level.
+    """
     if input_file_path.endswith(".txt"):
         try:
             orders = {}
@@ -91,7 +95,7 @@ def analyse_orders_abcxyz_from_file(input_file_path, z_value, reorder_cost):
                                                                        reorder_cost, z_value)
                 average_orders = analysed_orders.get_average_orders
                 reorder_quantity = analysed_orders.fixed_order_quantity
-                analyse_orders.OrdersUncertainDemand.eoq = analyse_orders.economic_order_quantity.EconomicOrderQuantity(
+                analyse_orders.OrdersUncertainDemand.eoq = economic_order_quantity.EconomicOrderQuantity(
                     reorder_quantity, 0.25, reorder_cost, average_orders)
                 average_orders = 0
                 reorder_quantity = 0
@@ -119,7 +123,7 @@ def analyse_orders_abcxyz_from_file(input_file_path, z_value, reorder_cost):
                 print('{}'.format(sku.xyz_classification))
                 print(sku.abcxyz_classification)
             for order in analysed_orders_collection:
-                print(order.eoq.minimum_variable)
+                print(order.eoq.minimum_variable_cost)
 
         except IOError as e:
             print("invalid file path: ", e)

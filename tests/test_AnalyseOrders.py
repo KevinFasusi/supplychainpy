@@ -1,20 +1,17 @@
 import unittest
-import pytest
-from supplybipy import analyse_orders
+from decimal import Decimal
 from unittest import TestCase
+
+from supplybipy.orders import analyse_orders
 
 
 class TestAnalyseOrders(TestCase):
-
-    @pytest.fixture(scope="function")
-    def data_set(self):
-        return {'jan': 25, 'feb': 25, 'mar': 25, 'apr': 25, 'may': 25, 'jun': 25, 'jul': 75,
-                'aug': 75, 'sep': 75, 'oct': 75, 'nov': 75, 'dec': 75}
-
-    def test_is_average(self, data_set):
+    def test_is_average(self):
         # act
+        data_set = {'jan': 25, 'feb': 25, 'mar': 25, 'apr': 25, 'may': 25, 'jun': 25, 'jul': 75,
+                    'aug': 75, 'sep': 75, 'oct': 75, 'nov': 75, 'dec': 75}
         d = analyse_orders.OrdersUncertainDemand(data_set, 'Rx493-90', 4, 554.99, 400.00)
-        a = d.average_order
+        a = Decimal(d.get_average_orders)
         # assert
         self.assertEqual(a, 50)
 
@@ -26,9 +23,10 @@ class TestAnalyseOrders(TestCase):
         with self.assertRaises(TypeError):
             analyse_orders.OrdersUncertainDemand(orders_placed, 'Rx493-90', 4)
 
-    def test_standard_deviation(self, data_set):
+    def test_standard_deviation(self):
         # arrange
-
+        data_set = {'jan': 25, 'feb': 25, 'mar': 25, 'apr': 25, 'may': 25, 'jun': 25, 'jul': 75,
+                    'aug': 75, 'sep': 75, 'oct': 75, 'nov': 75, 'dec': 75}
         # act
         d = analyse_orders.OrdersUncertainDemand(data_set, 'Rx493-90', 4, 554.99, 400.00)
         a = d.standard_deviation
