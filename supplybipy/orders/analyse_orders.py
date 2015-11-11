@@ -1,7 +1,7 @@
-from math import sqrt
 from decimal import Decimal
+
 from collections import Iterable
-from supplybipy.lib import economic_order_quantity
+from supplybipy.orders import economic_order_quantity
 
 
 class OrdersUncertainDemand:

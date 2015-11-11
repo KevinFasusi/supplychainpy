@@ -1,9 +1,8 @@
 import unittest
-
 from decimal import Decimal
-
-from supplybipy import analyse_orders
 from unittest import TestCase
+
+from supplybipy.orders import analyse_orders
 
 
 class TestAnalyseOrders(TestCase):

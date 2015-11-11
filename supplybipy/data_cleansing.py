@@ -1,4 +1,4 @@
-from decimal import *
+from decimal import Decimal
 
 
 def clean_orders_data_col(file):
