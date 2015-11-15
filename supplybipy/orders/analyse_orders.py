@@ -1,7 +1,7 @@
 from decimal import Decimal
 
 from collections import Iterable
-from supplybipy.orders import economic_order_quantity
+from . import economic_order_quantity
 
 
 class OrdersUncertainDemand:
@@ -227,7 +227,7 @@ class OrdersUncertainDemand:
 
     def orders_summary(self):
         return {'sku': self.__sku_id, 'average order': '{:.0f}'.format(self.__average_order),
-                'standard deviation': '{:.0f}'.format(self.__orders_standard_deviation),
+                'standard_deviation': '{:.0f}'.format(self.__orders_standard_deviation),
                 'safety stock': '{:.0f}'.format(self.__safety_stock),
                 'demand variability': '{:.3f}'.format(self.__demand_variability),
                 'reorder level': '{:.0f}'.format(self.__reorder_level),
