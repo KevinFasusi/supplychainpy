@@ -1,11 +1,8 @@
 from decimal import Decimal
 
 from collections import Iterable
-<<<<<<< HEAD
-from orders import economic_order_quantity
-=======
 from . import economic_order_quantity
->>>>>>> caab6e967530e1e9788a5012c08f1da686375f7f
+
 
 
 class OrdersUncertainDemand:

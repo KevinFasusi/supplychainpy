@@ -1,12 +1,7 @@
 #!/usr/bin/env python3
 
 import time
-
-<<<<<<< HEAD
-from build_model import analyse_orders_abcxyz_from_file, analyse_orders_from_file_row
-=======
 from supplybipy.build_model import analyse_orders_abcxyz_from_file, analyse_orders_from_file_row, model_orders, analyse_orders_from_file_col
->>>>>>> caab6e967530e1e9788a5012c08f1da686375f7f
 
 __author__ = 'kevin'
 
