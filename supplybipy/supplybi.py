@@ -2,7 +2,11 @@
 
 import time
 
+<<<<<<< HEAD
 from build_model import analyse_orders_abcxyz_from_file, analyse_orders_from_file_row
+=======
+from supplybipy.build_model import analyse_orders_abcxyz_from_file, analyse_orders_from_file_row, model_orders, analyse_orders_from_file_col
+>>>>>>> caab6e967530e1e9788a5012c08f1da686375f7f
 
 __author__ = 'kevin'
 
@@ -12,14 +16,14 @@ def main():
          'aug': 25, 'sep': 25, 'oct': 25, 'nov': 25, 'dec': 25}
 
     # start_time = time.time()
-    # summary = model_orders(r, 'RX983-90', 3, 50.99, 400, 1.28)
-    # print(summary)
+    summary = model_orders(r, 'RX983-90', 3, 50.99, 400, 1.28)
+    print(summary)
     # end_time = time.time()
     # secs = end_time - start_time
     # print('model_orders took {} seconds to run', secs)
 
-    # summary = analyse_orders_from_file_col('test.txt', 'RX9887-90', 4, 45, 400, 1.28)
-    # print(summary)
+    summary = analyse_orders_from_file_col('test.txt', 'RX9887-90', 4, 45, 400, 1.28)
+    print(summary)
 
     start_time = time.time()
     big_summary = analyse_orders_from_file_row('test_row_small.txt', 1.28, 400)
