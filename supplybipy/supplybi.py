@@ -2,7 +2,7 @@
 
 import time
 
-from supplybipy.build_model import analyse_orders_abcxyz_from_file, analyse_orders_from_file_row
+from build_model import analyse_orders_abcxyz_from_file, analyse_orders_from_file_row
 
 __author__ = 'kevin'
 
@@ -35,6 +35,7 @@ def main():
     end_time = time.time()
     secs = end_time - start_time
     print('model_orders took {} seconds to run', secs)
+
 
 
 if __name__ == '__main__': main()

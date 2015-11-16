@@ -8,6 +8,7 @@ class EconomicOrderQuantity:
     __min_variable_cost = Decimal(0)
     __reorder_quantity = Decimal(0)
 
+
     @property
     def minimum_variable_cost(self):
         return self.__min_variable_cost
@@ -15,6 +16,8 @@ class EconomicOrderQuantity:
     @property
     def economic_order_quantity(self):
         return self.__economic_order_quantity
+
+
 
     def __init__(self, reorder_quantity, holding_cost, reorder_cost, average_orders):
         self.__reorder_quantity = reorder_quantity

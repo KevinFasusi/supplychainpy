@@ -1,9 +1,9 @@
 from decimal import Decimal
 from enum import Enum
 
-from .orders import analyse_orders, economic_order_quantity
-from .orders.abc_xyz import AbcXyz
-from . import data_cleansing
+from orders import analyse_orders, economic_order_quantity
+from orders.abc_xyz import AbcXyz
+import data_cleansing
 
 Period = Enum('Period', 'years quarters months week')
 
@@ -14,6 +14,8 @@ def model_orders(data_set, sku_id, lead_time, unit_cost, reorder_cost, z_value):
     """Models orders data in list data_set"""
     d = analyse_orders.OrdersUncertainDemand(data_set, sku_id, lead_time, unit_cost, reorder_cost, z_value)
     return d.orders_summary()
+
+
 
 
 def analyse_orders_from_file_col(file_path, sku_id, lead_time, unit_cost, reorder_cost, z_value):
@@ -69,7 +71,9 @@ def analyse_orders_from_file_row(input_file_path, z_value: Decimal, reorder_cost
     return analysed_orders_summary
 
 
+
 # need to extract unit cost and lead time from file so can order skus by value and then ABC XYZ analysis
+
 def analyse_orders_abcxyz_from_file(input_file_path, z_value, reorder_cost):
     """Retrieve data for multiple skus from a .txt file with the format 'sku|value|value..."""
 
