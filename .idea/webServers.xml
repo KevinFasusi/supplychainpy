@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="74cbc542-5658-4ff3-8caa-d7e4c3dbf3be" name="appserver" url="http://192.168.1.130">
+        <fileTransfer host="192.168.1.130" port="22" privateKey="$USER_HOME$/.ssh/id_rsa" rootFolder="/home/kevin" accessType="SFTP" passphrase="df9adf93df9adfe7dfcddfe8df8edf99" username="kevin" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

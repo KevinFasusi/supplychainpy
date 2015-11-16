@@ -7,5 +7,6 @@ setup(name='supplybipy',
       author='Kevin Fasusi',
       author_email='fasusi.kevin@gmail.com',
       license='MIT',
-      packages=['supplybipy'],
+      packages=['supplybipy','supplybipy/orders'],
+      test_suite='supplybipy/tests',
       zip_safe=False)
