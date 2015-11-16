@@ -2,12 +2,16 @@
 from decimal import Decimal
 =======
 import unittest
-
 from decimal import Decimal
+<<<<<<< HEAD
 
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
 from supplybipy import analyse_orders
+=======
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
 from unittest import TestCase
+
+from supplybipy.orders import analyse_orders
 
 
 class TestAnalyseOrders(TestCase):

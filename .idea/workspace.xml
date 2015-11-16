@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2966edf2-9fb1-46a4-b9a2-5bf28d5d4df4" name="Default" comment="">
 <<<<<<< HEAD
+<<<<<<< HEAD
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/supplybipy/build_model.py" afterPath="$PROJECT_DIR$/supplybipy/build_model.py" />
@@ -13,6 +14,24 @@
 =======
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/supplybipy/build_model.py" afterPath="$PROJECT_DIR$/supplybipy/build_model.py" />
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
+=======
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/supplybipy/orders/__init__.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/supplybipy/lib/__init__.py" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/supplybipy/analyse_orders.py" afterPath="$PROJECT_DIR$/supplybipy/orders/analyse_orders.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/supplybipy/lib/Inventory.py" afterPath="$PROJECT_DIR$/supplybipy/Inventory.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/supplybipy/lib/abc_xyz.py" afterPath="$PROJECT_DIR$/supplybipy/orders/abc_xyz.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/supplybipy/lib/data_cleansing.py" afterPath="$PROJECT_DIR$/supplybipy/data_cleansing.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/supplybipy/lib/economic_order_quantity.py" afterPath="$PROJECT_DIR$/supplybipy/orders/economic_order_quantity.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/supplybipy/lib/equipment.py" afterPath="$PROJECT_DIR$/supplybipy/equipment.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/supplybipy/lib/fleet.py" afterPath="$PROJECT_DIR$/supplybipy/fleet.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/supplybipy/lib/vehicle.py" afterPath="$PROJECT_DIR$/supplybipy/vehicle.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/supplybipy/lib/warehouse.py" afterPath="$PROJECT_DIR$/supplybipy/warehouse.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/__init__.py" afterPath="$PROJECT_DIR$/__init__.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/supplybipy/build_model.py" afterPath="$PROJECT_DIR$/supplybipy/build_model.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/supplybipy/production_model.py" afterPath="$PROJECT_DIR$/supplybipy/production_model.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/supplybipy/supplybi.py" afterPath="$PROJECT_DIR$/supplybipy/supplybi.py" />
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/test_AnalyseOrders.py" afterPath="$PROJECT_DIR$/tests/test_AnalyseOrders.py" />
     </list>
     <ignored path="supplychainpy.iws" />
@@ -34,7 +53,13 @@
     <SUITE FILE_PATH="coverage/supplychainpy$Unittests_in_TestAnalyseOrders.coverage" NAME="Unittests in TestAnalyseOrders Coverage Results" MODIFIED="1446669981396" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
 =======
     <SUITE FILE_PATH="coverage/supplychainpy$Unittests_in_TestAnalyseOrders.coverage" NAME="Unittests in TestAnalyseOrders Coverage Results" MODIFIED="1446671440872" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+<<<<<<< HEAD
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
+=======
+    <SUITE FILE_PATH="coverage/supplychainpy$supplybi__1_.coverage" NAME="supplybi (1) Coverage Results" MODIFIED="1447165937681" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/build/lib/supplybipy" />
+    <SUITE FILE_PATH="coverage/supplychainpy$supplybi.coverage" NAME="supplybi Coverage Results" MODIFIED="1447203419011" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/supplybipy" />
+    <SUITE FILE_PATH="coverage/supplychainpy$__init__.coverage" NAME="__init__ Coverage Results" MODIFIED="1447202477517" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/supplybipy" />
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -52,6 +77,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+<<<<<<< HEAD
 <<<<<<< HEAD
       <file leaf-file-name="supplybi.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/supplybipy/supplybi.py">
@@ -77,11 +103,19 @@
             <state vertical-scroll-proportion="0.78655463">
               <caret line="32" column="112" selection-start-line="32" selection-start-column="112" selection-end-line="32" selection-end-column="112" />
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
+=======
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/supplybipy/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0302521">
+              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="data_cleansing.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/supplybipy/lib/data_cleansing.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -91,6 +125,23 @@
 =======
               <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
+=======
+      <file leaf-file-name="analyse_orders_uncertain_file.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/supplybipy/analyse_orders_uncertain_file.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="distribution_model.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/supplybipy/distribution_model.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="21" selection-start-line="0" selection-start-column="21" selection-end-line="0" selection-end-column="21" />
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
               <folding />
             </state>
           </provider>
@@ -110,39 +161,92 @@
         <entry file="file://$PROJECT_DIR$/supplybipy/supplybi.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+              <caret line="21" column="20" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
+              <folding>
+                <element signature="e#24#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="economic_order_quantity.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/supplybipy/orders/economic_order_quantity.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
               <folding />
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="case.py" pinned="false" current-in-tab="false">
         <entry file="file:///usr/local/Cellar/python3/3.5.0/Frameworks/Python.framework/Versions/3.5/lib/python3.5/unittest/case.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="596" column="0" selection-start-line="596" selection-start-column="0" selection-end-line="596" selection-end-column="0" />
+=======
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/supplybipy/orders/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="analyse_orders.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/supplybipy/analyse_orders.py">
+      <file leaf-file-name="orders_analysis.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/supplybipy/orders_analysis.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
+<<<<<<< HEAD
 <<<<<<< HEAD
               <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
 =======
               <caret line="33" column="8" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
+=======
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="build_model.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/supplybipy/build_model.py">
+=======
+      <file leaf-file-name="build_model.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/supplybipy/build_model.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="97" column="71" selection-start-line="97" selection-start-column="71" selection-end-line="97" selection-end-column="71" />
+              <folding>
+                <element signature="e#0#27#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="analyse_orders.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/supplybipy/orders/analyse_orders.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#27#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="abc_xyz.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/supplybipy/orders/abc_xyz.py">
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
           <provider selected="true" editor-type-id="text-editor">
 <<<<<<< HEAD
             <state vertical-scroll-proportion="-1.2040817">
@@ -185,19 +289,15 @@
         <option value="$PROJECT_DIR$/../supplychainpy/supplychainpy/__init__.py" />
         <option value="$PROJECT_DIR$/../supplychainpy/supplybipy/__init__.py" />
         <option value="$PROJECT_DIR$/../supplychainpy/__init__.py" />
-        <option value="$PROJECT_DIR$/supplybipy/__init__.py" />
         <option value="$PROJECT_DIR$/tests/test-clients.py" />
-        <option value="$PROJECT_DIR$/supplybipy/data_cleansing.py" />
         <option value="$PROJECT_DIR$/supplybipy/lib/warehouse.py" />
         <option value="$PROJECT_DIR$/supplybipy/distribution_model.py" />
         <option value="$PROJECT_DIR$/supplybipy/inventory_model.py" />
-        <option value="$PROJECT_DIR$/supplybipy/production_model.py" />
         <option value="$PROJECT_DIR$/supplybipy/engineering_model.py" />
         <option value="$PROJECT_DIR$/supplybipy/lib/vehicle.py" />
         <option value="$PROJECT_DIR$/supplybipy/lib/fleet.py" />
         <option value="$PROJECT_DIR$/supplybipy/lib/equipment.py" />
         <option value="$PROJECT_DIR$/supplybipy/lib/Inventory.py" />
-        <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/tests/test-inventoryanalysis.py" />
         <option value="$PROJECT_DIR$/tests/test.py" />
         <option value="$PROJECT_DIR$/tests/conftest.py" />
@@ -208,7 +308,6 @@
         <option value="$PROJECT_DIR$/supplybipy/lib/data_cleansing.py" />
         <option value="$PROJECT_DIR$/supplybipy/lib/abc_xyz.py" />
         <option value="$PROJECT_DIR$/supplybipy/analyse_orders.py" />
-        <option value="$PROJECT_DIR$/supplybipy/lib/economic_order_quantity.py" />
         <option value="$PROJECT_DIR$/supplybipy/test_row.txt" />
 <<<<<<< HEAD
         <option value="$PROJECT_DIR$/tests/test_AnalyseOrders.py" />
@@ -216,11 +315,22 @@
         <option value="$PROJECT_DIR$/supplybipy/supplybi.py" />
 =======
         <option value="$PROJECT_DIR$/tests/test_BuildModel.py" />
+        <option value="$PROJECT_DIR$/tests/test_AnalyseOrders.py" />
+        <option value="$PROJECT_DIR$/supplybipy/lib/economic_order_quantity.py" />
         <option value="$PROJECT_DIR$/supplybipy/test_row_small.txt" />
+        <option value="$PROJECT_DIR$/setup.py" />
+        <option value="$PROJECT_DIR$/supplybipy/__init__.py" />
+        <option value="$PROJECT_DIR$/build/lib/supplybipy/__init__.py" />
+        <option value="$PROJECT_DIR$/supplybipy/production_model.py" />
+        <option value="$PROJECT_DIR$/supplybipy/data_cleansing.py" />
+        <option value="$PROJECT_DIR$/build/lib/supplybipy/supplybi.py" />
         <option value="$PROJECT_DIR$/supplybipy/supplybi.py" />
         <option value="$PROJECT_DIR$/supplybipy/build_model.py" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/tests/test_AnalyseOrders.py" />
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
+=======
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
       </list>
     </option>
   </component>
@@ -278,11 +388,15 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+<<<<<<< HEAD
       <pane id="Scratches" />
 <<<<<<< HEAD
       <pane id="Scope" />
 =======
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
+=======
+      <pane id="Scope" />
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -311,20 +425,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="tests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="supplychainpy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="supplybipy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="supplybipy" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -343,16 +443,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
+              <option name="myItemId" value="orders" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       <pane id="Scope" />
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
+=======
+      <pane id="Scratches" />
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -367,17 +471,39 @@
 =======
     <property name="restartRequiresConfirmation" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+<<<<<<< HEAD
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
+=======
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="213" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="238" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="244" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1153" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="225" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="234" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="240" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1149" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/supplybipy" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/supplybipy/orders" />
+      <recent name="$PROJECT_DIR$/supplybipy" />
       <recent name="$PROJECT_DIR$/supplybipy/lib" />
       <recent name="$PROJECT_DIR$/../supplychainpy" />
     </key>
   </component>
+<<<<<<< HEAD
 <<<<<<< HEAD
   <component name="RunManager" selected="Python.supplybi">
     <configuration default="false" name="supplybi" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -392,6 +518,10 @@
 =======
   <component name="RunManager" selected="Python tests.Unittests in TestAnalyseOrders">
     <configuration default="false" name="Unittests in test_AnalyseOrders" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+=======
+  <component name="RunManager" selected="Python.supplybi">
+    <configuration default="false" name="Unittest TestAnalyseOrders.test_is_average" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs />
@@ -409,10 +539,10 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
 =======
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/test_AnalyseOrders.py" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="TestAnalyseOrders" />
+      <option name="METHOD_NAME" value="test_is_average" />
       <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="TEST_TYPE" value="TEST_METHOD" />
       <option name="PATTERN" value="" />
       <option name="USE_PATTERN" value="false" />
       <option name="PUREUNITTEST" value="true" />
@@ -421,7 +551,7 @@
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
       <method />
     </configuration>
-    <configuration default="false" name="Unittest TestAnalyseOrders.test_order_constraint" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="Unittests in TestAnalyseOrders" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs />
@@ -461,12 +591,16 @@
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/test_AnalyseOrders.py" />
       <option name="CLASS_NAME" value="TestAnalyseOrders" />
 <<<<<<< HEAD
+<<<<<<< HEAD
       <option name="METHOD_NAME" value="test_is_average" />
 =======
       <option name="METHOD_NAME" value="test_order_constraint" />
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
+=======
+      <option name="METHOD_NAME" value="" />
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
       <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="TEST_TYPE" value="TEST_CLASS" />
       <option name="PATTERN" value="" />
       <option name="USE_PATTERN" value="false" />
       <option name="PUREUNITTEST" value="true" />
@@ -475,20 +609,27 @@
       <method />
     </configuration>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <configuration default="false" name="Unittest TestAnalyseOrders.test_is_average (1)" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
 =======
     <configuration default="false" name="Unittest TestAnalyseOrders.test_standard_deviation" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
+=======
+    <configuration default="false" name="supplybi" type="PythonConfigurationType" factoryName="Python" temporary="true">
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/supplybipy" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="supplybipy" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+<<<<<<< HEAD
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/test_AnalyseOrders.py" />
       <option name="CLASS_NAME" value="TestAnalyseOrders" />
 <<<<<<< HEAD
@@ -510,16 +651,27 @@
 =======
     <configuration default="false" name="Unittest TestAnalyseOrders.test_is_average" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
+=======
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/supplybipy/supplybi.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="supplybi (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/build/lib/supplybipy" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="supplybipy" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+<<<<<<< HEAD
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/test_AnalyseOrders.py" />
       <option name="CLASS_NAME" value="TestAnalyseOrders" />
 <<<<<<< HEAD
@@ -541,26 +693,29 @@
 <<<<<<< HEAD
 =======
     <configuration default="false" name="Unittests in TestAnalyseOrders" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+=======
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/build/lib/supplybipy/supplybi.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="__init__" type="PythonConfigurationType" factoryName="Python" temporary="true">
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/supplybipy" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="supplybipy" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/test_AnalyseOrders.py" />
-      <option name="CLASS_NAME" value="TestAnalyseOrders" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_CLASS" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/supplybipy/__init__.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
@@ -653,13 +808,19 @@
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
       <node-options />
       <gulpfile />
       <tasks />
       <arguments />
       <envs />
+<<<<<<< HEAD
 =======
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
+=======
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
@@ -780,6 +941,7 @@
     </configuration>
     <list size="5">
 <<<<<<< HEAD
+<<<<<<< HEAD
       <item index="0" class="java.lang.String" itemvalue="Python.supplybi" />
       <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestAnalyseOrders.test_order_constraint" />
       <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestAnalyseOrders.test_is_average" />
@@ -807,6 +969,21 @@
         <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in test_AnalyseOrders" />
         <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestAnalyseOrders.test_standard_deviation" />
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
+=======
+      <item index="0" class="java.lang.String" itemvalue="Python tests.Unittest TestAnalyseOrders.test_is_average" />
+      <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in TestAnalyseOrders" />
+      <item index="2" class="java.lang.String" itemvalue="Python.supplybi" />
+      <item index="3" class="java.lang.String" itemvalue="Python.supplybi (1)" />
+      <item index="4" class="java.lang.String" itemvalue="Python.__init__" />
+    </list>
+    <recent_temporary>
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Python.supplybi" />
+        <item index="1" class="java.lang.String" itemvalue="Python.__init__" />
+        <item index="2" class="java.lang.String" itemvalue="Python.supplybi (1)" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in TestAnalyseOrders" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestAnalyseOrders.test_is_average" />
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
       </list>
     </recent_temporary>
   </component>
@@ -877,8 +1054,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1080" y="0" width="1920" height="1200" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <window_info id="Project" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19957082" sideWeight="0.6458967" order="3" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32932693" sideWeight="0.49753347" order="6" side_tool="false" content_ui="tabs" />
@@ -892,17 +1070,24 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1953125" sideWeight="0.35410336" order="0" side_tool="true" content_ui="tabs" />
 =======
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20234291" sideWeight="0.6458967" order="0" side_tool="false" content_ui="combo" />
+=======
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22257721" sideWeight="0.6458967" order="0" side_tool="false" content_ui="combo" />
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32912534" sideWeight="0.49753347" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4050633" sideWeight="0.18697916" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960597" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.4947146" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42513862" sideWeight="0.759375" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32809612" sideWeight="0.4947146" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32933578" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.42513862" sideWeight="0.759375" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25292864" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283186" sideWeight="0.4947146" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1953125" sideWeight="0.35410336" order="2" side_tool="true" content_ui="tabs" />
+<<<<<<< HEAD
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36506024" sideWeight="0.8130208" order="3" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36414048" sideWeight="0.8130208" order="3" side_tool="false" content_ui="tabs" />
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -911,7 +1096,9 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32820976" sideWeight="0.49270833" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Concurrent Activities Diagram" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32994455" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
     </layout>
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
     <layout-to-restore>
@@ -935,6 +1122,8 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36506024" sideWeight="0.8130208" order="3" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
+=======
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -956,7 +1145,13 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/supplybipy/supplybi.py</url>
+          <line>24</line>
+          <option name="timeStamp" value="192" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/supplybipy/build_model.py</url>
+<<<<<<< HEAD
 <<<<<<< HEAD
           <line>97</line>
 =======
@@ -972,6 +1167,15 @@
           <line>134</line>
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
           <option name="timeStamp" value="183" />
+=======
+          <line>51</line>
+          <option name="timeStamp" value="194" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/supplybipy/build_model.py</url>
+          <line>59</line>
+          <option name="timeStamp" value="195" />
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -984,7 +1188,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
+<<<<<<< HEAD
       <option name="time" value="192" />
+=======
+      <option name="time" value="199" />
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
     </breakpoint-manager>
     <watches-manager>
       <configuration name="tests">
@@ -998,10 +1206,12 @@
         <watch expression="((Decimal(average_orders) * Decimal(reorder_cost)) / reorder_quantity)" />
         <watch expression="(Decimal(reorder_quantity) * Decimal(Decimal(holding_cost) * Decimal(reorder_quantity)))" language="Python" />
         <watch expression="previous_eoq_variable_cost" />
+        <watch expression="reorder_quantity" />
       </configuration>
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
+<<<<<<< HEAD
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/supplybipy/lib/data_cleansing.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -1014,24 +1224,19 @@
 =======
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
     <entry file="file://$PROJECT_DIR$/supplybipy/analyse_orders.py">
+=======
+    <entry file="file://$PROJECT_DIR$/supplybipy/orders/abc_xyz.py">
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="234" column="0" selection-start-line="234" selection-start-column="0" selection-end-line="234" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/lib/abc_xyz.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="19" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding>
             <element signature="e#0#27#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/build_model.py">
+    <entry file="file://$PROJECT_DIR$/supplybipy/test.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1039,18 +1244,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/lib/data_cleansing.py">
+    <entry file="file://$PROJECT_DIR$/supplybipy/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/analyse_orders.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="56" selection-start-line="36" selection-start-column="56" selection-end-line="36" selection-end-column="56" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1058,40 +1255,36 @@
     <entry file="file://$PROJECT_DIR$/supplybipy/build_model.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="30" selection-start-line="0" selection-start-column="30" selection-end-line="0" selection-end-column="30" />
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/supplybipy/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/lib/warehouse.py">
+    <entry file="file://$PROJECT_DIR$/supplybipy/vehicle.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/lib/Inventory.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="16" selection-start-line="0" selection-start-column="16" selection-end-line="0" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/lib/vehicle.py">
+    <entry file="file://$PROJECT_DIR$/supplybipy/fleet.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/lib/fleet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/lib/equipment.py">
+    <entry file="file://$PROJECT_DIR$/supplybipy/equipment.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1168,69 +1361,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.03164557">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/lib/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/lib/equipment.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/lib/fleet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/lib/vehicle.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/lib/Inventory.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/lib/warehouse.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1904762">
-          <caret line="10" column="9" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/test-clients.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1245,38 +1375,94 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/production_model.py">
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.51102203">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/env/lib/python3.4/site-packages/setuptools/tests/test_sdist.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.37987307">
+          <caret line="503" column="9" selection-start-line="503" selection-start-column="9" selection-end-line="503" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/test_BuildModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="39" column="42" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/test_AnalyseOrders.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.81680673">
+          <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/supplybipy/test_row_small.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="25" selection-start-line="0" selection-start-column="25" selection-end-line="0" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python3.4/decimal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5506808">
+          <caret line="633" column="0" selection-start-line="633" selection-start-column="0" selection-end-line="633" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/env/lib/python3.4/codecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.017110266">
+          <caret line="308" column="0" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/env/lib/python3.4/_bootlocale.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7882353">
+          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/supplybipy/test_row.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13994169">
+          <caret line="8" column="43" selection-start-line="8" selection-start-column="43" selection-end-line="8" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/supplybipy/warehouse.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/analyse_orders_uncertain_file.py">
+    <entry file="file://$PROJECT_DIR$/supplybipy/vehicle.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/inventory_model.py">
+    <entry file="file://$PROJECT_DIR$/supplybipy/data_cleansing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/orders_analysis.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/distribution_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0605042">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1287,20 +1473,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
+    <entry file="file://$PROJECT_DIR$/supplybipy/equipment.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.51102203">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/test_row.txt">
+    <entry file="file://$PROJECT_DIR$/supplybipy/fleet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="44" selection-end-column="52" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/supplybipy/Inventory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/supplybipy/lib/economic_order_quantity.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -1326,34 +1520,47 @@
           <folding />
 =======
     <entry file="file://$PROJECT_DIR$/env/lib/python3.4/site-packages/setuptools/tests/test_sdist.py">
+=======
+    <entry file="file://$PROJECT_DIR$/supplybipy/inventory_model.py">
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37987307">
-          <caret line="503" column="9" selection-start-line="503" selection-start-column="9" selection-end-line="503" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test_BuildModel.py">
+    <entry file="file://$PROJECT_DIR$/supplybipy/production_model.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="42" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/supplybipy/test.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/test_row_small.txt">
+    <entry file="file://$PROJECT_DIR$/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0302521">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/supplybipy/orders/economic_order_quantity.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/lib/abc_xyz.py">
+    <entry file="file://$PROJECT_DIR$/supplybipy/orders/abc_xyz.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
@@ -1364,18 +1571,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/analyse_orders.py">
+    <entry file="file://$PROJECT_DIR$/supplybipy/distribution_model.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+<<<<<<< HEAD
 <<<<<<< HEAD
           <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
 =======
           <caret line="33" column="8" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
+=======
+          <caret line="0" column="21" selection-start-line="0" selection-start-column="21" selection-end-line="0" selection-end-column="21" />
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/supplybipy/test_row.txt">
       <provider selected="true" editor-type-id="text-editor">
@@ -1387,10 +1599,17 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
+=======
+    <entry file="file://$PROJECT_DIR$/supplybipy/orders/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/supplybipy/lib/data_cleansing.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -1402,10 +1621,17 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
+=======
+    <entry file="file://$PROJECT_DIR$/supplybipy/orders_analysis.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/tests/test_AnalyseOrders.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1418,11 +1644,21 @@
           <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
           <folding />
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
+=======
+    <entry file="file://$PROJECT_DIR$/supplybipy/orders/analyse_orders.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test_AnalyseOrders.py">
+    <entry file="file://$PROJECT_DIR$/supplybipy/build_model.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
 <<<<<<< HEAD
         <state vertical-scroll-proportion="0.0">
           <caret line="28" column="48" selection-start-line="28" selection-start-column="48" selection-end-line="28" selection-end-column="48" />
@@ -1430,14 +1666,29 @@
         <state vertical-scroll-proportion="0.81680673">
           <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
+=======
+        <state vertical-scroll-proportion="0.0">
+          <caret line="97" column="71" selection-start-line="97" selection-start-column="71" selection-end-line="97" selection-end-column="71" />
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#0#27#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/supplybipy/build_model.py">
+    <entry file="file://$PROJECT_DIR$/supplybipy/supplybi.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="20" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
+          <folding>
+            <element signature="e#24#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/supplybipy/analyse_orders_uncertain_file.py">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
 <<<<<<< HEAD
         <state vertical-scroll-proportion="-1.2040817">
           <caret line="69" column="85" selection-start-line="69" selection-start-column="85" selection-end-line="69" selection-end-column="85" />
@@ -1445,6 +1696,18 @@
         <state vertical-scroll-proportion="0.78655463">
           <caret line="32" column="112" selection-start-line="32" selection-start-column="112" selection-end-line="32" selection-end-column="112" />
 >>>>>>> 12442747b231687ec11b9e4d642a81f79c733460
+=======
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/supplybipy/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0302521">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+>>>>>>> 1abec7657f65b054adff81d6d75d02f657abb523
           <folding />
         </state>
       </provider>

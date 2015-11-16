@@ -1,10 +1,9 @@
-from enum import Enum
 from decimal import Decimal
-from operator import itemgetter, attrgetter
-from supplybipy import analyse_orders
-from supplybipy.analyse_orders import OrdersUncertainDemand
-from supplybipy.lib import data_cleansing
-from supplybipy.lib.abc_xyz import AbcXyz
+from enum import Enum
+
+from .orders import analyse_orders, economic_order_quantity
+from .orders.abc_xyz import AbcXyz
+from . import data_cleansing
 
 Period = Enum('Period', 'years quarters months week')
 
@@ -100,7 +99,7 @@ def analyse_orders_abcxyz_from_file(input_file_path, z_value: Decimal, reorder_c
                                                                        reorder_cost, z_value)
                 average_orders = analysed_orders.get_average_orders
                 reorder_quantity = analysed_orders.fixed_order_quantity
-                analyse_orders.OrdersUncertainDemand.eoq = analyse_orders.economic_order_quantity.EconomicOrderQuantity(
+                analyse_orders.OrdersUncertainDemand.eoq = economic_order_quantity.EconomicOrderQuantity(
                     reorder_quantity, 0.25, reorder_cost, average_orders)
                 average_orders = 0
                 reorder_quantity = 0
@@ -128,7 +127,7 @@ def analyse_orders_abcxyz_from_file(input_file_path, z_value: Decimal, reorder_c
                 print('{}'.format(sku.xyz_classification))
                 print(sku.abcxyz_classification)
             for order in analysed_orders_collection:
-                print(order.eoq.minimum_variable)
+                print(order.eoq.minimum_variable_cost)
 
         except IOError as e:
             print("invalid file path: ", e)
