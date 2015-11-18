@@ -90,27 +90,33 @@ def analyse_orders_abcxyz_from_file(input_file_path, z_value, reorder_cost):
             item_list = (data_cleansing.clean_orders_data_row(f))
 
             for sku in item_list:
+                orders = {}
+                sku_id = []
+                unit_cost = []
+                lead_time = []
                 sku_id = sku.get("sku id")
                 unit_cost = sku.get("unit cost")
                 lead_time = sku.get("lead time")
+
                 orders['orders'] = sku.get("orders")
                 analysed_orders = analyse_orders.OrdersUncertainDemand(orders, sku_id, lead_time,
                                                                        unit_cost,
                                                                        reorder_cost, z_value)
+
                 average_orders = analysed_orders.get_average_orders
                 reorder_quantity = analysed_orders.fixed_order_quantity
-                analyse_orders.OrdersUncertainDemand.eoq = economic_order_quantity.EconomicOrderQuantity(
-                    reorder_quantity, 0.25, reorder_cost, average_orders)
+                eoq = economic_order_quantity.EconomicOrderQuantity(
+                   reorder_quantity, 0.25, reorder_cost, average_orders, unit_cost)
+                analyse_orders.OrdersUncertainDemand.eoq = eoq
                 average_orders = 0
                 reorder_quantity = 0
 
                 analysed_orders_summary.append(analysed_orders.orders_summary())
                 analysed_orders_collection.append(analysed_orders)
-                orders = {}
-                sku_id = []
-                unit_cost = []
-                lead_time = []
+
                 del analysed_orders
+                del eoq
+
                 # sort from top to bottom calculate the percentage of revenue
                 # probably best to serialise and deserialise the output for the analysed orders classs
 
