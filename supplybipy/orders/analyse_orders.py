@@ -1,7 +1,5 @@
 from decimal import Decimal
-
 from collections import Iterable
-from . import economic_order_quantity
 
 
 
@@ -30,9 +28,12 @@ class OrdersUncertainDemand:
     __cumulative_percentage = Decimal(0)
     __abc_classification = ""
     __xyz_classification = ""
-    __economic_order_quantity = economic_order_quantity
+    __economic_order_variable_cost= Decimal(0)
+    __economic_order_qty = Decimal(0)
 
-    def __init__(self, orders, sku, lead_time, unit_cost, reorder_cost, z_value=Decimal(1.28), period=0):
+
+    def __init__(self, orders, sku, lead_time, unit_cost, reorder_cost, z_value=Decimal(1.28), holding_cost=0.00,
+                 period=0):
         # need to check all orders entered are integers
 
         self.__orders = orders
@@ -164,12 +165,21 @@ class OrdersUncertainDemand:
         self.__fixed_reorder_quantity = order
 
     @property
-    def eoq(self):
-        return self.__economic_order_quantity
+    def economic_order_qty(self):
+        return self.__economic_order_qty
 
-    @eoq.setter
-    def eoq(self, eoq):
-        self.__economic_order_quantity = eoq
+    @economic_order_qty.setter
+    def economic_order_qty(self, eoq):
+        self.__economic_order_qty = eoq
+
+    @property
+    def economic_order_variable_cost(self):
+        return self.__economic_order_variable_cost
+
+    @economic_order_variable_cost.setter
+    def economic_order_variable_cost(self, eoq_vc):
+        self.__economic_order_variable_cost = eoq_vc
+
 
     def _revenue(self):
         total_order = 0
@@ -227,13 +237,16 @@ class OrdersUncertainDemand:
     # make another summary for as a dictionary and allow each value to be retrieved individually
 
     def orders_summary(self):
-        return {'sku': self.__sku_id, 'average order': '{:.0f}'.format(self.__average_order),
+        return {'sku': self.__sku_id, 'average_order': '{:.0f}'.format(self.__average_order),
                 'standard_deviation': '{:.0f}'.format(self.__orders_standard_deviation),
-                'safety stock': '{:.0f}'.format(self.__safety_stock),
-                'demand variability': '{:.3f}'.format(self.__demand_variability),
-                'reorder level': '{:.0f}'.format(self.__reorder_level),
-                'reorder quantity': '{:.0f}'.format(self.__fixed_reorder_quantity),
-                'revenue': '{}'.format(self.__sku_revenue)}
+                'safety_stock': '{:.0f}'.format(self.__safety_stock),
+                'demand_variability': '{:.3f}'.format(self.__demand_variability),
+                'reorder_level': '{:.0f}'.format(self.__reorder_level),
+                'reorder_quantity': '{:.0f}'.format(self.__fixed_reorder_quantity),
+                'revenue': '{}'.format(self.__sku_revenue),
+                'economic_order_quantity': '{:.0f}'.format(self.__economic_order_qty),
+                'economic_order_variable_cost': '{:.2f}'.format(self.__economic_order_variable_cost),
+                'ABC_XYZ_Classification': '{0}{1}'.format(self.__abc_classification, self.__xyz_classification)}
 
     def __del__(self):
 
@@ -250,6 +263,8 @@ class OrdersUncertainDemand:
         self.__reorder_level = None
         self.__reorder_cost = None
         self.__fixed_reorder_quantity = None
+        #class_name = self.__class__.__name__
+        #print(class_name + " destroyed")
 
 
 class OrdersUncertainDemandFactory:
