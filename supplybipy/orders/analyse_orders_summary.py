@@ -44,14 +44,14 @@ class AnalyseOrdersSummary:
                 pass
 
         classification_matrix = []
-        classification_matrix.append({"AZ": az_count})
+        classification_matrix.append({"AX": ax_count})
         classification_matrix.append({"AY": ay_count})
         classification_matrix.append({"AZ": az_count})
-        classification_matrix.append({"BZ": bz_count})
+        classification_matrix.append({"BX": bx_count})
         classification_matrix.append({"BY": by_count})
         classification_matrix.append({"BZ": bz_count})
-        classification_matrix.append({"CZ": az_count})
-        classification_matrix.append({"CY": ay_count})
-        classification_matrix.append({"CZ": az_count})
+        classification_matrix.append({"CX": cx_count})
+        classification_matrix.append({"CY": cy_count})
+        classification_matrix.append({"CZ": cz_count})
 
         return classification_matrix

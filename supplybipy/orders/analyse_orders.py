@@ -2,7 +2,6 @@ from decimal import Decimal
 from collections import Iterable
 
 
-
 class OrdersUncertainDemand:
     __sku_id = ""
     __average_order = Decimal(0)
@@ -28,12 +27,12 @@ class OrdersUncertainDemand:
     __cumulative_percentage = Decimal(0)
     __abc_classification = ""
     __xyz_classification = ""
-    __economic_order_variable_cost= Decimal(0)
+    __economic_order_variable_cost = Decimal(0)
     __economic_order_qty = Decimal(0)
 
-
-    def __init__(self, orders, sku, lead_time, unit_cost, reorder_cost, z_value=Decimal(1.28), holding_cost=0.00,
-                 period=0):
+    def __init__(self, orders: list, sku: str, lead_time: Decimal, unit_cost: Decimal, reorder_cost: Decimal,
+                 z_value: Decimal = Decimal(1.28), holding_cost: Decimal = 0.00,
+                 period: int = 0):
         # need to check all orders entered are integers
 
         self.__orders = orders
@@ -57,11 +56,15 @@ class OrdersUncertainDemand:
         self.__fixed_reorder_quantity = Decimal(self._fixed_order_quantity())
 
     @property
-    def abcxyz_classification(self):
+    def orders_summary(self)->dict:
+        return self._orders_summary()
+
+    @property
+    def abcxyz_classification(self) -> str:
         return self.__abc_classification + self.__xyz_classification
 
     @property
-    def abc_classification(self):
+    def abc_classification(self) -> str:
         return self.__abc_classification
 
     @abc_classification.setter
@@ -69,7 +72,7 @@ class OrdersUncertainDemand:
         self.__abc_classification = abc_classifier
 
     @property
-    def xyz_classification(self):
+    def xyz_classification(self) -> str:
         return self.__xyz_classification
 
     @xyz_classification.setter
@@ -77,7 +80,7 @@ class OrdersUncertainDemand:
         self.__xyz_classification = xyz_classifier
 
     @property
-    def percentage_revenue(self):
+    def percentage_revenue(self) -> Decimal:
         return self.__percentage_of_revenue
 
     @percentage_revenue.setter
@@ -85,7 +88,7 @@ class OrdersUncertainDemand:
         self.__percentage_of_revenue = percentage_orders
 
     @property
-    def cumulative_percentage(self):
+    def cumulative_percentage(self)->Decimal:
         return self.__cumulative_percentage
 
     @cumulative_percentage.setter
@@ -136,7 +139,7 @@ class OrdersUncertainDemand:
     def average_order(self):
         return float(sum(self.__orders.values()) / self.__count_orders)
 
-    def average_order_row(self):
+    def average_order_row(self)->Decimal:
         total_orders = 0
         for item in self.__orders:
             orders_list = self.__orders[item]
@@ -145,15 +148,15 @@ class OrdersUncertainDemand:
         return Decimal(total_orders / len(orders_list))
 
     @property
-    def revenue(self):
+    def revenue(self)->Decimal:
         return self.__sku_revenue
 
     @property
-    def demand_variability(self):
+    def demand_variability(self)->Decimal:
         return self._demand_variability()
 
     @demand_variability.setter
-    def demand_variability(self, demand_variability):
+    def demand_variability(self, demand_variability: Decimal):
         self.__demand_variability = demand_variability
 
     @property
@@ -173,15 +176,14 @@ class OrdersUncertainDemand:
         self.__economic_order_qty = eoq
 
     @property
-    def economic_order_variable_cost(self):
+    def economic_order_variable_cost(self)->Decimal:
         return self.__economic_order_variable_cost
 
     @economic_order_variable_cost.setter
     def economic_order_variable_cost(self, eoq_vc):
         self.__economic_order_variable_cost = eoq_vc
 
-
-    def _revenue(self):
+    def _revenue(self) -> Decimal:
         total_order = 0
         for items in self.__orders:
             orders_list = self.__orders[items]
@@ -194,9 +196,9 @@ class OrdersUncertainDemand:
 
         return Decimal(total_order * Decimal(self.__unit_cost))
 
-    def _standard_deviation_orders(self, variance=[], deviation=0):
+    def _standard_deviation_orders(self) -> Decimal:
         deviation = Decimal(0)
-
+        variance = []
         for x in self.__orders.values():
             variance.append(Decimal(x - self.__average_order))
         for j in variance:
@@ -204,8 +206,9 @@ class OrdersUncertainDemand:
         deviation /= Decimal(len(variance))
         return round(deviation ** Decimal(0.5), 1)
 
-    def _standard_deviation_orders_row(self, variance=[], deviation=0):
+    def _standard_deviation_orders_row(self) -> Decimal:
         deviation = Decimal(0)
+        variance = []
         for item in self.__orders:
             orders_list = self.__orders[item]
         for item in orders_list:
@@ -215,35 +218,35 @@ class OrdersUncertainDemand:
         deviation /= Decimal(len(variance))
         return Decimal(Decimal(deviation) ** Decimal(0.5))
 
-    def _safety_stock(self):
+    def _safety_stock(self) -> Decimal:
         return Decimal(self.__z_value) * Decimal(self.__orders_standard_deviation) * Decimal(
             (self.__lead_time ** Decimal(0.5)))
 
-    def _demand_variability(self):
+    def _demand_variability(self) -> Decimal:
         return Decimal(Decimal(self.__orders_standard_deviation) / Decimal(self.__average_order))
 
-    def _reorder_level(self):
+    def _reorder_level(self) -> Decimal:
         return (Decimal(self.__lead_time ** Decimal(0.5)) * Decimal(self.__average_order)) + Decimal(
             self.__safety_stock)
 
     # provide the facility to output order quantity as a range if the reorder cost is an estimation
     # one version when holding cost has not been specified and one when it has been
 
-    def _fixed_order_quantity(self):
+    def _fixed_order_quantity(self) -> Decimal:
         return (2 * Decimal(self.__reorder_cost) * (
             Decimal(self.__average_order) / (
                 Decimal(self.__unit_cost) * Decimal(self.__CONST_HOLDING_COST_FACTOR)))) ** Decimal(0.5)
 
     # make another summary for as a dictionary and allow each value to be retrieved individually
 
-    def orders_summary(self):
+    def _orders_summary(self) -> dict:
         return {'sku': self.__sku_id, 'average_order': '{:.0f}'.format(self.__average_order),
                 'standard_deviation': '{:.0f}'.format(self.__orders_standard_deviation),
                 'safety_stock': '{:.0f}'.format(self.__safety_stock),
                 'demand_variability': '{:.3f}'.format(self.__demand_variability),
                 'reorder_level': '{:.0f}'.format(self.__reorder_level),
                 'reorder_quantity': '{:.0f}'.format(self.__fixed_reorder_quantity),
-                'revenue': '{}'.format(self.__sku_revenue),
+                'revenue': '{:.2f}'.format(self.__sku_revenue),
                 'economic_order_quantity': '{:.0f}'.format(self.__economic_order_qty),
                 'economic_order_variable_cost': '{:.2f}'.format(self.__economic_order_variable_cost),
                 'ABC_XYZ_Classification': '{0}{1}'.format(self.__abc_classification, self.__xyz_classification)}
@@ -263,8 +266,8 @@ class OrdersUncertainDemand:
         self.__reorder_level = None
         self.__reorder_cost = None
         self.__fixed_reorder_quantity = None
-        #class_name = self.__class__.__name__
-        #print(class_name + " destroyed")
+        # class_name = self.__class__.__name__
+        # print(class_name + " destroyed")
 
 
 class OrdersUncertainDemandFactory:
