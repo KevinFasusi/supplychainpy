@@ -34,8 +34,8 @@ def main():
     start_time = time.time()
     abc = analyse_orders_abcxyz_from_file('test_row.txt', 1.28, 5000)
     for sku in abc.orders:
-        print("SKU: " + sku.sku_id + " ABC-XYZ Classification:" + sku.abcxyz_classification + " EOQ: " +
-              str(sku.economic_order_qty))
+        #print("SKU: " + sku.sku_id + " ABC-XYZ Classification:" + sku.abcxyz_classification + " EOQ: " +
+             # str(sku.economic_order_qty))
         print(sku.orders_summary)
     print(abc.abcxyz_summary)
     end_time = time.time()

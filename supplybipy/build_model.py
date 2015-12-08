@@ -66,7 +66,7 @@ def analyse_orders_from_file_row(input_file_path: str, z_value: Decimal, reorder
 # need to extract unit cost and lead time from file so can order skus by value and then ABC XYZ analysis
 
 def analyse_orders_abcxyz_from_file(input_file_path: str, z_value: float, reorder_cost: float)->AbcXyz:
-    if input_file_path.endswith(".txt"):
+    #if input_file_path.endswith(".txt"):
         try:
             orders = {}
             analysed_orders_summary = []
@@ -132,10 +132,9 @@ def analyse_orders_abcxyz_from_file(input_file_path: str, z_value: float, reorde
             print("invalid file path: ", e)
         except ValueError as e:
             print("invalid value: ", e)
-    else:
-        raise ValueError("file name must end with .txt")
-
-    return ""
+   # else:
+       # raise ValueError("file name must end with .txt")
+        return ""
 
     # def AbcXyz_Analysis(analysed_orders_summary):
     #   for sku in analysed_orders_summary
