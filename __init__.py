@@ -1,1 +1,1 @@
-__author__ = 'Fasusi'
+from supplybipy import build_model

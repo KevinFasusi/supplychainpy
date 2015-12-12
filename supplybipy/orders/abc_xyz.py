@@ -3,6 +3,7 @@ from operator import attrgetter
 
 
 class AbcXyz:
+    '''Applies abc xyz analysis on a collection of orders passed into the '''
     __orders = {}
     __cumulative_total_revenue = Decimal(0)
     __percentage_revenue = Decimal(0)
@@ -12,6 +13,7 @@ class AbcXyz:
     __x_class = "X"
     __y_class = "Y"
     __z_class = "Z"
+    __abcxyz_summary = []
 
     def __init__(self, orders_collection):
         self.__orders = orders_collection
@@ -24,6 +26,14 @@ class AbcXyz:
     @orders.setter
     def orders(self, orders):
         self.__orders = orders
+
+    @property
+    def abcxyz_summary(self):
+        return self.__abcxyz_summary
+
+    @abcxyz_summary.setter
+    def abcxyz_summary(self, abcxyz):
+        self.__abcxyz_summary = abcxyz
 
     def _cumulative_total(self):
         cumulative_total = Decimal(0)
@@ -58,4 +68,7 @@ class AbcXyz:
                 sku.xyz_classification = self.__y_class
             else:
                 sku.xyz_classification = self.__z_class
+
+
+
 # ranking method returns the orders list of dictionaries back in order
