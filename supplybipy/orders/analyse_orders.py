@@ -3,11 +3,6 @@ from collections import Iterable
 
 
 class OrdersUncertainDemand:
-    __sku_id = ""
-    __average_order = Decimal(0)
-    __count_orders = 0
-    __orders = {}
-    __orders_standard_deviation = Decimal(0)
     __z_value = Decimal(0.00)  # default set to 90%
     __lead_time = 0
     __safety_stock = 0
