@@ -1,9 +1,10 @@
 from decimal import Decimal
 from enum import Enum
-from supplybipy.orders import analyse_orders, economic_order_quantity
-from supplybipy.orders.abc_xyz import AbcXyz
+
 from supplybipy import data_cleansing
+from supplybipy.orders import analyse_orders, economic_order_quantity
 from supplybipy.orders import analyse_orders_summary
+from supplybipy.orders.abc_xyz import AbcXyz
 
 Period = Enum('Period', 'years quarters months week')
 

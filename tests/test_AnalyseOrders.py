@@ -6,11 +6,13 @@ from supplybipy.orders import analyse_orders
 
 
 class TestAnalyseOrders(TestCase):
+    __data_set = {'jan': 25, 'feb': 25, 'mar': 25, 'apr': 25, 'may': 25, 'jun': 25, 'jul': 75,
+                    'aug': 75, 'sep': 75, 'oct': 75, 'nov': 75, 'dec': 75}
+
     def test_is_average(self):
         # act
-        data_set = {'jan': 25, 'feb': 25, 'mar': 25, 'apr': 25, 'may': 25, 'jun': 25, 'jul': 75,
-                    'aug': 75, 'sep': 75, 'oct': 75, 'nov': 75, 'dec': 75}
-        d = analyse_orders.OrdersUncertainDemand(data_set, 'Rx493-90', 4, 554.99, 400.00)
+
+        d = analyse_orders.OrdersUncertainDemand(self.__data_set, 'Rx493-90', 4, 554.99, 400.00)
         a = Decimal(d.get_average_orders)
         # assert
         self.assertEqual(a, 50)
@@ -25,10 +27,8 @@ class TestAnalyseOrders(TestCase):
 
     def test_standard_deviation(self):
         # arrange
-        data_set = {'jan': 25, 'feb': 25, 'mar': 25, 'apr': 25, 'may': 25, 'jun': 25, 'jul': 75,
-                    'aug': 75, 'sep': 75, 'oct': 75, 'nov': 75, 'dec': 75}
         # act
-        d = analyse_orders.OrdersUncertainDemand(data_set, 'Rx493-90', 4, 554.99, 400.00)
+        d = analyse_orders.OrdersUncertainDemand(self.__data_set, 'Rx493-90', 4, 554.99, 400.00)
         a = d.standard_deviation
         # assert
         self.assertEqual(a, 25)
