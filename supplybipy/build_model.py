@@ -37,7 +37,6 @@ def analyse_orders_from_file_row(input_file_path: str, z_value: Decimal, reorder
             unit_cost = []
             lead_time = []
             f = open(input_file_path, 'r')
-            out_file = open('orders_analysis.txt', 'w')
             item_list = (data_cleansing.clean_orders_data_row(f))
             for sku in item_list:
                 sku_id = sku.get("sku id")

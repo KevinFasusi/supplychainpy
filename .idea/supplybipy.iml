@@ -5,7 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.4.3 virtualenv at ~/Projects/Python/supplybipy/env" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.5.0 virtualenv at ~/Projects/supplychainlibraries/python/supplybipy/env" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
