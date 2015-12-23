@@ -35,9 +35,9 @@ class TestBuildModel(TestCase):
         d = build_model.analyse_orders_from_file_row(abs_file_path, 1.28, 400)
 
         for row in d:
-            std = row.get('standard deviation')
+            std = row.get('standard_deviation')
         # assert
-        self.assertEqual(Decimal(std), 25)
+        self.assertEqual(Decimal(std), 227)
 
     def test_standard_deviation_col_value(self):
         # arrange
@@ -47,7 +47,8 @@ class TestBuildModel(TestCase):
         d = build_model.analyse_orders_from_file_col(abs_file_path, 'RX9304-43', 2, 400, 45, 1.28)
         # act
         # assert
-        self.assertGreater(len(d.get('standard deviation')), 25)
+        print(d.get('standard_deviation'))
+        self.assertGreater(Decimal(d.get('standard_deviation')), 25)
 
 
 if __name__ == '__main__':

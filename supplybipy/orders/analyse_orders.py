@@ -1,8 +1,10 @@
 from decimal import Decimal
 from collections import Iterable
+import collections
 
-
+order = collections.namedtuple('order', 'sku sku_orders')
 class OrdersUncertainDemand:
+
     __z_value = Decimal(0.00)  # default set to 90%
     __lead_time = 0
     __safety_stock = 0
@@ -49,6 +51,7 @@ class OrdersUncertainDemand:
         self.__reorder_level = Decimal(self._reorder_level())
         self.__reorder_cost = Decimal(reorder_cost)
         self.__fixed_reorder_quantity = Decimal(self._fixed_order_quantity())
+        self.__order = [order(sku, sku_orders) for sku_orders in self.__orders for sku in self.__sku_id]
 
     @property
     def orders_summary(self)->dict:
@@ -234,7 +237,7 @@ class OrdersUncertainDemand:
 
     # make another summary for as a dictionary and allow each value to be retrieved individually
 
-    def _orders_summary(self) -> dict:
+    def orders_summary(self) -> dict:
         return {'sku': self.__sku_id, 'average_order': '{:.0f}'.format(self.__average_order),
                 'standard_deviation': '{:.0f}'.format(self.__orders_standard_deviation),
                 'safety_stock': '{:.0f}'.format(self.__safety_stock),

@@ -47,12 +47,11 @@ def main():
     orders2 =[4, 5, 7, 33, 45, 53, 55, 35, 53, 53, 43, 34]
     weights = [.3, .5, .2]
     d = forecast_orders.Forecast(orders)
-    print(d.calculate_moving_average_forecast(forecast_length=6))
-    print(d.calculate_weighted_moving_average_forecast(weights, forecast_length=6))
+    print(d.calculate_moving_average_forecast(forecast_length=6, base_forecast=True, start_position=1))
     k = forecast_orders.Forecast(orders2)
     k.calculate_moving_average_forecast(forecast_length=6)
     moving_average = d.moving_average_forecast
     moving_average2 = k.moving_average_forecast
-    result_array = k.calculate_mean_absolute_deviation(moving_average, orders2)
+    result_array = k.calculate_mean_absolute_deviation(moving_average, orders2, base_forecast=True)
     print(result_array)
 if __name__ == '__main__': main()
