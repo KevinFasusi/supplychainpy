@@ -26,8 +26,8 @@ class Forecast:
                 moving_average = []
                 for i in self.__orders[0:start_position]:
                     moving_average.append(self.__orders[i])
-                # in the base_forecast the length of the forecast is the same as the length of the initial run of orders
-                # retrieved from the orders list to the moving_average list
+                # in the base_forecast the length of the forecast is the same as the length of the initial run of demand
+                # retrieved from the demand list to the moving_average list
 
 
                 count = 0

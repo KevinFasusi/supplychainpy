@@ -3,7 +3,7 @@ from operator import attrgetter
 
 
 class AbcXyz:
-    '''Applies abc xyz analysis on a collection of orders passed into the '''
+    '''Applies abc xyz analysis on a collection of demand passed into the '''
     __orders = {}
     __cumulative_total_revenue = Decimal(0)
     __percentage_revenue = Decimal(0)
@@ -71,4 +71,4 @@ class AbcXyz:
 
 
 
-# ranking method returns the orders list of dictionaries back in order
+# ranking method returns the demand list of dictionaries back in order

@@ -1,10 +1,10 @@
 from decimal import Decimal, getcontext, ROUND_HALF_UP
-from . import analyse_orders
+from . import analyse_uncertain_demand
 
 
-class EconomicOrderQuantity(analyse_orders.OrdersUncertainDemand):
+class EconomicOrderQuantity(analyse_uncertain_demand.UncertainDemand):
     __economic_order_quantity = Decimal(0)
-    analyse_orders.OrdersUncertainDemand.__reorder_cost = Decimal(0)
+    analyse_uncertain_demand.UncertainDemand.__reorder_cost = Decimal(0)
     __holding_cost = Decimal(0)
     __min_variable_cost = Decimal(0)
     __reorder_quantity = Decimal(0)
@@ -44,7 +44,7 @@ class EconomicOrderQuantity(analyse_orders.OrdersUncertainDemand):
         while previous_eoq_variable_cost >= Decimal(vc):
 
             previous_eoq_variable_cost = Decimal(vc)
-            # reorder cost * average demand all divided by order size + (orders size * holding cost)
+            # reorder cost * average demand all divided by order size + (demand size * holding cost)
             if counter < 1:
                 order_size = int((float(average_orders) * float(reorder_cost) * 2) / (
                     float(unit_cost) * float(holding_cost)) * order_factor) * float(0.5)
@@ -86,7 +86,7 @@ class EconomicOrderQuantity(analyse_orders.OrdersUncertainDemand):
         while previous_eoq_variable_cost >= Decimal(vc):
 
             previous_eoq_variable_cost = Decimal(vc)
-            # reorder cost * average demand all divided by order size + (orders size * holding cost)
+            # reorder cost * average demand all divided by order size + (demand size * holding cost)
             if counter < 1:
                 order_size = int((float(average_orders) * float(reorder_cost) * 2) / (
                     float(unit_cost) * float(holding_cost)) * order_factor) * float(0.5)

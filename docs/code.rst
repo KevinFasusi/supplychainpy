@@ -1,1 +1,3 @@
-This is code.rst
+.. automodule:: model_inventory
+	:members:
+
