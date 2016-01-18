@@ -1,1 +1,1 @@
-from supplybipy import build_model
+from supplybipy import model_inventory

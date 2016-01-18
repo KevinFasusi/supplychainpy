@@ -2,27 +2,37 @@ from decimal import Decimal
 from enum import Enum
 
 from supplybipy import data_cleansing
-from supplybipy.orders import analyse_orders, economic_order_quantity
-from supplybipy.orders import analyse_orders_summary
-from supplybipy.orders.abc_xyz import AbcXyz
+from supplybipy.demand import analyse_uncertain_demand, economic_order_quantity
+from supplybipy.demand import summarise_demand
+from supplybipy.demand.abc_xyz import AbcXyz
 
 Period = Enum('Period', 'years quarters months week')
+
+
+# TODO-feature ETL from csv
+# TODO-feature specify length of orders, start position and period (day, week, month, ...)
 
 
 # in the analysis function specify service-level expected for safety stock, a default is specified in the class
 
 def model_orders(data_set: dict, sku_id: str, lead_time: float, unit_cost: float, reorder_cost: float,
                  z_value: float) -> dict:
-    d = analyse_orders.OrdersUncertainDemand(data_set, sku_id, lead_time, unit_cost, reorder_cost, z_value)
+    d = analyse_uncertain_demand.UncertainDemand(data_set, sku_id, lead_time, unit_cost, reorder_cost, z_value)
     return d.orders_summary()
 
 
 def analyse_orders_from_file_col(file_path: str, sku_id: str, lead_time: float, unit_cost: float, reorder_cost: float,
-                                 z_value: float) -> dict:
-    f = open(file_path, 'r')
-    item_list = data_cleansing.clean_orders_data_col(f)
+                                 z_value: float, file_type: str = "txt") -> dict:
+
+    if file_type == "txt":
+        f = open(file_path, 'r')
+        item_list = data_cleansing.clean_orders_data_col_txt(f)
+    elif file_type == "csv":
+        f = open(file_path)
+        item_list = data_cleansing.clean_orders_data_col_csv(f)
+
     f.close()
-    d = analyse_orders.OrdersUncertainDemand(item_list, sku_id, lead_time, unit_cost, reorder_cost, z_value)
+    d = analyse_uncertain_demand.UncertainDemand(item_list, sku_id, lead_time, unit_cost, reorder_cost, z_value)
     return d.orders_summary()
 
 
@@ -38,16 +48,16 @@ def analyse_orders_from_file_row(input_file_path: str, z_value: Decimal, reorder
             lead_time = []
             f = open(input_file_path, 'r')
             item_list = (data_cleansing.clean_orders_data_row(f))
-            #
 
+            # maybe use an iterable instead of unpacking for constructor
             for sku in item_list:
                 sku_id = sku.get("sku id")
                 unit_cost = sku.get("unit cost")
                 lead_time = sku.get("lead time")
-                orders['orders'] = sku.get("orders")
-                analysed_orders = analyse_orders.OrdersUncertainDemand(orders=orders, sku=sku_id, lead_time=lead_time,
-                                                                       unit_cost=unit_cost,
-                                                                       reorder_cost=reorder_cost, z_value=z_value)
+                orders['demand'] = sku.get("demand")
+                analysed_orders = analyse_uncertain_demand.UncertainDemand(orders=orders, sku=sku_id, lead_time=lead_time,
+                                                                           unit_cost=unit_cost,
+                                                                           reorder_cost=reorder_cost, z_value=z_value)
                 analysed_orders_collection.append(analysed_orders)
                 analysed_orders_summary.append(analysed_orders.orders_summary())
                 orders = {}
@@ -86,11 +96,11 @@ def analyse_orders_abcxyz_from_file(input_file_path: str, z_value: float, reorde
             sku_id = sku.get("sku id")
             unit_cost = sku.get("unit cost")
             lead_time = sku.get("lead time")
-            orders['orders'] = sku.get("orders")
+            orders['demand'] = sku.get("demand")
 
-            analysed_orders = analyse_orders.OrdersUncertainDemand(orders, sku_id, lead_time,
-                                                                   unit_cost,
-                                                                   reorder_cost, z_value)
+            analysed_orders = analyse_uncertain_demand.UncertainDemand(orders, sku_id, lead_time,
+                                                                       unit_cost,
+                                                                       Decimal(reorder_cost), Decimal(z_value))
 
             average_orders = analysed_orders.get_average_orders
 
@@ -107,20 +117,20 @@ def analyse_orders_abcxyz_from_file(input_file_path: str, z_value: float, reorde
             del eoq
             del sku
             # sort from top to bottom calculate the percentage of revenue
-            # probably best to serialise and deserialise the output for the analysed orders classs
+            # probably best to serialise and deserialise the output for the analysed demand classs
 
         abc = AbcXyz(analysed_orders_collection)
         abc.percentage_revenue()
         abc.cumulative_percentage_revenue()
         abc.abc_classification()
         abc.xyz_classification()
-        a = analyse_orders_summary.AnalyseOrdersSummary(abc.orders)
+        a = summarise_demand.AnalyseOrdersSummary(abc.orders)
         abc.abcxyz_summary = a.classification_summary()
 
         # create functions for analysis metrics, count all tyeps of each category. value of each category,
         # percentage value of each category
         # function in class to print out graph
-        # for sku in abc.orders:
+        # for sku in abc.demand:
         #    print('{:.2f}'.format(sku.percentage_revenue))
         #    print('{:.2f}'.format(sku.cumulative_percentage))
         #    print('{}'.format(sku.abc_classification))

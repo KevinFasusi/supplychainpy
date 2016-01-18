@@ -6,7 +6,14 @@ setup(name='supplybipy',
       url='192.168.1.119:/opt/git/supplybipy.git',
       author='Kevin Fasusi',
       author_email='fasusi.kevin@gmail.com',
-      license='MIT',
-      packages=['supplybipy','supplybipy/orders'],
+      license='BSD 3',
+      packages=['supplybipy', 'supplybipy/demand'],
       test_suite='supplybipy/tests',
-      zip_safe=False)
+      zip_safe=False,
+      install_requires=['numpy'],
+      entry_points={
+            'console_scripts':[
+                  'supplybi=supplybipy.supplybi:main'
+            ]
+      }
+      )

@@ -3,7 +3,9 @@ from collections import Iterable
 import collections
 
 order = collections.namedtuple('order', 'sku sku_orders')
-class OrdersUncertainDemand:
+
+
+class UncertainDemand:
 
     __z_value = Decimal(0.00)  # default set to 90%
     __lead_time = 0
@@ -27,10 +29,10 @@ class OrdersUncertainDemand:
     __economic_order_variable_cost = Decimal(0)
     __economic_order_qty = Decimal(0)
 
-    def __init__(self, orders: list, sku: str, lead_time: Decimal, unit_cost: Decimal, reorder_cost: Decimal,
+    def __init__(self, orders: dict, sku: str, lead_time: Decimal, unit_cost: Decimal, reorder_cost: Decimal,
                  z_value: Decimal = Decimal(1.28), holding_cost: Decimal = 0.00,
                  period: int = 0):
-        # need to check all orders entered are integers
+        # need to check all demand entered are integers
 
         self.__orders = orders
         self.__sku_id = sku
@@ -52,10 +54,6 @@ class OrdersUncertainDemand:
         self.__reorder_cost = Decimal(reorder_cost)
         self.__fixed_reorder_quantity = Decimal(self._fixed_order_quantity())
         self.__order = [order(sku, sku_orders) for sku_orders in self.__orders for sku in self.__sku_id]
-
-    @property
-    def orders_summary(self)->dict:
-        return self._orders_summary()
 
     @property
     def abcxyz_classification(self) -> str:
@@ -86,7 +84,7 @@ class OrdersUncertainDemand:
         self.__percentage_of_revenue = percentage_orders
 
     @property
-    def cumulative_percentage(self)->Decimal:
+    def cumulative_percentage(self) -> Decimal:
         return self.__cumulative_percentage
 
     @cumulative_percentage.setter
@@ -137,7 +135,7 @@ class OrdersUncertainDemand:
     def average_order(self):
         return float(sum(self.__orders.values()) / self.__count_orders)
 
-    def average_order_row(self)->Decimal:
+    def average_order_row(self) -> Decimal:
         total_orders = 0
         for item in self.__orders:
             orders_list = self.__orders[item]
@@ -146,11 +144,11 @@ class OrdersUncertainDemand:
         return Decimal(total_orders / len(orders_list))
 
     @property
-    def revenue(self)->Decimal:
+    def revenue(self) -> Decimal:
         return self.__sku_revenue
 
     @property
-    def demand_variability(self)->Decimal:
+    def demand_variability(self) -> Decimal:
         return self._demand_variability()
 
     @demand_variability.setter
@@ -174,7 +172,7 @@ class OrdersUncertainDemand:
         self.__economic_order_qty = eoq
 
     @property
-    def economic_order_variable_cost(self)->Decimal:
+    def economic_order_variable_cost(self) -> Decimal:
         return self.__economic_order_variable_cost
 
     @economic_order_variable_cost.setter
@@ -218,14 +216,14 @@ class OrdersUncertainDemand:
 
     def _safety_stock(self) -> Decimal:
         return Decimal(self.__z_value) * Decimal(self.__orders_standard_deviation) * Decimal(
-            (self.__lead_time ** Decimal(0.5)))
+                (self.__lead_time ** Decimal(0.5)))
 
     def _demand_variability(self) -> Decimal:
         return Decimal(Decimal(self.__orders_standard_deviation) / Decimal(self.__average_order))
 
     def _reorder_level(self) -> Decimal:
         return (Decimal(self.__lead_time ** Decimal(0.5)) * Decimal(self.__average_order)) + Decimal(
-            self.__safety_stock)
+                self.__safety_stock)
 
     # provide the facility to output order quantity as a range if the reorder cost is an estimation
     # one version when holding cost has not been specified and one when it has been
@@ -270,7 +268,7 @@ class OrdersUncertainDemand:
 
 class OrdersUncertainDemandFactory:
     def get_orders(self):
-        return OrdersUncertainDemand()
+        return UncertainDemand()
 
 
 class OrdersUncertainDemandAbstraction:
