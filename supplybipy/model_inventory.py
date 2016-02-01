@@ -1,94 +1,86 @@
 from decimal import Decimal
-from enum import Enum
-
 from supplybipy import data_cleansing
 from supplybipy.demand import analyse_uncertain_demand, economic_order_quantity
 from supplybipy.demand import summarise_demand
 from supplybipy.demand.abc_xyz import AbcXyz
+from supplybipy.enum_formats import FileFormats
 
-Period = Enum('Period', 'years quarters months week')
 
-
-# TODO-feature ETL from csv
 # TODO-feature specify length of orders, start position and period (day, week, month, ...)
-
-
 # in the analysis function specify service-level expected for safety stock, a default is specified in the class
 
-def model_orders(data_set: dict, sku_id: str, lead_time: float, unit_cost: float, reorder_cost: float,
-                 z_value: float) -> dict:
-    d = analyse_uncertain_demand.UncertainDemand(data_set, sku_id, lead_time, unit_cost, reorder_cost, z_value)
-    return d.orders_summary()
-
-
-def analyse_orders_from_file_col(file_path: str, sku_id: str, lead_time: float, unit_cost: float, reorder_cost: float,
-                                 z_value: float, file_type: str = "txt") -> dict:
-
-    if file_type == "txt":
-        f = open(file_path, 'r')
-        item_list = data_cleansing.clean_orders_data_col_txt(f)
-    elif file_type == "csv":
-        f = open(file_path)
-        item_list = data_cleansing.clean_orders_data_col_csv(f)
-
-    f.close()
-    d = analyse_uncertain_demand.UncertainDemand(item_list, sku_id, lead_time, unit_cost, reorder_cost, z_value)
-    return d.orders_summary()
-
-
-# need more output
-def analyse_orders_from_file_row(input_file_path: str, z_value: Decimal, reorder_cost: Decimal) -> list:
-    if input_file_path.endswith(".txt"):
-        try:
-            orders = {}
-            analysed_orders_summary = []
-            analysed_orders_collection = []
-            sku_id = []
-            unit_cost = []
-            lead_time = []
-            f = open(input_file_path, 'r')
-            item_list = (data_cleansing.clean_orders_data_row(f))
-
-            # maybe use an iterable instead of unpacking for constructor
-            for sku in item_list:
-                sku_id = sku.get("sku id")
-                unit_cost = sku.get("unit cost")
-                lead_time = sku.get("lead time")
-                orders['demand'] = sku.get("demand")
-                analysed_orders = analyse_uncertain_demand.UncertainDemand(orders=orders, sku=sku_id, lead_time=lead_time,
-                                                                           unit_cost=unit_cost,
-                                                                           reorder_cost=reorder_cost, z_value=z_value)
-                analysed_orders_collection.append(analysed_orders)
-                analysed_orders_summary.append(analysed_orders.orders_summary())
-                orders = {}
-                sku_id = []
-                unit_cost = []
-                lead_time = []
-                del analysed_orders
-        except IOError as e:
-            print("invalid file path: ", e)
-        except ValueError as e:
-            print("invalid value: ", e)
+def analyse_orders(data_set: dict, sku_id: str, lead_time: Decimal, unit_cost: Decimal, reorder_cost: Decimal,
+                   z_value: Decimal) -> dict:
+    if len(data_set) > 2:
+        d = analyse_uncertain_demand.UncertainDemand(orders=data_set, sku=sku_id, lead_time=lead_time,
+                                                     unit_cost=unit_cost, reorder_cost=reorder_cost,
+                                                     z_value=z_value)
     else:
-        raise ValueError("file name must end with .txt")
+        raise ValueError("Dictionary too small. Please use a minimum of 3 entries.")
+    return d.orders_summary()
 
+
+def analyse_orders_from_file_col(file_path: str, sku_id: str, lead_time: Decimal, unit_cost: Decimal,
+                                 reorder_cost: Decimal, z_value: Decimal, file_type: str = "text",
+                                 period: str = "month", length: int = 12) -> dict:
+
+    if check_extension(file_path=file_path, file_type=file_type) and file_type == FileFormats.text.name:
+        f = open(file_path, 'r')
+        orders = data_cleansing.clean_orders_data_col_txt(f)
+    elif check_extension(file_path=file_path, file_type=file_type) and file_type == FileFormats.csv.name:
+        f = open(file_path)
+        orders = data_cleansing.clean_orders_data_col_csv(f)
+    else:
+        raise Exception("Unspecified file type, Please specify 'csv' or 'text' for file_type parameter.")
+    f.close()
+    d = analyse_uncertain_demand.UncertainDemand(orders=orders, sku=sku_id, lead_time=lead_time,
+                                                 unit_cost=unit_cost, reorder_cost=reorder_cost, z_value=z_value)
+    return d.orders_summary()
+
+
+def analyse_orders_from_file_row(file_path: str, z_value: Decimal, reorder_cost: Decimal, file_type: str = "text",
+                                 period: str = "month", length: int = 12) -> list:
+    orders = {}
+    analysed_orders_summary = []
+    analysed_orders_collection = []
+    if file_path.endswith(".txt") and file_type.lower() == "text":
+        f = open(file_path, 'r')
+        item_list = (data_cleansing.clean_orders_data_row(f))
+    elif file_path.endswith(".csv") and file_type.lower() == "csv":
+        f = open(file_path)
+        item_list = data_cleansing.clean_orders_data_row_csv(f, length=length)
+    else:
+        raise Exception("Unspecified file type, Please specify 'csv' or 'text' for file_type parameter.")
+    # maybe use an iterable instead of unpacking for constructor
+    for sku in item_list:
+        sku_id = sku.get("sku id")
+        unit_cost = sku.get("unit cost")
+        lead_time = sku.get("lead time")
+        orders['demand'] = sku.get("demand")
+        analysed_orders = analyse_uncertain_demand.UncertainDemand(orders=orders, sku=sku_id,
+                                                                   lead_time=lead_time,
+                                                                   unit_cost=unit_cost,
+                                                                   reorder_cost=reorder_cost, z_value=z_value)
+        analysed_orders_collection.append(analysed_orders)
+        analysed_orders_summary.append(analysed_orders.orders_summary())
+        orders = {}
+        del analysed_orders
     return analysed_orders_summary
 
 
-# need to extract unit cost and lead time from file so can order skus by value and then ABC XYZ analysis
-
-def analyse_orders_abcxyz_from_file(input_file_path: str, z_value: float, reorder_cost: float) -> AbcXyz:
-    # if input_file_path.endswith(".txt"):
+def analyse_orders_abcxyz_from_file(input_file_path: str, z_value: float, reorder_cost: float, file_type: str = "text",
+                                    period: str = "month", length: int = 12) -> AbcXyz:
     try:
-        orders = {}
-        analysed_orders_summary = []
         analysed_orders_collection = []
-        sku_id = []
-        unit_cost = []
-        lead_time = []
-        f = open(input_file_path, 'r')
 
-        item_list = (data_cleansing.clean_orders_data_row(f))
+        if input_file_path.endswith(".txt") and file_type == "text":
+            f = open(input_file_path, 'r')
+            item_list = (data_cleansing.clean_orders_data_row(f))
+        elif input_file_path.endswith(".csv") and file_type == "csv":
+            f = open(input_file_path)
+            item_list = data_cleansing.clean_orders_data_row_csv(f, length=length)
+        else:
+            raise Exception("Unspecified file type, Please specify 'csv' or 'text' for file_type parameter.")
 
         for sku in item_list:
             orders = {}
@@ -145,8 +137,16 @@ def analyse_orders_abcxyz_from_file(input_file_path: str, z_value: float, reorde
         print("invalid value: ", e)
         # else:
         # raise ValueError("file name must end with .txt")
-    return ""
+        # def AbcXyz_Analysis(analysed_orders_summary):
+        #   for sku in analysed_orders_summary
+        #      count += sku.get("")
 
-    # def AbcXyz_Analysis(analysed_orders_summary):
-    #   for sku in analysed_orders_summary
-    #      count += sku.get("")
+
+def check_extension(file_path: str, file_type: str) -> bool:
+    if file_path.endswith(".txt") and file_type.lower() == "text":
+        flag = True
+    elif file_path.endswith(".csv") and file_type.lower() == "csv":
+        flag = True
+    else:
+        flag = False
+    return flag

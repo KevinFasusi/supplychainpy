@@ -3,8 +3,7 @@ from decimal import Decimal
 
 
 class AnalyseOrdersSummary:
-    __abc =""
-
+    __abc = ""
 
     def __init__(self, abc_xyz):
         self.__abc = abc_xyz
@@ -28,17 +27,17 @@ class AnalyseOrdersSummary:
                 ay_count += 1
             elif sku.abcxyz_classification == "AZ":
                 az_count += 1
-            elif sku.abcxyz_classification =="BX":
+            elif sku.abcxyz_classification == "BX":
                 bx_count += 1
-            elif sku.abcxyz_classification =="BY":
+            elif sku.abcxyz_classification == "BY":
                 by_count += 1
-            elif sku.abcxyz_classification =="BZ":
+            elif sku.abcxyz_classification == "BZ":
                 bz_count += 1
-            elif sku.abcxyz_classification =="CX":
+            elif sku.abcxyz_classification == "CX":
                 cx_count += 1
-            elif sku.abcxyz_classification =="CY":
+            elif sku.abcxyz_classification == "CY":
                 cy_count += 1
-            elif sku.abcxyz_classification =="CZ":
+            elif sku.abcxyz_classification == "CZ":
                 cz_count += 1
             else:
                 pass

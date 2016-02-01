@@ -133,7 +133,6 @@ class Forecast:
         return std_array
 
     def calculate_mean_forecast_error(self):
-
         pass
 
     def calculate_mean_aboslute_percentage_error(self, **forecasts) -> list:
