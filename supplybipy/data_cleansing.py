@@ -2,7 +2,7 @@ from decimal import Decimal
 import csv
 
 
-# TODO make sure all functions have type hinting
+# TODO-feature allow data munger to accept any delimiter as a parameter
 def clean_orders_data_col_txt(file: str) -> dict:
     item_list = {}
     split_line = []
@@ -24,7 +24,7 @@ def clean_orders_data_col_csv(file: str) -> dict:
     return item_list
 
 
-# TODO-feature allow data mungers to accept any parameter as delimiter
+# TODO-feature allow data munger to accept any delimiter as a parameter
 def clean_orders_data_row(file: str) -> dict:
     sku_list = []
     split_line = []
@@ -53,6 +53,7 @@ def clean_orders_data_row(file: str) -> dict:
     return collection
 
 
+# TODO-feature cleans a text or csv file and insert into numpy array
 # remember to specify in documentation that the orders data will assume 12 months unless otherwise stated
 def clean_orders_data_row_csv(file: str, length: int = 12) -> dict:
     sku_list = []

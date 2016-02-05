@@ -2,6 +2,7 @@ import unittest
 from unittest import TestCase
 from decimal import Decimal
 from supplybipy import model_inventory
+from supplybipy.demand import economic_order_quantity
 import os
 
 
@@ -29,14 +30,14 @@ class TestBuildModel(TestCase):
         summary = model_inventory.analyse_orders(self._yearly_demand, 'RX983-90', 3, 50.99, 400, 1.28)
         self.assertEqual(int(summary.get("average_order")), int(50))
         self.assertEqual(int(summary.get("standard_deviation")), int(25))
-        #finish with all members
+        # finish with all members
 
     def test_standard_deviation_row_count(self):
         # arrange
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplybipy/test_row_small.txt'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
-        d = model_inventory.analyse_orders_from_file_row(abs_file_path, 1.28, 400)
+        d = model_inventory.analyse_orders_from_file_row(abs_file_path, Decimal(1.28), Decimal(400))
         # act
 
         # assert
@@ -58,13 +59,13 @@ class TestBuildModel(TestCase):
         with self.assertRaises(expected_exception=Exception):
             d = model_inventory.analyse_orders_from_file_col(abs_file_path, 1.28, 400, file_type="text")
 
-
     def test_standard_deviation_col_count(self):
         # arrange
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplybipy/test.txt'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
-        d = model_inventory.analyse_orders_from_file_col(abs_file_path, 'RX9304-43', 2, 400, 45, 1.28, file_type="text")
+        d = model_inventory.analyse_orders_from_file_col(abs_file_path, 'RX9304-43', Decimal(2), Decimal(400),
+                                                         Decimal(45), Decimal(1.28), file_type="text")
         # act
         # assert
         self.assertEquals(len(d), 11)
@@ -115,6 +116,25 @@ class TestBuildModel(TestCase):
                 std = row.get('standard_deviation')
         # assert
         self.assertEqual(Decimal(std), 976)
+
+    def test_file_path_abcxyz_extension(self):
+        app_dir = os.path.dirname(__file__, )
+        rel_path = 'supplybipy/data.sv'
+        abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
+        with self.assertRaises(expected_exception=Exception):
+            abc = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=1.28,
+                                                                  reorder_cost=5000,                                                           file_type="csv")
+
+    def test_file_path_abcxyz(self):
+        app_dir = os.path.dirname(__file__, )
+        rel_path = 'supplybipy/data.csv'
+        abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
+        abc = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=1.28, reorder_cost=5000,
+                                                              file_type="csv")
+        for sku in abc.orders:
+            item = sku.orders_summary()
+            if item['sku'] == 'KR202-209':
+                self.assertEqual(item['ABC_XYZ_Classification'], 'CZ')
 
 
 if __name__ == '__main__':

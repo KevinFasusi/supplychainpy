@@ -1,12 +1,24 @@
 from decimal import Decimal
 from collections import Iterable
 import collections
+import numpy as np
+from supplybipy.enum_formats import PeriodFormats
 
 order = collections.namedtuple('order', 'sku sku_orders')
 
 
-class UncertainDemand:
+def _standard_deviation_orders(orders: dict, average_order: Decimal) -> Decimal:
+    deviation = Decimal(0)
+    variance = []
+    for x in orders.values():
+        variance.append(Decimal(x - average_order))
+    for j in variance:
+        deviation += Decimal(j) ** Decimal(2)
+    deviation /= Decimal(len(variance))
+    return Decimal(Decimal(deviation) ** Decimal(0.5))
 
+
+class UncertainDemand:
     __z_value = Decimal(0.00)  # default set to 90%
     __lead_time = 0
     __safety_stock = 0
@@ -46,8 +58,9 @@ class UncertainDemand:
             self.__orders_standard_deviation = self._standard_deviation_orders_row()
         else:
             self.__average_order = Decimal(self.average_order())
-            self.__orders_standard_deviation = self._standard_deviation_orders()
-        self.__sku_revenue = self._revenue()
+            self.__orders_standard_deviation = _standard_deviation_orders(orders=orders,
+                                                                          average_order=self.__average_order)
+        self.__sku_revenue = self._revenue(orders=orders)
         self.__safety_stock = self._safety_stock()
         self.__demand_variability = self._demand_variability()
         self.__reorder_level = Decimal(self._reorder_level())
@@ -125,23 +138,12 @@ class UncertainDemand:
         self.__lead_time = lead_time
 
     @property
-    def get_average_orders(self):
+    def average_orders(self):
         return self.__average_order
 
     @property
     def standard_deviation(self):
         return self.__orders_standard_deviation
-
-    def average_order(self):
-        return float(sum(self.__orders.values()) / self.__count_orders)
-
-    def average_order_row(self) -> Decimal:
-        total_orders = 0
-        for item in self.__orders:
-            orders_list = self.__orders[item]
-        for item in orders_list:
-            total_orders += Decimal(item)
-        return Decimal(total_orders / len(orders_list))
 
     @property
     def revenue(self) -> Decimal:
@@ -179,28 +181,29 @@ class UncertainDemand:
     def economic_order_variable_cost(self, eoq_vc):
         self.__economic_order_variable_cost = eoq_vc
 
-    def _revenue(self) -> Decimal:
+    def average_order(self):
+        return float(sum(self.__orders.values()) / self.__count_orders)
+
+    def average_order_row(self) -> Decimal:
+        total_orders = 0
+        for item in self.__orders:
+            orders_list = self.__orders[item]
+        for item in orders_list:
+            total_orders += Decimal(item)
+        return Decimal(total_orders / len(orders_list))
+
+    def _revenue(self, orders: dict) -> Decimal:
         total_order = 0
-        for items in self.__orders:
-            orders_list = self.__orders[items]
+        for items in orders:
+            orders_list = orders[items]
         if isinstance(orders_list, Iterable):
             for item in orders_list:
                 total_order += Decimal(item)
         else:
-            for item in self.__orders:
-                total_order += self.__orders[item]
+            for item in orders:
+                total_order += orders[item]
 
         return Decimal(total_order * Decimal(self.__unit_cost))
-
-    def _standard_deviation_orders(self) -> Decimal:
-        deviation = Decimal(0)
-        variance = []
-        for x in self.__orders.values():
-            variance.append(Decimal(x - self.__average_order))
-        for j in variance:
-            deviation += Decimal(j) ** Decimal(2)
-        deviation /= Decimal(len(variance))
-        return round(deviation ** Decimal(0.5), 1)
 
     def _standard_deviation_orders_row(self) -> Decimal:
         deviation = Decimal(0)
@@ -216,25 +219,23 @@ class UncertainDemand:
 
     def _safety_stock(self) -> Decimal:
         return Decimal(self.__z_value) * Decimal(self.__orders_standard_deviation) * Decimal(
-                (self.__lead_time ** Decimal(0.5)))
+            (self.__lead_time ** Decimal(0.5)))
 
     def _demand_variability(self) -> Decimal:
         return Decimal(Decimal(self.__orders_standard_deviation) / Decimal(self.__average_order))
 
     def _reorder_level(self) -> Decimal:
         return (Decimal(self.__lead_time ** Decimal(0.5)) * Decimal(self.__average_order)) + Decimal(
-                self.__safety_stock)
+            self.__safety_stock)
 
     # provide the facility to output order quantity as a range if the reorder cost is an estimation
     # one version when holding cost has not been specified and one when it has been
-
     def _fixed_order_quantity(self) -> Decimal:
         return (2 * Decimal(self.__reorder_cost) * (
             Decimal(self.__average_order) / (
                 Decimal(self.__unit_cost) * Decimal(self.__CONST_HOLDING_COST_FACTOR)))) ** Decimal(0.5)
 
     # make another summary for as a dictionary and allow each value to be retrieved individually
-
     def orders_summary(self) -> dict:
         return {'sku': self.__sku_id, 'average_order': '{:.0f}'.format(self.__average_order),
                 'standard_deviation': '{:.0f}'.format(self.__orders_standard_deviation),
@@ -290,3 +291,23 @@ class OrdersUncertainDemandAbstraction:
         __reorder_cost = Decimal(00.00)
         __CONST_HOLDING_COST_FACTOR = Decimal(0.25)
         __fixed_reorder_quantity = 0
+
+
+class UncertainDemandNp:
+    def __init__(self, orders_np: np.array, length: int, period: PeriodFormats):
+        self.__orders_np = orders_np
+        self.__period = period
+        self.__total_orders = self._total_orders()
+
+    @property
+    def total_orders(self):
+        return self.__total_orders
+
+    def print_period(self):
+        return print(self.__period)
+
+    def _total_orders(self)->int:
+        return np.sum(self.__orders_np)
+    
+    def _standard_deviation(self):
+        return
