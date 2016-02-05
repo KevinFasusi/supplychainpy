@@ -13,7 +13,7 @@ class TestAnalyseOrders(TestCase):
         # act
 
         d = analyse_uncertain_demand.UncertainDemand(self._data_set, 'Rx493-90', 4, 554.99, 400.00)
-        a = Decimal(d.get_average_orders)
+        a = Decimal(d.average_orders)
         # assert
         self.assertEqual(a, 50)
 
