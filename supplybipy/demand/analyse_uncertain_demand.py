@@ -81,7 +81,7 @@ class UncertainDemand:
         return self.__abc_classification
 
     @abc_classification.setter
-    def abc_classification(self, abc_classifier):
+    def abc_classification(self, abc_classifier: str):
         self.__abc_classification = abc_classifier
 
     @property
@@ -89,7 +89,7 @@ class UncertainDemand:
         return self.__xyz_classification
 
     @xyz_classification.setter
-    def xyz_classification(self, xyz_classifier):
+    def xyz_classification(self, xyz_classifier: str):
         self.__xyz_classification = xyz_classifier
 
     @property
