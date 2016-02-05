@@ -19,6 +19,9 @@ def _standard_deviation_orders(orders: dict, average_order: Decimal) -> Decimal:
 
 
 class UncertainDemand:
+    """ Models inventory profile calculating economic order quantity, variable cost, reorder quantity and
+        ABCXYZ classification
+    """
     __z_value = Decimal(0.00)  # default set to 90%
     __lead_time = 0
     __safety_stock = 0
@@ -70,6 +73,7 @@ class UncertainDemand:
 
     @property
     def abcxyz_classification(self) -> str:
+        """Gets ABCXYZ classification as a concatenated string"""
         return self.__abc_classification + self.__xyz_classification
 
     @property
@@ -306,8 +310,8 @@ class UncertainDemandNp:
     def print_period(self):
         return print(self.__period)
 
-    def _total_orders(self)->int:
+    def _total_orders(self) -> int:
         return np.sum(self.__orders_np)
-    
+
     def _standard_deviation(self):
         return
