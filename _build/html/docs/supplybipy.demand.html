@@ -80,7 +80,7 @@
             
             
                 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../code.html">Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation.html">Installation</a></li>
 </ul>
 
             
@@ -198,6 +198,8 @@
 <dt id="supplybipy.demand.analyse_uncertain_demand.UncertainDemand">
 <em class="property">class </em><code class="descclassname">supplybipy.demand.analyse_uncertain_demand.</code><code class="descname">UncertainDemand</code><span class="sig-paren">(</span><em>orders: dict</em>, <em>sku: str</em>, <em>lead_time: decimal.Decimal</em>, <em>unit_cost: decimal.Decimal</em>, <em>reorder_cost: decimal.Decimal</em>, <em>z_value: decimal.Decimal=Decimal('1.2800000000000000266453525910037569701671600341796875')</em>, <em>holding_cost: decimal.Decimal=0.0</em>, <em>period: int=0</em><span class="sig-paren">)</span><a class="headerlink" href="#supplybipy.demand.analyse_uncertain_demand.UncertainDemand" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Models inventory profile calculating economic order quantity, variable cost, reorder quantity and
+ABCXYZ classification</p>
 <dl class="attribute">
 <dt id="supplybipy.demand.analyse_uncertain_demand.UncertainDemand.abc_classification">
 <code class="descname">abc_classification</code><a class="headerlink" href="#supplybipy.demand.analyse_uncertain_demand.UncertainDemand.abc_classification" title="Permalink to this definition">¶</a></dt>
@@ -206,7 +208,8 @@
 <dl class="attribute">
 <dt id="supplybipy.demand.analyse_uncertain_demand.UncertainDemand.abcxyz_classification">
 <code class="descname">abcxyz_classification</code><a class="headerlink" href="#supplybipy.demand.analyse_uncertain_demand.UncertainDemand.abcxyz_classification" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Gets ABCXYZ classification as a concatenated string</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="supplybipy.demand.analyse_uncertain_demand.UncertainDemand.average_order">
