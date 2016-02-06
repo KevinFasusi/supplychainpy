@@ -22,10 +22,19 @@ do not scale. Using the library and python is scalable, with the example analysi
 
 ##Quick Install
 
-The easiest way to install supplychainpy is via pip: `pip install supplychainpy` (not yet setup)
+The easiest way to install supplychainpy is via pip: `pip install supplychainpy` (not yet setup).
+
 An alternative is to clone the repository and run `python setup.py install`
 
 ##Dependencies
+
+- python 3.5
+
+##Optional Dependencies
+
+- NumPy
+- pandas
+- matplotlib
 
 ##Quick Guide
 1. Fire up the python interpreter or `ipython notebook` from the command line.
@@ -48,6 +57,7 @@ change promptly.
         x +=1
 ```
 Further examples and explanations will be available in the documentation. Please find below.
+
 
 Documentation:
 
