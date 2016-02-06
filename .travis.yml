@@ -5,7 +5,7 @@ python:
   - "3.5"
 
 install:
-  - pip install -r requirements.txt
+  - pip install numpy
 
 script:
  - if [[ $TRAVIS_PYTHON_VERSION == '3.3' ]]; then python -m unittest discover /tests; fi
