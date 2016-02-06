@@ -7,7 +7,7 @@ install:
   - pip install numpy
 
 script:
-  - python -m unittest discover /tests
+  - nosetests -v --with-coverage
 
 notifications:
   email:
