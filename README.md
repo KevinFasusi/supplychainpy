@@ -1,3 +1,5 @@
+https://travis-ci.org/KevinFasusi/supplychainpy.svg?branch=master
+
 #Supplychainpy
 
 Supplychainpy is a Python library for supply chain analysis, modeling and simulation. Use in conjunction with popular
@@ -8,7 +10,7 @@ numpy, matplotlib, ipython and Jupyters for a powerful supply chain data analysi
 
 ##Supply Chain Analysis
 
-Analyse Inventory management, demand planning and forecasting, production planning, supply chain optimisation.
+Analyse Inventory, forecast demand, plan production, optimise distribution.
 
 ##Supply Chain Modeling
 
