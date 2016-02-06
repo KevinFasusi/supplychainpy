@@ -1,6 +1,5 @@
 language: python
 python:
-  - "3.3"
   - "3.4"
   - "3.5"
 
@@ -8,7 +7,6 @@ install:
   - pip install numpy
 
 script:
- - if [[ $TRAVIS_PYTHON_VERSION == '3.3' ]]; then python -m unittest discover /tests; fi
  - if [[ $TRAVIS_PYTHON_VERSION == '3.4' ]]; then python -m unittest discover /tests; fi
  - if [[ $TRAVIS_PYTHON_VERSION == '3.5' ]]; then python -m unittest discover /tests; fi
 
