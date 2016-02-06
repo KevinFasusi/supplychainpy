@@ -31,7 +31,7 @@ change promptly.
 
 ```python
 	from xlwings import Workbook, Range
-    from supplybipy.model_inventory import analyse_orders_abcxyz_from_file
+    from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
     wb = Workbook(r'~/Desktop/test.xlsx'), Range
     abc = analyse_orders_abcxyz_from_file(file_path="data.csv", z_value= 1.28, reorder_cost=5000, file_type="csv")
     x = 1
