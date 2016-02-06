@@ -29,7 +29,7 @@ At the moment the lead-time must match the orders time bucket i.e both should be
 change promptly.
 
 
-```
+```python
 	from xlwings import Workbook, Range
     from supplybipy.model_inventory import analyse_orders_abcxyz_from_file
     wb = Workbook(r'~/Desktop/test.xlsx'), Range
