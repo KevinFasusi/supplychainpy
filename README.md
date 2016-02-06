@@ -7,7 +7,8 @@ data analysis libraries and tools such as xlwings or data nitro (for Excel sprea
 numpy, matplotlib, ipython and Jupyters for a powerful supply chain data analysis toolchain.
 
 The library is currently in early stages of development, so not ready for use in production. However some fun can be had
-by passing a csv or text file in the correct format and outputting inventory analysis such as:
+by passing a csv or text file in the correct format. For quick exploration, the `analyse_orders_abcxyz_from_file`
+will output the following inventory analysis:
 - economic order quantities
 - safety stock
 - abc xyz classification
@@ -15,8 +16,8 @@ by passing a csv or text file in the correct format and outputting inventory ana
 - ...
 
 
-without having to write several formulas excel, use VBA or manual processes that do not scale. This functionality is
-scalable and can be achieved in about 10 lines of code.
+This can be achieved without having to write several excel formulas, use VBA or manual processes that do not scale.
+This functionality is scalable and can be achieved in about 10 lines of code.
 
 ##Quick Install
 
@@ -44,7 +45,7 @@ change promptly.
         Range('D' + str(x)).value = sku.abcxyz_classification
         x +=1
 ```
-
+Further examples and explanations will be available in the
 
 Documentation:
 
