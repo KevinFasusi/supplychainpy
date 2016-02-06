@@ -16,12 +16,14 @@ will output the following inventory analysis:
 - ...
 
 
-This can be achieved without having to write several excel formulas, use VBA or manual processes that do not scale.
-This functionality is scalable and can be achieved in about 10 lines of code.
+The inventory analysis can be achieved without having to write several excel formulas, use VBA or manual processes that
+do not scale. Using the library and python is scalable, with the example analysis achieved in about 10 lines of code
+(5 lines of code and another 5 to get the results into Excel).
 
 ##Quick Install
 
-The easiest way to install supplychainpy is via pip: 'pip install supplychainpy'
+The easiest way to install supplychainpy is via pip: `pip install supplychainpy` (not yet setup)
+An alternative is to clone the repository and run `python setup.py install`
 
 ##Dependencies
 
@@ -45,7 +47,7 @@ change promptly.
         Range('D' + str(x)).value = sku.abcxyz_classification
         x +=1
 ```
-Further examples and explanations will be available in the
+Further examples and explanations will be available in the documentation. Please find below.
 
 Documentation:
 
