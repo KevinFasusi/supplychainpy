@@ -7,7 +7,7 @@ install:
   - pip install numpy
 
 script:
-  - nosetests -v --with-coverage
+  - nosetests
 
 notifications:
   email:
