@@ -17,7 +17,7 @@ will output the following inventory analysis:
 
 
 The inventory analysis can be achieved without having to write several excel formulas, use VBA or manual processes that
-do not scale. Using the library and python is scalable, the example analysis IS achieved in about 10 lines of code
+do not scale. Using the library and python is scalable, the example analysis is achieved in 10 lines of code
 (**only 3 lines of code** for the analysis and another 7 to get the results into Excel).
 
 ##Quick Install
