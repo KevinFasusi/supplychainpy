@@ -2,7 +2,7 @@ import unittest
 from decimal import Decimal
 from unittest import TestCase
 
-from supplybipy.demand import analyse_uncertain_demand
+from supplychainpy.demand import analyse_uncertain_demand
 
 
 class TestAnalyseOrders(TestCase):

@@ -1,9 +1,9 @@
 from decimal import Decimal
-from supplybipy import data_cleansing
-from supplybipy.demand import analyse_uncertain_demand, economic_order_quantity
-from supplybipy.demand import summarise_demand
-from supplybipy.demand.abc_xyz import AbcXyz
-from supplybipy.enum_formats import FileFormats, PeriodFormats
+from supplychainpy import data_cleansing
+from supplychainpy.demand import analyse_uncertain_demand, economic_order_quantity
+from supplychainpy.demand import summarise_demand
+from supplychainpy.demand.abc_xyz import AbcXyz
+from supplychainpy.enum_formats import FileFormats, PeriodFormats
 import numpy as np
 
 

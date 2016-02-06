@@ -2,11 +2,11 @@
 
 import time
 from decimal import Decimal
-from supplybipy.model_inventory import analyse_orders_abcxyz_from_file, analyse_orders_from_file_row, analyse_orders, \
+from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file, analyse_orders_from_file_row, analyse_orders, \
     analyse_orders_from_file_col, analyse_orders_np
-from supplybipy.demand import summarise_demand
-from supplybipy.demand import forecast_demand
-from supplybipy.enum_formats import PeriodFormats
+from supplychainpy.demand import summarise_demand
+from supplychainpy.demand import forecast_demand
+from supplychainpy.enum_formats import PeriodFormats
 import numpy as np
 
 __author__ = 'kevin'

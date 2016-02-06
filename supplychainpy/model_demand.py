@@ -1,4 +1,4 @@
-from supplybipy.demand import forecast_demand
+from supplychainpy.demand import forecast_demand
 from decimal import Decimal
 
 

@@ -2,7 +2,7 @@ from decimal import Decimal
 from collections import Iterable
 import collections
 import numpy as np
-from supplybipy.enum_formats import PeriodFormats
+from supplychainpy.enum_formats import PeriodFormats
 
 order = collections.namedtuple('order', 'sku sku_orders')
 
