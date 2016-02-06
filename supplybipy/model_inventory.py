@@ -150,7 +150,7 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: float, reorder_cost
 
 
 # the np method allows a numpy array to be used. This requires the specification of a period and length the data is
-# supposed to cover. This method also allows the use of lead time arrays for calcualting average leadtimes. There
+# supposed to cover. This method also allows the use of lead time arrays for calculating average leadtimes. There
 # also be an analyse_orders_from_file_np. using the analyse_orders_np method to process each row.
 
 def analyse_orders_np(unit_cost: Decimal, period: np.array, z_value: Decimal, orders: np.array,

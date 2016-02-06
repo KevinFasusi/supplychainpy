@@ -5,7 +5,6 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>supplybipy package &mdash; supplychainpy 1.0.0 documentation</title>
@@ -15,6 +14,7 @@
   
 
   
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
   
   
@@ -33,7 +33,7 @@
     <link rel="top" title="supplychainpy 1.0.0 documentation" href="../index.html"/> 
 
   
-  <script src="../_static/js/modernizr.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
 
 </head>
 
@@ -43,27 +43,11 @@
 
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
-          
-
-          
-            <a href="../index.html" class="icon icon-home"> supplychainpy
-          
-
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                1.0
-              </div>
-            
-          
-
-          
+      <div class="wy-side-nav-search">
+        
+          <a href="../index.html" class="fa fa-home"> supplychainpy</a>
+        
+        
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -71,22 +55,24 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
+      </div>
 
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
           
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
-            
-            
-                <ul>
-<li class="toctree-l1"><a class="reference internal" href="../Installation.html">Installation</a></li>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../Installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Installation.html#test">Test</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ipythontest.html">Ipython</a></li>
 </ul>
 
-            
           
-        </div>
+        
       </div>
+      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
@@ -101,29 +87,20 @@
       
       <div class="wy-nav-content">
         <div class="rst-content">
-          
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
+          <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
     <li>supplybipy package</li>
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="../_sources/docs/supplybipy.txt" rel="nofollow"> View page source</a>
-          
+          <a href="../_sources/docs/supplybipy.txt" rel="nofollow"> View page source</a>
         
       </li>
   </ul>
   <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+          <div role="main" class="document">
             
   <div class="section" id="supplybipy-package">
 <h1>supplybipy package<a class="headerlink" href="#supplybipy-package" title="Permalink to this headline">¶</a></h1>
@@ -194,12 +171,54 @@
 <dt id="supplybipy.enum_formats.FileFormats">
 <em class="property">class </em><code class="descclassname">supplybipy.enum_formats.</code><code class="descname">FileFormats</code><a class="headerlink" href="#supplybipy.enum_formats.FileFormats" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">enum.Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="attribute">
+<dt id="supplybipy.enum_formats.FileFormats.blue">
+<code class="descname">blue</code><em class="property"> = &lt;FileFormats.blue: 3&gt;</em><a class="headerlink" href="#supplybipy.enum_formats.FileFormats.blue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplybipy.enum_formats.FileFormats.csv">
+<code class="descname">csv</code><em class="property"> = &lt;FileFormats.csv: 2&gt;</em><a class="headerlink" href="#supplybipy.enum_formats.FileFormats.csv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplybipy.enum_formats.FileFormats.text">
+<code class="descname">text</code><em class="property"> = &lt;FileFormats.text: 1&gt;</em><a class="headerlink" href="#supplybipy.enum_formats.FileFormats.text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="supplybipy.enum_formats.PeriodFormats">
 <em class="property">class </em><code class="descclassname">supplybipy.enum_formats.</code><code class="descname">PeriodFormats</code><a class="headerlink" href="#supplybipy.enum_formats.PeriodFormats" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">enum.Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="attribute">
+<dt id="supplybipy.enum_formats.PeriodFormats.days">
+<code class="descname">days</code><em class="property"> = &lt;PeriodFormats.days: 1&gt;</em><a class="headerlink" href="#supplybipy.enum_formats.PeriodFormats.days" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplybipy.enum_formats.PeriodFormats.months">
+<code class="descname">months</code><em class="property"> = &lt;PeriodFormats.months: 3&gt;</em><a class="headerlink" href="#supplybipy.enum_formats.PeriodFormats.months" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplybipy.enum_formats.PeriodFormats.quarters">
+<code class="descname">quarters</code><em class="property"> = &lt;PeriodFormats.quarters: 4&gt;</em><a class="headerlink" href="#supplybipy.enum_formats.PeriodFormats.quarters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplybipy.enum_formats.PeriodFormats.weeks">
+<code class="descname">weeks</code><em class="property"> = &lt;PeriodFormats.weeks: 2&gt;</em><a class="headerlink" href="#supplybipy.enum_formats.PeriodFormats.weeks" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplybipy.enum_formats.PeriodFormats.years">
+<code class="descname">years</code><em class="property"> = &lt;PeriodFormats.years: 5&gt;</em><a class="headerlink" href="#supplybipy.enum_formats.PeriodFormats.years" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
@@ -207,7 +226,7 @@
 <span id="supplybipy-model-demand-module"></span><h2>supplybipy.model_demand module<a class="headerlink" href="#module-supplybipy.model_demand" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="supplybipy.model_demand.analyse_demand">
-<code class="descclassname">supplybipy.model_demand.</code><code class="descname">analyse_demand</code><span class="sig-paren">(</span><em>demand: list</em><span class="sig-paren">)</span> &rarr; &lt;module 'supplybipy.demand.forecast_demand' from '/home/kevin/Projects/Python/supplybipy/supplybipy/demand/forecast_demand.py'&gt;<a class="headerlink" href="#supplybipy.model_demand.analyse_demand" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">supplybipy.model_demand.</code><code class="descname">analyse_demand</code><span class="sig-paren">(</span><em>demand: list</em><span class="sig-paren">)</span> &rarr; &lt;module 'supplybipy.demand.forecast_demand' from '/Users/Fasusi/Projects/supplychainlibraries/python/supplybipy/supplybipy/demand/forecast_demand.py'&gt;<a class="headerlink" href="#supplybipy.model_demand.analyse_demand" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -277,7 +296,6 @@
 </div>
 
 
-           </div>
           </div>
           <footer>
   
@@ -287,13 +305,12 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2016, Kevin Fasusi.
-
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
 </footer>
-
         </div>
       </div>
 
