@@ -14,3 +14,5 @@ __pycache__/
 # due to using tox and pytest
 .tox
 .cache
+.DS_Store
+._.DS_Store
