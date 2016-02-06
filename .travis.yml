@@ -7,8 +7,7 @@ install:
   - pip install numpy
 
 script:
-  - python -m unittest discover
-
+  - python -m unittest discover tests/
 notifications:
   email:
     - kevin@supplybi.com
