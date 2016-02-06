@@ -23,7 +23,7 @@ class TestBuildModel(TestCase):
         self.assertIs(type(summary), type(self._t))
 
     def test_model_orders_length(self):
-        with self.assertRaises(expected_exception=ValueError):
+        with self.assertRaises(self,expected_exception=ValueError):
             summary = model_inventory.analyse_orders(self._yearly_demand2, 'RX983-90', 3, 50.99, 400, 1.28)
 
     def test_model_orders_content(self):
@@ -48,7 +48,7 @@ class TestBuildModel(TestCase):
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplychainpy/tel.tt'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
-        with self.assertRaises(expected_exception=Exception):
+        with self.assertRaises(self, expected_exception=Exception):
             d = model_inventory.analyse_orders_from_file_row(abs_file_path, 1.28, 400, file_type="text")
 
     def test_file_path_extension_col(self):
@@ -56,7 +56,7 @@ class TestBuildModel(TestCase):
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplychainpy/test.tt'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
-        with self.assertRaises(expected_exception=Exception):
+        with self.assertRaises(self, expected_exception=Exception):
             d = model_inventory.analyse_orders_from_file_col(abs_file_path, 1.28, 400, file_type="text")
 
     def test_standard_deviation_col_count(self):
@@ -121,9 +121,9 @@ class TestBuildModel(TestCase):
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplychainpy/data.sv'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
-        with self.assertRaises(expected_exception=Exception):
+        with self.assertRaises(self, expected_exception=Exception):
             abc = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=1.28,
-                                                                  reorder_cost=5000,                                                           file_type="csv")
+                                                                  reorder_cost=5000, file_type="csv")
 
     def test_file_path_abcxyz(self):
         app_dir = os.path.dirname(__file__, )
