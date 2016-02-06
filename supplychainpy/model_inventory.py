@@ -80,6 +80,9 @@ def analyse_orders_from_file_row(file_path: str, z_value: Decimal, reorder_cost:
 # TODO Remove hard coded holding cost and make it a parameter
 def analyse_orders_abcxyz_from_file(file_path: str, z_value: float, reorder_cost: float, file_type: str = "text",
                                     period: str = "month", length: int = 12) -> AbcXyz:
+
+    """Analyse orders data from file and returns ABCXYZ analysis"""
+
     analysed_orders_collection = []
     item_list = {}
 

@@ -221,6 +221,7 @@ class UncertainDemand:
         deviation /= Decimal(len(variance))
         return Decimal(Decimal(deviation) ** Decimal(0.5))
 
+    # TODO-feature convert lead-time to correct period (data_set period must match lead_time priod if not conversion)
     def _safety_stock(self) -> Decimal:
         return Decimal(self.__z_value) * Decimal(self.__orders_standard_deviation) * Decimal(
             (self.__lead_time ** Decimal(0.5)))
