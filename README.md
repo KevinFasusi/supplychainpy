@@ -8,11 +8,11 @@ numpy, matplotlib, ipython and Jupyters for a powerful supply chain data analysi
 
 The library is currently in early stages of development, so not ready for use in production. However some fun can be had
 by passing a csv or text file in the correct format and outputting inventory analysis such as:
-*economic order quantities
-*safety stock
-*abc xyz classification
-*demand variability
-*...
+- economic order quantities
+- safety stock
+- abc xyz classification
+- demand variability
+- ...
 without having to write several formulas excel, use VBA or manual processes that do not scale. This functionality is
 scalable and can be achieved in about 10 lines of code.
 
