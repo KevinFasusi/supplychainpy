@@ -1,4 +1,4 @@
-https://travis-ci.org/KevinFasusi/supplychainpy.svg?branch=master
+[![Build Status](https://travis-ci.org/KevinFasusi/supplychainpy.svg?branch=master)](https://travis-ci.org/KevinFasusi/supplychainpy?branch=master)
 
 #Supplychainpy
 
