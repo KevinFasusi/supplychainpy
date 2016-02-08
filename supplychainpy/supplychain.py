@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+##!/usr/bin/env python3
 
 import time
 from decimal import Decimal
@@ -8,6 +8,7 @@ from supplychainpy.demand import summarise_demand
 from supplychainpy.demand import forecast_demand
 from supplychainpy.enum_formats import PeriodFormats
 import numpy as np
+
 
 __author__ = 'kevin'
 
@@ -43,8 +44,8 @@ def main():
     # moving_average2 = k.moving_average_forecast
     # result_array = k.calculate_mean_absolute_deviation(moving_average, orders2, base_forecast=True)
     # print(result_array)
-    s = np.array([200, 300, 343, 553, 356, 455, 264, 252, 264, 635, 677, 755, 887])
-    analyse_orders_np(304, period=PeriodFormats.months.name, z_value=1.28, orders=s, lead_time=9.00)
-    analyse_orders_from_file_col()
+    #s = np.array([200, 300, 343, 553, 356, 455, 264, 252, 264, 635, 677, 755, 887])
+    #analyse_orders_np(unit_cost=300, period=PeriodFormats.months.name, z_value=1.28, orders=s, lead_time=9.00)
+    pass
 
 if __name__ == '__main__': main()
