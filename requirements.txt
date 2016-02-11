@@ -1,3 +1,4 @@
+numpy
 py==1.4.30
 pytest==2.8.2CDApplet==1.0
 CDBashApplet==1.0

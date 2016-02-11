@@ -9,7 +9,6 @@ import numpy as np
 
 # TODO-feature specify length of orders, start position and period (day, week, month, ...)
 # in the analysis function specify service-level expected for safety stock, a default is specified in the class
-
 def analyse_orders(data_set: dict, sku_id: str, lead_time: Decimal, unit_cost: Decimal, reorder_cost: Decimal,
                    z_value: Decimal) -> dict:
     """Analyse orders data for one sku using a dictionary."""
@@ -40,6 +39,7 @@ def analyse_orders_from_file_col(file_path: str, sku_id: str, lead_time: Decimal
     f.close()
     d = analyse_uncertain_demand.UncertainDemand(orders=orders, sku=sku_id, lead_time=lead_time,
                                                  unit_cost=unit_cost, reorder_cost=reorder_cost, z_value=z_value)
+    f.close()
     return d.orders_summary()
 
 
@@ -74,13 +74,13 @@ def analyse_orders_from_file_row(file_path: str, z_value: Decimal, reorder_cost:
         analysed_orders_summary.append(analysed_orders.orders_summary())
         orders = {}
         del analysed_orders
+        f.close()
     return analysed_orders_summary
 
 
 # TODO Remove hard coded holding cost and make it a parameter
 def analyse_orders_abcxyz_from_file(file_path: str, z_value: float, reorder_cost: float, file_type: str = "text",
                                     period: str = "month", length: int = 12) -> AbcXyz:
-
     """Analyse orders data from file and returns ABCXYZ analysis"""
 
     analysed_orders_collection = []
@@ -144,6 +144,7 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: float, reorder_cost
     #   print(sku.abcxyz_classification)
     # for order in analysed_orders_collection:
     #    print(order.eoq.minimum_variable_cost)
+    f.close()
     return abc
     # else:
     # raise ValueError("file name must end with .txt")
@@ -156,12 +157,14 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: float, reorder_cost
 # supposed to cover. This method also allows the use of lead time arrays for calculating average leadtimes. There
 # also be an analyse_orders_from_file_np. using the analyse_orders_np method to process each row.
 
+
 def analyse_orders_np(unit_cost: Decimal, period: np.array, z_value: Decimal, orders: np.array,
                       lead_time_np: np.array = [],
                       lead_time: Decimal = 0.00, length: int = 12) -> dict:
     d = analyse_uncertain_demand.UncertainDemandNp(orders_np=orders, length=length, period=period)
     d.print_period()
     print(d.total_orders)
+
 
 def check_extension(file_path: str, file_type: str) -> bool:
     if file_path.endswith(".txt") and file_type.lower() == "text":

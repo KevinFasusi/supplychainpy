@@ -3,7 +3,7 @@ import csv
 
 
 # TODO-feature allow data munger to accept any delimiter as a parameter
-def clean_orders_data_col_txt(file: str) -> dict:
+def clean_orders_data_col_txt(file) -> dict:
     item_list = {}
     split_line = []
     for line in file:
@@ -14,7 +14,7 @@ def clean_orders_data_col_txt(file: str) -> dict:
 
 
 # TODO-feature make csv version of clean_orders also take into account column number add tests (create csv file)
-def clean_orders_data_col_csv(file: str) -> dict:
+def clean_orders_data_col_csv(file) -> dict:
     item_list = {}
     read_csv = csv.reader(file)
     headers = next(read_csv)
@@ -25,7 +25,7 @@ def clean_orders_data_col_csv(file: str) -> dict:
 
 
 # TODO-feature allow data munger to accept any delimiter as a parameter
-def clean_orders_data_row(file: str) -> dict:
+def clean_orders_data_row(file) -> dict:
     sku_list = []
     split_line = []
     composite = {}
@@ -55,7 +55,7 @@ def clean_orders_data_row(file: str) -> dict:
 
 # TODO-feature cleans a text or csv file and insert into numpy array
 # remember to specify in documentation that the orders data will assume 12 months unless otherwise stated
-def clean_orders_data_row_csv(file: str, length: int = 12) -> dict:
+def clean_orders_data_row_csv(file, length: int = 12) -> dict:
     sku_list = []
     composite = {}
     collection = []

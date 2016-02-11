@@ -3,7 +3,7 @@ from unittest import TestCase
 from supplychainpy.production import create_install_base
 
 
-class TestCreateInstallBass(TestCase):
+class TestCreateInstallBase(TestCase):
     # arrange, act
     def test_machine_build(self):
         builder = create_install_base.SimpleMachineBuilder()

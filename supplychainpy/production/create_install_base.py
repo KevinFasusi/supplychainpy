@@ -1,6 +1,27 @@
 __author__ = 'Fasusi'
 
 
+class Machine:
+    def __init__(self):
+        # user specified features
+        self.name = None
+        self.maximum_throughput = None
+        self.processing_time = None
+        self.setup_time = None
+        self.down_time = 0
+        # generic features
+
+    # remember to build all methods that control machine up-time behaviour
+    def add_down_time(self):
+        self.down_time += 1
+
+    def __str__(self):
+        return '{}'.format(self.name)
+
+    def __repr__(self):
+        return '{}'.format(self.name)
+
+
 # TODO-feature singleton with global scope for production Job, holds sequence and cycle time
 
 class MachineBuilder:
@@ -27,7 +48,7 @@ class ProductionDirector:
         self._machine_builder.machine.down_time = self._machine_builder.machine.add_down_time()
 
     @property
-    def machine(self):
+    def machine(self) -> Machine():
         return self._machine_builder.machine
 
 
@@ -36,24 +57,3 @@ class ProductionDirector:
 class SimpleMachineBuilder(MachineBuilder):
     """Concrete builder, adds generic features to the machine"""
     pass
-
-
-class Machine:
-    def __init__(self):
-        # user specified features
-        self.name = None
-        self.maximum_throughput = None
-        self.processing_time = None
-        self.setup_time = None
-        self.down_time = 0
-        # generic features
-
-    # remember to build all methods that control machine up-time behaviour
-    def add_down_time(self):
-        self.down_time += 1
-
-    def __str__(self):
-        return '{}'.format(self.name)
-
-    def __repr__(self):
-        return '{}'.format(self.name)
