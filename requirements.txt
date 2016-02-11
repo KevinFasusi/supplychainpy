@@ -1,17 +1,1 @@
-
-clyent
-mkl
 numpy
-openssl
-pip
-python3
-python-dateutil
-pytz
-pyyaml
-readline
-requests
-setuptools
-wheel
-xz
-yaml
-zlib
