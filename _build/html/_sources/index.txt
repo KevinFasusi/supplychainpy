@@ -13,7 +13,7 @@ Contents:
 
    Installation
    ipythontest
-
+   docs/modules
 
 
 Indices and tables

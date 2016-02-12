@@ -5,11 +5,6 @@ from supplychainpy import model_inventory
 from supplychainpy.demand import economic_order_quantity
 import os
 
-
-def print(selected):
-    pass
-
-
 class TestBuildModel(TestCase):
     _yearly_demand = {'jan': 75, 'feb': 75, 'mar': 75, 'apr': 75, 'may': 75, 'jun': 75, 'jul': 25,
                       'aug': 25, 'sep': 25, 'oct': 25, 'nov': 25, 'dec': 25}

@@ -1,7 +1,7 @@
-supplybipy
-==========
+supplychainpy
+=============
 
 .. toctree::
    :maxdepth: 4
 
-   supplybipy
+   supplychainpy

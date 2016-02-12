@@ -1,13 +1,13 @@
-supplybipy.production package
-=============================
+supplychainpy.warehouse package
+===============================
 
 Submodules
 ----------
 
-supplybipy.production.analyse_install_base module
+supplychainpy.warehouse.optimise_warehouse module
 -------------------------------------------------
 
-.. automodule:: supplybipy.production.analyse_install_base
+.. automodule:: supplychainpy.warehouse.optimise_warehouse
     :members:
     :undoc-members:
     :show-inheritance:
@@ -16,7 +16,7 @@ supplybipy.production.analyse_install_base module
 Module contents
 ---------------
 
-.. automodule:: supplybipy.production
+.. automodule:: supplychainpy.warehouse
     :members:
     :undoc-members:
     :show-inheritance:
