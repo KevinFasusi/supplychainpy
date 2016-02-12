@@ -25,9 +25,7 @@ def analyse_orders(data_set: dict, sku_id: str, lead_time: Decimal, unit_cost: D
 def analyse_orders_from_file_col(file_path: str, sku_id: str, lead_time: Decimal, unit_cost: Decimal,
                                  reorder_cost: Decimal, z_value: Decimal, file_type: str = "text",
                                  period: str = PeriodFormats.months.name, length: int = 12) -> dict:
-    """Analyse orders from file arranged in a single column
-    :param file_path: Path to .txt or csv
-    """
+    """Analyse orders from file arranged in a single column"""
 
     if check_extension(file_path=file_path, file_type=file_type):
         if file_type == FileFormats.text.name:
