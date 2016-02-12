@@ -260,18 +260,18 @@ Ipython
 .. code:: python
 
     from xlwings import Workbook, Range
-    wb = Workbook(r'~/Desktop/we.xlsx'), Range
+    wb = Workbook(r'~/Desktop/test.xlsx'), Range
     
 
 
 .. code:: python
-
+	from xlwings import Workbook, Range
+    wb = Workbook(r'~/Desktop/test.xlsx'), Range
     from supplybipy.model_inventory import analyse_orders_abcxyz_from_file
-    abc = analyse_orders_abcxyz_from_file('test_row.txt', 1.28, 5000)
+    abc = analyse_orders_abcxyz_from_file(file_path="data.csv", z_value= 1.28, reorder_cost=5000, file_type="csv")
     x = 1
     for sku in abc.orders:
         Range('A'+ str(x)).value = sku.sku_id
-        countSku
         Range('B' + str(x)).value = float(sku.economic_order_qty)
         Range('C' + str(x)).value = float(sku.revenue)
         Range('D' + str(x)).value = sku.abcxyz_classification

@@ -1,1 +1,12 @@
-numpy
+Babel==2.2.0
+Jinja2==2.8
+MarkupSafe==0.23
+Pygments==2.1
+Sphinx==1.3.5
+alabaster==0.7.7
+docutils==0.12
+numpy==1.10.4
+pytz==2015.7
+six==1.10.0
+snowballstemmer==1.2.1
+sphinx-rtd-theme==0.1.9
