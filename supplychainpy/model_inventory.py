@@ -100,7 +100,43 @@ def analyse_orders_from_file_col(file_path, sku_id: str, lead_time: Decimal, uni
 
 def analyse_orders_from_file_row(file_path: str, z_value: Decimal, reorder_cost: Decimal, file_type: str = "text",
                                  period: str = "month", length: int = 12) -> list:
-    """Analyse multiple SKUs from a file with data arranged by row.g"""
+    """Analyse multiple SKUs from a file with data arranged by row.
+
+    Analyses orders data for a single sku, using the values from a file arranged in columns.The data should be arranged
+    in two columns, 1 for the period and the other for the corresponding data-point.
+
+    Args:
+        file_path (file):       The path to the file containing two columns of data, 1 period and 1 data-point for 1 sku.
+        sku_id (str):           The unique id of the sku.
+        lead_time (Decimal):    The average lead-time for the sku over the period represented by the data,
+                                in the same unit.
+        unit_cost (Decimal):    The unit cost of the sku to the organisation.
+        reorder_cost (Decimal): The cost to place a reorder. This is usually the cost of the operation divided by number
+                                of purchase orders placed in the previous period.
+        z_value (Decimal):      The service level required to calculate the safety stock
+        file_type (enum):       Type of 'file csv' or 'text'
+        period (enum):          The period of time the data points are bucketed into.
+
+    Returns:
+        list:       A list of summaries containing:
+                    average_order,standard_deviation, safety_stock, demand_variability, reorder_level
+                    reorder_quantity, revenue, economic_order_quantity, economic_order_variable_cost
+                    and ABC_XYZ_Classification. For example:
+
+                    [{'ABC_XYZ_Classification': 'AX', 'reorder_quantity': '258', 'revenue': '2090910.44',
+                    'average_order': '539', 'reorder_level': '813', 'economic_order_quantity': '277', 'sku': 'RR381-33',
+                    'demand_variability': '0.052', 'economic_order_variable_cost': '29557.61',
+                    'standard_deviation': '28', 'safety_stock': '51'}, {'ABC_XYZ_Classification': 'AX',
+                    'reorder_quantity': '258', 'revenue': '2090910.44', 'average_order': '539',
+                    'reorder_level': '813', 'economic_order_quantity': '277', 'sku': 'RR481-33',
+                    'demand_variability': '0.052', 'economic_order_variable_cost': '29557.61',
+                    'standard_deviation': '28', 'safety_stock': '51'}]
+    Raises:
+        Exception:  Incorrect file type specified. Please specify 'csv' or 'text' for the file_type parameter.
+        Exception:  Unspecified file type, Please specify 'csv' or 'text' for file_type parameter.
+
+
+    """
 
     orders = {}
     analysed_orders_summary = []
@@ -247,13 +283,22 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: float, reorder_cost
 def analyse_orders_np(unit_cost: Decimal, period: np.array, z_value: Decimal, orders: np.array,
                       lead_time_np: np.array = [],
                       lead_time: Decimal = 0.00, length: int = 12) -> dict:
+
     d = analyse_uncertain_demand.UncertainDemandNp(orders_np=orders, length=length, period=period)
     d.print_period()
     print(d.total_orders)
 
 
-def _check_extension(file_path: str, file_type: str) -> bool:
+def _check_extension(file_path, file_type: str) -> bool:
+    """ Check the correct file type has been selected.
 
+    Args:
+        file_path (file):   The path to the file containing two columns of data, 1 period and 1 data-point for 1 sku.
+        file_type (str):    specifying 'csv' or 'text'
+    Returns:
+        bool:
+
+    """
     if file_path.endswith(".txt") and file_type.lower() == "text":
         flag = True
     elif file_path.endswith(".csv") and file_type.lower() == "csv":
