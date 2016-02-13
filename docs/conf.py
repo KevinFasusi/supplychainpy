@@ -31,7 +31,7 @@ sys.path.insert(0, os.path.abspath('/home/kevin/Projects/Python/supplychainpy/')
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autodoc', 'sphinx.ext.napoleon'
+    'sphinx.ext.autodoc',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
