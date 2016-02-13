@@ -260,18 +260,147 @@
 <dt id="supplychainpy.model_inventory.analyse_orders">
 <code class="descclassname">supplychainpy.model_inventory.</code><code class="descname">analyse_orders</code><span class="sig-paren">(</span><em>data_set: dict</em>, <em>sku_id: str</em>, <em>lead_time: decimal.Decimal</em>, <em>unit_cost: decimal.Decimal</em>, <em>reorder_cost: decimal.Decimal</em>, <em>z_value: decimal.Decimal</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.model_inventory.analyse_orders" title="Permalink to this definition">¶</a></dt>
 <dd><p>Analyse orders data for one sku using a dictionary.</p>
+<p>Analyses orders data for a single sku using the values in the data_set dict.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data_set</strong> (<em>dict</em>) &#8211; The orders data for a specified period.</li>
+<li><strong>sku_id</strong> (<em>str</em>) &#8211; The unique id of the sku</li>
+<li><strong>lead_time</strong> (<em>Decimal</em>) &#8211; The average lead-time for the sku over the period represented by the data,
+in the same unit.</li>
+<li><strong>unit_cost</strong> (<em>Decimal</em>) &#8211; The unit cost of the sku to the organisation.</li>
+<li><strong>reorder_cost</strong> (<em>Decimal</em>) &#8211; The cost to place a reorder. This is usually the cost of the operation divided by number
+of purchase orders placed in the previous period.</li>
+<li><strong>z_value</strong> (<em>Decimal</em>) &#8211; The service level required to calculate the safety stock</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
+<dt>The summary of the analysis, containing:</dt>
+<dd><p class="first">average_order,standard_deviation, safety_stock, demand_variability, reorder_level
+reorder_quantity, revenue, economic_order_quantity, economic_order_variable_cost
+and ABC_XYZ_Classification. For example:</p>
+<p class="last">{&#8216;ABC_XYZ_Classification&#8217;: &#8216;AX&#8217;, &#8216;reorder_quantity&#8217;: &#8216;258&#8217;, &#8216;revenue&#8217;: &#8216;2090910.44&#8217;,
+&#8216;average_order&#8217;: &#8216;539&#8217;, &#8216;reorder_level&#8217;: &#8216;813&#8217;, &#8216;economic_order_quantity&#8217;: &#8216;277&#8217;, &#8216;sku&#8217;: &#8216;RR381-33&#8217;,
+&#8216;demand_variability&#8217;: &#8216;0.052&#8217;, &#8216;economic_order_variable_cost&#8217;: &#8216;29557.61&#8217;,
+&#8216;standard_deviation&#8217;: &#8216;28&#8217;, &#8216;safety_stock&#8217;: &#8216;51&#8217;}</p>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">dict</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; Dictionary too small. Please use a minimum of 3 entries.</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="supplychainpy.model_inventory.analyse_orders_abcxyz_from_file">
 <code class="descclassname">supplychainpy.model_inventory.</code><code class="descname">analyse_orders_abcxyz_from_file</code><span class="sig-paren">(</span><em>file_path: str</em>, <em>z_value: float</em>, <em>reorder_cost: float</em>, <em>file_type: str='text'</em>, <em>period: str='month'</em>, <em>length: int=12</em><span class="sig-paren">)</span> &rarr; supplychainpy.demand.abc_xyz.AbcXyz<a class="headerlink" href="#supplychainpy.model_inventory.analyse_orders_abcxyz_from_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Analyse orders data from file and returns ABCXYZ analysis</p>
+<p>Analyses orders data for a single sku, using the values from a file arranged in columns.The data should be arranged
+in two columns, 1 for the period and the other for the corresponding data-point.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>file_path</strong> (<em>file</em>) &#8211; The path to the file containing two columns of data, 1 period and 1 data-point for 1 sku.</li>
+<li><strong>reorder_cost</strong> (<em>Decimal</em>) &#8211; The average lead-time for the sku over the period represented by the data,
+in the same unit.</li>
+<li><strong>length</strong> (<em>int</em>) &#8211; The number of periods in the data-ser referenced from the second column of the row
+onwards.</li>
+<li><strong>reorder_cost</strong> &#8211; The cost to place a reorder. This is usually the cost of the operation divided by number
+of purchase orders placed in the previous period.</li>
+<li><strong>z_value</strong> (<em>Decimal</em>) &#8211; The service level required to calculate the safety stock</li>
+<li><strong>file_type</strong> (<em>enum</em>) &#8211; Type of &#8216;file csv&#8217; or &#8216;text&#8217;</li>
+<li><strong>period</strong> (<em>enum</em>) &#8211; The period of time the data points are bucketed into.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
+<dt>An AbcXyz class object is returned.</dt>
+<dd><p class="first">average_order,standard_deviation, safety_stock, demand_variability, reorder_level
+reorder_quantity, revenue, economic_order_quantity, economic_order_variable_cost
+and ABC_XYZ_Classification. For example:</p>
+<p class="last">{&#8216;ABC_XYZ_Classification&#8217;: &#8216;AX&#8217;, &#8216;reorder_quantity&#8217;: &#8216;258&#8217;, &#8216;revenue&#8217;: &#8216;2090910.44&#8217;,
+&#8216;average_order&#8217;: &#8216;539&#8217;, &#8216;reorder_level&#8217;: &#8216;813&#8217;, &#8216;economic_order_quantity&#8217;: &#8216;277&#8217;, &#8216;sku&#8217;: &#8216;RR381-33&#8217;,
+&#8216;demand_variability&#8217;: &#8216;0.052&#8217;, &#8216;economic_order_variable_cost&#8217;: &#8216;29557.61&#8217;,
+&#8216;standard_deviation&#8217;: &#8216;28&#8217;, &#8216;safety_stock&#8217;: &#8216;51&#8217;}</p>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference internal" href="supplychainpy.demand.html#supplychainpy.demand.abc_xyz.AbcXyz" title="supplychainpy.demand.abc_xyz.AbcXyz">AbcXyz</a></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><code class="xref py py-exc docutils literal"><span class="pre">Exception</span></code> &#8211; Incorrect file type specified. Please specify &#8216;csv&#8217; or &#8216;text&#8217; for the file_type parameter.</li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">Exception</span></code> &#8211; Unspecified file type, Please specify &#8216;csv&#8217; or &#8216;text&#8217; for file_type parameter.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="supplychainpy.model_inventory.analyse_orders_from_file_col">
-<code class="descclassname">supplychainpy.model_inventory.</code><code class="descname">analyse_orders_from_file_col</code><span class="sig-paren">(</span><em>file_path: str</em>, <em>sku_id: str</em>, <em>lead_time: decimal.Decimal</em>, <em>unit_cost: decimal.Decimal</em>, <em>reorder_cost: decimal.Decimal</em>, <em>z_value: decimal.Decimal</em>, <em>file_type: str='text'</em>, <em>period: str='months'</em>, <em>length: int=12</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.model_inventory.analyse_orders_from_file_col" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">supplychainpy.model_inventory.</code><code class="descname">analyse_orders_from_file_col</code><span class="sig-paren">(</span><em>file_path</em>, <em>sku_id: str</em>, <em>lead_time: decimal.Decimal</em>, <em>unit_cost: decimal.Decimal</em>, <em>reorder_cost: decimal.Decimal</em>, <em>z_value: decimal.Decimal</em>, <em>file_type: str='text'</em>, <em>period: str='months'</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.model_inventory.analyse_orders_from_file_col" title="Permalink to this definition">¶</a></dt>
 <dd><p>Analyse orders from file arranged in a single column</p>
+<p>Analyses orders data for a single sku, using the values from a file arranged in columns.The data should be arranged
+in two columns, 1 for the period and the other for the corresponding data-point.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>file_path</strong> (<em>file</em>) &#8211; The path to the file containing two columns of data, 1 period and 1 data-point for 1 sku.</li>
+<li><strong>sku_id</strong> (<em>str</em>) &#8211; The unique id of the sku.</li>
+<li><strong>lead_time</strong> (<em>Decimal</em>) &#8211; The average lead-time for the sku over the period represented by the data,
+in the same unit.</li>
+<li><strong>unit_cost</strong> (<em>Decimal</em>) &#8211; The unit cost of the sku to the organisation.</li>
+<li><strong>reorder_cost</strong> (<em>Decimal</em>) &#8211; The cost to place a reorder. This is usually the cost of the operation divided by number
+of purchase orders placed in the previous period.</li>
+<li><strong>z_value</strong> (<em>Decimal</em>) &#8211; The service level required to calculate the safety stock</li>
+<li><strong>file_type</strong> (<em>enum</em>) &#8211; Type of &#8216;file csv&#8217; or &#8216;text&#8217;</li>
+<li><strong>period</strong> (<em>enum</em>) &#8211; The period of time the data points are bucketed into.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
+<dt>The summary of the analysis, containing:</dt>
+<dd><p class="first">average_order,standard_deviation, safety_stock, demand_variability, reorder_level
+reorder_quantity, revenue, economic_order_quantity, economic_order_variable_cost
+and ABC_XYZ_Classification. For example:</p>
+<p class="last">{&#8216;ABC_XYZ_Classification&#8217;: &#8216;AX&#8217;, &#8216;reorder_quantity&#8217;: &#8216;258&#8217;, &#8216;revenue&#8217;: &#8216;2090910.44&#8217;,
+&#8216;average_order&#8217;: &#8216;539&#8217;, &#8216;reorder_level&#8217;: &#8216;813&#8217;, &#8216;economic_order_quantity&#8217;: &#8216;277&#8217;, &#8216;sku&#8217;: &#8216;RR381-33&#8217;,
+&#8216;demand_variability&#8217;: &#8216;0.052&#8217;, &#8216;economic_order_variable_cost&#8217;: &#8216;29557.61&#8217;,
+&#8216;standard_deviation&#8217;: &#8216;28&#8217;, &#8216;safety_stock&#8217;: &#8216;51&#8217;}</p>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">dict</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><code class="xref py py-exc docutils literal"><span class="pre">Exception</span></code> &#8211; Incorrect file type specified. Please specify &#8216;csv&#8217; or &#8216;text&#8217; for the file_type parameter.</li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">Exception</span></code> &#8211; Unspecified file type, Please specify &#8216;csv&#8217; or &#8216;text&#8217; for file_type parameter.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -284,31 +413,6 @@
 <dt id="supplychainpy.model_inventory.analyse_orders_np">
 <code class="descclassname">supplychainpy.model_inventory.</code><code class="descname">analyse_orders_np</code><span class="sig-paren">(</span><em>unit_cost: decimal.Decimal</em>, <em>period: &lt;built-in function array&gt;</em>, <em>z_value: decimal.Decimal</em>, <em>orders: &lt;built-in function array&gt;</em>, <em>lead_time_np: &lt;built-in function array&gt;=[]</em>, <em>lead_time: decimal.Decimal=0.0</em>, <em>length: int=12</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.model_inventory.analyse_orders_np" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.model_inventory.check_extension">
-<code class="descclassname">supplychainpy.model_inventory.</code><code class="descname">check_extension</code><span class="sig-paren">(</span><em>file_path: str</em>, <em>file_type: str</em><span class="sig-paren">)</span> &rarr; bool<a class="headerlink" href="#supplychainpy.model_inventory.check_extension" title="Permalink to this definition">¶</a></dt>
-<dd><p>Summary line.</p>
-<p>Extended description of function.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>file_type</strong> (<em>str</em>) &#8211; Description of arg1</li>
-<li><strong>file_path</strong> (<em>str</em>) &#8211; Description of arg2</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Description of return value</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">bool</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
 
 </div>
 <div class="section" id="module-supplychainpy.model_warehouse">

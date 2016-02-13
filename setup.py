@@ -1,19 +1,15 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(name='supplychainpy',
-      version='0.1',
-      description='Supply Chain Analysis, Modeling and Simulation Tools',
-      url='https://github.com/supplybi/supplychainpy',
+      version='0.0.1',
+      description='A library for supply chain, operations and manufacturing, analysis, modeling and simulation.',
+      url='https://github.com/KevinFasusi/supplychainpy',
+      download_url='https://github.com/KevinFasusi/supplychainpy/tarball/0.1',
       author='Kevin Fasusi',
       author_email='kevin@supplybi.com',
       license='BSD 3',
-      packages=['supplychainpy', 'supplychainpy/demand'],
+      packages=find_packages(exclude=['tests', 'docs']),
       test_suite='supplychainpy/tests',
-      zip_safe=False,
       install_requires=['numpy'],
-      entry_points={
-            'console_scripts':[
-                  'supplychainpy=supplychainpy.supplybi:main'
-            ]
-      }
+      keywords=['supply chain', 'operations research', 'operations management', 'simulation'],
       )
