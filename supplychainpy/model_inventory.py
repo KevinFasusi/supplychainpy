@@ -167,18 +167,19 @@ def analyse_orders_np(unit_cost: Decimal, period: np.array, z_value: Decimal, or
 
 
 def check_extension(file_path: str, file_type: str) -> bool:
-        """Summary line.
+    """Summary line.
 
     Extended description of function.
 
     Args:
-        arg1 (int): Description of arg1
-        arg2 (str): Description of arg2
+        file_type (str): Description of arg1
+        file_path (str): Description of arg2
 
     Returns:
         bool: Description of return value
 
     """
+
     if file_path.endswith(".txt") and file_type.lower() == "text":
         flag = True
     elif file_path.endswith(".csv") and file_type.lower() == "csv":
