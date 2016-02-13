@@ -12,9 +12,6 @@ Contents:
    :maxdepth: 2
 
    Installation
-   ipythontest
-   modules
-
 
 
 Indices and tables
