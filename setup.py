@@ -13,7 +13,7 @@ setup(name='supplychainpy',
       install_requires=['numpy'],
       entry_points={
             'console_scripts':[
-                  'supplybi=supplychainpy.supplybi:main'
+                  'supplychainpy=supplychainpy.supplybi:main'
             ]
       }
       )
