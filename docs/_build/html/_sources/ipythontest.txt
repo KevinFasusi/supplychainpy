@@ -1,5 +1,6 @@
 Ipython
-====
+====================
+
 .. code:: python
 
     print('Hello')
@@ -240,22 +241,7 @@ Ipython
     {'ABC_XYZ_Classification': 'CY', 'reorder_quantity': '81', 'revenue': '210000.00', 'average_order': '53', 'reorder_level': '120', 'economic_order_quantity': '75', 'sku': 'QR326-53', 'demand_variability': '0.470', 'economic_order_variable_cost': '9291.19', 'standard_deviation': '25', 'safety_stock': '45'}
     {'ABC_XYZ_Classification': 'CZ', 'reorder_quantity': '160', 'revenue': '840000.00', 'average_order': '220', 'reorder_level': '620', 'economic_order_quantity': '156', 'sku': 'QR327-53', 'demand_variability': '0.770', 'economic_order_variable_cost': '18902.21', 'standard_deviation': '170', 'safety_stock': '310'}
     {'ABC_XYZ_Classification': 'CY', 'reorder_quantity': '81', 'revenue': '210000.00', 'average_order': '53', 'reorder_level': '120', 'economic_order_quantity': '75', 'sku': 'QR328-53', 'demand_variability': '0.470', 'economic_order_variable_cost': '9291.19', 'standard_deviation': '25', 'safety_stock': '45'}
-    {'ABC_XYZ_Classification': 'AZ', 'reorder_quantity': '270', 'revenue': '2200000.00', 'average_order': '580', 'reorder_level': '1900', 'economic_order_quantity': '253', 'sku': 'QR329-53', 'demand_variability': '1.100', 'economic_order_variable_cost': '30709.88', 'standard_deviation': '640', 'safety_stock': '1100'}
-
-
-
-.. code:: python
-
-    from matplotlib import pyplot as plt
-    
-    x = [0,1,2]
-    y = [0,1,4]
-    
-    fig = plt.figure()
-    axes = fig.add_subplot(111)
-        
-    axes.plot(x,y)
-    plt.show()
+    {'ABC_XYZ_Classification': 'AZ', 'reorder_quantity': '270', 'revenue': '2200000.00', 'average_order': '580', 'reorder_level': '1900', 'economic_order_quantity': '253', 'sku': 'QR329-53', 'demand_variability': '1.100', 'economic_order_variable_cost': '30709.88', 'standard_deviation': '640', 'safety_stock': '110}
 
 .. code:: python
 
@@ -265,11 +251,15 @@ Ipython
 
 
 .. code:: python
-	from xlwings import Workbook, Range
+    
+    from xlwings import Workbook, Range
+
     wb = Workbook(r'~/Desktop/test.xlsx'), Range
     from supplybipy.model_inventory import analyse_orders_abcxyz_from_file
+    
     abc = analyse_orders_abcxyz_from_file(file_path="data.csv", z_value= 1.28, reorder_cost=5000, file_type="csv")
     x = 1
+    
     for sku in abc.orders:
         Range('A'+ str(x)).value = sku.sku_id
         Range('B' + str(x)).value = float(sku.economic_order_qty)
@@ -284,8 +274,6 @@ Ipython
     abc = analyse_orders_abcxyz_from_file('test_row.txt', 1.28, 5000)
     AX = [ sku.sku_id for sku in abc.orders if sku.abcxyz_classification =='AX']
     print(AX)
-    print(sku.)
-
 
 .. parsed-literal::
 

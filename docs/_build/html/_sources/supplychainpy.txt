@@ -8,11 +8,9 @@ Subpackages
 
     supplychainpy.demand
     supplychainpy.distribution
-    supplychainpy.inventory
     supplychainpy.production
-    supplychainpy.simulations
     supplychainpy.warehouse
-
+    
 Submodules
 ----------
 
