@@ -3,7 +3,7 @@ from decimal import Decimal
 
 
 # TODO-feature analyse demand from list and produce forecast
-def analyse_demand(demand: list) -> forecast_demand:
+def analyse_demand(demand: list) -> forecast_demand.Forecast:
     pass
 
 # TODO-feature analyse demand from file (csv, text) and produce forecast
