@@ -1,0 +1,33 @@
+Quick Guide
+===========
+
+The following guide assumes that the supplychainpy library has already been installed. If not please use the
+instructions for :ref:`installation`.
+
+While the supplychainpy library can be used in any way you deem fit, the library was created to assist a workflow that
+is reliant on Excel, Excel formulas and VBA. First we go through the use cases and implementations specific to the
+domain (supply chain, operations and manufacturing), before covering the technologies that allow you to work with Excel.
+
+Inventory Analysis
+==================
+
+Calculating the critical values for inventory analysis using a spreadsheet requires several
+
+Summarising Inventory
+----------------------
+
+.. code:: python
+
+    from supplychainpy import model_inventory
+
+    yearly_demand = {'jan': 75, 'feb': 75, 'mar': 75, 'apr': 75, 'may': 75, 'jun': 75, 'jul': 25,
+                      'aug': 25, 'sep': 25, 'oct': 25, 'nov': 25, 'dec': 25}
+	summary = model_inventory.analyse_orders(data_set= yearly_demand, sku_id='RX983-90', lead_time=3, unit_cost=.99,
+	reorder_cost=400,z_value= 1.28)
+	print(summary)
+
+.. parsed-literal::
+
+    {'economic_order_quantity': '0', 'standard_deviation': '25', 'demand_variability': '0.500', 'sku': 'RX983-90',
+	 'reorder_level': '142', 'average_order': '50', 'safety_stock': '55', 'economic_order_variable_cost': '0.00',
+	 'revenue': '30594.00', 'reorder_quantity': '56', 'ABC_XYZ_Classification': ''}

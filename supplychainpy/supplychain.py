@@ -2,13 +2,15 @@
 
 import time
 from decimal import Decimal
+
+from supplychainpy import model_inventory
 from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file, analyse_orders_from_file_row, analyse_orders, \
     analyse_orders_from_file_col, analyse_orders_np
 from supplychainpy.demand import summarise_demand
 from supplychainpy.demand import forecast_demand
 from supplychainpy.enum_formats import PeriodFormats
 import numpy as np
-
+from supplychainpy.model_inventory import analyse_orders
 
 __author__ = 'kevin'
 
@@ -46,6 +48,11 @@ def main():
     # print(result_array)
     #s = np.array([200, 300, 343, 553, 356, 455, 264, 252, 264, 635, 677, 755, 887])
     #analyse_orders_np(unit_cost=300, period=PeriodFormats.months.name, z_value=1.28, orders=s, lead_time=9.00)
-    pass
+    yearly_demand = {'jan': 75, 'feb': 75, 'mar': 75, 'apr': 75, 'may': 75, 'jun': 75, 'jul': 25,
+                      'aug': 25, 'sep': 25, 'oct': 25, 'nov': 25, 'dec': 25}
+
+    summary = model_inventory.analyse_orders(yearly_demand, 'RX983-90', 3, 50.99, 400, 1.28)
+
+    print(summary)
 
 if __name__ == '__main__': main()
