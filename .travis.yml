@@ -8,8 +8,7 @@ install:
 
 script:
   - python -m unittest discover tests/
-  - coverage run -m unittest discover tests/
-  - coverage report --omit=/home/travis/virtualenv/python3.5.0/
+  - coverage run --omit=/home/travis/virtualenv/python3.5.0/ -m unittest discover tests/
 
 after_success:
   - coveralls
