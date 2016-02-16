@@ -95,7 +95,7 @@ Fire up the unix
 Inventory Analysis
 ------------------
 
-The inventory analysis functions can be accessed from supplychainpy by  importing `model_inventory`. 
+The inventory analysis functions can be accessed from supplychainpy by  importing `model_inventory`.
 
 
 
