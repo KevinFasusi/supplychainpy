@@ -8,7 +8,7 @@ install:
 
 script:
   - python -m unittest discover tests/
-  - coverage run --source=supplychainpy setup.py test
+  - coverage run -m unittest discover tests/
 
 after_success:
   - coveralls
