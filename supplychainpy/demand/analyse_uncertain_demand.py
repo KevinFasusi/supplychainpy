@@ -272,47 +272,5 @@ class UncertainDemand:
         # print(class_name + " destroyed")
 
 
-class OrdersUncertainDemandFactory:
-    def get_orders(self):
-        return UncertainDemand()
-
-
-class OrdersUncertainDemandAbstraction:
-    def __init__(self, orders):
-        self.orders = orders
-
-    def orders_summary(self):
-        sku_id = self.orders.sku_id
-        _average_order = Decimal(0)
-        _count_orders = 0
-        __orders = {}
-        __orders_standard_deviation = Decimal(0)
-        __z_value = Decimal(0.00)  # default set to 90%
-        __lead_time = 0
-        __safety_stock = 0
-        __demand_variability = Decimal(0)
-        __reorder_level = 0
-        __unit_cost = Decimal(0.00)
-        __reorder_cost = Decimal(00.00)
-        __CONST_HOLDING_COST_FACTOR = Decimal(0.25)
-        __fixed_reorder_quantity = 0
-
-
-class UncertainDemandNp:
-    def __init__(self, orders_np: np.array, length: int, period: PeriodFormats):
-        self.__orders_np = orders_np
-        self.__period = period
-        self.__total_orders = self._total_orders()
-
-    @property
-    def total_orders(self):
-        return self.__total_orders
-
-    def print_period(self):
-        return print(self.__period)
-
-    def _total_orders(self) -> int:
-        return np.sum(self.__orders_np)
-
-    def _standard_deviation(self):
-        return
+class UncertainDemandSimple(UncertainDemand):
+    pass
