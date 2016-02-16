@@ -35,7 +35,8 @@ An alternative is to clone the repository and run `python setup.py install`
 - NumPy
 - pandas
 - matplotlib
-
+- xlwings
+- openpyxl
 
 ##Python Version
 
@@ -64,7 +65,7 @@ change promptly.
 Further examples and explanations will be available in the documentation. Please find below.
 
 
-Documentation:
+[Documentation](http://supplychainpy.readthedocs.org/)
 
 Website:
 

@@ -82,8 +82,14 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html#inventory-analysis">Inventory Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html#where-to-go-from-here">Where to go from here?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html#features-in-development">Features in development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Supplychainpy, Xlwings, Pandas and Ipython Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#inventory-analysis-example">Inventory Analysis Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#demand-planning-and-forecasting">Demand Planning and Forecasting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#warehousing-and-picking-and-packing">Warehousing and Picking and Packing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#distribution-optimisation">Distribution Optimisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#simulation">Simulation</a></li>
 </ul>
 
             
@@ -315,7 +321,7 @@ in two columns, 1 for the period and the other for the corresponding data-point.
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>file_path</strong> (<em>file</em>) &#8211; The path to the file containing two columns of data, 1 period and 1 data-point for 1 sku.</li>
+<li><strong>file_path</strong> (<em>str</em>) &#8211; The path to the file containing two columns of data, 1 period and 1 data-point for 1 sku.</li>
 <li><strong>reorder_cost</strong> (<em>Decimal</em>) &#8211; The average lead-time for the sku over the period represented by the data,
 in the same unit.</li>
 <li><strong>length</strong> (<em>int</em>) &#8211; The number of periods in the data-ser referenced from the second column of the row
@@ -323,8 +329,8 @@ onwards.</li>
 <li><strong>reorder_cost</strong> &#8211; The cost to place a reorder. This is usually the cost of the operation divided by number
 of purchase orders placed in the previous period.</li>
 <li><strong>z_value</strong> (<em>Decimal</em>) &#8211; The service level required to calculate the safety stock</li>
-<li><strong>file_type</strong> (<em>enum</em>) &#8211; Type of &#8216;file csv&#8217; or &#8216;text&#8217;</li>
-<li><strong>period</strong> (<em>enum</em>) &#8211; The period of time the data points are bucketed into.</li>
+<li><strong>file_type</strong> (<em>str</em>) &#8211; Type of &#8216;file csv&#8217; or &#8216;text&#8217;</li>
+<li><strong>period</strong> (<em>str</em>) &#8211; The period of time the data points are bucketed into.</li>
 </ul>
 </td>
 </tr>
@@ -374,8 +380,8 @@ in the same unit.</li>
 <li><strong>reorder_cost</strong> (<em>Decimal</em>) &#8211; The cost to place a reorder. This is usually the cost of the operation divided by number
 of purchase orders placed in the previous period.</li>
 <li><strong>z_value</strong> (<em>Decimal</em>) &#8211; The service level required to calculate the safety stock</li>
-<li><strong>file_type</strong> (<em>enum</em>) &#8211; Type of &#8216;file csv&#8217; or &#8216;text&#8217;</li>
-<li><strong>period</strong> (<em>enum</em>) &#8211; The period of time the data points are bucketed into.</li>
+<li><strong>file_type</strong> (<em>str</em>) &#8211; Type of &#8216;file csv&#8217; or &#8216;text&#8217;</li>
+<li><strong>period</strong> (<em>str</em>) &#8211; The period of time the data points are bucketed into.</li>
 </ul>
 </td>
 </tr>
@@ -425,8 +431,8 @@ in the same unit.</li>
 <li><strong>reorder_cost</strong> (<em>Decimal</em>) &#8211; The cost to place a reorder. This is usually the cost of the operation divided by number
 of purchase orders placed in the previous period.</li>
 <li><strong>z_value</strong> (<em>Decimal</em>) &#8211; The service level required to calculate the safety stock</li>
-<li><strong>file_type</strong> (<em>enum</em>) &#8211; Type of &#8216;file csv&#8217; or &#8216;text&#8217;</li>
-<li><strong>period</strong> (<em>enum</em>) &#8211; The period of time the data points are bucketed into.</li>
+<li><strong>file_type</strong> (<em>str</em>) &#8211; Type of &#8216;file csv&#8217; or &#8216;text&#8217;</li>
+<li><strong>period</strong> (<em>str</em>) &#8211; The period of time the data points are bucketed into.</li>
 </ul>
 </td>
 </tr>

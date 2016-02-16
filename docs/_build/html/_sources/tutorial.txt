@@ -92,6 +92,15 @@ The book is in its 1st edition (1 Nov 2012) but still very relevant and useful.
 
 Fire up the unix
 
+Inventory Analysis Example
+==========================
+
+Calculating the critical values for inventory analysis using a spreadsheet, often requires several steps. Extracting
+transforming and loading (ETL) data, writing formulas, manual processes or pivot tables and in some cases vba. This
+process is time consuming, repetitive, does not scale and could benefit from automation. Often the ETL is the first
+part of that gets automated, while the rise in self service business intelligence tools assist a comprehensive library
+in a productive language is a useful middle ground. Supplychainpy, Python and the expansive libraries fulfils the niche
+for rolling out a scalable and automated suite of analysis.
 
 Inventory Analysis
 ------------------
@@ -99,11 +108,31 @@ Inventory Analysis
 The inventory analysis functions can be accessed from supplychainpy by importing `model_inventory`.
 
 
+Demand Planning and Forecasting
+===============================
 
 
 
-Are you a dirty sheet spreader?
--------------------------------
+Warehousing and Picking and Packing
+===================================
+
+
+
+Distribution Optimisation
+=========================
+
+
+Simulation
+==========
+
+Monte Carlo simulation
+----------------------
+
+Agent based modeling
+--------------------
+
+
+
 
 
 

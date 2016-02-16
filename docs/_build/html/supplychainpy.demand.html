@@ -82,8 +82,14 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html#inventory-analysis">Inventory Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html#where-to-go-from-here">Where to go from here?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html#features-in-development">Features in development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Supplychainpy, Xlwings, Pandas and Ipython Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#inventory-analysis-example">Inventory Analysis Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#demand-planning-and-forecasting">Demand Planning and Forecasting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#warehousing-and-picking-and-packing">Warehousing and Picking and Packing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#distribution-optimisation">Distribution Optimisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#simulation">Simulation</a></li>
 </ul>
 
             
@@ -175,28 +181,6 @@
 </div>
 <div class="section" id="module-supplychainpy.demand.analyse_uncertain_demand">
 <span id="supplychainpy-demand-analyse-uncertain-demand-module"></span><h2>supplychainpy.demand.analyse_uncertain_demand module<a class="headerlink" href="#module-supplychainpy.demand.analyse_uncertain_demand" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="supplychainpy.demand.analyse_uncertain_demand.OrdersUncertainDemandAbstraction">
-<em class="property">class </em><code class="descclassname">supplychainpy.demand.analyse_uncertain_demand.</code><code class="descname">OrdersUncertainDemandAbstraction</code><span class="sig-paren">(</span><em>orders</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.analyse_uncertain_demand.OrdersUncertainDemandAbstraction" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="supplychainpy.demand.analyse_uncertain_demand.OrdersUncertainDemandAbstraction.orders_summary">
-<code class="descname">orders_summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.analyse_uncertain_demand.OrdersUncertainDemandAbstraction.orders_summary" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="supplychainpy.demand.analyse_uncertain_demand.OrdersUncertainDemandFactory">
-<em class="property">class </em><code class="descclassname">supplychainpy.demand.analyse_uncertain_demand.</code><code class="descname">OrdersUncertainDemandFactory</code><a class="headerlink" href="#supplychainpy.demand.analyse_uncertain_demand.OrdersUncertainDemandFactory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="supplychainpy.demand.analyse_uncertain_demand.OrdersUncertainDemandFactory.get_orders">
-<code class="descname">get_orders</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.analyse_uncertain_demand.OrdersUncertainDemandFactory.get_orders" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 <dl class="class">
 <dt id="supplychainpy.demand.analyse_uncertain_demand.UncertainDemand">
 <em class="property">class </em><code class="descclassname">supplychainpy.demand.analyse_uncertain_demand.</code><code class="descname">UncertainDemand</code><span class="sig-paren">(</span><em>orders: dict</em>, <em>sku: str</em>, <em>lead_time: decimal.Decimal</em>, <em>unit_cost: decimal.Decimal</em>, <em>reorder_cost: decimal.Decimal</em>, <em>z_value: decimal.Decimal=Decimal('1.2800000000000000266453525910037569701671600341796875')</em>, <em>holding_cost: decimal.Decimal=0.0</em>, <em>period: int=0</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand" title="Permalink to this definition">¶</a></dt>
@@ -297,19 +281,9 @@ ABCXYZ classification</p>
 </dd></dl>
 
 <dl class="class">
-<dt id="supplychainpy.demand.analyse_uncertain_demand.UncertainDemandNp">
-<em class="property">class </em><code class="descclassname">supplychainpy.demand.analyse_uncertain_demand.</code><code class="descname">UncertainDemandNp</code><span class="sig-paren">(</span><em>orders_np: &lt;built-in function array&gt;</em>, <em>length: int</em>, <em>period: supplychainpy.enum_formats.PeriodFormats</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.analyse_uncertain_demand.UncertainDemandNp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="supplychainpy.demand.analyse_uncertain_demand.UncertainDemandNp.print_period">
-<code class="descname">print_period</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.analyse_uncertain_demand.UncertainDemandNp.print_period" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.demand.analyse_uncertain_demand.UncertainDemandNp.total_orders">
-<code class="descname">total_orders</code><a class="headerlink" href="#supplychainpy.demand.analyse_uncertain_demand.UncertainDemandNp.total_orders" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<dt id="supplychainpy.demand.analyse_uncertain_demand.UncertainDemandSimple">
+<em class="property">class </em><code class="descclassname">supplychainpy.demand.analyse_uncertain_demand.</code><code class="descname">UncertainDemandSimple</code><span class="sig-paren">(</span><em>orders: dict</em>, <em>sku: str</em>, <em>lead_time: decimal.Decimal</em>, <em>unit_cost: decimal.Decimal</em>, <em>reorder_cost: decimal.Decimal</em>, <em>z_value: decimal.Decimal=Decimal('1.2800000000000000266453525910037569701671600341796875')</em>, <em>holding_cost: decimal.Decimal=0.0</em>, <em>period: int=0</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.analyse_uncertain_demand.UncertainDemandSimple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand" title="supplychainpy.demand.analyse_uncertain_demand.UncertainDemand"><code class="xref py py-class docutils literal"><span class="pre">supplychainpy.demand.analyse_uncertain_demand.UncertainDemand</span></code></a></p>
 </dd></dl>
 
 <dl class="class">

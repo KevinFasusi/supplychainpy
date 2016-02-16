@@ -19,6 +19,8 @@ Optional Dependencies
 - pandas
 - matplotlib
 - Ipython
+- openpyxl
+- xlwings
 
 Installing the `Anaconda <https://www.continuum.io/downloads>`_ package may be preferable as it comes with Python 3.5 and
 all the dependencies.

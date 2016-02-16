@@ -47,7 +47,7 @@ def analyse_orders(data_set: dict, sku_id: str, lead_time: Decimal, unit_cost: D
 
 
 def analyse_orders_from_file_col(file_path, sku_id: str, lead_time: Decimal, unit_cost: Decimal,
-                                 reorder_cost: Decimal, z_value: Decimal, file_type: str = "text",
+                                 reorder_cost: Decimal, z_value: Decimal, file_type: str = FileFormats.text.name,
                                  period: str = PeriodFormats.months.name) -> dict:
 
     """Analyse orders from file arranged in a single column
@@ -64,8 +64,8 @@ def analyse_orders_from_file_col(file_path, sku_id: str, lead_time: Decimal, uni
         reorder_cost (Decimal): The cost to place a reorder. This is usually the cost of the operation divided by number
                                 of purchase orders placed in the previous period.
         z_value (Decimal):      The service level required to calculate the safety stock
-        file_type (enum):       Type of 'file csv' or 'text'
-        period (enum):          The period of time the data points are bucketed into.
+        file_type (str):       Type of 'file csv' or 'text'
+        period (str):          The period of time the data points are bucketed into.
 
     Returns:
         dict:       The summary of the analysis, containing:
@@ -98,7 +98,8 @@ def analyse_orders_from_file_col(file_path, sku_id: str, lead_time: Decimal, uni
     return d.orders_summary()
 
 
-def analyse_orders_from_file_row(file_path: str, z_value: Decimal, reorder_cost: Decimal, file_type: str = "text",
+def analyse_orders_from_file_row(file_path: str, z_value: Decimal, reorder_cost: Decimal,
+                                 file_type: str = FileFormats.text.name,
                                  period: str = "month", length: int = 12) -> list:
     """Analyse multiple SKUs from a file with data arranged by row.
 
@@ -114,8 +115,8 @@ def analyse_orders_from_file_row(file_path: str, z_value: Decimal, reorder_cost:
         reorder_cost (Decimal): The cost to place a reorder. This is usually the cost of the operation divided by number
                                 of purchase orders placed in the previous period.
         z_value (Decimal):      The service level required to calculate the safety stock
-        file_type (enum):       Type of 'file csv' or 'text'
-        period (enum):          The period of time the data points are bucketed into.
+        file_type (str):       Type of 'file csv' or 'text'
+        period (str):          The period of time the data points are bucketed into.
 
     Returns:
         list:       A list of summaries containing:
@@ -170,7 +171,8 @@ def analyse_orders_from_file_row(file_path: str, z_value: Decimal, reorder_cost:
 
 
 # TODO Remove hard coded holding cost and make it a parameter
-def analyse_orders_abcxyz_from_file(file_path: str, z_value: float, reorder_cost: float, file_type: str = "text",
+def analyse_orders_abcxyz_from_file(file_path: str, z_value: float, reorder_cost: float,
+                                    file_type: str = FileFormats.text.name,
                                     period: str = "month", length: int = 12) -> AbcXyz:
     """Analyse orders data from file and returns ABCXYZ analysis
 
@@ -178,7 +180,7 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: float, reorder_cost
     in two columns, 1 for the period and the other for the corresponding data-point.
 
     Args:
-        file_path (file):       The path to the file containing two columns of data, 1 period and 1 data-point for 1 sku.
+        file_path (str):       The path to the file containing two columns of data, 1 period and 1 data-point for 1 sku.
         reorder_cost (Decimal): The average lead-time for the sku over the period represented by the data,
                                 in the same unit.
         length (int):           The number of periods in the data-ser referenced from the second column of the row
@@ -186,8 +188,8 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: float, reorder_cost
         reorder_cost (Decimal): The cost to place a reorder. This is usually the cost of the operation divided by number
                                 of purchase orders placed in the previous period.
         z_value (Decimal):      The service level required to calculate the safety stock
-        file_type (enum):       Type of 'file csv' or 'text'
-        period (enum):          The period of time the data points are bucketed into.
+        file_type (str):       Type of 'file csv' or 'text'
+        period (str):          The period of time the data points are bucketed into.
 
     Returns:
         AbcXyz:     An AbcXyz class object is returned.
