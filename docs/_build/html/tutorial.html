@@ -1,0 +1,289 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Supplychainpy, Xlwings, Pandas and Ipython Tutorial &mdash; supplychainpy 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="supplychainpy 1.0.0 documentation" href="index.html"/>
+        <link rel="prev" title="Quick Guide" href="quickstart.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> supplychainpy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html#inventory-analysis">Inventory Analysis</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Supplychainpy, Xlwings, Pandas and Ipython Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#ipython-the-command-line-cli-or-an-integrated-development-environment-ide">Ipython, the command line (cli) or an integrated development environment (IDE)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-command-line-cli">The command line (cli)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ipython">Ipython</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#inventory-analysis">Inventory Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#are-you-a-dirty-sheet-spreader">Are you a dirty sheet spreader?</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">supplychainpy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Supplychainpy, Xlwings, Pandas and Ipython Tutorial</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/tutorial.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="supplychainpy-xlwings-pandas-and-ipython-tutorial">
+<h1>Supplychainpy, Xlwings, Pandas and Ipython Tutorial<a class="headerlink" href="#supplychainpy-xlwings-pandas-and-ipython-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>Supplychainpy is a Python library for supply chain analysis, modeling and simulation. Using the supplychainpy
+with popular data analysis libraries and tools such as Xlwings or Data Nitro (for Excel spreadsheet applications),
+Pandas, NumPy, Matplotlib, Ipython and Jupyters makes for a powerful supply chain data analysis toolchain.</p>
+<p>Several libraries and technologies exist for interacting with Excel using Python. In this tutorial we use Xlwings
+because it is freely available, packaged with Anaconda (see <span class="xref std std-ref">Installation</span> for details), cross platform (working
+on Mac and PC) and very well documented. The Xlwings project is also in active development, with continuous updates and
+maintenance.</p>
+<p>This tutorial is skewed towards analysts with the requisite domain knowledge, who predominantly use Excel. Some
+knowledge of Python or programming is assumed, although those new to data analysis using python will likely be able to
+follow with assistance from other material.</p>
+<p>This tutorial will proceed to build a typical Excel workbook for inventory management for a fictitious original
+equipment manufacturer (OEM). The examples will be as generic as possible, working exactly the same on both Mac and PC.
+Should there be differences in implementation across both platforms, these differences will be explained.</p>
+<div class="section" id="ipython-the-command-line-cli-or-an-integrated-development-environment-ide">
+<h2>Ipython, the command line (cli) or an integrated development environment (IDE)<a class="headerlink" href="#ipython-the-command-line-cli-or-an-integrated-development-environment-ide" title="Permalink to this headline">¶</a></h2>
+<p>Many choices are available for you when interacting with the workbook on your system. We will quickly explore all the
+alternatives before continuing with our chosen interface the ipython notebook.</p>
+<p>Before we start, it is assumed you have a working installation of Python 3.5 and the supplychainpy library/</p>
+<div class="section" id="the-command-line-cli">
+<h3>The command line (cli)<a class="headerlink" href="#the-command-line-cli" title="Permalink to this headline">¶</a></h3>
+<p>The biggest difference across platforms will be when using the cli. For Mac the unix shell and PC the command
+prompt or PowerShell.</p>
+<ol class="arabic simple">
+<li>Create and save an Excel file on your desktop titled <cite>test.xlsx</cite>. Leave the workbook open.</li>
+<li>The <cite>data.csv</cite> file is packaged with supplychainpy. We will use this file as the data source.</li>
+</ol>
+<ol class="arabic simple" start="2">
+<li>Fire up the terminal:</li>
+</ol>
+<p>Mac
+.. code:: bash</p>
+<blockquote>
+<div>python3</div></blockquote>
+<p>Now using the <cite>data.csv</cite> file and <cite>test.xlsx</cite> workbook, we can run our first analysis.</p>
+<div class="code python highlight-python"><div class="highlight"><pre>    from xlwings import Workbook, Range
+from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
+wb = Workbook(r&#39;~/Desktop/test.xlsx&#39;), Range
+abc = analyse_orders_abcxyz_from_file(file_path=&quot;data.csv&quot;, z_value= 1.28, reorder_cost=5000, file_type=&quot;csv&quot;)
+x = 1
+for sku in abc.orders:
+    Range(&#39;A&#39;+ str(x)).value = sku.sku_id
+    Range(&#39;B&#39; + str(x)).value = float(sku.economic_order_qty)
+    Range(&#39;C&#39; + str(x)).value = float(sku.revenue)
+    Range(&#39;D&#39; + str(x)).value = sku.abcxyz_classification
+    x +=1
+</pre></div>
+</div>
+<p>You should be able to see the following print out in</p>
+<p>windows version</p>
+<p>Now that you are sure you ave got this up and running you can continue and explore the libraries api using the
+<a class="reference internal" href="py-modindex.html"><span>Module Index</span></a>. The main capabilities are discussed below.</p>
+<ol class="arabic simple" start="2">
+<li>and get ipython notebook up and running:</li>
+</ol>
+</div>
+<div class="section" id="integrated-development-environment">
+<h3>Integrated Development Environment<a class="headerlink" href="#integrated-development-environment" title="Permalink to this headline">¶</a></h3>
+<p>While several IDE&#8217;s exist that can support this choice, it is the least favourable when working with Excel work</p>
+</div>
+<div class="section" id="ipython">
+<h3>Ipython<a class="headerlink" href="#ipython" title="Permalink to this headline">¶</a></h3>
+<p>The ipython notebook has many advantages including a consistent interface across both Mac and PC, easy saving of
+notebooks and ability to share your work in various formats to name a few.</p>
+<p>If you are unfamiliar with ipython and the suite of data analysis tools presented in the optional dependencies then
+useful tools include: their respective websites, their documentation and the book
+<a class="reference external" href="PythonforDataAnalysis:DataWranglingwithPandas,NumPy,andIPython">Data Analysis</a> by publisher O&#8217;Reilly.
+The book is in its 1st edition (1 Nov 2012) but still very relevant and useful.</p>
+<p>Fire up the unix</p>
+</div>
+</div>
+<div class="section" id="inventory-analysis">
+<h2>Inventory Analysis<a class="headerlink" href="#inventory-analysis" title="Permalink to this headline">¶</a></h2>
+<p>The inventory analysis functions can be accessed from supplychainpy by importing <cite>model_inventory</cite>.</p>
+</div>
+<div class="section" id="are-you-a-dirty-sheet-spreader">
+<h2>Are you a dirty sheet spreader?<a class="headerlink" href="#are-you-a-dirty-sheet-spreader" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="quickstart.html" class="btn btn-neutral" title="Quick Guide" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Kevin Fasusi.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

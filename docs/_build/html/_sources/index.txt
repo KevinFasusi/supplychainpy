@@ -12,6 +12,9 @@ Contents:
    :maxdepth: 2
 
    Installation
+   quickstart
+   tutorial
+
 
 
 Indices and tables

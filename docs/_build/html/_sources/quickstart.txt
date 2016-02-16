@@ -30,8 +30,6 @@ Summarising Inventory
 
 .. parsed-literal::
 
-    {'standard_deviation': '25',
-        'demand_variability': '0.500', 'sku': 'RX983-90',
-	    'reorder_level': '142', 'average_order': '50',
-	    'safety_stock': '55', 'economic_order_variable_cost': '0.00',
-	    'revenue': '30594.00', 'reorder_quantity': '56'}
+    {'economic_order_quantity': '0', 'standard_deviation': '25','demand_variability': '0.500', 'sku': 'RX983-90',
+	 'reorder_level': '142', 'average_order': '50', 'safety_stock': '55', 'economic_order_variable_cost': '0.00',
+	 'revenue': '30594.00', 'reorder_quantity': '56', 'ABC_XYZ_Classification': ''}

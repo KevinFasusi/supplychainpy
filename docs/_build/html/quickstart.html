@@ -1,0 +1,236 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Quick Guide &mdash; supplychainpy 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="supplychainpy 1.0.0 documentation" href="index.html"/>
+        <link rel="next" title="Supplychainpy, Xlwings, Pandas and Ipython Tutorial" href="tutorial.html"/>
+        <link rel="prev" title="Installation" href="Installation.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> supplychainpy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Quick Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#inventory-analysis">Inventory Analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#summarising-inventory">Summarising Inventory</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Supplychainpy, Xlwings, Pandas and Ipython Tutorial</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">supplychainpy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Quick Guide</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/quickstart.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="quick-guide">
+<h1>Quick Guide<a class="headerlink" href="#quick-guide" title="Permalink to this headline">¶</a></h1>
+<p>The following guide assumes that the supplychainpy library has already been installed. If not please use the
+instructions for <span class="xref std std-ref">Installation</span>.</p>
+<p>While the supplychainpy library can be used in any way you deem fit, the library was created to assist a workflow that
+is reliant on Excel, Excel formulas and VBA. First we go through the use cases and implementations specific to the
+domain (supply chain, operations and manufacturing), before covering the technologies that allow you to work with Excel.</p>
+</div>
+<div class="section" id="inventory-analysis">
+<h1>Inventory Analysis<a class="headerlink" href="#inventory-analysis" title="Permalink to this headline">¶</a></h1>
+<p>Calculating the critical values for inventory analysis using a spreadsheet requires several</p>
+<div class="section" id="summarising-inventory">
+<h2>Summarising Inventory<a class="headerlink" href="#summarising-inventory" title="Permalink to this headline">¶</a></h2>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="kn">import</span> <span class="n">model_inventory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">yearly_demand</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;jan&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;feb&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;mar&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;apr&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                <span class="s1">&#39;may&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;jun&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;jul&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span><span class="s1">&#39;aug&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                <span class="s1">&#39;sep&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;oct&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;nov&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">summary</span> <span class="o">=</span> <span class="n">model_inventory</span><span class="o">.</span><span class="n">analyse_orders</span><span class="p">(</span><span class="n">data_set</span><span class="o">=</span> <span class="n">yearly_demand</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                                         <span class="n">sku_id</span><span class="o">=</span><span class="s1">&#39;RX983-90&#39;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                                         <span class="n">lead_time</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">unit_cost</span><span class="o">=.</span><span class="mi">99</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                                         <span class="n">reorder_cost</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span><span class="n">z_value</span><span class="o">=</span> <span class="mf">1.28</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s1">&#39;economic_order_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;standard_deviation&#39;</span><span class="p">:</span> <span class="s1">&#39;25&#39;</span><span class="p">,</span><span class="s1">&#39;demand_variability&#39;</span><span class="p">:</span> <span class="s1">&#39;0.500&#39;</span><span class="p">,</span> <span class="s1">&#39;sku&#39;</span><span class="p">:</span> <span class="s1">&#39;RX983-90&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;reorder_level&#39;</span><span class="p">:</span> <span class="s1">&#39;142&#39;</span><span class="p">,</span> <span class="s1">&#39;average_order&#39;</span><span class="p">:</span> <span class="s1">&#39;50&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;55&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_variable_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;0.00&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;30594.00&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;56&#39;</span><span class="p">,</span> <span class="s1">&#39;ABC_XYZ_Classification&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tutorial.html" class="btn btn-neutral float-right" title="Supplychainpy, Xlwings, Pandas and Ipython Tutorial" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Installation.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Kevin Fasusi.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
