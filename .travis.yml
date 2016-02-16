@@ -4,9 +4,15 @@ python:
 
 install:
   - pip install numpy
+  - pip install coveralls
 
 script:
   - python -m unittest discover tests/
+  - coverage run --source=supplychainpy setup.py test
+
+after_success:
+  - coveralls
+
 notifications:
   email:
     - kevin@supplybi.com
