@@ -186,17 +186,17 @@ prompt or PowerShell.</p>
 <blockquote>
 <div>python3</div></blockquote>
 <p>Now using the <cite>data.csv</cite> file and <cite>test.xlsx</cite> workbook, we can run our first analysis.</p>
-<div class="code python highlight-python"><div class="highlight"><pre>    from xlwings import Workbook, Range
-from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
-wb = Workbook(r&#39;~/Desktop/test.xlsx&#39;), Range
-abc = analyse_orders_abcxyz_from_file(file_path=&quot;data.csv&quot;, z_value= 1.28, reorder_cost=5000, file_type=&quot;csv&quot;)
-x = 1
-for sku in abc.orders:
-    Range(&#39;A&#39;+ str(x)).value = sku.sku_id
-    Range(&#39;B&#39; + str(x)).value = float(sku.economic_order_qty)
-    Range(&#39;C&#39; + str(x)).value = float(sku.revenue)
-    Range(&#39;D&#39; + str(x)).value = sku.abcxyz_classification
-    x +=1
+<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">xlwings</span> <span class="kn">import</span> <span class="n">Workbook</span><span class="p">,</span> <span class="n">Range</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">(</span><span class="s1">r&#39;~/Desktop/test.xlsx&#39;</span><span class="p">),</span> <span class="n">Range</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">abc</span> <span class="o">=</span> <span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span> <span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span> <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">sku</span> <span class="ow">in</span> <span class="n">abc</span><span class="o">.</span><span class="n">orders</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">Range</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">sku</span><span class="o">.</span><span class="n">sku_id</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">Range</span><span class="p">(</span><span class="s1">&#39;B&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sku</span><span class="o">.</span><span class="n">economic_order_qty</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">Range</span><span class="p">(</span><span class="s1">&#39;C&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sku</span><span class="o">.</span><span class="n">revenue</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">Range</span><span class="p">(</span><span class="s1">&#39;D&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">sku</span><span class="o">.</span><span class="n">abcxyz_classification</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x</span> <span class="o">+=</span><span class="mi">1</span>
 </pre></div>
 </div>
 <p>You should be able to see the following print out in</p>

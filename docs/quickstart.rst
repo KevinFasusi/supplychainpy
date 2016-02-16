@@ -47,7 +47,7 @@ The same analysis can be made by supplying a preformatted `.csv` or `.txt`:
 
     >>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
     >>> from supplychainpy.enum_formats import FileFormats
-    >>> abc = analyse_orders_abcxyz_from_file(file_path="data.csv", z_value= 1.28,
+    >>> abc = analyse_orders_abcxyz_from_file(file_path="data.csv", z_value=Decimal(1.28),
     >>>                                        reorder_cost=Decimal(5000), file_type="text")
     >>> for sku in abc.orders
     >>>     print ('Sku: {} Economic Order Quantity: {} Sku Revenue: {} ABCXYZ Classification: {}'
@@ -62,7 +62,7 @@ xlwings example:
     >>> from xlwings import Workbook, Range
     >>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
     >>> wb = Workbook(r'~/Desktop/test.xlsx'), Range
-    >>> abc = analyse_orders_abcxyz_from_file(file_path="data.csv", z_value= 1.28, reorder_cost=5000, file_type="csv")
+    >>> abc = analyse_orders_abcxyz_from_file(file_path="data.csv", z_value=Decimal(1.28), reorder_cost=Decimal(5000), file_type="csv")
     >>> x = 1
     >>> for sku in abc.orders:
     >>>     Range('A'+ str(x)).value = sku.sku_id

@@ -1,5 +1,5 @@
 Supplychainpy, Xlwings, Pandas and Ipython Tutorial
-====================================================
+===================================================
 
 Supplychainpy is a Python library for supply chain analysis, modeling and simulation. Using the supplychainpy
 with popular data analysis libraries and tools such as Xlwings or Data Nitro (for Excel spreadsheet applications),
@@ -48,17 +48,17 @@ Now using the `data.csv` file and `test.xlsx` workbook, we can run our first ana
 
 .. code:: python
 
-	from xlwings import Workbook, Range
-    from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
-    wb = Workbook(r'~/Desktop/test.xlsx'), Range
-    abc = analyse_orders_abcxyz_from_file(file_path="data.csv", z_value= 1.28, reorder_cost=5000, file_type="csv")
-    x = 1
-    for sku in abc.orders:
-        Range('A'+ str(x)).value = sku.sku_id
-        Range('B' + str(x)).value = float(sku.economic_order_qty)
-        Range('C' + str(x)).value = float(sku.revenue)
-        Range('D' + str(x)).value = sku.abcxyz_classification
-        x +=1
+	>>> from xlwings import Workbook, Range
+	>>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
+	>>> wb = Workbook(r'~/Desktop/test.xlsx'), Range
+	>>> abc = analyse_orders_abcxyz_from_file(file_path="data.csv", z_value= Decimal(1.28), reorder_cost=Decimal(5000), file_type="csv")
+	>>> x = 1
+	>>> for sku in abc.orders:
+	>>>     Range('A'+ str(x)).value = sku.sku_id
+	>>>     Range('B' + str(x)).value = float(sku.economic_order_qty)
+	>>>     Range('C' + str(x)).value = float(sku.revenue)
+	>>>     Range('D' + str(x)).value = sku.abcxyz_classification
+	>>>     x +=1
 
 You should be able to see the following print out in
 
@@ -70,7 +70,7 @@ Now that you are sure you ave got this up and running you can continue and explo
 
 2. and get ipython notebook up and running:
 
-.. code:: python
+
 
 
 Integrated Development Environment
