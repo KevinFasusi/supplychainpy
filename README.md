@@ -44,7 +44,8 @@ An alternative is to clone the repository and run `python setup.py install`
 
 ##Quick Guide
 1. Fire up the python interpreter or `ipython notebook` from the command line.
-:strike: 2. Format the `.csv` or `.txt`.e.g `sku id`, `order1`, `order2`,... `orders12`, `lead time`, `unit cost`
+
+~~2. Format the .csv or .txt .e.g sku id, order1, order2,... orders12, lead time, unit cost`~~
 2. Format the `.csv` or `.txt`.e.g `sku id`, `order1`, `order2`,... `orders12`, `unit cost`, `lead time`,
 
 At the moment the lead-time must match the orders time bucket i.e both should be in days, weeks or months. This will
