@@ -5,8 +5,7 @@
 #Supplychainpy
 
 Supplychainpy is a Python library for supply chain analysis, modeling and simulation. Use in conjunction with popular
-data analysis libraries and tools such as xlwings or data nitro (for Excel spreadsheet applications), pandas,
-numpy, matplotlib, ipython and Jupyters for a powerful supply chain data analysis toolchain.
+data analysis libraries and excel tools such as xlwings or openpyxl (for Excel spreadsheet applications).
 
 The library is currently in early stages of development, so not ready for use in production. However some fun can be had
 by passing a csv or text file in the correct format. For quick exploration, the `analyse_orders_abcxyz_from_file`
