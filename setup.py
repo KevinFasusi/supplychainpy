@@ -10,6 +10,6 @@ setup(name='supplychainpy',
       license='BSD 3',
       packages=find_packages(exclude=['docs', 'tests']),
       test_suite='supplychainpy/tests',
-      install_requires=['numpy'],
+      install_requires=['MumPy'],
       keywords=['supply chain', 'operations research', 'operations management', 'simulation'],
       )

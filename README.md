@@ -17,7 +17,6 @@ will output the following inventory analysis:
 - demand variability
 - ...
 
-
 The inventory analysis can be achieved without having to write several excel formulas, use VBA or manual processes that
 do not scale. Using the library and python is scalable, the example analysis is achieved in 10 lines of code
 (**only 3 lines of code** for the analysis and another 7 to get the results into Excel).
@@ -30,10 +29,10 @@ An alternative is to clone the repository and run `python setup.py install`
 
 ##Dependencies
 
+- NumPy
 
 ##Optional Dependencies
 
-- NumPy
 - pandas
 - matplotlib
 - xlwings
@@ -45,7 +44,9 @@ An alternative is to clone the repository and run `python setup.py install`
 
 ##Quick Guide
 1. Fire up the python interpreter or `ipython notebook` from the command line.
-2. Format the `.csv` or `.txt`.e.g `sku id`, `order1`, `order2`,... `orders12`, `lead time`, `unit cost`
+:strike: 2. Format the `.csv` or `.txt`.e.g `sku id`, `order1`, `order2`,... `orders12`, `lead time`, `unit cost`
+2. Format the `.csv` or `.txt`.e.g `sku id`, `order1`, `order2`,... `orders12`, `unit cost`, `lead time`,
+
 At the moment the lead-time must match the orders time bucket i.e both should be in days, weeks or months. This will
 change promptly.
 

@@ -40,6 +40,7 @@ prompt or PowerShell.
 
 
 Mac
+
 .. code:: bash
 
 	python3
@@ -114,9 +115,12 @@ Demand Planning and Forecasting
 
 
 
-Warehousing and Picking and Packing
-===================================
+Warehousing
+===========
 
+
+Picking and Packing
+-------------------
 
 
 Distribution Optimisation
