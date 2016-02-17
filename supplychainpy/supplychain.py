@@ -35,24 +35,20 @@ def main():
     # end_time = time.time()
     # secs = end_time - start_time
     # print('model_orders took {:.5f} seconds to run'.format(secs))
-    # orders = [1, 3, 5, 67, 4, 65, 242, 50, 48, 24, 34, 20]
-    # orders2 = [4, 5, 7, 33, 45, 53, 55, 35, 53, 53, 43, 34]
+    orders = [1, 3, 5, 67, 4, 65, 242, 50, 48, 24, 34, 20]
+    orders2 = [4, 5, 7, 33, 45, 53, 55, 35, 53, 53, 43, 34]
     # weights = [.3, .5, .2]
-    #  d = forecast_demand.Forecast(orders)
-    # print(d.calculate_moving_average_forecast(forecast_length=6, base_forecast=True, start_position=1))
-    # k = forecast_demand.Forecast(orders2)
-    # k.calculate_moving_average_forecast(forecast_length=6)
-    # moving_average = d.moving_average_forecast
-    # moving_average2 = k.moving_average_forecast
-    # result_array = k.calculate_mean_absolute_deviation(moving_average, orders2, base_forecast=True)
-    # print(result_array)
+    d = forecast_demand.Forecast(orders)
+    d.calculate_moving_average_forecast(forecast_length=6, base_forecast=True, start_position=1)
+    print(d.moving_average_forecast)
+
+   #k = forecast_demand.Forecast(orders2)
+    #k.calculate_moving_average_forecast(forecast_length=6)
+    #moving_average = d.moving_average_forecast
+    #moving_average2 = k.moving_average_forecast
+    #result_array = k.calculate_mean_absolute_deviation(moving_average, orders2, base_forecast=True)
+    #print(result_array)
     #s = np.array([200, 300, 343, 553, 356, 455, 264, 252, 264, 635, 677, 755, 887])
     #analyse_orders_np(unit_cost=300, period=PeriodFormats.months.name, z_value=1.28, orders=s, lead_time=9.00)
-    yearly_demand = {'jan': 75, 'feb': 75, 'mar': 75, 'apr': 75, 'may': 75, 'jun': 75, 'jul': 25,
-                      'aug': 25, 'sep': 25, 'oct': 25, 'nov': 25, 'dec': 25}
-
-    summary = model_inventory.analyse_orders(yearly_demand, 'RX983-90', 3, 50.99, 400, 1.28)
-
-    print(summary)
 
 if __name__ == '__main__': main()
