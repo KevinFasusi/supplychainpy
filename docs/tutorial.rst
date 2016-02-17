@@ -105,6 +105,7 @@ for rolling out a scalable and automated suite of analysis.
 Inventory Analysis
 ------------------
 
+
 The inventory analysis functions can be accessed from supplychainpy by importing `model_inventory`.
 
 
