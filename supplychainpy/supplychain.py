@@ -35,20 +35,28 @@ def main():
     # end_time = time.time()
     # secs = end_time - start_time
     # print('model_orders took {:.5f} seconds to run'.format(secs))
-    orders = [1, 3, 5, 67, 4, 65, 242, 50, 48, 24, 34, 20]
-    orders2 = [4, 5, 7, 33, 45, 53, 55, 35, 53, 53, 43, 34]
+    orders1 = [1, 3, 5, 67, 4, 65, 44, 50, 48, 24, 34, 20]
+    orders2 = [1, 3, 5, 67, 4, 65, 44, 50, 48, 24, 34, 20]
     weights = [.5, .3, .2]
-    forecast = forecast_demand.Forecast(orders)
-    forecast.weighted_moving_average_forecast(weights=weights, average_period=3, forecast_length=3)
+    forecast = forecast_demand.Forecast(orders1)
+    print(orders1)
+    forecast.weighted_moving_average_forecast(weights=weights, average_period=3, forecast_length=9,
+                                              start_position=3)
     print(forecast.weighted_moving_average)
 
     # d.moving_average(forecast_length=3, base_forecast=True, start_position=3)
     # print(d.moving_average_forecast)
 
     k = forecast_demand.Forecast(orders2)
-    ma = k.moving_average_forecast(forecast_length=3)
-    result_array = k.mean_absolute_deviation(ma, forecast.weighted_moving_average)
+    k.moving_average_forecast(forecast_length=9, start_position=3, average_period=3)
+    print(k.moving_average)
+    result_array = k.mean_absolute_deviation(forecast.weighted_moving_average)
+    result_array2 = forecast.mean_absolute_deviation(k.moving_average)
     print(result_array)
+    print(result_array2)
+    print(orders1)
+    print(k.moving_average)
+    print(forecast.weighted_moving_average)
     # s = np.array([200, 300, 343, 553, 356, 455, 264, 252, 264, 635, 677, 755, 887])
     # analyse_orders_np(unit_cost=300, period=PeriodFormats.months.name, z_value=1.28, orders=s, lead_time=9.00)
 

@@ -29,40 +29,40 @@ class TestBuildModel(TestCase):
         # finish with all members
 
     def test_standard_deviation_row_count(self):
-        # arrange
+        # arrange, act
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplychainpy/test_row_small.txt'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
         d = model_inventory.analyse_orders_from_file_row(abs_file_path, Decimal(1.28), Decimal(400))
-        # act
 
         # assert
         self.assertEquals(len(d), 16)
 
     def test_file_path_extension_row(self):
-        # arrange
+        # arrange,act
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplychainpy/tel.tt'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
+        # assert
         with self.assertRaises(expected_exception=Exception):
             d = model_inventory.analyse_orders_from_file_row(abs_file_path, 1.28, 400, file_type="text")
 
     def test_file_path_extension_col(self):
-        # arrange
+        # arrange, act
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplychainpy/test.tt'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
+        # assert
         with self.assertRaises(expected_exception=Exception):
             d = model_inventory.analyse_orders_from_file_col(abs_file_path, 1.28, 400, file_type="text")
 
     def test_standard_deviation_col_count(self):
-        # arrange
+        # arrange, act
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplychainpy/test.txt'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
         d = model_inventory.analyse_orders_from_file_col(abs_file_path, 'RX9304-43', Decimal(2), Decimal(400),
                                                          Decimal(45), Decimal(1.28), file_type="text")
-        # act
         # assert
         self.assertEquals(len(d), 11)
 
@@ -71,8 +71,8 @@ class TestBuildModel(TestCase):
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplychainpy/data_col.csv'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
-        d = model_inventory.analyse_orders_from_file_col(abs_file_path, 'RX9304-43', 2, 400, 45, 1.28, file_type="csv")
         # act
+        d = model_inventory.analyse_orders_from_file_col(abs_file_path, 'RX9304-43', 2, 400, 45, 1.28, file_type="csv")
         # assert
         self.assertEquals(len(d), 11)
 
@@ -94,10 +94,10 @@ class TestBuildModel(TestCase):
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplychainpy/test.txt'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
-        d = model_inventory.analyse_orders_from_file_col(abs_file_path, 'RX9304-43', 2, 400, 45, 1.28, file_type="text")
         # act
+        d = model_inventory.analyse_orders_from_file_col(abs_file_path, 'RX9304-43', 2, 400, 45, 1.28, file_type="text")
+
         # assert
-        print(d.get('standard_deviation'))
         self.assertEquals(Decimal(d.get('standard_deviation')), 25)
 
     def test_analyse_orders_from_file_row_csv(self):
@@ -105,6 +105,7 @@ class TestBuildModel(TestCase):
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplychainpy/data.csv'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
+        # act
         d = model_inventory.analyse_orders_from_file_row(abs_file_path, z_value=Decimal(1.28),
                                                          reorder_cost=Decimal(400), file_type="csv")
         for row in d:
@@ -114,9 +115,11 @@ class TestBuildModel(TestCase):
         self.assertEqual(Decimal(std), 976)
 
     def test_file_path_abcxyz_extension(self):
+        # arrange, act
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplychainpy/data.sv'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
+        # assert
         with self.assertRaises(expected_exception=Exception):
             abc = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=1.28,
                                                                   reorder_cost=5000, file_type="csv")

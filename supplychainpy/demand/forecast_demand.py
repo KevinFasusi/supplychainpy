@@ -95,7 +95,7 @@ class Forecast:
                     start_period += 1
 
                 end_period = len(moving_average)
-                self.__moving_average = moving_average
+            self.__moving_average = moving_average
 
         else:
             start_period = len(self.__orders) - average_period
@@ -122,7 +122,8 @@ class Forecast:
             return moving_average
 
     def weighted_moving_average_forecast(self, weights: list, average_period: int = 3,
-                                         forecast_length: int = 3) -> list:
+                                         forecast_length: int = 3, base_forecast: bool = False,
+                                         start_position=0) -> list:
         """ Generates a forecast from moving averages using user supplied weights.
 
         Generate a forecast from moving averages for as many periods as specified and adjusts the forecast based
@@ -132,7 +133,9 @@ class Forecast:
             average_period (int):       Number of periods to average.
             forecast_length (int):      Number of periods to forecast for.
             weights (list):             A list of weights that sum up to one.
-
+            base_forecast(bool):        Start a moving average forecast from anywhere
+                                        in the list. For use when evaluating a forecast.
+            start_position(int):        Start position
 
         Returns:
             list:       Returns a list of orders including the original and the forecast appended to the end.
@@ -161,43 +164,78 @@ class Forecast:
         else:
             start_period = len(self.__orders) - average_period
 
-        end_period = len(self.__orders)
-        total_orders = 0
-        moving_average = self.__orders
-        count = 0
-        average_orders = 0.0
-        weight_count = 0
-        while count < forecast_length:
-            weight_count = 0
-            for items in moving_average[start_period:end_period]:
-                total_orders += items
-            average_orders = (total_orders / float(average_period)) * weights[weight_count]
-            count += 1
-            moving_average.append(round(average_orders))
-            average_orders = 0.0
-            total_orders = 0.0
-            if count < 1:
-                start_period += len(moving_average) - average_period
+        if base_forecast:
+            start_period = start_position + average_period
+            end_period = len(self.__orders)
+            total_orders = 0
+            weighted_moving_average = []
+            if start_position + 1 < average_period:
+                raise ValueError("Incorrect number of orders supplied. Please make sure you have enough orders to "
+                                 "calculate an average. The average_period is {}, while the \n"
+                                 "number of orders supplied is {}. The number of orders supplied should  be equal "
+                                 "or greater than the average_period.\n Either decrease the average_period or "
+                                 "increase the start_position in the list.".format(average_period, start_position))
             else:
-                start_period += 1
+                for i in self.__orders[0:start_position]:
+                    weighted_moving_average.append(self.__orders[i])
 
-            end_period = len(moving_average)
-        self.__weighted_moving_average = moving_average
-        return moving_average
+            count = 0
+            weight_count = 0
+            while count < forecast_length:
+                for items in weighted_moving_average[0:end_period]:
+                    total_orders += items
+
+                count += 1
+                average_orders = (total_orders / float(average_period)) * weights[weight_count]
+                weighted_moving_average.append(round(average_orders))
+                total_orders = 0.0
+                if count < 1:
+                    start_period += len(weighted_moving_average) - average_period
+                else:
+                    start_period += 1
+            self.__weighted_moving_average = weighted_moving_average
+        else:
+            end_period = len(self.__orders)
+            total_orders = 0
+            weighted_moving_average = self.__orders
+            count = 0
+            average_orders = 0.0
+            while count < forecast_length:
+                weight_count = 0
+                for items in weighted_moving_average[start_period:end_period]:
+                    total_orders += items
+                average_orders = (total_orders / float(average_period)) * weights[weight_count]
+                count += 1
+                weighted_moving_average.append(round(average_orders))
+                average_orders = 0.0
+                total_orders = 0.0
+                if count < 1:
+                    start_period += len(weighted_moving_average) - average_period
+                else:
+                    start_period += 1
+
+                end_period = len(weighted_moving_average)
+
+        self.__weighted_moving_average = weighted_moving_average
+        return weighted_moving_average
 
     def simple_exponential_smoothing(self, forecasts: list) -> list:
         pass
 
     # also use to calculate the MAD for all forecasting methods given a spcific length of order
 
-    def mean_absolute_deviation(self, forecasts: list, base_forecast: bool = False) -> np.array:
+    # TODO-feature fix base_forecast for correct period to period MAD calculation
+    def mean_absolute_deviation(self, forecasts: list, base_forecast: bool = False, start_period: int = 3) -> np.array:
 
-        """
+        """ calculates the mean absolute deviation (MAD) for a given forecast.
+
+        Calculates the mean absolute deviation for a forecast. The forecast and
 
         Args:
-            forecasts (int):        Number of periods to average.
-            base_forecast (bool):   A list of weights that sum up to one.
-
+            forecasts (list):       A previously calculated forecast.
+            base_forecast (bool):   Start a moving average forecast from anywhere
+                                    in the list.
+            start_period (int):     The start period of the forecast.
 
         Returns:
             np.array
@@ -207,8 +245,9 @@ class Forecast:
         """
 
         if base_forecast:
-            forecast_array = np.array(forecasts)
-            orders_array = np.array(self.__orders[0: len(forecasts)])
+            end_period = len(forecasts) - start_period
+            forecast_array = np.array(forecasts[:end_period])
+            orders_array = np.array(self.__orders[start_period: len(forecasts)])
             std_array = orders_array - forecast_array
             std_array = sum(abs(std_array)) / len(std_array)
         else:

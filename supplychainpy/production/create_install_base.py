@@ -1,6 +1,6 @@
 __author__ = 'Fasusi'
 
-
+#inuput job/ failure rates, etc
 class Machine:
     def __init__(self):
         # user specified features
