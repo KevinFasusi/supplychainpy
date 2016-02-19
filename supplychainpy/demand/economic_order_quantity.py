@@ -46,11 +46,9 @@ class EconomicOrderQuantity(analyse_uncertain_demand.UncertainDemand):
             previous_eoq_variable_cost = Decimal(vc)
             # reorder cost * average demand all divided by order size + (demand size * holding cost)
             if counter < 1:
-                order_size = int((float(average_orders) * float(reorder_cost) * 2) / (
-                    float(unit_cost) * float(holding_cost)) * order_factor) * float(0.5)
-
-            else:
-                pass
+                order_size = self._order_size(average_orders=average_orders, reorder_cost=reorder_cost,
+                                              unit_cost=unit_cost, holding_cost=holding_cost,
+                                              order_factor=order_factor)
 
             vc = self._variable_cost(float(average_orders), float(reorder_cost), float(order_size), float(unit_cost),
                                      float(holding_cost))
@@ -58,15 +56,13 @@ class EconomicOrderQuantity(analyse_uncertain_demand.UncertainDemand):
             order_size += int(float(order_size) * step)
             if counter < 1:
                 previous_eoq_variable_cost = Decimal(vc)
-            else:
-                pass
 
             while counter == 0:
                 counter += 1
         return Decimal(previous_eoq_variable_cost)
         # probabaly missing the addition
 
-    def _eoq_for_minimum_variable_cost(self, average_orders: float, reorder_cost: float, unit_cost: float)->Decimal:
+    def _eoq_for_minimum_variable_cost(self, average_orders: float, reorder_cost: float, unit_cost: float) -> Decimal:
         getcontext().prec = 2
         getcontext().rounding = ROUND_HALF_UP
         holding_cost = self.__holding_cost
@@ -88,11 +84,9 @@ class EconomicOrderQuantity(analyse_uncertain_demand.UncertainDemand):
             previous_eoq_variable_cost = Decimal(vc)
             # reorder cost * average demand all divided by order size + (demand size * holding cost)
             if counter < 1:
-                order_size = int((float(average_orders) * float(reorder_cost) * 2) / (
-                    float(unit_cost) * float(holding_cost)) * order_factor) * float(0.5)
-
-            else:
-                pass
+                order_size = self._order_size(average_orders=average_orders, reorder_cost=reorder_cost,
+                                              unit_cost=unit_cost, holding_cost=holding_cost,
+                                              order_factor=order_factor)
 
             vc = self._variable_cost(float(average_orders), float(reorder_cost), float(order_size), float(unit_cost),
                                      float(holding_cost))
@@ -100,8 +94,6 @@ class EconomicOrderQuantity(analyse_uncertain_demand.UncertainDemand):
             order_size += int(float(order_size) * step)
             if counter < 1:
                 previous_eoq_variable_cost = Decimal(vc)
-            else:
-                pass
 
             while counter == 0:
                 counter += 1
@@ -111,9 +103,21 @@ class EconomicOrderQuantity(analyse_uncertain_demand.UncertainDemand):
     @staticmethod
     def _variable_cost(average_orders: float, reorder_cost: float, order_size: float, unit_cost: float,
                        holding_cost: float) -> float:
+
         rc = lambda x, y, z: (x * y) / z
         hc = lambda x, y, z: x * y * z
         vc = rc(float(average_orders), float(reorder_cost), float(order_size)) + hc(float(unit_cost),
                                                                                     float(order_size),
                                                                                     float(holding_cost))
         return vc
+
+    @staticmethod
+    def _order_size(average_orders: float, reorder_cost: float, unit_cost: float, holding_cost: float,
+                    order_factor: float) -> float:
+
+        order_size_calc = lambda x, y, z, i, j: int(
+            (float(x) * float(y) * 2) / (float(z) * float(i)) * float(j) * float(0.5))
+
+        order_size = order_size_calc(average_orders, reorder_cost, unit_cost, holding_cost, order_factor)
+
+        return order_size

@@ -255,6 +255,8 @@ class Forecast:
             orders_array = np.array(self.__orders)
             std_array = orders_array - forecast_array
             std_array = sum(abs(std_array)) / len(std_array)
+
+
         return std_array
 
     def mean_forecast_error(self):
