@@ -1,7 +1,7 @@
 from decimal import Decimal
 from collections import Iterable
 import collections
-import numpy as np
+
 from supplychainpy.enum_formats import PeriodFormats
 
 order = collections.namedtuple('order', 'sku sku_orders')
@@ -46,8 +46,7 @@ class UncertainDemand:
 
     def __init__(self, orders: dict, sku: str, lead_time: Decimal, unit_cost: Decimal, reorder_cost: Decimal,
                  z_value: Decimal = Decimal(1.28), holding_cost: Decimal = 0.00,
-                 period: int = 0):
-        # need to check all demand entered are integers
+                 period: str = PeriodFormats.months.name):
 
         self.__orders = orders
         self.__sku_id = sku
@@ -70,6 +69,7 @@ class UncertainDemand:
         self.__reorder_cost = Decimal(reorder_cost)
         self.__fixed_reorder_quantity = Decimal(self._fixed_order_quantity())
         self.__order = [order(sku, sku_orders) for sku_orders in self.__orders for sku in self.__sku_id]
+        self.__period = period
 
     @property
     def abcxyz_classification(self) -> str:
@@ -111,6 +111,7 @@ class UncertainDemand:
     @property
     def order(self):
         total_order = 0
+        orders_list = []
         for items in self.__orders:
             orders_list = self.__orders[items]
         if isinstance(orders_list, Iterable):
@@ -120,6 +121,10 @@ class UncertainDemand:
             for item in self.__orders:
                 total_order += self.__orders[item]
         return total_order
+
+    @property
+    def order_count(self):
+        return self.__count_orders
 
     @order.setter
     def order(self, orders):
@@ -253,6 +258,15 @@ class UncertainDemand:
                 'economic_order_variable_cost': '{:.2f}'.format(self.__economic_order_variable_cost),
                 'ABC_XYZ_Classification': '{0}{1}'.format(self.__abc_classification, self.__xyz_classification)}
 
+    def orders_summary_simple(self) -> dict:
+        return {'sku': self.__sku_id, 'average_order': '{:.0f}'.format(self.__average_order),
+                'standard_deviation': '{:.0f}'.format(self.__orders_standard_deviation),
+                'safety_stock': '{:.0f}'.format(self.__safety_stock),
+                'demand_variability': '{:.3f}'.format(self.__demand_variability),
+                'reorder_level': '{:.0f}'.format(self.__reorder_level),
+                'reorder_quantity': '{:.0f}'.format(self.__fixed_reorder_quantity),
+                'revenue': '{:.2f}'.format(self.__sku_revenue)}
+
     def __del__(self):
 
         self.__orders = None
@@ -270,7 +284,3 @@ class UncertainDemand:
         self.__fixed_reorder_quantity = None
         # class_name = self.__class__.__name__
         # print(class_name + " destroyed")
-
-
-class UncertainDemandSimple(UncertainDemand):
-    pass

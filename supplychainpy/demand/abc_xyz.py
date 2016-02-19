@@ -2,6 +2,7 @@ from decimal import Decimal
 from operator import attrgetter
 
 
+# TODO-feature Allow user to set the boundaries for classe classification
 class AbcXyz:
     '''Applies abc xyz analysis on a collection of demand passed into the '''
     __orders = {}
@@ -68,7 +69,5 @@ class AbcXyz:
                 sku.xyz_classification = self.__y_class
             else:
                 sku.xyz_classification = self.__z_class
-
-
 
 # ranking method returns the demand list of dictionaries back in order

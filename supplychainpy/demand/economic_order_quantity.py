@@ -60,7 +60,7 @@ class EconomicOrderQuantity(analyse_uncertain_demand.UncertainDemand):
             while counter == 0:
                 counter += 1
         return Decimal(previous_eoq_variable_cost)
-        # probabaly missing the addition
+        # probably missing the addition
 
     def _eoq_for_minimum_variable_cost(self, average_orders: float, reorder_cost: float, unit_cost: float) -> Decimal:
         getcontext().prec = 2
