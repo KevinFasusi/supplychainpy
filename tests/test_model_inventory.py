@@ -36,7 +36,7 @@ class TestBuildModel(TestCase):
         d = model_inventory.analyse_orders_from_file_row(abs_file_path, Decimal(1.28), Decimal(400))
 
         # assert
-        self.assertEquals(len(d), 16)
+        self.assertEqual(len(d), 16)
 
     def test_file_path_extension_row(self):
         # arrange,act
@@ -64,7 +64,7 @@ class TestBuildModel(TestCase):
         d = model_inventory.analyse_orders_from_file_col(abs_file_path, 'RX9304-43', Decimal(2), Decimal(400),
                                                          Decimal(45), Decimal(1.28), file_type="text")
         # assert
-        self.assertEquals(len(d), 11)
+        self.assertEqual(len(d), 11)
 
     def test_standard_deviation_col_count_csv(self):
         # arrange
@@ -74,7 +74,7 @@ class TestBuildModel(TestCase):
         # act
         d = model_inventory.analyse_orders_from_file_col(abs_file_path, 'RX9304-43', 2, 400, 45, 1.28, file_type="csv")
         # assert
-        self.assertEquals(len(d), 11)
+        self.assertEqual(len(d), 11)
 
     def test_standard_deviation_row_value(self):
         # arrange
@@ -98,7 +98,7 @@ class TestBuildModel(TestCase):
         d = model_inventory.analyse_orders_from_file_col(abs_file_path, 'RX9304-43', 2, 400, 45, 1.28, file_type="text")
 
         # assert
-        self.assertEquals(Decimal(d.get('standard_deviation')), 25)
+        self.assertEqual(Decimal(d.get('standard_deviation')), 25)
 
     def test_analyse_orders_from_file_row_csv(self):
         # arrange

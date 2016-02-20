@@ -49,6 +49,6 @@ class TestMonteCarlo(TestCase):
         for sku in orders_analysis.orders:
             item = sku.orders_summary()
             if item['sku'] == 'KR202-209':
-                self.assertLess(
+                self.assertEqual(
                     abs(float(item['standard_deviation']) - np.std(sim.normal_random_distribution['KR202-209'],
                                                                    ddof=0)), float(item['standard_deviation']))
