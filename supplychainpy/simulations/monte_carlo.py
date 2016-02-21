@@ -5,29 +5,63 @@ from supplychainpy.enum_formats import PeriodFormats
 
 
 class SetupMonteCarlo:
+    _conversion = 1
+    _window = {}
+
     def __init__(self, analysed_orders: AbcXyz, period: str = PeriodFormats.months.name):
         self._analysed_orders = analysed_orders
-        self._normal_random_distribution = self._normal_random_distribution()
-
-    @property
-    def normal_random_distribution(self):
-        return self._normal_random_distribution
 
     # pass the period and length of period. The period has to be set in the orders data so the
     # conversion can be made if necessary. run
 
-    def _normal_random_distribution(self) -> dict:
+    def generate_normal_random_distribution(self, period_length: int) -> list:
         orders_normal_distribution = {}
+        random_orders_generator = []
+        final_random_orders_generator = []
         for sku in self._analysed_orders:
-            nrd_orders = np.random.normal(loc=sku.average_orders,
-                                          scale=sku.standard_deviation,
-                                          size=sku.order_count)
+            for i in range(0, period_length):
+                nrd_orders = np.random.normal(loc=sku.average_orders,
+                                              scale=sku.standard_deviation,
+                                              size=sku.order_count)
 
-            orders_normal_distribution[sku.sku_id] = nrd_orders
-        return orders_normal_distribution
+                random_orders_generator.append([abs(nrd_orders)])
+            orders_normal_distribution[sku.sku_id] = random_orders_generator
+            random_orders_generator = []
+        final_random_orders_generator.append(orders_normal_distribution)
+        return final_random_orders_generator
+
+    def build_window(self, random_normal_demand: list)->dict:
+        for sku in self._analysed_orders:
+            demand = random_normal_demand[sku.sku_id]
+
+    def closing_stock(self, demand: list) -> list:
+      
+
+        return None
 
     def _normal_random_distribution_cuda(self, num_runs: int) -> dict:
         pass
 
-    def _convert_period(self):
+    def _covert_period(self, period) -> bool:
+        pass
+
+    def _opening_stock(self):
+        pass
+
+    def _delivery(self):
+        pass
+
+    def _backlog(self):
+        pass
+
+    def _holding_cost(self):
+        pass
+
+    def _shortage_cost(self):
+        pass
+
+    def _po_placement(self):
+        pass
+
+    def _po_receipt(self):
         pass
