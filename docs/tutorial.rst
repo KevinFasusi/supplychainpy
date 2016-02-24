@@ -29,7 +29,7 @@ Before we start, it is assumed you have a working installation of Python 3.5 and
 The command line (cli)
 ^^^^^^^^^^^^^^^^^^^^^^
 
-The biggest difference across platforms will be when using the cli. For Mac the unix shell and PC the command
+The biggest difference across platforms will be when using the cli. For Mac and linux the unix shell and PC the command
 prompt or PowerShell.
 
 1. Create and save an Excel file on your desktop titled `test.xlsx`. Leave the workbook open.

@@ -19,8 +19,9 @@ def main():
                                                                       file_type="csv")
 
     simulation = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis.orders)
-    random_demand = simulation.generate_normal_random_distribution(period_length=1000)
-    simulation.build_window(random_normal_demand=random_demand)
+    random_demand = simulation.generate_normal_random_distribution(period_length=2)
+    simulation.build_window(random_normal_demand=random_demand, period_length=2)
+
 
     list_random_orders = []
     #for i in range(0, 10):

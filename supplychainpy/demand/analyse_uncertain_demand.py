@@ -72,6 +72,22 @@ class UncertainDemand:
         self.__period = period
 
     @property
+    def reorder_level(self):
+        return self.__reorder_level
+
+    @reorder_level.setter
+    def reorder_level(self, ):
+        self.__reorder_level
+
+    @property
+    def unit_cost(self)->Decimal:
+        return self.__unit_cost
+
+    @unit_cost.setter
+    def unit_cost(self, unit_cost):
+        self.__unit_cost = unit_cost
+
+    @property
     def abcxyz_classification(self) -> str:
         """Gets ABCXYZ classification as a concatenated string"""
         return self.__abc_classification + self.__xyz_classification

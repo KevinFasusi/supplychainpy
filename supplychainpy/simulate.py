@@ -3,7 +3,7 @@ from decimal import Decimal
 from supplychainpy import model_inventory
 
 
-def monte_carlo(file_path: str, opening_stock: int, z_value: Decimal, reorder_cost: Decimal, file_type: str,
+def run_monte_carlo(file_path: str, opening_stock: int, z_value: Decimal, reorder_cost: Decimal, file_type: str,
                 runs: int, ) -> dict:
     orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=file_path,
                                                                       z_value=z_value,

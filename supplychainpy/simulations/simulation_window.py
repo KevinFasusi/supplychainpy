@@ -18,6 +18,15 @@ class MonteCarloWindow:
         self._backlog_at_po_placement = 0
         self._quantity_sold = 0
         self._position = 0
+        self._shortage_units = 0
+
+    @property
+    def shortage_units(self):
+        return self._shortage_cost
+
+    @shortage_units.setter
+    def shortage_units(self, shortage_units):
+        self._shortage_cost = shortage_units
 
     @property
     def sku_id(self) -> str:
@@ -36,7 +45,7 @@ class MonteCarloWindow:
         self._lead_time = lead_time
 
     @property
-    def opening_stock(self):
+    def opening_stock(self)->int:
         return self._opening_stock
 
     @opening_stock.setter
@@ -130,4 +139,3 @@ class MonteCarloWindow:
     @position.setter
     def position(self, position: int):
         self._position = position
-
