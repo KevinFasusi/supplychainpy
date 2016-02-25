@@ -14,14 +14,17 @@ class SetupMonteCarlo:
     """ Create a monte carlo simulation for inventory analysis.
 
     """
+
     _conversion = 1
     _window = {}
 
-    def __init__(self, analysed_orders: AbcXyz, period: str = PeriodFormats.months.name):
+    def __init__(self, analysed_orders: AbcXyz, period: str = PeriodFormats.months.name, period_length: int = 12):
         self._analysed_orders = analysed_orders
-    # pass the period and length of period. The period has to be set in the orders data so the
-    # conversion can be made if necessary. run
+        self._normal_random_distribution = self.generate_normal_random_distribution(period_length=period_length)
 
+    @property
+    def normal_random_distribution(self):
+        return self._normal_random_distribution
 
     def generate_normal_random_distribution(self, period_length: int) -> list:
 

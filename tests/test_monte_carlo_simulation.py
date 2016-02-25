@@ -21,13 +21,13 @@ class TestMonteCarlo(TestCase):
                                                                           reorder_cost=Decimal(5000),
                                                                           file_type="csv")
 
-        sim = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis.orders)
+        sim = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis.orders, period_length=1)
         for sku in orders_analysis.orders:
             item = sku.orders_summary()
             if item['sku'] == 'KR202-209':
                 # assert
                 self.assertLess(
-                    abs(float(item['average_order']) - np.mean(sim.normal_random_distribution['KR202-209'])),
+                    abs(float(item['average_order']) - np.mean(sim.normal_random_distribution[0]['KR202-209'][0][0])),
                     float(item['standard_deviation']))
 
    # def test_normal_distribution_variance(self):
