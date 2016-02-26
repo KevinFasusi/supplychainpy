@@ -68,12 +68,10 @@ change promptly.
 ```
 Further examples and explanations will be available in the documentation. Please find below.
 
+Documentation: [supplychainpy.readthdocs](http://supplychainpy.readthedocs.org/)
 
-[Documentation](http://supplychainpy.readthedocs.org/)
+Website: [supplychainpy.org](http://www.supplychainpy.org/)
 
-Website:
-
-youtube:
-
+Forum: [google groups](https://groups.google.com/forum/#!forum/supplychainpy)
 
 

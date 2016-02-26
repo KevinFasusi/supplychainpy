@@ -110,7 +110,7 @@ class MonteCarloWindow:
 
     @property
     def purchase_order_receipt_qty(self) -> int:
-        return self._purchase_receipt_raised_qty
+        return self._purchase_order_receipt_qty
 
     @purchase_order_receipt_qty.setter
     def purchase_order_receipt_qty(self, po_receipt_qty: int):

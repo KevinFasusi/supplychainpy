@@ -4,11 +4,13 @@ from decimal import Decimal
 from supplychainpy.demand.abc_xyz import AbcXyz
 from supplychainpy.enum_formats import PeriodFormats
 from supplychainpy.simulations import simulation_window
-
+from supplychainpy.simulations.simulation_frame_summary import MonteCarloFrameSummary
 
 # assumptions: opening stock in first period is average stock adjusted to period used in monte carlo if different from
 # orders analysis. There are no deliveries in the first period (maybe add switch so there always is a delivery in first,
 # users choice) period based on inventory rules.
+
+
 
 class SetupMonteCarlo:
     """ Create a monte carlo simulation for inventory analysis.
@@ -59,6 +61,8 @@ class SetupMonteCarlo:
             random_orders_generator = []
         final_random_orders_generator.append(orders_normal_distribution)
         return final_random_orders_generator
+
+    # replace implementation with yield generators instead
 
     def build_window(self, random_normal_demand: list, period_length: int = 0,
                      holding_cost_percentage: Decimal = 0.48,
@@ -111,7 +115,8 @@ class SetupMonteCarlo:
         raise_po = lambda reorder_lvl, cls_stock: True if cls_stock <= reorder_lvl else False
 
         po_qty = lambda eoq, reorder_lvl, backlog, cls_stock: Decimal(eoq) + Decimal(backlog) + Decimal(
-            (Decimal(reorder_lvl) - Decimal(cls_stock)))
+            (Decimal(reorder_lvl) - Decimal(cls_stock))) if Decimal(eoq) + Decimal(backlog) + Decimal(
+            (Decimal(reorder_lvl) - Decimal(cls_stock))) > 0 else 0
 
         # calculate period to recieve po and quantity to receiv
 
@@ -122,14 +127,18 @@ class SetupMonteCarlo:
                                                                                         len(random_normal_demand[0][
                                                                                                 sku.sku_id])))
 
+        sim_frame_collection = []
+
         for sku in self._analysed_orders:
             period = 1
             order_receipt_index = {}
             final_stock = 0
+            sim_window_collection = {}
 
             # create the sim_window for each sku, suing the random normal demand generated
-            for i in range(1, period_length):
+            for i in range(0, period_length):
                 sim_window = simulation_window.MonteCarloWindow
+                sim_window.sku_id = sku.sku_id
                 previous_closing_stock = final_stock
                 sim_window.position = period
                 if sim_window.position == 1:
@@ -137,7 +146,7 @@ class SetupMonteCarlo:
                 else:
                     sim_window.opening_stock = previous_closing_stock
 
-                demand = random_normal_demand[i][sku.sku_id][0][i]
+                demand = random_normal_demand[0][sku.sku_id][i][0]
 
                 sim_window.demand = demand
 
@@ -172,12 +181,24 @@ class SetupMonteCarlo:
                                                                 cls_stock=sim_window.closing_stock)
 
                 final_stock = sim_window.closing_stock
+                yield sim_window
 
                 period += 1
 
 
-                # return a list of dict
-        return simulation_frame
 
-    def build_summary(self, simulation_frame: list):
+
+
+
+    def build_frame_summary(self, simulation_frame_collection: list):
+        frame_summary = MonteCarloFrameSummary
+
+        for sim in simulation_frame_collection:
+            frame_summary.closing_stock_average
+
+
+
+
+    def build_monte_carlo_summary(self):
         pass
+
