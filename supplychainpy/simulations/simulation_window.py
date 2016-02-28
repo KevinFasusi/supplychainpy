@@ -2,8 +2,11 @@ from decimal import Decimal
 
 
 class MonteCarloWindow:
+    """ Attributes for monte carlo calculations, for building the simulation window
 
+    """
     def __init__(self):
+        self._index = 0
         self._sku_id = ""
         self._lead_time = 0
         self._opening_stock = 0
@@ -21,7 +24,15 @@ class MonteCarloWindow:
         self._shortage_units = 0
 
     @property
-    def shortage_units(self):
+    def index(self)->int:
+        return self._index
+
+    @index.setter
+    def index(self, index: int):
+        self._index = index
+
+    @property
+    def shortage_units(self)->int:
         return self._shortage_cost
 
     @shortage_units.setter
@@ -45,7 +56,7 @@ class MonteCarloWindow:
         self._lead_time = lead_time
 
     @property
-    def opening_stock(self)->int:
+    def opening_stock(self) -> int:
         return self._opening_stock
 
     @opening_stock.setter

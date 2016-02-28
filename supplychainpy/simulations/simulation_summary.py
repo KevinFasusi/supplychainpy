@@ -2,6 +2,8 @@ from decimal import Decimal
 
 
 class MonteCarloSummary:
+    """
+    """
 
     def __init__(self):
         self._opening_stock_average

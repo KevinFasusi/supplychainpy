@@ -6,6 +6,7 @@ from supplychainpy.enum_formats import PeriodFormats
 from supplychainpy.simulations import simulation_window
 from supplychainpy.simulations.simulation_frame_summary import MonteCarloFrameSummary
 
+
 # assumptions: opening stock in first period is average stock adjusted to period used in monte carlo if different from
 # orders analysis. There are no deliveries in the first period (maybe add switch so there always is a delivery in first,
 # users choice) period based on inventory rules.
@@ -106,7 +107,7 @@ class SetupMonteCarlo:
             Decimal(unit_cost) * Decimal(holding_cost_percentage)) if cls_stock > 0 else 0
 
         shortages = lambda opening_stock, orders, deliveries: abs((Decimal(opening_stock) - Decimal(orders)) +
-                                                                 Decimal(deliveries)) if \
+                                                                  Decimal(deliveries)) if \
             ((Decimal(opening_stock) - Decimal(orders)) + Decimal(deliveries)) < 0 else 0
 
         shortage_cost = lambda cls_stock, unit_cost: cls_stock * (
@@ -124,11 +125,11 @@ class SetupMonteCarlo:
             if period_length != len(random_normal_demand[0][sku.sku_id]):
                 raise ValueError("The period_length is currently {} and the actual length of the demand is {}. "
                                  "Please make sure that the two values are equal".format(period_length,
-                                                                                        len(random_normal_demand[0][
-                                                                                                sku.sku_id])))
+                                                                                         len(random_normal_demand[0][
+                                                                                                 sku.sku_id])))
 
         sim_frame_collection = []
-
+        index_item = 1
         for sku in self._analysed_orders:
             period = 1
             order_receipt_index = {}
@@ -156,6 +157,8 @@ class SetupMonteCarlo:
                 else:
                     sim_window.purchase_order_receipt_qty = 0
 
+                sim_window.index = index_item
+
                 sim_window.backlog = backlog(opening_stock=sim_window.opening_stock,
                                              deliveries=sim_window.purchase_order_receipt_qty, demand=demand)
                 sim_window.closing_stock = closing_stock(opening_stock=sim_window.opening_stock,
@@ -181,24 +184,8 @@ class SetupMonteCarlo:
                                                                 cls_stock=sim_window.closing_stock)
 
                 final_stock = sim_window.closing_stock
+
                 yield sim_window
 
                 period += 1
-
-
-
-
-
-
-    def build_frame_summary(self, simulation_frame_collection: list):
-        frame_summary = MonteCarloFrameSummary
-
-        for sim in simulation_frame_collection:
-            frame_summary.closing_stock_average
-
-
-
-
-    def build_monte_carlo_summary(self):
-        pass
-
+            index_item += 1
