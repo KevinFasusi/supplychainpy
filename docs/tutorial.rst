@@ -24,7 +24,7 @@ Ipython, the command line (cli) or an integrated development environment (IDE)
 Many choices are available for you when interacting with the workbook on your system. We will quickly explore all the
 alternatives before continuing with our chosen interface the ipython notebook.
 
-Before we start, it is assumed you have a working installation of Python 3.5 and the supplychainpy library/
+Before we start, it is assumed you have a working installation of Python 3.5, the supplychainpy library and Excel.
 
 The command line (cli)
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -39,7 +39,7 @@ prompt or PowerShell.
 2. Fire up the terminal:
 
 
-Mac
+Mac and Pc (command prompt)
 
 .. code:: bash
 
@@ -72,12 +72,10 @@ Now that you are sure you ave got this up and running you can continue and explo
 2. and get ipython notebook up and running:
 
 
-
-
 Integrated Development Environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-While several IDE's exist that can support this choice, it is the least favourable when working with Excel work
+While several IDE's exist that can support this choice, it is the least favourable when working with Excel.
 
 
 Ipython
@@ -91,7 +89,6 @@ useful tools include: their respective websites, their documentation and the boo
 `Data Analysis <Python for Data Analysis: Data Wrangling with Pandas, NumPy, and IPython>`_ by publisher O'Reilly.
 The book is in its 1st edition (1 Nov 2012) but still very relevant and useful.
 
-Fire up the unix
 
 Inventory Analysis Example
 ==========================
@@ -99,15 +96,171 @@ Inventory Analysis Example
 Calculating the critical values for inventory analysis using a spreadsheet, often requires several steps. Extracting
 transforming and loading (ETL) data, writing formulas, manual processes or pivot tables and in some cases vba. This
 process is time consuming, repetitive, does not scale and could benefit from automation. Often the ETL is the first
-part of that gets automated, while the rise in self service business intelligence tools assist a comprehensive library
-in a productive language is a useful middle ground. Supplychainpy, Python and the expansive libraries fulfils the niche
-for rolling out a scalable and automated suite of analysis.
+part of to get automated, while the rise in self-service business intelligence tools help automate the reporting.
+A comprehensive library in a productive language is a useful middle ground. Supplychainpy, Python and the extensive
+python libraries hopefully fulfils the niche for rolling out a scalable and automated suite of analysis.
 
 Inventory Analysis
 ------------------
 
-
 The inventory analysis functions can be accessed from supplychainpy by importing `model_inventory`.
+
+
+
+Simulation
+==========
+
+Monte Carlo simulation
+----------------------
+
+.. code:: python
+
+	>>> sim = simulate.run_monte_carlo(file_path="data.csv", z_value=Decimal(1.28), runs=1,
+	>>> reorder_cost=Decimal(4000), file_type="csv", period_length=12)
+	>>> for s in sim:
+	>>>    print(s)
+
+
+.. parsed-literal::
+
+	[{'closing_stock': '690', 'sku_id': 'KR202-214', 'demand': '805', 'backlog': '0',
+	'opening_stock': '1500', 'period': '1', 'index': '6', 'delivery': '0'}]
+	[{'closing_stock': '-2600', 'sku_id': 'KR202-214', 'demand': '2023', 'backlog': '1300',
+	'opening_stock': '690', 'period': '2', 'index': '6', 'delivery': '0'}]
+	[{'closing_stock': '-2600', 'sku_id': 'KR202-214', 'demand': '1665', 'backlog': '1300',
+	'opening_stock': '-2600', 'period': '3', 'index': '6', 'delivery': '3000'}]
+	[{'closing_stock': '3500', 'sku_id': 'KR202-214', 'demand': '1501', 'backlog': '0',
+	'opening_stock': '-2600', 'period': '4', 'index': '6', 'delivery': '7600'}]
+	[{'closing_stock': '11000', 'sku_id': 'KR202-214', 'demand': '134', 'backlog': '0',
+	'opening_stock': '3500', 'period': '5', 'index': '6', 'delivery': '7600'}]
+	[{'closing_stock': '9600', 'sku_id': 'KR202-214', 'demand': '1611', 'backlog': '0',
+	'opening_stock': '11000', 'period': '6', 'index': '6', 'delivery': '200'}]
+	[{'closing_stock': '7100', 'sku_id': 'KR202-214', 'demand': '2525', 'backlog': '0',
+	'opening_stock': '9600', 'period': '7', 'index': '6', 'delivery': '0'}]
+	[{'closing_stock': '5800', 'sku_id': 'KR202-214', 'demand': '1318', 'backlog': '0',
+	'opening_stock': '7100', 'period': '8', 'index': '6', 'delivery': '0'}]
+	[{'closing_stock': '3700', 'sku_id': 'KR202-214', 'demand': '2097', 'backlog': '0',
+	'opening_stock': '5800', 'period': '9', 'index': '6', 'delivery': '0'}]
+	[{'closing_stock': '1100', 'sku_id': 'KR202-214', 'demand': '2612', 'backlog': '0',
+	'opening_stock': '3700', 'period': '10', 'index': '6', 'delivery': '0'}]
+	[{'closing_stock': '400', 'sku_id': 'KR202-214', 'demand': '695', 'backlog': '0',
+	'opening_stock': '1100', 'period': '11', 'index': '6', 'delivery': '0'}]
+	[{'closing_stock': '2400', 'sku_id': 'KR202-214', 'demand': '643', 'backlog': '0',
+	'opening_stock': '400', 'period': '12', 'index': '6', 'delivery': '2600'}]
+
+
+.. code:: python
+
+	>>> for i in simulate.summarize_window(simulation_frame=sim, period_length=12):
+	>>>    print(i)
+
+.. parsed-literal::
+
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.0, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.0, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.0, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.3333333333333333, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.0, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.3333333333333333, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.3333333333333333, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.0, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.0, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.0, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.0, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
+	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+
+
+Agent based modeling
+--------------------
+
 
 
 Demand Planning and Forecasting
@@ -127,14 +280,6 @@ Distribution Optimisation
 =========================
 
 
-Simulation
-==========
-
-Monte Carlo simulation
-----------------------
-
-Agent based modeling
---------------------
 
 
 

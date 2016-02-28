@@ -9,6 +9,8 @@ Subpackages
     supplychainpy.demand
     supplychainpy.distribution
     supplychainpy.production
+    supplychainpy.simulations
+
 
 Submodules
 ----------
@@ -57,6 +59,14 @@ supplychainpy.model_warehouse module
 ------------------------------------
 
 .. automodule:: supplychainpy.model_warehouse
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+supplychainpy.simulate module
+-----------------------------
+
+.. automodule:: supplychainpy.simulate
     :members:
     :undoc-members:
     :show-inheritance:

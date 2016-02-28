@@ -1,0 +1,485 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supplychainpy.simulations package &mdash; supplychainpy 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="supplychainpy 1.0.0 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> supplychainpy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html#where-to-go-from-here">Where to go from here?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html#features-in-development">Features in development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Supplychainpy, Xlwings, Pandas and Ipython Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#inventory-analysis-example">Inventory Analysis Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#simulation">Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#demand-planning-and-forecasting">Demand Planning and Forecasting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#warehousing">Warehousing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#distribution-optimisation">Distribution Optimisation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">supplychainpy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>supplychainpy.simulations package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/supplychainpy.simulations.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="supplychainpy-simulations-package">
+<h1>supplychainpy.simulations package<a class="headerlink" href="#supplychainpy-simulations-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-supplychainpy.simulations.monte_carlo">
+<span id="supplychainpy-simulations-monte-carlo-module"></span><h2>supplychainpy.simulations.monte_carlo module<a class="headerlink" href="#module-supplychainpy.simulations.monte_carlo" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="supplychainpy.simulations.monte_carlo.SetupMonteCarlo">
+<em class="property">class </em><code class="descclassname">supplychainpy.simulations.monte_carlo.</code><code class="descname">SetupMonteCarlo</code><span class="sig-paren">(</span><em>analysed_orders: supplychainpy.demand.abc_xyz.AbcXyz</em>, <em>period: str='months'</em>, <em>period_length: int=12</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.simulations.monte_carlo.SetupMonteCarlo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Create a monte carlo simulation for inventory analysis.</p>
+<dl class="method">
+<dt id="supplychainpy.simulations.monte_carlo.SetupMonteCarlo.build_window">
+<code class="descname">build_window</code><span class="sig-paren">(</span><em>random_normal_demand: list</em>, <em>period_length: int=0</em>, <em>holding_cost_percentage: decimal.Decimal=0.48</em>, <em>shortage_cost_percentage: decimal.Decimal=0.3</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.simulations.monte_carlo.SetupMonteCarlo.build_window" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds the simulation window for opening stock, demand, closing stock, backlog, holding cost and shortages.</p>
+<p>The window represents a fixed time frame, supplied by the user. The window is then run several times to generate
+probabilities for example the probability of stocking out during the period specified or the probability that the
+final closing stock will be negative. The results will indicate the accuracy of the analytical model used to
+calculate the safety stock etc, based on a few assumptions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>random_normal_demand</strong> (<em>list</em>) &#8211; A list of random demand normally distributed.</li>
+<li><strong>period_length</strong> (<em>int</em>) &#8211; length of window e.g. 12 weeks for a quarter etc.</li>
+<li><strong>holding_cost_percentage</strong> (<em>Decimal</em>) &#8211; The percentage of unit cost to associate with holding cost,</li>
+<li><strong>shortage_cost_percentage</strong> (<em>Decimal</em>) &#8211; The percentage of unit cost to associate with shortage cost,</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
+<dt>The build_window returns a dictionary of lists for opening_stock, demand, delivery,closing stock,</dt>
+<dd><p class="first last">backlog, holding cost, shortage cost.</p>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">dict</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; The period_length is currently {} and the actual length of the demand is {}.
+Please make sure that the two values are equal&#8221;.format(period_length,
+len(random_normal_demand[0][sku.sku_id]))</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.simulations.monte_carlo.SetupMonteCarlo.generate_normal_random_distribution">
+<code class="descname">generate_normal_random_distribution</code><span class="sig-paren">(</span><em>period_length: int</em><span class="sig-paren">)</span> &rarr; list<a class="headerlink" href="#supplychainpy.simulations.monte_carlo.SetupMonteCarlo.generate_normal_random_distribution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the random demand for a given sku.</p>
+<p>For each sku a set of random demands are calculated based on the normal distribution of demand for this product.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>period_length</strong> (<em>int</em>) &#8211; length of window e.g. 12 weeks for a quarter etc.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A list of randomly generated demand.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.monte_carlo.SetupMonteCarlo.normal_random_distribution">
+<code class="descname">normal_random_distribution</code><a class="headerlink" href="#supplychainpy.simulations.monte_carlo.SetupMonteCarlo.normal_random_distribution" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-supplychainpy.simulations.monte_carlo_frame">
+<span id="supplychainpy-simulations-monte-carlo-frame-module"></span><h2>supplychainpy.simulations.monte_carlo_frame module<a class="headerlink" href="#module-supplychainpy.simulations.monte_carlo_frame" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="supplychainpy.simulations.monte_carlo_frame.BuildFrame">
+<em class="property">class </em><code class="descclassname">supplychainpy.simulations.monte_carlo_frame.</code><code class="descname">BuildFrame</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.simulations.monte_carlo_frame.BuildFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#supplychainpy.simulations.monte_carlo_frame.MainFrame" title="supplychainpy.simulations.monte_carlo_frame.MainFrame"><code class="xref py py-class docutils literal"><span class="pre">supplychainpy.simulations.monte_carlo_frame.MainFrame</span></code></a></p>
+<p>Shares the shared frame attribute with all instances to be used when using multi-threading for</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="supplychainpy.simulations.monte_carlo_frame.MainFrame">
+<em class="property">class </em><code class="descclassname">supplychainpy.simulations.monte_carlo_frame.</code><code class="descname">MainFrame</code><a class="headerlink" href="#supplychainpy.simulations.monte_carlo_frame.MainFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Borg class making shared frame global</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-supplychainpy.simulations.simulation_frame_summary">
+<span id="supplychainpy-simulations-simulation-frame-summary-module"></span><h2>supplychainpy.simulations.simulation_frame_summary module<a class="headerlink" href="#module-supplychainpy.simulations.simulation_frame_summary" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="supplychainpy.simulations.simulation_frame_summary.MonteCarloFrameSummary">
+<em class="property">class </em><code class="descclassname">supplychainpy.simulations.simulation_frame_summary.</code><code class="descname">MonteCarloFrameSummary</code><a class="headerlink" href="#supplychainpy.simulations.simulation_frame_summary.MonteCarloFrameSummary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="staticmethod">
+<dt id="supplychainpy.simulations.simulation_frame_summary.MonteCarloFrameSummary.closing_stockout_percentage">
+<em class="property">static </em><code class="descname">closing_stockout_percentage</code><span class="sig-paren">(</span><em>closing_stock: list</em>, <em>period_length: int</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.simulations.simulation_frame_summary.MonteCarloFrameSummary.closing_stockout_percentage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the percentage of stock out that occurred during the period specified.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>period_length</strong> (<em>int</em>) &#8211; length of window e.g. 12 weeks for a quarter etc.</li>
+<li><strong>closing_stock</strong> (<em>list</em>) &#8211; list of closing stock values for a given sku over the same time frame
+as the period_length</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Percentage of final closing stock values that result in stock out and backlog.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">float</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; The number of stock positions and the period length must match exactly.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-supplychainpy.simulations.simulation_summary">
+<span id="supplychainpy-simulations-simulation-summary-module"></span><h2>supplychainpy.simulations.simulation_summary module<a class="headerlink" href="#module-supplychainpy.simulations.simulation_summary" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="supplychainpy.simulations.simulation_summary.MonteCarloSummary">
+<em class="property">class </em><code class="descclassname">supplychainpy.simulations.simulation_summary.</code><code class="descname">MonteCarloSummary</code><a class="headerlink" href="#supplychainpy.simulations.simulation_summary.MonteCarloSummary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_summary.MonteCarloSummary.closing_stock_average">
+<code class="descname">closing_stock_average</code><a class="headerlink" href="#supplychainpy.simulations.simulation_summary.MonteCarloSummary.closing_stock_average" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_summary.MonteCarloSummary.closing_stock_final">
+<code class="descname">closing_stock_final</code><a class="headerlink" href="#supplychainpy.simulations.simulation_summary.MonteCarloSummary.closing_stock_final" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_summary.MonteCarloSummary.closing_stock_max">
+<code class="descname">closing_stock_max</code><a class="headerlink" href="#supplychainpy.simulations.simulation_summary.MonteCarloSummary.closing_stock_max" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_summary.MonteCarloSummary.closing_stock_min">
+<code class="descname">closing_stock_min</code><a class="headerlink" href="#supplychainpy.simulations.simulation_summary.MonteCarloSummary.closing_stock_min" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_summary.MonteCarloSummary.closing_stock_std">
+<code class="descname">closing_stock_std</code><a class="headerlink" href="#supplychainpy.simulations.simulation_summary.MonteCarloSummary.closing_stock_std" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_summary.MonteCarloSummary.opening_stock_average">
+<code class="descname">opening_stock_average</code><a class="headerlink" href="#supplychainpy.simulations.simulation_summary.MonteCarloSummary.opening_stock_average" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_summary.MonteCarloSummary.opening_stock_final">
+<code class="descname">opening_stock_final</code><a class="headerlink" href="#supplychainpy.simulations.simulation_summary.MonteCarloSummary.opening_stock_final" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_summary.MonteCarloSummary.opening_stock_max">
+<code class="descname">opening_stock_max</code><a class="headerlink" href="#supplychainpy.simulations.simulation_summary.MonteCarloSummary.opening_stock_max" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_summary.MonteCarloSummary.opening_stock_min">
+<code class="descname">opening_stock_min</code><a class="headerlink" href="#supplychainpy.simulations.simulation_summary.MonteCarloSummary.opening_stock_min" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_summary.MonteCarloSummary.opening_stock_std">
+<code class="descname">opening_stock_std</code><a class="headerlink" href="#supplychainpy.simulations.simulation_summary.MonteCarloSummary.opening_stock_std" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-supplychainpy.simulations.simulation_window">
+<span id="supplychainpy-simulations-simulation-window-module"></span><h2>supplychainpy.simulations.simulation_window module<a class="headerlink" href="#module-supplychainpy.simulations.simulation_window" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow">
+<em class="property">class </em><code class="descclassname">supplychainpy.simulations.simulation_window.</code><code class="descname">MonteCarloWindow</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Attributes for monte carlo calculations, for building the simulation window</p>
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.backlog">
+<code class="descname">backlog</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.backlog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.backlog_at_po_placement">
+<code class="descname">backlog_at_po_placement</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.backlog_at_po_placement" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.closing_stock">
+<code class="descname">closing_stock</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.closing_stock" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.demand">
+<code class="descname">demand</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.demand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.holding_cost">
+<code class="descname">holding_cost</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.holding_cost" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.index">
+<code class="descname">index</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.lead_time">
+<code class="descname">lead_time</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.lead_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.opening_stock">
+<code class="descname">opening_stock</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.opening_stock" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.po_raised_flag">
+<code class="descname">po_raised_flag</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.po_raised_flag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.position">
+<code class="descname">position</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.purchase_order_raised_qty">
+<code class="descname">purchase_order_raised_qty</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.purchase_order_raised_qty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.purchase_order_receipt_qty">
+<code class="descname">purchase_order_receipt_qty</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.purchase_order_receipt_qty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.quantity_sold">
+<code class="descname">quantity_sold</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.quantity_sold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.shortage_cost">
+<code class="descname">shortage_cost</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.shortage_cost" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.shortage_units">
+<code class="descname">shortage_units</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.shortage_units" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.sku_id">
+<code class="descname">sku_id</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.sku_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-supplychainpy.simulations">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-supplychainpy.simulations" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Kevin Fasusi.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

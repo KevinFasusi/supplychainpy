@@ -17,10 +17,7 @@ class MonteCarloFrameSummary:
             float:   Percentage of final closing stock values that result in stock out and backlog.
 
         Raises:
-            ValueError: The number of stock positions and the period length must match exactly.\nThe
-                        number of stock positions passed for closing stock is currently {}.
-                        The length specified for period_length is currently {}.format(len(closing_stock),
-                                                                                                 period_length
+            ValueError: The number of stock positions and the period length must match exactly.
         """
         if len(closing_stock) != period_length:
             raise ValueError(" The number of stock positions and the period length must match exactly.\nThe"

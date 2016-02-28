@@ -4,19 +4,14 @@ from decimal import Decimal
 from supplychainpy.demand.abc_xyz import AbcXyz
 from supplychainpy.enum_formats import PeriodFormats
 from supplychainpy.simulations import simulation_window
-from supplychainpy.simulations.simulation_frame_summary import MonteCarloFrameSummary
-
 
 # assumptions: opening stock in first period is average stock adjusted to period used in monte carlo if different from
 # orders analysis. There are no deliveries in the first period (maybe add switch so there always is a delivery in first,
 # users choice) period based on inventory rules.
 
 
-
 class SetupMonteCarlo:
-    """ Create a monte carlo simulation for inventory analysis.
-
-    """
+    """ Create a monte carlo simulation for inventory analysis."""
 
     _conversion = 1
     _window = {}
@@ -33,10 +28,10 @@ class SetupMonteCarlo:
 
         """ Generates the random demand for a given sku.
 
-        For each sku a set of random demands are calculated...
+        For each sku a set of random demands are calculated based on the normal distribution of demand for this product.
 
         Args:
-            period_length (int):            length of window e.g. 12 weeks for a quarter etc.
+            period_length (int):    length of window e.g. 12 weeks for a quarter etc.
 
 
         Returns:
@@ -77,11 +72,10 @@ class SetupMonteCarlo:
         calculate the safety stock etc, based on a few assumptions.
 
         Args:
-            random_normal_demand (list):    A list of random demand normally distributed.
-            period_length (int):            length of window e.g. 12 weeks for a quarter etc.
-            holding_cost_percentage (:
-            shortage_cost_percentage:
-
+            random_normal_demand (list):        A list of random demand normally distributed.
+            period_length (int):                length of window e.g. 12 weeks for a quarter etc.
+            holding_cost_percentage (Decimal):  The percentage of unit cost to associate with holding cost,
+            shortage_cost_percentage (Decimal): The percentage of unit cost to associate with shortage cost,
 
         Returns:
             dict:   The build_window returns a dictionary of lists for opening_stock, demand, delivery,closing stock,

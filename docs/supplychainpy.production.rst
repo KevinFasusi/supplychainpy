@@ -20,6 +20,14 @@ supplychainpy.production.create_install_base module
     :undoc-members:
     :show-inheritance:
 
+supplychainpy.production.production module
+------------------------------------------
+
+.. automodule:: supplychainpy.production.production
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

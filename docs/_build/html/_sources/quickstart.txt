@@ -5,8 +5,8 @@ The following guide assumes that the supplychainpy library has already been inst
 instructions for :ref:`Installation`.
 
 While the supplychainpy library can be used in any way you deem fit, the library was created to assist a workflow that
-is reliant on Excel, Excel formulas and VBA. First we go through the use cases and implementations specific to the
-domain (supply chain, operations and manufacturing), before covering the technologies that allow you to work with Excel.
+is reliant on Excel, Excel formulas and VBA. Below we go through the use cases and implementations specific to the
+domain (supply chain, operations and manufacturing).
 
 Summarising Inventory
 ---------------------
@@ -33,6 +33,9 @@ a `dict` of "Orders" data-points can generate a summary that includes:
     >>>                                          reorder_cost=Decimal(400),z_value=Decimal(1.28)
     >>> print(summary)
 
+Currently the lead-time and the yearly_demand must be in the same units (the user has to make the correct conversion).
+This will be changing soon.
+
 .. parsed-literal::
 
     {'standard_deviation': '25',
@@ -41,12 +44,11 @@ a `dict` of "Orders" data-points can generate a summary that includes:
 	    'safety_stock': '55', 'economic_order_variable_cost': '0.00',
 	    'revenue': '30594.00', 'reorder_quantity': '56'}
 
-The same analysis can be made by supplying a preformatted `.csv` or `.txt`:
+The same analysis can be made by supplying a pre-formatted `.csv` or `.txt`:
 
 .. code:: python
 
     >>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
-    >>> from supplychainpy.enum_formats import FileFormats
     >>> abc = analyse_orders_abcxyz_from_file(file_path="data.csv", z_value=Decimal(1.28),
     >>>                                        reorder_cost=Decimal(5000), file_type="text")
     >>> for sku in abc.orders
@@ -71,7 +73,8 @@ xlwings example:
     >>>     Range('D' + str(x)).value = sku.abcxyz_classification
     >>>     +=1
 
-The columns A-D will now be populated with the values indicated.
+The columns A-D will now be populated with the values below:
+
 
 
 

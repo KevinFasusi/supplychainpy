@@ -60,8 +60,8 @@ class Forecast:
             ValueError: Incorrect number of orders supplied. Please make sure you have enough orders to
                         calculate an average. The average_period is {}, while the
                         number of orders supplied is {}. The number of orders supplied should be equal
-                        or greater than the average_period.\n Either decrease the average_period or
-                        increase the start_position in the list.".format(average_period, start_position
+                        or greater than the average_period. Either decrease the average_period or
+                        increase the start_position in the list.n
         """
 
         if base_forecast:

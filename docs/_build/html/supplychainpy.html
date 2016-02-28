@@ -86,10 +86,10 @@
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html#features-in-development">Features in development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Supplychainpy, Xlwings, Pandas and Ipython Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#inventory-analysis-example">Inventory Analysis Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html#demand-planning-and-forecasting">Demand Planning and Forecasting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html#warehousing-and-picking-and-packing">Warehousing and Picking and Packing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html#distribution-optimisation">Distribution Optimisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#simulation">Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#demand-planning-and-forecasting">Demand Planning and Forecasting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#warehousing">Warehousing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#distribution-optimisation">Distribution Optimisation</a></li>
 </ul>
 
             
@@ -158,7 +158,18 @@
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.production.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.production.html#module-supplychainpy.production.analyse_install_base">supplychainpy.production.analyse_install_base module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.production.html#module-supplychainpy.production.create_install_base">supplychainpy.production.create_install_base module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supplychainpy.production.html#module-supplychainpy.production.production">supplychainpy.production.production module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.production.html#module-supplychainpy.production">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="supplychainpy.simulations.html">supplychainpy.simulations package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="supplychainpy.simulations.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supplychainpy.simulations.html#module-supplychainpy.simulations.monte_carlo">supplychainpy.simulations.monte_carlo module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supplychainpy.simulations.html#module-supplychainpy.simulations.monte_carlo_frame">supplychainpy.simulations.monte_carlo_frame module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supplychainpy.simulations.html#module-supplychainpy.simulations.simulation_frame_summary">supplychainpy.simulations.simulation_frame_summary module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supplychainpy.simulations.html#module-supplychainpy.simulations.simulation_summary">supplychainpy.simulations.simulation_summary module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supplychainpy.simulations.html#module-supplychainpy.simulations.simulation_window">supplychainpy.simulations.simulation_window module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supplychainpy.simulations.html#module-supplychainpy.simulations">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -245,8 +256,8 @@
 <div class="section" id="module-supplychainpy.model_demand">
 <span id="supplychainpy-model-demand-module"></span><h2>supplychainpy.model_demand module<a class="headerlink" href="#module-supplychainpy.model_demand" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="supplychainpy.model_demand.analyse_demand">
-<code class="descclassname">supplychainpy.model_demand.</code><code class="descname">analyse_demand</code><span class="sig-paren">(</span><em>demand: list</em><span class="sig-paren">)</span> &rarr; supplychainpy.demand.forecast_demand.Forecast<a class="headerlink" href="#supplychainpy.model_demand.analyse_demand" title="Permalink to this definition">¶</a></dt>
+<dt id="supplychainpy.model_demand.analyse_demand_forecast">
+<code class="descclassname">supplychainpy.model_demand.</code><code class="descname">analyse_demand_forecast</code><span class="sig-paren">(</span><em>demand: list, forecasts_type: list=['ALL']</em><span class="sig-paren">)</span> &rarr; supplychainpy.demand.forecast_demand.Forecast<a class="headerlink" href="#supplychainpy.model_demand.analyse_demand_forecast" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -475,6 +486,70 @@ and ABC_XYZ_Classification. For example:</p>
 </div>
 <div class="section" id="module-supplychainpy.model_warehouse">
 <span id="supplychainpy-model-warehouse-module"></span><h2>supplychainpy.model_warehouse module<a class="headerlink" href="#module-supplychainpy.model_warehouse" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-supplychainpy.simulate">
+<span id="supplychainpy-simulate-module"></span><h2>supplychainpy.simulate module<a class="headerlink" href="#module-supplychainpy.simulate" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="supplychainpy.simulate.run_monte_carlo">
+<code class="descclassname">supplychainpy.simulate.</code><code class="descname">run_monte_carlo</code><span class="sig-paren">(</span><em>file_path: str</em>, <em>z_value: decimal.Decimal</em>, <em>runs: int</em>, <em>reorder_cost: decimal.Decimal</em>, <em>file_type: str</em>, <em>period_length: int=12</em><span class="sig-paren">)</span> &rarr; list<a class="headerlink" href="#supplychainpy.simulate.run_monte_carlo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs monte carlo simulation.
+Generates random distribution for demand over period specified and creates a simulation window for opening_stock,
+demand, closing_stock, delivery and backlog for each sku in the data set.
+:param file_path: The path to the file containing two columns of data, 1 period and 1 data-point per sku.
+:type file_path: str
+:param reorder_cost: The average lead-time for the sku over the period represented by the data,</p>
+<blockquote>
+<div>in the same unit.</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>period_length</strong> (<em>int</em>) &#8211; The number of periods define the simulation window e.g. 12 weeks, months etc.</li>
+<li><strong>reorder_cost</strong> (<em>Decimal</em>) &#8211; The cost to place a reorder. This is usually the cost of the operation divided
+by number.</li>
+<li><strong>z_value</strong> (<em>Decimal</em>) &#8211; The service level required to calculate the safety stock</li>
+<li><strong>file_type</strong> (<em>str</em>) &#8211; Type of &#8216;file csv&#8217; or &#8216;text&#8217;</li>
+<li><strong>runs</strong> (<em>int</em>) &#8211; The number of times to run the simulation.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
+<dt>A list containing the results for each sku</dt>
+<dd><p class="first last">[{&#8216;sku_id&#8217;: &#8216;KR202-209&#8217;, &#8216;demand&#8217;: &#8216;3106&#8217;, &#8216;opening_stock&#8217;: &#8216;1446&#8217;, &#8216;delivery&#8217;: &#8216;0&#8217;, &#8216;closing_stock&#8217;
+: &#8216;-3400&#8217;, &#8216;period&#8217;: &#8216;1&#8217;, &#8216;index&#8217;: &#8216;1&#8217;, &#8216;backlog&#8217;: &#8216;1700&#8217;}]</p>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.simulate.summarize_window">
+<code class="descclassname">supplychainpy.simulate.</code><code class="descname">summarize_window</code><span class="sig-paren">(</span><em>simulation_frame: list</em>, <em>period_length: int=12</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.simulate.summarize_window" title="Permalink to this definition">¶</a></dt>
+<dd><p>Summarizes the simulation window and provides the stockout percentage for each sku.</p>
+<p>The summarize window provides a summary for each sku. The summary consists of probability of stockout based
+on current inventory metrics calculated with &#8216;model_inventory.analyse_orders_abcxyz_from_file&#8217;.
+:param simulation_frame: A collection of simulation windows.
+:type simulation_frame: list
+:param period_length: The number of periods define the simulation window e.g. 12 weeks, months etc.
+:type period_length: int</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Yields:</th><td class="field-body"><em>dict</em> &#8211; A dict containing the results for each sku.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 <div class="section" id="module-supplychainpy.supplychain">
 <span id="supplychainpy-supplychain-module"></span><h2>supplychainpy.supplychain module<a class="headerlink" href="#module-supplychainpy.supplychain" title="Permalink to this headline">¶</a></h2>

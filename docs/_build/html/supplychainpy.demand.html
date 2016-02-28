@@ -86,10 +86,10 @@
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html#features-in-development">Features in development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Supplychainpy, Xlwings, Pandas and Ipython Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#inventory-analysis-example">Inventory Analysis Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html#demand-planning-and-forecasting">Demand Planning and Forecasting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html#warehousing-and-picking-and-packing">Warehousing and Picking and Packing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html#distribution-optimisation">Distribution Optimisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#simulation">Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#demand-planning-and-forecasting">Demand Planning and Forecasting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#warehousing">Warehousing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#distribution-optimisation">Distribution Optimisation</a></li>
 </ul>
 
             
@@ -183,7 +183,7 @@
 <span id="supplychainpy-demand-analyse-uncertain-demand-module"></span><h2>supplychainpy.demand.analyse_uncertain_demand module<a class="headerlink" href="#module-supplychainpy.demand.analyse_uncertain_demand" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="supplychainpy.demand.analyse_uncertain_demand.UncertainDemand">
-<em class="property">class </em><code class="descclassname">supplychainpy.demand.analyse_uncertain_demand.</code><code class="descname">UncertainDemand</code><span class="sig-paren">(</span><em>orders: dict</em>, <em>sku: str</em>, <em>lead_time: decimal.Decimal</em>, <em>unit_cost: decimal.Decimal</em>, <em>reorder_cost: decimal.Decimal</em>, <em>z_value: decimal.Decimal=Decimal('1.2800000000000000266453525910037569701671600341796875')</em>, <em>holding_cost: decimal.Decimal=0.0</em>, <em>period: int=0</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">supplychainpy.demand.analyse_uncertain_demand.</code><code class="descname">UncertainDemand</code><span class="sig-paren">(</span><em>orders: dict</em>, <em>sku: str</em>, <em>lead_time: decimal.Decimal</em>, <em>unit_cost: decimal.Decimal</em>, <em>reorder_cost: decimal.Decimal</em>, <em>z_value: decimal.Decimal=Decimal('1.2800000000000000266453525910037569701671600341796875')</em>, <em>holding_cost: decimal.Decimal=0.0</em>, <em>period: str='months'</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Models inventory profile calculating economic order quantity, variable cost, reorder quantity and
 ABCXYZ classification</p>
@@ -248,14 +248,29 @@ ABCXYZ classification</p>
 <code class="descname">order</code><a class="headerlink" href="#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.order" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="attribute">
+<dt id="supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.order_count">
+<code class="descname">order_count</code><a class="headerlink" href="#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.order_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.orders_summary">
 <code class="descname">orders_summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.orders_summary" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.orders_summary_simple">
+<code class="descname">orders_summary_simple</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.orders_summary_simple" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="attribute">
 <dt id="supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.percentage_revenue">
 <code class="descname">percentage_revenue</code><a class="headerlink" href="#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.percentage_revenue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.reorder_level">
+<code class="descname">reorder_level</code><a class="headerlink" href="#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.reorder_level" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -274,16 +289,15 @@ ABCXYZ classification</p>
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.unit_cost">
+<code class="descname">unit_cost</code><a class="headerlink" href="#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.unit_cost" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.xyz_classification">
 <code class="descname">xyz_classification</code><a class="headerlink" href="#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.xyz_classification" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</dd></dl>
-
-<dl class="class">
-<dt id="supplychainpy.demand.analyse_uncertain_demand.UncertainDemandSimple">
-<em class="property">class </em><code class="descclassname">supplychainpy.demand.analyse_uncertain_demand.</code><code class="descname">UncertainDemandSimple</code><span class="sig-paren">(</span><em>orders: dict</em>, <em>sku: str</em>, <em>lead_time: decimal.Decimal</em>, <em>unit_cost: decimal.Decimal</em>, <em>reorder_cost: decimal.Decimal</em>, <em>z_value: decimal.Decimal=Decimal('1.2800000000000000266453525910037569701671600341796875')</em>, <em>holding_cost: decimal.Decimal=0.0</em>, <em>period: int=0</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.analyse_uncertain_demand.UncertainDemandSimple" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand" title="supplychainpy.demand.analyse_uncertain_demand.UncertainDemand"><code class="xref py py-class docutils literal"><span class="pre">supplychainpy.demand.analyse_uncertain_demand.UncertainDemand</span></code></a></p>
 </dd></dl>
 
 <dl class="class">
@@ -331,59 +345,294 @@ ABCXYZ classification</p>
 <em class="property">class </em><code class="descclassname">supplychainpy.demand.forecast_demand.</code><code class="descname">Forecast</code><span class="sig-paren">(</span><em>orders: list</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
-<dt id="supplychainpy.demand.forecast_demand.Forecast.calculate_mean_aboslute_percentage_error">
-<code class="descname">calculate_mean_aboslute_percentage_error</code><span class="sig-paren">(</span><em>**forecasts</em><span class="sig-paren">)</span> &rarr; list<a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.calculate_mean_aboslute_percentage_error" title="Permalink to this definition">¶</a></dt>
+<dt id="supplychainpy.demand.forecast_demand.Forecast.autoregressive">
+<code class="descname">autoregressive</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.autoregressive" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>forecasts</strong> (<em>int</em>) &#8211; Number of periods to average.</li>
+<li><strong>base_forecast</strong> (<em>bool</em>) &#8211; A list of weights that sum up to one.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">np.array</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.demand.forecast_demand.Forecast.genetic_algorithm">
+<code class="descname">genetic_algorithm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.genetic_algorithm" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>forecasts</strong> (<em>int</em>) &#8211; Number of periods to average.</li>
+<li><strong>base_forecast</strong> (<em>bool</em>) &#8211; A list of weights that sum up to one.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">np.array</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.demand.forecast_demand.Forecast.linear_regression">
+<code class="descname">linear_regression</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.linear_regression" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>line</strong> (<em>int</em>) &#8211; Number of periods to average.</li>
+<li><strong>base_forecast</strong> (<em>bool</em>) &#8211; A list of weights that sum up to one.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">np.array</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.demand.forecast_demand.Forecast.mean_aboslute_percentage_error">
+<code class="descname">mean_aboslute_percentage_error</code><span class="sig-paren">(</span><em>**forecasts</em><span class="sig-paren">)</span> &rarr; list<a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.mean_aboslute_percentage_error" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>forecasts</strong> (<em>int</em>) &#8211; Number of periods to average.</li>
+<li><strong>base_forecast</strong> (<em>bool</em>) &#8211; A list of weights that sum up to one.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">np.array</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.demand.forecast_demand.Forecast.mean_absolute_deviation">
+<code class="descname">mean_absolute_deviation</code><span class="sig-paren">(</span><em>forecasts: list</em>, <em>base_forecast: bool=False</em>, <em>start_period: int=3</em><span class="sig-paren">)</span> &rarr; &lt;built-in function array&gt;<a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.mean_absolute_deviation" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculates the mean absolute deviation (MAD) for a given forecast.</p>
+<p>Calculates the mean absolute deviation for a forecast. The forecast and</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>forecasts</strong> (<em>list</em>) &#8211; A previously calculated forecast.</li>
+<li><strong>base_forecast</strong> (<em>bool</em>) &#8211; Start a moving average forecast from anywhere
+in the list.</li>
+<li><strong>start_period</strong> (<em>int</em>) &#8211; The start period of the forecast.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">np.array</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.demand.forecast_demand.Forecast.mean_forecast_error">
+<code class="descname">mean_forecast_error</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.mean_forecast_error" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>forecasts</strong> (<em>int</em>) &#8211; Number of periods to average.</li>
+<li><strong>base_forecast</strong> (<em>bool</em>) &#8211; A list of weights that sum up to one.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">np.array</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.demand.forecast_demand.Forecast.moving_average">
+<code class="descname">moving_average</code><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.moving_average" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="supplychainpy.demand.forecast_demand.Forecast.calculate_mean_absolute_deviation">
-<code class="descname">calculate_mean_absolute_deviation</code><span class="sig-paren">(</span><em>forecasts: list</em>, <em>orders: list</em>, <em>base_forecast: bool=False</em><span class="sig-paren">)</span> &rarr; &lt;built-in function array&gt;<a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.calculate_mean_absolute_deviation" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="supplychainpy.demand.forecast_demand.Forecast.moving_average_forecast">
+<code class="descname">moving_average_forecast</code><span class="sig-paren">(</span><em>average_period: int=3</em>, <em>forecast_length: int=2</em>, <em>base_forecast: bool=False</em>, <em>start_position: int=0</em><span class="sig-paren">)</span> &rarr; list<a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.moving_average_forecast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a forecast from moving averages.</p>
+<p>Generate a forecast from moving averages for as many periods as specified.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>average_period</strong> (<em>int</em>) &#8211; Number of periods to average.</li>
+<li><strong>forecast_length</strong> (<em>int</em>) &#8211; Number of periods to forecast for.</li>
+<li><strong>base_forecast</strong> (<em>bool</em>) &#8211; Start a moving average forecast from anywhere
+in the list. For use when evaluating a forecast.</li>
+<li><strong>start_position</strong> (<em>int</em>) &#8211; Where to start the forecast in the list when</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
+<dt>Returns a list of orders including the original and the forecast appended to the end.</dt>
+<dd><p class="first">The appended forecast is as long as specified by the forecast_length. For example</p>
+<p>orders = [1, 3, 5, 67, 4, 65, 242, 50, 48, 24, 34, 20]
+d = forecast_demand.Forecast(orders)
+d.calculate_moving_average_forecast(forecast_length=3)
+print(d.moving_average_forecast)</p>
+<blockquote>
+<div><p>output:</p>
+<blockquote>
+<div><p>[1, 3, 5, 67, 4, 65, 242, 50, 48, 24, 34, 20, 26, 27, 24]</p>
+</div></blockquote>
+</div></blockquote>
+<p>orders = [1, 3, 5, 67, 4, 65, 242, 50, 48, 24, 34, 20]
+d = forecast_demand.Forecast(orders)
+d.calculate_moving_average_forecast(forecast_length=3, base_forecast=True, start_position=3)
+print(d.moving_average_forecast):</p>
+<blockquote class="last">
+<div><p>output:</p>
+<blockquote>
+<div><p>[3, 67, 65, 45, 60, 80]</p>
+</div></blockquote>
+</div></blockquote>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">list</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; Incorrect number of orders supplied. Please make sure you have enough orders to
+calculate an average. The average_period is {}, while the
+number of orders supplied is {}. The number of orders supplied should be equal
+or greater than the average_period. Either decrease the average_period or
+increase the start_position in the list.n</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
-<dt id="supplychainpy.demand.forecast_demand.Forecast.calculate_mean_forecast_error">
-<code class="descname">calculate_mean_forecast_error</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.calculate_mean_forecast_error" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="supplychainpy.demand.forecast_demand.Forecast.optimise">
+<code class="descname">optimise</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.optimise" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>forecasts</strong> (<em>int</em>) &#8211; Number of periods to average.</li>
+<li><strong>base_forecast</strong> (<em>bool</em>) &#8211; A list of weights that sum up to one.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">np.array</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
-<dt id="supplychainpy.demand.forecast_demand.Forecast.calculate_moving_average_forecast">
-<code class="descname">calculate_moving_average_forecast</code><span class="sig-paren">(</span><em>average_period: int=3</em>, <em>forecast_length: int=2</em>, <em>base_forecast: bool=False</em>, <em>start_position: int=0</em><span class="sig-paren">)</span> &rarr; list<a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.calculate_moving_average_forecast" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="supplychainpy.demand.forecast_demand.Forecast.calculate_simple_exponential_smoothed_forecast">
-<code class="descname">calculate_simple_exponential_smoothed_forecast</code><span class="sig-paren">(</span><em>forecasts: list</em><span class="sig-paren">)</span> &rarr; list<a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.calculate_simple_exponential_smoothed_forecast" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="supplychainpy.demand.forecast_demand.Forecast.calculate_weighted_moving_average_forecast">
-<code class="descname">calculate_weighted_moving_average_forecast</code><span class="sig-paren">(</span><em>weights: list</em>, <em>average_period: int=3</em>, <em>forecast_length: int=3</em><span class="sig-paren">)</span> &rarr; list<a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.calculate_weighted_moving_average_forecast" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="supplychainpy.demand.forecast_demand.Forecast.model_autoregressive_forecast">
-<code class="descname">model_autoregressive_forecast</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.model_autoregressive_forecast" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="supplychainpy.demand.forecast_demand.Forecast.model_genetic_algorithm">
-<code class="descname">model_genetic_algorithm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.model_genetic_algorithm" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="supplychainpy.demand.forecast_demand.Forecast.model_linear_regression_forecast">
-<code class="descname">model_linear_regression_forecast</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.model_linear_regression_forecast" title="Permalink to this definition">¶</a></dt>
+<dt id="supplychainpy.demand.forecast_demand.Forecast.simple_exponential_smoothing">
+<code class="descname">simple_exponential_smoothing</code><span class="sig-paren">(</span><em>forecasts: list</em><span class="sig-paren">)</span> &rarr; list<a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.simple_exponential_smoothing" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="supplychainpy.demand.forecast_demand.Forecast.moving_average_forecast">
-<code class="descname">moving_average_forecast</code><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.moving_average_forecast" title="Permalink to this definition">¶</a></dt>
+<dt id="supplychainpy.demand.forecast_demand.Forecast.weighted_moving_average">
+<code class="descname">weighted_moving_average</code><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.weighted_moving_average" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="supplychainpy.demand.forecast_demand.Forecast.optimise_select_optimal_forecast_technique">
-<code class="descname">optimise_select_optimal_forecast_technique</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.optimise_select_optimal_forecast_technique" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="supplychainpy.demand.forecast_demand.Forecast.weighted_moving_average_forecast">
+<code class="descname">weighted_moving_average_forecast</code><span class="sig-paren">(</span><em>weights: list</em>, <em>average_period: int=3</em>, <em>forecast_length: int=3</em>, <em>base_forecast: bool=False</em>, <em>start_position=0</em><span class="sig-paren">)</span> &rarr; list<a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.weighted_moving_average_forecast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a forecast from moving averages using user supplied weights.</p>
+<p>Generate a forecast from moving averages for as many periods as specified and adjusts the forecast based
+on the supplied weights.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>average_period</strong> (<em>int</em>) &#8211; Number of periods to average.</li>
+<li><strong>forecast_length</strong> (<em>int</em>) &#8211; Number of periods to forecast for.</li>
+<li><strong>weights</strong> (<em>list</em>) &#8211; A list of weights that sum up to one.</li>
+<li><strong>base_forecast</strong> (<em>bool</em>) &#8211; Start a moving average forecast from anywhere
+in the list. For use when evaluating a forecast.</li>
+<li><strong>start_position</strong> (<em>int</em>) &#8211; Start position</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
+<dt>Returns a list of orders including the original and the forecast appended to the end.</dt>
+<dd><p class="first">The appended forecast is as long as specified by the forecast_length. For example</p>
+<p>orders = [1, 3, 5, 67, 4, 65, 242, 50, 48, 24, 34, 20]
+d = forecast_demand.Forecast(orders)
+d.calculate_moving_average_forecast(forecast_length=3)
+print(d.moving_average_forecast)</p>
+<blockquote class="last">
+<div><p>output:</p>
+<blockquote>
+<div><p>[1, 3, 5, 67, 4, 65, 242, 50, 48, 24, 34, 20, 13, 11, 7]</p>
+</div></blockquote>
+</div></blockquote>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">list</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; The weights should equal 1 and be as long as the average period (default 3).&#8217;
+The supplied weights total {} and is {} members long. Please check the supplied
+weights.&#8217;.format(sum(weights), len(weights)))</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 

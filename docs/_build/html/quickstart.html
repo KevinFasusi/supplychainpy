@@ -99,7 +99,7 @@
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Supplychainpy, Xlwings, Pandas and Ipython Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#inventory-analysis-example">Inventory Analysis Example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#demand-planning-and-forecasting">Demand Planning and Forecasting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html#warehousing-and-picking-and-packing">Warehousing and Picking and Packing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#warehousing">Warehousing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#distribution-optimisation">Distribution Optimisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#simulation">Simulation</a></li>
 </ul>
@@ -151,8 +151,8 @@
 <p>The following guide assumes that the supplychainpy library has already been installed. If not please use the
 instructions for <span class="xref std std-ref">Installation</span>.</p>
 <p>While the supplychainpy library can be used in any way you deem fit, the library was created to assist a workflow that
-is reliant on Excel, Excel formulas and VBA. First we go through the use cases and implementations specific to the
-domain (supply chain, operations and manufacturing), before covering the technologies that allow you to work with Excel.</p>
+is reliant on Excel, Excel formulas and VBA. Below we go through the use cases and implementations specific to the
+domain (supply chain, operations and manufacturing).</p>
 <div class="section" id="summarising-inventory">
 <h2>Summarising Inventory<a class="headerlink" href="#summarising-inventory" title="Permalink to this headline">¶</a></h2>
 <p>A quick example of a typical inventory analysis takes several formulas, manual processes or pivot tables and in
@@ -176,6 +176,8 @@ a <cite>dict</cite> of &#8220;Orders&#8221; data-points can generate a summary t
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Currently the lead-time and the yearly_demand must be in the same units (the user has to make the correct conversion).
+This will be changing soon.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s1">&#39;standard_deviation&#39;</span><span class="p">:</span> <span class="s1">&#39;25&#39;</span><span class="p">,</span>
     <span class="s1">&#39;demand_variability&#39;</span><span class="p">:</span> <span class="s1">&#39;0.500&#39;</span><span class="p">,</span> <span class="s1">&#39;sku&#39;</span><span class="p">:</span> <span class="s1">&#39;RX983-90&#39;</span><span class="p">,</span>
         <span class="s1">&#39;reorder_level&#39;</span><span class="p">:</span> <span class="s1">&#39;142&#39;</span><span class="p">,</span> <span class="s1">&#39;average_order&#39;</span><span class="p">:</span> <span class="s1">&#39;50&#39;</span><span class="p">,</span>
@@ -183,9 +185,8 @@ a <cite>dict</cite> of &#8220;Orders&#8221; data-points can generate a summary t
         <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;30594.00&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;56&#39;</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>The same analysis can be made by supplying a preformatted <cite>.csv</cite> or <cite>.txt</cite>:</p>
+<p>The same analysis can be made by supplying a pre-formatted <cite>.csv</cite> or <cite>.txt</cite>:</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.enum_formats</span> <span class="kn">import</span> <span class="n">FileFormats</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">abc</span> <span class="o">=</span> <span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
 <span class="gp">&gt;&gt;&gt; </span>                                       <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">sku</span> <span class="ow">in</span> <span class="n">abc</span><span class="o">.</span><span class="n">orders</span>
@@ -208,7 +209,7 @@ xlwings example:</p>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="o">+=</span><span class="mi">1</span>
 </pre></div>
 </div>
-<p>The columns A-D will now be populated with the values indicated.</p>
+<p>The columns A-D will now be populated with the values below:</p>
 </div>
 </div>
 <div class="section" id="where-to-go-from-here">

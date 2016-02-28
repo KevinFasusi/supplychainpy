@@ -87,10 +87,10 @@
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html#features-in-development">Features in development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Supplychainpy, Xlwings, Pandas and Ipython Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#inventory-analysis-example">Inventory Analysis Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html#demand-planning-and-forecasting">Demand Planning and Forecasting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html#warehousing-and-picking-and-packing">Warehousing and Picking and Packing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html#distribution-optimisation">Distribution Optimisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#simulation">Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#demand-planning-and-forecasting">Demand Planning and Forecasting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#warehousing">Warehousing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#distribution-optimisation">Distribution Optimisation</a></li>
 </ul>
 
             
@@ -138,12 +138,17 @@
 
 <div class="genindex-jumpbox">
  <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
  | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
+ | <a href="#I"><strong>I</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
  | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#Q"><strong>Q</strong></a>
@@ -190,7 +195,7 @@
 
       </dl></dd>
       
-  <dt><a href="supplychainpy.html#supplychainpy.model_demand.analyse_demand">analyse_demand() (in module supplychainpy.model_demand)</a>
+  <dt><a href="supplychainpy.html#supplychainpy.model_demand.analyse_demand_forecast">analyse_demand_forecast() (in module supplychainpy.model_demand)</a>
   </dt>
 
       
@@ -201,12 +206,12 @@
   <dt><a href="supplychainpy.html#supplychainpy.model_demand.analyse_demand_from_file_row">analyse_demand_from_file_row() (in module supplychainpy.model_demand)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="supplychainpy.html#supplychainpy.model_inventory.analyse_orders">analyse_orders() (in module supplychainpy.model_inventory)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="supplychainpy.html#supplychainpy.model_inventory.analyse_orders_abcxyz_from_file">analyse_orders_abcxyz_from_file() (in module supplychainpy.model_inventory)</a>
   </dt>
@@ -228,6 +233,10 @@
   </dt>
 
       
+  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.forecast_demand.Forecast.autoregressive">autoregressive() (supplychainpy.demand.forecast_demand.Forecast method)</a>
+  </dt>
+
+      
   <dt><a href="supplychainpy.demand.html#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.average_order">average_order() (supplychainpy.demand.analyse_uncertain_demand.UncertainDemand method)</a>
   </dt>
 
@@ -242,33 +251,33 @@
   </dl></td>
 </tr></table>
 
-<h2 id="C">C</h2>
+<h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.forecast_demand.Forecast.calculate_mean_aboslute_percentage_error">calculate_mean_aboslute_percentage_error() (supplychainpy.demand.forecast_demand.Forecast method)</a>
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_window.MonteCarloWindow.backlog">backlog (supplychainpy.simulations.simulation_window.MonteCarloWindow attribute)</a>
   </dt>
 
       
-  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.forecast_demand.Forecast.calculate_mean_absolute_deviation">calculate_mean_absolute_deviation() (supplychainpy.demand.forecast_demand.Forecast method)</a>
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_window.MonteCarloWindow.backlog_at_po_placement">backlog_at_po_placement (supplychainpy.simulations.simulation_window.MonteCarloWindow attribute)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.monte_carlo.SetupMonteCarlo.build_window">build_window() (supplychainpy.simulations.monte_carlo.SetupMonteCarlo method)</a>
   </dt>
 
       
-  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.forecast_demand.Forecast.calculate_mean_forecast_error">calculate_mean_forecast_error() (supplychainpy.demand.forecast_demand.Forecast method)</a>
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.monte_carlo_frame.BuildFrame">BuildFrame (class in supplychainpy.simulations.monte_carlo_frame)</a>
   </dt>
 
-      
-  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.forecast_demand.Forecast.calculate_moving_average_forecast">calculate_moving_average_forecast() (supplychainpy.demand.forecast_demand.Forecast method)</a>
-  </dt>
+  </dl></td>
+</tr></table>
 
-      
-  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.forecast_demand.Forecast.calculate_simple_exponential_smoothed_forecast">calculate_simple_exponential_smoothed_forecast() (supplychainpy.demand.forecast_demand.Forecast method)</a>
-  </dt>
-
-      
-  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.forecast_demand.Forecast.calculate_weighted_moving_average_forecast">calculate_weighted_moving_average_forecast() (supplychainpy.demand.forecast_demand.Forecast method)</a>
-  </dt>
-
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="supplychainpy.demand.html#supplychainpy.demand.summarise_demand.AnalyseOrdersSummary.classification_summary">classification_summary() (supplychainpy.demand.summarise_demand.AnalyseOrdersSummary method)</a>
   </dt>
@@ -277,8 +286,6 @@
   <dt><a href="supplychainpy.html#supplychainpy.data_cleansing.clean_orders_data_col_csv">clean_orders_data_col_csv() (in module supplychainpy.data_cleansing)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="supplychainpy.html#supplychainpy.data_cleansing.clean_orders_data_col_txt">clean_orders_data_col_txt() (in module supplychainpy.data_cleansing)</a>
   </dt>
@@ -289,6 +296,36 @@
 
       
   <dt><a href="supplychainpy.html#supplychainpy.data_cleansing.clean_orders_data_row_csv">clean_orders_data_row_csv() (in module supplychainpy.data_cleansing)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_window.MonteCarloWindow.closing_stock">closing_stock (supplychainpy.simulations.simulation_window.MonteCarloWindow attribute)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_summary.MonteCarloSummary.closing_stock_average">closing_stock_average (supplychainpy.simulations.simulation_summary.MonteCarloSummary attribute)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_summary.MonteCarloSummary.closing_stock_final">closing_stock_final (supplychainpy.simulations.simulation_summary.MonteCarloSummary attribute)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_summary.MonteCarloSummary.closing_stock_max">closing_stock_max (supplychainpy.simulations.simulation_summary.MonteCarloSummary attribute)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_summary.MonteCarloSummary.closing_stock_min">closing_stock_min (supplychainpy.simulations.simulation_summary.MonteCarloSummary attribute)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_summary.MonteCarloSummary.closing_stock_std">closing_stock_std (supplychainpy.simulations.simulation_summary.MonteCarloSummary attribute)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_frame_summary.MonteCarloFrameSummary.closing_stockout_percentage">closing_stockout_percentage() (supplychainpy.simulations.simulation_frame_summary.MonteCarloFrameSummary static method)</a>
   </dt>
 
       
@@ -315,6 +352,10 @@
   <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="supplychainpy.html#supplychainpy.enum_formats.PeriodFormats.days">days (supplychainpy.enum_formats.PeriodFormats attribute)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_window.MonteCarloWindow.demand">demand (supplychainpy.simulations.simulation_window.MonteCarloWindow attribute)</a>
   </dt>
 
   </dl></td>
@@ -370,11 +411,59 @@
   </dl></td>
 </tr></table>
 
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.monte_carlo.SetupMonteCarlo.generate_normal_random_distribution">generate_normal_random_distribution() (supplychainpy.simulations.monte_carlo.SetupMonteCarlo method)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.forecast_demand.Forecast.genetic_algorithm">genetic_algorithm() (supplychainpy.demand.forecast_demand.Forecast method)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_window.MonteCarloWindow.holding_cost">holding_cost (supplychainpy.simulations.simulation_window.MonteCarloWindow attribute)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_window.MonteCarloWindow.index">index (supplychainpy.simulations.simulation_window.MonteCarloWindow attribute)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="supplychainpy.demand.html#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.lead_time">lead_time (supplychainpy.demand.analyse_uncertain_demand.UncertainDemand attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_window.MonteCarloWindow.lead_time">(supplychainpy.simulations.simulation_window.MonteCarloWindow attribute)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.forecast_demand.Forecast.linear_regression">linear_regression() (supplychainpy.demand.forecast_demand.Forecast method)</a>
   </dt>
 
   </dl></td>
@@ -400,25 +489,41 @@
   </dt>
 
       
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.monte_carlo_frame.MainFrame">MainFrame (class in supplychainpy.simulations.monte_carlo_frame)</a>
+  </dt>
+
+      
   <dt><a href="supplychainpy.production.html#supplychainpy.production.create_install_base.MachineBuilder.make_new_machine">make_new_machine() (supplychainpy.production.create_install_base.MachineBuilder method)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.forecast_demand.Forecast.mean_aboslute_percentage_error">mean_aboslute_percentage_error() (supplychainpy.demand.forecast_demand.Forecast method)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.forecast_demand.Forecast.mean_absolute_deviation">mean_absolute_deviation() (supplychainpy.demand.forecast_demand.Forecast method)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.forecast_demand.Forecast.mean_forecast_error">mean_forecast_error() (supplychainpy.demand.forecast_demand.Forecast method)</a>
   </dt>
 
       
   <dt><a href="supplychainpy.demand.html#supplychainpy.demand.economic_order_quantity.EconomicOrderQuantity.minimum_variable_cost">minimum_variable_cost (supplychainpy.demand.economic_order_quantity.EconomicOrderQuantity attribute)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.forecast_demand.Forecast.model_autoregressive_forecast">model_autoregressive_forecast() (supplychainpy.demand.forecast_demand.Forecast method)</a>
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_frame_summary.MonteCarloFrameSummary">MonteCarloFrameSummary (class in supplychainpy.simulations.simulation_frame_summary)</a>
   </dt>
 
       
-  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.forecast_demand.Forecast.model_genetic_algorithm">model_genetic_algorithm() (supplychainpy.demand.forecast_demand.Forecast method)</a>
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_summary.MonteCarloSummary">MonteCarloSummary (class in supplychainpy.simulations.simulation_summary)</a>
   </dt>
 
       
-  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.forecast_demand.Forecast.model_linear_regression_forecast">model_linear_regression_forecast() (supplychainpy.demand.forecast_demand.Forecast method)</a>
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_window.MonteCarloWindow">MonteCarloWindow (class in supplychainpy.simulations.simulation_window)</a>
   </dt>
 
       
@@ -426,7 +531,21 @@
   </dt>
 
       
-  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.forecast_demand.Forecast.moving_average_forecast">moving_average_forecast (supplychainpy.demand.forecast_demand.Forecast attribute)</a>
+  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.forecast_demand.Forecast.moving_average">moving_average (supplychainpy.demand.forecast_demand.Forecast attribute)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.forecast_demand.Forecast.moving_average_forecast">moving_average_forecast() (supplychainpy.demand.forecast_demand.Forecast method)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.monte_carlo.SetupMonteCarlo.normal_random_distribution">normal_random_distribution (supplychainpy.simulations.monte_carlo.SetupMonteCarlo attribute)</a>
   </dt>
 
   </dl></td>
@@ -436,7 +555,33 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.forecast_demand.Forecast.optimise_select_optimal_forecast_technique">optimise_select_optimal_forecast_technique() (supplychainpy.demand.forecast_demand.Forecast method)</a>
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_window.MonteCarloWindow.opening_stock">opening_stock (supplychainpy.simulations.simulation_window.MonteCarloWindow attribute)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_summary.MonteCarloSummary.opening_stock_average">opening_stock_average (supplychainpy.simulations.simulation_summary.MonteCarloSummary attribute)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_summary.MonteCarloSummary.opening_stock_final">opening_stock_final (supplychainpy.simulations.simulation_summary.MonteCarloSummary attribute)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_summary.MonteCarloSummary.opening_stock_max">opening_stock_max (supplychainpy.simulations.simulation_summary.MonteCarloSummary attribute)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_summary.MonteCarloSummary.opening_stock_min">opening_stock_min (supplychainpy.simulations.simulation_summary.MonteCarloSummary attribute)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_summary.MonteCarloSummary.opening_stock_std">opening_stock_std (supplychainpy.simulations.simulation_summary.MonteCarloSummary attribute)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.forecast_demand.Forecast.optimise">optimise() (supplychainpy.demand.forecast_demand.Forecast method)</a>
   </dt>
 
       
@@ -449,14 +594,20 @@
   </dt>
 
       </dl></dd>
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.order_count">order_count (supplychainpy.demand.analyse_uncertain_demand.UncertainDemand attribute)</a>
+  </dt>
+
       
   <dt><a href="supplychainpy.demand.html#supplychainpy.demand.abc_xyz.AbcXyz.orders">orders (supplychainpy.demand.abc_xyz.AbcXyz attribute)</a>
   </dt>
 
       
   <dt><a href="supplychainpy.demand.html#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.orders_summary">orders_summary() (supplychainpy.demand.analyse_uncertain_demand.UncertainDemand method)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.orders_summary_simple">orders_summary_simple() (supplychainpy.demand.analyse_uncertain_demand.UncertainDemand method)</a>
   </dt>
 
   </dl></td>
@@ -473,14 +624,30 @@
   <dt><a href="supplychainpy.demand.html#supplychainpy.demand.abc_xyz.AbcXyz.percentage_revenue">percentage_revenue() (supplychainpy.demand.abc_xyz.AbcXyz method)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="supplychainpy.html#supplychainpy.enum_formats.PeriodFormats">PeriodFormats (class in supplychainpy.enum_formats)</a>
   </dt>
 
       
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_window.MonteCarloWindow.po_raised_flag">po_raised_flag (supplychainpy.simulations.simulation_window.MonteCarloWindow attribute)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_window.MonteCarloWindow.position">position (supplychainpy.simulations.simulation_window.MonteCarloWindow attribute)</a>
+  </dt>
+
+      
   <dt><a href="supplychainpy.production.html#supplychainpy.production.create_install_base.ProductionDirector">ProductionDirector (class in supplychainpy.production.create_install_base)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_window.MonteCarloWindow.purchase_order_raised_qty">purchase_order_raised_qty (supplychainpy.simulations.simulation_window.MonteCarloWindow attribute)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_window.MonteCarloWindow.purchase_order_receipt_qty">purchase_order_receipt_qty (supplychainpy.simulations.simulation_window.MonteCarloWindow attribute)</a>
   </dt>
 
   </dl></td>
@@ -488,6 +655,12 @@
 
 <h2 id="Q">Q</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_window.MonteCarloWindow.quantity_sold">quantity_sold (supplychainpy.simulations.simulation_window.MonteCarloWindow attribute)</a>
+  </dt>
+
+  </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="supplychainpy.html#supplychainpy.enum_formats.PeriodFormats.quarters">quarters (supplychainpy.enum_formats.PeriodFormats attribute)</a>
@@ -500,7 +673,17 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.reorder_level">reorder_level (supplychainpy.demand.analyse_uncertain_demand.UncertainDemand attribute)</a>
+  </dt>
+
+      
   <dt><a href="supplychainpy.demand.html#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.revenue">revenue (supplychainpy.demand.analyse_uncertain_demand.UncertainDemand attribute)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="supplychainpy.html#supplychainpy.simulate.run_monte_carlo">run_monte_carlo() (in module supplychainpy.simulate)</a>
   </dt>
 
   </dl></td>
@@ -509,6 +692,22 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.monte_carlo.SetupMonteCarlo">SetupMonteCarlo (class in supplychainpy.simulations.monte_carlo)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_window.MonteCarloWindow.shortage_cost">shortage_cost (supplychainpy.simulations.simulation_window.MonteCarloWindow attribute)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_window.MonteCarloWindow.shortage_units">shortage_units (supplychainpy.simulations.simulation_window.MonteCarloWindow attribute)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.forecast_demand.Forecast.simple_exponential_smoothing">simple_exponential_smoothing() (supplychainpy.demand.forecast_demand.Forecast method)</a>
+  </dt>
+
       
   <dt><a href="supplychainpy.production.html#supplychainpy.production.create_install_base.SimpleMachineBuilder">SimpleMachineBuilder (class in supplychainpy.production.create_install_base)</a>
   </dt>
@@ -521,12 +720,22 @@
   <dt><a href="supplychainpy.demand.html#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.sku_id">sku_id (supplychainpy.demand.analyse_uncertain_demand.UncertainDemand attribute)</a>
   </dt>
 
+      <dd><dl>
+        
+  <dt><a href="supplychainpy.simulations.html#supplychainpy.simulations.simulation_window.MonteCarloWindow.sku_id">(supplychainpy.simulations.simulation_window.MonteCarloWindow attribute)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="supplychainpy.demand.html#supplychainpy.demand.analyse_uncertain_demand.order.sku_orders">sku_orders (supplychainpy.demand.analyse_uncertain_demand.order attribute)</a>
   </dt>
 
       
   <dt><a href="supplychainpy.demand.html#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.standard_deviation">standard_deviation (supplychainpy.demand.analyse_uncertain_demand.UncertainDemand attribute)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.html#supplychainpy.simulate.summarize_window">summarize_window() (in module supplychainpy.simulate)</a>
   </dt>
 
       
@@ -561,12 +770,12 @@
   <dt><a href="supplychainpy.demand.html#module-supplychainpy.demand.summarise_demand">supplychainpy.demand.summarise_demand (module)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="supplychainpy.distribution.html#module-supplychainpy.distribution">supplychainpy.distribution (module)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="supplychainpy.html#module-supplychainpy.enum_formats">supplychainpy.enum_formats (module)</a>
   </dt>
@@ -597,6 +806,38 @@
 
       
   <dt><a href="supplychainpy.production.html#module-supplychainpy.production.create_install_base">supplychainpy.production.create_install_base (module)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.production.html#module-supplychainpy.production.production">supplychainpy.production.production (module)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.html#module-supplychainpy.simulate">supplychainpy.simulate (module)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.simulations.html#module-supplychainpy.simulations">supplychainpy.simulations (module)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.simulations.html#module-supplychainpy.simulations.monte_carlo">supplychainpy.simulations.monte_carlo (module)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.simulations.html#module-supplychainpy.simulations.monte_carlo_frame">supplychainpy.simulations.monte_carlo_frame (module)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.simulations.html#module-supplychainpy.simulations.simulation_frame_summary">supplychainpy.simulations.simulation_frame_summary (module)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.simulations.html#module-supplychainpy.simulations.simulation_summary">supplychainpy.simulations.simulation_summary (module)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.simulations.html#module-supplychainpy.simulations.simulation_window">supplychainpy.simulations.simulation_window (module)</a>
   </dt>
 
       
@@ -634,7 +875,7 @@
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.analyse_uncertain_demand.UncertainDemandSimple">UncertainDemandSimple (class in supplychainpy.demand.analyse_uncertain_demand)</a>
+  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand.unit_cost">unit_cost (supplychainpy.demand.analyse_uncertain_demand.UncertainDemand attribute)</a>
   </dt>
 
   </dl></td>
@@ -645,6 +886,16 @@
   <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="supplychainpy.html#supplychainpy.enum_formats.PeriodFormats.weeks">weeks (supplychainpy.enum_formats.PeriodFormats attribute)</a>
+  </dt>
+
+      
+  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.forecast_demand.Forecast.weighted_moving_average">weighted_moving_average (supplychainpy.demand.forecast_demand.Forecast attribute)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="supplychainpy.demand.html#supplychainpy.demand.forecast_demand.Forecast.weighted_moving_average_forecast">weighted_moving_average_forecast() (supplychainpy.demand.forecast_demand.Forecast method)</a>
   </dt>
 
   </dl></td>
