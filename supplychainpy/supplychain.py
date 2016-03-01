@@ -19,10 +19,12 @@ def main():
     secs = inter_time - start_time
     print(secs)
 
-    for i in simulate.summarize_window(simulation_frame=sim, period_length=12):
-        print(i)
+    i = simulate.summarize_win(simulation_frame=sim, period_length=12)
+    for r in i:
+        print(r)
     end_time = time.time()
     end_secs = end_time - start_time
     print(end_secs)
 
 if __name__ == '__main__': main()
+

@@ -15,6 +15,7 @@ class BuildFrame(MainFrame):
         MainFrame.__init__(self)
         self._shared_frame.update(kwargs)
 
+
     def __str__(self):
         # returns the attribute for printing
         return str(self._shared_frame)

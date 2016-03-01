@@ -1,5 +1,5 @@
 import numpy as np
-from decimal import Decimal
+from decimal import Decimal, getcontext
 
 from supplychainpy.demand.abc_xyz import AbcXyz
 from supplychainpy.enum_formats import PeriodFormats
@@ -88,10 +88,12 @@ class SetupMonteCarlo:
                             Please make sure that the two values are equal".format(period_length,
                             len(random_normal_demand[0][sku.sku_id]))
         """
+        getcontext().prec = 1
         # lambda functions for calculating the main values in the monte carlo analysis
         closing_stock = lambda opening_stock, orders, deliveries, backlog: Decimal((Decimal(opening_stock)
                                                                                     - Decimal(orders)) + Decimal(
-            deliveries)) - Decimal(backlog)
+            deliveries)) - Decimal(backlog) if  Decimal((Decimal(opening_stock) - Decimal(orders)) +
+                                                        Decimal(deliveries)) - Decimal(backlog) > 0 else 0
 
         backlog = lambda opening_stock, deliveries, demand: abs(
             (Decimal(opening_stock + deliveries)) - Decimal(demand)) if \

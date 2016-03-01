@@ -1,8 +1,13 @@
 from decimal import Decimal
-
 from supplychainpy import model_inventory
 from supplychainpy.simulations import monte_carlo
 from supplychainpy.simulations.simulation_frame_summary import MonteCarloFrameSummary
+import pyximport
+
+pyximport.install()
+from supplychainpy.simulations.sim_summary import closing_stockout_percentage, summarize_monte_carlo
+
+
 
 
 def run_monte_carlo(file_path: str, z_value: Decimal, runs: int, reorder_cost: Decimal,
@@ -37,12 +42,12 @@ def run_monte_carlo(file_path: str, z_value: Decimal, runs: int, reorder_cost: D
         simulation = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis.orders)
         random_demand = simulation.generate_normal_random_distribution(period_length=period_length)
         for sim_window in simulation.build_window(random_normal_demand=random_demand, period_length=period_length):
-            sim_dict = {"index": "{:.0f}".format(sim_window.index), "period": "{:.0f}".format(sim_window.position),
-                        "sku_id": sim_window.sku_id, "opening_stock": "{:.0f}".format(sim_window.opening_stock),
-                        "demand": "{:.0f}".format(sim_window.demand),
-                        "closing_stock": "{:.0f}".format(sim_window.closing_stock),
-                        "delivery": "{:.0f}".format(sim_window.purchase_order_receipt_qty),
-                        "backlog": "{:.0f}".format(sim_window.backlog)}
+            sim_dict = {"index": "{}".format(sim_window.index), "period": "{}".format(sim_window.position),
+                        "sku_id": sim_window.sku_id, "opening_stock": "{}".format(round(sim_window.opening_stock)),
+                        "demand": "{}".format(round(sim_window.demand)),
+                        "closing_stock": "{}".format(round(sim_window.closing_stock)),
+                        "delivery": "{}".format(round(sim_window.purchase_order_receipt_qty)),
+                        "backlog": "{}".format(round(sim_window.backlog))}
             # so = BuildFrame(s=sim_dict)
             sim_collection.append([sim_dict])
     return sim_collection
@@ -68,7 +73,13 @@ def summarize_window(simulation_frame: list, period_length: int = 12) -> dict:
             if int(f[0]['index']) == x:
                 closing_stock.append(int(f[0]['closing_stock']))
             if len(closing_stock) == period_length:
-                cls = summary.closing_stockout_percentage(closing_stock=closing_stock, period_length=period_length)
+                cls = MonteCarloFrameSummary.closing_stockout_percentage(closing_stock=closing_stock,
+                                                                         period_length=period_length)
                 summarize = {'sku_id': f[0]['sku_id'], 'stockout_percentage': cls, 'index': f[0]['index']}
                 yield summarize
                 closing_stock = []
+
+
+def summarize_win(simulation_frame: list, period_length: int = 12):
+    summary = summarize_monte_carlo(simulation_frame, period_length)
+    return summary
