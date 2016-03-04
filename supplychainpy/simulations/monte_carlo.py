@@ -5,6 +5,7 @@ from supplychainpy.demand.abc_xyz import AbcXyz
 from supplychainpy.enum_formats import PeriodFormats
 from supplychainpy.simulations import simulation_window
 
+
 # assumptions: opening stock in first period is average stock adjusted to period used in monte carlo if different from
 # orders analysis. There are no deliveries in the first period (maybe add switch so there always is a delivery in first,
 # users choice) period based on inventory rules.
@@ -92,8 +93,8 @@ class SetupMonteCarlo:
         # lambda functions for calculating the main values in the monte carlo analysis
         closing_stock = lambda opening_stock, orders, deliveries, backlog: Decimal((Decimal(opening_stock)
                                                                                     - Decimal(orders)) + Decimal(
-            deliveries)) - Decimal(backlog) if  Decimal((Decimal(opening_stock) - Decimal(orders)) +
-                                                        Decimal(deliveries)) - Decimal(backlog) > 0 else 0
+            deliveries)) - Decimal(backlog) if Decimal((Decimal(opening_stock) - Decimal(orders)) +
+                                                       Decimal(deliveries)) - Decimal(backlog) > 0 else 0
 
         backlog = lambda opening_stock, deliveries, demand: abs(
             (Decimal(opening_stock + deliveries)) - Decimal(demand)) if \
@@ -134,10 +135,14 @@ class SetupMonteCarlo:
 
             # create the sim_window for each sku, suing the random normal demand generated
             for i in range(0, period_length):
+
                 sim_window = simulation_window.MonteCarloWindow
+
+
                 sim_window.sku_id = sku.sku_id
                 previous_closing_stock = final_stock
                 sim_window.position = period
+
                 if sim_window.position == 1:
                     sim_window.opening_stock = sku.average_orders
                 else:
@@ -149,9 +154,11 @@ class SetupMonteCarlo:
 
                 if sim_window.position in order_receipt_index.keys():
                     sim_window.purchase_order_receipt_qty = order_receipt_index[sim_window.position]
+                    sim_window.po_number_received = 'PO {:.0f}{}'.format(sim_window.position, sim_window.index)
                     order_receipt_index.pop(sim_window.position)
                 else:
                     sim_window.purchase_order_receipt_qty = 0
+                    sim_window.po_number_received = ''
 
                 sim_window.index = index_item
 
@@ -179,9 +186,17 @@ class SetupMonteCarlo:
                                                                 backlog=sim_window.backlog,
                                                                 cls_stock=sim_window.closing_stock)
 
+                sim_window.purchase_order_raised_qty = order_receipt_index[po_receipt_period]
+
+                if sim_window.po_raised_flag:
+                    sim_window.po_number_raised = 'PO {:.0f}{}'.format(po_receipt_period, sim_window.index)
+                else:
+                    sim_window.po_number_raised = ""
+
                 final_stock = sim_window.closing_stock
 
                 yield sim_window
 
                 period += 1
             index_item += 1
+            sim_window.po_number_received = ''

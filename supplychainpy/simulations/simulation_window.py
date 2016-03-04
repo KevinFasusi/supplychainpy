@@ -5,6 +5,7 @@ class MonteCarloWindow:
     """ Attributes for monte carlo calculations, for building the simulation window
 
     """
+
     def __init__(self):
         self._index = 0
         self._sku_id = ""
@@ -22,9 +23,27 @@ class MonteCarloWindow:
         self._quantity_sold = 0
         self._position = 0
         self._shortage_units = 0
+        self._po_number_raised = ''
+        self._po_number_received = ''
 
     @property
-    def index(self)->int:
+    def po_number_raised(self) -> int:
+        return self._po_number_raised
+
+    @po_number_raised.setter
+    def po_number_raised(self, po_raised: int):
+        self._po_number_raised = po_raised
+
+    @property
+    def po_number_received(self) -> int:
+        return self._po_number_received
+
+    @po_number_received.setter
+    def po_number_received(self, po_received: int):
+        self._po_number_received = po_received
+
+    @property
+    def index(self) -> int:
         return self._index
 
     @index.setter
@@ -32,7 +51,7 @@ class MonteCarloWindow:
         self._index = index
 
     @property
-    def shortage_units(self)->int:
+    def shortage_units(self) -> int:
         return self._shortage_cost
 
     @shortage_units.setter

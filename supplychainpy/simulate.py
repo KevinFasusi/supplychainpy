@@ -1,13 +1,30 @@
+from multiprocessing.pool import ThreadPool
 from decimal import Decimal
 from supplychainpy import model_inventory
 from supplychainpy.simulations import monte_carlo
 from supplychainpy.simulations.simulation_frame_summary import MonteCarloFrameSummary
+from supplychainpy.simulations.monte_carlo_frame import BuildFrame
 import pyximport
 
 pyximport.install()
 from supplychainpy.simulations.sim_summary import closing_stockout_percentage, summarize_monte_carlo
 
 
+def run(simulation_frame: list, period_length: int = 12):
+    listd = []
+
+    pool = ThreadPool(processes=12, )
+    async_results = pool.apply_async(summarize_win, (simulation_frame, period_length,))
+
+    return_val = async_results.get()
+    listd.append(return_val)
+    pool1 = ThreadPool(processes=12, )
+    async_results1 = pool1.apply_async(summarize_win, (simulation_frame, period_length,))
+
+    return_val1 = async_results1.get()
+    listd.append(return_val1)
+
+    return listd
 
 
 def run_monte_carlo(file_path: str, z_value: Decimal, runs: int, reorder_cost: Decimal,
@@ -37,7 +54,7 @@ def run_monte_carlo(file_path: str, z_value: Decimal, runs: int, reorder_cost: D
                                                                       z_value=z_value,
                                                                       reorder_cost=reorder_cost,
                                                                       file_type=file_type)
-    sim_collection = []
+    Transaction_report = []
     for k in range(0, runs):
         simulation = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis.orders)
         random_demand = simulation.generate_normal_random_distribution(period_length=period_length)
@@ -47,10 +64,13 @@ def run_monte_carlo(file_path: str, z_value: Decimal, runs: int, reorder_cost: D
                         "demand": "{}".format(round(sim_window.demand)),
                         "closing_stock": "{}".format(round(sim_window.closing_stock)),
                         "delivery": "{}".format(round(sim_window.purchase_order_receipt_qty)),
-                        "backlog": "{}".format(round(sim_window.backlog))}
+                        "backlog": "{}".format(round(sim_window.backlog)),
+                        "po_raised": "{}".format(sim_window.po_number_raised),
+                        "po_received": "{}".format(sim_window.po_number_received),
+                        "po_quantity": "{:.0f}".format(sim_window.purchase_order_raised_qty)}
             # so = BuildFrame(s=sim_dict)
-            sim_collection.append([sim_dict])
-    return sim_collection
+            Transaction_report.append([sim_dict])
+    return Transaction_report
 
 
 def summarize_window(simulation_frame: list, period_length: int = 12) -> dict:
@@ -83,3 +103,9 @@ def summarize_window(simulation_frame: list, period_length: int = 12) -> dict:
 def summarize_win(simulation_frame: list, period_length: int = 12):
     summary = summarize_monte_carlo(simulation_frame, period_length)
     return summary
+
+
+def monte_carlo_summary():
+    # dumb transaction_report in here to get a summary of costs and key metrics aggregated by sku for all the runs
+
+    pass

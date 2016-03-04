@@ -110,8 +110,20 @@ The inventory analysis functions can be accessed from supplychainpy by importing
 Simulation
 ==========
 
+A method for checking the validity of the decisions made is useful for inventory managers to evaluate the appropriateness
+of any changes.
+
+A simulation is useful for giving a dynamic view of an operations system. The simulation replicates the complexity of the system
+over time and captures randomness for a more accurate result. The monte carlo simulation is useful when complicated interactions
+and effects are not adequately captured by an analytical model.
+
+
 Monte Carlo simulation
 ----------------------
+
+The code below returns the `transaction report` covering the number of periods specified, multiplied by the number of runs
+requested. The higher the number of runs the more accurately the simulation captures the dynamics of the system limited by
+the assumptions inherent in the simulations design.
 
 .. code:: python
 
@@ -120,6 +132,7 @@ Monte Carlo simulation
 	>>> for s in sim:
 	>>>    print(s)
 
+This is the output from 1 run for 1 sku. The demand is normal random distribution and the PO's raised
 
 .. parsed-literal::
 
@@ -256,6 +269,12 @@ Monte Carlo simulation
 	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
 	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
 	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+
+Overview of simulation model
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+insert flow diagram here.
+
 
 
 Agent based modeling
