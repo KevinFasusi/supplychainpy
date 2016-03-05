@@ -15,4 +15,3 @@ sphinx-rtd-theme==0.1.9
 sphinxcontrib-napoleon==0.4.4
 wheel==0.29.0
 cython==0.23.4
-
