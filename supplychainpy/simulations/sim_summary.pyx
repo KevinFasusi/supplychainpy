@@ -1,5 +1,7 @@
 from operator import itemgetter
 
+import itertools
+
 def closing_stockout_percentage( closing_stock, int period_length):
     cdef float closing_stock_count
     cdef float percentage
@@ -40,21 +42,37 @@ def summarize_monte_carlo( simulation_frame, int period_length):
                 closing_stock.append( int(f[0]['closing_stock']))
             if len(closing_stock) == period_length:
                 cls = closing_stockout_percentage(closing_stock, period_length)
-                summary.append([{'sku_id': f[0]['sku_id'], 'stockout_percentage': cls, 'index': f[0]['index']}])
+                summary.append({'sku_id': f[0]['sku_id'], 'stockout_percentage': cls, 'index': f[0]['index']})
                 closing_stock = []
 
 
     stockout_probability_summary = []
-    probability =0
-    count = 0
+    cdef float stockout_probability
+    cdef float stockout_count
+    cdef int count_runs
 
-    for s in sorted(summary,key=itemgetter('sku_id')):
-        if float(s[0]['stockout_percentage']) == 0.0:
-            probability += 1
-            count +=1
+    summary.sort(key = itemgetter('sku_id'))
+    list1 = []
+    for key, items in itertools.groupby(summary, itemgetter('sku_id')):
+        list1.append(list(items))
+
+    probability_list = []
+    for item in list1:
+        sku_id = item[0]['sku_id']
+        count_runs = len(item)
+        for j in range(count_runs):
+            if float(item[0]['stockout_percentage']) > 0:
+                stockout_count += 1
+        stockout_probability = (stockout_count/float(count_runs)) * 100
+        probability_list.append((sku_id, stockout_probability))
+        stockout_count = 0
+
+    return probability_list
 
 
-            print(probability)
+
+
+
        # if  len(probability) == len(gr):
        #     summarized_probability = summarize_probability(probability)
        #     probability_summary = {gr[0]['sku_id']: summarized_probability}
