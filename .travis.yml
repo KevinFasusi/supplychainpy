@@ -5,6 +5,7 @@ python:
 install:
   - pip install numpy
   - pip install coveralls
+  - pip install cython
 
 script:
   - python -m unittest discover tests/
