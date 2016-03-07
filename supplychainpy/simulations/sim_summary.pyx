@@ -69,15 +69,3 @@ def summarize_monte_carlo( simulation_frame, int period_length):
 
     return probability_list
 
-
-
-
-
-       # if  len(probability) == len(gr):
-       #     summarized_probability = summarize_probability(probability)
-       #     probability_summary = {gr[0]['sku_id']: summarized_probability}
-       #     stockout_probability_summary.append(probability_summary)
-
-    return stockout_probability_summary
-
-
