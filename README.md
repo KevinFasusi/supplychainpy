@@ -47,6 +47,7 @@ An alternative is to clone the repository and run `python setup.py install`
 1. Fire up the python interpreter or `ipython notebook` from the command line.
 
 ~~2. Format the .csv or .txt .e.g sku id, order1, order2,... orders12, lead time, unit cost`~~
+
 2. Format the `.csv` or `.txt`.e.g `sku id`, `order1`, `order2`,... `orders12`, `unit cost`, `lead time`,
 
 At the moment the lead-time must match the orders time bucket i.e both should be in days, weeks or months. This will
@@ -73,5 +74,8 @@ Documentation: [supplychainpy.readthdocs](http://supplychainpy.readthedocs.org/)
 Website: [supplychainpy.org](http://www.supplychainpy.org/)
 
 Forum: [google groups](https://groups.google.com/forum/#!forum/supplychainpy)
+
+
+
 
 
