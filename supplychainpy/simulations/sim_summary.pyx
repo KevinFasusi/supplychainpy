@@ -66,6 +66,7 @@ def summarize_monte_carlo( simulation_frame, int period_length):
         stockout_probability = (stockout_count/float(count_runs)) * 100
         probability_list.append((sku_id, stockout_probability))
         stockout_count = 0
+        
 
     return probability_list
 
