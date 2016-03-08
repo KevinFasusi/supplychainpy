@@ -391,6 +391,16 @@ def analyse_orders_np(unit_cost: Decimal, period: np.array, z_value: Decimal, or
     print(d.total_orders)
 
 
+
+def summarize_analysis( abcxyz: AbcXyz, qauntity_on_hand: str)->dict:
+
+    for sku in abcxyz:
+
+
+    pass
+
+
+
 def _check_extension(file_path, file_type: str) -> bool:
     """ Check the correct file type has been selected.
 
@@ -408,3 +418,5 @@ def _check_extension(file_path, file_type: str) -> bool:
     else:
         flag = False
     return flag
+
+# rewrite all of the to deal with database tables and rows instead of csv files.

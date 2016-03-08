@@ -54,3 +54,4 @@ class AnalyseOrdersSummary:
         classification_matrix.append({"CZ": cz_count})
 
         return classification_matrix
+
