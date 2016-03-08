@@ -138,6 +138,7 @@ class SetupMonteCarlo:
 
             # create the sim_window for each sku, suing the random normal demand generated
             for i in range(0, period_length):
+                po_qty_raised = 0
 
                 # instantiate sim_window
                 sim_window = simulation_window.MonteCarloWindow
@@ -190,24 +191,29 @@ class SetupMonteCarlo:
                 sim_window.po_raised_flag = raise_po(reorder_lvl=sku.reorder_level, cls_stock=sim_window.closing_stock)
 
                 with localcontext() as ctx:
-                    ctx.prec = 42  # Perform a high precision calculation
+                    ctx.prec = 2
                     po_receipt_period = period + sku.lead_time
 
-                order_receipt_index.update({po_receipt_period: po_qty(eoq=sku.economic_order_qty,
-                                                                      reorder_lvl=sku.reorder_level,
-                                                                      backlog=sim_window.backlog,
-                                                                      cls_stock=sim_window.closing_stock)})
+                po_qty_raised = po_qty(eoq=sku.economic_order_qty,
+                                       reorder_lvl=sku.reorder_level,
+                                       backlog=sim_window.backlog,
+                                       cls_stock=sim_window.closing_stock)
 
-                sim_window.purchase_order_raised_qty = order_receipt_index.get(po_receipt_period)
-
-                if sim_window.purchase_order_raised_qty:
-                    sim_window.po_number_raised = 'PO {:.0f}{}'.format(po_receipt_period, sim_window.index)
+                if po_qty_raised > 4:
+                    order_receipt_index.update({po_receipt_period: po_qty_raised})
+                    sim_window.purchase_order_raised_qty = order_receipt_index.get(po_receipt_period)
                 else:
-                    sim_window.po_number_raised = ''
+                    sim_window.purchase_order_raised_qty = 0
+
+                if sim_window.purchase_order_raised_qty > 4 and index_item < po_receipt_period:
+                    sim_window.po_number_raised = 'PO {:.0f}{}'.format(po_receipt_period, sim_window.index)
+                    del po_receipt_period
 
                 final_stock = sim_window.closing_stock
 
                 yield sim_window
                 del sim_window
+
                 period += 1
+
             index_item += 1
