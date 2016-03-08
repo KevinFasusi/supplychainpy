@@ -1,3 +1,6 @@
+import collections
+from _decimal import localcontext
+
 import numpy as np
 from decimal import Decimal, getcontext
 
@@ -124,7 +127,7 @@ class SetupMonteCarlo:
                                  "Please make sure that the two values are equal".format(period_length,
                                                                                          len(random_normal_demand[0][
                                                                                                  sku.sku_id])))
-
+        order_receipt_index = {}
         sim_frame_collection = []
         index_item = 1
         for sku in self._analysed_orders:
@@ -136,26 +139,33 @@ class SetupMonteCarlo:
             # create the sim_window for each sku, suing the random normal demand generated
             for i in range(0, period_length):
 
+                # instantiate sim_window
                 sim_window = simulation_window.MonteCarloWindow
 
-
+                # add sku_id
                 sim_window.sku_id = sku.sku_id
+
+                # add closing stock
                 previous_closing_stock = final_stock
+
+                # mark sim_window.position or period in analysis
                 sim_window.position = period
 
+                # add average orders to opening_stock if first period else add closing stock
                 if sim_window.position == 1:
                     sim_window.opening_stock = sku.average_orders
                 else:
                     sim_window.opening_stock = previous_closing_stock
 
+                # add random demand
                 demand = random_normal_demand[0][sku.sku_id][i][0]
-
                 sim_window.demand = demand
 
+                #
                 if sim_window.position in order_receipt_index.keys():
                     sim_window.purchase_order_receipt_qty = order_receipt_index[sim_window.position]
                     sim_window.po_number_received = 'PO {:.0f}{}'.format(sim_window.position, sim_window.index)
-                    order_receipt_index.pop(sim_window.position)
+                    del order_receipt_index[sim_window.position]
                 else:
                     sim_window.purchase_order_receipt_qty = 0
                     sim_window.po_number_received = ''
@@ -179,24 +189,25 @@ class SetupMonteCarlo:
 
                 sim_window.po_raised_flag = raise_po(reorder_lvl=sku.reorder_level, cls_stock=sim_window.closing_stock)
 
-                po_receipt_period = period + sku.lead_time
+                with localcontext() as ctx:
+                    ctx.prec = 42  # Perform a high precision calculation
+                    po_receipt_period = period + sku.lead_time
 
-                order_receipt_index[po_receipt_period] = po_qty(eoq=sku.economic_order_qty,
-                                                                reorder_lvl=sku.reorder_level,
-                                                                backlog=sim_window.backlog,
-                                                                cls_stock=sim_window.closing_stock)
+                order_receipt_index.update({po_receipt_period: po_qty(eoq=sku.economic_order_qty,
+                                                                      reorder_lvl=sku.reorder_level,
+                                                                      backlog=sim_window.backlog,
+                                                                      cls_stock=sim_window.closing_stock)})
 
-                sim_window.purchase_order_raised_qty = order_receipt_index[po_receipt_period]
+                sim_window.purchase_order_raised_qty = order_receipt_index.get(po_receipt_period)
 
-                if sim_window.po_raised_flag:
+                if sim_window.purchase_order_raised_qty:
                     sim_window.po_number_raised = 'PO {:.0f}{}'.format(po_receipt_period, sim_window.index)
                 else:
-                    sim_window.po_number_raised = ""
+                    sim_window.po_number_raised = ''
 
                 final_stock = sim_window.closing_stock
 
                 yield sim_window
-
+                del sim_window
                 period += 1
             index_item += 1
-            sim_window.po_number_received = ''

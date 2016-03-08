@@ -223,9 +223,8 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: float, reorder_cost
     for sku in item_list:
         orders = {}
 
-        sku_id = sku.get("sku id")
-        unit_cost = sku.get("unit cost")
-        lead_time = sku.get("lead time")
+        sku_id, unit_cost, lead_time = sku.get("sku id"), sku.get("unit cost"), sku.get("lead time")
+
         orders['demand'] = sku.get("demand")
 
         analysed_orders = analyse_uncertain_demand.UncertainDemand(orders, sku_id, lead_time,
