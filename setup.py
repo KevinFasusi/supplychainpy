@@ -1,5 +1,5 @@
 from Cython.Build import cythonize
-from setuptools import setup, find_packages
+from setuptools import setup, find_packages, Extension
 
 setup(name='supplychainpy',
       version='0.0.2',
@@ -13,5 +13,6 @@ setup(name='supplychainpy',
       test_suite='supplychainpy/tests',
       install_requires=['NumPy'],
       keywords=['supply chain', 'operations research', 'operations management', 'simulation'],
-      ext_modules=cythonize('supplychainpy/supplychainpy/simulations/sim_summary.pyx'),
+      ext_modules=cythonize(
+          Extension('supplychainpy.simulations.sim_summary', ['supplychainpy/simulations/sim_summary.pyx'])),
       )

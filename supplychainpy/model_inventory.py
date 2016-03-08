@@ -39,8 +39,8 @@ def analyse_orders(data_set: dict, sku_id: str, lead_time: Decimal, unit_cost: D
     """
     if len(data_set) > 2:
         d = analyse_uncertain_demand.UncertainDemand(orders=data_set, sku=sku_id, lead_time=lead_time,
-                                                           unit_cost=unit_cost, reorder_cost=reorder_cost,
-                                                           z_value=z_value)
+                                                     unit_cost=unit_cost, reorder_cost=reorder_cost,
+                                                     z_value=z_value)
     else:
         raise ValueError("Dictionary too small. Please use a minimum of 3 entries.")
     return d.orders_summary_simple()
@@ -223,9 +223,8 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: float, reorder_cost
     for sku in item_list:
         orders = {}
 
-        sku_id = sku.get("sku id")
-        unit_cost = sku.get("unit cost")
-        lead_time = sku.get("lead time")
+        sku_id, unit_cost, lead_time = sku.get("sku id"), sku.get("unit cost"), sku.get("lead time")
+
         orders['demand'] = sku.get("demand")
 
         analysed_orders = analyse_uncertain_demand.UncertainDemand(orders, sku_id, lead_time,
@@ -275,6 +274,8 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: float, reorder_cost
     # def AbcXyz_Analysis(analysed_orders_summary):
     #   for sku in analysed_orders_summary
     #      count += sku.get("")
+
+
 def analyse_orders_abcxyz_from_file(file_path: str, z_value: float, reorder_cost: float,
                                     file_type: str = FileFormats.text.name,
                                     period: str = "month", length: int = 12) -> AbcXyz:
@@ -376,6 +377,7 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: float, reorder_cost
     return abc
     # else:
 
+
 # the np method allows a numpy array to be used. This requires the specification of a period and length the data is
 # supposed to cover. This method also allows the use of lead time arrays for calculating average leadtimes. There
 # also be an analyse_orders_from_file_np. using the analyse_orders_np method to process each row.
@@ -387,6 +389,16 @@ def analyse_orders_np(unit_cost: Decimal, period: np.array, z_value: Decimal, or
     d = analyse_uncertain_demand.UncertainDemandNp(orders_np=orders, length=length, period=period)
     d.print_period()
     print(d.total_orders)
+
+
+
+def summarize_analysis( abcxyz: AbcXyz, qauntity_on_hand: str)->dict:
+
+    for sku in abcxyz:
+
+
+    pass
+
 
 
 def _check_extension(file_path, file_type: str) -> bool:
@@ -406,3 +418,5 @@ def _check_extension(file_path, file_type: str) -> bool:
     else:
         flag = False
     return flag
+
+# rewrite all of the to deal with database tables and rows instead of csv files.

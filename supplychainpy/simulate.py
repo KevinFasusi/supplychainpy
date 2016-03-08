@@ -67,7 +67,7 @@ def run_monte_carlo(file_path: str, z_value: Decimal, runs: int, reorder_cost: D
                         "backlog": "{}".format(round(sim_window.backlog)),
                         "po_raised": "{}".format(sim_window.po_number_raised),
                         "po_received": "{}".format(sim_window.po_number_received),
-                        "po_quantity": "{:.0f}".format(sim_window.purchase_order_raised_qty)}
+                        "po_quantity": "{:.0f}".format(int(sim_window.purchase_order_raised_qty))}
             # so = BuildFrame(s=sim_dict)
             Transaction_report.append([sim_dict])
     return Transaction_report

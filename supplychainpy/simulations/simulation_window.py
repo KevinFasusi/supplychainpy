@@ -27,11 +27,11 @@ class MonteCarloWindow:
         self._po_number_received = ''
 
     @property
-    def po_number_raised(self) -> int:
+    def po_number_raised(self) -> str:
         return self._po_number_raised
 
     @po_number_raised.setter
-    def po_number_raised(self, po_raised: int):
+    def po_number_raised(self, po_raised: str):
         self._po_number_raised = po_raised
 
     @property
