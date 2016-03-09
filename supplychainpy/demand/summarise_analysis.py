@@ -1,9 +1,5 @@
-from supplychainpy.demand.abc_xyz import AbcXyz
 
+def summary(abc_xyz: list):
 
-class Inventory:
-    def __init__(self, abc_xyz: list):
-        self._sku_id = ''
-        self._reorder_quantity = ''
-        self._
-        self._excess_stock = 0
+     x = ([sku['sku_id'] for sku in abc_xyz])
+

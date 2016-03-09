@@ -22,9 +22,6 @@ def summarize_probability(stockouts):
         probability = len(stockouts) / 1
 
 
-    return probability
-
-
 def summarize_monte_carlo( simulation_frame, int period_length):
 
     closing_stock = []

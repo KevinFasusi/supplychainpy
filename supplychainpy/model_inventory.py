@@ -3,6 +3,7 @@ from supplychainpy import data_cleansing
 from supplychainpy.demand import analyse_uncertain_demand, economic_order_quantity
 from supplychainpy.demand import summarise_demand
 from supplychainpy.demand.abc_xyz import AbcXyz
+from supplychainpy.demand.summarise_analysis import summary
 from supplychainpy.enum_formats import FileFormats, PeriodFormats
 import numpy as np
 
@@ -391,14 +392,12 @@ def analyse_orders_np(unit_cost: Decimal, period: np.array, z_value: Decimal, or
     print(d.total_orders)
 
 
-
-def summarize_analysis( abcxyz: AbcXyz, qauntity_on_hand: str)->dict:
-
-    for sku in abcxyz:
-
-
-    pass
-
+def summarise_analysis(abcxyz: AbcXyz, qauntity_on_hand: dict) -> dict:
+    s = []
+    for sku in abcxyz.orders:
+        for o in summary(abc_xyz=sku.orders_summary):
+            s.append(o)
+    return s
 
 
 def _check_extension(file_path, file_type: str) -> bool:
@@ -419,4 +418,4 @@ def _check_extension(file_path, file_type: str) -> bool:
         flag = False
     return flag
 
-# rewrite all of the to deal with database tables and rows instead of csv files.
+    # rewrite all of the to deal with database tables and rows instead of csv files.

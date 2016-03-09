@@ -49,9 +49,11 @@ class EconomicOrderQuantity(analyse_uncertain_demand.UncertainDemand):
                 order_size = self._order_size(average_orders=average_orders, reorder_cost=reorder_cost,
                                               unit_cost=unit_cost, holding_cost=holding_cost,
                                               order_factor=order_factor)
-
-            vc = self._variable_cost(float(average_orders), float(reorder_cost), float(order_size), float(unit_cost),
-                                     float(holding_cost))
+            rc = lambda x, y, z: (x * y) / z
+            hc = lambda x, y, z: x * y * z
+            vc = rc(float(average_orders), float(reorder_cost), float(order_size)) + hc(float(unit_cost),
+                                                                                    float(order_size),
+                                                                                    float(holding_cost))
 
             order_size += int(float(order_size) * step)
             if counter < 1:
@@ -88,8 +90,11 @@ class EconomicOrderQuantity(analyse_uncertain_demand.UncertainDemand):
                                               unit_cost=unit_cost, holding_cost=holding_cost,
                                               order_factor=order_factor)
 
-            vc = self._variable_cost(float(average_orders), float(reorder_cost), float(order_size), float(unit_cost),
-                                     float(holding_cost))
+            rc = lambda x, y, z: (x * y) / z
+            hc = lambda x, y, z: x * y * z
+            vc = rc(float(average_orders), float(reorder_cost), float(order_size)) + hc(float(unit_cost),
+                                                                                    float(order_size),
+                                                                                    float(holding_cost))
 
             order_size += int(float(order_size) * step)
             if counter < 1:
