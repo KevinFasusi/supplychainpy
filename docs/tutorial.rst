@@ -53,13 +53,12 @@ Now using the `data.csv` file and `test.xlsx` workbook, we can run our first ana
 	>>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
 	>>> wb = Workbook(r'~/Desktop/test.xlsx'), Range
 	>>> abc = analyse_orders_abcxyz_from_file(file_path="data.csv", z_value= Decimal(1.28), reorder_cost=Decimal(5000), file_type="csv")
-	>>> x = 1
-	>>> for sku in abc.orders:
-	>>>     Range('A'+ str(x)).value = sku.sku_id
-	>>>     Range('B' + str(x)).value = float(sku.economic_order_qty)
-	>>>     Range('C' + str(x)).value = float(sku.revenue)
-	>>>     Range('D' + str(x)).value = sku.abcxyz_classification
-	>>>     x +=1
+	>>>
+	>>> for index, sku in enumerate(abc.orders):
+	>>>     Range('A'+ str(index)).value = sku.sku_id
+	>>>     Range('B' + str(index)).value = float(sku.economic_order_qty)
+	>>>     Range('C' + str(index)).value = float(sku.revenue)
+	>>>     Range('D' + str(index)).value = sku.abcxyz_classification
 
 You should be able to see the following print out in
 

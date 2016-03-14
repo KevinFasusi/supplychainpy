@@ -1,5 +1,9 @@
 from decimal import Decimal, getcontext, ROUND_HALF_UP
 from . import analyse_uncertain_demand
+import pyximport
+
+pyximport.install()
+from supplychainpy.demand.eoq import minimum_variable_cost, economic_order_quantity
 
 
 class EconomicOrderQuantity(analyse_uncertain_demand.UncertainDemand):
@@ -18,15 +22,16 @@ class EconomicOrderQuantity(analyse_uncertain_demand.UncertainDemand):
     def economic_order_quantity(self) -> Decimal:
         return self.__economic_order_quantity
 
-    def __init__(self, reorder_quantity: Decimal, holding_cost, reorder_cost, average_orders: float, unit_cost):
+    def __init__(self, reorder_quantity: float, holding_cost: float, reorder_cost: float, average_orders: float,
+                 unit_cost: float, total_orders: float):
         getcontext().prec = 2
         getcontext().rounding = ROUND_HALF_UP
         self.__reorder_quantity = Decimal(reorder_quantity)
         self.__holding_cost = holding_cost
         self.__reorder_cost = reorder_cost
         self.__unit_cost = unit_cost
-        self.__min_variable_cost = self._minimum_variable_cost(average_orders, reorder_cost, unit_cost)
-        self.__economic_order_quantity = self._eoq_for_minimum_variable_cost(average_orders, reorder_cost, unit_cost)
+        self.__min_variable_cost = minimum_variable_cost(total_orders, reorder_cost, unit_cost, holding_cost)
+        self.__economic_order_quantity = economic_order_quantity(total_orders, reorder_cost, unit_cost,holding_cost, reorder_quantity)
 
     def _minimum_variable_cost(self, average_orders, reorder_cost, unit_cost) -> Decimal:
         getcontext().prec = 2
@@ -49,11 +54,8 @@ class EconomicOrderQuantity(analyse_uncertain_demand.UncertainDemand):
                 order_size = self._order_size(average_orders=average_orders, reorder_cost=reorder_cost,
                                               unit_cost=unit_cost, holding_cost=holding_cost,
                                               order_factor=order_factor)
-            rc = lambda x, y, z: (x * y) / z
-            hc = lambda x, y, z: x * y * z
-            vc = rc(float(average_orders), float(reorder_cost), float(order_size)) + hc(float(unit_cost),
-                                                                                    float(order_size),
-                                                                                    float(holding_cost))
+
+            vc = self._variable_cost(float(average_orders), float(reorder_cost), float(order_size), float(unit_cost), float(holding_cost))
 
             order_size += int(float(order_size) * step)
             if counter < 1:
@@ -64,7 +66,7 @@ class EconomicOrderQuantity(analyse_uncertain_demand.UncertainDemand):
         return Decimal(previous_eoq_variable_cost)
         # probably missing the addition
 
-    def _eoq_for_minimum_variable_cost(self, average_orders: float, reorder_cost: float, unit_cost: float) -> Decimal:
+    def _economic_order_quantity(self, average_orders: float, reorder_cost: float, unit_cost: float) -> Decimal:
         getcontext().prec = 2
         getcontext().rounding = ROUND_HALF_UP
         holding_cost = self.__holding_cost
@@ -90,11 +92,8 @@ class EconomicOrderQuantity(analyse_uncertain_demand.UncertainDemand):
                                               unit_cost=unit_cost, holding_cost=holding_cost,
                                               order_factor=order_factor)
 
-            rc = lambda x, y, z: (x * y) / z
-            hc = lambda x, y, z: x * y * z
-            vc = rc(float(average_orders), float(reorder_cost), float(order_size)) + hc(float(unit_cost),
-                                                                                    float(order_size),
-                                                                                    float(holding_cost))
+
+            vc = self._variable_cost(float(average_orders), float(reorder_cost), float(order_size), float(unit_cost), float(holding_cost))
 
             order_size += int(float(order_size) * step)
             if counter < 1:

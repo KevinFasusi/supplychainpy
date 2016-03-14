@@ -3,7 +3,6 @@ from collections import Iterable
 import collections
 
 from supplychainpy.enum_formats import PeriodFormats
-
 order = collections.namedtuple('order', 'sku sku_orders')
 
 
@@ -76,8 +75,8 @@ class UncertainDemand:
         return self.__reorder_level
 
     @reorder_level.setter
-    def reorder_level(self, ):
-        self.__reorder_level
+    def reorder_level(self, reorder_level):
+        self.__reorder_level = reorder_level
 
     @property
     def unit_cost(self)->Decimal:
@@ -91,6 +90,7 @@ class UncertainDemand:
     def abcxyz_classification(self) -> str:
         """Gets ABCXYZ classification as a concatenated string"""
         return self.__abc_classification + self.__xyz_classification
+
 
     @property
     def abc_classification(self) -> str:

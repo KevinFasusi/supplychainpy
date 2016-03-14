@@ -172,7 +172,7 @@ def analyse_orders_from_file_row(file_path: str, z_value: Decimal, reorder_cost:
 
 
 # TODO Remove hard coded holding cost and make it a parameter
-def analyse_orders_abcxyz_from_file(file_path: str, z_value: float, reorder_cost: float,
+def analyse_orders_abcxyz_from_file(file_path: str, z_value: Decimal, reorder_cost: Decimal,
                                     file_type: str = FileFormats.text.name,
                                     period: str = "month", length: int = 12) -> AbcXyz:
     """Analyse orders data from file and returns ABCXYZ analysis
@@ -328,11 +328,14 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: float, reorder_cost
 
     for sku in item_list:
         orders = {}
-
+        total_orders = 0
         sku_id = sku.get("sku id")
+        print(sku_id)
         unit_cost = sku.get("unit cost")
         lead_time = sku.get("lead time")
         orders['demand'] = sku.get("demand")
+        for order in orders['demand']:
+            total_orders += int(order)
 
         analysed_orders = analyse_uncertain_demand.UncertainDemand(orders, sku_id, lead_time,
                                                                    unit_cost,
@@ -341,8 +344,10 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: float, reorder_cost
         average_orders = analysed_orders.average_orders
 
         reorder_quantity = analysed_orders.fixed_order_quantity
-        eoq = economic_order_quantity.EconomicOrderQuantity(reorder_quantity, 0.25, reorder_cost,
-                                                            average_orders, unit_cost)
+        eoq = economic_order_quantity.EconomicOrderQuantity(reorder_quantity=float(reorder_quantity),
+                                                            holding_cost=float(0.25), reorder_cost=float(reorder_cost),
+                                                            average_orders= float(average_orders),
+                                                            unit_cost=float(unit_cost), total_orders=total_orders)
 
         analysed_orders.economic_order_qty = eoq.economic_order_quantity
         analysed_orders.economic_order_variable_cost = eoq.minimum_variable_cost
