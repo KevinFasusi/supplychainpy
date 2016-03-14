@@ -330,7 +330,7 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: float, reorder_cost
         orders = {}
         total_orders = 0
         sku_id = sku.get("sku id")
-        print(sku_id)
+        #print(sku_id)
         unit_cost = sku.get("unit cost")
         lead_time = sku.get("lead time")
         orders['demand'] = sku.get("demand")

@@ -1,4 +1,5 @@
 import os
+from cmath import isclose
 from unittest import TestCase
 import numpy as np
 from decimal import Decimal
@@ -28,10 +29,10 @@ class TestMonteCarlo(TestCase):
             item = sku.orders_summary()
             if item['sku'] == 'KR202-209':
                 # assert
-                self.assertLess(
+                self.assertTrue(isclose(
                     (abs(float(item['average_order']) - float(
                         np.mean(sim.normal_random_distribution[0]['KR202-209'][0][0])))),
-                    float(item['standard_deviation']))
+                    float(item['standard_deviation']), rel_tol=0.10))
 
     def test_run_simulation(self):
         app_dir = os.path.dirname(__file__, )
