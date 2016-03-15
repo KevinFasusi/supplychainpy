@@ -28,11 +28,10 @@ class TestMonteCarlo(TestCase):
         for sku in orders_analysis.orders:
             item = sku.orders_summary()
             if item['sku'] == 'KR202-209':
-                # assert
-                self.assertTrue(isclose(
-                    (abs(float(item['average_order']) - float(
-                        np.mean(sim.normal_random_distribution[0]['KR202-209'][0][0])))),
-                    float(item['standard_deviation']), rel_tol=0.10))
+                # assertd
+                diff = abs(
+                    float(item['average_order']) - float(np.mean(sim.normal_random_distribution[0]['KR202-209'][0][0])))
+                self.assertLess(diff, float(item['standard_deviation']))
 
     def test_run_simulation(self):
         app_dir = os.path.dirname(__file__, )
@@ -98,25 +97,26 @@ class TestMonteCarlo(TestCase):
                         yield summarize
                         closing_stock = []
 
-   # def test_normal_distribution_variance(self):
-   #     """ Verifies mean and variance for random normal distribution.
-   #    """
-   #     # arrange
-   #     app_dir = os.path.dirname(__file__, )
-   #     rel_path = 'supplychainpy/data.csv'
-   #     abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
-   #     # act
-   #     orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path,
-   #                                                                       z_value=Decimal(1.28),
-   #                                                                       reorder_cost=Decimal(5000),
-   #                                                                       file_type="csv")
-#
-   #     sim = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis.orders, period_length=1)
-#
-   #     for sku in orders_analysis.orders:
-   #         item = sku.orders_summary()
-   #         if item['sku'] == 'KR202-209':
-   #             self.assertLess(
-   #                 (abs(float(item['standard_deviation']) - float(
-   #                     np.std(sim.normal_random_distribution[0]['KR202-209'][0][0],ddof=0)))), Decimal(item['standard_deviation']))
+                        # def test_normal_distribution_variance(self):
+                        #     """ Verifies mean and variance for random normal distribution.
+                        #    """
+                        #     # arrange
+                        #     app_dir = os.path.dirname(__file__, )
+                        #     rel_path = 'supplychainpy/data.csv'
+                        #     abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
+                        #     # act
+                        #     orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path,
+                        #                                                                       z_value=Decimal(1.28),
+                        #                                                                       reorder_cost=Decimal(5000),
+                        #                                                                       file_type="csv")
+                    #
+                    #     sim = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis.orders, period_length=1)
+                    #
+                    #     for sku in orders_analysis.orders:
+                    #         item = sku.orders_summary()
+                    #         if item['sku'] == 'KR202-209':
+                    #             self.assertLess(
+                    #                 (abs(float(item['standard_deviation']) - float(
+                    #                     np.std(sim.normal_random_distribution[0]['KR202-209'][0][0],ddof=0)))), Decimal(item['standard_deviation']))
+
 #
