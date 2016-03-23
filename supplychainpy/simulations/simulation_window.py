@@ -13,7 +13,7 @@ class MonteCarloWindow:
         self._opening_stock = 0
         self._demand = 0
         self._closing_stock = 0
-        self._backlog = 0
+        self._backlog = 0.00
         self._holding_cost = Decimal('0.0')
         self._shortage_cost = Decimal('0.0')
         self._po_raised_flag = False
@@ -99,11 +99,11 @@ class MonteCarloWindow:
         self._closing_stock = closing_stock
 
     @property
-    def backlog(self) -> int:
+    def backlog(self) -> Decimal:
         return self._backlog
 
     @backlog.setter
-    def backlog(self, backlog: int):
+    def backlog(self, backlog: Decimal):
         self._backlog = backlog
 
     @property

@@ -119,4 +119,5 @@ class TestMonteCarlo(TestCase):
                     #                 (abs(float(item['standard_deviation']) - float(
                     #                     np.std(sim.normal_random_distribution[0]['KR202-209'][0][0],ddof=0)))), Decimal(item['standard_deviation']))
 
-#
+
+

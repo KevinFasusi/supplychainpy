@@ -1,5 +1,5 @@
 import collections
-from _decimal import localcontext
+from _decimal import localcontext, ROUND_FLOOR
 
 import numpy as np
 from decimal import Decimal, getcontext
@@ -92,15 +92,17 @@ class SetupMonteCarlo:
                             Please make sure that the two values are equal".format(period_length,
                             len(random_normal_demand[0][sku.sku_id]))
         """
-        getcontext().prec = 1
+
+        getcontext().prec = 6
+        getcontext().rounding = ROUND_FLOOR
         # lambda functions for calculating the main values in the monte carlo analysis
         closing_stock = lambda opening_stock, orders, deliveries, backlog: Decimal((Decimal(opening_stock)
                                                                                     - Decimal(orders)) + Decimal(
             deliveries)) - Decimal(backlog) if Decimal((Decimal(opening_stock) - Decimal(orders)) +
                                                        Decimal(deliveries)) - Decimal(backlog) > 0 else 0
 
-        backlog = lambda opening_stock, deliveries, demand: abs(
-            (Decimal(opening_stock + deliveries)) - Decimal(demand)) if \
+        backlog = lambda opening_stock, deliveries, demand: Decimal(abs(
+            (Decimal(opening_stock + deliveries)) - Decimal(demand))) if \
             Decimal((opening_stock + deliveries)) - Decimal(demand) < 0 else 0
 
         holding_cost = lambda cls_stock, unit_cost: cls_stock * (
@@ -110,8 +112,9 @@ class SetupMonteCarlo:
                                                                   Decimal(deliveries)) if \
             ((Decimal(opening_stock) - Decimal(orders)) + Decimal(deliveries)) < 0 else 0
 
+        # shortage cost as a percentage of unit cost. Increase to percentage to have a bigger affect change more
         shortage_cost = lambda cls_stock, unit_cost: cls_stock * (
-            Decimal(unit_cost) * Decimal(shortage_cost_percentage)) if cls_stock > 0 else 0
+            Decimal(unit_cost) * Decimal(shortage_cost_percentage)) if int(cls_stock) > 0 else 0
 
         raise_po = lambda reorder_lvl, cls_stock: True if cls_stock <= reorder_lvl else False
 
@@ -119,7 +122,7 @@ class SetupMonteCarlo:
             (Decimal(reorder_lvl) - Decimal(cls_stock))) if Decimal(eoq) + Decimal(backlog) + Decimal(
             (Decimal(reorder_lvl) - Decimal(cls_stock))) > 0 else 0
 
-        # calculate period to recieve po and quantity to receiv
+        # calculate period to receive po and quantity to receive
 
         for sku in self._analysed_orders:
             if period_length != len(random_normal_demand[0][sku.sku_id]):
@@ -127,7 +130,7 @@ class SetupMonteCarlo:
                                  "Please make sure that the two values are equal".format(period_length,
                                                                                          len(random_normal_demand[0][
                                                                                                  sku.sku_id])))
-        order_receipt_index = {}
+
         sim_frame_collection = []
         index_item = 1
         for sku in self._analysed_orders:
@@ -135,7 +138,8 @@ class SetupMonteCarlo:
             order_receipt_index = {}
             final_stock = 0
             sim_window_collection = {}
-
+            previous_backlog = Decimal('0')
+            order_receipt_index ={}
             # create the sim_window for each sku, suing the random normal demand generated
             for i in range(0, period_length):
                 po_qty_raised = 0
@@ -174,7 +178,8 @@ class SetupMonteCarlo:
                 sim_window.index = index_item
 
                 sim_window.backlog = backlog(opening_stock=sim_window.opening_stock,
-                                             deliveries=sim_window.purchase_order_receipt_qty, demand=demand)
+                                             deliveries=sim_window.purchase_order_receipt_qty,
+                                             demand=demand) + previous_backlog
                 sim_window.closing_stock = closing_stock(opening_stock=sim_window.opening_stock,
                                                          orders=demand,
                                                          deliveries=sim_window.purchase_order_receipt_qty,
@@ -186,31 +191,35 @@ class SetupMonteCarlo:
                                                       orders=demand,
                                                       deliveries=sim_window.purchase_order_receipt_qty)
 
-                sim_window.shortage_cost = shortage_cost(cls_stock=sim_window.closing_stock, unit_cost=sku.unit_cost)
+                sim_window.shortage_cost = shortage_cost(cls_stock=(sim_window.backlog - previous_backlog), unit_cost=sku.unit_cost)
 
                 sim_window.po_raised_flag = raise_po(reorder_lvl=sku.reorder_level, cls_stock=sim_window.closing_stock)
 
-                with localcontext() as ctx:
-                    ctx.prec = 2
-                    po_receipt_period = period + sku.lead_time
+                po_receipt_period = period + sku.lead_time
 
                 po_qty_raised = po_qty(eoq=sku.economic_order_qty,
                                        reorder_lvl=sku.reorder_level,
                                        backlog=sim_window.backlog,
                                        cls_stock=sim_window.closing_stock)
 
-                if po_qty_raised > 4:
+                if po_qty_raised > 0:
                     order_receipt_index.update({po_receipt_period: po_qty_raised})
                     sim_window.purchase_order_raised_qty = order_receipt_index.get(po_receipt_period)
                 else:
                     sim_window.purchase_order_raised_qty = 0
 
-                if sim_window.purchase_order_raised_qty > 4 and index_item < po_receipt_period:
+                sim_window.po_number_raised =''
+
+                if int(sim_window.purchase_order_raised_qty) > 0:
                     sim_window.po_number_raised = 'PO {:.0f}{}'.format(po_receipt_period, sim_window.index)
                     del po_receipt_period
 
                 final_stock = sim_window.closing_stock
 
+                if int(sim_window.closing_stock) == 0:
+                    previous_backlog += sim_window.backlog
+                else:
+                    previous_backlog = 0
                 yield sim_window
                 del sim_window
 

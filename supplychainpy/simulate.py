@@ -55,6 +55,7 @@ def run_monte_carlo(file_path: str, z_value: Decimal, runs: int, reorder_cost: D
                                                                       reorder_cost=reorder_cost,
                                                                       file_type=file_type)
     Transaction_report = []
+    # add shortage cost,
     for k in range(0, runs):
         simulation = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis.orders)
         random_demand = simulation.generate_normal_random_distribution(period_length=period_length)
@@ -64,10 +65,11 @@ def run_monte_carlo(file_path: str, z_value: Decimal, runs: int, reorder_cost: D
                         "demand": "{}".format(round(sim_window.demand)),
                         "closing_stock": "{}".format(round(sim_window.closing_stock)),
                         "delivery": "{}".format(round(sim_window.purchase_order_receipt_qty)),
-                        "backlog": "{}".format(round(sim_window.backlog)),
+                        "backlog": "{:.0f}".format(sim_window.backlog),
                         "po_raised": "{}".format(sim_window.po_number_raised),
                         "po_received": "{}".format(sim_window.po_number_received),
-                        "po_quantity": "{:.0f}".format(int(sim_window.purchase_order_raised_qty))}
+                        "po_quantity": "{:.0f}".format(int(sim_window.purchase_order_raised_qty)),
+                        "shortage_cost": "{:.0f}".format(Decimal(sim_window.shortage_cost))}
             # so = BuildFrame(s=sim_dict)
             Transaction_report.append([sim_dict])
     return Transaction_report
@@ -101,7 +103,20 @@ def summarize_window(simulation_frame: list, period_length: int = 12) -> dict:
 
 
 def summarize_win(simulation_frame: list, period_length: int = 12):
+    """ Summarizes the simulation window and provides the stockout percentage for each sku.
+
+    The summarize window provides a summary for each sku. The summary consists of probability of stockout based
+    on current inventory metrics calculated with 'model_inventory.analyse_orders_abcxyz_from_file'.
+    Args:
+       simulation_frame (list):     A collection of simulation windows.
+       period_length (int):         The number of periods define the simulation window e.g. 12 weeks, months etc.
+
+    Yield:
+       dict:       A dict containing the results for each sku.
+    """
+
     summary = summarize_monte_carlo(simulation_frame, period_length)
+
     return summary
 
 
