@@ -73,4 +73,3 @@ class TestSimulate(TestCase):
         for period in sim:
             if int(period[0].get("closing_stock")) == 0 and int(period[0].get("backlog")) > 0:
                 self.assertRegex(period[0].get("po_raised"), expected_regex=po_regex, msg='True')
-

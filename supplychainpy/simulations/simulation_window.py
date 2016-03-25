@@ -25,6 +25,24 @@ class MonteCarloWindow:
         self._shortage_units = 0
         self._po_number_raised = ''
         self._po_number_received = ''
+        self._revenue = 0.00
+        self._sold = 0
+
+    @property
+    def sold(self):
+        return self._sold
+
+    @sold.setter
+    def sold(self, sold):
+        self._sold = sold
+
+    @property
+    def revenue(self) -> str:
+        return self._revenue
+
+    @revenue.setter
+    def revenue(self, revenue):
+        self._revenue = revenue
 
     @property
     def po_number_raised(self) -> str:
@@ -169,3 +187,24 @@ class MonteCarloWindow:
     @position.setter
     def position(self, position: int):
         self._position = position
+
+    def __del__(self):
+        self._index = 0
+        self._sku_id = ""
+        self._lead_time = 0
+        self._opening_stock = 0
+        self._demand = 0
+        self._closing_stock = 0
+        self._backlog = 0.00
+        self._holding_cost = Decimal('0.0')
+        self._shortage_cost = Decimal('0.0')
+        self._po_raised_flag = False
+        self._purchase_order_raised_qty = 0
+        self._purchase_order_receipt_qty = 0
+        self._backlog_at_po_placement = 0
+        self._quantity_sold = 0
+        self._position = 0
+        self._shortage_units = 0
+        self._po_number_raised = ''
+        self._po_number_received = ''
+        self._revenue = 0.00

@@ -26,24 +26,30 @@ def summarize_monte_carlo( simulation_frame, int period_length):
     shortage_cost = []
     summary = []
     summarize = []
+
     cdef float cls
     cdef unsigned int i , n, x
-
+    cdef float revenue
     n = len(simulation_frame)
     i = 1
 
     for x in range(i, n ):
+
         for f in simulation_frame:
             if int(f[0]['index']) == x:
                 closing_stock.append( int(f[0]['closing_stock']))
                 shortage_cost.append(int(f[0]['shortage_cost']))
+                revenue += (int(f[0]['revenue']))
             if len(closing_stock) == period_length and len(shortage_cost) == period_length:
                 cls = closing_stockout_percentage(closing_stock, period_length)
-
                 shc = average_closing_cost(shortage_cost, period_length)
-                summary.append({'sku_id': f[0]['sku_id'], 'stockout_percentage': cls, 'average_shortage_cost': shc,  'index': f[0]['index']})
-                closing_stock = []
-                shortage_cost =[]
+                #print(summary)
+                summary.append({'sku_id': f[0]['sku_id'], 'stockout_percentage': cls, 'average_shortage_cost': shc, 'revenue': revenue, 'index': f[0]['index']})
+                closing_stock.clear()
+                shortage_cost.clear()
+                cls = 0
+                shc = 0
+                revenue = 0
 
     final_summary = summarise_frame(summary)
 
@@ -59,6 +65,9 @@ def summarise_frame(sim_frame):
     cdef float average_stockout
     cdef float total_stockout
     cdef float total_shortage_cost
+    cdef float total_revenue
+    cdef float revenue
+
 
     summary = []
     sim_frame.sort(key = itemgetter('sku_id'))
@@ -72,20 +81,32 @@ def summarise_frame(sim_frame):
         count_runs = len(item)
 
         for j in item:
+            #print("stockout percentage {}".format(j['stockout_percentage']))
             total_stockout += j['stockout_percentage']
-            #total_shortage_cost += j['average_shortage_cost']
-
+            total_revenue +=j['revenue']
+            #print("total revenue {}".format(total_revenue))
+            total_shortage_cost += j['average_shortage_cost']
+        #print("total stockout {}".format(total_stockout))
         avg_stockout = total_stockout/count_runs
+        #print("average stockout {}".format(avg_stockout))
         average_shortage_cost = total_shortage_cost/count_runs
-        summary.append({'sku_id': sku_id, 'average_service_level': '{:0.2g}'.format((1-avg_stockout)*100)})
+        revenue = total_revenue/count_runs
+        #print("revenue {}".format(revenue))
+        summary.append({'sku_id': sku_id, 'average_stockout': '{:0.2f}'.format(avg_stockout*100), 'revenue':revenue,
+                        'average_shortage_cost': average_shortage_cost})
         average_stockout = 0
+        average_shortage_cost = 0
+        revenue =0
         total_stockout = 0
+        total_revenue = 0
+        avg_stockout = 0
+
     #        if float(item[0]['stockout_percentage']) > 0.00:
     #            stockout_count += 1
     #    for j in item:
     #        shortage_cost_average += float(j['average_shortage_cost'])
-#
-#
+    #
+    #
     #    stockout_probability = (stockout_count/count_runs)
     #    print(stockout_count)
     #    sh_avg = (shortage_cost_average/float(count_runs))

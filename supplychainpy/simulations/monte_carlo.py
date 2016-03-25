@@ -93,8 +93,13 @@ class SetupMonteCarlo:
                             len(random_normal_demand[0][sku.sku_id]))
         """
 
-        getcontext().prec = 6
+        getcontext().prec = 7
         getcontext().rounding = ROUND_FLOOR
+
+        clist = []
+
+        revenue = lambda unit_cost, units_sold,: Decimal(unit_cost) * Decimal(units_sold)
+
         # lambda functions for calculating the main values in the monte carlo analysis
         closing_stock = lambda opening_stock, orders, deliveries, backlog: Decimal((Decimal(opening_stock)
                                                                                     - Decimal(orders)) + Decimal(
@@ -134,14 +139,16 @@ class SetupMonteCarlo:
         sim_frame_collection = []
         index_item = 1
         for sku in self._analysed_orders:
+
             period = 1
             order_receipt_index = {}
             final_stock = 0
             sim_window_collection = {}
             previous_backlog = Decimal('0')
-            order_receipt_index ={}
+            order_receipt_index = {}
             # create the sim_window for each sku, suing the random normal demand generated
             for i in range(0, period_length):
+
                 po_qty_raised = 0
 
                 # instantiate sim_window
@@ -183,7 +190,7 @@ class SetupMonteCarlo:
                 sim_window.closing_stock = closing_stock(opening_stock=sim_window.opening_stock,
                                                          orders=demand,
                                                          deliveries=sim_window.purchase_order_receipt_qty,
-                                                         backlog=sim_window.backlog)
+                                                         backlog=sim_window.backlog) + previous_backlog
 
                 sim_window.holding_cost = holding_cost(sim_window.closing_stock, sku.unit_cost)
 
@@ -191,7 +198,8 @@ class SetupMonteCarlo:
                                                       orders=demand,
                                                       deliveries=sim_window.purchase_order_receipt_qty)
 
-                sim_window.shortage_cost = shortage_cost(cls_stock=(sim_window.backlog - previous_backlog), unit_cost=sku.unit_cost)
+                sim_window.shortage_cost = shortage_cost(cls_stock=(sim_window.backlog - previous_backlog),
+                                                         unit_cost=sku.unit_cost)
 
                 sim_window.po_raised_flag = raise_po(reorder_lvl=sku.reorder_level, cls_stock=sim_window.closing_stock)
 
@@ -208,7 +216,7 @@ class SetupMonteCarlo:
                 else:
                     sim_window.purchase_order_raised_qty = 0
 
-                sim_window.po_number_raised =''
+                sim_window.po_number_raised = ''
 
                 if int(sim_window.purchase_order_raised_qty) > 0:
                     sim_window.po_number_raised = 'PO {:.0f}{}'.format(po_receipt_period, sim_window.index)
@@ -220,9 +228,29 @@ class SetupMonteCarlo:
                     previous_backlog += sim_window.backlog
                 else:
                     previous_backlog = 0
+
+                units_sold = self._units_sold(backlog=sim_window.backlog, opening_stock=sim_window.opening_stock,
+                                              delivery=sim_window.purchase_order_receipt_qty, demand=sim_window.demand)
+                sim_window.sold = units_sold
+                sim_window.revenue = Decimal(revenue(sku.unit_cost, units_sold))
                 yield sim_window
                 del sim_window
-
+                del po_qty_raised
                 period += 1
 
             index_item += 1
+
+    def _units_sold(self, backlog, opening_stock, delivery, demand):
+
+        # check if opening_stock + closing_stock = 0
+        if int(opening_stock) + int(delivery) == 0:
+            sold = 0.00
+        else:
+            sold = (opening_stock + delivery) - Decimal(demand) - Decimal(backlog)
+
+        if sold < 0:
+            units_sold = (opening_stock + delivery) - Decimal(demand) + Decimal(abs(sold))
+        else:
+            units_sold = Decimal(sold)
+
+        return units_sold

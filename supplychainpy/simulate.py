@@ -10,21 +10,24 @@ pyximport.install()
 from supplychainpy.simulations.sim_summary import closing_stockout_percentage, summarize_monte_carlo
 
 
-def run(simulation_frame: list, period_length: int = 12):
-    listd = []
+def run_monte_carlo_mt(file_path: str, z_value: Decimal, runs: int, reorder_cost: Decimal,
+                       file_type: str, period_length: int = 12) -> list:
+    pool = ThreadPool(processes=4, )
+    async_results = pool.apply_async(run_monte_carlo,
+                                     (file_path, z_value, runs, reorder_cost, file_type, period_length,))
 
-    pool = ThreadPool(processes=12, )
+    return_val = async_results.get()
+
+    return return_val
+
+
+def run(simulation_frame: list, period_length: int = 12):
+    pool = ThreadPool(processes=4, )
     async_results = pool.apply_async(summarize_win, (simulation_frame, period_length,))
 
     return_val = async_results.get()
-    listd.append(return_val)
-    pool1 = ThreadPool(processes=12, )
-    async_results1 = pool1.apply_async(summarize_win, (simulation_frame, period_length,))
 
-    return_val1 = async_results1.get()
-    listd.append(return_val1)
-
-    return listd
+    return return_val
 
 
 def run_monte_carlo(file_path: str, z_value: Decimal, runs: int, reorder_cost: Decimal,
@@ -69,7 +72,9 @@ def run_monte_carlo(file_path: str, z_value: Decimal, runs: int, reorder_cost: D
                         "po_raised": "{}".format(sim_window.po_number_raised),
                         "po_received": "{}".format(sim_window.po_number_received),
                         "po_quantity": "{:.0f}".format(int(sim_window.purchase_order_raised_qty)),
-                        "shortage_cost": "{:.0f}".format(Decimal(sim_window.shortage_cost))}
+                        "shortage_cost": "{:.0f}".format(Decimal(sim_window.shortage_cost)),
+                        "revenue": "{:.0f}".format(sim_window.revenue),
+                        "quantity_sold": "{:0.0f}".format(sim_window.sold)}
             # so = BuildFrame(s=sim_dict)
             Transaction_report.append([sim_dict])
     return Transaction_report
@@ -118,9 +123,3 @@ def summarize_win(simulation_frame: list, period_length: int = 12):
     summary = summarize_monte_carlo(simulation_frame, period_length)
 
     return summary
-
-
-def monte_carlo_summary():
-    # dumb transaction_report in here to get a summary of costs and key metrics aggregated by sku for all the runs
-
-    pass

@@ -11,8 +11,10 @@ __author__ = 'kevin'
 
 def main():
     start_time = time.time()
-    sim = simulate.run_monte_carlo(file_path="data.csv", z_value=Decimal(1.28), runs=100,
+    sim = simulate.run_monte_carlo_mt(file_path="data.csv", z_value=Decimal(1.28), runs=1,
                                    reorder_cost=Decimal(4000), file_type="csv", period_length=12)
+    for line in sim:
+        print(line)
     inter_time = time.time()
     secs = inter_time - start_time
     print(secs)
