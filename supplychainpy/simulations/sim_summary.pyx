@@ -48,7 +48,7 @@ def summarize_monte_carlo(list simulation_frame, int period_length):
     cdef:
         float cls, avg_ops, min_ops, max_ops, avg_backlog, min_backlog, max_backlog
         float avg_cls, min_cls, max_cls
-        double shc, min_shc, max_shc, rev, min_quantity_sold, max_quantity_sold, var_ops, avg_shc
+        double shc, min_shc, max_shc, rev, min_quantity_sold, max_quantity_sold, var_ops, avg_shc, total_quantity_sold
 
     cdef dict std_ops ={}, std_backlog={}, std_cls={}, std_shc={}, std_quantity_sold={}
 
@@ -86,11 +86,11 @@ def summarize_monte_carlo(list simulation_frame, int period_length):
                 max_shc = max(shortage_units)
                 avg_shc = average_items(shortage_units, period_length)
                 std_shc = optimum_std(avg_shc, shortage_units)
-                rev = sum(quantity_sold)
-                avg_revenue = average_items(quantity_sold, period_length)
+                total_quantity_sold = sum(quantity_sold)
+                avg_qty_sold = average_items(quantity_sold, period_length)
                 min_quantity_sold = min(quantity_sold)
                 max_quantity_sold = max(quantity_sold)
-                std_quantity_sold = optimum_std(avg_revenue, quantity_sold)
+                std_quantity_sold = optimum_std(avg_qty_sold, quantity_sold)
 
                 summary.append({'sku_id': f[0]['sku_id'],
                                 'standard_deviation_opening_stock': std_ops['standard_deviation'],
@@ -111,7 +111,7 @@ def summarize_monte_carlo(list simulation_frame, int period_length):
                                 'average_opening_stock': avg_ops,
                                 'minimum_opening_stock': min_ops,
                                 'maximum_opening_stock': max_ops,
-                                'total_quantity_sold': rev,
+                                'average_quantity_sold': avg_qty_sold,
                                 'minimum_quantity_sold': min_quantity_sold,
                                 'maximum_quantity_sold': max_quantity_sold,
                                 'average_backlog': avg_backlog,
@@ -136,9 +136,10 @@ def summarize_monte_carlo(list simulation_frame, int period_length):
 def frame(sim_frame):
 
     cdef int count_runs
-    cdef double total_stockout, total_shortage_cost, revenue, avg_quantity_sold
+    cdef double total_stockout, revenue, avg_quantity_sold
     cdef:
-        list summary=[], item_list=[], min_closing_stock=[], max_closing_stock=[], variance_closing_stock=[], average_backlog=[]
+        list summary=[], item_list=[], min_closing_stock=[], max_closing_stock=[], variance_closing_stock=[],
+        average_backlog=[]
 
     cdef list total_revenue=[]
     cdef list max_quantity_sold=[]
@@ -148,11 +149,12 @@ def frame(sim_frame):
     cdef list average_closing_stock=[]
 
     cdef:
-        list max_opening_stock=[], variance_opening_stock=[], min_backlog=[], max_backlog=[], variance_backlog=[], average_opening_stock=[]
-
+        list max_opening_stock=[], variance_opening_stock=[], min_backlog=[], max_backlog=[], variance_backlog=[],
+        average_opening_stock=[], total_shortage_units =[], average_quantity_sold=[]
 
     cdef unsigned int min_cls, max_cls ,min_opn, max_opn
-    cdef double avg_variance_opn, min_bklg, max_bklg, avg_bklg, avg_variance_bklg, std_bklg, avg_variance_cls, std_cls, avg_cls, std_opn, max_qs, min_qs
+    cdef double avg_variance_opn, min_bklg, max_bklg, avg_bklg, avg_variance_bklg, std_bklg, avg_variance_cls, std_cls,\
+        avg_cls, std_opn, max_qs, min_qs
     cdef float std_quantity_sold
 
 
@@ -168,8 +170,8 @@ def frame(sim_frame):
 
         for j in item:
             total_stockout += j['stockout_percentage']
-            total_revenue.append(j['total_quantity_sold'])
-            total_shortage_cost += j['total_shortage_units']
+            average_quantity_sold.append(j['average_quantity_sold'])
+            total_shortage_units.append(j['total_shortage_units'])
             min_closing_stock.append(j['minimum_closing_stock'])
             max_closing_stock.append(j['maximum_closing_stock'])
             variance_closing_stock.append(j['variance_closing_stock'])
@@ -204,28 +206,28 @@ def frame(sim_frame):
         std_bklg = avg_variance_bklg ** 0.5
         avg_bklg = average_items(average_backlog, count_runs)
         avg_variance = average_items(variance_quantity_sold, count_runs)
-        avg_quantity_sold = average_items(total_revenue, count_runs)
+        avg_quantity_sold = average_items(average_quantity_sold, count_runs)
         std_quantity_sold = avg_variance ** 0.5
         avg_stockout = total_stockout/count_runs
-        average_shortage_cost = total_shortage_cost/count_runs
+        average_shortage_units = average_items(total_shortage_units, count_runs)
         summary.append({'sku_id': sku_id,
                         'minimum_closing_stock': min_cls,
                         'maximum_closing_stock': max_cls,
-                        'average_closing_stock': avg_cls,
-                        'standard_deviation_closing_stock': std_cls,
+                        'average_closing_stock': "{:.0f}".format(avg_cls),
+                        'standard_deviation_closing_stock': "{:.0f}".format(std_cls),
                         'service_level': '{:0.2f}'.format((1-avg_stockout)*100),
-                        'average_quantity_sold': avg_quantity_sold,
+                        'average_quantity_sold': "{:.0f}".format(avg_quantity_sold),
                         'maximum_quantity_sold': max_qs,
                         'minimum_quantity_sold': min_qs,
                         'minimum_backlog': min_bklg,
                         'maximum_backlog': max_bklg,
-                        'average_backlog': avg_bklg,
-                        'standard_deviation_backlog': std_bklg,
+                        'average_backlog': "{:.0f}".format(avg_bklg),
+                        'standard_deviation_backlog': "{:.0f}".format(std_bklg),
                         'minimum_opening_stock': min_opn,
                         'maximum_opening_stock': max_opn,
-                        'variance_opening_stock': std_opn,
-                        'standard_deviation_quantity_sold': std_quantity_sold,
-                        'average_shortage_cost': average_shortage_cost})
+                        'variance_opening_stock': "{:.0f}".format(std_opn),
+                        'standard_deviation_quantity_sold':"{:.0f}".format(std_quantity_sold),
+                        'average_shortage_units': "{:.0f}".format(average_shortage_units)})
 
         min_closing_stock.clear()
         max_closing_stock.clear()
@@ -244,6 +246,8 @@ def frame(sim_frame):
         variance_backlog.clear()
         variance_quantity_sold.clear()
         average_closing_stock.clear()
+        average_quantity_sold.clear()
+        total_shortage_units.clear()
 
 
         average_shortage_cost = 0
