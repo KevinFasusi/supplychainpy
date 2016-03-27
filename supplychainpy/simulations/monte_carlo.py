@@ -234,6 +234,7 @@ class SetupMonteCarlo:
                 sim_window.sold = units_sold
                 sim_window.revenue = Decimal(revenue(sku.unit_cost, units_sold))
                 yield sim_window
+
                 del sim_window
                 del po_qty_raised
                 period += 1
@@ -249,7 +250,7 @@ class SetupMonteCarlo:
             sold = (opening_stock + delivery) - Decimal(demand) - Decimal(backlog)
 
         if sold < 0:
-            units_sold = (opening_stock + delivery) - Decimal(demand) + Decimal(abs(sold))
+            units_sold = Decimal(demand) + Decimal(backlog) - Decimal(abs(sold))
         else:
             units_sold = Decimal(sold)
 
