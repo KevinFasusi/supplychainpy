@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installation &mdash; supplychainpy 0.0.2 documentation</title>
+  <title>Formulas and Equations &mdash; supplychainpy 0.0.2 documentation</title>
   
 
   
@@ -31,8 +31,7 @@
 
   
     <link rel="top" title="supplychainpy 0.0.2 documentation" href="index.html"/>
-        <link rel="next" title="Quick Guide" href="quickstart.html"/>
-        <link rel="prev" title="Change Log" href="changelog.html"/> 
+        <link rel="prev" title="Supplychainpy, Xlwings, Pandas and Ipython Tutorial" href="tutorial.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -83,12 +82,7 @@
             
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#python-version">Python Version</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#optional-dependencies">Optional Dependencies</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Supplychainpy, Xlwings, Pandas and Ipython Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#inventory-analysis-example">Inventory Analysis Example</a></li>
@@ -96,8 +90,11 @@
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#demand-planning-and-forecasting">Demand Planning and Forecasting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#warehousing">Warehousing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#distribution-optimisation">Distribution Optimisation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="calculations.html#simulation">Simulation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Formulas and Equations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#economic-order-quantity-eoq">Economic Order Quantity (eoq)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#simulation">Simulation</a></li>
 </ul>
 
             
@@ -128,11 +125,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Installation</li>
+    <li>Formulas and Equations</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/Installation.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/calculations.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -142,38 +139,23 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>The easiest way to install supplychainpy is via pip:</p>
-<div class="highlight-python"><div class="highlight"><pre>pip install supplychainpy
-</pre></div>
+  <div class="section" id="formulas-and-equations">
+<h1>Formulas and Equations<a class="headerlink" href="#formulas-and-equations" title="Permalink to this headline">¶</a></h1>
+<p>The formal expression of the formulas and equations used in the library are detailed here.</p>
+<div class="section" id="economic-order-quantity-eoq">
+<h2>Economic Order Quantity (eoq)<a class="headerlink" href="#economic-order-quantity-eoq" title="Permalink to this headline">¶</a></h2>
+<div class="math">
+\[eoq_{0} = \sqrt \frac{2 \times R \times D}{HC}\]</div>
+<dl class="docutils">
+<dt>where:</dt>
+<dd>R = Reorder Cost
+D = Demand
+HC = Holding Cost</dd>
+</dl>
 </div>
-<p>The option also exists to install from source. Clone the package from <a class="reference external" href="https://github.com/supplybi/supplychainpy.git">Github</a>.</p>
-<div class="section" id="python-version">
-<h2>Python Version<a class="headerlink" href="#python-version" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Python 3.5</li>
-</ul>
 </div>
-<div class="section" id="dependencies">
-<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Numpy</li>
-</ul>
-</div>
-<div class="section" id="optional-dependencies">
-<h2>Optional Dependencies<a class="headerlink" href="#optional-dependencies" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Pandas</li>
-<li>matplotlib</li>
-<li>Ipython</li>
-<li>Jupyters</li>
-<li>openpyxl</li>
-<li>xlwings</li>
-</ul>
-<p>Installing the <a class="reference external" href="https://www.continuum.io/downloads">Anaconda</a> package may be preferable as it comes with Python 3.5 and
-all the dependencies.</p>
-</div>
+<div class="section" id="simulation">
+<h1>Simulation<a class="headerlink" href="#simulation" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -183,10 +165,8 @@ all the dependencies.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="quickstart.html" class="btn btn-neutral float-right" title="Quick Guide" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-      
-        <a href="changelog.html" class="btn btn-neutral" title="Change Log" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="tutorial.html" class="btn btn-neutral" title="Supplychainpy, Xlwings, Pandas and Ipython Tutorial" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

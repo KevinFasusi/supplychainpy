@@ -20,6 +20,14 @@ supplychainpy.simulations.monte_carlo_frame module
     :undoc-members:
     :show-inheritance:
 
+supplychainpy.simulations.sim_summary module
+--------------------------------------------
+
+.. automodule:: supplychainpy.simulations.sim_summary
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 supplychainpy.simulations.simulation_frame_summary module
 ---------------------------------------------------------
 

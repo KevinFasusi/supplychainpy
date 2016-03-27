@@ -38,6 +38,21 @@ def optimum_std(float mean, list items):
 
 
 def summarize_monte_carlo(list simulation_frame, int period_length):
+    """ summarises the monte carlo transaction summary
+
+    Generates random distribution for demand over period specified and creates a simulation window for opening_stock,
+    demand, closing_stock, delivery and backlog for each sku in the data set. Creates a transaction summary window
+    for inventory movements.
+
+    Args:
+        simulation_frame (list):    The path to the file containing two columns of data, 1 period and 1 data-point per sku.
+        period_length (int):        The number of periods define the simulation window e.g. 12 weeks, months etc.
+
+
+    Returns:
+        list:       A list containing the transaction summary for each period.
+
+    """
 
     cdef:
         list closing_stock = [], opening_stock =[], shortage_units = [], summary = []

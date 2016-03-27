@@ -28,10 +28,26 @@ supplychainpy.demand.economic_order_quantity module
     :undoc-members:
     :show-inheritance:
 
+supplychainpy.demand.eoq module
+-------------------------------
+
+.. automodule:: supplychainpy.demand.eoq
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 supplychainpy.demand.forecast_demand module
 -------------------------------------------
 
 .. automodule:: supplychainpy.demand.forecast_demand
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+supplychainpy.demand.summarise_analysis module
+----------------------------------------------
+
+.. automodule:: supplychainpy.demand.summarise_analysis
     :members:
     :undoc-members:
     :show-inheritance:

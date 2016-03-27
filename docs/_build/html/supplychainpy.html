@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>supplychainpy package &mdash; supplychainpy 1.0.0 documentation</title>
+  <title>supplychainpy package &mdash; supplychainpy 0.0.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="supplychainpy 1.0.0 documentation" href="index.html"/> 
+    <link rel="top" title="supplychainpy 0.0.2 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                1.0
+                0.0.2
               </div>
             
           
@@ -80,16 +80,17 @@
             
             
                 <ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html#where-to-go-from-here">Where to go from here?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html#features-in-development">Features in development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Supplychainpy, Xlwings, Pandas and Ipython Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#inventory-analysis-example">Inventory Analysis Example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#simulation">Simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#demand-planning-and-forecasting">Demand Planning and Forecasting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#warehousing">Warehousing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#distribution-optimisation">Distribution Optimisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculations.html#simulation">Simulation</a></li>
 </ul>
 
             
@@ -145,7 +146,9 @@
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.demand.html#module-supplychainpy.demand.abc_xyz">supplychainpy.demand.abc_xyz module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.demand.html#module-supplychainpy.demand.analyse_uncertain_demand">supplychainpy.demand.analyse_uncertain_demand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.demand.html#module-supplychainpy.demand.economic_order_quantity">supplychainpy.demand.economic_order_quantity module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supplychainpy.demand.html#module-supplychainpy.demand.eoq">supplychainpy.demand.eoq module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.demand.html#module-supplychainpy.demand.forecast_demand">supplychainpy.demand.forecast_demand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supplychainpy.demand.html#module-supplychainpy.demand.summarise_analysis">supplychainpy.demand.summarise_analysis module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.demand.html#module-supplychainpy.demand.summarise_demand">supplychainpy.demand.summarise_demand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.demand.html#module-supplychainpy.demand">Module contents</a></li>
 </ul>
@@ -166,10 +169,17 @@
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.simulations.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.simulations.html#module-supplychainpy.simulations.monte_carlo">supplychainpy.simulations.monte_carlo module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.simulations.html#module-supplychainpy.simulations.monte_carlo_frame">supplychainpy.simulations.monte_carlo_frame module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supplychainpy.simulations.html#module-supplychainpy.simulations.sim_summary">supplychainpy.simulations.sim_summary module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.simulations.html#module-supplychainpy.simulations.simulation_frame_summary">supplychainpy.simulations.simulation_frame_summary module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.simulations.html#module-supplychainpy.simulations.simulation_summary">supplychainpy.simulations.simulation_summary module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.simulations.html#module-supplychainpy.simulations.simulation_window">supplychainpy.simulations.simulation_window module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.simulations.html#module-supplychainpy.simulations">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="supplychainpy.warehouse.html">supplychainpy.warehouse package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="supplychainpy.warehouse.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supplychainpy.warehouse.html#module-supplychainpy.warehouse.optimise_warehouse">supplychainpy.warehouse.optimise_warehouse module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supplychainpy.warehouse.html#module-supplychainpy.warehouse">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -483,6 +493,11 @@ and ABC_XYZ_Classification. For example:</p>
 <code class="descclassname">supplychainpy.model_inventory.</code><code class="descname">analyse_orders_np</code><span class="sig-paren">(</span><em>unit_cost: decimal.Decimal</em>, <em>period: &lt;built-in function array&gt;</em>, <em>z_value: decimal.Decimal</em>, <em>orders: &lt;built-in function array&gt;</em>, <em>lead_time_np: &lt;built-in function array&gt;=[]</em>, <em>lead_time: decimal.Decimal=0.0</em>, <em>length: int=12</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.model_inventory.analyse_orders_np" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="function">
+<dt id="supplychainpy.model_inventory.summarise_analysis">
+<code class="descclassname">supplychainpy.model_inventory.</code><code class="descname">summarise_analysis</code><span class="sig-paren">(</span><em>abcxyz: supplychainpy.demand.abc_xyz.AbcXyz</em>, <em>qauntity_on_hand: dict</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.model_inventory.summarise_analysis" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 <div class="section" id="module-supplychainpy.model_warehouse">
 <span id="supplychainpy-model-warehouse-module"></span><h2>supplychainpy.model_warehouse module<a class="headerlink" href="#module-supplychainpy.model_warehouse" title="Permalink to this headline">¶</a></h2>
@@ -490,23 +505,27 @@ and ABC_XYZ_Classification. For example:</p>
 <div class="section" id="module-supplychainpy.simulate">
 <span id="supplychainpy-simulate-module"></span><h2>supplychainpy.simulate module<a class="headerlink" href="#module-supplychainpy.simulate" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
+<dt id="supplychainpy.simulate.run">
+<code class="descclassname">supplychainpy.simulate.</code><code class="descname">run</code><span class="sig-paren">(</span><em>simulation_frame: list</em>, <em>period_length: int=12</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.simulate.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="supplychainpy.simulate.run_monte_carlo">
 <code class="descclassname">supplychainpy.simulate.</code><code class="descname">run_monte_carlo</code><span class="sig-paren">(</span><em>file_path: str</em>, <em>z_value: decimal.Decimal</em>, <em>runs: int</em>, <em>reorder_cost: decimal.Decimal</em>, <em>file_type: str</em>, <em>period_length: int=12</em><span class="sig-paren">)</span> &rarr; list<a class="headerlink" href="#supplychainpy.simulate.run_monte_carlo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Runs monte carlo simulation.
-Generates random distribution for demand over period specified and creates a simulation window for opening_stock,
-demand, closing_stock, delivery and backlog for each sku in the data set.
-:param file_path: The path to the file containing two columns of data, 1 period and 1 data-point per sku.
-:type file_path: str
-:param reorder_cost: The average lead-time for the sku over the period represented by the data,</p>
-<blockquote>
-<div>in the same unit.</div></blockquote>
+<dd><p>Runs monte carlo simulation.</p>
+<p>Generates random distribution for demand over period specified and creates a simulation window for opening_stock,
+demand, closing_stock, delivery and backlog for each sku in the data set. Creates a transaction summary window
+for inventory movements.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>file_path</strong> (<em>str</em>) &#8211; The path to the file containing two columns of data, 1 period and 1 data-point per sku.</li>
+<li><strong>reorder_cost</strong> (<em>Decimal</em>) &#8211; The average lead-time for the sku over the period represented by the data,
+in the same unit.</li>
 <li><strong>period_length</strong> (<em>int</em>) &#8211; The number of periods define the simulation window e.g. 12 weeks, months etc.</li>
-<li><strong>reorder_cost</strong> (<em>Decimal</em>) &#8211; The cost to place a reorder. This is usually the cost of the operation divided
+<li><strong>reorder_cost</strong> &#8211; The cost to place a reorder. This is usually the cost of the operation divided
 by number.</li>
 <li><strong>z_value</strong> (<em>Decimal</em>) &#8211; The service level required to calculate the safety stock</li>
 <li><strong>file_type</strong> (<em>str</em>) &#8211; Type of &#8216;file csv&#8217; or &#8216;text&#8217;</li>
@@ -515,9 +534,55 @@ by number.</li>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
-<dt>A list containing the results for each sku</dt>
-<dd><p class="first last">[{&#8216;sku_id&#8217;: &#8216;KR202-209&#8217;, &#8216;demand&#8217;: &#8216;3106&#8217;, &#8216;opening_stock&#8217;: &#8216;1446&#8217;, &#8216;delivery&#8217;: &#8216;0&#8217;, &#8216;closing_stock&#8217;
-: &#8216;-3400&#8217;, &#8216;period&#8217;: &#8216;1&#8217;, &#8216;index&#8217;: &#8216;1&#8217;, &#8216;backlog&#8217;: &#8216;1700&#8217;}]</p>
+<dt>A list containing the transaction summary for each period.</dt>
+<dd><p class="first last">[[{&#8216;closing_stock&#8217;: &#8216;0&#8217;, &#8216;backlog&#8217;: &#8216;240&#8217;, &#8216;po_quantity&#8217;: &#8216;6009&#8217;, &#8216;po_raised&#8217;: &#8216;PO 49&#8217;, &#8216;revenue&#8217;:
+&#8216;1145799&#8217;, &#8216;opening_stock&#8217;: &#8216;1700&#8217;, &#8216;index&#8217;: &#8216;9&#8217;, &#8216;period&#8217;: &#8216;1&#8217;, &#8216;shortage_units&#8217;: &#8216;240.4612&#8217;,
+&#8216;po_received&#8217;: &#8216;&#8217;, &#8216;delivery&#8217;: &#8216;0&#8217;, &#8216;shortage_cost&#8217;: &#8216;48621&#8217;, &#8216;demand&#8217;: &#8216;1940&#8217;,
+&#8216;quantity_sold&#8217;: &#8216;1699&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-217&#8217;}]
+[{&#8216;closing_stock&#8217;: &#8216;240&#8217;, &#8216;backlog&#8217;: &#8216;852&#8217;, &#8216;po_quantity&#8217;: &#8216;6380&#8217;, &#8216;po_raised&#8217;:
+&#8216;PO 59&#8217;, &#8216;revenue&#8217;: &#8216;0&#8217;, &#8216;opening_stock&#8217;: &#8216;0&#8217;, &#8216;index&#8217;: &#8216;9&#8217;, &#8216;period&#8217;: &#8216;2&#8217;,
+&#8216;shortage_units&#8217;: &#8216;611.5989&#8217;, &#8216;po_received&#8217;: &#8216;&#8217;, &#8216;delivery&#8217;: &#8216;0&#8217;, &#8216;shortage_cost&#8217;: &#8216;123665&#8217;,
+&#8216;demand&#8217;: &#8216;612&#8217;, &#8216;quantity_sold&#8217;: &#8216;0&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-217&#8217;}]
+[{&#8216;closing_stock&#8217;: &#8216;0&#8217;, &#8216;backlog&#8217;: &#8216;383&#8217;, &#8216;po_quantity&#8217;: &#8216;6152&#8217;, &#8216;po_raised&#8217;:
+&#8216;PO 69&#8217;, &#8216;revenue&#8217;: &#8216;162070&#8217;, &#8216;opening_stock&#8217;: &#8216;240&#8217;, &#8216;index&#8217;: &#8216;9&#8217;, &#8216;period&#8217;: &#8216;3&#8217;,
+&#8216;shortage_units&#8217;: &#8216;383.4993&#8217;, &#8216;po_received&#8217;: &#8216;&#8217;, &#8216;delivery&#8217;: &#8216;0&#8217;, &#8216;shortage_cost&#8217;: &#8216;77543&#8217;,
+&#8216;demand&#8217;: &#8216;624&#8217;, &#8216;quantity_sold&#8217;: &#8216;240&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-217&#8217;}]
+[{&#8216;closing_stock&#8217;: &#8216;4463&#8217;, &#8216;backlog&#8217;: &#8216;383&#8217;, &#8216;po_quantity&#8217;: &#8216;1689&#8217;, &#8216;po_raised&#8217;: &#8216;PO 79&#8217;,
+&#8216;revenue&#8217;: &#8216;2749508&#8217;, &#8216;opening_stock&#8217;: &#8216;0&#8217;, &#8216;index&#8217;: &#8216;9&#8217;, &#8216;period&#8217;: &#8216;4&#8217;,
+&#8216;shortage_units&#8217;: &#8216;0.000000&#8217;, &#8216;po_received&#8217;: &#8216;PO 49&#8217;, &#8216;delivery&#8217;: &#8216;6010&#8217;,
+&#8216;shortage_cost&#8217;: &#8216;0&#8217;, &#8216;demand&#8217;: &#8216;1547&#8217;, &#8216;quantity_sold&#8217;: &#8216;4079&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-217&#8217;}]
+[{&#8216;closing_stock&#8217;: &#8216;8002&#8217;, &#8216;backlog&#8217;: &#8216;0&#8217;, &#8216;po_quantity&#8217;: &#8216;0&#8217;, &#8216;po_raised&#8217;: &#8216;&#8217;,
+&#8216;revenue&#8217;: &#8216;5393458&#8217;, &#8216;opening_stock&#8217;: &#8216;4463&#8217;, &#8216;index&#8217;: &#8216;9&#8217;, &#8216;period&#8217;: &#8216;5&#8217;,
+&#8216;shortage_units&#8217;: &#8216;0.000000&#8217;, &#8216;po_received&#8217;: &#8216;PO 59&#8217;, &#8216;delivery&#8217;: &#8216;6381&#8217;,
+&#8216;shortage_cost&#8217;: &#8216;0&#8217;, &#8216;demand&#8217;: &#8216;2841&#8217;, &#8216;quantity_sold&#8217;: &#8216;8002&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-217&#8217;}]
+[{&#8216;closing_stock&#8217;: &#8216;13594&#8217;, &#8216;backlog&#8217;: &#8216;0&#8217;, &#8216;po_quantity&#8217;: &#8216;0&#8217;, &#8216;po_raised&#8217;: &#8216;&#8217;,
+&#8216;revenue&#8217;: &#8216;9162457&#8217;, &#8216;opening_stock&#8217;: &#8216;8002&#8217;, &#8216;index&#8217;: &#8216;9&#8217;, &#8216;period&#8217;: &#8216;6&#8217;,
+&#8216;shortage_units&#8217;: &#8216;0.000000&#8217;, &#8216;po_received&#8217;: &#8216;PO 69&#8217;, &#8216;delivery&#8217;: &#8216;6153&#8217;,
+&#8216;shortage_cost&#8217;: &#8216;0&#8217;, &#8216;demand&#8217;: &#8216;561&#8217;, &#8216;quantity_sold&#8217;: &#8216;13594&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-217&#8217;}]
+[{&#8216;closing_stock&#8217;: &#8216;13144&#8217;, &#8216;backlog&#8217;: &#8216;0&#8217;, &#8216;po_quantity&#8217;: &#8216;0&#8217;, &#8216;po_raised&#8217;: &#8216;&#8217;,
+&#8216;revenue&#8217;: &#8216;8859056&#8217;, &#8216;opening_stock&#8217;: &#8216;13594&#8217;, &#8216;index&#8217;: &#8216;9&#8217;, &#8216;period&#8217;: &#8216;7&#8217;,
+&#8216;shortage_units&#8217;: &#8216;0.000000&#8217;, &#8216;po_received&#8217;: &#8216;PO 79&#8217;, &#8216;delivery&#8217;: &#8216;1690&#8217;,
+&#8216;shortage_cost&#8217;: &#8216;0&#8217;, &#8216;demand&#8217;: &#8216;2140&#8217;, &#8216;quantity_sold&#8217;: &#8216;13144&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-217&#8217;}]
+[{&#8216;closing_stock&#8217;: &#8216;11666&#8217;, &#8216;backlog&#8217;: &#8216;0&#8217;, &#8216;po_quantity&#8217;: &#8216;0&#8217;, &#8216;po_raised&#8217;: &#8216;&#8217;,
+&#8216;revenue&#8217;: &#8216;7862688&#8217;, &#8216;opening_stock&#8217;: &#8216;13144&#8217;, &#8216;index&#8217;: &#8216;9&#8217;, &#8216;period&#8217;: &#8216;8&#8217;,
+&#8216;shortage_units&#8217;: &#8216;0.000000&#8217;, &#8216;po_received&#8217;: &#8216;&#8217;, &#8216;delivery&#8217;: &#8216;0&#8217;, &#8216;shortage_cost&#8217;: &#8216;0&#8217;,
+&#8216;demand&#8217;: &#8216;1478&#8217;, &#8216;quantity_sold&#8217;: &#8216;11665&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-217&#8217;}]
+[{&#8216;closing_stock&#8217;: &#8216;8542&#8217;, &#8216;backlog&#8217;: &#8216;0&#8217;, &#8216;po_quantity&#8217;: &#8216;0&#8217;, &#8216;po_raised&#8217;: &#8216;&#8217;,
+&#8216;revenue&#8217;: &#8216;5757540&#8217;, &#8216;opening_stock&#8217;: &#8216;11666&#8217;, &#8216;index&#8217;: &#8216;9&#8217;, &#8216;period&#8217;: &#8216;9&#8217;,
+&#8216;shortage_units&#8217;: &#8216;0.000000&#8217;, &#8216;po_received&#8217;: &#8216;&#8217;, &#8216;delivery&#8217;: &#8216;0&#8217;, &#8216;shortage_cost&#8217;: &#8216;0&#8217;,
+&#8216;demand&#8217;: &#8216;3123&#8217;, &#8216;quantity_sold&#8217;: &#8216;8542&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-217&#8217;}]
+[{&#8216;closing_stock&#8217;: &#8216;7832&#8217;, &#8216;backlog&#8217;: &#8216;0&#8217;, &#8216;po_quantity&#8217;: &#8216;0&#8217;, &#8216;po_raised&#8217;: &#8216;&#8217;,
+&#8216;revenue&#8217;: &#8216;5278665&#8217;, &#8216;opening_stock&#8217;: &#8216;8542&#8217;, &#8216;index&#8217;: &#8216;9&#8217;, &#8216;period&#8217;: &#8216;10&#8217;,
+&#8216;shortage_units&#8217;: &#8216;0.000000&#8217;, &#8216;po_received&#8217;: &#8216;&#8217;, &#8216;delivery&#8217;: &#8216;0&#8217;, &#8216;shortage_cost&#8217;: &#8216;0&#8217;,
+&#8216;demand&#8217;: &#8216;710&#8217;, &#8216;quantity_sold&#8217;: &#8216;7831&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-217&#8217;}]
+[{&#8216;closing_stock&#8217;: &#8216;5379&#8217;, &#8216;backlog&#8217;: &#8216;0&#8217;, &#8216;po_quantity&#8217;: &#8216;389&#8217;, &#8216;po_raised&#8217;: &#8216;PO 149&#8217;,
+&#8216;revenue&#8217;: &#8216;3625634&#8217;, &#8216;opening_stock&#8217;: &#8216;7832&#8217;, &#8216;index&#8217;: &#8216;9&#8217;, &#8216;period&#8217;: &#8216;11&#8217;, &#8216;shortage_units&#8217;:
+&#8216;0.000000&#8217;, &#8216;po_received&#8217;: &#8216;&#8217;, &#8216;delivery&#8217;: &#8216;0&#8217;, &#8216;shortage_cost&#8217;: &#8216;0&#8217;, &#8216;demand&#8217;: &#8216;2453&#8217;,
+&#8216;quantity_sold&#8217;: &#8216;5379&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-217&#8217;}]
+[{&#8216;closing_stock&#8217;: &#8216;3799&#8217;, &#8216;backlog&#8217;: &#8216;0&#8217;, &#8216;po_quantity&#8217;: &#8216;1969&#8217;, &#8216;po_raised&#8217;: &#8216;PO 159&#8217;,
+&#8216;revenue&#8217;: &#8216;2560610&#8217;, &#8216;opening_stock&#8217;: &#8216;5379&#8217;, &#8216;index&#8217;: &#8216;9&#8217;, &#8216;period&#8217;: &#8216;12&#8217;,
+&#8216;shortage_units&#8217;: &#8216;0.000000&#8217;, &#8216;po_received&#8217;: &#8216;&#8217;, &#8216;delivery&#8217;: &#8216;0&#8217;, &#8216;shortage_cost&#8217;: &#8216;0&#8217;,
+&#8216;demand&#8217;: &#8216;1580&#8217;, &#8216;quantity_sold&#8217;: &#8216;3799&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-217&#8217;}],...]</p>
 </dd>
 </dl>
 </p>
@@ -531,20 +596,74 @@ by number.</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="supplychainpy.simulate.summarize_window">
-<code class="descclassname">supplychainpy.simulate.</code><code class="descname">summarize_window</code><span class="sig-paren">(</span><em>simulation_frame: list</em>, <em>period_length: int=12</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.simulate.summarize_window" title="Permalink to this definition">¶</a></dt>
-<dd><p>Summarizes the simulation window and provides the stockout percentage for each sku.</p>
-<p>The summarize window provides a summary for each sku. The summary consists of probability of stockout based
-on current inventory metrics calculated with &#8216;model_inventory.analyse_orders_abcxyz_from_file&#8217;.
-:param simulation_frame: A collection of simulation windows.
-:type simulation_frame: list
-:param period_length: The number of periods define the simulation window e.g. 12 weeks, months etc.
-:type period_length: int</p>
+<dt id="supplychainpy.simulate.run_monte_carlo_mt">
+<code class="descclassname">supplychainpy.simulate.</code><code class="descname">run_monte_carlo_mt</code><span class="sig-paren">(</span><em>file_path: str</em>, <em>z_value: decimal.Decimal</em>, <em>runs: int</em>, <em>reorder_cost: decimal.Decimal</em>, <em>file_type: str</em>, <em>period_length: int=12</em><span class="sig-paren">)</span> &rarr; list<a class="headerlink" href="#supplychainpy.simulate.run_monte_carlo_mt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.simulate.summarise_frame">
+<code class="descclassname">supplychainpy.simulate.</code><code class="descname">summarise_frame</code><span class="sig-paren">(</span><em>window_summary</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.simulate.summarise_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Summarizes the simulation frame
+Generates a summary for run window, into 1 transaction summary for all the runs.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Yields:</th><td class="field-body"><em>dict</em> &#8211; A dict containing the results for each sku.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>window_summary</strong> (<em>list</em>) &#8211; window summary for each period multiplied by the number of runs.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>[{&#8216;variance_opening_stock&#8217;: &#8216;5007&#8217;, &#8216;maximum_opening_stock&#8217;: 13805, &#8216;maximum_backlog&#8217;: 2278.0,</dt>
+<dd>&#8216;minimum_quantity_sold&#8217;: 0.0, &#8216;average_backlog&#8217;: &#8216;218&#8217;, &#8216;minimum_opening_stock&#8217;: 0,
+&#8216;average_quantity_sold&#8217;: &#8216;7204&#8217;, &#8216;maximum_quantity_sold&#8217;: 13805.0, &#8216;minimum_closing_stock&#8217;: 0,
+&#8216;standard_deviation_backlog&#8217;: &#8216;628&#8217;, &#8216;standard_deviation_quantity_sold&#8217;: &#8216;4636&#8217;,
+&#8216;maximum_closing_stock&#8217;: 13805, &#8216;standard_deviation_closing_stock&#8217;: &#8216;4755&#8217;,
+&#8216;average_shortage_units&#8217;: &#8216;2278&#8217;, &#8216;service_level&#8217;: &#8216;91.67&#8217;,&#8217;minimum_backlog&#8217;: 0.0,
+&#8216;average_closing_stock&#8217;: &#8216;7115&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-240&#8217;},...]</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.simulate.summarize_window">
+<code class="descclassname">supplychainpy.simulate.</code><code class="descname">summarize_window</code><span class="sig-paren">(</span><em>simulation_frame: list</em>, <em>period_length: int=12</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.simulate.summarize_window" title="Permalink to this definition">¶</a></dt>
+<dd><p>Summarizes the simulation window and provides the stockout percentage for each sku.</p>
+<p>Provides a summary of inventory transactions, for the full period length for each run.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>simulation_frame</strong> (<em>list</em>) &#8211; A collection of simulation windows.</li>
+<li><strong>period_length</strong> (<em>int</em>) &#8211; The number of periods define the simulation window e.g. 12 weeks, months etc.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
+<dt>A list containing the results for each sku.[{&#8216;maximum_opening_stock&#8217;: 13181.0,</dt>
+<dd><p class="first last">&#8216;standard_deviation_closing_stock&#8217;: 4407.468727436796, &#8216;standard_deviation_backlog&#8217;: 485.2568835735928,
+&#8216;variance_backlog&#8217;: 235474.24305555542, &#8216;minimum_backlog&#8217;: 0.0, &#8216;maximum_closing_stock&#8217;: 13181.0,
+&#8216;standard_deviation_shortage_cost&#8217;: 348.8327422580442, &#8216;variance_opening_stock&#8217;: 20387450.520833332,
+&#8216;average_opening_stock&#8217;: 6350.75, &#8216;minimum_quantity_sold&#8217;: 0.0,
+&#8216;standard_deviation_opening_stock&#8217;: 4515.246451837744, &#8216;stockout_percentage&#8217;: 0.0833333358168602,
+&#8216;maximum_backlog&#8217;: 1337.0, &#8216;sku_id&#8217;: &#8216;KR202-240&#8217;, &#8216;standard_deviation_revenue&#8217;: 4489.574661244527,
+&#8216;maximum_quantity_sold&#8217;: 13181.0, &#8216;total_quantity_sold&#8217;: 76742.0,
+&#8216;variance_quantity_sold&#8217;: 20156280.638888914, &#8216;minimum_closing_stock&#8217;: 0.0,
+&#8216;variance_closing_stock&#8217;: 19425780.583333332, &#8216;variance_shortage_units&#8217;: 121684.28207126712,
+&#8216;index&#8217;: &#8216;32&#8217;, &#8216;average_closing_stock&#8217;: 6461.5, &#8216;total_shortage_units&#8217;: 1337.80962,
+&#8216;maximum_shortage_units&#8217;: 1266.604, &#8216;minimum_shortage_units&#8217;: 0.0, &#8216;average_backlog&#8217;: 216.9166717529297,
+&#8216;minimum_opening_stock&#8217;: 0.0}...]</p>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -596,7 +715,7 @@ on current inventory metrics calculated with &#8216;model_inventory.analyse_orde
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.0.0',
+            VERSION:'0.0.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -605,6 +724,7 @@ on current inventory metrics calculated with &#8216;model_inventory.analyse_orde
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

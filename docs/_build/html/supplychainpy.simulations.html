@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>supplychainpy.simulations package &mdash; supplychainpy 1.0.0 documentation</title>
+  <title>supplychainpy.simulations package &mdash; supplychainpy 0.0.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="supplychainpy 1.0.0 documentation" href="index.html"/> 
+    <link rel="top" title="supplychainpy 0.0.2 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                1.0
+                0.0.2
               </div>
             
           
@@ -80,16 +80,17 @@
             
             
                 <ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html#where-to-go-from-here">Where to go from here?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html#features-in-development">Features in development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Supplychainpy, Xlwings, Pandas and Ipython Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#inventory-analysis-example">Inventory Analysis Example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#simulation">Simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#demand-planning-and-forecasting">Demand Planning and Forecasting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#warehousing">Warehousing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#distribution-optimisation">Distribution Optimisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculations.html#simulation">Simulation</a></li>
 </ul>
 
             
@@ -229,6 +230,56 @@ len(random_normal_demand[0][sku.sku_id]))</p>
 <em class="property">class </em><code class="descclassname">supplychainpy.simulations.monte_carlo_frame.</code><code class="descname">MainFrame</code><a class="headerlink" href="#supplychainpy.simulations.monte_carlo_frame.MainFrame" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Borg class making shared frame global</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-supplychainpy.simulations.sim_summary">
+<span id="supplychainpy-simulations-sim-summary-module"></span><h2>supplychainpy.simulations.sim_summary module<a class="headerlink" href="#module-supplychainpy.simulations.sim_summary" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="supplychainpy.simulations.sim_summary.average_items">
+<code class="descclassname">supplychainpy.simulations.sim_summary.</code><code class="descname">average_items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.simulations.sim_summary.average_items" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.simulations.sim_summary.closing_stockout_percentage">
+<code class="descclassname">supplychainpy.simulations.sim_summary.</code><code class="descname">closing_stockout_percentage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.simulations.sim_summary.closing_stockout_percentage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.simulations.sim_summary.frame">
+<code class="descclassname">supplychainpy.simulations.sim_summary.</code><code class="descname">frame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.simulations.sim_summary.frame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.simulations.sim_summary.optimum_std">
+<code class="descclassname">supplychainpy.simulations.sim_summary.</code><code class="descname">optimum_std</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.simulations.sim_summary.optimum_std" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.simulations.sim_summary.summarize_monte_carlo">
+<code class="descclassname">supplychainpy.simulations.sim_summary.</code><code class="descname">summarize_monte_carlo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.simulations.sim_summary.summarize_monte_carlo" title="Permalink to this definition">¶</a></dt>
+<dd><p>summarises the monte carlo transaction summary</p>
+<p>Generates random distribution for demand over period specified and creates a simulation window for opening_stock,
+demand, closing_stock, delivery and backlog for each sku in the data set. Creates a transaction summary window
+for inventory movements.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>simulation_frame</strong> (<em>list</em>) &#8211; The path to the file containing two columns of data, 1 period and 1 data-point per sku.</li>
+<li><strong>period_length</strong> (<em>int</em>) &#8211; The number of periods define the simulation window e.g. 12 weeks, months etc.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A list containing the transaction summary for each period.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -376,6 +427,16 @@ as the period_length</li>
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.po_number_raised">
+<code class="descname">po_number_raised</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.po_number_raised" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.po_number_received">
+<code class="descname">po_number_received</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.po_number_received" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.po_raised_flag">
 <code class="descname">po_raised_flag</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.po_raised_flag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -401,6 +462,11 @@ as the period_length</li>
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.revenue">
+<code class="descname">revenue</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.revenue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.shortage_cost">
 <code class="descname">shortage_cost</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.shortage_cost" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -413,6 +479,11 @@ as the period_length</li>
 <dl class="attribute">
 <dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.sku_id">
 <code class="descname">sku_id</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.sku_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.sold">
+<code class="descname">sold</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.sold" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -455,7 +526,7 @@ as the period_length</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.0.0',
+            VERSION:'0.0.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -464,6 +535,7 @@ as the period_length</li>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

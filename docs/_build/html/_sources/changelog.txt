@@ -1,0 +1,43 @@
+Change Log
+==========
+
+0.0.2
+-----
+
+Application
+^^^^^^^^^^^
+
+-   Added monte carlo analysis simulation and simulation summary using Cython optimisation.
+-   Added simulate module to api.
+-   Added weighted moving average forecast
+-   Added moving average forecast
+-   Added mean absolute deviation
+-   Updated economic order quantity using Cython optimisation.
+-   Updated unit tests.
+
+Documentation
+^^^^^^^^^^^^^
+
+- Updates Quick Guide.
+- Updated Tutorial.
+- Updated README.md
+- Added Formulas and Equations.
+- Updated data.csv
+
+0.0.1
+-----
+
+Application
+^^^^^^^^^^^
+
+-   Added inventory analysis for uncertain demand. Analyse orders from .csv, .txt or from dict.
+-   Added inventory analysis summary for uncertain demand. ABC XYZ, economic order quantity (EOQ), reorder level (ROL),
+    demand variability and safety stock.
+
+Documentation
+^^^^^^^^^^^^^
+
+- Added Quick Guide.
+- Added Tutorial.
+- Added Installation.
+

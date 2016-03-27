@@ -53,13 +53,12 @@ Now using the `data.csv` file and `test.xlsx` workbook, we can run our first ana
 	>>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
 	>>> wb = Workbook(r'~/Desktop/test.xlsx'), Range
 	>>> abc = analyse_orders_abcxyz_from_file(file_path="data.csv", z_value= Decimal(1.28), reorder_cost=Decimal(5000), file_type="csv")
-	>>> x = 1
-	>>> for sku in abc.orders:
-	>>>     Range('A'+ str(x)).value = sku.sku_id
-	>>>     Range('B' + str(x)).value = float(sku.economic_order_qty)
-	>>>     Range('C' + str(x)).value = float(sku.revenue)
-	>>>     Range('D' + str(x)).value = sku.abcxyz_classification
-	>>>     x +=1
+	>>>
+	>>> for index, sku in enumerate(abc.orders):
+	>>>     Range('A'+ str(index)).value = sku.sku_id
+	>>>     Range('B' + str(index)).value = float(sku.economic_order_qty)
+	>>>     Range('C' + str(index)).value = float(sku.revenue)
+	>>>     Range('D' + str(index)).value = sku.abcxyz_classification
 
 You should be able to see the following print out in
 
@@ -110,8 +109,20 @@ The inventory analysis functions can be accessed from supplychainpy by importing
 Simulation
 ==========
 
+A method for checking the validity of the decisions made is useful for inventory managers to evaluate the appropriateness
+of any changes.
+
+A simulation is useful for giving a dynamic view of an operations system. The simulation replicates the complexity of the system
+over time and captures randomness for a more accurate result. The monte carlo simulation is useful when complicated interactions
+and effects are not adequately captured by an analytical model.
+
+
 Monte Carlo simulation
 ----------------------
+
+The code below returns the `transaction report` covering the number of periods specified, multiplied by the number of runs
+requested. The higher the number of runs the more accurately the simulation captures the dynamics of the system limited by
+the assumptions inherent in the simulations design.
 
 .. code:: python
 
@@ -120,33 +131,35 @@ Monte Carlo simulation
 	>>> for s in sim:
 	>>>    print(s)
 
+This is the output from 1 run for 1 sku. The demand is normal random distribution and the PO's raised
 
 .. parsed-literal::
 
-	[{'closing_stock': '690', 'sku_id': 'KR202-214', 'demand': '805', 'backlog': '0',
-	'opening_stock': '1500', 'period': '1', 'index': '6', 'delivery': '0'}]
-	[{'closing_stock': '-2600', 'sku_id': 'KR202-214', 'demand': '2023', 'backlog': '1300',
-	'opening_stock': '690', 'period': '2', 'index': '6', 'delivery': '0'}]
-	[{'closing_stock': '-2600', 'sku_id': 'KR202-214', 'demand': '1665', 'backlog': '1300',
-	'opening_stock': '-2600', 'period': '3', 'index': '6', 'delivery': '3000'}]
-	[{'closing_stock': '3500', 'sku_id': 'KR202-214', 'demand': '1501', 'backlog': '0',
-	'opening_stock': '-2600', 'period': '4', 'index': '6', 'delivery': '7600'}]
-	[{'closing_stock': '11000', 'sku_id': 'KR202-214', 'demand': '134', 'backlog': '0',
-	'opening_stock': '3500', 'period': '5', 'index': '6', 'delivery': '7600'}]
-	[{'closing_stock': '9600', 'sku_id': 'KR202-214', 'demand': '1611', 'backlog': '0',
-	'opening_stock': '11000', 'period': '6', 'index': '6', 'delivery': '200'}]
-	[{'closing_stock': '7100', 'sku_id': 'KR202-214', 'demand': '2525', 'backlog': '0',
-	'opening_stock': '9600', 'period': '7', 'index': '6', 'delivery': '0'}]
-	[{'closing_stock': '5800', 'sku_id': 'KR202-214', 'demand': '1318', 'backlog': '0',
-	'opening_stock': '7100', 'period': '8', 'index': '6', 'delivery': '0'}]
-	[{'closing_stock': '3700', 'sku_id': 'KR202-214', 'demand': '2097', 'backlog': '0',
-	'opening_stock': '5800', 'period': '9', 'index': '6', 'delivery': '0'}]
-	[{'closing_stock': '1100', 'sku_id': 'KR202-214', 'demand': '2612', 'backlog': '0',
-	'opening_stock': '3700', 'period': '10', 'index': '6', 'delivery': '0'}]
-	[{'closing_stock': '400', 'sku_id': 'KR202-214', 'demand': '695', 'backlog': '0',
-	'opening_stock': '1100', 'period': '11', 'index': '6', 'delivery': '0'}]
-	[{'closing_stock': '2400', 'sku_id': 'KR202-214', 'demand': '643', 'backlog': '0',
-	'opening_stock': '400', 'period': '12', 'index': '6', 'delivery': '2600'}]
+[{'opening_stock': '1446', 'po_quantity': '5000', 'po_received': '', 'sku_id': 'KR202-209', 'backlog': '800',
+'delivery': '0', 'demand': '1764', 'period': '1', 'index': '1', 'po_raised': 'PO 31', 'closing_stock': '0'}]
+[{'opening_stock': '0', 'po_quantity': '6000', 'po_received': '', 'sku_id': 'KR202-209', 'backlog': '2000',
+'delivery': '0', 'demand': '2312', 'period': '2', 'index': '1', 'po_raised': 'PO 41', 'closing_stock': '0'}]
+[{'opening_stock': '0', 'po_quantity': '1000', 'po_received': 'PO 31', 'sku_id': 'KR202-209', 'backlog': '0',
+'delivery': '5000', 'demand': '2371', 'period': '3', 'index': '1', 'po_raised': 'PO 51', 'closing_stock': '3000'}]
+[{'opening_stock': '3000', 'po_quantity': '0', 'po_received': 'PO 41', 'sku_id': 'KR202-209', 'backlog': '0',
+'delivery': '6000', 'demand': '3156', 'period': '4', 'index': '1', 'po_raised': '', 'closing_stock': '6000'}]
+[{'opening_stock': '6000', 'po_quantity': '0', 'po_received': 'PO 51', 'sku_id': 'KR202-209', 'backlog': '0',
+'delivery': '1000', 'demand': '2314', 'period': '5', 'index': '1', 'po_raised': '', 'closing_stock': '5000'}]
+[{'opening_stock': '5000', 'po_quantity': '200', 'po_received': 'PO 61', 'sku_id': 'KR202-209', 'backlog': '0',
+'delivery': '0', 'demand': '1142', 'period': '6', 'index': '1', 'po_raised': '', 'closing_stock': '4000'}]
+[{'opening_stock': '4000', 'po_quantity': '4000', 'po_received': 'PO 71', 'sku_id': 'KR202-209', 'backlog': '0',
+'delivery': '0', 'demand': '3792', 'period': '7', 'index': '1', 'po_raised': 'PO 91', 'closing_stock': '200'}]
+[{'opening_stock': '200', 'po_quantity': '5000', 'po_received': 'PO 81', 'sku_id': 'KR202-209', 'backlog': '200',
+'delivery': '200', 'demand': '574', 'period': '8', 'index': '1', 'po_raised': 'PO 101', 'closing_stock': '0'}]
+[{'opening_stock': '0', 'po_quantity': '1000', 'po_received': 'PO 91', 'sku_id': 'KR202-209', 'backlog': '0',
+'delivery': '4000', 'demand': '708', 'period': '9', 'index': '1', 'po_raised': 'PO 101', 'closing_stock': '3000'}]
+[{'opening_stock': '3000', 'po_quantity': '1000', 'po_received': 'PO 101', 'sku_id': 'KR202-209', 'backlog':
+'0', 'delivery': '1000', 'demand': '1112', 'period': '10', 'index': '1', 'po_raised': 'PO 101', 'closing_stock': '3000'}]
+[{'opening_stock': '3000', 'po_quantity': '2000', 'po_received': '', 'sku_id': 'KR202-209', 'backlog': '0', '
+delivery': '0', 'demand': '1142', 'period': '11', 'index': '1', 'po_raised': 'PO 101', 'closing_stock': '2000'}]
+[{'opening_stock': '2000', 'po_quantity': '5000', 'po_received': '', 'sku_id': 'KR202-209', 'backlog': '300',
+'delivery': '0', 'demand': '2337', 'period': '12', 'index': '1', 'po_raised': 'PO 101', 'closing_stock': '0'}]
+
 
 
 .. code:: python
@@ -156,106 +169,44 @@ Monte Carlo simulation
 
 .. parsed-literal::
 
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.0, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.0, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.0, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.3333333333333333, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.0, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.3333333333333333, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.3333333333333333, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.0, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.0, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.0, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.0, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.08333333333333333, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.25, 'index': '1'}
-	{'sku_id': 'KR202-209', 'stockout_percentage': 0.16666666666666666, 'index': '1'}
+('KR202-209', 100.0)
+('KR202-210', 100.0)
+('KR202-211', 100.0)
+('KR202-212', 100.0)
+('KR202-213', 100.0)
+('KR202-214', 100.0)
+('KR202-215', 100.0)
+('KR202-216', 100.0)
+('KR202-217', 100.0)
+('KR202-218', 100.0)
+('KR202-219', 100.0)
+('KR202-220', 100.0)
+('KR202-221', 100.0)
+('KR202-222', 100.0)
+('KR202-223', 100.0)
+('KR202-224', 100.0)
+('KR202-225', 100.0)
+('KR202-226', 100.0)
+('KR202-227', 100.0)
+('KR202-228', 100.0)
+('KR202-229', 100.0)
+('KR202-230', 100.0)
+('KR202-231', 100.0)
+('KR202-232', 100.0)
+('KR202-233', 100.0)
+('KR202-234', 100.0)
+('KR202-235', 100.0)
+('KR202-236', 100.0)
+('KR202-237', 100.0)
+('KR202-238', 100.0)
+('KR202-239', 100.0)
+('KR202-240', 100.0)
+
+Overview of simulation model
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+insert flow diagram here.
+
 
 
 Agent based modeling

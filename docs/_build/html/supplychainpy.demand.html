@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>supplychainpy.demand package &mdash; supplychainpy 1.0.0 documentation</title>
+  <title>supplychainpy.demand package &mdash; supplychainpy 0.0.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="supplychainpy 1.0.0 documentation" href="index.html"/> 
+    <link rel="top" title="supplychainpy 0.0.2 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                1.0
+                0.0.2
               </div>
             
           
@@ -80,16 +80,17 @@
             
             
                 <ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html#where-to-go-from-here">Where to go from here?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html#features-in-development">Features in development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Supplychainpy, Xlwings, Pandas and Ipython Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#inventory-analysis-example">Inventory Analysis Example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#simulation">Simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#demand-planning-and-forecasting">Demand Planning and Forecasting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#warehousing">Warehousing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#distribution-optimisation">Distribution Optimisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculations.html#simulation">Simulation</a></li>
 </ul>
 
             
@@ -323,7 +324,7 @@ ABCXYZ classification</p>
 <span id="supplychainpy-demand-economic-order-quantity-module"></span><h2>supplychainpy.demand.economic_order_quantity module<a class="headerlink" href="#module-supplychainpy.demand.economic_order_quantity" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="supplychainpy.demand.economic_order_quantity.EconomicOrderQuantity">
-<em class="property">class </em><code class="descclassname">supplychainpy.demand.economic_order_quantity.</code><code class="descname">EconomicOrderQuantity</code><span class="sig-paren">(</span><em>reorder_quantity: decimal.Decimal</em>, <em>holding_cost</em>, <em>reorder_cost</em>, <em>average_orders: float</em>, <em>unit_cost</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.economic_order_quantity.EconomicOrderQuantity" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">supplychainpy.demand.economic_order_quantity.</code><code class="descname">EconomicOrderQuantity</code><span class="sig-paren">(</span><em>reorder_quantity: float</em>, <em>holding_cost: float</em>, <em>reorder_cost: float</em>, <em>average_orders: float</em>, <em>unit_cost: float</em>, <em>total_orders: float</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.economic_order_quantity.EconomicOrderQuantity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#supplychainpy.demand.analyse_uncertain_demand.UncertainDemand" title="supplychainpy.demand.analyse_uncertain_demand.UncertainDemand"><code class="xref py py-class docutils literal"><span class="pre">supplychainpy.demand.analyse_uncertain_demand.UncertainDemand</span></code></a></p>
 <dl class="attribute">
 <dt id="supplychainpy.demand.economic_order_quantity.EconomicOrderQuantity.economic_order_quantity">
@@ -336,6 +337,19 @@ ABCXYZ classification</p>
 <dd></dd></dl>
 
 </dd></dl>
+
+</div>
+<div class="section" id="module-supplychainpy.demand.eoq">
+<span id="supplychainpy-demand-eoq-module"></span><h2>supplychainpy.demand.eoq module<a class="headerlink" href="#module-supplychainpy.demand.eoq" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="supplychainpy.demand.eoq.economic_order_quantity">
+<code class="descclassname">supplychainpy.demand.eoq.</code><code class="descname">economic_order_quantity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.eoq.economic_order_quantity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.demand.eoq.minimum_variable_cost">
+<code class="descclassname">supplychainpy.demand.eoq.</code><code class="descname">minimum_variable_cost</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.eoq.minimum_variable_cost" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 <div class="section" id="module-supplychainpy.demand.forecast_demand">
@@ -637,6 +651,14 @@ weights.&#8217;.format(sum(weights), len(weights)))</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-supplychainpy.demand.summarise_analysis">
+<span id="supplychainpy-demand-summarise-analysis-module"></span><h2>supplychainpy.demand.summarise_analysis module<a class="headerlink" href="#module-supplychainpy.demand.summarise_analysis" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="supplychainpy.demand.summarise_analysis.summary">
+<code class="descclassname">supplychainpy.demand.summarise_analysis.</code><code class="descname">summary</code><span class="sig-paren">(</span><em>abc_xyz: list</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.summarise_analysis.summary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
 <div class="section" id="module-supplychainpy.demand.summarise_demand">
 <span id="supplychainpy-demand-summarise-demand-module"></span><h2>supplychainpy.demand.summarise_demand module<a class="headerlink" href="#module-supplychainpy.demand.summarise_demand" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -688,7 +710,7 @@ weights.&#8217;.format(sum(weights), len(weights)))</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.0.0',
+            VERSION:'0.0.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -697,6 +719,7 @@ weights.&#8217;.format(sum(weights), len(weights)))</p>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

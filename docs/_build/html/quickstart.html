@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quick Guide &mdash; supplychainpy 1.0.0 documentation</title>
+  <title>Quick Guide &mdash; supplychainpy 0.0.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="supplychainpy 1.0.0 documentation" href="index.html"/>
+    <link rel="top" title="supplychainpy 0.0.2 documentation" href="index.html"/>
         <link rel="next" title="Supplychainpy, Xlwings, Pandas and Ipython Tutorial" href="tutorial.html"/>
         <link rel="prev" title="Installation" href="Installation.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                1.0
+                0.0.2
               </div>
             
           
@@ -82,26 +82,22 @@
             
             
                 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Quick Guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#summarising-inventory">Summarising Inventory</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#where-to-go-from-here">Where to go from here?</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#filtering">Filtering</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#further-analysis">Further Analysis</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#features-in-development">Features in development</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#you-are-more-than-a-filthy-sheet-spreader">You are more than a filthy sheet spreader!</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Supplychainpy, Xlwings, Pandas and Ipython Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#inventory-analysis-example">Inventory Analysis Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#simulation">Simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#demand-planning-and-forecasting">Demand Planning and Forecasting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#warehousing">Warehousing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#distribution-optimisation">Distribution Optimisation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html#simulation">Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculations.html#simulation">Simulation</a></li>
 </ul>
 
             
@@ -148,17 +144,45 @@
             
   <div class="section" id="quick-guide">
 <h1>Quick Guide<a class="headerlink" href="#quick-guide" title="Permalink to this headline">¶</a></h1>
-<p>The following guide assumes that the supplychainpy library has already been installed. If not please use the
-instructions for <span class="xref std std-ref">Installation</span>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>All profiling has been carried out on the following system:</p>
+<table border="1" class="last docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Component</th>
+<th class="head">Spec.</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>CPU</td>
+<td>Xeon 1650v3 (15M Cache, 3.50 GHz)</td>
+</tr>
+<tr class="row-odd"><td>Ram</td>
+<td>32gb ddr4 2133</td>
+</tr>
+<tr class="row-even"><td>ssd</td>
+<td>m.2 Samsung</td>
+</tr>
+<tr class="row-odd"><td>gpu</td>
+<td>GTX 980ti CUDA cores 2816 1000MHz</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>While the supplychainpy library can be used in any way you deem fit, the library was created to assist a workflow that
 is reliant on Excel, Excel formulas and VBA. Below we go through the use cases and implementations specific to the
 domain (supply chain, operations and manufacturing).</p>
+<p>The following guide assumes that the supplychainpy library has already been installed. If not please use the
+instructions for <span class="xref std std-ref">Installation</span>.</p>
 <div class="section" id="summarising-inventory">
 <h2>Summarising Inventory<a class="headerlink" href="#summarising-inventory" title="Permalink to this headline">¶</a></h2>
 <p>A quick example of a typical inventory analysis takes several formulas, manual processes or pivot tables and in
-some cases vba to achieve. With supplychainpy the same analysis can be achieved in 10 lines of code
-(<strong>only 3 lines of code</strong> for the analysis and another 7 to get the results into Excel). In the example below supplying
-a <cite>dict</cite> of &#8220;Orders&#8221; data-points can generate a summary that includes:</p>
+some cases vba to achieve. Using the supplychainpy library can reduce the time and effort taken for the same analysis.
+In the example below supplying a <cite>dict</cite> of &#8220;Orders&#8221; data-points can generate a summary that includes:</p>
 <ul class="simple">
 <li>demand variability</li>
 <li>reorder level</li>
@@ -176,22 +200,82 @@ a <cite>dict</cite> of &#8220;Orders&#8221; data-points can generate a summary t
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Time taken in seconds: 0.0008091926574707031.</p>
 <p>Currently the lead-time and the yearly_demand must be in the same units (the user has to make the correct conversion).
-This will be changing soon.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s1">&#39;standard_deviation&#39;</span><span class="p">:</span> <span class="s1">&#39;25&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;demand_variability&#39;</span><span class="p">:</span> <span class="s1">&#39;0.500&#39;</span><span class="p">,</span> <span class="s1">&#39;sku&#39;</span><span class="p">:</span> <span class="s1">&#39;RX983-90&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;reorder_level&#39;</span><span class="p">:</span> <span class="s1">&#39;142&#39;</span><span class="p">,</span> <span class="s1">&#39;average_order&#39;</span><span class="p">:</span> <span class="s1">&#39;50&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;safety_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;55&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_variable_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;0.00&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;30594.00&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;56&#39;</span><span class="p">}</span>
+This will be changing soon.
+.. parsed-literal:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s1">&#39;average_order&#39;</span><span class="p">:</span> <span class="s1">&#39;50&#39;</span><span class="p">,</span>
+<span class="s1">&#39;safety_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;55&#39;</span><span class="p">,</span>
+<span class="s1">&#39;sku&#39;</span><span class="p">:</span> <span class="s1">&#39;RX983-90&#39;</span><span class="p">,</span>
+<span class="s1">&#39;reorder_level&#39;</span><span class="p">:</span> <span class="s1">&#39;142&#39;</span><span class="p">,</span>
+<span class="s1">&#39;reorder_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;67&#39;</span><span class="p">,</span>
+<span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;20994.00&#39;</span><span class="p">,</span>
+<span class="s1">&#39;demand_variability&#39;</span><span class="p">:</span> <span class="s1">&#39;0.499&#39;</span><span class="p">,</span>
+<span class="s1">&#39;standard_deviation&#39;</span><span class="p">:</span> <span class="s1">&#39;24&#39;</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>The same analysis can be made by supplying a pre-formatted <cite>.csv</cite> or <cite>.txt</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre>Sku,jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec,unit cost,lead-time
+KR202-209,1509,312,88,1261,1231,2598,968,427,2927,2707,731,2598,400,2
+KR202-210,1006,206,2588,670,2768,2809,1475,1537,919,2525,440,2691,394,2
+KR202-211,1840,2284,850,983,2737,1264,2002,1980,235,1489,218,525,434,4
+KR202-212,104,2262,350,528,2570,1216,1101,2755,2856,2381,1867,2746,474,3
+KR202-213,489,954,1112,199,919,330,561,2372,921,1587,1532,1512,514,1
+</pre></div>
+</div>
+<p>A file named <cite>data.csv</cite> can be used to generate the same analysis in <cite>dict</cite> based example. The full file is supplied in
+the installation folder. The example below generates the result for 32 skus.</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">abc</span> <span class="o">=</span> <span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
-<span class="gp">&gt;&gt;&gt; </span>                                       <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">sku</span> <span class="ow">in</span> <span class="n">abc</span><span class="o">.</span><span class="n">orders</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="k">print</span> <span class="p">(</span><span class="s1">&#39;Sku: {} Economic Order Quantity: {} Sku Revenue: {} ABCXYZ Classification: {}&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span>           <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sku</span><span class="o">.</span><span class="n">sku_id</span> <span class="n">sku</span><span class="o">.</span><span class="n">economic_order_qty</span><span class="p">,</span> <span class="n">sku</span><span class="o">.</span><span class="n">revenue</span><span class="p">,</span> <span class="n">sku</span><span class="o">.</span><span class="n">abcxyz_classification</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>                                       <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">abcxyz_summary</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Time taken in seconds:0.009269237518310547.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[{</span><span class="s1">&#39;AX&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;AY&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;AZ&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;BX&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;BY&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;BZ&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;CX&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;CY&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;CZ&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}]</span>
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">abc</span> <span class="o">=</span> <span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>                                       <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">sku</span> <span class="ow">in</span> <span class="n">abc</span><span class="o">.</span><span class="n">orders</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Sku: {} Economic Order Quantity: {:.0f} Sku Revenue: {:.0f} ABCXYZ Classification: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sku</span><span class="o">.</span><span class="n">sku_id</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                                                <span class="n">sku</span><span class="o">.</span><span class="n">economic_order_qty</span><span class="p">,</span> <span class="n">sku</span><span class="o">.</span><span class="n">revenue</span><span class="p">,</span> <span class="n">sku</span><span class="o">.</span><span class="n">abcxyz_classification</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Time taken in seconds: 0.009444236755371094.</p>
+<div class="highlight-python"><div class="highlight"><pre>Sku: KR202-209 Economic Order Quantity: 1311 Sku Revenue: 6942800 ABCXYZ Classification: CZ
+Sku: KR202-210 Economic Order Quantity: 1405 Sku Revenue: 7900000 ABCXYZ Classification: CY
+Sku: KR202-211 Economic Order Quantity: 1224 Sku Revenue: 6900000 ABCXYZ Classification: CZ
+Sku: KR202-212 Economic Order Quantity: 1317 Sku Revenue: 10000000 ABCXYZ Classification: BY
+Sku: KR202-213 Economic Order Quantity: 981 Sku Revenue: 6700000 ABCXYZ Classification: CY
+Sku: KR202-214 Economic Order Quantity: 1170 Sku Revenue: 10000000 ABCXYZ Classification: BY
+Sku: KR202-215 Economic Order Quantity: 1030 Sku Revenue: 9500000 ABCXYZ Classification: CY
+Sku: KR202-216 Economic Order Quantity: 1054 Sku Revenue: 11000000 ABCXYZ Classification: BY
+Sku: KR202-217 Economic Order Quantity: 1083 Sku Revenue: 13000000 ABCXYZ Classification: AY
+Sku: KR202-218 Economic Order Quantity: 862 Sku Revenue: 9300000 ABCXYZ Classification: CZ
+Sku: KR202-219 Economic Order Quantity: 894 Sku Revenue: 11000000 ABCXYZ Classification: BZ
+Sku: KR202-220 Economic Order Quantity: 967 Sku Revenue: 15000000 ABCXYZ Classification: AY
+Sku: KR202-221 Economic Order Quantity: 937 Sku Revenue: 15000000 ABCXYZ Classification: AY
+Sku: KR202-222 Economic Order Quantity: 848 Sku Revenue: 13000000 ABCXYZ Classification: AZ
+Sku: KR202-223 Economic Order Quantity: 932 Sku Revenue: 19000000 ABCXYZ Classification: AY
+Sku: KR202-224 Economic Order Quantity: 863 Sku Revenue: 17000000 ABCXYZ Classification: AY
+Sku: KR202-225 Economic Order Quantity: 960 Sku Revenue: 23000000 ABCXYZ Classification: AY
+Sku: KR202-226 Economic Order Quantity: 715 Sku Revenue: 13000000 ABCXYZ Classification: BZ
+Sku: KR202-227 Economic Order Quantity: 861 Sku Revenue: 21000000 ABCXYZ Classification: AY
+Sku: KR202-228 Economic Order Quantity: 794 Sku Revenue: 20000000 ABCXYZ Classification: AZ
+Sku: KR202-229 Economic Order Quantity: 722 Sku Revenue: 17000000 ABCXYZ Classification: AY
+Sku: KR202-230 Economic Order Quantity: 838 Sku Revenue: 24000000 ABCXYZ Classification: AY
+Sku: KR202-231 Economic Order Quantity: 771 Sku Revenue: 21000000 ABCXYZ Classification: AZ
+Sku: KR202-232 Economic Order Quantity: 815 Sku Revenue: 25000000 ABCXYZ Classification: AY
+Sku: KR202-233 Economic Order Quantity: 654 Sku Revenue: 18000000 ABCXYZ Classification: AZ
+Sku: KR202-234 Economic Order Quantity: 631 Sku Revenue: 18000000 ABCXYZ Classification: AY
+Sku: KR202-235 Economic Order Quantity: 810 Sku Revenue: 31000000 ABCXYZ Classification: AY
+Sku: KR202-236 Economic Order Quantity: 622 Sku Revenue: 22000000 ABCXYZ Classification: AZ
+Sku: KR202-237 Economic Order Quantity: 671 Sku Revenue: 27000000 ABCXYZ Classification: AZ
+Sku: KR202-238 Economic Order Quantity: 685 Sku Revenue: 27000000 ABCXYZ Classification: AY
+Sku: KR202-239 Economic Order Quantity: 713 Sku Revenue: 31000000 ABCXYZ Classification: AY
+Sku: KR202-240 Economic Order Quantity: 680 Sku Revenue: 27000000 ABCXYZ Classification: AZ
 </pre></div>
 </div>
 <p>Using openpyxl or xlwings this analysis can be placed in a worksheet or used in further calculations. Below is an
@@ -199,35 +283,24 @@ xlwings example:</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">xlwings</span> <span class="kn">import</span> <span class="n">Workbook</span><span class="p">,</span> <span class="n">Range</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">(</span><span class="s1">r&#39;~/Desktop/test.xlsx&#39;</span><span class="p">),</span> <span class="n">Range</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">abc</span> <span class="o">=</span> <span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span> <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">sku</span> <span class="ow">in</span> <span class="n">abc</span><span class="o">.</span><span class="n">orders</span><span class="p">:</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">Range</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">sku</span><span class="o">.</span><span class="n">sku_id</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">Range</span><span class="p">(</span><span class="s1">&#39;B&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sku</span><span class="o">.</span><span class="n">economic_order_qty</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">Range</span><span class="p">(</span><span class="s1">&#39;C&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sku</span><span class="o">.</span><span class="n">revenue</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">Range</span><span class="p">(</span><span class="s1">&#39;D&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">sku</span><span class="o">.</span><span class="n">abcxyz_classification</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="o">+=</span><span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">abc</span> <span class="o">=</span> <span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span> <span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span> <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">sku</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">orders</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">Range</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">sku</span><span class="o">.</span><span class="n">sku_id</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">Range</span><span class="p">(</span><span class="s1">&#39;B&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sku</span><span class="o">.</span><span class="n">economic_order_qty</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">Range</span><span class="p">(</span><span class="s1">&#39;C&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sku</span><span class="o">.</span><span class="n">revenue</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">Range</span><span class="p">(</span><span class="s1">&#39;D&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">sku</span><span class="o">.</span><span class="n">abcxyz_classification</span>
 </pre></div>
 </div>
 <p>The columns A-D will now be populated with the values below:</p>
-</div>
-</div>
-<div class="section" id="where-to-go-from-here">
-<h1>Where to go from here?<a class="headerlink" href="#where-to-go-from-here" title="Permalink to this headline">¶</a></h1>
 <p>While the library is currently in development there are several ways the current functionality can be extended:</p>
+</div>
 <div class="section" id="filtering">
 <h2>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">¶</a></h2>
 <p>Using python list comprehensions or yield to filter in comparison to using pivot tables.</p>
 </div>
 <div class="section" id="further-analysis">
 <h2>Further Analysis<a class="headerlink" href="#further-analysis" title="Permalink to this headline">¶</a></h2>
-</div>
-</div>
-<div class="section" id="features-in-development">
-<h1>Features in development<a class="headerlink" href="#features-in-development" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="you-are-more-than-a-filthy-sheet-spreader">
-<h2>You are more than a filthy sheet spreader!<a class="headerlink" href="#you-are-more-than-a-filthy-sheet-spreader" title="Permalink to this headline">¶</a></h2>
-<p>Much maligned but an essential tool</p>
 </div>
 </div>
 
@@ -272,7 +345,7 @@ xlwings example:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.0.0',
+            VERSION:'0.0.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -281,6 +354,7 @@ xlwings example:</p>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

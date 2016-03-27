@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installation &mdash; supplychainpy 0.0.2 documentation</title>
+  <title>Change Log &mdash; supplychainpy 0.0.2 documentation</title>
   
 
   
@@ -31,8 +31,8 @@
 
   
     <link rel="top" title="supplychainpy 0.0.2 documentation" href="index.html"/>
-        <link rel="next" title="Quick Guide" href="quickstart.html"/>
-        <link rel="prev" title="Change Log" href="changelog.html"/> 
+        <link rel="next" title="Installation" href="Installation.html"/>
+        <link rel="prev" title="Welcome to supplychainpy’s documentation!" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -82,13 +82,20 @@
             
             
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#python-version">Python Version</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#optional-dependencies">Optional Dependencies</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Change Log</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">0.0.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#application">Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documentation">Documentation</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">0.0.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Supplychainpy, Xlwings, Pandas and Ipython Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#inventory-analysis-example">Inventory Analysis Example</a></li>
@@ -128,11 +135,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Installation</li>
+    <li>Change Log</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/Installation.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/changelog.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -142,37 +149,51 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>The easiest way to install supplychainpy is via pip:</p>
-<div class="highlight-python"><div class="highlight"><pre>pip install supplychainpy
-</pre></div>
-</div>
-<p>The option also exists to install from source. Clone the package from <a class="reference external" href="https://github.com/supplybi/supplychainpy.git">Github</a>.</p>
-<div class="section" id="python-version">
-<h2>Python Version<a class="headerlink" href="#python-version" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="change-log">
+<h1>Change Log<a class="headerlink" href="#change-log" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>0.0.2<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="application">
+<h3>Application<a class="headerlink" href="#application" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Python 3.5</li>
+<li>Added monte carlo analysis simulation and simulation summary using Cython optimisation.</li>
+<li>Added simulate module to api.</li>
+<li>Added weighted moving average forecast</li>
+<li>Added moving average forecast</li>
+<li>Added mean absolute deviation</li>
+<li>Updated economic order quantity using Cython optimisation.</li>
+<li>Updated unit tests.</li>
 </ul>
 </div>
-<div class="section" id="dependencies">
-<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="documentation">
+<h3>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Numpy</li>
+<li>Updates Quick Guide.</li>
+<li>Updated Tutorial.</li>
+<li>Updated README.md</li>
+<li>Added Formulas and Equations.</li>
+<li>Updated data.csv</li>
 </ul>
 </div>
-<div class="section" id="optional-dependencies">
-<h2>Optional Dependencies<a class="headerlink" href="#optional-dependencies" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id2">
+<h2>0.0.1<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>Application<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Pandas</li>
-<li>matplotlib</li>
-<li>Ipython</li>
-<li>Jupyters</li>
-<li>openpyxl</li>
-<li>xlwings</li>
+<li>Added inventory analysis for uncertain demand. Analyse orders from .csv, .txt or from dict.</li>
+<li>Added inventory analysis summary for uncertain demand. ABC XYZ, economic order quantity (EOQ), reorder level (ROL),
+demand variability and safety stock.</li>
 </ul>
-<p>Installing the <a class="reference external" href="https://www.continuum.io/downloads">Anaconda</a> package may be preferable as it comes with Python 3.5 and
-all the dependencies.</p>
+</div>
+<div class="section" id="id4">
+<h3>Documentation<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Added Quick Guide.</li>
+<li>Added Tutorial.</li>
+<li>Added Installation.</li>
+</ul>
+</div>
 </div>
 </div>
 
@@ -183,10 +204,10 @@ all the dependencies.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="quickstart.html" class="btn btn-neutral float-right" title="Quick Guide" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="Installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="changelog.html" class="btn btn-neutral" title="Change Log" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="Welcome to supplychainpy’s documentation!" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

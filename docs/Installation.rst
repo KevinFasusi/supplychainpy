@@ -12,13 +12,18 @@ Python Version
 
 - Python 3.5
 
+Dependencies
+------------
+
+- Numpy
+
 Optional Dependencies
 ---------------------
 
-- NumPy
-- pandas
+- Pandas
 - matplotlib
 - Ipython
+- Jupyters
 - openpyxl
 - xlwings
 

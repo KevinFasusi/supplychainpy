@@ -117,23 +117,7 @@ over time and captures randomness for a more accurate result. The monte carlo si
 and effects are not adequately captured by an analytical model.
 
 
-Monte Carlo simulation
-----------------------
 
-The code below returns the `transaction report` covering the number of periods specified, multiplied by the number of runs
-requested. The higher the number of runs the more accurately the simulation captures the dynamics of the system limited by
-the assumptions inherent in the simulations design.
-
-.. code:: python
-
-	>>> sim = simulate.run_monte_carlo(file_path="data.csv", z_value=Decimal(1.28), runs=1,
-	>>> reorder_cost=Decimal(4000), file_type="csv", period_length=12)
-	>>> for s in sim:
-	>>>    print(s)
-
-This is the output from 1 run for 1 sku. The demand is normal random distribution and the PO's raised
-
-.. parsed-literal::
 
 [{'opening_stock': '1446', 'po_quantity': '5000', 'po_received': '', 'sku_id': 'KR202-209', 'backlog': '800',
 'delivery': '0', 'demand': '1764', 'period': '1', 'index': '1', 'po_raised': 'PO 31', 'closing_stock': '0'}]
@@ -159,7 +143,7 @@ This is the output from 1 run for 1 sku. The demand is normal random distributio
 delivery': '0', 'demand': '1142', 'period': '11', 'index': '1', 'po_raised': 'PO 101', 'closing_stock': '2000'}]
 [{'opening_stock': '2000', 'po_quantity': '5000', 'po_received': '', 'sku_id': 'KR202-209', 'backlog': '300',
 'delivery': '0', 'demand': '2337', 'period': '12', 'index': '1', 'po_raised': 'PO 101', 'closing_stock': '0'}]
-[{'openin
+
 
 
 .. code:: python
