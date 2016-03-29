@@ -31,7 +31,7 @@
 
   
     <link rel="top" title="supplychainpy 0.0.2 documentation" href="index.html"/>
-        <link rel="prev" title="Supplychainpy, Xlwings, Pandas and Ipython Tutorial" href="tutorial.html"/> 
+        <link rel="prev" title="Quick Guide" href="quickstart.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -84,17 +84,17 @@
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Supplychainpy, Xlwings, Pandas and Ipython Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html#inventory-analysis-example">Inventory Analysis Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html#simulation">Simulation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html#demand-planning-and-forecasting">Demand Planning and Forecasting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html#warehousing">Warehousing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html#distribution-optimisation">Distribution Optimisation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Formulas and Equations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#lead-time-demand">Lead-time Demand</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#standard-deviation-of-lead-time-demand">Standard Deviation of Lead-time demand</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reorder-level">Reorder Level</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#safety-stock">Safety Stock</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#economic-order-quantity-eoq">Economic Order Quantity (eoq)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#purchase-order-quantity">Purchase Order Quantity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#backlog-and-shortage-units">Backlog and Shortage units</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#normal-sum-deviation">Normal Sum Deviation</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#simulation">Simulation</a></li>
 </ul>
 
             
@@ -142,20 +142,84 @@
   <div class="section" id="formulas-and-equations">
 <h1>Formulas and Equations<a class="headerlink" href="#formulas-and-equations" title="Permalink to this headline">¶</a></h1>
 <p>The formal expression of the formulas and equations used in the library are detailed here.</p>
+<div class="section" id="lead-time-demand">
+<h2>Lead-time Demand<a class="headerlink" href="#lead-time-demand" title="Permalink to this headline">¶</a></h2>
+<div class="math">
+\[LD = LT \times D\]</div>
+<dl class="docutils">
+<dt>where:</dt>
+<dd><p class="first">LD = Lead-time Demand</p>
+<p>LT = Lead-time</p>
+<p class="last">D = Demand</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="standard-deviation-of-lead-time-demand">
+<h2>Standard Deviation of Lead-time demand<a class="headerlink" href="#standard-deviation-of-lead-time-demand" title="Permalink to this headline">¶</a></h2>
+<div class="math">
+\[\sigma_{LTD} = \sqrt{LT \times \sigma_{D}^2 + D^2 \times \sigma_{LT}^2}\]</div>
+<dl class="docutils">
+<dt>where:</dt>
+<dd><p class="first">sigma_{LTD} =  Standard deviation of lead-time demand</p>
+<p>LT = Lead-time</p>
+<p class="last">D = Demand</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="reorder-level">
+<h2>Reorder Level<a class="headerlink" href="#reorder-level" title="Permalink to this headline">¶</a></h2>
+<p>The formula used for calculating the reorder level is:</p>
+<div class="math">
+\[RL = LT \times D \times Z \times \sigma \times \sqrt{LT}\]</div>
+<dl class="docutils">
+<dt>where:</dt>
+<dd><p class="first">Z = service level</p>
+<p>LT = Lead-time</p>
+<p class="last">D = Demand</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="safety-stock">
+<h2>Safety Stock<a class="headerlink" href="#safety-stock" title="Permalink to this headline">¶</a></h2>
+<p>The formula used for safety stock is:</p>
+<div class="math">
+\[SS = Z \times \sigma \times \sqrt{LT}\]</div>
+<dl class="docutils">
+<dt>where:</dt>
+<dd><p class="first">SS = Safety Stock</p>
+<p>Z = service level</p>
+<p class="last">LT = Lead-time</p>
+</dd>
+</dl>
+</div>
 <div class="section" id="economic-order-quantity-eoq">
 <h2>Economic Order Quantity (eoq)<a class="headerlink" href="#economic-order-quantity-eoq" title="Permalink to this headline">¶</a></h2>
+<p>The economic order quantity is calculated using:</p>
 <div class="math">
 \[eoq_{0} = \sqrt \frac{2 \times R \times D}{HC}\]</div>
 <dl class="docutils">
 <dt>where:</dt>
-<dd>R = Reorder Cost
-D = Demand
-HC = Holding Cost</dd>
+<dd><p class="first">R = Reorder Cost</p>
+<p>D = Demand</p>
+<p class="last">HC = Holding Cost</p>
+</dd>
 </dl>
 </div>
+<div class="section" id="purchase-order-quantity">
+<h2>Purchase Order Quantity<a class="headerlink" href="#purchase-order-quantity" title="Permalink to this headline">¶</a></h2>
+<p>For the monte carlo siimulation, the</p>
+<p>In release 0.0.3 the purchase order quantity will be compared against a forecast to assess whether it requires adjustment.</p>
 </div>
-<div class="section" id="simulation">
-<h1>Simulation<a class="headerlink" href="#simulation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="backlog-and-shortage-units">
+<h2>Backlog and Shortage units<a class="headerlink" href="#backlog-and-shortage-units" title="Permalink to this headline">¶</a></h2>
+<p>To aggregate the backlog and shortage units for the <cite>summarise_frame</cite></p>
+</div>
+<div class="section" id="normal-sum-deviation">
+<h2>Normal Sum Deviation<a class="headerlink" href="#normal-sum-deviation" title="Permalink to this headline">¶</a></h2>
+<p>The standard deviation is calculated by first summing the average variance for backlog and quantity sold.</p>
+<div class="math">
+\[\sigma_{xy}^2 = \sigma_{x}^2 + \sigma_{y}^2\]</div>
+</div>
 </div>
 
 
@@ -166,7 +230,7 @@ HC = Holding Cost</dd>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="tutorial.html" class="btn btn-neutral" title="Supplychainpy, Xlwings, Pandas and Ipython Tutorial" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="quickstart.html" class="btn btn-neutral" title="Quick Guide" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

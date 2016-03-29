@@ -2,12 +2,10 @@ from multiprocessing.pool import ThreadPool
 from decimal import Decimal
 from supplychainpy import model_inventory
 from supplychainpy.simulations import monte_carlo
-from supplychainpy.simulations.simulation_frame_summary import MonteCarloFrameSummary
-from supplychainpy.simulations.monte_carlo_frame import BuildFrame
 import pyximport
 
 pyximport.install()
-from supplychainpy.simulations.sim_summary import summarize_monte_carlo, frame
+from supplychainpy.simulations.sim_summary import summarize_monte_carlo, frame, optimise_sim
 
 
 def run_monte_carlo_mt(file_path: str, z_value: Decimal, runs: int, reorder_cost: Decimal,
@@ -30,7 +28,7 @@ def run(simulation_frame: list, period_length: int = 12):
     return return_val
 
 
-def run_monte_carlo(file_path: str, z_value: Decimal, runs: int, reorder_cost: Decimal,
+def run_monte_carlo(orders_analysis, file_path: str, z_value: Decimal, runs: int, reorder_cost: Decimal,
                     file_type: str, period_length: int = 12) -> list:
     """Runs monte carlo simulation.
 
@@ -102,14 +100,10 @@ def run_monte_carlo(file_path: str, z_value: Decimal, runs: int, reorder_cost: D
 
     """
 
-    orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=file_path,
-                                                                      z_value=z_value,
-                                                                      reorder_cost=reorder_cost,
-                                                                      file_type=file_type)
     Transaction_report = []
     # add shortage cost,
     for k in range(0, runs):
-        simulation = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis.orders)
+        simulation = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis)
         random_demand = simulation.generate_normal_random_distribution(period_length=period_length)
         for sim_window in simulation.build_window(random_normal_demand=random_demand, period_length=period_length):
             sim_dict = {"index": "{}".format(sim_window.index), "period": "{}".format(sim_window.position),
@@ -127,13 +121,14 @@ def run_monte_carlo(file_path: str, z_value: Decimal, runs: int, reorder_cost: D
                         "shortage_units": "{:.0f}".format(sim_window.shortage_units)}
             # so = BuildFrame(s=sim_dict)
             Transaction_report.append([sim_dict])
+
     return Transaction_report
 
 
 def summarize_window(simulation_frame: list, period_length: int = 12):
     """ Summarizes the simulation window and provides the stockout percentage for each sku.
 
-    Provides a summary of inventory transactions, for the full period length for each run.
+    Provides a summary   of inventory transactions, for the full period length for each run.
 
     Args:
        simulation_frame (list):     A collection of simulation windows.
@@ -180,3 +175,56 @@ def summarise_frame(window_summary):
 
     frame_summary = frame(window_summary)
     return frame_summary
+
+
+def optimise_service_level(frame_summary: list, orders_analysis: list, service_level: float, runs: int) -> list:
+    """ Optimises the safety stock based on the results of the monte carlo analysis.
+
+    Identifies which skus under performed (experiencing a service level lower than expected) after simulating
+    transactions over a specific period. The safety stock for these items are increased and the analysis is monte carlo
+    is run again.
+
+
+    Args:
+        frame_summary (list): window summary for each period multiplied by the number of runs.
+        orders_analysis (list): prior analysis of orders data.
+        service_level (list): required service level as a percentage.
+
+    Returns:
+       list:    Updated orders analysis with new saftey stock values based optimised from the simulation. The initial values
+                from the analytical model.
+
+    """
+    # compare service levels, build list of skus below service level, change their safety stock increase by a percentage
+    # run the monte carlo, keep doing until all skus' are above the requested service level
+    # sim_optimise = optimise_sim(service_level=service_level, frame_summary=frame_summary, orders_analysis=orders_analysis)
+
+    for sku in orders_analysis:
+        for item in frame_summary:
+            if sku.sku_id == item['sku_id']:
+                if float(item['service_level']) <= service_level:
+
+                    sku.safety_stock = round(float(sku.safety_stock)) * 10.0
+
+                    print("Sku id: {} safety stock: {:.0f} service level: {}".format(sku.sku_id, sku.safety_stock,
+                                                                                     item['service_level']))
+                break
+
+    sim = run_monte_carlo(orders_analysis=orders_analysis, file_path="data.csv",
+                          z_value=Decimal(1.28), runs=runs,
+                          reorder_cost=Decimal(4000), file_type="csv", period_length=12)
+
+    sim_window = summarize_window(simulation_frame=sim, period_length=12)
+
+    sim_frame = summarise_frame(sim_window)
+
+    # second check if okay then return new orders details
+    for sku in orders_analysis:
+        for item in sim_frame:
+            if sku.sku_id == item['sku_id']:
+                if float(item['service_level']) <= service_level:
+                    print("Sku id: {} safety stock: {:.0f} service level: {}".format(sku.sku_id, sku.safety_stock,
+                                                                                     item['service_level']))
+                break
+
+    return orders_analysis

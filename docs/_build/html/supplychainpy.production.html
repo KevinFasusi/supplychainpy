@@ -83,14 +83,7 @@
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Supplychainpy, Xlwings, Pandas and Ipython Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html#inventory-analysis-example">Inventory Analysis Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html#simulation">Simulation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html#demand-planning-and-forecasting">Demand Planning and Forecasting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html#warehousing">Warehousing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html#distribution-optimisation">Distribution Optimisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="calculations.html#simulation">Simulation</a></li>
 </ul>
 
             
@@ -140,68 +133,17 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-supplychainpy.production.analyse_install_base">
-<span id="supplychainpy-production-analyse-install-base-module"></span><h2>supplychainpy.production.analyse_install_base module<a class="headerlink" href="#module-supplychainpy.production.analyse_install_base" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="supplychainpy-production-analyse-install-base-module">
+<h2>supplychainpy.production.analyse_install_base module<a class="headerlink" href="#supplychainpy-production-analyse-install-base-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-supplychainpy.production.create_install_base">
-<span id="supplychainpy-production-create-install-base-module"></span><h2>supplychainpy.production.create_install_base module<a class="headerlink" href="#module-supplychainpy.production.create_install_base" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="supplychainpy.production.create_install_base.Machine">
-<em class="property">class </em><code class="descclassname">supplychainpy.production.create_install_base.</code><code class="descname">Machine</code><a class="headerlink" href="#supplychainpy.production.create_install_base.Machine" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="supplychainpy.production.create_install_base.Machine.add_down_time">
-<code class="descname">add_down_time</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.production.create_install_base.Machine.add_down_time" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="supplychainpy.production.create_install_base.MachineBuilder">
-<em class="property">class </em><code class="descclassname">supplychainpy.production.create_install_base.</code><code class="descname">MachineBuilder</code><a class="headerlink" href="#supplychainpy.production.create_install_base.MachineBuilder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Abstract builder</p>
-<dl class="method">
-<dt id="supplychainpy.production.create_install_base.MachineBuilder.make_new_machine">
-<code class="descname">make_new_machine</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.production.create_install_base.MachineBuilder.make_new_machine" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="supplychainpy.production.create_install_base.ProductionDirector">
-<em class="property">class </em><code class="descclassname">supplychainpy.production.create_install_base.</code><code class="descname">ProductionDirector</code><span class="sig-paren">(</span><em>machine_builder: supplychainpy.production.create_install_base.MachineBuilder</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.production.create_install_base.ProductionDirector" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="supplychainpy.production.create_install_base.ProductionDirector.add_down_time">
-<code class="descname">add_down_time</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.production.create_install_base.ProductionDirector.add_down_time" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="supplychainpy.production.create_install_base.ProductionDirector.construct_machine">
-<code class="descname">construct_machine</code><span class="sig-paren">(</span><em>name: str=''</em>, <em>maximum_throughput: int=0</em>, <em>processing_time: int=0</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.production.create_install_base.ProductionDirector.construct_machine" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.production.create_install_base.ProductionDirector.machine">
-<code class="descname">machine</code><a class="headerlink" href="#supplychainpy.production.create_install_base.ProductionDirector.machine" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="supplychainpy.production.create_install_base.SimpleMachineBuilder">
-<em class="property">class </em><code class="descclassname">supplychainpy.production.create_install_base.</code><code class="descname">SimpleMachineBuilder</code><a class="headerlink" href="#supplychainpy.production.create_install_base.SimpleMachineBuilder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#supplychainpy.production.create_install_base.MachineBuilder" title="supplychainpy.production.create_install_base.MachineBuilder"><code class="xref py py-class docutils literal"><span class="pre">supplychainpy.production.create_install_base.MachineBuilder</span></code></a></p>
-<p>Concrete builder, adds generic features to the machine</p>
-</dd></dl>
-
+<div class="section" id="supplychainpy-production-create-install-base-module">
+<h2>supplychainpy.production.create_install_base module<a class="headerlink" href="#supplychainpy-production-create-install-base-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-supplychainpy.production.production">
-<span id="supplychainpy-production-production-module"></span><h2>supplychainpy.production.production module<a class="headerlink" href="#module-supplychainpy.production.production" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="supplychainpy-production-production-module">
+<h2>supplychainpy.production.production module<a class="headerlink" href="#supplychainpy-production-production-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-supplychainpy.production">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-supplychainpy.production" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 

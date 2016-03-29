@@ -8,6 +8,7 @@ Application
 ^^^^^^^^^^^
 
 -   Added monte carlo analysis simulation and simulation summary using Cython optimisation.
+-   Added orders analysis optimisation, based on results of the monte carlo simulation.
 -   Added simulate module to api.
 -   Added weighted moving average forecast
 -   Added moving average forecast

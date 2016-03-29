@@ -151,10 +151,10 @@ def summarize_monte_carlo(list simulation_frame, int period_length):
 def frame(sim_frame):
 
     cdef int count_runs
-    cdef double total_stockout, revenue, avg_quantity_sold
+    cdef double  revenue, avg_quantity_sold
     cdef:
         list summary=[], item_list=[], min_closing_stock=[], max_closing_stock=[], variance_closing_stock=[],
-        average_backlog=[]
+        average_backlog=[], total_stockout=[]
 
     cdef list total_revenue=[]
     cdef list max_quantity_sold=[]
@@ -170,7 +170,7 @@ def frame(sim_frame):
     cdef unsigned int min_cls, max_cls ,min_opn, max_opn
     cdef double avg_variance_opn, min_bklg, max_bklg, avg_bklg, avg_variance_bklg, std_bklg, avg_variance_cls, std_cls,\
         avg_cls, std_opn, max_qs, min_qs
-    cdef float std_quantity_sold
+    cdef float std_quantity_sold, avg_stockout
 
 
     sim_frame.sort(key = itemgetter('sku_id'))
@@ -184,7 +184,7 @@ def frame(sim_frame):
 
 
         for j in item:
-            total_stockout += j['stockout_percentage']
+            total_stockout.append(j['stockout_percentage'])
             average_quantity_sold.append(j['average_quantity_sold'])
             total_shortage_units.append(j['total_shortage_units'])
             min_closing_stock.append(j['minimum_closing_stock'])
@@ -223,7 +223,7 @@ def frame(sim_frame):
         avg_variance = average_items(variance_quantity_sold, count_runs)
         avg_quantity_sold = average_items(average_quantity_sold, count_runs)
         std_quantity_sold = avg_variance ** 0.5
-        avg_stockout = total_stockout/count_runs
+        avg_stockout = average_items(total_stockout, count_runs)
         average_shortage_units = average_items(total_shortage_units, count_runs)
         summary.append({'sku_id': sku_id,
                         'minimum_closing_stock': min_cls,
@@ -263,12 +263,19 @@ def frame(sim_frame):
         average_closing_stock.clear()
         average_quantity_sold.clear()
         total_shortage_units.clear()
+        total_stockout.clear()
 
 
         average_shortage_cost = 0
         revenue =0
-        total_stockout = 0
         avg_stockout = 0
 
     return summary
+
+
+def optimise_sim(list orders_analysis , list frame_summary, float service_level):
+
+    cdef float f
+    return f
+
 

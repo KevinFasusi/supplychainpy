@@ -1,8 +1,5 @@
 from decimal import Decimal, getcontext, ROUND_HALF_UP
-from . import analyse_uncertain_demand
-import pyximport
-
-pyximport.install()
+from supplychainpy.demand import analyse_uncertain_demand
 from supplychainpy.demand.eoq import minimum_variable_cost, economic_order_quantity
 
 

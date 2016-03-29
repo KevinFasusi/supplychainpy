@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Supplychainpy, Xlwings, Pandas and Ipython Tutorial &mdash; supplychainpy 0.0.2 documentation</title>
+  <title>Integrated Development Environment &mdash; supplychainpy 0.0.2 documentation</title>
   
 
   
@@ -30,9 +30,7 @@
   
 
   
-    <link rel="top" title="supplychainpy 0.0.2 documentation" href="index.html"/>
-        <link rel="next" title="Formulas and Equations" href="calculations.html"/>
-        <link rel="prev" title="Quick Guide" href="quickstart.html"/> 
+    <link rel="top" title="supplychainpy 0.0.2 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -81,39 +79,11 @@
           
             
             
-                <ul class="current">
+                <ul>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Supplychainpy, Xlwings, Pandas and Ipython Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#ipython-the-command-line-cli-or-an-integrated-development-environment-ide">Ipython, the command line (cli) or an integrated development environment (IDE)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#the-command-line-cli">The command line (cli)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#integrated-development-environment">Integrated Development Environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ipython">Ipython</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#inventory-analysis-example">Inventory Analysis Example</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#inventory-analysis">Inventory Analysis</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#simulation">Simulation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#monte-carlo-simulation">Monte Carlo simulation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#overview-of-simulation-model">Overview of simulation model</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#agent-based-modeling">Agent based modeling</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#demand-planning-and-forecasting">Demand Planning and Forecasting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#warehousing">Warehousing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#picking-and-packing">Picking and Packing</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#distribution-optimisation">Distribution Optimisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="calculations.html#simulation">Simulation</a></li>
 </ul>
 
             
@@ -144,7 +114,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Supplychainpy, Xlwings, Pandas and Ipython Tutorial</li>
+    <li>Integrated Development Environment</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -158,79 +128,23 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="supplychainpy-xlwings-pandas-and-ipython-tutorial">
-<h1>Supplychainpy, Xlwings, Pandas and Ipython Tutorial<a class="headerlink" href="#supplychainpy-xlwings-pandas-and-ipython-tutorial" title="Permalink to this headline">¶</a></h1>
-<p>Supplychainpy is a Python library for supply chain analysis, modeling and simulation. Using the supplychainpy
-with popular data analysis libraries and tools such as Xlwings or Data Nitro (for Excel spreadsheet applications),
-Pandas, NumPy, Matplotlib, Ipython and Jupyters makes for a powerful supply chain data analysis toolchain.</p>
-<p>Several libraries and technologies exist for interacting with Excel using Python. In this tutorial we use Xlwings
-because it is freely available, packaged with Anaconda (see <span class="xref std std-ref">Installation</span> for details), cross platform (working
-on Mac and PC) and very well documented. The Xlwings project is also in active development, with continuous updates and
-maintenance.</p>
-<p>This tutorial is skewed towards analysts with the requisite domain knowledge, who predominantly use Excel. Some
-knowledge of Python or programming is assumed, although those new to data analysis using python will likely be able to
-follow with assistance from other material.</p>
-<p>This tutorial will proceed to build a typical Excel workbook for inventory management for a fictitious original
-equipment manufacturer (OEM). The examples will be as generic as possible, working exactly the same on both Mac and PC.
-Should there be differences in implementation across both platforms, these differences will be explained.</p>
-<div class="section" id="ipython-the-command-line-cli-or-an-integrated-development-environment-ide">
-<h2>Ipython, the command line (cli) or an integrated development environment (IDE)<a class="headerlink" href="#ipython-the-command-line-cli-or-an-integrated-development-environment-ide" title="Permalink to this headline">¶</a></h2>
-<p>Many choices are available for you when interacting with the workbook on your system. We will quickly explore all the
-alternatives before continuing with our chosen interface the ipython notebook.</p>
-<p>Before we start, it is assumed you have a working installation of Python 3.5, the supplychainpy library and Excel.</p>
-<div class="section" id="the-command-line-cli">
-<h3>The command line (cli)<a class="headerlink" href="#the-command-line-cli" title="Permalink to this headline">¶</a></h3>
-<p>The biggest difference across platforms will be when using the cli. For Mac and linux the unix shell and PC the command
-prompt or PowerShell.</p>
-<ol class="arabic simple">
-<li>Create and save an Excel file on your desktop titled <cite>test.xlsx</cite>. Leave the workbook open.</li>
-<li>The <cite>data.csv</cite> file is packaged with supplychainpy. We will use this file as the data source.</li>
-</ol>
-<ol class="arabic simple" start="2">
-<li>Fire up the terminal:</li>
-</ol>
-<p>Mac and Pc (command prompt)</p>
-<div class="code bash highlight-python"><div class="highlight"><pre><span class="n">python3</span>
-</pre></div>
-</div>
-<p>Now using the <cite>data.csv</cite> file and <cite>test.xlsx</cite> workbook, we can run our first analysis.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">xlwings</span> <span class="kn">import</span> <span class="n">Workbook</span><span class="p">,</span> <span class="n">Range</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">(</span><span class="s1">r&#39;~/Desktop/test.xlsx&#39;</span><span class="p">),</span> <span class="n">Range</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">abc</span> <span class="o">=</span> <span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span> <span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span> <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">sku</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">orders</span><span class="p">):</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">Range</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">sku</span><span class="o">.</span><span class="n">sku_id</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">Range</span><span class="p">(</span><span class="s1">&#39;B&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sku</span><span class="o">.</span><span class="n">economic_order_qty</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">Range</span><span class="p">(</span><span class="s1">&#39;C&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sku</span><span class="o">.</span><span class="n">revenue</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">Range</span><span class="p">(</span><span class="s1">&#39;D&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">sku</span><span class="o">.</span><span class="n">abcxyz_classification</span>
-</pre></div>
-</div>
-<p>You should be able to see the following print out in</p>
-<p>windows version</p>
-<p>Now that you are sure you ave got this up and running you can continue and explore the libraries api using the
-<a class="reference internal" href="py-modindex.html"><span>Module Index</span></a>. The main capabilities are discussed below.</p>
-<ol class="arabic simple" start="2">
+  <ol class="arabic simple" start="2">
 <li>and get ipython notebook up and running:</li>
 </ol>
-</div>
 <div class="section" id="integrated-development-environment">
-<h3>Integrated Development Environment<a class="headerlink" href="#integrated-development-environment" title="Permalink to this headline">¶</a></h3>
+<h1>Integrated Development Environment<a class="headerlink" href="#integrated-development-environment" title="Permalink to this headline">¶</a></h1>
 <p>While several IDE&#8217;s exist that can support this choice, it is the least favourable when working with Excel.</p>
 </div>
 <div class="section" id="ipython">
-<h3>Ipython<a class="headerlink" href="#ipython" title="Permalink to this headline">¶</a></h3>
+<h1>Ipython<a class="headerlink" href="#ipython" title="Permalink to this headline">¶</a></h1>
 <p>The ipython notebook has many advantages including a consistent interface across both Mac and PC, easy saving of
 notebooks and ability to share your work in various formats to name a few.</p>
 <p>If you are unfamiliar with ipython and the suite of data analysis tools presented in the optional dependencies then
 useful tools include: their respective websites, their documentation and the book
 <a class="reference external" href="PythonforDataAnalysis:DataWranglingwithPandas,NumPy,andIPython">Data Analysis</a> by publisher O&#8217;Reilly.
 The book is in its 1st edition (1 Nov 2012) but still very relevant and useful.</p>
-</div>
-</div>
-</div>
 <div class="section" id="inventory-analysis-example">
-<h1>Inventory Analysis Example<a class="headerlink" href="#inventory-analysis-example" title="Permalink to this headline">¶</a></h1>
+<h2>Inventory Analysis Example<a class="headerlink" href="#inventory-analysis-example" title="Permalink to this headline">¶</a></h2>
 <p>Calculating the critical values for inventory analysis using a spreadsheet, often requires several steps. Extracting
 transforming and loading (ETL) data, writing formulas, manual processes or pivot tables and in some cases vba. This
 process is time consuming, repetitive, does not scale and could benefit from automation. Often the ETL is the first
@@ -238,124 +152,30 @@ part of to get automated, while the rise in self-service business intelligence t
 A comprehensive library in a productive language is a useful middle ground. Supplychainpy, Python and the extensive
 python libraries hopefully fulfils the niche for rolling out a scalable and automated suite of analysis.</p>
 <div class="section" id="inventory-analysis">
-<h2>Inventory Analysis<a class="headerlink" href="#inventory-analysis" title="Permalink to this headline">¶</a></h2>
-<p>The inventory analysis functions can be accessed from supplychainpy by importing <cite>model_inventory</cite>.</p>
-</div>
-</div>
-<div class="section" id="simulation">
-<h1>Simulation<a class="headerlink" href="#simulation" title="Permalink to this headline">¶</a></h1>
-<p>A method for checking the validity of the decisions made is useful for inventory managers to evaluate the appropriateness
-of any changes.</p>
-<p>A simulation is useful for giving a dynamic view of an operations system. The simulation replicates the complexity of the system
-over time and captures randomness for a more accurate result. The monte carlo simulation is useful when complicated interactions
-and effects are not adequately captured by an analytical model.</p>
-<div class="section" id="monte-carlo-simulation">
-<h2>Monte Carlo simulation<a class="headerlink" href="#monte-carlo-simulation" title="Permalink to this headline">¶</a></h2>
-<p>The code below returns the <cite>transaction report</cite> covering the number of periods specified, multiplied by the number of runs
-requested. The higher the number of runs the more accurately the simulation captures the dynamics of the system limited by
-the assumptions inherent in the simulations design.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sim</span> <span class="o">=</span> <span class="n">simulate</span><span class="o">.</span><span class="n">run_monte_carlo</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span> <span class="n">runs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">4000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span> <span class="n">period_length</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sim</span><span class="p">:</span>
-<span class="gp">&gt;&gt;&gt; </span>   <span class="k">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>This is the output from 1 run for 1 sku. The demand is normal random distribution and the PO&#8217;s raised</p>
-<p>[{&#8216;opening_stock&#8217;: &#8216;1446&#8217;, &#8216;po_quantity&#8217;: &#8216;5000&#8217;, &#8216;po_received&#8217;: &#8216;&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-209&#8217;, &#8216;backlog&#8217;: &#8216;800&#8217;,
-&#8216;delivery&#8217;: &#8216;0&#8217;, &#8216;demand&#8217;: &#8216;1764&#8217;, &#8216;period&#8217;: &#8216;1&#8217;, &#8216;index&#8217;: &#8216;1&#8217;, &#8216;po_raised&#8217;: &#8216;PO 31&#8217;, &#8216;closing_stock&#8217;: &#8216;0&#8217;}]
-[{&#8216;opening_stock&#8217;: &#8216;0&#8217;, &#8216;po_quantity&#8217;: &#8216;6000&#8217;, &#8216;po_received&#8217;: &#8216;&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-209&#8217;, &#8216;backlog&#8217;: &#8216;2000&#8217;,
-&#8216;delivery&#8217;: &#8216;0&#8217;, &#8216;demand&#8217;: &#8216;2312&#8217;, &#8216;period&#8217;: &#8216;2&#8217;, &#8216;index&#8217;: &#8216;1&#8217;, &#8216;po_raised&#8217;: &#8216;PO 41&#8217;, &#8216;closing_stock&#8217;: &#8216;0&#8217;}]
-[{&#8216;opening_stock&#8217;: &#8216;0&#8217;, &#8216;po_quantity&#8217;: &#8216;1000&#8217;, &#8216;po_received&#8217;: &#8216;PO 31&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-209&#8217;, &#8216;backlog&#8217;: &#8216;0&#8217;,
-&#8216;delivery&#8217;: &#8216;5000&#8217;, &#8216;demand&#8217;: &#8216;2371&#8217;, &#8216;period&#8217;: &#8216;3&#8217;, &#8216;index&#8217;: &#8216;1&#8217;, &#8216;po_raised&#8217;: &#8216;PO 51&#8217;, &#8216;closing_stock&#8217;: &#8216;3000&#8217;}]
-[{&#8216;opening_stock&#8217;: &#8216;3000&#8217;, &#8216;po_quantity&#8217;: &#8216;0&#8217;, &#8216;po_received&#8217;: &#8216;PO 41&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-209&#8217;, &#8216;backlog&#8217;: &#8216;0&#8217;,
-&#8216;delivery&#8217;: &#8216;6000&#8217;, &#8216;demand&#8217;: &#8216;3156&#8217;, &#8216;period&#8217;: &#8216;4&#8217;, &#8216;index&#8217;: &#8216;1&#8217;, &#8216;po_raised&#8217;: &#8216;&#8217;, &#8216;closing_stock&#8217;: &#8216;6000&#8217;}]
-[{&#8216;opening_stock&#8217;: &#8216;6000&#8217;, &#8216;po_quantity&#8217;: &#8216;0&#8217;, &#8216;po_received&#8217;: &#8216;PO 51&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-209&#8217;, &#8216;backlog&#8217;: &#8216;0&#8217;,
-&#8216;delivery&#8217;: &#8216;1000&#8217;, &#8216;demand&#8217;: &#8216;2314&#8217;, &#8216;period&#8217;: &#8216;5&#8217;, &#8216;index&#8217;: &#8216;1&#8217;, &#8216;po_raised&#8217;: &#8216;&#8217;, &#8216;closing_stock&#8217;: &#8216;5000&#8217;}]
-[{&#8216;opening_stock&#8217;: &#8216;5000&#8217;, &#8216;po_quantity&#8217;: &#8216;200&#8217;, &#8216;po_received&#8217;: &#8216;PO 61&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-209&#8217;, &#8216;backlog&#8217;: &#8216;0&#8217;,
-&#8216;delivery&#8217;: &#8216;0&#8217;, &#8216;demand&#8217;: &#8216;1142&#8217;, &#8216;period&#8217;: &#8216;6&#8217;, &#8216;index&#8217;: &#8216;1&#8217;, &#8216;po_raised&#8217;: &#8216;&#8217;, &#8216;closing_stock&#8217;: &#8216;4000&#8217;}]
-[{&#8216;opening_stock&#8217;: &#8216;4000&#8217;, &#8216;po_quantity&#8217;: &#8216;4000&#8217;, &#8216;po_received&#8217;: &#8216;PO 71&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-209&#8217;, &#8216;backlog&#8217;: &#8216;0&#8217;,
-&#8216;delivery&#8217;: &#8216;0&#8217;, &#8216;demand&#8217;: &#8216;3792&#8217;, &#8216;period&#8217;: &#8216;7&#8217;, &#8216;index&#8217;: &#8216;1&#8217;, &#8216;po_raised&#8217;: &#8216;PO 91&#8217;, &#8216;closing_stock&#8217;: &#8216;200&#8217;}]
-[{&#8216;opening_stock&#8217;: &#8216;200&#8217;, &#8216;po_quantity&#8217;: &#8216;5000&#8217;, &#8216;po_received&#8217;: &#8216;PO 81&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-209&#8217;, &#8216;backlog&#8217;: &#8216;200&#8217;,
-&#8216;delivery&#8217;: &#8216;200&#8217;, &#8216;demand&#8217;: &#8216;574&#8217;, &#8216;period&#8217;: &#8216;8&#8217;, &#8216;index&#8217;: &#8216;1&#8217;, &#8216;po_raised&#8217;: &#8216;PO 101&#8217;, &#8216;closing_stock&#8217;: &#8216;0&#8217;}]
-[{&#8216;opening_stock&#8217;: &#8216;0&#8217;, &#8216;po_quantity&#8217;: &#8216;1000&#8217;, &#8216;po_received&#8217;: &#8216;PO 91&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-209&#8217;, &#8216;backlog&#8217;: &#8216;0&#8217;,
-&#8216;delivery&#8217;: &#8216;4000&#8217;, &#8216;demand&#8217;: &#8216;708&#8217;, &#8216;period&#8217;: &#8216;9&#8217;, &#8216;index&#8217;: &#8216;1&#8217;, &#8216;po_raised&#8217;: &#8216;PO 101&#8217;, &#8216;closing_stock&#8217;: &#8216;3000&#8217;}]
-[{&#8216;opening_stock&#8217;: &#8216;3000&#8217;, &#8216;po_quantity&#8217;: &#8216;1000&#8217;, &#8216;po_received&#8217;: &#8216;PO 101&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-209&#8217;, &#8216;backlog&#8217;:
-&#8216;0&#8217;, &#8216;delivery&#8217;: &#8216;1000&#8217;, &#8216;demand&#8217;: &#8216;1112&#8217;, &#8216;period&#8217;: &#8216;10&#8217;, &#8216;index&#8217;: &#8216;1&#8217;, &#8216;po_raised&#8217;: &#8216;PO 101&#8217;, &#8216;closing_stock&#8217;: &#8216;3000&#8217;}]
-[{&#8216;opening_stock&#8217;: &#8216;3000&#8217;, &#8216;po_quantity&#8217;: &#8216;2000&#8217;, &#8216;po_received&#8217;: &#8216;&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-209&#8217;, &#8216;backlog&#8217;: &#8216;0&#8217;, &#8216;
-delivery&#8217;: &#8216;0&#8217;, &#8216;demand&#8217;: &#8216;1142&#8217;, &#8216;period&#8217;: &#8216;11&#8217;, &#8216;index&#8217;: &#8216;1&#8217;, &#8216;po_raised&#8217;: &#8216;PO 101&#8217;, &#8216;closing_stock&#8217;: &#8216;2000&#8217;}]
-[{&#8216;opening_stock&#8217;: &#8216;2000&#8217;, &#8216;po_quantity&#8217;: &#8216;5000&#8217;, &#8216;po_received&#8217;: &#8216;&#8217;, &#8216;sku_id&#8217;: &#8216;KR202-209&#8217;, &#8216;backlog&#8217;: &#8216;300&#8217;,
-&#8216;delivery&#8217;: &#8216;0&#8217;, &#8216;demand&#8217;: &#8216;2337&#8217;, &#8216;period&#8217;: &#8216;12&#8217;, &#8216;index&#8217;: &#8216;1&#8217;, &#8216;po_raised&#8217;: &#8216;PO 101&#8217;, &#8216;closing_stock&#8217;: &#8216;0&#8217;}]</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">simulate</span><span class="o">.</span><span class="n">summarize_window</span><span class="p">(</span><span class="n">simulation_frame</span><span class="o">=</span><span class="n">sim</span><span class="p">,</span> <span class="n">period_length</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
-<span class="gp">&gt;&gt;&gt; </span>   <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>(&#8216;KR202-209&#8217;, 100.0)
-(&#8216;KR202-210&#8217;, 100.0)
-(&#8216;KR202-211&#8217;, 100.0)
-(&#8216;KR202-212&#8217;, 100.0)
-(&#8216;KR202-213&#8217;, 100.0)
-(&#8216;KR202-214&#8217;, 100.0)
-(&#8216;KR202-215&#8217;, 100.0)
-(&#8216;KR202-216&#8217;, 100.0)
-(&#8216;KR202-217&#8217;, 100.0)
-(&#8216;KR202-218&#8217;, 100.0)
-(&#8216;KR202-219&#8217;, 100.0)
-(&#8216;KR202-220&#8217;, 100.0)
-(&#8216;KR202-221&#8217;, 100.0)
-(&#8216;KR202-222&#8217;, 100.0)
-(&#8216;KR202-223&#8217;, 100.0)
-(&#8216;KR202-224&#8217;, 100.0)
-(&#8216;KR202-225&#8217;, 100.0)
-(&#8216;KR202-226&#8217;, 100.0)
-(&#8216;KR202-227&#8217;, 100.0)
-(&#8216;KR202-228&#8217;, 100.0)
-(&#8216;KR202-229&#8217;, 100.0)
-(&#8216;KR202-230&#8217;, 100.0)
-(&#8216;KR202-231&#8217;, 100.0)
-(&#8216;KR202-232&#8217;, 100.0)
-(&#8216;KR202-233&#8217;, 100.0)
-(&#8216;KR202-234&#8217;, 100.0)
-(&#8216;KR202-235&#8217;, 100.0)
-(&#8216;KR202-236&#8217;, 100.0)
-(&#8216;KR202-237&#8217;, 100.0)
-(&#8216;KR202-238&#8217;, 100.0)
-(&#8216;KR202-239&#8217;, 100.0)
-(&#8216;KR202-240&#8217;, 100.0)</p>
-<div class="section" id="overview-of-simulation-model">
-<h3>Overview of simulation model<a class="headerlink" href="#overview-of-simulation-model" title="Permalink to this headline">¶</a></h3>
-<p>insert flow diagram here.</p>
-</div>
+<h3>Inventory Analysis<a class="headerlink" href="#inventory-analysis" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="agent-based-modeling">
-<h2>Agent based modeling<a class="headerlink" href="#agent-based-modeling" title="Permalink to this headline">¶</a></h2>
+<h3>Agent based modeling<a class="headerlink" href="#agent-based-modeling" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="demand-planning-and-forecasting">
-<h1>Demand Planning and Forecasting<a class="headerlink" href="#demand-planning-and-forecasting" title="Permalink to this headline">¶</a></h1>
+<h2>Demand Planning and Forecasting<a class="headerlink" href="#demand-planning-and-forecasting" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="warehousing">
-<h1>Warehousing<a class="headerlink" href="#warehousing" title="Permalink to this headline">¶</a></h1>
+<h2>Warehousing<a class="headerlink" href="#warehousing" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="picking-and-packing">
-<h2>Picking and Packing<a class="headerlink" href="#picking-and-packing" title="Permalink to this headline">¶</a></h2>
+<h3>Picking and Packing<a class="headerlink" href="#picking-and-packing" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="distribution-optimisation">
-<h1>Distribution Optimisation<a class="headerlink" href="#distribution-optimisation" title="Permalink to this headline">¶</a></h1>
+<h2>Distribution Optimisation<a class="headerlink" href="#distribution-optimisation" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 
 
            </div>
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="calculations.html" class="btn btn-neutral float-right" title="Formulas and Equations" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="quickstart.html" class="btn btn-neutral" title="Quick Guide" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

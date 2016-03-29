@@ -1,6 +1,11 @@
 from Cython.Build import cythonize
 from setuptools import setup, find_packages, Extension
 
+extensions =[Extension('supplychainpy.simulations.sim_summary', ['supplychainpy/simulations/sim_summary.pyx']),
+             Extension('supplychainpy.demand.eoq', ['supplychainpy/demand/eoq.pyx'])
+             ]
+
+
 setup(name='supplychainpy',
       version='0.0.2',
       description='A library for supply chain, operations and manufacturing, analysis, modeling and simulation.',
@@ -13,6 +18,5 @@ setup(name='supplychainpy',
       test_suite='supplychainpy/tests',
       install_requires=['NumPy'],
       keywords=['supply chain', 'operations research', 'operations management', 'simulation'],
-      ext_modules=cythonize(
-          Extension('supplychainpy.simulations.sim_summary', ['supplychainpy/simulations/sim_summary.pyx'])),
+      ext_modules=cythonize(extensions),
       )

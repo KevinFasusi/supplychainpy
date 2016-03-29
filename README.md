@@ -46,12 +46,10 @@ An alternative is to clone the repository and run `python setup.py install`
 ##Quick Guide
 1. Fire up the python interpreter or `ipython notebook` from the command line.
 
-~~2. Format the .csv or .txt .e.g sku id, order1, order2,... orders12, lead time, unit cost`~~
 2. Format the `.csv` or `.txt`.e.g `sku id`, `order1`, `order2`,... `orders12`, `unit cost`, `lead time`,
 
 At the moment the lead-time must match the orders time bucket i.e both should be in days, weeks or months. This will
 change promptly.
-
 
 ```python
 	from xlwings import Workbook, Range
@@ -66,6 +64,17 @@ change promptly.
     Range('D' + str(index)).value = sku.abcxyz_classification
 
 ```
+
+or get the whole analysis using:
+
+```python
+	from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
+    abc = analyse_orders_abcxyz_from_file(file_path="data.csv", z_value=Decimal(1.28),
+                                     reorder_cost=Decimal(5000), file_type="csv")
+	for sku in abc.orders:
+	print(sku.orders_summary())
+```
+
 Further examples and explanations will be available in the documentation. Please find below.
 
 Documentation: [supplychainpy.readthdocs](http://supplychainpy.readthedocs.org/)

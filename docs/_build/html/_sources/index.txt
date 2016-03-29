@@ -14,7 +14,6 @@ Contents:
    changelog
    Installation
    quickstart
-   tutorial
    calculations
 
 

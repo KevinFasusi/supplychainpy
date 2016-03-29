@@ -70,6 +70,15 @@ class UncertainDemand:
         self.__order = [order(sku, sku_orders) for sku_orders in self.__orders for sku in self.__sku_id]
         self.__period = period
 
+
+    @property
+    def safety_stock(self):
+        return self.__safety_stock
+
+    @safety_stock.setter
+    def safety_stock(self, safety_stock):
+        self.__safety_stock = safety_stock
+
     @property
     def reorder_level(self):
         return self.__reorder_level

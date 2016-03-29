@@ -165,7 +165,7 @@ class SetupMonteCarlo:
 
                 # add average orders to opening_stock if first period else add closing stock
                 if sim_window.position == 1:
-                    sim_window.opening_stock = sku.average_orders
+                    sim_window.opening_stock = (sku.reorder_level - Decimal(sku.safety_stock)) + Decimal(sku.safety_stock) #calculated ltd until put into analyse orders
                 else:
                     sim_window.opening_stock = previous_closing_stock
 
