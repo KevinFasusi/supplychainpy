@@ -83,7 +83,14 @@ class SetupMonteCarlo:
 
         Returns:
             dict:   The build_window returns a dictionary of lists for opening_stock, demand, delivery,closing stock,
-                    backlog, holding cost, shortage cost.
+                    backlog, holding cost, ont
+ing
+',
+ive
+y_s
+ng_
+ 'r
+e_ushortage cost.
 
 
 

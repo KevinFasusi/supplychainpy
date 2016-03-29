@@ -8,24 +8,24 @@ pyximport.install()
 from supplychainpy.simulations.sim_summary import summarize_monte_carlo, frame, optimise_sim
 
 
-def run_monte_carlo_mt(file_path: str, z_value: Decimal, runs: int, reorder_cost: Decimal,
-                       file_type: str, period_length: int = 12) -> list:
-    pool = ThreadPool(processes=4, )
-    async_results = pool.apply_async(run_monte_carlo,
-                                     (file_path, z_value, runs, reorder_cost, file_type, period_length,))
-
-    return_val = async_results.get()
-
-    return return_val
-
-
-def run(simulation_frame: list, period_length: int = 12):
-    pool = ThreadPool(processes=4, )
-    async_results = pool.apply_async(summarize_window, (simulation_frame, period_length,))
-
-    return_val = async_results.get()
-
-    return return_val
+#def run_monte_carlo_mt(file_path: str, z_value: Decimal, runs: int, reorder_cost: Decimal,
+#                       file_type: str, period_length: int = 12) -> list:
+#    pool = ThreadPool(processes=4, )
+#    async_results = pool.apply_async(run_monte_carlo,
+#                                     (file_path, z_value, runs, reorder_cost, file_type, period_length,))
+#
+#    return_val = async_results.get()
+#
+#    return return_val
+#
+#
+#def run(simulation_frame: list, period_length: int = 12):
+#    pool = ThreadPool(processes=4, )
+#    async_results = pool.apply_async(summarize_window, (simulation_frame, period_length,))
+#
+#    return_val = async_results.get()
+#
+#    return return_val
 
 
 def run_monte_carlo(orders_analysis, file_path: str, z_value: Decimal, runs: int, reorder_cost: Decimal,
@@ -219,12 +219,12 @@ def optimise_service_level(frame_summary: list, orders_analysis: list, service_l
     sim_frame = summarise_frame(sim_window)
 
     # second check if okay then return new orders details
-    for sku in orders_analysis:
-        for item in sim_frame:
-            if sku.sku_id == item['sku_id']:
-                if float(item['service_level']) <= service_level:
-                    print("Sku id: {} safety stock: {:.0f} service level: {}".format(sku.sku_id, sku.safety_stock,
-                                                                                     item['service_level']))
-                break
+    #for sku in orders_analysis:
+    #    for item in sim_frame:
+    #        if sku.sku_id == item['sku_id']:
+    #            if float(item['service_level']) <= service_level:
+    #                print("Sku id: {} safety stock: {:.0f} service level: {}".format(sku.sku_id, sku.safety_stock,
+    #                                                                                 item['service_level']))
+    #            break
 
     return orders_analysis
