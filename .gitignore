@@ -7,8 +7,6 @@ env/
 *.egg
 *.py[cod]
 __pycache__/
-*.so
-*.c
 *~
 .idea/
 .idea/workspace.xml
