@@ -139,7 +139,7 @@
 <h1>Quick Guide<a class="headerlink" href="#quick-guide" title="Permalink to this headline">¶</a></h1>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">The library is currently under development and in planning stages. The library should not be used for
+<p class="last">The library is currently under development and in planning stages. The library should not be used in
 production at this time.</p>
 </div>
 <div class="admonition note">
@@ -249,12 +249,12 @@ generates the result for 32 skus.</p>
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">system</th>
-<th class="head">time</th>
+<th class="head">time (seconds)</th>
 </tr>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>PC</td>
-<td>0.009269237518310547</td>
+<td>0.015653133392333984</td>
 </tr>
 <tr class="row-odd"><td>Mac</td>
 <td>0.02649521827697754</td>
@@ -314,12 +314,12 @@ Sku: KR202-240 Economic Order Quantity: 680 Sku Revenue: 27000000 ABCXYZ Classif
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">system</th>
-<th class="head">time</th>
+<th class="head">time (seconds)</th>
 </tr>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>PC</td>
-<td>&nbsp;</td>
+<td>0.0178067684173584</td>
 </tr>
 <tr class="row-odd"><td>Mac</td>
 <td>0.024185895919799805</td>
@@ -442,12 +442,12 @@ revenue&#39;: &#39;18000000.00&#39;, &#39;economic_order_variable_cost&#39;: &#3
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">system</th>
-<th class="head">time</th>
+<th class="head">time (seconds)</th>
 </tr>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>PC</td>
-<td>&nbsp;</td>
+<td>0.009218931198120117</td>
 </tr>
 <tr class="row-odd"><td>Mac</td>
 <td>0.02485513687133789</td>
@@ -549,12 +549,12 @@ below details the transactions for 1 sku over 12 periods for 100 runs.</p>
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">system</th>
-<th class="head">time</th>
+<th class="head">time (seconds)</th>
 </tr>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>PC</td>
-<td>&nbsp;</td>
+<td>6.883291244506836</td>
 </tr>
 <tr class="row-odd"><td>Mac</td>
 <td>11.78481912612915</td>
@@ -568,7 +568,7 @@ below details the transactions for 1 sku over 12 periods for 100 runs.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">orders_analysis</span> <span class="o">=</span> <span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
 <span class="gp">&gt;&gt;&gt; </span>                                       <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
 <span class="go">    &gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sim</span> <span class="o">=</span> <span class="n">simulate</span><span class="o">.</span><span class="n">run_monte_carlo</span><span class="p">(</span><span class="n">orders_analysis</span><span class="o">=</span><span class="n">orders_analysis</span><span class="o">.</span><span class="n">orders</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span> <span class="n">runs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sim</span> <span class="o">=</span> <span class="n">simulate</span><span class="o">.</span><span class="n">run_monte_carlo</span><span class="p">(</span><span class="n">orders_analysis</span><span class="o">=</span><span class="n">orders_analysis</span><span class="o">.</span><span class="n">orders</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span> <span class="n">runs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span>                              <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">4000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span> <span class="n">period_length</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sim_window</span> <span class="o">=</span> <span class="n">simulate</span><span class="o">.</span><span class="n">summarize_window</span><span class="p">(</span><span class="n">simulation_frame</span><span class="o">=</span><span class="n">sim</span><span class="p">,</span> <span class="n">period_length</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
@@ -579,20 +579,21 @@ below details the transactions for 1 sku over 12 periods for 100 runs.</p>
 <p>The transactions over the 12 periods are summarised for each sku and for every run (100) requested. It is important to note
 that each run will have a different randomly generated demand. Therefore the transaction summary for the same sku, over
 successive runs, will be different. This captures the statistically probable distribution of demand the sku can expect.</p>
-<div class="highlight-python"><div class="highlight"><pre>    {&#39;average_backlog&#39;: 390.75, &#39;maximum_shortage_units&#39;: 1776.0, &#39;variance_closing_stock&#39;: 10542001.666666666,
-    &#39;minimum_opening_stock&#39;: 0.0, &#39;standard_deviation_closing_stock&#39;: 3246.8448787502407, &#39;minimum_closing_stock&#39;: 0.0,
-    &#39;standard_deviation_opening_stock&#39;: 3356.1819411680067, &#39;variance_backlog&#39;: 817293.1875, &#39;minimum_quantity_sold&#39;: 0.0,
-&#39;maximum_quantity_sold&#39;: 11166.0, &#39;variance_quantity_sold&#39;: 10709321.576388916,
-&#39;variance_shortage_units&#39;: 311502.2222222221, &#39;variance_opening_stock&#39;: 11263957.222222248,
-&#39;average_closing_stock&#39;: 4687.0, &#39;stockout_percentage&#39;: 0.0833333358168602, &#39;minimum_backlog&#39;: 0.0,
-&#39;standard_deviation_backlog&#39;: 904.0426911932865, &#39;standard_deviation_shortage_cost&#39;: 558.1238412953007,
-&#39;average_opening_stock&#39;: 4356.33349609375, &#39;average_quantity_sold&#39;: 4659.08349609375,
-&#39;total_shortage_units&#39;: 2912.0, &#39;maximum_closing_stock&#39;: 11167.0, &#39;maximum_opening_stock&#39;: 11167.0,
-&#39;sku_id&#39;: &#39;KR202-209&#39;, &#39;index&#39;: &#39;1&#39;, &#39;maximum_backlog&#39;: 2913.0, &#39;standard_deviation_revenue&#39;: 3272.5099810984407,
-&#39;minimum_shortage_units&#39;: 0.0} ...
+<div class="highlight-python"><div class="highlight"><pre>{&#39;standard_deviation_backlog&#39;: 250.43961347997646, &#39;variance_quantity_sold&#39;: 4045303.0763888955,
+&#39;total_shortage_units&#39;: 672.0, &#39;average_closing_stock&#39;: 3028.416748046875, &#39;maximum_opening_stock&#39;: 6279.0,
+&#39;minimum_closing_stock&#39;: 0.0, &#39;maximum_shortage_units&#39;: 672.0, &#39;variance_backlog&#39;: 62720.0,
+&#39;average_quantity_sold&#39;: 3091.583251953125, &#39;minimum_backlog&#39;: 0.0, &#39;maximum_backlog&#39;: 672.0,
+&#39;minimum_opening_stock&#39;: 0.0, &#39;standard_deviation_opening_stock&#39;: 2082.4554600412375, &#39;sku_id&#39;: &#39;KR202-230&#39;,
+&#39;standard_deviation_revenue&#39;: 2011.2938811593137, &#39;maximum_quantity_sold&#39;: 6278.0,
+&#39;average_opening_stock&#39;: 2994.916748046875, &#39;minimum_quantity_sold&#39;: 537.0, &#39;maximum_closing_stock&#39;: 6279.0,
+&#39;stockout_percentage&#39;: 0.0833333358168602, &#39;variance_opening_stock&#39;: 4336620.7430555625,
+&#39;variance_shortage_units&#39;: 34496.0, &#39;standard_deviation_closing_stock&#39;: 2096.713160255569,
+&#39;average_backlog&#39;: 112.0, &#39;variance_closing_stock&#39;: 4396206.0763888955,
+&#39;standard_deviation_shortage_cost&#39;: 185.7309882599024, &#39;minimum_shortage_units&#39;: 0.0, &#39;index&#39;: &#39;22&#39;}
+ ...
 </pre></div>
 </div>
-<p>This analsysis execution speed were:</p>
+<p>This analysis execution speed were:</p>
 <blockquote>
 <div><table border="1" class="docutils">
 <colgroup>
@@ -601,15 +602,15 @@ successive runs, will be different. This captures the statistically probable dis
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">system</th>
-<th class="head">time</th>
+<th class="head">time (seconds)</th>
 </tr>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>PC</td>
-<td>&nbsp;</td>
+<td>372.97969007492065</td>
 </tr>
 <tr class="row-odd"><td>Mac</td>
-<td>11.78481912612915</td>
+<td>506.49058294296265</td>
 </tr>
 </tbody>
 </table>
@@ -629,7 +630,7 @@ summary however this summary aggregates the simulation runs.</p>
 <span class="gp">&gt;&gt;&gt; </span>        <span class="k">print</span><span class="p">(</span><span class="n">transaction_summary</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Below is 1 of 32 result for 32 skus ran once.</p>
+<p>Below is 1 of 32 result for 32 skus ran 100 times.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s1">&#39;standard_deviation_quantity_sold&#39;</span><span class="p">:</span> <span class="s1">&#39;2228&#39;</span><span class="p">,</span> <span class="s1">&#39;average_backlog&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;standard_deviation_closing_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;2228&#39;</span><span class="p">,</span>
 <span class="s1">&#39;maximum_quantity_sold&#39;</span><span class="p">:</span> <span class="mf">7901.0</span><span class="p">,</span> <span class="s1">&#39;sku_id&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span> <span class="s1">&#39;minimum_quantity_sold&#39;</span><span class="p">:</span> <span class="mf">407.0</span><span class="p">,</span> <span class="s1">&#39;minimum_backlog&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
 <span class="s1">&#39;average_closing_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;3592&#39;</span><span class="p">,</span> <span class="s1">&#39;average_shortage_units&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;variance_opening_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;2287&#39;</span><span class="p">,</span>
@@ -638,8 +639,28 @@ summary however this summary aggregates the simulation runs.</p>
 <span class="s1">&#39;maximum_backlog&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>execution time in seconds :0.07548308372497559</p>
-<p>Running the same data for 100 runs takes 503.1214590072632 secs (8 min 39 secs).</p>
+<p>The analysis cumulative execution speeds, for all steps across each system:</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">system</th>
+<th class="head">time (seconds)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>PC</td>
+<td>388.324289560318</td>
+</tr>
+<tr class="row-odd"><td>Mac</td>
+<td>562.0152740478516</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 <p>An optimisation option exists, if after running the inventory analysis and the monte carlo analysis, the behaviour in
 the transaction summary is not favourable. If most skus are not achieving their desired service level, or have large
 quantities of backlog etc, the you can use:</p>
@@ -659,8 +680,8 @@ quantities of backlog etc, the you can use:</p>
 monte carlo simulation and the original orders analysis. The service level achieved in the monte carlo analysis is
 reviewed and compared with the desired service level. If below a threshold, then the saftey stock is increased and the
 whole monte carlo simulation is run again. The new safety stock values are returned when finished.
-This optimisation step will take as long, if not longer, than the initial monte carlo simulation because it will be run again.
-please take this into consideration and adjust your expectation for this optimisation step.
+This optimisation step will take as long, if not longer, than the initial monte carlo simulation because the optimisation
+step run the simulation again to simulate transactions based on the new safety stock values. Please take this into consideration and adjust your expectation for this optimisation step.
 This feature is in development as is the whole library but this feature will change in the next release.</p>
 </div>
 </div>

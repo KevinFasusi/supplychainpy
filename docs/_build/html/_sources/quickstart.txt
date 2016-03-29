@@ -2,7 +2,7 @@ Quick Guide
 ===========
 
 .. warning::
-	The library is currently under development and in planning stages. The library should not be used for
+	The library is currently under development and in planning stages. The library should not be used in
 	production at this time.
 
 
@@ -110,11 +110,11 @@ generates the result for 32 skus.
 This analysis execution speed were:
 
 	 +-------+----------------------+
-	 | system| time                 |
+	 | system| time (seconds)       |
 	 +=======+======================+
-	 |  PC   |0.009269237518310547  |
+	 |  PC   |0.015653133392333984  |
 	 +-------+----------------------+
-	 |  Mac  | 0.02649521827697754  |
+	 |  Mac  |0.02649521827697754   |
 	 +-------+----------------------+
 
 The orders analysis can be retrieved by using:
@@ -166,9 +166,9 @@ The orders analysis can be retrieved by using:
 This analysis execution speed were:
 
 	 +-------+----------------------+
-	 | system| time                 |
+	 | system| time (seconds)       |
 	 +=======+======================+
-	 |  PC   |                      |
+	 |  PC   | 0.0178067684173584   |
 	 +-------+----------------------+
 	 |  Mac  | 0.024185895919799805 |
 	 +-------+----------------------+
@@ -286,9 +286,9 @@ The best way to retrieve a full summary is by doing the following:
 This analysis execution speed were:
 
 	 +-------+----------------------+
-	 | system| time                 |
+	 | system| time (seconds)       |
 	 +=======+======================+
-	 |  PC   |                      |
+	 |  PC   | 0.009218931198120117 |
 	 +-------+----------------------+
 	 |  Mac  | 0.02485513687133789  |
 	 +-------+----------------------+
@@ -392,9 +392,9 @@ below details the transactions for 1 sku over 12 periods for 100 runs.
 This analysis execution speed were:
 
 	 +-------+----------------------+
-	 | system| time                 |
+	 | system| time (seconds)       |
 	 +=======+======================+
-	 |  PC   |                      |
+	 |  PC   |   6.883291244506836  |
 	 +-------+----------------------+
 	 |  Mac  | 11.78481912612915    |
 	 +-------+----------------------+
@@ -409,7 +409,7 @@ After running the monte carlo simulation, the results can be passed as a paramet
     >>> orders_analysis = analyse_orders_abcxyz_from_file(file_path="data.csv", z_value=Decimal(1.28),
     >>>                                        reorder_cost=Decimal(5000), file_type="csv")
 	>>>
-    >>> sim = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, file_path="data.csv", z_value=Decimal(1.28), runs=1,
+    >>> sim = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, file_path="data.csv", z_value=Decimal(1.28), runs=100,
     >>>                               reorder_cost=Decimal(4000), file_type="csv", period_length=12)
     >>>
     >>> sim_window = simulate.summarize_window(simulation_frame=sim, period_length=12)
@@ -422,26 +422,27 @@ successive runs, will be different. This captures the statistically probable dis
 
 .. parsed-literal::
 
-	{'average_backlog': 390.75, 'maximum_shortage_units': 1776.0, 'variance_closing_stock': 10542001.666666666,
-	'minimum_opening_stock': 0.0, 'standard_deviation_closing_stock': 3246.8448787502407, 'minimum_closing_stock': 0.0,
-	'standard_deviation_opening_stock': 3356.1819411680067, 'variance_backlog': 817293.1875, 'minimum_quantity_sold': 0.0,
-    'maximum_quantity_sold': 11166.0, 'variance_quantity_sold': 10709321.576388916,
-    'variance_shortage_units': 311502.2222222221, 'variance_opening_stock': 11263957.222222248,
-    'average_closing_stock': 4687.0, 'stockout_percentage': 0.0833333358168602, 'minimum_backlog': 0.0,
-    'standard_deviation_backlog': 904.0426911932865, 'standard_deviation_shortage_cost': 558.1238412953007,
-    'average_opening_stock': 4356.33349609375, 'average_quantity_sold': 4659.08349609375,
-    'total_shortage_units': 2912.0, 'maximum_closing_stock': 11167.0, 'maximum_opening_stock': 11167.0,
-    'sku_id': 'KR202-209', 'index': '1', 'maximum_backlog': 2913.0, 'standard_deviation_revenue': 3272.5099810984407,
-    'minimum_shortage_units': 0.0} ...
+	{'standard_deviation_backlog': 250.43961347997646, 'variance_quantity_sold': 4045303.0763888955,
+	'total_shortage_units': 672.0, 'average_closing_stock': 3028.416748046875, 'maximum_opening_stock': 6279.0,
+	'minimum_closing_stock': 0.0, 'maximum_shortage_units': 672.0, 'variance_backlog': 62720.0,
+	'average_quantity_sold': 3091.583251953125, 'minimum_backlog': 0.0, 'maximum_backlog': 672.0,
+	'minimum_opening_stock': 0.0, 'standard_deviation_opening_stock': 2082.4554600412375, 'sku_id': 'KR202-230',
+	'standard_deviation_revenue': 2011.2938811593137, 'maximum_quantity_sold': 6278.0,
+	'average_opening_stock': 2994.916748046875, 'minimum_quantity_sold': 537.0, 'maximum_closing_stock': 6279.0,
+	'stockout_percentage': 0.0833333358168602, 'variance_opening_stock': 4336620.7430555625,
+	'variance_shortage_units': 34496.0, 'standard_deviation_closing_stock': 2096.713160255569,
+	'average_backlog': 112.0, 'variance_closing_stock': 4396206.0763888955,
+	'standard_deviation_shortage_cost': 185.7309882599024, 'minimum_shortage_units': 0.0, 'index': '22'}
+	 ...
 
-This analsysis execution speed were:
+This analysis execution speed were:
 
 	 +-------+----------------------+
-	 | system| time                 |
+	 | system| time (seconds)       |
 	 +=======+======================+
-	 |  PC   |                      |
+	 |  PC   | 372.97969007492065   |
 	 +-------+----------------------+
-	 |  Mac  | 11.78481912612915    |
+	 |  Mac  | 506.49058294296265   |
 	 +-------+----------------------+
 
 The `summarize_window` returns max, min, averages and standard deviations for key values from the transaction summary.
@@ -463,7 +464,7 @@ summary however this summary aggregates the simulation runs.
     >>>		print(transaction_summary)
 
 
-Below is 1 of 32 result for 32 skus ran once.
+Below is 1 of 32 result for 32 skus ran 100 times.
 
 .. parsed-literal::
 
@@ -474,9 +475,15 @@ Below is 1 of 32 result for 32 skus ran once.
 	'maximum_closing_stock': 7901, 'average_quantity_sold': '3592', 'standard_deviation_backlog': '0',
 	'maximum_backlog': 0.0}
 
-execution time in seconds :0.07548308372497559
+The analysis cumulative execution speeds, for all steps across each system:
 
-Running the same data for 100 runs takes 503.1214590072632 secs (8 min 39 secs).
+	 +-------+----------------------+
+	 | system| time (seconds)       |
+	 +=======+======================+
+	 |  PC   | 388.324289560318     |
+	 +-------+----------------------+
+	 |  Mac  | 562.0152740478516    |
+	 +-------+----------------------+
 
 An optimisation option exists, if after running the inventory analysis and the monte carlo analysis, the behaviour in
 the transaction summary is not favourable. If most skus are not achieving their desired service level, or have large
@@ -500,8 +507,8 @@ The `optimise_service_level` methods takes a value for the desired service level
 monte carlo simulation and the original orders analysis. The service level achieved in the monte carlo analysis is
 reviewed and compared with the desired service level. If below a threshold, then the saftey stock is increased and the
 whole monte carlo simulation is run again. The new safety stock values are returned when finished.
-This optimisation step will take as long, if not longer, than the initial monte carlo simulation because it will be run again.
-please take this into consideration and adjust your expectation for this optimisation step.
+This optimisation step will take as long, if not longer, than the initial monte carlo simulation because the optimisation
+step run the simulation again to simulate transactions based on the new safety stock values. Please take this into consideration and adjust your expectation for this optimisation step.
 This feature is in development as is the whole library but this feature will change in the next release.
 
 

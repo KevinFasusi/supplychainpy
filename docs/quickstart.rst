@@ -112,9 +112,9 @@ This analysis execution speed were:
 	 +-------+----------------------+
 	 | system| time (seconds)       |
 	 +=======+======================+
-	 |  PC   |0.009269237518310547  |
+	 |  PC   |0.015653133392333984  |
 	 +-------+----------------------+
-	 |  Mac  | 0.02649521827697754  |
+	 |  Mac  |0.02649521827697754   |
 	 +-------+----------------------+
 
 The orders analysis can be retrieved by using:
@@ -166,9 +166,9 @@ The orders analysis can be retrieved by using:
 This analysis execution speed were:
 
 	 +-------+----------------------+
-	 | system| time (second)        |
+	 | system| time (seconds)       |
 	 +=======+======================+
-	 |  PC   |                      |
+	 |  PC   | 0.0178067684173584   |
 	 +-------+----------------------+
 	 |  Mac  | 0.024185895919799805 |
 	 +-------+----------------------+
@@ -288,7 +288,7 @@ This analysis execution speed were:
 	 +-------+----------------------+
 	 | system| time (seconds)       |
 	 +=======+======================+
-	 |  PC   |                      |
+	 |  PC   | 0.009218931198120117 |
 	 +-------+----------------------+
 	 |  Mac  | 0.02485513687133789  |
 	 +-------+----------------------+
@@ -324,7 +324,7 @@ when summarised later. The simulation is limited by the assumptions inherent in 
 :ref:`calculations`).
 
 To start we need to analyse the orders again like we did in the inventory analysis above:
-
+388.324289560318
 .. code:: python
 
     >>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
@@ -394,7 +394,7 @@ This analysis execution speed were:
 	 +-------+----------------------+
 	 | system| time (seconds)       |
 	 +=======+======================+
-	 |  PC   |                      |
+	 |  PC   |   6.883291244506836  |
 	 +-------+----------------------+
 	 |  Mac  | 11.78481912612915    |
 	 +-------+----------------------+
@@ -440,7 +440,7 @@ This analysis execution speed were:
 	 +-------+----------------------+
 	 | system| time (seconds)       |
 	 +=======+======================+
-	 |  PC   |                      |
+	 |  PC   | 372.97969007492065   |
 	 +-------+----------------------+
 	 |  Mac  | 506.49058294296265   |
 	 +-------+----------------------+
@@ -480,7 +480,7 @@ The analysis cumulative execution speeds, for all steps across each system:
 	 +-------+----------------------+
 	 | system| time (seconds)       |
 	 +=======+======================+
-	 |  PC   |                      |
+	 |  PC   | 388.324289560318     |
 	 +-------+----------------------+
 	 |  Mac  | 562.0152740478516    |
 	 +-------+----------------------+
@@ -508,7 +508,8 @@ monte carlo simulation and the original orders analysis. The service level achie
 reviewed and compared with the desired service level. If below a threshold, then the saftey stock is increased and the
 whole monte carlo simulation is run again. The new safety stock values are returned when finished.
 This optimisation step will take as long, if not longer, than the initial monte carlo simulation because the optimisation
-step run the simulation again to simulate transactions based on the new safety stock values. Please take this into consideration and adjust your expectation for this optimisation step.
+step run the simulation again to simulate transactions based on the new safety stock values. Please take this into
+consideration and adjust your expectation for this optimisation step.
 This feature is in development as is the whole library but this feature will change in the next release.
 
 

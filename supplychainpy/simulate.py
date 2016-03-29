@@ -8,24 +8,24 @@ pyximport.install()
 from supplychainpy.simulations.sim_summary import summarize_monte_carlo, frame, optimise_sim
 
 
-def run_monte_carlo_mt(file_path: str, z_value: Decimal, runs: int, reorder_cost: Decimal,
-                       file_type: str, period_length: int = 12) -> list:
-    pool = ThreadPool(processes=4, )
-    async_results = pool.apply_async(run_monte_carlo,
-                                     (file_path, z_value, runs, reorder_cost, file_type, period_length,))
-
-    return_val = async_results.get()
-
-    return return_val
-
-
-def run(simulation_frame: list, period_length: int = 12):
-    pool = ThreadPool(processes=4, )
-    async_results = pool.apply_async(summarize_window, (simulation_frame, period_length,))
-
-    return_val = async_results.get()
-
-    return return_val
+#def run_monte_carlo_mt(file_path: str, z_value: Decimal, runs: int, reorder_cost: Decimal,
+#                       file_type: str, period_length: int = 12) -> list:
+#    pool = ThreadPool(processes=4, )
+#    async_results = pool.apply_async(run_monte_carlo,
+#                                     (file_path, z_value, runs, reorder_cost, file_type, period_length,))
+#
+#    return_val = async_results.get()
+#
+#    return return_val
+#
+#
+#def run(simulation_frame: list, period_length: int = 12):
+#    pool = ThreadPool(processes=4, )
+#    async_results = pool.apply_async(summarize_window, (simulation_frame, period_length,))
+#
+#    return_val = async_results.get()
+#
+#    return return_val
 
 
 def run_monte_carlo(orders_analysis, file_path: str, z_value: Decimal, runs: int, reorder_cost: Decimal,
@@ -177,8 +177,8 @@ def summarise_frame(window_summary):
     return frame_summary
 
 
-def optimise_service_level(frame_summary: list, orders_analysis: list, service_level: float, runs: int) -> list:
-    """ Optimises the safety stock based on the results of the monte carlo analysis.
+def optimise_service_level(frame_summary: list, orders_analysis: list, service_level: float, runs: int, percentage_increase: float) -> list:
+    """ Optimises the safety stock for declared service level.
 
     Identifies which skus under performed (experiencing a service level lower than expected) after simulating
     transactions over a specific period. The safety stock for these items are increased and the analysis is monte carlo
@@ -186,9 +186,10 @@ def optimise_service_level(frame_summary: list, orders_analysis: list, service_l
 
 
     Args:
-        frame_summary (list): window summary for each period multiplied by the number of runs.
+        frame_summary (list):   window summary for each period multiplied by the number of runs.
         orders_analysis (list): prior analysis of orders data.
-        service_level (list): required service level as a percentage.
+        service_level (list):   required service level as a percentage.
+        runs (int):             number of runs from previous
 
     Returns:
        list:    Updated orders analysis with new saftey stock values based optimised from the simulation. The initial values
@@ -203,12 +204,8 @@ def optimise_service_level(frame_summary: list, orders_analysis: list, service_l
         for item in frame_summary:
             if sku.sku_id == item['sku_id']:
                 if float(item['service_level']) <= service_level:
-
-                    sku.safety_stock = round(float(sku.safety_stock)) * 10.0
-
-                    print("Sku id: {} safety stock: {:.0f} service level: {}".format(sku.sku_id, sku.safety_stock,
-                                                                                     item['service_level']))
-                break
+                    sku.safety_stock = round(float(sku.safety_stock)) * percentage_increase
+                    break
 
     sim = run_monte_carlo(orders_analysis=orders_analysis, file_path="data.csv",
                           z_value=Decimal(1.28), runs=runs,
@@ -219,12 +216,12 @@ def optimise_service_level(frame_summary: list, orders_analysis: list, service_l
     sim_frame = summarise_frame(sim_window)
 
     # second check if okay then return new orders details
-    for sku in orders_analysis:
-        for item in sim_frame:
-            if sku.sku_id == item['sku_id']:
-                if float(item['service_level']) <= service_level:
-                    print("Sku id: {} safety stock: {:.0f} service level: {}".format(sku.sku_id, sku.safety_stock,
-                                                                                     item['service_level']))
-                break
+    #for sku in orders_analysis:
+    #    for item in sim_frame:
+    #        if sku.sku_id == item['sku_id']:
+    #            if float(item['service_level']) <= service_level:
+    #                print("Sku id: {} safety stock: {:.0f} service level: {}".format(sku.sku_id, sku.safety_stock,
+    #                                                                                 item['service_level']))
+    #            break
 
     return orders_analysis
