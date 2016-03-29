@@ -2,11 +2,7 @@ from multiprocessing.pool import ThreadPool
 from decimal import Decimal
 from supplychainpy import model_inventory
 from supplychainpy.simulations import monte_carlo
-import pyximport
-
-pyximport.install()
-from supplychainpy.simulations.sim_summary import summarize_monte_carlo, frame, optimise_sim
-
+from supplychainpy.simulations.sim_summary import summarize_monte_carlo, frame
 
 #def run_monte_carlo_mt(file_path: str, z_value: Decimal, runs: int, reorder_cost: Decimal,
 #                       file_type: str, period_length: int = 12) -> list:

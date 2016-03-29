@@ -25,8 +25,9 @@ def main():
     sim_frame = simulate.summarise_frame(sim_window)
 
     optimised = simulate.optimise_service_level(service_level=95.0, frame_summary=sim_frame,
-                                                orders_analysis=orders_analysis.orders, runs=100,
+                                                orders_analysis=orders_analysis.orders, runs=1,
                                                 percentage_increase=1.30)
-
+    for s in optimised:
+        print(s.orders_summary())
 
 if __name__ == '__main__': main()
