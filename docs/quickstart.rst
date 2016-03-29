@@ -10,13 +10,13 @@ Quick Guide
 
     All profiling has been carried out on the following systems:
 
-    +------------+------------------------------------+------------------+
-    | system     |           CPU                      | Ram              |
-    +============+====================================+==================+
-    |   PC       | Xeon 1650v3 (15M Cache, 3.50 GHz)  | 32gb ddr4 2133   |
-    +------------+------------------------------------+------------------+
-    | Macbook Air|            i7-4650U                |   8gb ddr3 1600  |
-    +------------+------------------------------------+------------------+
+    +------------+------------------------------------+------------------+----------------+
+    | system     |           CPU                      | Ram              |  OS            |
+    +============+====================================+==================+================+
+    |   PC       | Xeon 1650v3 (15M Cache, 3.50 GHz)  | 32gb ddr4 2133   | linux (xubuntu)|
+    +------------+------------------------------------+------------------+----------------+
+    | Macbook Air|            i7-4650U                |   8gb ddr3 1600  | OS X (yosemite)|
+    +------------+------------------------------------+------------------+----------------+
 
     Timings are provided as simple benchmarks and will vary based on system and current load.
     The computation here are mainly cpu bound, io may be a factor when reading from file (csv txt).
