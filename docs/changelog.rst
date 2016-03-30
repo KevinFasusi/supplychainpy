@@ -1,13 +1,28 @@
 Change Log
 ==========
 
+
+0.0.3
+-----
+
+Application
+^^^^^^^^^^^
+
+-   Compiled Cython (eoq and simulation modules) for OS X, Windows and Linux.
+
+
+Documentation
+^^^^^^^^^^^^^
+
+-   Update Quick Guide
+
 0.0.2
 -----
 
 Application
 ^^^^^^^^^^^
 
--   Added monte carlo analysis simulation and simulation summary using Cython optimisation.
+-   Added monte carlo simulation and simulation summary using Cython optimisation.
 -   Added orders analysis optimisation, based on results of the monte carlo simulation.
 -   Added simulate module to api.
 -   Added weighted moving average forecast
@@ -19,11 +34,11 @@ Application
 Documentation
 ^^^^^^^^^^^^^
 
-- Updates Quick Guide.
-- Updated Tutorial.
-- Updated README.md
-- Added Formulas and Equations.
-- Updated data.csv
+-   Updates Quick Guide.
+-   Updated Tutorial.
+-   Updated README.md
+-   Added Formulas and Equations.
+-   Updated data.csv
 
 0.0.1
 -----
@@ -38,7 +53,7 @@ Application
 Documentation
 ^^^^^^^^^^^^^
 
-- Added Quick Guide.
-- Added Tutorial.
-- Added Installation.
+-   Added Quick Guide.
+-   Added Tutorial.
+-   Added Installation.
 

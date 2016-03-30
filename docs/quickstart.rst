@@ -403,8 +403,7 @@ After running the monte carlo simulation, the results can be passed as a paramet
     >>> orders_analysis = analyse_orders_abcxyz_from_file(file_path="data.csv", z_value=Decimal(1.28),
     >>>                                        reorder_cost=Decimal(5000), file_type="csv")
 	>>>
-    >>> sim = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, file_path="data.csv", z_value=Decimal(1.28), runs=100,
-    >>>                               reorder_cost=Decimal(4000), file_type="csv", period_length=12)
+    >>> sim = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, runs=100, period_length=12)
     >>>
     >>> sim_window = simulate.summarize_window(simulation_frame=sim, period_length=12)
     >>> for r in i:
@@ -446,9 +445,13 @@ summary however this summary aggregates the simulation runs.
 
 .. code:: python
 
+    >>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
     >>> from supplychainpy import simulate
-    >>> sim = simulate.run_monte_carlo(file_path="data.csv", z_value=Decimal(1.28), runs=1,
-    >>>                               reorder_cost=Decimal(4000), file_type="csv", period_length=12)
+    >>>
+    >>> orders_analysis = analyse_orders_abcxyz_from_file(file_path="data.csv", z_value=Decimal(1.28),
+    >>>                                        reorder_cost=Decimal(5000), file_type="csv")
+    >>>
+    >>> sim = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, runs=100, period_length=12)
     >>>
     >>> sim_window = simulate.summarize_window(simulation_frame=sim, period_length=12)
     >>>
@@ -485,9 +488,13 @@ quantities of backlog etc, then you can use:
 
 .. code:: python
 
+    >>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
     >>> from supplychainpy import simulate
-    >>> sim = simulate.run_monte_carlo(file_path="data.csv", z_value=Decimal(1.28), runs=1,
-    >>>                               reorder_cost=Decimal(4000), file_type="csv", period_length=12)
+    >>>
+    >>> orders_analysis = analyse_orders_abcxyz_from_file(file_path="data.csv", z_value=Decimal(1.28),
+    >>>                                        reorder_cost=Decimal(5000), file_type="csv")
+    >>>
+    >>> sim = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, runs=100, period_length=12)
     >>>
     >>> sim_window = simulate.summarize_window(simulation_frame=sim, period_length=12)
     >>>
