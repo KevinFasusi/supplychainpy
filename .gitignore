@@ -5,7 +5,7 @@ dist/
 env/
 *.egg-info/
 *.egg
-*.py[cod]
+*.py[co]
 __pycache__/
 *~
 .idea/
