@@ -9,7 +9,7 @@ Application
 ^^^^^^^^^^^
 
 -   Compiled Cython (eoq and simulation modules) for OS X, Windows and Linux.
-
+-   Removed z_value, file_type, file_path and reorder_cost parameters from simulate.run_monte_carlo.
 
 Documentation
 ^^^^^^^^^^^^^
