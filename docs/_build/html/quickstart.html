@@ -147,24 +147,28 @@ production at this time.</p>
 <p>All profiling has been carried out on the following systems:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="18%" />
-<col width="55%" />
-<col width="27%" />
+<col width="15%" />
+<col width="44%" />
+<col width="22%" />
+<col width="20%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">system</th>
 <th class="head">CPU</th>
 <th class="head">Ram</th>
+<th class="head">OS</th>
 </tr>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>PC</td>
 <td>Xeon 1650v3 (15M Cache, 3.50 GHz)</td>
 <td>32gb ddr4 2133</td>
+<td>linux (xubuntu)</td>
 </tr>
 <tr class="row-odd"><td>Macbook Air</td>
 <td>i7-4650U</td>
 <td>8gb ddr3 1600</td>
+<td>OS X (yosemite)</td>
 </tr>
 </tbody>
 </table>
@@ -481,8 +485,10 @@ The simulation replicates some of the complexity of the system over time.</p>
 requested. The higher the number of runs the more accurately the simulation captures the dynamics of the system,
 when summarised later. The simulation is limited by the assumptions inherent in the simulations design (detailed in the
 <span class="xref std std-ref">calculations</span>).</p>
-<p>To start we need to analyse the orders again like we did in the inventory analysis above:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
+<p>To start we need to analyse the orders again like we did in the inventory analysis above:
+388.324289560318
+.. code:: python</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">orders_analysis</span> <span class="o">=</span> <span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
 <span class="gp">&gt;&gt;&gt; </span>                                       <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
 </pre></div>
@@ -681,7 +687,8 @@ monte carlo simulation and the original orders analysis. The service level achie
 reviewed and compared with the desired service level. If below a threshold, then the saftey stock is increased and the
 whole monte carlo simulation is run again. The new safety stock values are returned when finished.
 This optimisation step will take as long, if not longer, than the initial monte carlo simulation because the optimisation
-step run the simulation again to simulate transactions based on the new safety stock values. Please take this into consideration and adjust your expectation for this optimisation step.
+step run the simulation again to simulate transactions based on the new safety stock values. Please take this into
+consideration and adjust your expectation for this optimisation step.
 This feature is in development as is the whole library but this feature will change in the next release.</p>
 </div>
 </div>

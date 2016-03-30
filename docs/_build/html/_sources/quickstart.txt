@@ -10,13 +10,13 @@ Quick Guide
 
     All profiling has been carried out on the following systems:
 
-    +------------+------------------------------------+------------------+
-    | system     |           CPU                      | Ram              |
-    +============+====================================+==================+
-    |   PC       | Xeon 1650v3 (15M Cache, 3.50 GHz)  | 32gb ddr4 2133   |
-    +------------+------------------------------------+------------------+
-    | Macbook Air|            i7-4650U                |   8gb ddr3 1600  |
-    +------------+------------------------------------+------------------+
+    +------------+------------------------------------+------------------+----------------+
+    | system     |           CPU                      | Ram              |  OS            |
+    +============+====================================+==================+================+
+    |   PC       | Xeon 1650v3 (15M Cache, 3.50 GHz)  | 32gb ddr4 2133   | linux (xubuntu)|
+    +------------+------------------------------------+------------------+----------------+
+    | Macbook Air|            i7-4650U                |   8gb ddr3 1600  | OS X (yosemite)|
+    +------------+------------------------------------+------------------+----------------+
 
     Timings are provided as simple benchmarks and will vary based on system and current load.
     The computation here are mainly cpu bound, io may be a factor when reading from file (csv txt).
@@ -324,7 +324,7 @@ when summarised later. The simulation is limited by the assumptions inherent in 
 :ref:`calculations`).
 
 To start we need to analyse the orders again like we did in the inventory analysis above:
-
+388.324289560318
 .. code:: python
 
     >>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
@@ -508,7 +508,8 @@ monte carlo simulation and the original orders analysis. The service level achie
 reviewed and compared with the desired service level. If below a threshold, then the saftey stock is increased and the
 whole monte carlo simulation is run again. The new safety stock values are returned when finished.
 This optimisation step will take as long, if not longer, than the initial monte carlo simulation because the optimisation
-step run the simulation again to simulate transactions based on the new safety stock values. Please take this into consideration and adjust your expectation for this optimisation step.
+step run the simulation again to simulate transactions based on the new safety stock values. Please take this into
+consideration and adjust your expectation for this optimisation step.
 This feature is in development as is the whole library but this feature will change in the next release.
 
 

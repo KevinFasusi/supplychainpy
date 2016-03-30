@@ -499,8 +499,8 @@ and ABC_XYZ_Classification. For example:</p>
 <span id="supplychainpy-simulate-module"></span><h2>supplychainpy.simulate module<a class="headerlink" href="#module-supplychainpy.simulate" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="supplychainpy.simulate.optimise_service_level">
-<code class="descclassname">supplychainpy.simulate.</code><code class="descname">optimise_service_level</code><span class="sig-paren">(</span><em>frame_summary: list</em>, <em>orders_analysis: list</em>, <em>service_level: float</em>, <em>runs: int</em><span class="sig-paren">)</span> &rarr; list<a class="headerlink" href="#supplychainpy.simulate.optimise_service_level" title="Permalink to this definition">¶</a></dt>
-<dd><p>Optimises the safety stock based on the results of the monte carlo analysis.</p>
+<code class="descclassname">supplychainpy.simulate.</code><code class="descname">optimise_service_level</code><span class="sig-paren">(</span><em>frame_summary: list</em>, <em>orders_analysis: list</em>, <em>service_level: float</em>, <em>runs: int</em>, <em>percentage_increase: float</em><span class="sig-paren">)</span> &rarr; list<a class="headerlink" href="#supplychainpy.simulate.optimise_service_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optimises the safety stock for declared service level.</p>
 <p>Identifies which skus under performed (experiencing a service level lower than expected) after simulating
 transactions over a specific period. The safety stock for these items are increased and the analysis is monte carlo
 is run again.</p>
@@ -512,6 +512,7 @@ is run again.</p>
 <li><strong>frame_summary</strong> (<em>list</em>) &#8211; window summary for each period multiplied by the number of runs.</li>
 <li><strong>orders_analysis</strong> (<em>list</em>) &#8211; prior analysis of orders data.</li>
 <li><strong>service_level</strong> (<em>list</em>) &#8211; required service level as a percentage.</li>
+<li><strong>runs</strong> (<em>int</em>) &#8211; number of runs from previous</li>
 </ul>
 </td>
 </tr>
@@ -529,11 +530,6 @@ is run again.</p>
 </tbody>
 </table>
 </dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.simulate.run">
-<code class="descclassname">supplychainpy.simulate.</code><code class="descname">run</code><span class="sig-paren">(</span><em>simulation_frame: list</em>, <em>period_length: int=12</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.simulate.run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="function">
 <dt id="supplychainpy.simulate.run_monte_carlo">
@@ -620,11 +616,6 @@ by number.</li>
 </tbody>
 </table>
 </dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.simulate.run_monte_carlo_mt">
-<code class="descclassname">supplychainpy.simulate.</code><code class="descname">run_monte_carlo_mt</code><span class="sig-paren">(</span><em>file_path: str</em>, <em>z_value: decimal.Decimal</em>, <em>runs: int</em>, <em>reorder_cost: decimal.Decimal</em>, <em>file_type: str</em>, <em>period_length: int=12</em><span class="sig-paren">)</span> &rarr; list<a class="headerlink" href="#supplychainpy.simulate.run_monte_carlo_mt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="function">
 <dt id="supplychainpy.simulate.summarise_frame">

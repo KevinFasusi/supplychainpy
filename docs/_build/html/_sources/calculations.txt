@@ -80,30 +80,3 @@ where:
     D = Demand
 
     HC = Holding Cost
-
-
-Purchase Order Quantity
------------------------
-
-For the monte carlo siimulation, the
-
-In release 0.0.3 the purchase order quantity will be compared against a forecast to assess whether it requires adjustment.
-
-
-Backlog and Shortage units
---------------------------
-
-To aggregate the backlog and shortage units for the `summarise_frame`
-
-
-Normal Sum Deviation
---------------------
-
-The standard deviation is calculated by first summing the average variance for backlog and quantity sold.
-
-
-.. math::
-
-	\sigma_{xy}^2 = \sigma_{x}^2 + \sigma_{y}^2
-
-
