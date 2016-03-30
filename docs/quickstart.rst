@@ -24,7 +24,7 @@ Quick Guide
 Overview
 --------
 
-Supplychainpy is a Python library for supply chain analysis, modeling and simulation. Using the supplychainpy
+Supplychainpy is a Python library for supply chain analysis, modeling and simulation. Using supplychainpy
 with popular data analysis libraries and tools such as Xlwings or Data Nitro (for Excel spreadsheet applications),
 Pandas, NumPy, Matplotlib, Ipython and Jupyters makes for a powerful supply chain data analysis toolchain.
 
@@ -45,12 +45,7 @@ Inventory Analysis
 
 A quick example of a typical inventory analysis takes several formulas, manual processes or pivot tables and in
 some cases vba to achieve. Using the supplychainpy library can reduce the time and effort taken for the same analysis.
-In the example below supplying a `dict` of "Orders" data-points can generate a summary that includes:
-
-- demand variability
-- reorder level
-- safety stock
-- reorder quantities ...
+In the example below supplying a `dict` of "Orders" data-points can generate a summary.
 
 .. code:: python
 
@@ -92,8 +87,7 @@ The same analysis can be made by supplying a pre-formatted `.csv` or `.txt`:
     KR202-213,489,954,1112,199,919,330,561,2372,921,1587,1532,1512,514,1
 
 A file named `data.csv`, supplied with this distribution (release 0.0.2 onwards) can be used to generate the
-same analysis in `dict` based example. The full file is supplied in the installation folder. The example below
-generates the result for 32 skus.
+same analysis in `dict` based example. The example below generates the result for 32 stock keeping units (sku).
 
 .. code:: python
 
@@ -107,7 +101,7 @@ generates the result for 32 skus.
 
     [{'AX': 0}, {'AY': 14}, {'AZ': 7}, {'BX': 0}, {'BY': 3}, {'BZ': 2}, {'CX': 0}, {'CY': 3}, {'CZ': 3}]
 
-This analysis execution speed were:
+This analysis completed in:
 
 	 +-------+----------------------+
 	 | system| time (seconds)       |
@@ -163,7 +157,7 @@ The orders analysis can be retrieved by using:
     Sku: KR202-239 Economic Order Quantity: 713 Sku Revenue: 31000000 ABCXYZ Classification: AY
     Sku: KR202-240 Economic Order Quantity: 680 Sku Revenue: 27000000 ABCXYZ Classification: AZ
 
-This analysis execution speed were:
+This analysis completed in:
 
 	 +-------+----------------------+
 	 | system| time (seconds)       |
@@ -283,7 +277,7 @@ The best way to retrieve a full summary is by doing the following:
 	'revenue': '27000000.00', 'economic_order_variable_cost': '384904.27', 'reorder_level': '4400'}
 
 
-This analysis execution speed were:
+This analysis completed in:
 
 	 +-------+----------------------+
 	 | system| time (seconds)       |
@@ -324,7 +318,7 @@ when summarised later. The simulation is limited by the assumptions inherent in 
 :ref:`calculations`).
 
 To start we need to analyse the orders again like we did in the inventory analysis above:
-388.324289560318
+
 .. code:: python
 
     >>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
@@ -348,7 +342,7 @@ The orders are then passed to the monte carlo simulation:
 
 The monte carlo simulation generates normally distributed random demand, based on the historic data analysed in the
 code snippet above. The demand for each sku is then used in each period to model a probable transaction history. The
-below details the transactions for 1 sku over 12 periods for 100 runs.
+below details the transactions for 1 sku over 12 periods for 100 runs (1 run is shown).
 
 .. parsed-literal::
 
@@ -389,7 +383,7 @@ below details the transactions for 1 sku over 12 periods for 100 runs.
     'opening_stock': '674', 'shortage_units': '0', 'closing_stock': '947', 'revenue': '378903', 'demand': '1757',
     'index': '1', 'po_raised': 'PO 141', 'period': '12', 'backlog': '0', 'sku_id': 'KR202-209', 'shortage_cost': '0'}]
 
-This analysis execution speed were:
+This analysis completed in:
 
 	 +-------+----------------------+
 	 | system| time (seconds)       |
@@ -435,7 +429,7 @@ successive runs, will be different. This captures the statistically probable dis
 	'standard_deviation_shortage_cost': 185.7309882599024, 'minimum_shortage_units': 0.0, 'index': '22'}
 	 ...
 
-This analysis execution speed were:
+This analysis completed in:
 
 	 +-------+----------------------+
 	 | system| time (seconds)       |
@@ -475,7 +469,7 @@ Below is 1 of 32 result for 32 skus ran 100 times.
 	'maximum_closing_stock': 7901, 'average_quantity_sold': '3592', 'standard_deviation_backlog': '0',
 	'maximum_backlog': 0.0}
 
-The analysis cumulative execution speeds, for all steps across each system:
+The analysis completed in:
 
 	 +-------+----------------------+
 	 | system| time (seconds)       |
@@ -487,7 +481,7 @@ The analysis cumulative execution speeds, for all steps across each system:
 
 An optimisation option exists, if after running the inventory analysis and the monte carlo analysis, the behaviour in
 the transaction summary is not favourable. If most skus are not achieving their desired service level, or have large
-quantities of backlog etc, the you can use:
+quantities of backlog etc, then you can use:
 
 .. code:: python
 
@@ -500,13 +494,15 @@ quantities of backlog etc, the you can use:
     >>> sim_frame= simulate.summarise_frame(sim_window)
     >>>
 	>>> optimised_orders = simulate.optimise_service_level(service_level=95.0, frame_summary=sim_frame,
-    >>>                                            orders_analysis=orders_analysis.orders, runs=100)
+    >>>                                            orders_analysis=orders_analysis.orders, runs=100, percentage_increase=1.30)
 
 
 The `optimise_service_level` methods takes a value for the desired service level, the transaction summary of the
 monte carlo simulation and the original orders analysis. The service level achieved in the monte carlo analysis is
-reviewed and compared with the desired service level. If below a threshold, then the saftey stock is increased and the
-whole monte carlo simulation is run again. The new safety stock values are returned when finished.
+reviewed and compared with the desired service level. If below a threshold, then the safety stock is increased and the
+whole monte carlo simulation is run again. The increase in safety stock is specified by the supplied variable
+percentage_increase.
+
 This optimisation step will take as long, if not longer, than the initial monte carlo simulation because the optimisation
 step run the simulation again to simulate transactions based on the new safety stock values. Please take this into
 consideration and adjust your expectation for this optimisation step.
