@@ -177,7 +177,7 @@ The computation here are mainly cpu bound, io may be a factor when reading from 
 </div>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>Supplychainpy is a Python library for supply chain analysis, modeling and simulation. Using the supplychainpy
+<p>Supplychainpy is a Python library for supply chain analysis, modeling and simulation. Using supplychainpy
 with popular data analysis libraries and tools such as Xlwings or Data Nitro (for Excel spreadsheet applications),
 Pandas, NumPy, Matplotlib, Ipython and Jupyters makes for a powerful supply chain data analysis toolchain.</p>
 <p>While the supplychainpy library can be used in any way you deem fit, the library was created to assist a workflow that
@@ -193,13 +193,7 @@ instructions for <span class="xref std std-ref">Installation</span>.</p>
 <h2>Inventory Analysis<a class="headerlink" href="#inventory-analysis" title="Permalink to this headline">¶</a></h2>
 <p>A quick example of a typical inventory analysis takes several formulas, manual processes or pivot tables and in
 some cases vba to achieve. Using the supplychainpy library can reduce the time and effort taken for the same analysis.
-In the example below supplying a <cite>dict</cite> of &#8220;Orders&#8221; data-points can generate a summary that includes:</p>
-<ul class="simple">
-<li>demand variability</li>
-<li>reorder level</li>
-<li>safety stock</li>
-<li>reorder quantities ...</li>
-</ul>
+In the example below supplying a <cite>dict</cite> of &#8220;Orders&#8221; data-points can generate a summary.</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="kn">import</span> <span class="n">model_inventory</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">yearly_demand</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;jan&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;feb&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;mar&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;apr&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span>                <span class="s1">&#39;may&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;jun&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;jul&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span><span class="s1">&#39;aug&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
@@ -233,8 +227,7 @@ KR202-213,489,954,1112,199,919,330,561,2372,921,1587,1532,1512,514,1
 </pre></div>
 </div>
 <p>A file named <cite>data.csv</cite>, supplied with this distribution (release 0.0.2 onwards) can be used to generate the
-same analysis in <cite>dict</cite> based example. The full file is supplied in the installation folder. The example below
-generates the result for 32 skus.</p>
+same analysis in <cite>dict</cite> based example. The example below generates the result for 32 stock keeping units (sku).</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">abc</span> <span class="o">=</span> <span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
 <span class="gp">&gt;&gt;&gt; </span>                                       <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
@@ -244,7 +237,7 @@ generates the result for 32 skus.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">[{</span><span class="s1">&#39;AX&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;AY&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;AZ&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;BX&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;BY&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;BZ&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;CX&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;CY&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;CZ&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}]</span>
 </pre></div>
 </div>
-<p>This analysis execution speed were:</p>
+<p>This analysis completed in:</p>
 <blockquote>
 <div><table border="1" class="docutils">
 <colgroup>
@@ -309,7 +302,7 @@ Sku: KR202-239 Economic Order Quantity: 713 Sku Revenue: 31000000 ABCXYZ Classif
 Sku: KR202-240 Economic Order Quantity: 680 Sku Revenue: 27000000 ABCXYZ Classification: AZ
 </pre></div>
 </div>
-<p>This analysis execution speed were:</p>
+<p>This analysis completed in:</p>
 <blockquote>
 <div><table border="1" class="docutils">
 <colgroup>
@@ -437,7 +430,7 @@ revenue&#39;: &#39;18000000.00&#39;, &#39;economic_order_variable_cost&#39;: &#3
 &#39;revenue&#39;: &#39;27000000.00&#39;, &#39;economic_order_variable_cost&#39;: &#39;384904.27&#39;, &#39;reorder_level&#39;: &#39;4400&#39;}
 </pre></div>
 </div>
-<p>This analysis execution speed were:</p>
+<p>This analysis completed in:</p>
 <blockquote>
 <div><table border="1" class="docutils">
 <colgroup>
@@ -485,10 +478,8 @@ The simulation replicates some of the complexity of the system over time.</p>
 requested. The higher the number of runs the more accurately the simulation captures the dynamics of the system,
 when summarised later. The simulation is limited by the assumptions inherent in the simulations design (detailed in the
 <span class="xref std std-ref">calculations</span>).</p>
-<p>To start we need to analyse the orders again like we did in the inventory analysis above:
-388.324289560318
-.. code:: python</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
+<p>To start we need to analyse the orders again like we did in the inventory analysis above:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">orders_analysis</span> <span class="o">=</span> <span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
 <span class="gp">&gt;&gt;&gt; </span>                                       <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
 </pre></div>
@@ -507,7 +498,7 @@ when summarised later. The simulation is limited by the assumptions inherent in 
 </div>
 <p>The monte carlo simulation generates normally distributed random demand, based on the historic data analysed in the
 code snippet above. The demand for each sku is then used in each period to model a probable transaction history. The
-below details the transactions for 1 sku over 12 periods for 100 runs.</p>
+below details the transactions for 1 sku over 12 periods for 100 runs (1 run is shown).</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">[{</span><span class="s1">&#39;delivery&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_sold&#39;</span><span class="p">:</span> <span class="s1">&#39;1354&#39;</span><span class="p">,</span> <span class="s1">&#39;po_received&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;po_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;3630&#39;</span><span class="p">,</span> <span class="s1">&#39;opening_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;1446&#39;</span><span class="p">,</span>
 <span class="s1">&#39;shortage_units&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;closing_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;1355&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;541946&#39;</span><span class="p">,</span> <span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="s1">&#39;92&#39;</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;po_raised&#39;</span><span class="p">:</span>
 <span class="s1">&#39;PO 31&#39;</span><span class="p">,</span> <span class="s1">&#39;period&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;backlog&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;sku_id&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">}]</span>
@@ -546,7 +537,7 @@ below details the transactions for 1 sku over 12 periods for 100 runs.</p>
 <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;po_raised&#39;</span><span class="p">:</span> <span class="s1">&#39;PO 141&#39;</span><span class="p">,</span> <span class="s1">&#39;period&#39;</span><span class="p">:</span> <span class="s1">&#39;12&#39;</span><span class="p">,</span> <span class="s1">&#39;backlog&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;sku_id&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">}]</span>
 </pre></div>
 </div>
-<p>This analysis execution speed were:</p>
+<p>This analysis completed in:</p>
 <blockquote>
 <div><table border="1" class="docutils">
 <colgroup>
@@ -599,7 +590,7 @@ successive runs, will be different. This captures the statistically probable dis
  ...
 </pre></div>
 </div>
-<p>This analysis execution speed were:</p>
+<p>This analysis completed in:</p>
 <blockquote>
 <div><table border="1" class="docutils">
 <colgroup>
@@ -645,7 +636,7 @@ summary however this summary aggregates the simulation runs.</p>
 <span class="s1">&#39;maximum_backlog&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>The analysis cumulative execution speeds, for all steps across each system:</p>
+<p>The analysis completed in:</p>
 <blockquote>
 <div><table border="1" class="docutils">
 <colgroup>
@@ -669,7 +660,7 @@ summary however this summary aggregates the simulation runs.</p>
 </div></blockquote>
 <p>An optimisation option exists, if after running the inventory analysis and the monte carlo analysis, the behaviour in
 the transaction summary is not favourable. If most skus are not achieving their desired service level, or have large
-quantities of backlog etc, the you can use:</p>
+quantities of backlog etc, then you can use:</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="kn">import</span> <span class="n">simulate</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sim</span> <span class="o">=</span> <span class="n">simulate</span><span class="o">.</span><span class="n">run_monte_carlo</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span> <span class="n">runs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span>                              <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">4000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span> <span class="n">period_length</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
@@ -679,14 +670,15 @@ quantities of backlog etc, the you can use:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sim_frame</span><span class="o">=</span> <span class="n">simulate</span><span class="o">.</span><span class="n">summarise_frame</span><span class="p">(</span><span class="n">sim_window</span><span class="p">)</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="go">    &gt;&gt;&gt; optimised_orders = simulate.optimise_service_level(service_level=95.0, frame_summary=sim_frame,</span>
-<span class="gp">&gt;&gt;&gt; </span>                                           <span class="n">orders_analysis</span><span class="o">=</span><span class="n">orders_analysis</span><span class="o">.</span><span class="n">orders</span><span class="p">,</span> <span class="n">runs</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>                                           <span class="n">orders_analysis</span><span class="o">=</span><span class="n">orders_analysis</span><span class="o">.</span><span class="n">orders</span><span class="p">,</span> <span class="n">runs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">percentage_increase</span><span class="o">=</span><span class="mf">1.30</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The <cite>optimise_service_level</cite> methods takes a value for the desired service level, the transaction summary of the
 monte carlo simulation and the original orders analysis. The service level achieved in the monte carlo analysis is
-reviewed and compared with the desired service level. If below a threshold, then the saftey stock is increased and the
-whole monte carlo simulation is run again. The new safety stock values are returned when finished.
-This optimisation step will take as long, if not longer, than the initial monte carlo simulation because the optimisation
+reviewed and compared with the desired service level. If below a threshold, then the safety stock is increased and the
+whole monte carlo simulation is run again. The increase in safety stock is specified by the supplied variable
+percentage_increase.</p>
+<p>This optimisation step will take as long, if not longer, than the initial monte carlo simulation because the optimisation
 step run the simulation again to simulate transactions based on the new safety stock values. Please take this into
 consideration and adjust your expectation for this optimisation step.
 This feature is in development as is the whole library but this feature will change in the next release.</p>
