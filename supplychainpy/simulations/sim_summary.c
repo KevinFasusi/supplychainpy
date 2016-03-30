@@ -450,7 +450,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "supplychainpy/supplychainpy/simulations/sim_summary.pyx",
+  "supplychainpy\\supplychainpy\\simulations\\sim_summary.pyx",
 };
 
 /*--- Type declarations ---*/
@@ -833,7 +833,7 @@ static char __pyx_k_variance_shortage_units[] = "variance_shortage_units";
 static char __pyx_k_standard_deviation_backlog[] = "standard_deviation_backlog";
 static char __pyx_k_standard_deviation_revenue[] = "standard_deviation_revenue";
 static char __pyx_k_closing_stockout_percentage[] = "closing_stockout_percentage";
-static char __pyx_k_Users_Fasusi_Projects_supplycha[] = "/Users/Fasusi/Projects/supplychainlibraries/python/supplychainpy/supplychainpy/simulations/sim_summary.pyx";
+static char __pyx_k_C_Users_Kevin_Documents_supplych[] = "C:\\Users\\Kevin\\Documents\\supplychainpy\\supplychainpy\\supplychainpy\\simulations\\sim_summary.pyx";
 static char __pyx_k_standard_deviation_closing_stock[] = "standard_deviation_closing_stock";
 static char __pyx_k_standard_deviation_opening_stock[] = "standard_deviation_opening_stock";
 static char __pyx_k_standard_deviation_quantity_sold[] = "standard_deviation_quantity_sold";
@@ -841,8 +841,8 @@ static char __pyx_k_standard_deviation_shortage_cost[] = "standard_deviation_sho
 static char __pyx_k_supplychainpy_supplychainpy_simu[] = "supplychainpy.supplychainpy.simulations.sim_summary";
 static PyObject *__pyx_kp_s_0_2f;
 static PyObject *__pyx_kp_s_0f;
+static PyObject *__pyx_kp_s_C_Users_Kevin_Documents_supplych;
 static PyObject *__pyx_n_s_ROUND_FLOOR;
-static PyObject *__pyx_kp_s_Users_Fasusi_Projects_supplycha;
 static PyObject *__pyx_n_s_append;
 static PyObject *__pyx_n_s_average;
 static PyObject *__pyx_n_s_average_backlog;
@@ -1008,7 +1008,7 @@ static PyObject *__pyx_codeobj__11;
 static PyObject *__pyx_codeobj__13;
 static PyObject *__pyx_codeobj__15;
 
-/* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":9
+/* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":9
  * from decimal import getcontext
  * 
  * def closing_stockout_percentage( list closing_stock, int period_length):             # <<<<<<<<<<<<<<
@@ -1096,7 +1096,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("closing_stockout_percentage", 0);
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":14
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":14
  *     cdef float percentage
  * 
  *     closing_stock_count = closing_stock.count(0)             # <<<<<<<<<<<<<<
@@ -1112,7 +1112,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_closing_stock_count = __pyx_t_3;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":15
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":15
  * 
  *     closing_stock_count = closing_stock.count(0)
  *     percentage = closing_stock_count / period_length             # <<<<<<<<<<<<<<
@@ -1125,7 +1125,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   }
   __pyx_v_percentage = (__pyx_v_closing_stock_count / __pyx_v_period_length);
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":16
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":16
  *     closing_stock_count = closing_stock.count(0)
  *     percentage = closing_stock_count / period_length
  *     return percentage             # <<<<<<<<<<<<<<
@@ -1139,7 +1139,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":9
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":9
  * from decimal import getcontext
  * 
  * def closing_stockout_percentage( list closing_stock, int period_length):             # <<<<<<<<<<<<<<
@@ -1159,7 +1159,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   return __pyx_r;
 }
 
-/* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":18
+/* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":18
  *     return percentage
  * 
  * def average_items(shortage_cost, int period_length):             # <<<<<<<<<<<<<<
@@ -1242,7 +1242,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("average_items", 0);
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":20
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":20
  * def average_items(shortage_cost, int period_length):
  *     cdef float average
  *     average = sum(shortage_cost) / period_length             # <<<<<<<<<<<<<<
@@ -1267,7 +1267,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_average = __pyx_t_4;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":21
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":21
  *     cdef float average
  *     average = sum(shortage_cost) / period_length
  *     return average             # <<<<<<<<<<<<<<
@@ -1281,7 +1281,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":18
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":18
  *     return percentage
  * 
  * def average_items(shortage_cost, int period_length):             # <<<<<<<<<<<<<<
@@ -1302,7 +1302,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   return __pyx_r;
 }
 
-/* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":24
+/* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":24
  * 
  * 
  * def optimum_std(float mean, list items):             # <<<<<<<<<<<<<<
@@ -1397,7 +1397,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("optimum_std", 0);
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":25
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":25
  * 
  * def optimum_std(float mean, list items):
  *     cdef list diff =[]             # <<<<<<<<<<<<<<
@@ -1409,7 +1409,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __pyx_v_diff = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":27
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":27
  *     cdef list diff =[]
  *     cdef double variance, std, tmp
  *     cdef dict variance_analysis ={}             # <<<<<<<<<<<<<<
@@ -1421,7 +1421,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __pyx_v_variance_analysis = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":29
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":29
  *     cdef dict variance_analysis ={}
  * 
  *     for item in items:             # <<<<<<<<<<<<<<
@@ -1444,7 +1444,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":30
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":30
  * 
  *     for item in items:
  *         tmp = (item - mean)**2             # <<<<<<<<<<<<<<
@@ -1463,7 +1463,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_tmp = __pyx_t_5;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":31
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":31
  *     for item in items:
  *         tmp = (item - mean)**2
  *         diff.append(tmp)             # <<<<<<<<<<<<<<
@@ -1475,7 +1475,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __pyx_t_6 = __Pyx_PyList_Append(__pyx_v_diff, __pyx_t_3); if (unlikely(__pyx_t_6 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":29
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":29
  *     cdef dict variance_analysis ={}
  * 
  *     for item in items:             # <<<<<<<<<<<<<<
@@ -1485,7 +1485,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":33
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":33
  *         diff.append(tmp)
  * 
  *     variance = sum(diff)/len(diff)             # <<<<<<<<<<<<<<
@@ -1511,7 +1511,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_v_variance = __pyx_t_5;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":34
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":34
  * 
  *     variance = sum(diff)/len(diff)
  *     std = variance ** 0.5             # <<<<<<<<<<<<<<
@@ -1520,7 +1520,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
  */
   __pyx_v_std = pow(__pyx_v_variance, 0.5);
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":35
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":35
  *     variance = sum(diff)/len(diff)
  *     std = variance ** 0.5
  *     variance_analysis = {'variance': variance, 'standard_deviation': std}             # <<<<<<<<<<<<<<
@@ -1540,7 +1540,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __Pyx_DECREF_SET(__pyx_v_variance_analysis, ((PyObject*)__pyx_t_4));
   __pyx_t_4 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":37
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":37
  *     variance_analysis = {'variance': variance, 'standard_deviation': std}
  * 
  *     return variance_analysis             # <<<<<<<<<<<<<<
@@ -1552,7 +1552,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __pyx_r = __pyx_v_variance_analysis;
   goto __pyx_L0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":24
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":24
  * 
  * 
  * def optimum_std(float mean, list items):             # <<<<<<<<<<<<<<
@@ -1576,7 +1576,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   return __pyx_r;
 }
 
-/* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":40
+/* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":40
  * 
  * 
  * def summarize_monte_carlo(list simulation_frame, int period_length):             # <<<<<<<<<<<<<<
@@ -1709,7 +1709,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("summarize_monte_carlo", 0);
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":58
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":58
  * 
  *     cdef:
  *         list closing_stock = [], opening_stock =[], shortage_units = [], summary = []             # <<<<<<<<<<<<<<
@@ -1733,7 +1733,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __pyx_v_summary = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":59
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":59
  *     cdef:
  *         list closing_stock = [], opening_stock =[], shortage_units = [], summary = []
  *         list summarize = [], quantity_sold =[], backlog =[]             # <<<<<<<<<<<<<<
@@ -1753,7 +1753,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __pyx_v_backlog = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":68
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":68
  *         double shc, min_shc, max_shc, rev, min_quantity_sold, max_quantity_sold, var_ops, avg_shc, total_quantity_sold
  * 
  *     cdef dict std_ops ={}, std_backlog={}, std_cls={}, std_shc={}, std_quantity_sold={}             # <<<<<<<<<<<<<<
@@ -1781,7 +1781,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __pyx_v_std_quantity_sold = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":71
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":71
  * 
  * 
  *     n = len(simulation_frame)             # <<<<<<<<<<<<<<
@@ -1795,7 +1795,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __pyx_t_2 = PyList_GET_SIZE(__pyx_v_simulation_frame); if (unlikely(__pyx_t_2 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_n = __pyx_t_2;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":73
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":73
  *     n = len(simulation_frame)
  * 
  *     i = 1             # <<<<<<<<<<<<<<
@@ -1804,7 +1804,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
  */
   __pyx_v_i = 1;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":75
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":75
  *     i = 1
  * 
  *     for x in range(i, n ):             # <<<<<<<<<<<<<<
@@ -1815,7 +1815,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   for (__pyx_t_4 = __pyx_v_i; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
     __pyx_v_x = __pyx_t_4;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":77
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":77
  *     for x in range(i, n ):
  * 
  *         for f in simulation_frame:             # <<<<<<<<<<<<<<
@@ -1838,7 +1838,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
       __Pyx_XDECREF_SET(__pyx_v_f, __pyx_t_5);
       __pyx_t_5 = 0;
 
-      /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":78
+      /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":78
  * 
  *         for f in simulation_frame:
  *             if int(f[0]['index']) == x:             # <<<<<<<<<<<<<<
@@ -1862,7 +1862,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       if (__pyx_t_8) {
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":79
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":79
  *         for f in simulation_frame:
  *             if int(f[0]['index']) == x:
  *                 closing_stock.append( int(f[0]['closing_stock']))             # <<<<<<<<<<<<<<
@@ -1880,7 +1880,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_closing_stock, __pyx_t_7); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 79; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":80
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":80
  *             if int(f[0]['index']) == x:
  *                 closing_stock.append( int(f[0]['closing_stock']))
  *                 shortage_units.append(float(f[0]['shortage_units']))             # <<<<<<<<<<<<<<
@@ -1899,7 +1899,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_shortage_units, __pyx_t_6); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 80; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":81
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":81
  *                 closing_stock.append( int(f[0]['closing_stock']))
  *                 shortage_units.append(float(f[0]['shortage_units']))
  *                 quantity_sold.append(int(f[0]['quantity_sold']))             # <<<<<<<<<<<<<<
@@ -1917,7 +1917,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_quantity_sold, __pyx_t_6); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 81; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":82
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":82
  *                 shortage_units.append(float(f[0]['shortage_units']))
  *                 quantity_sold.append(int(f[0]['quantity_sold']))
  *                 opening_stock.append(int(f[0]['opening_stock']))             # <<<<<<<<<<<<<<
@@ -1935,7 +1935,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_opening_stock, __pyx_t_6); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 82; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":83
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":83
  *                 quantity_sold.append(int(f[0]['quantity_sold']))
  *                 opening_stock.append(int(f[0]['opening_stock']))
  *                 backlog.append(int(f[0]['backlog']))             # <<<<<<<<<<<<<<
@@ -1953,7 +1953,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_backlog, __pyx_t_6); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 83; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":78
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":78
  * 
  *         for f in simulation_frame:
  *             if int(f[0]['index']) == x:             # <<<<<<<<<<<<<<
@@ -1962,7 +1962,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
  */
       }
 
-      /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":85
+      /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":85
  *                 backlog.append(int(f[0]['backlog']))
  * 
  *             if len(closing_stock) == period_length and len(shortage_units) == period_length:             # <<<<<<<<<<<<<<
@@ -1982,7 +1982,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
       __pyx_L9_bool_binop_done:;
       if (__pyx_t_8) {
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":86
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":86
  * 
  *             if len(closing_stock) == period_length and len(shortage_units) == period_length:
  *                 cls = closing_stockout_percentage(closing_stock, period_length)             # <<<<<<<<<<<<<<
@@ -2024,7 +2024,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __pyx_v_cls = __pyx_t_15;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":87
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":87
  *             if len(closing_stock) == period_length and len(shortage_units) == period_length:
  *                 cls = closing_stockout_percentage(closing_stock, period_length)
  *                 avg_ops = average_items(opening_stock, period_length)             # <<<<<<<<<<<<<<
@@ -2066,7 +2066,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __pyx_v_avg_ops = __pyx_t_15;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":88
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":88
  *                 cls = closing_stockout_percentage(closing_stock, period_length)
  *                 avg_ops = average_items(opening_stock, period_length)
  *                 min_ops = min(opening_stock)             # <<<<<<<<<<<<<<
@@ -2085,7 +2085,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __pyx_v_min_ops = __pyx_t_15;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":89
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":89
  *                 avg_ops = average_items(opening_stock, period_length)
  *                 min_ops = min(opening_stock)
  *                 max_ops = max(opening_stock)             # <<<<<<<<<<<<<<
@@ -2104,7 +2104,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __pyx_v_max_ops = __pyx_t_15;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":90
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":90
  *                 min_ops = min(opening_stock)
  *                 max_ops = max(opening_stock)
  *                 std_ops = optimum_std(avg_ops, opening_stock)             # <<<<<<<<<<<<<<
@@ -2146,7 +2146,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF_SET(__pyx_v_std_ops, ((PyObject*)__pyx_t_6));
         __pyx_t_6 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":91
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":91
  *                 max_ops = max(opening_stock)
  *                 std_ops = optimum_std(avg_ops, opening_stock)
  *                 avg_backlog = average_items(backlog, period_length)             # <<<<<<<<<<<<<<
@@ -2188,7 +2188,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __pyx_v_avg_backlog = __pyx_t_15;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":92
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":92
  *                 std_ops = optimum_std(avg_ops, opening_stock)
  *                 avg_backlog = average_items(backlog, period_length)
  *                 min_backlog = min(backlog)             # <<<<<<<<<<<<<<
@@ -2207,7 +2207,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __pyx_v_min_backlog = __pyx_t_15;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":93
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":93
  *                 avg_backlog = average_items(backlog, period_length)
  *                 min_backlog = min(backlog)
  *                 max_backlog = max(backlog)             # <<<<<<<<<<<<<<
@@ -2226,7 +2226,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __pyx_v_max_backlog = __pyx_t_15;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":94
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":94
  *                 min_backlog = min(backlog)
  *                 max_backlog = max(backlog)
  *                 std_backlog = optimum_std(avg_backlog, backlog)             # <<<<<<<<<<<<<<
@@ -2268,7 +2268,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF_SET(__pyx_v_std_backlog, ((PyObject*)__pyx_t_6));
         __pyx_t_6 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":95
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":95
  *                 max_backlog = max(backlog)
  *                 std_backlog = optimum_std(avg_backlog, backlog)
  *                 avg_cls = average_items(closing_stock, period_length)             # <<<<<<<<<<<<<<
@@ -2310,7 +2310,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __pyx_v_avg_cls = __pyx_t_15;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":96
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":96
  *                 std_backlog = optimum_std(avg_backlog, backlog)
  *                 avg_cls = average_items(closing_stock, period_length)
  *                 min_cls = min(closing_stock)             # <<<<<<<<<<<<<<
@@ -2329,7 +2329,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __pyx_v_min_cls = __pyx_t_15;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":97
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":97
  *                 avg_cls = average_items(closing_stock, period_length)
  *                 min_cls = min(closing_stock)
  *                 max_cls = max(closing_stock)             # <<<<<<<<<<<<<<
@@ -2348,7 +2348,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __pyx_v_max_cls = __pyx_t_15;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":98
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":98
  *                 min_cls = min(closing_stock)
  *                 max_cls = max(closing_stock)
  *                 std_cls = optimum_std(avg_cls, closing_stock)             # <<<<<<<<<<<<<<
@@ -2390,7 +2390,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF_SET(__pyx_v_std_cls, ((PyObject*)__pyx_t_6));
         __pyx_t_6 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":99
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":99
  *                 max_cls = max(closing_stock)
  *                 std_cls = optimum_std(avg_cls, closing_stock)
  *                 shc = sum(shortage_units)             # <<<<<<<<<<<<<<
@@ -2409,7 +2409,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __pyx_v_shc = __pyx_t_10;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":100
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":100
  *                 std_cls = optimum_std(avg_cls, closing_stock)
  *                 shc = sum(shortage_units)
  *                 min_shc = min(shortage_units)             # <<<<<<<<<<<<<<
@@ -2428,7 +2428,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __pyx_v_min_shc = __pyx_t_10;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":101
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":101
  *                 shc = sum(shortage_units)
  *                 min_shc = min(shortage_units)
  *                 max_shc = max(shortage_units)             # <<<<<<<<<<<<<<
@@ -2447,7 +2447,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __pyx_v_max_shc = __pyx_t_10;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":102
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":102
  *                 min_shc = min(shortage_units)
  *                 max_shc = max(shortage_units)
  *                 avg_shc = average_items(shortage_units, period_length)             # <<<<<<<<<<<<<<
@@ -2489,7 +2489,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __pyx_v_avg_shc = __pyx_t_10;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":103
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":103
  *                 max_shc = max(shortage_units)
  *                 avg_shc = average_items(shortage_units, period_length)
  *                 std_shc = optimum_std(avg_shc, shortage_units)             # <<<<<<<<<<<<<<
@@ -2531,7 +2531,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF_SET(__pyx_v_std_shc, ((PyObject*)__pyx_t_7));
         __pyx_t_7 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":104
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":104
  *                 avg_shc = average_items(shortage_units, period_length)
  *                 std_shc = optimum_std(avg_shc, shortage_units)
  *                 total_quantity_sold = sum(quantity_sold)             # <<<<<<<<<<<<<<
@@ -2550,7 +2550,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __pyx_v_total_quantity_sold = __pyx_t_10;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":105
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":105
  *                 std_shc = optimum_std(avg_shc, shortage_units)
  *                 total_quantity_sold = sum(quantity_sold)
  *                 avg_qty_sold = average_items(quantity_sold, period_length)             # <<<<<<<<<<<<<<
@@ -2591,7 +2591,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_XDECREF_SET(__pyx_v_avg_qty_sold, __pyx_t_6);
         __pyx_t_6 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":106
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":106
  *                 total_quantity_sold = sum(quantity_sold)
  *                 avg_qty_sold = average_items(quantity_sold, period_length)
  *                 min_quantity_sold = min(quantity_sold)             # <<<<<<<<<<<<<<
@@ -2610,7 +2610,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __pyx_v_min_quantity_sold = __pyx_t_10;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":107
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":107
  *                 avg_qty_sold = average_items(quantity_sold, period_length)
  *                 min_quantity_sold = min(quantity_sold)
  *                 max_quantity_sold = max(quantity_sold)             # <<<<<<<<<<<<<<
@@ -2629,7 +2629,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __pyx_v_max_quantity_sold = __pyx_t_10;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":108
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":108
  *                 min_quantity_sold = min(quantity_sold)
  *                 max_quantity_sold = max(quantity_sold)
  *                 std_quantity_sold = optimum_std(avg_qty_sold, quantity_sold)             # <<<<<<<<<<<<<<
@@ -2669,7 +2669,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF_SET(__pyx_v_std_quantity_sold, ((PyObject*)__pyx_t_6));
         __pyx_t_6 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":110
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":110
  *                 std_quantity_sold = optimum_std(avg_qty_sold, quantity_sold)
  * 
  *                 summary.append({'sku_id': f[0]['sku_id'],             # <<<<<<<<<<<<<<
@@ -2686,7 +2686,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_sku_id, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":111
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":111
  * 
  *                 summary.append({'sku_id': f[0]['sku_id'],
  *                                 'standard_deviation_opening_stock': std_ops['standard_deviation'],             # <<<<<<<<<<<<<<
@@ -2702,7 +2702,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_standard_deviation_opening_stock, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":112
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":112
  *                 summary.append({'sku_id': f[0]['sku_id'],
  *                                 'standard_deviation_opening_stock': std_ops['standard_deviation'],
  *                                 'variance_opening_stock': std_ops['variance'],             # <<<<<<<<<<<<<<
@@ -2718,7 +2718,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_variance_opening_stock, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":113
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":113
  *                                 'standard_deviation_opening_stock': std_ops['standard_deviation'],
  *                                 'variance_opening_stock': std_ops['variance'],
  *                                 'stockout_percentage': cls,             # <<<<<<<<<<<<<<
@@ -2730,7 +2730,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_stockout_percentage, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":114
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":114
  *                                 'variance_opening_stock': std_ops['variance'],
  *                                 'stockout_percentage': cls,
  *                                 'average_closing_stock': avg_cls,             # <<<<<<<<<<<<<<
@@ -2742,7 +2742,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_average_closing_stock, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":115
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":115
  *                                 'stockout_percentage': cls,
  *                                 'average_closing_stock': avg_cls,
  *                                 'minimum_closing_stock': min_cls,             # <<<<<<<<<<<<<<
@@ -2754,7 +2754,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_minimum_closing_stock, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":116
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":116
  *                                 'average_closing_stock': avg_cls,
  *                                 'minimum_closing_stock': min_cls,
  *                                 'maximum_closing_stock': max_cls ,             # <<<<<<<<<<<<<<
@@ -2766,7 +2766,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_maximum_closing_stock, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":117
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":117
  *                                 'minimum_closing_stock': min_cls,
  *                                 'maximum_closing_stock': max_cls ,
  *                                 'standard_deviation_closing_stock': std_cls['standard_deviation'],             # <<<<<<<<<<<<<<
@@ -2782,7 +2782,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_standard_deviation_closing_stock, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":118
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":118
  *                                 'maximum_closing_stock': max_cls ,
  *                                 'standard_deviation_closing_stock': std_cls['standard_deviation'],
  *                                 'variance_closing_stock': std_cls['variance'],             # <<<<<<<<<<<<<<
@@ -2798,7 +2798,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_variance_closing_stock, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":119
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":119
  *                                 'standard_deviation_closing_stock': std_cls['standard_deviation'],
  *                                 'variance_closing_stock': std_cls['variance'],
  *                                 'total_shortage_units': shc,             # <<<<<<<<<<<<<<
@@ -2810,7 +2810,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_total_shortage_units, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":120
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":120
  *                                 'variance_closing_stock': std_cls['variance'],
  *                                 'total_shortage_units': shc,
  *                                 'standard_deviation_shortage_cost': std_shc['standard_deviation'],             # <<<<<<<<<<<<<<
@@ -2826,7 +2826,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_standard_deviation_shortage_cost, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":121
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":121
  *                                 'total_shortage_units': shc,
  *                                 'standard_deviation_shortage_cost': std_shc['standard_deviation'],
  *                                 'variance_shortage_units': std_shc['variance'],             # <<<<<<<<<<<<<<
@@ -2842,7 +2842,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_variance_shortage_units, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":122
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":122
  *                                 'standard_deviation_shortage_cost': std_shc['standard_deviation'],
  *                                 'variance_shortage_units': std_shc['variance'],
  *                                 'standard_deviation_revenue': std_quantity_sold['standard_deviation'],             # <<<<<<<<<<<<<<
@@ -2858,7 +2858,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_standard_deviation_revenue, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":123
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":123
  *                                 'variance_shortage_units': std_shc['variance'],
  *                                 'standard_deviation_revenue': std_quantity_sold['standard_deviation'],
  *                                 'variance_quantity_sold': std_quantity_sold['variance'],             # <<<<<<<<<<<<<<
@@ -2874,7 +2874,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_variance_quantity_sold, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":124
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":124
  *                                 'standard_deviation_revenue': std_quantity_sold['standard_deviation'],
  *                                 'variance_quantity_sold': std_quantity_sold['variance'],
  *                                 'minimum_shortage_units':min_shc,             # <<<<<<<<<<<<<<
@@ -2886,7 +2886,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_minimum_shortage_units, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":125
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":125
  *                                 'variance_quantity_sold': std_quantity_sold['variance'],
  *                                 'minimum_shortage_units':min_shc,
  *                                 'maximum_shortage_units': max_shc,             # <<<<<<<<<<<<<<
@@ -2898,7 +2898,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_maximum_shortage_units, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":126
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":126
  *                                 'minimum_shortage_units':min_shc,
  *                                 'maximum_shortage_units': max_shc,
  *                                 'average_opening_stock': avg_ops,             # <<<<<<<<<<<<<<
@@ -2910,7 +2910,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_average_opening_stock, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":127
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":127
  *                                 'maximum_shortage_units': max_shc,
  *                                 'average_opening_stock': avg_ops,
  *                                 'minimum_opening_stock': min_ops,             # <<<<<<<<<<<<<<
@@ -2922,7 +2922,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_minimum_opening_stock, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":128
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":128
  *                                 'average_opening_stock': avg_ops,
  *                                 'minimum_opening_stock': min_ops,
  *                                 'maximum_opening_stock': max_ops,             # <<<<<<<<<<<<<<
@@ -2934,7 +2934,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_maximum_opening_stock, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":129
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":129
  *                                 'minimum_opening_stock': min_ops,
  *                                 'maximum_opening_stock': max_ops,
  *                                 'average_quantity_sold': avg_qty_sold,             # <<<<<<<<<<<<<<
@@ -2943,7 +2943,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
  */
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_average_quantity_sold, __pyx_v_avg_qty_sold) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":130
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":130
  *                                 'maximum_opening_stock': max_ops,
  *                                 'average_quantity_sold': avg_qty_sold,
  *                                 'minimum_quantity_sold': min_quantity_sold,             # <<<<<<<<<<<<<<
@@ -2955,7 +2955,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_minimum_quantity_sold, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":131
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":131
  *                                 'average_quantity_sold': avg_qty_sold,
  *                                 'minimum_quantity_sold': min_quantity_sold,
  *                                 'maximum_quantity_sold': max_quantity_sold,             # <<<<<<<<<<<<<<
@@ -2967,7 +2967,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_maximum_quantity_sold, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":132
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":132
  *                                 'minimum_quantity_sold': min_quantity_sold,
  *                                 'maximum_quantity_sold': max_quantity_sold,
  *                                 'average_backlog': avg_backlog,             # <<<<<<<<<<<<<<
@@ -2979,7 +2979,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_average_backlog, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":133
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":133
  *                                 'maximum_quantity_sold': max_quantity_sold,
  *                                 'average_backlog': avg_backlog,
  *                                 'minimum_backlog': min_backlog,             # <<<<<<<<<<<<<<
@@ -2991,7 +2991,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_minimum_backlog, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":134
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":134
  *                                 'average_backlog': avg_backlog,
  *                                 'minimum_backlog': min_backlog,
  *                                 'maximum_backlog': max_backlog,             # <<<<<<<<<<<<<<
@@ -3003,7 +3003,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_maximum_backlog, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":135
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":135
  *                                 'minimum_backlog': min_backlog,
  *                                 'maximum_backlog': max_backlog,
  *                                 'standard_deviation_backlog': std_backlog['standard_deviation'],             # <<<<<<<<<<<<<<
@@ -3019,7 +3019,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_standard_deviation_backlog, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":136
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":136
  *                                 'maximum_backlog': max_backlog,
  *                                 'standard_deviation_backlog': std_backlog['standard_deviation'],
  *                                 'variance_backlog': std_backlog['variance'],             # <<<<<<<<<<<<<<
@@ -3035,7 +3035,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_variance_backlog, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":137
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":137
  *                                 'standard_deviation_backlog': std_backlog['standard_deviation'],
  *                                 'variance_backlog': std_backlog['variance'],
  *                                 'index': f[0]['index']}             # <<<<<<<<<<<<<<
@@ -3050,7 +3050,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_index, __pyx_t_7) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":110
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":110
  *                 std_quantity_sold = optimum_std(avg_qty_sold, quantity_sold)
  * 
  *                 summary.append({'sku_id': f[0]['sku_id'],             # <<<<<<<<<<<<<<
@@ -3060,7 +3060,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_summary, __pyx_t_6); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":140
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":140
  *                                )
  * 
  *                 closing_stock.clear()             # <<<<<<<<<<<<<<
@@ -3089,7 +3089,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":141
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":141
  * 
  *                 closing_stock.clear()
  *                 shortage_units.clear()             # <<<<<<<<<<<<<<
@@ -3118,7 +3118,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":142
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":142
  *                 closing_stock.clear()
  *                 shortage_units.clear()
  *                 quantity_sold.clear()             # <<<<<<<<<<<<<<
@@ -3147,7 +3147,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":143
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":143
  *                 shortage_units.clear()
  *                 quantity_sold.clear()
  *                 opening_stock.clear()             # <<<<<<<<<<<<<<
@@ -3176,7 +3176,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":144
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":144
  *                 quantity_sold.clear()
  *                 opening_stock.clear()
  *                 backlog.clear()             # <<<<<<<<<<<<<<
@@ -3205,7 +3205,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-        /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":85
+        /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":85
  *                 backlog.append(int(f[0]['backlog']))
  * 
  *             if len(closing_stock) == period_length and len(shortage_units) == period_length:             # <<<<<<<<<<<<<<
@@ -3214,7 +3214,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
  */
       }
 
-      /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":77
+      /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":77
  *     for x in range(i, n ):
  * 
  *         for f in simulation_frame:             # <<<<<<<<<<<<<<
@@ -3225,7 +3225,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":149
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":149
  *     # allow interface to retrieve this level of analysis and then option to summarise the frame
  * 
  *     return summary             # <<<<<<<<<<<<<<
@@ -3237,7 +3237,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __pyx_r = __pyx_v_summary;
   goto __pyx_L0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":40
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":40
  * 
  * 
  * def summarize_monte_carlo(list simulation_frame, int period_length):             # <<<<<<<<<<<<<<
@@ -3275,7 +3275,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   return __pyx_r;
 }
 
-/* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":151
+/* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":151
  *     return summary
  * 
  * def frame(sim_frame):             # <<<<<<<<<<<<<<
@@ -3370,7 +3370,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("frame", 0);
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":156
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":156
  *     cdef double  revenue, avg_quantity_sold
  *     cdef:
  *         list summary=[], item_list=[], min_closing_stock=[], max_closing_stock=[], variance_closing_stock=[],             # <<<<<<<<<<<<<<
@@ -3398,7 +3398,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __pyx_v_variance_closing_stock = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":157
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":157
  *     cdef:
  *         list summary=[], item_list=[], min_closing_stock=[], max_closing_stock=[], variance_closing_stock=[],
  *         average_backlog=[], total_stockout=[]             # <<<<<<<<<<<<<<
@@ -3414,7 +3414,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __pyx_v_total_stockout = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":159
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":159
  *         average_backlog=[], total_stockout=[]
  * 
  *     cdef list total_revenue=[]             # <<<<<<<<<<<<<<
@@ -3426,7 +3426,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __pyx_v_total_revenue = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":160
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":160
  * 
  *     cdef list total_revenue=[]
  *     cdef list max_quantity_sold=[]             # <<<<<<<<<<<<<<
@@ -3438,7 +3438,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __pyx_v_max_quantity_sold = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":161
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":161
  *     cdef list total_revenue=[]
  *     cdef list max_quantity_sold=[]
  *     cdef list min_quantity_sold=[]             # <<<<<<<<<<<<<<
@@ -3450,7 +3450,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __pyx_v_min_quantity_sold = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":162
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":162
  *     cdef list max_quantity_sold=[]
  *     cdef list min_quantity_sold=[]
  *     cdef list variance_quantity_sold=[]             # <<<<<<<<<<<<<<
@@ -3462,7 +3462,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __pyx_v_variance_quantity_sold = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":163
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":163
  *     cdef list min_quantity_sold=[]
  *     cdef list variance_quantity_sold=[]
  *     cdef list min_opening_stock=[]             # <<<<<<<<<<<<<<
@@ -3474,7 +3474,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __pyx_v_min_opening_stock = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":164
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":164
  *     cdef list variance_quantity_sold=[]
  *     cdef list min_opening_stock=[]
  *     cdef list average_closing_stock=[]             # <<<<<<<<<<<<<<
@@ -3486,7 +3486,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __pyx_v_average_closing_stock = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":167
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":167
  * 
  *     cdef:
  *         list max_opening_stock=[], variance_opening_stock=[], min_backlog=[], max_backlog=[], variance_backlog=[],             # <<<<<<<<<<<<<<
@@ -3514,7 +3514,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __pyx_v_variance_backlog = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":168
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":168
  *     cdef:
  *         list max_opening_stock=[], variance_opening_stock=[], min_backlog=[], max_backlog=[], variance_backlog=[],
  *         average_opening_stock=[], total_shortage_units =[], average_quantity_sold=[]             # <<<<<<<<<<<<<<
@@ -3534,7 +3534,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __pyx_v_average_quantity_sold = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":176
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":176
  * 
  * 
  *     sim_frame.sort(key = itemgetter('sku_id'))             # <<<<<<<<<<<<<<
@@ -3558,7 +3558,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":178
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":178
  *     sim_frame.sort(key = itemgetter('sku_id'))
  * 
  *     for key, items in itertools.groupby(sim_frame, itemgetter('sku_id')):             # <<<<<<<<<<<<<<
@@ -3697,7 +3697,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_XDECREF_SET(__pyx_v_items, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":179
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":179
  * 
  *     for key, items in itertools.groupby(sim_frame, itemgetter('sku_id')):
  *         item_list.append(list(items))             # <<<<<<<<<<<<<<
@@ -3709,7 +3709,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_item_list, __pyx_t_4); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 179; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":178
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":178
  *     sim_frame.sort(key = itemgetter('sku_id'))
  * 
  *     for key, items in itertools.groupby(sim_frame, itemgetter('sku_id')):             # <<<<<<<<<<<<<<
@@ -3719,7 +3719,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":181
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":181
  *         item_list.append(list(items))
  * 
  *     for item in item_list:             # <<<<<<<<<<<<<<
@@ -3738,7 +3738,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":182
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":182
  * 
  *     for item in item_list:
  *         sku_id = item[0]['sku_id']             # <<<<<<<<<<<<<<
@@ -3753,7 +3753,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_XDECREF_SET(__pyx_v_sku_id, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":183
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":183
  *     for item in item_list:
  *         sku_id = item[0]['sku_id']
  *         count_runs = len(item)             # <<<<<<<<<<<<<<
@@ -3763,7 +3763,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __pyx_t_10 = PyObject_Length(__pyx_v_item); if (unlikely(__pyx_t_10 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 183; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_v_count_runs = __pyx_t_10;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":186
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":186
  * 
  * 
  *         for j in item:             # <<<<<<<<<<<<<<
@@ -3812,7 +3812,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
       __Pyx_XDECREF_SET(__pyx_v_j, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":187
+      /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":187
  * 
  *         for j in item:
  *             total_stockout.append(j['stockout_percentage'])             # <<<<<<<<<<<<<<
@@ -3824,7 +3824,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
       __pyx_t_9 = __Pyx_PyObject_Append(__pyx_v_total_stockout, __pyx_t_4); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 187; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":188
+      /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":188
  *         for j in item:
  *             total_stockout.append(j['stockout_percentage'])
  *             average_quantity_sold.append(j['average_quantity_sold'])             # <<<<<<<<<<<<<<
@@ -3836,7 +3836,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
       __pyx_t_9 = __Pyx_PyObject_Append(__pyx_v_average_quantity_sold, __pyx_t_4); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 188; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":189
+      /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":189
  *             total_stockout.append(j['stockout_percentage'])
  *             average_quantity_sold.append(j['average_quantity_sold'])
  *             total_shortage_units.append(j['total_shortage_units'])             # <<<<<<<<<<<<<<
@@ -3848,7 +3848,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
       __pyx_t_9 = __Pyx_PyObject_Append(__pyx_v_total_shortage_units, __pyx_t_4); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 189; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":190
+      /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":190
  *             average_quantity_sold.append(j['average_quantity_sold'])
  *             total_shortage_units.append(j['total_shortage_units'])
  *             min_closing_stock.append(j['minimum_closing_stock'])             # <<<<<<<<<<<<<<
@@ -3860,7 +3860,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
       __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_min_closing_stock, __pyx_t_4); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 190; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":191
+      /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":191
  *             total_shortage_units.append(j['total_shortage_units'])
  *             min_closing_stock.append(j['minimum_closing_stock'])
  *             max_closing_stock.append(j['maximum_closing_stock'])             # <<<<<<<<<<<<<<
@@ -3872,7 +3872,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
       __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_max_closing_stock, __pyx_t_4); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 191; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":192
+      /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":192
  *             min_closing_stock.append(j['minimum_closing_stock'])
  *             max_closing_stock.append(j['maximum_closing_stock'])
  *             variance_closing_stock.append(j['variance_closing_stock'])             # <<<<<<<<<<<<<<
@@ -3884,7 +3884,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
       __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_variance_closing_stock, __pyx_t_4); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 192; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":193
+      /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":193
  *             max_closing_stock.append(j['maximum_closing_stock'])
  *             variance_closing_stock.append(j['variance_closing_stock'])
  *             min_opening_stock.append(j['minimum_opening_stock'])             # <<<<<<<<<<<<<<
@@ -3896,7 +3896,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
       __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_min_opening_stock, __pyx_t_4); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 193; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":194
+      /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":194
  *             variance_closing_stock.append(j['variance_closing_stock'])
  *             min_opening_stock.append(j['minimum_opening_stock'])
  *             max_opening_stock.append(j['maximum_opening_stock'])             # <<<<<<<<<<<<<<
@@ -3908,7 +3908,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
       __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_max_opening_stock, __pyx_t_4); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":195
+      /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":195
  *             min_opening_stock.append(j['minimum_opening_stock'])
  *             max_opening_stock.append(j['maximum_opening_stock'])
  *             variance_opening_stock.append(j['variance_opening_stock'])             # <<<<<<<<<<<<<<
@@ -3920,7 +3920,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
       __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_variance_opening_stock, __pyx_t_4); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 195; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":196
+      /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":196
  *             max_opening_stock.append(j['maximum_opening_stock'])
  *             variance_opening_stock.append(j['variance_opening_stock'])
  *             min_backlog.append(j['minimum_backlog'])             # <<<<<<<<<<<<<<
@@ -3932,7 +3932,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
       __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_min_backlog, __pyx_t_4); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":197
+      /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":197
  *             variance_opening_stock.append(j['variance_opening_stock'])
  *             min_backlog.append(j['minimum_backlog'])
  *             max_backlog.append(j['maximum_backlog'])             # <<<<<<<<<<<<<<
@@ -3944,7 +3944,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
       __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_max_backlog, __pyx_t_4); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 197; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":198
+      /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":198
  *             min_backlog.append(j['minimum_backlog'])
  *             max_backlog.append(j['maximum_backlog'])
  *             variance_backlog.append(j['variance_backlog'])             # <<<<<<<<<<<<<<
@@ -3956,7 +3956,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
       __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_variance_backlog, __pyx_t_4); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 198; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":199
+      /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":199
  *             max_backlog.append(j['maximum_backlog'])
  *             variance_backlog.append(j['variance_backlog'])
  *             max_quantity_sold.append(j['maximum_quantity_sold'])             # <<<<<<<<<<<<<<
@@ -3968,7 +3968,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
       __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_max_quantity_sold, __pyx_t_4); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 199; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":200
+      /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":200
  *             variance_backlog.append(j['variance_backlog'])
  *             max_quantity_sold.append(j['maximum_quantity_sold'])
  *             min_quantity_sold.append(j['minimum_quantity_sold'])             # <<<<<<<<<<<<<<
@@ -3980,7 +3980,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
       __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_min_quantity_sold, __pyx_t_4); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 200; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":201
+      /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":201
  *             max_quantity_sold.append(j['maximum_quantity_sold'])
  *             min_quantity_sold.append(j['minimum_quantity_sold'])
  *             variance_quantity_sold.append(j['variance_quantity_sold'])             # <<<<<<<<<<<<<<
@@ -3992,7 +3992,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
       __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_variance_quantity_sold, __pyx_t_4); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 201; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":202
+      /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":202
  *             min_quantity_sold.append(j['minimum_quantity_sold'])
  *             variance_quantity_sold.append(j['variance_quantity_sold'])
  *             average_closing_stock.append(j['average_closing_stock'])             # <<<<<<<<<<<<<<
@@ -4004,7 +4004,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
       __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_average_closing_stock, __pyx_t_4); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 202; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":203
+      /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":203
  *             variance_quantity_sold.append(j['variance_quantity_sold'])
  *             average_closing_stock.append(j['average_closing_stock'])
  *             average_backlog.append(j['average_backlog'])             # <<<<<<<<<<<<<<
@@ -4016,7 +4016,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
       __pyx_t_9 = __Pyx_PyObject_Append(__pyx_v_average_backlog, __pyx_t_4); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 203; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":186
+      /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":186
  * 
  * 
  *         for j in item:             # <<<<<<<<<<<<<<
@@ -4026,7 +4026,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":207
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":207
  * 
  * 
  *         min_cls = min(min_closing_stock)             # <<<<<<<<<<<<<<
@@ -4045,7 +4045,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_v_min_cls = __pyx_t_11;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":208
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":208
  * 
  *         min_cls = min(min_closing_stock)
  *         max_cls = max(max_closing_stock)             # <<<<<<<<<<<<<<
@@ -4064,7 +4064,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_max_cls = __pyx_t_11;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":209
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":209
  *         min_cls = min(min_closing_stock)
  *         max_cls = max(max_closing_stock)
  *         avg_cls = average_items(average_closing_stock, count_runs)             # <<<<<<<<<<<<<<
@@ -4106,7 +4106,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_avg_cls = __pyx_t_13;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":210
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":210
  *         max_cls = max(max_closing_stock)
  *         avg_cls = average_items(average_closing_stock, count_runs)
  *         avg_variance_cls =  average_items(variance_closing_stock, count_runs)             # <<<<<<<<<<<<<<
@@ -4148,7 +4148,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_avg_variance_cls = __pyx_t_13;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":211
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":211
  *         avg_cls = average_items(average_closing_stock, count_runs)
  *         avg_variance_cls =  average_items(variance_closing_stock, count_runs)
  *         std_cls = avg_variance_cls ** 0.5             # <<<<<<<<<<<<<<
@@ -4157,7 +4157,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
  */
     __pyx_v_std_cls = pow(__pyx_v_avg_variance_cls, 0.5);
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":212
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":212
  *         avg_variance_cls =  average_items(variance_closing_stock, count_runs)
  *         std_cls = avg_variance_cls ** 0.5
  *         min_opn = min(min_opening_stock)             # <<<<<<<<<<<<<<
@@ -4176,7 +4176,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_v_min_opn = __pyx_t_11;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":213
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":213
  *         std_cls = avg_variance_cls ** 0.5
  *         min_opn = min(min_opening_stock)
  *         max_opn = max(max_opening_stock)             # <<<<<<<<<<<<<<
@@ -4195,7 +4195,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_max_opn = __pyx_t_11;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":214
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":214
  *         min_opn = min(min_opening_stock)
  *         max_opn = max(max_opening_stock)
  *         avg_variance_opn = average_items(variance_opening_stock, count_runs)             # <<<<<<<<<<<<<<
@@ -4237,7 +4237,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_avg_variance_opn = __pyx_t_13;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":215
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":215
  *         max_opn = max(max_opening_stock)
  *         avg_variance_opn = average_items(variance_opening_stock, count_runs)
  *         std_opn = avg_variance_opn ** 0.5             # <<<<<<<<<<<<<<
@@ -4246,7 +4246,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
  */
     __pyx_v_std_opn = pow(__pyx_v_avg_variance_opn, 0.5);
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":216
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":216
  *         avg_variance_opn = average_items(variance_opening_stock, count_runs)
  *         std_opn = avg_variance_opn ** 0.5
  *         max_qs = max(max_quantity_sold)             # <<<<<<<<<<<<<<
@@ -4265,7 +4265,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_v_max_qs = __pyx_t_13;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":217
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":217
  *         std_opn = avg_variance_opn ** 0.5
  *         max_qs = max(max_quantity_sold)
  *         min_qs = min(min_quantity_sold)             # <<<<<<<<<<<<<<
@@ -4284,7 +4284,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_min_qs = __pyx_t_13;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":218
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":218
  *         max_qs = max(max_quantity_sold)
  *         min_qs = min(min_quantity_sold)
  *         min_bklg = min(min_backlog)             # <<<<<<<<<<<<<<
@@ -4303,7 +4303,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_v_min_bklg = __pyx_t_13;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":219
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":219
  *         min_qs = min(min_quantity_sold)
  *         min_bklg = min(min_backlog)
  *         max_bklg = max(max_backlog)             # <<<<<<<<<<<<<<
@@ -4322,7 +4322,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_max_bklg = __pyx_t_13;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":220
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":220
  *         min_bklg = min(min_backlog)
  *         max_bklg = max(max_backlog)
  *         avg_variance_bklg = average_items(variance_backlog, count_runs)             # <<<<<<<<<<<<<<
@@ -4364,7 +4364,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_avg_variance_bklg = __pyx_t_13;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":221
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":221
  *         max_bklg = max(max_backlog)
  *         avg_variance_bklg = average_items(variance_backlog, count_runs)
  *         std_bklg = avg_variance_bklg ** 0.5             # <<<<<<<<<<<<<<
@@ -4373,7 +4373,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
  */
     __pyx_v_std_bklg = pow(__pyx_v_avg_variance_bklg, 0.5);
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":222
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":222
  *         avg_variance_bklg = average_items(variance_backlog, count_runs)
  *         std_bklg = avg_variance_bklg ** 0.5
  *         avg_bklg = average_items(average_backlog, count_runs)             # <<<<<<<<<<<<<<
@@ -4415,7 +4415,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_avg_bklg = __pyx_t_13;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":223
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":223
  *         std_bklg = avg_variance_bklg ** 0.5
  *         avg_bklg = average_items(average_backlog, count_runs)
  *         avg_variance = average_items(variance_quantity_sold, count_runs)             # <<<<<<<<<<<<<<
@@ -4456,7 +4456,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_XDECREF_SET(__pyx_v_avg_variance, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":224
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":224
  *         avg_bklg = average_items(average_backlog, count_runs)
  *         avg_variance = average_items(variance_quantity_sold, count_runs)
  *         avg_quantity_sold = average_items(average_quantity_sold, count_runs)             # <<<<<<<<<<<<<<
@@ -4498,7 +4498,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_avg_quantity_sold = __pyx_t_13;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":225
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":225
  *         avg_variance = average_items(variance_quantity_sold, count_runs)
  *         avg_quantity_sold = average_items(average_quantity_sold, count_runs)
  *         std_quantity_sold = avg_variance ** 0.5             # <<<<<<<<<<<<<<
@@ -4511,7 +4511,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_std_quantity_sold = __pyx_t_14;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":226
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":226
  *         avg_quantity_sold = average_items(average_quantity_sold, count_runs)
  *         std_quantity_sold = avg_variance ** 0.5
  *         avg_stockout = average_items(total_stockout, count_runs)             # <<<<<<<<<<<<<<
@@ -4553,7 +4553,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_avg_stockout = __pyx_t_14;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":227
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":227
  *         std_quantity_sold = avg_variance ** 0.5
  *         avg_stockout = average_items(total_stockout, count_runs)
  *         average_shortage_units = average_items(total_shortage_units, count_runs)             # <<<<<<<<<<<<<<
@@ -4594,7 +4594,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_XDECREF_SET(__pyx_v_average_shortage_units, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":228
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":228
  *         avg_stockout = average_items(total_stockout, count_runs)
  *         average_shortage_units = average_items(total_shortage_units, count_runs)
  *         summary.append({'sku_id': sku_id,             # <<<<<<<<<<<<<<
@@ -4605,7 +4605,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_GOTREF(__pyx_t_3);
     if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_sku_id, __pyx_v_sku_id) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":229
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":229
  *         average_shortage_units = average_items(total_shortage_units, count_runs)
  *         summary.append({'sku_id': sku_id,
  *                         'minimum_closing_stock': min_cls,             # <<<<<<<<<<<<<<
@@ -4617,7 +4617,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_minimum_closing_stock, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":230
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":230
  *         summary.append({'sku_id': sku_id,
  *                         'minimum_closing_stock': min_cls,
  *                         'maximum_closing_stock': max_cls,             # <<<<<<<<<<<<<<
@@ -4629,7 +4629,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_maximum_closing_stock, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":231
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":231
  *                         'minimum_closing_stock': min_cls,
  *                         'maximum_closing_stock': max_cls,
  *                         'average_closing_stock': "{:.0f}".format(avg_cls),             # <<<<<<<<<<<<<<
@@ -4669,7 +4669,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_average_closing_stock, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":232
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":232
  *                         'maximum_closing_stock': max_cls,
  *                         'average_closing_stock': "{:.0f}".format(avg_cls),
  *                         'standard_deviation_closing_stock': "{:.0f}".format(std_cls),             # <<<<<<<<<<<<<<
@@ -4709,7 +4709,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_standard_deviation_closing_stock, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":233
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":233
  *                         'average_closing_stock': "{:.0f}".format(avg_cls),
  *                         'standard_deviation_closing_stock': "{:.0f}".format(std_cls),
  *                         'service_level': '{:0.2f}'.format((1-avg_stockout)*100),             # <<<<<<<<<<<<<<
@@ -4749,7 +4749,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_service_level, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":234
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":234
  *                         'standard_deviation_closing_stock': "{:.0f}".format(std_cls),
  *                         'service_level': '{:0.2f}'.format((1-avg_stockout)*100),
  *                         'average_quantity_sold': "{:.0f}".format(avg_quantity_sold),             # <<<<<<<<<<<<<<
@@ -4789,7 +4789,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_average_quantity_sold, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":235
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":235
  *                         'service_level': '{:0.2f}'.format((1-avg_stockout)*100),
  *                         'average_quantity_sold': "{:.0f}".format(avg_quantity_sold),
  *                         'maximum_quantity_sold': max_qs,             # <<<<<<<<<<<<<<
@@ -4801,7 +4801,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_maximum_quantity_sold, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":236
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":236
  *                         'average_quantity_sold': "{:.0f}".format(avg_quantity_sold),
  *                         'maximum_quantity_sold': max_qs,
  *                         'minimum_quantity_sold': min_qs,             # <<<<<<<<<<<<<<
@@ -4813,7 +4813,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_minimum_quantity_sold, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":237
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":237
  *                         'maximum_quantity_sold': max_qs,
  *                         'minimum_quantity_sold': min_qs,
  *                         'minimum_backlog': min_bklg,             # <<<<<<<<<<<<<<
@@ -4825,7 +4825,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_minimum_backlog, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":238
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":238
  *                         'minimum_quantity_sold': min_qs,
  *                         'minimum_backlog': min_bklg,
  *                         'maximum_backlog': max_bklg,             # <<<<<<<<<<<<<<
@@ -4837,7 +4837,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_maximum_backlog, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":239
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":239
  *                         'minimum_backlog': min_bklg,
  *                         'maximum_backlog': max_bklg,
  *                         'average_backlog': "{:.0f}".format(avg_bklg),             # <<<<<<<<<<<<<<
@@ -4877,7 +4877,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_average_backlog, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":240
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":240
  *                         'maximum_backlog': max_bklg,
  *                         'average_backlog': "{:.0f}".format(avg_bklg),
  *                         'standard_deviation_backlog': "{:.0f}".format(std_bklg),             # <<<<<<<<<<<<<<
@@ -4917,7 +4917,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_standard_deviation_backlog, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":241
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":241
  *                         'average_backlog': "{:.0f}".format(avg_bklg),
  *                         'standard_deviation_backlog': "{:.0f}".format(std_bklg),
  *                         'minimum_opening_stock': min_opn,             # <<<<<<<<<<<<<<
@@ -4929,7 +4929,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_minimum_opening_stock, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":242
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":242
  *                         'standard_deviation_backlog': "{:.0f}".format(std_bklg),
  *                         'minimum_opening_stock': min_opn,
  *                         'maximum_opening_stock': max_opn,             # <<<<<<<<<<<<<<
@@ -4941,7 +4941,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_maximum_opening_stock, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":243
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":243
  *                         'minimum_opening_stock': min_opn,
  *                         'maximum_opening_stock': max_opn,
  *                         'variance_opening_stock': "{:.0f}".format(std_opn),             # <<<<<<<<<<<<<<
@@ -4981,7 +4981,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_variance_opening_stock, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":244
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":244
  *                         'maximum_opening_stock': max_opn,
  *                         'variance_opening_stock': "{:.0f}".format(std_opn),
  *                         'standard_deviation_quantity_sold':"{:.0f}".format(std_quantity_sold),             # <<<<<<<<<<<<<<
@@ -5021,7 +5021,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_standard_deviation_quantity_sold, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":245
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":245
  *                         'variance_opening_stock': "{:.0f}".format(std_opn),
  *                         'standard_deviation_quantity_sold':"{:.0f}".format(std_quantity_sold),
  *                         'average_shortage_units': "{:.0f}".format(average_shortage_units)})             # <<<<<<<<<<<<<<
@@ -5058,7 +5058,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_average_shortage_units, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":228
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":228
  *         avg_stockout = average_items(total_stockout, count_runs)
  *         average_shortage_units = average_items(total_shortage_units, count_runs)
  *         summary.append({'sku_id': sku_id,             # <<<<<<<<<<<<<<
@@ -5068,7 +5068,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_summary, __pyx_t_3); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":247
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":247
  *                         'average_shortage_units': "{:.0f}".format(average_shortage_units)})
  * 
  *         min_closing_stock.clear()             # <<<<<<<<<<<<<<
@@ -5097,7 +5097,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":248
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":248
  * 
  *         min_closing_stock.clear()
  *         max_closing_stock.clear()             # <<<<<<<<<<<<<<
@@ -5126,7 +5126,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":249
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":249
  *         min_closing_stock.clear()
  *         max_closing_stock.clear()
  *         min_backlog.clear()             # <<<<<<<<<<<<<<
@@ -5155,7 +5155,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":250
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":250
  *         max_closing_stock.clear()
  *         min_backlog.clear()
  *         max_backlog.clear()             # <<<<<<<<<<<<<<
@@ -5184,7 +5184,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":251
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":251
  *         min_backlog.clear()
  *         max_backlog.clear()
  *         average_backlog.clear()             # <<<<<<<<<<<<<<
@@ -5213,7 +5213,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":252
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":252
  *         max_backlog.clear()
  *         average_backlog.clear()
  *         min_opening_stock.clear()             # <<<<<<<<<<<<<<
@@ -5242,7 +5242,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":253
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":253
  *         average_backlog.clear()
  *         min_opening_stock.clear()
  *         max_opening_stock.clear()             # <<<<<<<<<<<<<<
@@ -5271,7 +5271,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":254
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":254
  *         min_opening_stock.clear()
  *         max_opening_stock.clear()
  *         average_opening_stock.clear()             # <<<<<<<<<<<<<<
@@ -5300,7 +5300,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":255
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":255
  *         max_opening_stock.clear()
  *         average_opening_stock.clear()
  *         max_quantity_sold.clear()             # <<<<<<<<<<<<<<
@@ -5329,7 +5329,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":256
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":256
  *         average_opening_stock.clear()
  *         max_quantity_sold.clear()
  *         min_quantity_sold.clear()             # <<<<<<<<<<<<<<
@@ -5358,7 +5358,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":257
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":257
  *         max_quantity_sold.clear()
  *         min_quantity_sold.clear()
  *         variance_quantity_sold.clear()             # <<<<<<<<<<<<<<
@@ -5387,7 +5387,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":258
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":258
  *         min_quantity_sold.clear()
  *         variance_quantity_sold.clear()
  *         total_revenue.clear()             # <<<<<<<<<<<<<<
@@ -5416,7 +5416,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":259
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":259
  *         variance_quantity_sold.clear()
  *         total_revenue.clear()
  *         variance_closing_stock.clear()             # <<<<<<<<<<<<<<
@@ -5445,7 +5445,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":260
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":260
  *         total_revenue.clear()
  *         variance_closing_stock.clear()
  *         variance_opening_stock.clear()             # <<<<<<<<<<<<<<
@@ -5474,7 +5474,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":261
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":261
  *         variance_closing_stock.clear()
  *         variance_opening_stock.clear()
  *         variance_backlog.clear()             # <<<<<<<<<<<<<<
@@ -5503,7 +5503,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":262
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":262
  *         variance_opening_stock.clear()
  *         variance_backlog.clear()
  *         variance_quantity_sold.clear()             # <<<<<<<<<<<<<<
@@ -5532,7 +5532,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":263
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":263
  *         variance_backlog.clear()
  *         variance_quantity_sold.clear()
  *         average_closing_stock.clear()             # <<<<<<<<<<<<<<
@@ -5561,7 +5561,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":264
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":264
  *         variance_quantity_sold.clear()
  *         average_closing_stock.clear()
  *         average_quantity_sold.clear()             # <<<<<<<<<<<<<<
@@ -5590,7 +5590,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":265
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":265
  *         average_closing_stock.clear()
  *         average_quantity_sold.clear()
  *         total_shortage_units.clear()             # <<<<<<<<<<<<<<
@@ -5619,7 +5619,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":266
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":266
  *         average_quantity_sold.clear()
  *         total_shortage_units.clear()
  *         total_stockout.clear()             # <<<<<<<<<<<<<<
@@ -5648,7 +5648,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":269
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":269
  * 
  * 
  *         average_shortage_cost = 0             # <<<<<<<<<<<<<<
@@ -5657,7 +5657,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
  */
     __pyx_v_average_shortage_cost = 0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":270
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":270
  * 
  *         average_shortage_cost = 0
  *         revenue =0             # <<<<<<<<<<<<<<
@@ -5666,7 +5666,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
  */
     __pyx_v_revenue = 0.0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":271
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":271
  *         average_shortage_cost = 0
  *         revenue =0
  *         avg_stockout = 0             # <<<<<<<<<<<<<<
@@ -5675,7 +5675,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
  */
     __pyx_v_avg_stockout = 0.0;
 
-    /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":181
+    /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":181
  *         item_list.append(list(items))
  * 
  *     for item in item_list:             # <<<<<<<<<<<<<<
@@ -5685,7 +5685,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":273
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":273
  *         avg_stockout = 0
  * 
  *     return summary             # <<<<<<<<<<<<<<
@@ -5697,7 +5697,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __pyx_r = __pyx_v_summary;
   goto __pyx_L0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":151
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":151
  *     return summary
  * 
  * def frame(sim_frame):             # <<<<<<<<<<<<<<
@@ -5750,7 +5750,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   return __pyx_r;
 }
 
-/* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":276
+/* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":276
  * 
  * 
  * def optimise_sim(list orders_analysis , list frame_summary, float service_level):             # <<<<<<<<<<<<<<
@@ -5845,7 +5845,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("optimise_sim", 0);
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":279
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":279
  * 
  *     cdef float f
  *     return f             # <<<<<<<<<<<<<<
@@ -5859,7 +5859,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_11simulations_11sim_su
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":276
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":276
  * 
  * 
  * def optimise_sim(list orders_analysis , list frame_summary, float service_level):             # <<<<<<<<<<<<<<
@@ -5903,8 +5903,8 @@ static struct PyModuleDef __pyx_moduledef = {
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_0_2f, __pyx_k_0_2f, sizeof(__pyx_k_0_2f), 0, 0, 1, 0},
   {&__pyx_kp_s_0f, __pyx_k_0f, sizeof(__pyx_k_0f), 0, 0, 1, 0},
+  {&__pyx_kp_s_C_Users_Kevin_Documents_supplych, __pyx_k_C_Users_Kevin_Documents_supplych, sizeof(__pyx_k_C_Users_Kevin_Documents_supplych), 0, 0, 1, 0},
   {&__pyx_n_s_ROUND_FLOOR, __pyx_k_ROUND_FLOOR, sizeof(__pyx_k_ROUND_FLOOR), 0, 0, 1, 1},
-  {&__pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_k_Users_Fasusi_Projects_supplycha, sizeof(__pyx_k_Users_Fasusi_Projects_supplycha), 0, 0, 1, 0},
   {&__pyx_n_s_append, __pyx_k_append, sizeof(__pyx_k_append), 0, 0, 1, 1},
   {&__pyx_n_s_average, __pyx_k_average, sizeof(__pyx_k_average), 0, 0, 1, 1},
   {&__pyx_n_s_average_backlog, __pyx_k_average_backlog, sizeof(__pyx_k_average_backlog), 0, 0, 1, 1},
@@ -6061,7 +6061,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":14
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":14
  *     cdef float percentage
  * 
  *     closing_stock_count = closing_stock.count(0)             # <<<<<<<<<<<<<<
@@ -6072,7 +6072,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":176
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":176
  * 
  * 
  *     sim_frame.sort(key = itemgetter('sku_id'))             # <<<<<<<<<<<<<<
@@ -6083,7 +6083,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":178
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":178
  *     sim_frame.sort(key = itemgetter('sku_id'))
  * 
  *     for key, items in itertools.groupby(sim_frame, itemgetter('sku_id')):             # <<<<<<<<<<<<<<
@@ -6094,7 +6094,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":9
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":9
  * from decimal import getcontext
  * 
  * def closing_stockout_percentage( list closing_stock, int period_length):             # <<<<<<<<<<<<<<
@@ -6104,9 +6104,9 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__4 = PyTuple_Pack(4, __pyx_n_s_closing_stock, __pyx_n_s_period_length, __pyx_n_s_closing_stock_count, __pyx_n_s_percentage); if (unlikely(!__pyx_tuple__4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
-  __pyx_codeobj__5 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__4, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_closing_stockout_percentage, 9, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__5 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__4, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_C_Users_Kevin_Documents_supplych, __pyx_n_s_closing_stockout_percentage, 9, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":18
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":18
  *     return percentage
  * 
  * def average_items(shortage_cost, int period_length):             # <<<<<<<<<<<<<<
@@ -6116,9 +6116,9 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__6 = PyTuple_Pack(3, __pyx_n_s_shortage_cost, __pyx_n_s_period_length, __pyx_n_s_average); if (unlikely(!__pyx_tuple__6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
-  __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__6, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_average_items, 18, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__6, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_C_Users_Kevin_Documents_supplych, __pyx_n_s_average_items, 18, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":24
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":24
  * 
  * 
  * def optimum_std(float mean, list items):             # <<<<<<<<<<<<<<
@@ -6128,9 +6128,9 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__8 = PyTuple_Pack(8, __pyx_n_s_mean, __pyx_n_s_items, __pyx_n_s_diff, __pyx_n_s_variance, __pyx_n_s_std, __pyx_n_s_tmp, __pyx_n_s_variance_analysis, __pyx_n_s_item); if (unlikely(!__pyx_tuple__8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
-  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(2, 0, 8, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_optimum_std, 24, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(2, 0, 8, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_C_Users_Kevin_Documents_supplych, __pyx_n_s_optimum_std, 24, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":40
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":40
  * 
  * 
  * def summarize_monte_carlo(list simulation_frame, int period_length):             # <<<<<<<<<<<<<<
@@ -6140,9 +6140,9 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__10 = PyTuple_Pack(38, __pyx_n_s_simulation_frame, __pyx_n_s_period_length, __pyx_n_s_closing_stock, __pyx_n_s_opening_stock, __pyx_n_s_shortage_units, __pyx_n_s_summary, __pyx_n_s_summarize, __pyx_n_s_quantity_sold, __pyx_n_s_backlog, __pyx_n_s_i, __pyx_n_s_n, __pyx_n_s_x, __pyx_n_s_cls, __pyx_n_s_avg_ops, __pyx_n_s_min_ops, __pyx_n_s_max_ops, __pyx_n_s_avg_backlog, __pyx_n_s_min_backlog, __pyx_n_s_max_backlog, __pyx_n_s_avg_cls, __pyx_n_s_min_cls, __pyx_n_s_max_cls, __pyx_n_s_shc, __pyx_n_s_min_shc, __pyx_n_s_max_shc, __pyx_n_s_rev, __pyx_n_s_min_quantity_sold, __pyx_n_s_max_quantity_sold, __pyx_n_s_var_ops, __pyx_n_s_avg_shc, __pyx_n_s_total_quantity_sold, __pyx_n_s_std_ops, __pyx_n_s_std_backlog, __pyx_n_s_std_cls, __pyx_n_s_std_shc, __pyx_n_s_std_quantity_sold, __pyx_n_s_f, __pyx_n_s_avg_qty_sold); if (unlikely(!__pyx_tuple__10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
-  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(2, 0, 38, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_summarize_monte_carlo, 40, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(2, 0, 38, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_C_Users_Kevin_Documents_supplych, __pyx_n_s_summarize_monte_carlo, 40, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":151
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":151
  *     return summary
  * 
  * def frame(sim_frame):             # <<<<<<<<<<<<<<
@@ -6152,9 +6152,9 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__12 = PyTuple_Pack(51, __pyx_n_s_sim_frame, __pyx_n_s_count_runs, __pyx_n_s_revenue, __pyx_n_s_avg_quantity_sold, __pyx_n_s_summary, __pyx_n_s_item_list, __pyx_n_s_min_closing_stock, __pyx_n_s_max_closing_stock, __pyx_n_s_variance_closing_stock, __pyx_n_s_average_backlog, __pyx_n_s_total_stockout, __pyx_n_s_total_revenue, __pyx_n_s_max_quantity_sold, __pyx_n_s_min_quantity_sold, __pyx_n_s_variance_quantity_sold, __pyx_n_s_min_opening_stock, __pyx_n_s_average_closing_stock, __pyx_n_s_max_opening_stock, __pyx_n_s_variance_opening_stock, __pyx_n_s_min_backlog, __pyx_n_s_max_backlog, __pyx_n_s_variance_backlog, __pyx_n_s_average_opening_stock, __pyx_n_s_total_shortage_units, __pyx_n_s_average_quantity_sold, __pyx_n_s_min_cls, __pyx_n_s_max_cls, __pyx_n_s_min_opn, __pyx_n_s_max_opn, __pyx_n_s_avg_variance_opn, __pyx_n_s_min_bklg, __pyx_n_s_max_bklg, __pyx_n_s_avg_bklg, __pyx_n_s_avg_variance_bklg, __pyx_n_s_std_bklg, __pyx_n_s_avg_variance_cls, __pyx_n_s_std_cls, __pyx_n_s_avg_cls, __pyx_n_s_std_opn, __pyx_n_s_max_qs, __pyx_n_s_min_qs, __pyx_n_s_std_quantity_sold, __pyx_n_s_avg_stockout, __pyx_n_s_key, __pyx_n_s_items, __pyx_n_s_item, __pyx_n_s_sku_id, __pyx_n_s_j, __pyx_n_s_avg_variance, __pyx_n_s_average_shortage_units, __pyx_n_s_average_shortage_cost); if (unlikely(!__pyx_tuple__12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 151; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__12);
   __Pyx_GIVEREF(__pyx_tuple__12);
-  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(1, 0, 51, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_frame, 151, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 151; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(1, 0, 51, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_C_Users_Kevin_Documents_supplych, __pyx_n_s_frame, 151, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 151; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":276
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":276
  * 
  * 
  * def optimise_sim(list orders_analysis , list frame_summary, float service_level):             # <<<<<<<<<<<<<<
@@ -6164,7 +6164,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__14 = PyTuple_Pack(4, __pyx_n_s_orders_analysis, __pyx_n_s_frame_summary, __pyx_n_s_service_level, __pyx_n_s_f); if (unlikely(!__pyx_tuple__14)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__14);
   __Pyx_GIVEREF(__pyx_tuple__14);
-  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(3, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__14, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_optimise_sim, 276, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(3, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__14, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_C_Users_Kevin_Documents_supplych, __pyx_n_s_optimise_sim, 276, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -6277,7 +6277,7 @@ PyMODINIT_FUNC PyInit_sim_summary(void)
   if (__Pyx_patch_abc() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":1
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":1
  * from _decimal import ROUND_FLOOR             # <<<<<<<<<<<<<<
  * from math import isclose
  * from operator import itemgetter
@@ -6296,7 +6296,7 @@ PyMODINIT_FUNC PyInit_sim_summary(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":2
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":2
  * from _decimal import ROUND_FLOOR
  * from math import isclose             # <<<<<<<<<<<<<<
  * from operator import itemgetter
@@ -6316,7 +6316,7 @@ PyMODINIT_FUNC PyInit_sim_summary(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":3
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":3
  * from _decimal import ROUND_FLOOR
  * from math import isclose
  * from operator import itemgetter             # <<<<<<<<<<<<<<
@@ -6337,7 +6337,7 @@ PyMODINIT_FUNC PyInit_sim_summary(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":5
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":5
  * from operator import itemgetter
  * 
  * import itertools             # <<<<<<<<<<<<<<
@@ -6349,7 +6349,7 @@ PyMODINIT_FUNC PyInit_sim_summary(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_itertools, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":7
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":7
  * import itertools
  * 
  * from decimal import getcontext             # <<<<<<<<<<<<<<
@@ -6370,7 +6370,7 @@ PyMODINIT_FUNC PyInit_sim_summary(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":9
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":9
  * from decimal import getcontext
  * 
  * def closing_stockout_percentage( list closing_stock, int period_length):             # <<<<<<<<<<<<<<
@@ -6382,7 +6382,7 @@ PyMODINIT_FUNC PyInit_sim_summary(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_closing_stockout_percentage, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":18
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":18
  *     return percentage
  * 
  * def average_items(shortage_cost, int period_length):             # <<<<<<<<<<<<<<
@@ -6394,7 +6394,7 @@ PyMODINIT_FUNC PyInit_sim_summary(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_average_items, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":24
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":24
  * 
  * 
  * def optimum_std(float mean, list items):             # <<<<<<<<<<<<<<
@@ -6406,7 +6406,7 @@ PyMODINIT_FUNC PyInit_sim_summary(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_optimum_std, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":40
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":40
  * 
  * 
  * def summarize_monte_carlo(list simulation_frame, int period_length):             # <<<<<<<<<<<<<<
@@ -6418,7 +6418,7 @@ PyMODINIT_FUNC PyInit_sim_summary(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_summarize_monte_carlo, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":151
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":151
  *     return summary
  * 
  * def frame(sim_frame):             # <<<<<<<<<<<<<<
@@ -6430,7 +6430,7 @@ PyMODINIT_FUNC PyInit_sim_summary(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_frame, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 151; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":276
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":276
  * 
  * 
  * def optimise_sim(list orders_analysis , list frame_summary, float service_level):             # <<<<<<<<<<<<<<
@@ -6442,7 +6442,7 @@ PyMODINIT_FUNC PyInit_sim_summary(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_optimise_sim, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "supplychainpy/supplychainpy/simulations/sim_summary.pyx":1
+  /* "supplychainpy\supplychainpy\simulations\sim_summary.pyx":1
  * from _decimal import ROUND_FLOOR             # <<<<<<<<<<<<<<
  * from math import isclose
  * from operator import itemgetter
