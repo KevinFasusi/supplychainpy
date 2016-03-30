@@ -7,10 +7,10 @@ extensions =[Extension('supplychainpy.simulations.sim_summary', ['supplychainpy/
 
 
 setup(name='supplychainpy',
-      version='0.0.2',
+      version='0.0.3',
       description='A library for supply chain, operations and manufacturing, analysis, modeling and simulation.',
       url='https://github.com/KevinFasusi/supplychainpy',
-      download_url='https://github.com/KevinFasusi/supplychainpy/tarball/0.0.2',
+      download_url='https://github.com/KevinFasusi/supplychainpy/tarball/0.0.3',
       author='Kevin Fasusi',
       author_email='kevin@supplybi.com',
       license='BSD 3',
