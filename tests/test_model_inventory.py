@@ -1,4 +1,5 @@
 import unittest
+from cmath import isclose
 from unittest import TestCase
 from decimal import Decimal
 from supplychainpy import model_inventory
@@ -112,7 +113,7 @@ class TestBuildModel(TestCase):
             if row['sku'] == 'KR202-209':
                 std = row.get('standard_deviation')
         # assert
-        self.assertEqual(Decimal(std), 976)
+        self.assertTrue(isclose(Decimal(std), 976, abs_tol=2))
 
     def test_file_path_abcxyz_extension(self):
         # arrange, act

@@ -5,6 +5,7 @@ import numpy as np
 from decimal import Decimal
 
 from supplychainpy import model_inventory
+from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
 from supplychainpy.simulations import monte_carlo
 from supplychainpy import simulate
 from supplychainpy.simulations.simulation_frame_summary import MonteCarloFrameSummary
@@ -37,7 +38,11 @@ class TestMonteCarlo(TestCase):
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplychainpy/data.csv'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
-        simulation_windows = simulate.run_monte_carlo(file_path=abs_file_path, z_value=Decimal(1.28), runs=1,
+
+        orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=1.28,
+                                                                          reorder_cost=5000, file_type="csv")
+
+        simulation_windows = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, file_path=abs_file_path, z_value=Decimal(1.28), runs=1,
                                                       reorder_cost=Decimal(4000), file_type="csv")
 
         self.assertEqual(len(simulation_windows), 384)
@@ -46,8 +51,14 @@ class TestMonteCarlo(TestCase):
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplychainpy/data.csv'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
-        simulation_windows = simulate.run_monte_carlo(file_path=abs_file_path, z_value=Decimal(1.28), runs=1,
-                                                      reorder_cost=Decimal(4000), file_type="csv")
+
+        orders_analysis = analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=1.28,
+                                                          reorder_cost=5000, file_type="csv")
+
+        simulation_windows = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, file_path=abs_file_path,
+                                   z_value=Decimal(1.28),
+                                   runs=1,
+                                   reorder_cost=Decimal(4000), file_type="csv", period_length=12)
         collect_sim = []
         for i in simulate.summarize_window(simulation_frame=simulation_windows):
             collect_sim.append(i)

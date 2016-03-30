@@ -4,6 +4,7 @@ from unittest import TestCase
 from decimal import Decimal
 
 from supplychainpy import simulate
+from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
 
 
 class TestSimulate(TestCase):
@@ -12,27 +13,33 @@ class TestSimulate(TestCase):
 
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplychainpy/data.csv'
+
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
 
-        sim = simulate.run_monte_carlo(file_path=abs_file_path, z_value=Decimal(1.28), runs=3,
+        orders_analysis = analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=1.28,
+                                                          reorder_cost=5000, file_type="csv")
+
+        sim = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, file_path=abs_file_path,
+                                       z_value=Decimal(1.28),
+                                       runs=1,
                                        reorder_cost=Decimal(4000), file_type="csv", period_length=12)
         for period in sim:
             if int(period[0].get("backlog")) == 0:
                 self.assertEqual(int(period[0].get("shortage_cost")), 0)
 
-        # if shortage_cost is zero then backlog should be zero
-      # def test_backlog_cost_zero(self):
+                # if shortage_cost is zero then backlog should be zero
+                # def test_backlog_cost_zero(self):
 
-      #     app_dir = os.path.dirname(__file__, )
-      #     rel_path = 'supplychainpy/data.csv'
-      #     abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
+                #     app_dir = os.path.dirname(__file__, )
+                #     rel_path = 'supplychainpy/data.csv'
+                #     abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
 
-      #     sim = simulate.run_monte_carlo(file_path=abs_file_path, z_value=Decimal(1.28), runs=3,
-      #                                    reorder_cost=Decimal(4000), file_type="csv", period_length=12)
-      #     for period in sim:
-      #         print(period)
-      #         if int(period[0].get("shortage_cost")) == 0:
-      #             self.assertEqual(int(period[0].get("backlog")), 0)
+                #     sim = simulate.run_monte_carlo(file_path=abs_file_path, z_value=Decimal(1.28), runs=3,
+                #                                    reorder_cost=Decimal(4000), file_type="csv", period_length=12)
+                #     for period in sim:
+                #         print(period)
+                #         if int(period[0].get("shortage_cost")) == 0:
+                #             self.assertEqual(int(period[0].get("backlog")), 0)
 
     # if shortage_cost greater than zero the back must also be greater than zero
     def test_shortage_cost(self):
@@ -41,7 +48,12 @@ class TestSimulate(TestCase):
         rel_path = 'supplychainpy/data.csv'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
 
-        sim = simulate.run_monte_carlo(file_path=abs_file_path, z_value=Decimal(1.28), runs=3,
+        orders_analysis = analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=1.28,
+                                                          reorder_cost=5000, file_type="csv")
+
+        sim = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, file_path=abs_file_path,
+                                       z_value=Decimal(1.28),
+                                       runs=1,
                                        reorder_cost=Decimal(4000), file_type="csv", period_length=12)
         for period in sim:
             if int(period[0].get("shortage_cost")) > 0:
@@ -54,7 +66,12 @@ class TestSimulate(TestCase):
         rel_path = 'supplychainpy/data.csv'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
 
-        sim = simulate.run_monte_carlo(file_path=abs_file_path, z_value=Decimal(1.28), runs=3,
+        orders_analysis = analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=1.28,
+                                                          reorder_cost=5000, file_type="csv")
+
+        sim = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, file_path=abs_file_path,
+                                       z_value=Decimal(1.28),
+                                       runs=1,
                                        reorder_cost=Decimal(4000), file_type="csv", period_length=12)
         for period in sim:
             if int(period[0].get("closing_stock")) == 0:
@@ -68,7 +85,12 @@ class TestSimulate(TestCase):
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
 
         po_regex = re.compile('[P][O] \d+')
-        sim = simulate.run_monte_carlo(file_path=abs_file_path, z_value=Decimal(1.28), runs=3,
+        orders_analysis = analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=1.28,
+                                                          reorder_cost=5000, file_type="csv")
+
+        sim = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, file_path=abs_file_path,
+                                       z_value=Decimal(1.28),
+                                       runs=1,
                                        reorder_cost=Decimal(4000), file_type="csv", period_length=12)
         for period in sim:
             if int(period[0].get("closing_stock")) == 0 and int(period[0].get("backlog")) > 0:
