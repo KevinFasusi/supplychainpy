@@ -17,10 +17,6 @@ will output the following inventory analysis:
 - demand variability
 - ...
 
-The inventory analysis can be achieved without having to write several excel formulas, use VBA or manual processes that
-do not scale. Using the library and python is scalable, the example analysis is achieved in 10 lines of code
-(**only 3 lines of code** for the analysis and another 7 to get the results into Excel).
-
 ##Quick Install
 
 The easiest way to install supplychainpy is via pip: `pip install supplychainpy`.
@@ -58,10 +54,10 @@ change promptly.
     abc = analyse_orders_abcxyz_from_file(file_path="data.csv", z_value= 1.28, reorder_cost=5000, file_type="csv")
 
 	for index ,sku in enumerate(abc.orders, 1):
-    Range('A'+ str(index)).value = sku.sku_id
-    Range('B' + str(index)).value = float(sku.economic_order_qty)
-    Range('C' + str(index)).value = float(sku.revenue)
-    Range('D' + str(index)).value = sku.abcxyz_classification
+        Range('A'+ str(index)).value = sku.sku_id
+        Range('B' + str(index)).value = float(sku.economic_order_qty)
+        Range('C' + str(index)).value = float(sku.revenue)
+        Range('D' + str(index)).value = sku.abcxyz_classification
 
 ```
 
@@ -72,7 +68,7 @@ or get the whole analysis using:
     abc = analyse_orders_abcxyz_from_file(file_path="data.csv", z_value=Decimal(1.28),
                                      reorder_cost=Decimal(5000), file_type="csv")
 	for sku in abc.orders:
-	print(sku.orders_summary())
+	    print(sku.orders_summary())
 ```
 
 Further examples and explanations will be available in the documentation. Please find below.
