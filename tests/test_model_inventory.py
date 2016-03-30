@@ -122,14 +122,15 @@ class TestBuildModel(TestCase):
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
         # assert
         with self.assertRaises(expected_exception=Exception):
-            abc = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=1.28,
-                                                                  reorder_cost=5000, file_type="csv")
+            abc = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
+                                                                  reorder_cost=Decimal(5000), file_type="csv")
 
     def test_file_path_abcxyz(self):
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplychainpy/data.csv'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
-        abc = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=1.28, reorder_cost=5000,
+        abc = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
+                                                              reorder_cost=Decimal(5000),
                                                               file_type="csv")
         for sku in abc.orders:
             item = sku.orders_summary()

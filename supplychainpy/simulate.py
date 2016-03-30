@@ -1,10 +1,10 @@
 from multiprocessing.pool import ThreadPool
 from decimal import Decimal
-from supplychainpy import model_inventory
 from supplychainpy.simulations import monte_carlo
 from supplychainpy.simulations.sim_summary import summarize_monte_carlo, frame
 
-#def run_monte_carlo_mt(file_path: str, z_value: Decimal, runs: int, reorder_cost: Decimal,
+
+# def run_monte_carlo_mt(file_path: str, z_value: Decimal, runs: int, reorder_cost: Decimal,
 #                       file_type: str, period_length: int = 12) -> list:
 #    pool = ThreadPool(processes=4, )
 #    async_results = pool.apply_async(run_monte_carlo,
@@ -15,7 +15,7 @@ from supplychainpy.simulations.sim_summary import summarize_monte_carlo, frame
 #    return return_val
 #
 #
-#def run(simulation_frame: list, period_length: int = 12):
+# def run(simulation_frame: list, period_length: int = 12):
 #    pool = ThreadPool(processes=4, )
 #    async_results = pool.apply_async(summarize_window, (simulation_frame, period_length,))
 #
@@ -24,8 +24,7 @@ from supplychainpy.simulations.sim_summary import summarize_monte_carlo, frame
 #    return return_val
 
 
-def run_monte_carlo(orders_analysis, file_path: str, z_value: Decimal, runs: int, reorder_cost: Decimal,
-                    file_type: str, period_length: int = 12) -> list:
+def run_monte_carlo(orders_analysis: list, runs: int, period_length: int = 12) -> list:
     """Runs monte carlo simulation.
 
     Generates random distribution for demand over period specified and creates a simulation window for opening_stock,
@@ -33,14 +32,8 @@ def run_monte_carlo(orders_analysis, file_path: str, z_value: Decimal, runs: int
     for inventory movements.
 
     Args:
-        file_path (str):        The path to the file containing two columns of data, 1 period and 1 data-point per sku.
-        reorder_cost (Decimal): The average lead-time for the sku over the period represented by the data,
-                                in the same unit.
+        orders_analysis (list): list of UncertainDemand objects, containing the results of inventory analysis.
         period_length (int):    The number of periods define the simulation window e.g. 12 weeks, months etc.
-        reorder_cost (Decimal): The cost to place a reorder. This is usually the cost of the operation divided
-                                by number.
-        z_value (Decimal):      The service level required to calculate the safety stock
-        file_type (str):        Type of 'file csv' or 'text'
         runs (int):             The number of times to run the simulation.
 
     Returns:
@@ -115,7 +108,6 @@ def run_monte_carlo(orders_analysis, file_path: str, z_value: Decimal, runs: int
                         "revenue": "{:.0f}".format(sim_window.revenue),
                         "quantity_sold": "{:0.0f}".format(sim_window.sold),
                         "shortage_units": "{:.0f}".format(sim_window.shortage_units)}
-            # so = BuildFrame(s=sim_dict)
             Transaction_report.append([sim_dict])
 
     return Transaction_report
@@ -173,7 +165,8 @@ def summarise_frame(window_summary):
     return frame_summary
 
 
-def optimise_service_level(frame_summary: list, orders_analysis: list, service_level: float, runs: int, percentage_increase: float) -> list:
+def optimise_service_level(frame_summary: list, orders_analysis: list, service_level: float, runs: int,
+                           percentage_increase: float) -> list:
     """ Optimises the safety stock for declared service level.
 
     Identifies which skus under performed (experiencing a service level lower than expected) after simulating
@@ -182,10 +175,11 @@ def optimise_service_level(frame_summary: list, orders_analysis: list, service_l
 
 
     Args:
-        frame_summary (list):   window summary for each period multiplied by the number of runs.
-        orders_analysis (list): prior analysis of orders data.
-        service_level (list):   required service level as a percentage.
-        runs (int):             number of runs from previous
+        frame_summary (list):           window summary for each period multiplied by the number of runs.
+        orders_analysis (list):         prior analysis of orders data.
+        service_level (list):           required service level as a percentage.
+        runs (int):                     number of runs from previous
+        percentage_increase (float):    the percentage increase required
 
     Returns:
        list:    Updated orders analysis with new saftey stock values based optimised from the simulation. The initial values
@@ -203,16 +197,14 @@ def optimise_service_level(frame_summary: list, orders_analysis: list, service_l
                     sku.safety_stock = round(float(sku.safety_stock)) * percentage_increase
                     break
 
-    sim = run_monte_carlo(orders_analysis=orders_analysis, file_path="data.csv",
-                          z_value=Decimal(1.28), runs=runs,
-                          reorder_cost=Decimal(4000), file_type="csv", period_length=12)
+    sim = run_monte_carlo(orders_analysis=orders_analysis, runs=runs, period_length=12)
 
     sim_window = summarize_window(simulation_frame=sim, period_length=12)
 
     sim_frame = summarise_frame(sim_window)
 
     # second check if okay then return new orders details
-    #for sku in orders_analysis:
+    # for sku in orders_analysis:
     #    for item in sim_frame:
     #        if sku.sku_id == item['sku_id']:
     #            if float(item['service_level']) <= service_level:

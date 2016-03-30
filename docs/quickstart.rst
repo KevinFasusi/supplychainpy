@@ -19,7 +19,7 @@ Quick Guide
     +------------+------------------------------------+------------------+----------------+
 
     Timings are provided as simple benchmarks and will vary based on system and current load.
-    The computation here are mainly cpu bound, io may be a factor when reading from file (csv txt).
+    The computations here are mainly cpu bound, io may be a factor when reading from file (csv txt).
 
 Overview
 --------

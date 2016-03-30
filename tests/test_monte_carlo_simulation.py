@@ -39,11 +39,12 @@ class TestMonteCarlo(TestCase):
         rel_path = 'supplychainpy/data.csv'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
 
-        orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=1.28,
-                                                                          reorder_cost=5000, file_type="csv")
+        orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path,
+                                                                          z_value=Decimal(1.28),
+                                                                          reorder_cost=Decimal(5000),
+                                                                          file_type="csv")
 
-        simulation_windows = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, file_path=abs_file_path, z_value=Decimal(1.28), runs=1,
-                                                      reorder_cost=Decimal(4000), file_type="csv")
+        simulation_windows = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, runs=1)
 
         self.assertEqual(len(simulation_windows), 384)
 
@@ -52,13 +53,10 @@ class TestMonteCarlo(TestCase):
         rel_path = 'supplychainpy/data.csv'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
 
-        orders_analysis = analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=1.28,
-                                                          reorder_cost=5000, file_type="csv")
+        orders_analysis = analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
+                                                          reorder_cost=Decimal(5000), file_type="csv")
 
-        simulation_windows = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, file_path=abs_file_path,
-                                   z_value=Decimal(1.28),
-                                   runs=1,
-                                   reorder_cost=Decimal(4000), file_type="csv", period_length=12)
+        simulation_windows = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, runs=1, period_length=12)
         collect_sim = []
         for i in simulate.summarize_window(simulation_frame=simulation_windows):
             collect_sim.append(i)
@@ -120,15 +118,12 @@ class TestMonteCarlo(TestCase):
                         #                                                                       z_value=Decimal(1.28),
                         #                                                                       reorder_cost=Decimal(5000),
                         #                                                                       file_type="csv")
-                    #
-                    #     sim = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis.orders, period_length=1)
-                    #
-                    #     for sku in orders_analysis.orders:
-                    #         item = sku.orders_summary()
-                    #         if item['sku'] == 'KR202-209':
-                    #             self.assertLess(
-                    #                 (abs(float(item['standard_deviation']) - float(
-                    #                     np.std(sim.normal_random_distribution[0]['KR202-209'][0][0],ddof=0)))), Decimal(item['standard_deviation']))
-
-
-
+                        #
+                        #     sim = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis.orders, period_length=1)
+                        #
+                        #     for sku in orders_analysis.orders:
+                        #         item = sku.orders_summary()
+                        #         if item['sku'] == 'KR202-209':
+                        #             self.assertLess(
+                        #                 (abs(float(item['standard_deviation']) - float(
+                        #                     np.std(sim.normal_random_distribution[0]['KR202-209'][0][0],ddof=0)))), Decimal(item['standard_deviation']))
