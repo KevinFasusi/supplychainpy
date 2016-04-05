@@ -167,6 +167,7 @@ def summarise_frame(window_summary):
 
 def optimise_service_level(frame_summary: list, orders_analysis: list, service_level: float, runs: int,
                            percentage_increase: float) -> list:
+
     """ Optimises the safety stock for declared service level.
 
     Identifies which skus under performed (experiencing a service level lower than expected) after simulating
@@ -189,27 +190,32 @@ def optimise_service_level(frame_summary: list, orders_analysis: list, service_l
     # compare service levels, build list of skus below service level, change their safety stock increase by a percentage
     # run the monte carlo, keep doing until all skus' are above the requested service level
     # sim_optimise = optimise_sim(service_level=service_level, frame_summary=frame_summary, orders_analysis=orders_analysis)
+    count_skus = True
+    while count_skus:
+        count_skus = False
+        start = True
+        if start:
+            for sku in orders_analysis:
+                for item in frame_summary:
+                    if sku.sku_id == item['sku_id']:
+                        if float(item['service_level']) <= service_level:
+                            sku.safety_stock = round(Decimal(sku.safety_stock)) * Decimal(percentage_increase)
+                            break
+    count_skus = True
+    while count_skus:
+        count_skus = False
+        sim = run_monte_carlo(orders_analysis=orders_analysis, runs=runs, period_length=12)
 
-    for sku in orders_analysis:
-        for item in frame_summary:
-            if sku.sku_id == item['sku_id']:
-                if float(item['service_level']) <= service_level:
-                    sku.safety_stock = round(float(sku.safety_stock)) * percentage_increase
-                    break
+        sim_window = summarize_window(simulation_frame=sim, period_length=12)
 
-    sim = run_monte_carlo(orders_analysis=orders_analysis, runs=runs, period_length=12)
+        sim_frame = summarise_frame(sim_window)
 
-    sim_window = summarize_window(simulation_frame=sim, period_length=12)
-
-    sim_frame = summarise_frame(sim_window)
-
-    # second check if okay then return new orders details
-    # for sku in orders_analysis:
-    #    for item in sim_frame:
-    #        if sku.sku_id == item['sku_id']:
-    #            if float(item['service_level']) <= service_level:
-    #                print("Sku id: {} safety stock: {:.0f} service level: {}".format(sku.sku_id, sku.safety_stock,
-    #                                                                                 item['service_level']))
-    #            break
+        for sku in orders_analysis:
+            for item in sim_frame:
+                if sku.sku_id == item['sku_id']:
+                    if float(item['service_level']) <= service_level:
+                        count_skus = True
+                        sku.safety_stock = round(Decimal(sku.safety_stock)) * Decimal(percentage_increase)
+                        break
 
     return orders_analysis

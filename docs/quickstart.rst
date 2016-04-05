@@ -26,7 +26,7 @@ Overview
 
 Supplychainpy is a Python library for supply chain analysis, modeling and simulation. Using supplychainpy
 with popular data analysis libraries and tools such as Xlwings or Data Nitro (for Excel spreadsheet applications),
-Pandas, NumPy, Matplotlib, Ipython and Jupyters makes for a powerful supply chain data analysis toolchain.
+Pandas, NumPy, Matplotlib, Ipython and Jupyter makes for a powerful supply chain data analysis toolchain.
 
 While the supplychainpy library can be used in any way you deem fit, the library was created to assist a workflow that
 is reliant on Excel, Excel formulas and VBA. Below we go through the use cases and implementations specific to the
@@ -60,7 +60,7 @@ In the example below supplying a `dict` of "Orders" data-points can generate a s
     >>> print(summary)
 
 
-Currently the lead-time and the yearly_demand must be in the same units (the user must make the correct conversion).
+Currently the `lead_time` and the `yearly_demand` parameters, must be in the same units (the user must make the correct conversion).
 This will be changing soon.
 
 
@@ -306,10 +306,10 @@ xlwings example:
 Monte Carlo simulation
 ----------------------
 
-After analysing the orders the calculated safety stock, using an analytical method may not be adequately calculate
-the service level required. The complexity of the supply chain operation may include randomness the analytical model
+After analysing the orders, the results for safety stock may not adequately calculate
+the service level required. The complexity of the supply chain operation may include randomness an analytical model
 does not capture. The monte carlo simulation is useful when complicated interactions and affects are not adequately
-captured by an analytical model. A simulation is useful for giving a dynamic view of an operations system.
+captured by an analytical model. A simulation is useful for giving a dynamic view of a complex operation.
 The simulation replicates some of the complexity of the system over time.
 
 The code below returns a transaction report covering the number of periods specified, multiplied by the number of runs
@@ -326,7 +326,7 @@ To start we need to analyse the orders again like we did in the inventory analys
     >>>                                        reorder_cost=Decimal(5000), file_type="csv")
 
 
-The orders are then passed to the monte carlo simulation:
+The orders are then passed as a parameter to the monte carlo simulation:
 
 .. code:: python
 
@@ -340,9 +340,9 @@ The orders are then passed to the monte carlo simulation:
     >>> for transaction in sim:
     >>>     print(transaction)
 
-The monte carlo simulation generates normally distributed random demand, based on the historic data analysed in the
-code snippet above. The demand for each sku is then used in each period to model a probable transaction history. The
-below details the transactions for 1 sku over 12 periods for 100 runs (1 run is shown).
+The monte carlo simulation generates normally distributed random demand, based on the historic data.
+The demand for each sku is then used in each period to model a probable transaction history. The
+output below are the transactions for 1 sku over 12 periods for 100 runs (1 run is shown).
 
 .. parsed-literal::
 
@@ -410,8 +410,8 @@ After running the monte carlo simulation, the results can be passed as a paramet
     >>> 	print(r)
 
 The transactions over the 12 periods are summarised for each sku and for every run (100) requested. It is important to note
-that each run will have a different randomly generated demand. Therefore the transaction summary for the same sku, over
-successive runs, will be different. This captures the statistically probable distribution of demand the sku can expect.
+that each run will have a different randomly generated demand. Due to the randomised demand, the transaction summary for the same sku, will differ over
+successive runs. The spread of data captures the statistically probable distribution of demand the sku can expect.
 
 .. parsed-literal::
 
@@ -482,7 +482,7 @@ The analysis completed in:
 	 |  Mac  | 562.0152740478516    |
 	 +-------+----------------------+
 
-An optimisation option exists, if after running the inventory analysis and the monte carlo analysis, the behaviour in
+An optimisation option exists, if after running the monte carlo analysis, the behaviour in
 the transaction summary is not favourable. If most skus are not achieving their desired service level, or have large
 quantities of backlog etc, then you can use:
 

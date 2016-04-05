@@ -279,3 +279,46 @@ def optimise_sim(list orders_analysis , list frame_summary, float service_level)
     return f
 
 
+def optimise_service_level(list frame_summary, list orders_analysis, double service_level, int runs,
+                           double percentage_increase):
+    """ Optimises the safety stock for declared service level.
+
+    Identifies which skus under performed (experiencing a service level lower than expected) after simulating
+    transactions over a specific period. The safety stock for these items are increased and the analysis is monte carlo
+    is run again.
+
+
+    Args:
+        frame_summary (list):           window summary for each period multiplied by the number of runs.
+        orders_analysis (list):         prior analysis of orders data.
+        service_level (double):           required service level as a percentage.
+        runs (int):                     number of runs from previous
+        percentage_increase (double):    the percentage increase required
+
+    Returns:
+       list:    Updated orders analysis with new saftey stock values based optimised from the simulation. The initial values
+                from the analytical model.
+
+    """
+    # compare service levels, build list of skus below service level, change their safety stock increase by a percentage
+    # run the monte carlo, keep doing until all skus' are above the requested service level
+    # sim_optimise = optimise_sim(service_level=service_level, frame_summary=frame_summary, orders_analysis=orders_analysis)
+    cdef bool count_skus = True
+
+    while count_skus:
+        count_skus = False
+        for sku in orders_analysis:
+            for item in frame_summary:
+                if sku.sku_id == item['sku_id']:
+                    if float(item['service_level']) <= service_level:
+                        count_skus = True
+                        sku.safety_stock = round(float(sku.safety_stock)) * percentage_increase
+                        break
+
+#       sim = run_monte_carlo(orders_analysis=orders_analysis, runs=runs, period_length=12)
+
+#       sim_window = summarize_window(simulation_frame=sim, period_length=12)
+
+##       sim_frame = summarise_frame(sim_window)
+
+    return orders_analysis

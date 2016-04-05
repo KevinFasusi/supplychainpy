@@ -16,15 +16,15 @@ def main():
     orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path="data.csv", z_value=Decimal(1.28),
                                                                       reorder_cost=Decimal(5000), file_type="csv")
 
-    sim = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, runs=1, period_length=12)
+    sim = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, runs=10, period_length=12)
 
     sim_window = simulate.summarize_window(simulation_frame=sim, period_length=12)
 
     sim_frame = simulate.summarise_frame(sim_window)
 
-    optimised = simulate.optimise_service_level(service_level=95.0, frame_summary=sim_frame,
-                                                orders_analysis=orders_analysis.orders, runs=1,
-                                                percentage_increase=1.30)
+    optimised = simulate.optimise_service_level(service_level=90.0, frame_summary=sim_frame,
+                                                orders_analysis=orders_analysis.orders, runs=10,
+                                                percentage_increase=3.0)
     for s in optimised:
         print(s.orders_summary())
 
