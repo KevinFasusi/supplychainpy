@@ -303,7 +303,8 @@ def optimise_service_level(list frame_summary, list orders_analysis, double serv
     # compare service levels, build list of skus below service level, change their safety stock increase by a percentage
     # run the monte carlo, keep doing until all skus' are above the requested service level
     # sim_optimise = optimise_sim(service_level=service_level, frame_summary=frame_summary, orders_analysis=orders_analysis)
-    cdef bool count_skus = True
+
+    count_skus = True
 
     while count_skus:
         count_skus = False

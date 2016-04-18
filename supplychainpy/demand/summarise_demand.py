@@ -42,16 +42,15 @@ class AnalyseOrdersSummary:
             else:
                 pass
 
-        classification_matrix = []
-        classification_matrix.append({"AX": ax_count})
-        classification_matrix.append({"AY": ay_count})
-        classification_matrix.append({"AZ": az_count})
-        classification_matrix.append({"BX": bx_count})
-        classification_matrix.append({"BY": by_count})
-        classification_matrix.append({"BZ": bz_count})
-        classification_matrix.append({"CX": cx_count})
-        classification_matrix.append({"CY": cy_count})
-        classification_matrix.append({"CZ": cz_count})
+        classification_matrix = {}
+        classification_matrix.update({"AX": ax_count})
+        classification_matrix.update({"AY": ay_count})
+        classification_matrix.update({"AZ": az_count})
+        classification_matrix.update({"BX": bx_count})
+        classification_matrix.update({"BY": by_count})
+        classification_matrix.update({"BZ": bz_count})
+        classification_matrix.update({"CX": cx_count})
+        classification_matrix.update({"CY": cy_count})
+        classification_matrix.update({"CZ": cz_count})
 
         return classification_matrix
-

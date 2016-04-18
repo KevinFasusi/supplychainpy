@@ -16,7 +16,10 @@ class TestBuildModel(TestCase):
                           'reorder_level': type(0.00)}
 
     def test_model_orders_type(self):
-        summary = model_inventory.analyse_orders(self._yearly_demand, 'RX983-90', 3, 50.99, 400, 1.28)
+        summary = model_inventory.analyse_orders(self._yearly_demand,  sku_id='RX983-90', lead_time= Decimal(3),
+                                                 unit_cost=Decimal(50.99), reorder_cost=Decimal(400),
+                                                 z_value=Decimal(1.28), retail_price=Decimal(600))
+        print(summary)
         self.assertIs(type(summary), type(self._t))
 
     def test_model_orders_length(self):
@@ -104,16 +107,18 @@ class TestBuildModel(TestCase):
     def test_analyse_orders_from_file_row_csv(self):
         # arrange
         app_dir = os.path.dirname(__file__, )
-        rel_path = 'supplychainpy/data.csv'
+        rel_path = 'supplychainpy/data2.csv'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
         # act
         d = model_inventory.analyse_orders_from_file_row(abs_file_path, z_value=Decimal(1.28),
                                                          reorder_cost=Decimal(400), file_type="csv")
+        std =0
         for row in d:
-            if row['sku'] == 'KR202-209':
+            if row['sku'] == 'KR202-210':
                 std = row.get('standard_deviation')
+                break
         # assert
-        self.assertTrue(isclose(Decimal(std), 976, abs_tol=2))
+        self.assertTrue(isclose(Decimal(std), 950, abs_tol=2))
 
     def test_file_path_abcxyz_extension(self):
         # arrange, act
@@ -127,7 +132,7 @@ class TestBuildModel(TestCase):
 
     def test_file_path_abcxyz(self):
         app_dir = os.path.dirname(__file__, )
-        rel_path = 'supplychainpy/data.csv'
+        rel_path = 'supplychainpy/data2.csv'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
         abc = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
                                                               reorder_cost=Decimal(5000),

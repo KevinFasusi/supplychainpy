@@ -1,5 +1,9 @@
 from decimal import Decimal, getcontext, ROUND_HALF_UP
 from supplychainpy.demand import analyse_uncertain_demand
+
+import pyximport
+
+pyximport.install()
 from supplychainpy.demand.eoq import minimum_variable_cost, economic_order_quantity
 
 
@@ -20,8 +24,8 @@ class EconomicOrderQuantity(analyse_uncertain_demand.UncertainDemand):
         return self.__economic_order_quantity
 
     def __init__(self, reorder_quantity: float, holding_cost: float, reorder_cost: float, average_orders: float,
-                 unit_cost: float, total_orders: float):
-        getcontext().prec = 2
+                 unit_cost: float, total_orders: float ):
+        getcontext().prec = 8
         getcontext().rounding = ROUND_HALF_UP
         self.__reorder_quantity = Decimal(reorder_quantity)
         self.__holding_cost = holding_cost

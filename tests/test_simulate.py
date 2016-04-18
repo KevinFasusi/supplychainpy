@@ -12,7 +12,7 @@ class TestSimulate(TestCase):
     def test_shortage_cost_zero(self):
 
         app_dir = os.path.dirname(__file__, )
-        rel_path = 'supplychainpy/data.csv'
+        rel_path = 'supplychainpy/data2.csv'
 
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
 
@@ -43,7 +43,7 @@ class TestSimulate(TestCase):
     def test_shortage_cost(self):
 
         app_dir = os.path.dirname(__file__, )
-        rel_path = 'supplychainpy/data.csv'
+        rel_path = 'supplychainpy/data2.csv'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
 
         orders_analysis = analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
@@ -58,7 +58,7 @@ class TestSimulate(TestCase):
     def test_po_quantity_zero(self):
 
         app_dir = os.path.dirname(__file__, )
-        rel_path = 'supplychainpy/data.csv'
+        rel_path = 'supplychainpy/data2.csv'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
 
         orders_analysis = analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
@@ -73,7 +73,7 @@ class TestSimulate(TestCase):
     def test_po_raised_regex(self):
 
         app_dir = os.path.dirname(__file__, )
-        rel_path = 'supplychainpy/data.csv'
+        rel_path = 'supplychainpy/data2.csv'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
 
         po_regex = re.compile('[P][O] \d+')

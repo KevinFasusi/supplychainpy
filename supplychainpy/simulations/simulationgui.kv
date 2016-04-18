@@ -1,0 +1,32 @@
+#:kivy 1.9.1
+<OrdersParcel>:
+	size: 60,60
+    canvas:
+        Ellipse:
+            pos: self.pos
+            size: self.size
+<StockParcel>:
+	size: 60,60
+    canvas:
+        Color:
+            rgb: .5, .5, .9
+        Ellipse:
+            pos: self.pos
+            size: self.size
+
+<SimulationFramework>:
+	parcel: orders_parcel
+	stock: stock_parcel
+
+    canvas:
+        Rectangle:
+            pos: self.center_x - 0.5, 0
+            size: 1, self.height
+
+    OrdersParcel:
+        id: orders_parcel
+
+
+	StockParcel:
+		id: stock_parcel
+		center: self.parent.center

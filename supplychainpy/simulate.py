@@ -1,6 +1,9 @@
 from multiprocessing.pool import ThreadPool
 from decimal import Decimal
 from supplychainpy.simulations import monte_carlo
+import pyximport
+
+pyximport.install()
 from supplychainpy.simulations.sim_summary import summarize_monte_carlo, frame
 
 

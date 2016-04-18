@@ -1,8 +1,9 @@
-from decimal import Decimal
+from decimal import Decimal, getcontext
 from collections import Iterable
 import collections
 
 from supplychainpy.enum_formats import PeriodFormats
+
 order = collections.namedtuple('order', 'sku sku_orders')
 
 
@@ -16,6 +17,8 @@ def _standard_deviation_orders(orders: dict, average_order: Decimal) -> Decimal:
     deviation /= Decimal(len(variance))
     return Decimal(Decimal(deviation) ** Decimal(0.5))
 
+# TODO-feature convert orders data into correct period
+# TODO-feature convert list of lead-times to average lead-times
 
 class UncertainDemand:
     """ Models inventory profile calculating economic order quantity, variable cost, reorder quantity and
@@ -42,15 +45,18 @@ class UncertainDemand:
     __xyz_classification = ""
     __economic_order_variable_cost = Decimal(0)
     __economic_order_qty = Decimal(0)
+    getcontext().prec = 8
 
     def __init__(self, orders: dict, sku: str, lead_time: Decimal, unit_cost: Decimal, reorder_cost: Decimal,
-                 z_value: Decimal = Decimal(1.28), holding_cost: Decimal = 0.00,
-                 period: str = PeriodFormats.months.name):
+                 z_value: Decimal = Decimal(1.28), holding_cost: Decimal = 0.00, retail_price: Decimal = 0.00,
+                 period: str = PeriodFormats.months.name, quantity_on_hand: int = 0):
 
         self.__orders = orders
         self.__sku_id = sku
         self.__lead_time = Decimal(lead_time)
         self.__unit_cost = Decimal(unit_cost)
+        self.__retail_price = Decimal(retail_price)
+        self.__quantity_on_hand = Decimal(quantity_on_hand)
         self.__z_value = z_value
         self.__count_orders = len(self.__orders)
 
@@ -69,7 +75,24 @@ class UncertainDemand:
         self.__fixed_reorder_quantity = Decimal(self._fixed_order_quantity())
         self.__order = [order(sku, sku_orders) for sku_orders in self.__orders for sku in self.__sku_id]
         self.__period = period
+        self.__excess_qty = self._excess_qty()
+        self.__shortage_qty = self._shortage_qty()
 
+    @property
+    def excess_stock_qty(self):
+        return self.__excess_qty
+
+    @excess_stock_qty.setter
+    def excess_stock_qty(self, excess):
+        self.__excess_qty = excess
+
+    @property
+    def shortage_qty(self):
+        return self.__shortage_qty
+
+    @shortage_qty.setter
+    def shortage_qty(self, shortage):
+        self.__shortage_qty = shortage
 
     @property
     def safety_stock(self):
@@ -88,7 +111,7 @@ class UncertainDemand:
         self.__reorder_level = reorder_level
 
     @property
-    def unit_cost(self)->Decimal:
+    def unit_cost(self) -> Decimal:
         return self.__unit_cost
 
     @unit_cost.setter
@@ -99,7 +122,6 @@ class UncertainDemand:
     def abcxyz_classification(self) -> str:
         """Gets ABCXYZ classification as a concatenated string"""
         return self.__abc_classification + self.__xyz_classification
-
 
     @property
     def abc_classification(self) -> str:
@@ -237,7 +259,7 @@ class UncertainDemand:
             for item in orders:
                 total_order += orders[item]
 
-        return Decimal(total_order * Decimal(self.__unit_cost))
+        return Decimal(total_order * Decimal(self.__retail_price))
 
     def _standard_deviation_orders_row(self) -> Decimal:
         deviation = Decimal(0)
@@ -270,6 +292,18 @@ class UncertainDemand:
             Decimal(self.__average_order) / (
                 Decimal(self.__unit_cost) * Decimal(self.__CONST_HOLDING_COST_FACTOR)))) ** Decimal(0.5)
 
+    def _shortage_qty(self):
+        if self.__quantity_on_hand < self.__safety_stock:
+            return round(abs(self.safety_stock - self.__quantity_on_hand))
+        else:
+            return 0
+
+    def _excess_qty(self):
+        if self.__quantity_on_hand > self.__reorder_level + (self.__reorder_level - self.__safety_stock):
+            return self.__quantity_on_hand - (self.__reorder_level - self.__safety_stock)
+        else:
+            return 0
+
     # make another summary for as a dictionary and allow each value to be retrieved individually
     def orders_summary(self) -> dict:
         return {'sku': self.__sku_id, 'average_order': '{:.0f}'.format(self.__average_order),
@@ -278,10 +312,13 @@ class UncertainDemand:
                 'demand_variability': '{:.3f}'.format(self.__demand_variability),
                 'reorder_level': '{:.0f}'.format(self.__reorder_level),
                 'reorder_quantity': '{:.0f}'.format(self.__fixed_reorder_quantity),
-                'revenue': '{:.2f}'.format(self.__sku_revenue),
+                'revenue': '{}'.format(self.__sku_revenue),
                 'economic_order_quantity': '{:.0f}'.format(self.__economic_order_qty),
                 'economic_order_variable_cost': '{:.2f}'.format(self.__economic_order_variable_cost),
-                'ABC_XYZ_Classification': '{0}{1}'.format(self.__abc_classification, self.__xyz_classification)}
+                'ABC_XYZ_Classification': '{0}{1}'.format(self.__abc_classification, self.__xyz_classification),
+                'excess_quantity':'{}'.format(self.__excess_qty),
+                'shortages': '{}'.format(self.__shortage_qty)}
+
 
     def orders_summary_simple(self) -> dict:
         return {'sku': self.__sku_id, 'average_order': '{:.0f}'.format(self.__average_order),
@@ -291,6 +328,28 @@ class UncertainDemand:
                 'reorder_level': '{:.0f}'.format(self.__reorder_level),
                 'reorder_quantity': '{:.0f}'.format(self.__fixed_reorder_quantity),
                 'revenue': '{:.2f}'.format(self.__sku_revenue)}
+
+    def __repr__(self):
+        representation = "(sku_id: {}, average_order: {:.0f}, standard_deviation: {:.0f}, safety_stock: {:0f}, \n" \
+                         "demand_variability: {:.3f}, reorder_level: {:.0f}, reorder_quantity: {:.0f}, " \
+                         "revenue: {:.2f}, excess_quantity: {}, shortages: {})"
+        return representation.format(self.__sku_id,
+                                     self.__average_order,
+                                     self.__orders_standard_deviation,
+                                     self.__safety_stock,
+                                     self.__demand_variability,
+                                     self.__reorder_level,
+                                     self.__fixed_reorder_quantity,
+                                     self.__sku_revenue,
+                                     self.__excess_qty,
+                                     self.__shortage_qty)
+
+    def __iter__(self):
+        for original_order in self.__orders.get("demand"):
+            yield original_order
+
+    def __len__(self):
+        return len(self.__orders.get("demand"))
 
     def __del__(self):
 

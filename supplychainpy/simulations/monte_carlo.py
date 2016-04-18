@@ -190,7 +190,7 @@ class SetupMonteCarlo:
                 sim_window.closing_stock = closing_stock(opening_stock=sim_window.opening_stock,
                                                          orders=demand,
                                                          deliveries=sim_window.purchase_order_receipt_qty,
-                                                         backlog=sim_window.backlog) + previous_backlog
+                                                         backlog=sim_window.backlog)
 
                 sim_window.holding_cost = holding_cost(sim_window.closing_stock, sku.unit_cost)
 

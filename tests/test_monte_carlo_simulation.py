@@ -17,7 +17,7 @@ class TestMonteCarlo(TestCase):
         """
         # arrange
         app_dir = os.path.dirname(__file__, )
-        rel_path = 'supplychainpy/data.csv'
+        rel_path = 'supplychainpy/data2.csv'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
         # act
         orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path,
@@ -36,7 +36,7 @@ class TestMonteCarlo(TestCase):
 
     def test_run_simulation(self):
         app_dir = os.path.dirname(__file__, )
-        rel_path = 'supplychainpy/data.csv'
+        rel_path = 'supplychainpy/data2.csv'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
 
         orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path,
@@ -50,7 +50,7 @@ class TestMonteCarlo(TestCase):
 
     def test_summarize_simulation(self):
         app_dir = os.path.dirname(__file__, )
-        rel_path = 'supplychainpy/data.csv'
+        rel_path = 'supplychainpy/data2.csv'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
 
         orders_analysis = analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
@@ -66,7 +66,7 @@ class TestMonteCarlo(TestCase):
     def test_build_window(self):
 
         app_dir = os.path.dirname(__file__, )
-        rel_path = 'supplychainpy/data.csv'
+        rel_path = 'supplychainpy/data2.csv'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
 
         orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path,
