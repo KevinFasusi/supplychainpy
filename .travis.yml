@@ -6,9 +6,11 @@ install:
   - pip install numpy
   - pip install coveralls
   - pip install cython
+  - pip install pytest
 
 script:
   - python -m unittest discover tests/
+  - py.test --pyargs /home/travis/build/KevinFasusi/supplychainpy/tests/
   - coverage run --source=/home/travis/build/KevinFasusi/supplychainpy/ -m unittest discover tests/
 
 

@@ -3,7 +3,6 @@ from supplychainpy import data_cleansing
 from supplychainpy.demand import analyse_uncertain_demand, economic_order_quantity
 from supplychainpy.demand import summarise_demand
 from supplychainpy.demand.abc_xyz import AbcXyz
-from supplychainpy.demand.summarise_analysis import summary
 from supplychainpy.enum_formats import FileFormats, PeriodFormats
 import numpy as np
 
@@ -224,74 +223,79 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: Decimal, reorder_co
         Exception:  Unspecified file type, Please specify 'csv' or 'text' for file_type parameter.
 
     """
+    try:
+        analysed_orders_collection = []
+        item_list = {}
 
-    analysed_orders_collection = []
-    item_list = {}
+        if _check_extension(file_path=file_path, file_type=file_type):
+            if file_type == FileFormats.text.name:
+                f = open(file_path, 'r')
+                item_list = (data_cleansing.clean_orders_data_row(f, length))
+            elif file_type == FileFormats.csv.name:
+                f = open(file_path)
+                item_list = data_cleansing.clean_orders_data_row_csv(f, length=length)
+        else:
+            incorrect_file = "Incorrect file type specified. Please specify 'csv' or 'text' for the file_type parameter."
+            raise Exception(incorrect_file)
 
-    if _check_extension(file_path=file_path, file_type=file_type):
-        if file_type == FileFormats.text.name:
-            f = open(file_path, 'r')
-            item_list = (data_cleansing.clean_orders_data_row(f, length))
-        elif file_type == FileFormats.csv.name:
-            f = open(file_path)
-            item_list = data_cleansing.clean_orders_data_row_csv(f, length=length)
-    else:
-        incorrect_file = "Incorrect file type specified. Please specify 'csv' or 'text' for the file_type parameter."
-        raise Exception(incorrect_file)
+        for sku in item_list:
+            orders = {}
 
-    for sku in item_list:
-        orders = {}
+            sku_id, unit_cost, lead_time, retail_price, quantity_on_hand = sku.get("sku id"), sku.get("unit cost"), sku.get(
+                "lead time"), sku.get("retail_price"), sku.get("quantity_on_hand")
 
-        sku_id, unit_cost, lead_time, retail_price, quantity_on_hand = sku.get("sku id"), sku.get("unit cost"), sku.get(
-            "lead time"), sku.get("retail_price"), sku.get("quantity_on_hand")
+            orders['demand'] = sku.get("demand")
+            total_orders = 0
+            if quantity_on_hand == None:
+                quantity_on_hand = 0.0
+            for order in orders['demand']:
+                total_orders += int(order)
 
-        orders['demand'] = sku.get("demand")
-        total_orders = 0
-        for order in orders['demand']:
-            total_orders += int(order)
+            analysed_orders = analyse_uncertain_demand.UncertainDemand(orders=orders,
+                                                                       sku=sku_id,
+                                                                       lead_time=lead_time,
+                                                                       unit_cost=unit_cost,
+                                                                       reorder_cost=Decimal(reorder_cost),
+                                                                       z_value=Decimal(z_value),
+                                                                       retail_price=retail_price,
+                                                                       quantity_on_hand=quantity_on_hand)
 
-        analysed_orders = analyse_uncertain_demand.UncertainDemand(orders=orders,
-                                                                   sku=sku_id,
-                                                                   lead_time=lead_time,
-                                                                   unit_cost=unit_cost,
-                                                                   reorder_cost=Decimal(reorder_cost),
-                                                                   z_value=Decimal(z_value),
-                                                                   retail_price=retail_price,
-                                                                   quantity_on_hand=quantity_on_hand)
+            average_orders = analysed_orders.average_orders
 
-        average_orders = analysed_orders.average_orders
+            reorder_quantity = analysed_orders.fixed_order_quantity
 
-        reorder_quantity = analysed_orders.fixed_order_quantity
+            eoq = economic_order_quantity.EconomicOrderQuantity(total_orders=float(total_orders),
+                                                                reorder_quantity=float(reorder_quantity),
+                                                                holding_cost=float(0.25),
+                                                                reorder_cost=float(reorder_cost),
+                                                                average_orders=average_orders,
+                                                                unit_cost=float(unit_cost))
 
-        eoq = economic_order_quantity.EconomicOrderQuantity(total_orders=float(total_orders),
-                                                            reorder_quantity=float(reorder_quantity),
-                                                            holding_cost=float(0.25),
-                                                            reorder_cost=float(reorder_cost),
-                                                            average_orders=average_orders,
-                                                            unit_cost=float(unit_cost))
+            analysed_orders.economic_order_qty = eoq.economic_order_quantity
+            analysed_orders.economic_order_variable_cost = eoq.minimum_variable_cost
 
-        analysed_orders.economic_order_qty = eoq.economic_order_quantity
-        analysed_orders.economic_order_variable_cost = eoq.minimum_variable_cost
+            analysed_orders_collection.append(analysed_orders)
 
-        analysed_orders_collection.append(analysed_orders)
+            del analysed_orders
+            del eoq
+            del sku
+            # sort from top to bottom calculate the percentage of revenue
+            # probably best to serialise and deserialise the output for the analysed demand classs
 
-        del analysed_orders
-        del eoq
-        del sku
-        # sort from top to bottom calculate the percentage of revenue
-        # probably best to serialise and deserialise the output for the analysed demand classs
-
-    abc = AbcXyz(analysed_orders_collection)
-    abc.percentage_revenue()
-    abc.cumulative_percentage_revenue()
-    abc.abc_classification()
-    abc.xyz_classification()
-    a = summarise_demand.AnalyseOrdersSummary(abc.orders)
-    abc.abcxyz_summary = a.classification_summary()
-
+        abc = AbcXyz(analysed_orders_collection)
+        abc.percentage_revenue()
+        abc.cumulative_percentage_revenue()
+        abc.abc_classification()
+        abc.xyz_classification()
+        a = summarise_demand.AnalyseOrdersSummary(abc.orders)
+        abc.abcxyz_summary = a.classification_summary()
 
 
-    f.close()
+
+        f.close()
+    except:
+        pass
+
     return abc
 
 

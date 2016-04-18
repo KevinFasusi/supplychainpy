@@ -167,7 +167,8 @@ def summarise_frame(window_summary):
     frame_summary = frame(window_summary)
     return frame_summary
 
-
+# TODO-feature optimise based on minimising excess or minimising shortages or service level
+# TODO-optimisation move to cython or c++
 def optimise_service_level(frame_summary: list, orders_analysis: list, service_level: float, runs: int,
                            percentage_increase: float) -> list:
 

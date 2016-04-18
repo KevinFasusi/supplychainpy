@@ -1,6 +1,7 @@
 from decimal import Decimal, getcontext
 from collections import Iterable
 import collections
+from operator import attrgetter
 
 from supplychainpy.enum_formats import PeriodFormats
 
@@ -16,6 +17,7 @@ def _standard_deviation_orders(orders: dict, average_order: Decimal) -> Decimal:
         deviation += Decimal(j) ** Decimal(2)
     deviation /= Decimal(len(variance))
     return Decimal(Decimal(deviation) ** Decimal(0.5))
+
 
 # TODO-feature convert orders data into correct period
 # TODO-feature convert list of lead-times to average lead-times
@@ -49,7 +51,7 @@ class UncertainDemand:
 
     def __init__(self, orders: dict, sku: str, lead_time: Decimal, unit_cost: Decimal, reorder_cost: Decimal,
                  z_value: Decimal = Decimal(1.28), holding_cost: Decimal = 0.00, retail_price: Decimal = 0.00,
-                 period: str = PeriodFormats.months.name, quantity_on_hand: int = 0):
+                 period: str = PeriodFormats.months.name, quantity_on_hand: int = 0.00):
 
         self.__orders = orders
         self.__sku_id = sku
@@ -75,23 +77,23 @@ class UncertainDemand:
         self.__fixed_reorder_quantity = Decimal(self._fixed_order_quantity())
         self.__order = [order(sku, sku_orders) for sku_orders in self.__orders for sku in self.__sku_id]
         self.__period = period
-        self.__excess_qty = self._excess_qty()
+        self.__excess_stock = self._excess_qty()
         self.__shortage_qty = self._shortage_qty()
 
     @property
-    def excess_stock_qty(self):
-        return self.__excess_qty
+    def excess_stock(self):
+        return self.__excess_stock
 
-    @excess_stock_qty.setter
-    def excess_stock_qty(self, excess):
-        self.__excess_qty = excess
+    @excess_stock.setter
+    def excess_stock(self, excess):
+        self.__excess_stock = excess
 
     @property
-    def shortage_qty(self):
+    def shortage(self):
         return self.__shortage_qty
 
-    @shortage_qty.setter
-    def shortage_qty(self, shortage):
+    @shortage.setter
+    def shortage(self, shortage):
         self.__shortage_qty = shortage
 
     @property
@@ -294,7 +296,8 @@ class UncertainDemand:
 
     def _shortage_qty(self):
         if self.__quantity_on_hand < self.__safety_stock:
-            return round(abs(self.safety_stock - self.__quantity_on_hand))
+            return round(
+                abs(((self.__reorder_level - self.__safety_stock) + self.__reorder_level) - self.__quantity_on_hand))
         else:
             return 0
 
@@ -316,9 +319,8 @@ class UncertainDemand:
                 'economic_order_quantity': '{:.0f}'.format(self.__economic_order_qty),
                 'economic_order_variable_cost': '{:.2f}'.format(self.__economic_order_variable_cost),
                 'ABC_XYZ_Classification': '{0}{1}'.format(self.__abc_classification, self.__xyz_classification),
-                'excess_quantity':'{}'.format(self.__excess_qty),
+                'excess_stock': '{}'.format(self.__excess_stock),
                 'shortages': '{}'.format(self.__shortage_qty)}
-
 
     def orders_summary_simple(self) -> dict:
         return {'sku': self.__sku_id, 'average_order': '{:.0f}'.format(self.__average_order),
@@ -332,7 +334,7 @@ class UncertainDemand:
     def __repr__(self):
         representation = "(sku_id: {}, average_order: {:.0f}, standard_deviation: {:.0f}, safety_stock: {:0f}, \n" \
                          "demand_variability: {:.3f}, reorder_level: {:.0f}, reorder_quantity: {:.0f}, " \
-                         "revenue: {:.2f}, excess_quantity: {}, shortages: {})"
+                         "revenue: {:.2f}, excess_stock: {}, shortages: {})"
         return representation.format(self.__sku_id,
                                      self.__average_order,
                                      self.__orders_standard_deviation,
@@ -341,7 +343,7 @@ class UncertainDemand:
                                      self.__reorder_level,
                                      self.__fixed_reorder_quantity,
                                      self.__sku_revenue,
-                                     self.__excess_qty,
+                                     self.__excess_stock,
                                      self.__shortage_qty)
 
     def __iter__(self):

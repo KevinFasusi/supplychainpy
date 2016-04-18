@@ -99,7 +99,7 @@ same analysis in `dict` based example. The example below generates the result fo
 .. parsed-literal::
 
 
-    [{'AX': 0}, {'AY': 14}, {'AZ': 7}, {'BX': 0}, {'BY': 3}, {'BZ': 2}, {'CX': 0}, {'CY': 3}, {'CZ': 3}]
+    {'AX': 0, 'AY': 14, 'AZ': 7, 'BX': 0, 'BY': 3, 'BZ': 2, 'CX': 0, 'CY': 3, 'CZ': 3}
 
 This analysis completed in:
 

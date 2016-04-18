@@ -2,6 +2,9 @@ import unittest
 from cmath import isclose
 from unittest import TestCase
 from decimal import Decimal
+
+import pytest
+
 from supplychainpy import model_inventory
 from supplychainpy.demand import economic_order_quantity
 import os
@@ -130,6 +133,9 @@ class TestBuildModel(TestCase):
             abc = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
                                                                   reorder_cost=Decimal(5000), file_type="csv")
 
+    @pytest.mark.paramrtrie(
+
+    )
     def test_file_path_abcxyz(self):
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplychainpy/data2.csv'
