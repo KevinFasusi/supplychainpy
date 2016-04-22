@@ -21,7 +21,7 @@ class TestBuildModel(TestCase):
     def test_model_orders_type(self):
         summary = model_inventory.analyse_orders(self._yearly_demand,  sku_id='RX983-90', lead_time= Decimal(3),
                                                  unit_cost=Decimal(50.99), reorder_cost=Decimal(400),
-                                                 z_value=Decimal(1.28), retail_price=Decimal(600))
+                                                 z_value=Decimal(1.28), retail_price=Decimal(600), quantity_on_hand=Decimal(390))
         print(summary)
         self.assertIs(type(summary), type(self._t))
 

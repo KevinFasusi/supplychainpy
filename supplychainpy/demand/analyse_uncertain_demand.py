@@ -51,7 +51,7 @@ class UncertainDemand:
 
     def __init__(self, orders: dict, sku: str, lead_time: Decimal, unit_cost: Decimal, reorder_cost: Decimal,
                  z_value: Decimal = Decimal(1.28), holding_cost: Decimal = 0.00, retail_price: Decimal = 0.00,
-                 period: str = PeriodFormats.months.name, quantity_on_hand: int = 0.00):
+                 period: str = PeriodFormats.months.name, quantity_on_hand: Decimal = 0.00):
 
         self.__orders = orders
         self.__sku_id = sku
@@ -251,6 +251,7 @@ class UncertainDemand:
         return Decimal(total_orders / len(orders_list))
 
     def _revenue(self, orders: dict) -> Decimal:
+
         total_order = 0
         for items in orders:
             orders_list = orders[items]
@@ -264,6 +265,7 @@ class UncertainDemand:
         return Decimal(total_order * Decimal(self.__retail_price))
 
     def _standard_deviation_orders_row(self) -> Decimal:
+        getcontext().prec = 12
         deviation = Decimal(0)
         variance = []
         for item in self.__orders:
@@ -303,11 +305,12 @@ class UncertainDemand:
 
     def _excess_qty(self):
         if self.__quantity_on_hand > self.__reorder_level + (self.__reorder_level - self.__safety_stock):
-            return self.__quantity_on_hand - (self.__reorder_level - self.__safety_stock)
+            return round(self.__quantity_on_hand - (self.__reorder_level + (self.__reorder_level - self.__safety_stock)),0)
         else:
             return 0
 
     # make another summary for as a dictionary and allow each value to be retrieved individually
+    # TODO-optimise Dump all summary stats in list and retrieve from list
     def orders_summary(self) -> dict:
         return {'sku': self.__sku_id, 'average_order': '{:.0f}'.format(self.__average_order),
                 'standard_deviation': '{:.0f}'.format(self.__orders_standard_deviation),
@@ -329,7 +332,9 @@ class UncertainDemand:
                 'demand_variability': '{:.3f}'.format(self.__demand_variability),
                 'reorder_level': '{:.0f}'.format(self.__reorder_level),
                 'reorder_quantity': '{:.0f}'.format(self.__fixed_reorder_quantity),
-                'revenue': '{:.2f}'.format(self.__sku_revenue)}
+                'revenue': '{:.2f}'.format(self.__sku_revenue),
+                'excess_stock': '{}'.format(self.__excess_stock),
+                'shortages': '{}'.format(self.__shortage_qty)}
 
     def __repr__(self):
         representation = "(sku_id: {}, average_order: {:.0f}, standard_deviation: {:.0f}, safety_stock: {:0f}, \n" \

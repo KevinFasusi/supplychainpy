@@ -38,7 +38,7 @@ The formula used for calculating the reorder level is:
 
 .. math::
 
-	RL = LT \times D \times Z \times \sigma \times \sqrt{LT}
+	RL = LT \times D + Z \times \sigma \times \sqrt{LT}
 
 where:
 	Z = service level

@@ -12,29 +12,35 @@ class TestAnalyseOrders(TestCase):
     def test_is_average(self):
         # act
 
-        d = analyse_uncertain_demand.UncertainDemand(self._data_set, 'Rx493-90', 4, 554.99, 400.00)
+        d = analyse_uncertain_demand.UncertainDemand(self._data_set, sku='Rx493-90', lead_time=Decimal(4),
+                                                     reorder_cost=Decimal(450), z_value=Decimal(1.28),
+                                                     holding_cost=Decimal(0.25), retail_price=Decimal(4.58), unit_cost=Decimal(55))
         a = Decimal(d.average_orders)
         # assert
         self.assertEqual(a, 50)
 
     def test_order_constraint(self):
         # arrange
-        orders_placed = [2, 2, 2]  # less than five demand are specified
+        orders_placed = {'jan': 25, 'feb': 25, 'mar': 25}  # less than five demand are specified
         # act
         # assert
         with self.assertRaises(TypeError):
-            analyse_uncertain_demand.UncertainDemand(orders_placed, 'Rx493-90', 4)
+            analyse_uncertain_demand.UncertainDemand(orders=orders_placed, sku='Rx493-90', lead_time=Decimal(4),
+                                                     unit_cost=Decimal(40), reorder_cost=Decimal(400),
+                                                     retail_price=Decimal(600))
 
     def test_standard_deviation(self):
         # arrange
         # act
-        d = analyse_uncertain_demand.UncertainDemand(self._data_set, 'Rx493-90', 4, 554.99, 400.00)
+        d = analyse_uncertain_demand.UncertainDemand(self._data_set, sku='Rx493-90', lead_time=Decimal(4),
+                                                     reorder_cost=Decimal(450), z_value=Decimal(1.28),
+                                                     holding_cost=Decimal(0.25), retail_price=Decimal(4.58),
+                                                     unit_cost=Decimal(55))
         a = d.standard_deviation
         # assert
         self.assertEqual(a, 25)
 
 
-# put the tests here. if this is called as main then the tests will run
 
 
 if __name__ == '__main__':

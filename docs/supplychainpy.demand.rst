@@ -44,10 +44,10 @@ supplychainpy.demand.forecast_demand module
     :undoc-members:
     :show-inheritance:
 
-supplychainpy.demand.summarise_analysis module
-----------------------------------------------
+supplychainpy.demand.summarise module
+-------------------------------------
 
-.. automodule:: supplychainpy.demand.summarise_analysis
+.. automodule:: supplychainpy.demand.summarise
     :members:
     :undoc-members:
     :show-inheritance:

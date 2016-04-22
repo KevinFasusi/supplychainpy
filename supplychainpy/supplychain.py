@@ -13,19 +13,26 @@ __author__ = 'kevin'
 def main():
     start_time = time.time()
 
-    orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path="data.csv", z_value=Decimal(1.28),
+    orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
                                                                       reorder_cost=Decimal(5000), file_type="csv",
                                                                       length=12)
-
+    top_ten_excess = []
+    top_ten_shortages = []
+    top_ten_shortages = [item for item in SKU(analysed_orders=orders_analysis.orders).top_sku(attribute="shortage", count=10, reverse=True)]
+    top_ten_excess = [item for item in SKU(analysed_orders=orders_analysis.orders).top_sku(attribute="excess_stock", count=10, reverse=True)]
+    print(top_ten_shortages)
+    print(top_ten_excess)
     for order in SKU(analysed_orders=orders_analysis.orders).top_sku(attribute="shortage", count=10, reverse=False):
         print(order)
 
     sim = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, runs=100, period_length=12)
     sim_window = simulate.summarize_window(simulation_frame=sim, period_length=12)
 
-    sim_frame= simulate.summarise_frame(sim_window)
+    sim_frame = simulate.summarise_frame(sim_window)
     optimised_orders = simulate.optimise_service_level(service_level=95.0, frame_summary=sim_frame,
-                                               orders_analysis=orders_analysis.orders, runs=100, percentage_increase=1.30)
+                                                       orders_analysis=orders_analysis.orders, runs=100,
+                                                       percentage_increase=1.30)
+
 
 if __name__ == '__main__':
     main()

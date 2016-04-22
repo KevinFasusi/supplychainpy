@@ -36,6 +36,14 @@ supplychainpy.simulations.simulation_frame_summary module
     :undoc-members:
     :show-inheritance:
 
+supplychainpy.simulations.simulation_gui module
+-----------------------------------------------
+
+.. automodule:: supplychainpy.simulations.simulation_gui
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 supplychainpy.simulations.simulation_summary module
 ---------------------------------------------------
 

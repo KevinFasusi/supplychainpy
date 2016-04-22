@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>supplychainpy package &mdash; supplychainpy 0.0.2 documentation</title>
+  <title>supplychainpy package &mdash; supplychainpy 0.0.3 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="supplychainpy 0.0.2 documentation" href="index.html"/> 
+    <link rel="top" title="supplychainpy 0.0.3 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.0.2
+                0.0.3
               </div>
             
           
@@ -141,7 +141,7 @@
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.demand.html#module-supplychainpy.demand.economic_order_quantity">supplychainpy.demand.economic_order_quantity module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.demand.html#module-supplychainpy.demand.eoq">supplychainpy.demand.eoq module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.demand.html#module-supplychainpy.demand.forecast_demand">supplychainpy.demand.forecast_demand module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="supplychainpy.demand.html#module-supplychainpy.demand.summarise_analysis">supplychainpy.demand.summarise_analysis module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supplychainpy.demand.html#module-supplychainpy.demand.summarise">supplychainpy.demand.summarise module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.demand.html#module-supplychainpy.demand.summarise_demand">supplychainpy.demand.summarise_demand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.demand.html#module-supplychainpy.demand">Module contents</a></li>
 </ul>
@@ -164,6 +164,7 @@
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.simulations.html#module-supplychainpy.simulations.monte_carlo_frame">supplychainpy.simulations.monte_carlo_frame module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.simulations.html#module-supplychainpy.simulations.sim_summary">supplychainpy.simulations.sim_summary module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.simulations.html#module-supplychainpy.simulations.simulation_frame_summary">supplychainpy.simulations.simulation_frame_summary module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supplychainpy.simulations.html#supplychainpy-simulations-simulation-gui-module">supplychainpy.simulations.simulation_gui module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.simulations.html#module-supplychainpy.simulations.simulation_summary">supplychainpy.simulations.simulation_summary module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.simulations.html#module-supplychainpy.simulations.simulation_window">supplychainpy.simulations.simulation_window module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.simulations.html#module-supplychainpy.simulations">Module contents</a></li>
@@ -184,6 +185,11 @@
 <div class="section" id="module-supplychainpy.data_cleansing">
 <span id="supplychainpy-data-cleansing-module"></span><h2>supplychainpy.data_cleansing module<a class="headerlink" href="#module-supplychainpy.data_cleansing" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
+<dt id="supplychainpy.data_cleansing.check_headers">
+<code class="descclassname">supplychainpy.data_cleansing.</code><code class="descname">check_headers</code><span class="sig-paren">(</span><em>header</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.data_cleansing.check_headers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="supplychainpy.data_cleansing.clean_orders_data_col_csv">
 <code class="descclassname">supplychainpy.data_cleansing.</code><code class="descname">clean_orders_data_col_csv</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.data_cleansing.clean_orders_data_col_csv" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -195,7 +201,7 @@
 
 <dl class="function">
 <dt id="supplychainpy.data_cleansing.clean_orders_data_row">
-<code class="descclassname">supplychainpy.data_cleansing.</code><code class="descname">clean_orders_data_row</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.data_cleansing.clean_orders_data_row" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">supplychainpy.data_cleansing.</code><code class="descname">clean_orders_data_row</code><span class="sig-paren">(</span><em>file</em>, <em>length: int</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.data_cleansing.clean_orders_data_row" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -281,7 +287,7 @@
 <span id="supplychainpy-model-inventory-module"></span><h2>supplychainpy.model_inventory module<a class="headerlink" href="#module-supplychainpy.model_inventory" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="supplychainpy.model_inventory.analyse_orders">
-<code class="descclassname">supplychainpy.model_inventory.</code><code class="descname">analyse_orders</code><span class="sig-paren">(</span><em>data_set: dict</em>, <em>sku_id: str</em>, <em>lead_time: decimal.Decimal</em>, <em>unit_cost: decimal.Decimal</em>, <em>reorder_cost: decimal.Decimal</em>, <em>z_value: decimal.Decimal</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.model_inventory.analyse_orders" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">supplychainpy.model_inventory.</code><code class="descname">analyse_orders</code><span class="sig-paren">(</span><em>data_set: dict</em>, <em>sku_id: str</em>, <em>lead_time: decimal.Decimal</em>, <em>unit_cost: decimal.Decimal</em>, <em>reorder_cost: decimal.Decimal</em>, <em>z_value: decimal.Decimal</em>, <em>retail_price: decimal.Decimal</em>, <em>quantity_on_hand: decimal.Decimal</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.model_inventory.analyse_orders" title="Permalink to this definition">¶</a></dt>
 <dd><p>Analyse orders data for one sku using a dictionary.</p>
 <p>Analyses orders data for a single sku using the values in the data_set dict.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -377,7 +383,7 @@ and ABC_XYZ_Classification. For example:</p>
 
 <dl class="function">
 <dt id="supplychainpy.model_inventory.analyse_orders_from_file_col">
-<code class="descclassname">supplychainpy.model_inventory.</code><code class="descname">analyse_orders_from_file_col</code><span class="sig-paren">(</span><em>file_path</em>, <em>sku_id: str</em>, <em>lead_time: decimal.Decimal</em>, <em>unit_cost: decimal.Decimal</em>, <em>reorder_cost: decimal.Decimal</em>, <em>z_value: decimal.Decimal</em>, <em>file_type: str='text'</em>, <em>period: str='months'</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.model_inventory.analyse_orders_from_file_col" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">supplychainpy.model_inventory.</code><code class="descname">analyse_orders_from_file_col</code><span class="sig-paren">(</span><em>file_path</em>, <em>sku_id: str</em>, <em>lead_time: decimal.Decimal</em>, <em>unit_cost: decimal.Decimal</em>, <em>reorder_cost: decimal.Decimal</em>, <em>z_value: decimal.Decimal</em>, <em>retail_price: decimal.Decimal</em>, <em>file_type: str='text'</em>, <em>period: str='months'</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.model_inventory.analyse_orders_from_file_col" title="Permalink to this definition">¶</a></dt>
 <dd><p>Analyse orders from file arranged in a single column</p>
 <p>Analyses orders data for a single sku, using the values from a file arranged in columns.The data should be arranged
 in two columns, 1 for the period and the other for the corresponding data-point.</p>
@@ -396,6 +402,7 @@ of purchase orders placed in the previous period.</li>
 <li><strong>z_value</strong> (<em>Decimal</em>) &#8211; The service level required to calculate the safety stock</li>
 <li><strong>file_type</strong> (<em>str</em>) &#8211; Type of &#8216;file csv&#8217; or &#8216;text&#8217;</li>
 <li><strong>period</strong> (<em>str</em>) &#8211; The period of time the data points are bucketed into.</li>
+<li><strong>retail_price</strong> (<em>Decimal</em>) &#8211; The price at which the sku is retailed.</li>
 </ul>
 </td>
 </tr>
@@ -475,6 +482,15 @@ and ABC_XYZ_Classification. For example:</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.model_inventory.retrieve_data_from_csv">
+<code class="descclassname">supplychainpy.model_inventory.</code><code class="descname">retrieve_data_from_csv</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.model_inventory.retrieve_data_from_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve data from csv with incorrect column arrangement.</p>
+<p>Retrieves data from csv with incorrect column arrangement, converting into analysis ready format. Columns must
+use similar naming convention and be in a uniform bucket (i.e. weeks, months quarters, days, year). The data cleaning module
+will use regex to identify columns for id, cost, price, quantity etc</p>
 </dd></dl>
 
 <dl class="function">
@@ -718,7 +734,7 @@ Generates a summary for run window, into 1 transaction summary for all the runs.
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.2',
+            VERSION:'0.0.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
