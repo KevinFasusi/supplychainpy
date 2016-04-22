@@ -5,7 +5,7 @@ class SKU:
     def __init__(self, analysed_orders: object):
         self.__analysed_orders = analysed_orders
 
-    def top_sku(self, attribute: str, count: int, reverse:bool =True)->dict:
+    def top_sku(self, attribute: str, count: int, reverse: bool =True)->dict:
 
         try:
             for index, sku in enumerate(sorted(self.__analysed_orders, key=attrgetter(attribute), reverse=reverse)):

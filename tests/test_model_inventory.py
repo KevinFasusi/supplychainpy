@@ -27,11 +27,23 @@ class TestBuildModel(TestCase):
 
     def test_model_orders_length(self):
         with self.assertRaises(expected_exception=ValueError):
-            summary = model_inventory.analyse_orders(self._yearly_demand2, 'RX983-90', 3, 50.99, 400, 1.28)
+            summary = model_inventory.analyse_orders(self._yearly_demand2,
+                                                     sku_id="RX983-90",
+                                                     lead_time=Decimal(3),
+                                                     unit_cost=Decimal(50.99),
+                                                     reorder_cost=Decimal(400),
+                                                     z_value=Decimal(.28),
+                                                     retail_price=Decimal(600))
 
     def test_model_orders_content(self):
-        summary = model_inventory.analyse_orders(self._yearly_demand, 'RX983-90', 3, 50.99, 400, 1.28)
-        self.assertEqual(int(summary.get("average_order")), int(50))
+        summary = model_inventory.analyse_orders(self._yearly_demand,
+                                                 sku_id="RX983-90",
+                                                 lead_time=Decimal(3),
+                                                 unit_cost=Decimal(50.99),
+                                                 reorder_cost=Decimal(400),
+                                                 z_value=Decimal(.28),
+                                                 retail_price=Decimal(600))
+
         self.assertEqual(int(summary.get("standard_deviation")), int(25))
         # finish with all members
 
@@ -133,9 +145,7 @@ class TestBuildModel(TestCase):
             abc = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
                                                                   reorder_cost=Decimal(5000), file_type="csv")
 
-    @pytest.mark.paramrtrie(
 
-    )
     def test_file_path_abcxyz(self):
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplychainpy/data2.csv'

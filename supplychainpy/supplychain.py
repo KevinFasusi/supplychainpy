@@ -17,15 +17,20 @@ def main():
                                                                       reorder_cost=Decimal(5000), file_type="csv",
                                                                       length=12)
 
-    for order in SKU(analysed_orders=orders_analysis.orders).top_sku(attribute="shortage", count=10, reverse=False):
-        print(order)
+    for order in orders_analysis.orders:
+        print(order.orders_summary())
 
-    sim = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, runs=100, period_length=12)
+    sim = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, runs=30, period_length=12)
+
     sim_window = simulate.summarize_window(simulation_frame=sim, period_length=12)
 
     sim_frame= simulate.summarise_frame(sim_window)
-    optimised_orders = simulate.optimise_service_level(service_level=95.0, frame_summary=sim_frame,
-                                               orders_analysis=orders_analysis.orders, runs=100, percentage_increase=1.30)
 
+   # optimised_orders = simulate.optimise_service_level(service_level=95.0, frame_summary=sim_frame,
+    #                                          orders_analysis=orders_analysis.orders, runs=100, percentage_increase=1.30)
+    end = time.time()
+
+    secs = end -start_time
+    print(secs)
 if __name__ == '__main__':
     main()

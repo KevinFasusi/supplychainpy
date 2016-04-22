@@ -112,7 +112,6 @@ def run_monte_carlo(orders_analysis: list, runs: int, period_length: int = 12) -
                         "quantity_sold": "{:0.0f}".format(sim_window.sold),
                         "shortage_units": "{:.0f}".format(sim_window.shortage_units)}
             Transaction_report.append([sim_dict])
-
     return Transaction_report
 
 
