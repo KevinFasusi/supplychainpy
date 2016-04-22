@@ -6,6 +6,7 @@ from supplychainpy.demand.abc_xyz import AbcXyz
 from supplychainpy.enum_formats import FileFormats, PeriodFormats
 import numpy as np
 
+
 # TODO-feature retrieve data from csv based on column heading
 def retrieve_data_from_csv():
     """ Retrieve data from csv with incorrect column arrangement.
@@ -15,6 +16,7 @@ def retrieve_data_from_csv():
     will use regex to identify columns for id, cost, price, quantity etc
     """
     pass
+
 
 # TODO-feature specify length of orders, start position and period (day, week, month, ...)
 # in the analysis function specify service-level expected for safety stock, a default is specified in the class
@@ -49,14 +51,16 @@ def analyse_orders(data_set: dict, sku_id: str, lead_time: Decimal, unit_cost: D
     if len(data_set) > 2:
         d = analyse_uncertain_demand.UncertainDemand(orders=data_set, sku=sku_id, lead_time=lead_time,
                                                      unit_cost=unit_cost, reorder_cost=reorder_cost,
-                                                     z_value=z_value, retail_price=retail_price, quantity_on_hand=quantity_on_hand)
+                                                     z_value=z_value, retail_price=retail_price,
+                                                     quantity_on_hand=quantity_on_hand)
     else:
         raise ValueError("Dictionary too small. Please use a minimum of 3 entries.")
     return d.orders_summary_simple()
 
 
 def analyse_orders_from_file_col(file_path, sku_id: str, lead_time: Decimal, unit_cost: Decimal,
-                                 reorder_cost: Decimal, z_value: Decimal, retail_price:Decimal, file_type: str = FileFormats.text.name,
+                                 reorder_cost: Decimal, z_value: Decimal, retail_price: Decimal,
+                                 file_type: str = FileFormats.text.name,
                                  period: str = PeriodFormats.months.name) -> dict:
     """Analyse orders from file arranged in a single column
 
@@ -109,9 +113,9 @@ def analyse_orders_from_file_col(file_path, sku_id: str, lead_time: Decimal, uni
     return d.orders_summary()
 
 
-def analyse_orders_from_file_row(file_path: str, z_value: Decimal, reorder_cost: Decimal,
+def analyse_orders_from_file_row(file_path: str, z_value: Decimal, reorder_cost: Decimal,retail_price: Decimal,
                                  file_type: str = FileFormats.text.name,
-                                 period: str = "month", length: int = 12) -> list:
+                                 period: str = "month", length: int = 12 ) -> list:
     """Analyse multiple SKUs from a file with data arranged by row.
 
     Analyses orders data for a single sku, using the values from a file arranged in columns.The data should be arranged
@@ -168,15 +172,19 @@ def analyse_orders_from_file_row(file_path: str, z_value: Decimal, reorder_cost:
             sku_id = sku.get("sku id")
             unit_cost = sku.get("unit cost")
             lead_time = sku.get("lead time")
-            retail_price = sku.get("retail_price")
 
+            quantity_on_hand = sku.get("quantity_on_hand")
+
+            if quantity_on_hand == None:
+                quantity_on_hand = 0.0
             orders['demand'] = sku.get("demand")
 
             analysed_orders = analyse_uncertain_demand.UncertainDemand(orders=orders, sku=sku_id,
                                                                        lead_time=lead_time,
                                                                        unit_cost=unit_cost,
                                                                        reorder_cost=reorder_cost, z_value=z_value,
-                                                                       retail_price=retail_price)
+                                                                       retail_price=retail_price,
+                                                                       quantity_on_hand=quantity_on_hand)
 
             analysed_orders_collection.append(analysed_orders)
             analysed_orders_summary.append(analysed_orders.orders_summary())

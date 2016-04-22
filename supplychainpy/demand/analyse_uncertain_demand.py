@@ -51,7 +51,7 @@ class UncertainDemand:
 
     def __init__(self, orders: dict, sku: str, lead_time: Decimal, unit_cost: Decimal, reorder_cost: Decimal,
                  z_value: Decimal = Decimal(1.28), holding_cost: Decimal = 0.00, retail_price: Decimal = 0.00,
-                 period: str = PeriodFormats.months.name, quantity_on_hand: Decimal = 0.00):
+                 period: str = PeriodFormats.months.name, quantity_on_hand: Decimal =0.00):
 
         self.__orders = orders
         self.__sku_id = sku
