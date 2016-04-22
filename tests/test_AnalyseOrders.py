@@ -14,17 +14,18 @@ class TestAnalyseOrders(TestCase):
 
         d = analyse_uncertain_demand.UncertainDemand(self._data_set, sku='Rx493-90', lead_time=Decimal(4),
                                                      reorder_cost=Decimal(450), z_value=Decimal(1.28),
-                                                     holding_cost=Decimal(0.25), retail_price=Decimal(4.58), unit_cost=Decimal(55))
+                                                     holding_cost=Decimal(0.25), retail_price=Decimal(4.58),
+                                                     unit_cost=Decimal(55))
         a = Decimal(d.average_orders)
         # assert
         self.assertEqual(a, 50)
 
     def test_order_constraint(self):
         # arrange
-        orders_placed = {'jan': 25, 'feb': 25, 'mar': 25}  # less than five demand are specified
+        orders_placed = [25, 25,25] # less than five demand are specified
         # act
         # assert
-        with self.assertRaises(TypeError):
+        with self.assertRaises(AttributeError):
             analyse_uncertain_demand.UncertainDemand(orders=orders_placed, sku='Rx493-90', lead_time=Decimal(4),
                                                      unit_cost=Decimal(40), reorder_cost=Decimal(400),
                                                      retail_price=Decimal(600))

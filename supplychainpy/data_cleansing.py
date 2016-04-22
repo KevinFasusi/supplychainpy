@@ -73,7 +73,6 @@ def clean_orders_data_row_csv(file, length: int = 12) -> dict:
         headers = next(read_csv)
         split_line = list(read_csv)
 
-        check_headings = check_headers(header=headers)
         for row in split_line:
             if len(row) < length + 3:
                 formatting_err = "The file formatting is incorrect. The specified column count supplied as a" \
@@ -117,14 +116,3 @@ def clean_orders_data_row_csv(file, length: int = 12) -> dict:
 # refocator length to column count
 # if a user specifies a lower column_count than actually supplied then the oher columns are going to be incorrect.
 # probably best to check heading using regx
-
-
-def check_headers(header):
-    price = re.compile('\w+[pP][rR][iI][cC][eE]?\w+')
-    cost = re.compile('\w+[cC][oO][sS][tT]?\w+')
-
-    for heading in header:
-        if re.search(price, heading):
-            return True
-
-    pass
