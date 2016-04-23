@@ -9,48 +9,33 @@ class AnalyseOrdersSummary:
         self.__abc = abc_xyz
 
     def classification_summary(self):
-        ax_count = 0
-        ay_count = 0
-        az_count = 0
-        bx_count = 0
-        by_count = 0
-        bz_count = 0
-        cx_count = 0
-        cy_count = 0
-        cz_count = 0
+        ax_count = [sku for sku in self.__abc if sku.abcxyz_classification == 'AX']
 
-        for sku in self.__abc:
+        ay_count = [sku for sku in self.__abc if sku.abcxyz_classification == 'AY']
 
-            if sku.abcxyz_classification == "AX":
-                ax_count += 1
-            elif sku.abcxyz_classification == "AY":
-                ay_count += 1
-            elif sku.abcxyz_classification == "AZ":
-                az_count += 1
-            elif sku.abcxyz_classification == "BX":
-                bx_count += 1
-            elif sku.abcxyz_classification == "BY":
-                by_count += 1
-            elif sku.abcxyz_classification == "BZ":
-                bz_count += 1
-            elif sku.abcxyz_classification == "CX":
-                cx_count += 1
-            elif sku.abcxyz_classification == "CY":
-                cy_count += 1
-            elif sku.abcxyz_classification == "CZ":
-                cz_count += 1
-            else:
-                pass
+        az_count = [sku for sku in self.__abc if sku.abcxyz_classification == 'AZ']
+
+        bx_count = [sku for sku in self.__abc if sku.abcxyz_classification == 'BX']
+
+        by_count = [sku for sku in self.__abc if sku.abcxyz_classification == 'BY']
+
+        bz_count = [sku for sku in self.__abc if sku.abcxyz_classification == 'BZ']
+
+        cx_count = [sku for sku in self.__abc if sku.abcxyz_classification == 'CX']
+
+        cy_count = [sku for sku in self.__abc if sku.abcxyz_classification == 'CY']
+
+        cz_count = [sku for sku in self.__abc if sku.abcxyz_classification == 'CZ']
 
         classification_matrix = {}
-        classification_matrix.update({"AX": ax_count})
-        classification_matrix.update({"AY": ay_count})
-        classification_matrix.update({"AZ": az_count})
-        classification_matrix.update({"BX": bx_count})
-        classification_matrix.update({"BY": by_count})
-        classification_matrix.update({"BZ": bz_count})
-        classification_matrix.update({"CX": cx_count})
-        classification_matrix.update({"CY": cy_count})
-        classification_matrix.update({"CZ": cz_count})
+        classification_matrix.update({"AX": ax_count.__len__()})
+        classification_matrix.update({"AY": ay_count.__len__()})
+        classification_matrix.update({"AZ": az_count.__len__()})
+        classification_matrix.update({"BX": bx_count.__len__()})
+        classification_matrix.update({"BY": by_count.__len__()})
+        classification_matrix.update({"BZ": bz_count.__len__()})
+        classification_matrix.update({"CX": cx_count.__len__()})
+        classification_matrix.update({"CY": cy_count.__len__()})
+        classification_matrix.update({"CZ": cz_count.__len__()})
 
         return classification_matrix

@@ -6,7 +6,8 @@ from supplychainpy.demand import economic_order_quantity
 from supplychainpy.demand import summarise_demand
 from supplychainpy.demand.abc_xyz import AbcXyz
 from supplychainpy.enum_formats import FileFormats
-from supplychainpy.enum_formats import  PeriodFormats
+from supplychainpy.enum_formats import PeriodFormats
+
 
 # TODO-feature retrieve data from csv based on column heading
 def retrieve_data_from_csv():
@@ -114,9 +115,9 @@ def analyse_orders_from_file_col(file_path, sku_id: str, lead_time: Decimal, uni
     return d.orders_summary()
 
 
-def analyse_orders_from_file_row(file_path: str, z_value: Decimal, reorder_cost: Decimal,retail_price: Decimal,
+def analyse_orders_from_file_row(file_path: str, z_value: Decimal, reorder_cost: Decimal, retail_price: Decimal,
                                  file_type: str = FileFormats.text.name,
-                                 period: str = "month", length: int = 12 ) -> list:
+                                 period: str = "month", length: int = 12) -> list:
     """Analyse multiple SKUs from a file with data arranged by row.
 
     Analyses orders data for a single sku, using the values from a file arranged in columns.The data should be arranged
@@ -285,21 +286,11 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: Decimal, reorder_co
 
         analysed_orders_collection.append(analysed_orders)
 
-        del analysed_orders
-        del eoq
-        del sku
-        # sort from top to bottom calculate the percentage of revenue
-        # probably best to serialise and deserialise the output for the analysed demand classs
-
     abc = AbcXyz(analysed_orders_collection)
-    abc.percentage_revenue()
-    abc.cumulative_percentage_revenue()
-    abc.abc_classification()
-    abc.xyz_classification()
-    a = summarise_demand.AnalyseOrdersSummary(abc.orders)
-    abc.abcxyz_summary = a.classification_summary()
-    f.close()
-    return abc
+
+
+    return analysed_orders_collection
+
 
 
 # the np method allows a numpy array to be used. This requires the specification of a period and length the data is

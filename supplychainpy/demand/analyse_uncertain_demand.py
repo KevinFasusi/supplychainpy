@@ -337,7 +337,7 @@ class UncertainDemand:
 
     def orders_summary_simple(self) -> dict:
         return self._summary(
-            itertools.chain(self._summary_keywords[:6], self._summary_keywords[9:len(self._summary_keywords)]))
+            itertools.chain(self._summary_keywords[:7], self._summary_keywords[9:len(self._summary_keywords)]))
 
     def __repr__(self):
         representation = "(sku_id: {}, average_order: {:.0f}, standard_deviation: {:.0f}, safety_stock: {:0f}, \n" \
@@ -357,6 +357,9 @@ class UncertainDemand:
     def __iter__(self):
         for original_order in self.__orders.get("demand"):
             yield original_order
+
+    def __getattr__(self, name):
+        pass
 
     def __len__(self):
         return len(self.__orders.get("demand"))

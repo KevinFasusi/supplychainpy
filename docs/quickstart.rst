@@ -192,6 +192,62 @@ Filtering the results based on an attribute:
 
 .. code:: python
 
+    >>> from supplychainpy.demand.summarise import OrdersAnalysis
+    >>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
+    >>> orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
+    >>>                                                                  reorder_cost=Decimal(5000), file_type="csv",
+    >>>                                                                  length=12)
+    >>> for order in SKU(analysed_orders=orders_analysis.orders).top_sku(attribute="shortage", count=10, reverse=False):
+    >>>    print(order)
+
+Available attributes:
+
+- demand_variability
+- economic_order_quantity
+- average_order
+- safety_stock
+- standard_deviation
+- reorder_level
+- reorder_quantity
+- revenue
+- economic_order_quantity
+- economic_order_variable_cost
+- ABC_XYZ_Classification
+- excess_stock
+- shortages
+
+Using a list comprehension on the generator can be useful for creating smaller lists for analysis:
+
+
+
+    >>> from supplychainpy.demand.summarise import OrdersAnalysis
+    >>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
+    >>> orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
+    >>>                                                                  reorder_cost=Decimal(5000), file_type="csv",
+    >>>                                                                  length=12)
+    >>> for order in SKU(analysed_orders=orders_analysis.orders).top_sku(attribute="shortage", count=10, reverse=False):
+    >>>    print(order)
+
+Available attributes:
+
+- demand_variability
+- economic_order_quantity
+- average_order
+- safety_stock
+- standard_deviation
+- reorder_level
+- reorder_quantity
+- revenue
+- economic_order_quantity
+- economic_order_variable_cost
+- ABC_XYZ_Classification
+- excess_stock
+- shortages
+
+Using a list comprehension on the generator can be useful for creating smaller lists for analysis:
+
+
+
     >>> from supplychainpy.demand.summarise import SKU
     >>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
     >>> orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
@@ -219,6 +275,28 @@ Available attributes:
 Using a list comprehension on the generator can be useful for creating smaller lists for analysis:
 
 .. code:: python
+
+    >>> from supplychainpy.demand.summarise import OrdersAnalysis
+    >>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
+    >>> orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
+    >>>                                                                  reorder_cost=Decimal(5000), file_type="csv",
+    >>>                                                                  length=12)
+    >>>
+    >>> top_ten_shortages = [item for item in SKU(analysed_orders=orders_analysis.orders).top_sku(attribute="shortage", count=10, reverse=True)]
+    >>> top_ten_excess = [item for item in SKU(analysed_orders=orders_analysis.orders).top_sku(attribute="excess_stock", count=10, reverse=True)]
+
+Although
+
+    >>> from supplychainpy.demand.summarise import OrdersAnalysis
+    >>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
+    >>> orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
+    >>>                                                                  reorder_cost=Decimal(5000), file_type="csv",
+    >>>                                                                  length=12)
+    >>>
+    >>> top_ten_shortages = [item for item in SKU(analysed_orders=orders_analysis.orders).top_sku(attribute="shortage", count=10, reverse=True)]
+    >>> top_ten_excess = [item for item in SKU(analysed_orders=orders_analysis.orders).top_sku(attribute="excess_stock", count=10, reverse=True)]
+
+Although
 
     >>> from supplychainpy.demand.summarise import SKU
     >>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
