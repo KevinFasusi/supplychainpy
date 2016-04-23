@@ -1,11 +1,10 @@
-from decimal import Decimal, getcontext
+from decimal import Decimal
+from decimal import getcontext
 from collections import Iterable
-import collections
-from operator import attrgetter
+
+import itertools
 
 from supplychainpy.enum_formats import PeriodFormats
-
-order = collections.namedtuple('order', 'sku sku_orders')
 
 
 def _standard_deviation_orders(orders: dict, average_order: Decimal) -> Decimal:
@@ -48,10 +47,13 @@ class UncertainDemand:
     __economic_order_variable_cost = Decimal(0)
     __economic_order_qty = Decimal(0)
     getcontext().prec = 8
+    _summary_keywords = ['sku', 'standard_deviation', 'safety_stock', 'demand_variability', 'reorder_level',
+                         'reorder_quantity', 'revenue', 'economic_order_quantity', 'economic_order_variable_cost',
+                         'ABC_XYZ_Classification', 'excess_stock', 'shortages']
 
     def __init__(self, orders: dict, sku: str, lead_time: Decimal, unit_cost: Decimal, reorder_cost: Decimal,
                  z_value: Decimal = Decimal(1.28), holding_cost: Decimal = 0.00, retail_price: Decimal = 0.00,
-                 period: str = PeriodFormats.months.name, quantity_on_hand: Decimal =0.00):
+                 period: str = PeriodFormats.months.name, quantity_on_hand: Decimal = 0.00):
 
         self.__orders = orders
         self.__sku_id = sku
@@ -75,7 +77,6 @@ class UncertainDemand:
         self.__reorder_level = Decimal(self._reorder_level())
         self.__reorder_cost = Decimal(reorder_cost)
         self.__fixed_reorder_quantity = Decimal(self._fixed_order_quantity())
-        self.__order = [order(sku, sku_orders) for sku_orders in self.__orders for sku in self.__sku_id]
         self.__period = period
         self.__excess_stock = self._excess_qty()
         self.__shortage_qty = self._shortage_qty()
@@ -244,6 +245,7 @@ class UncertainDemand:
 
     def average_order_row(self) -> Decimal:
         total_orders = 0
+        orders_list = []
         for item in self.__orders:
             orders_list = self.__orders[item]
         for item in orders_list:
@@ -251,7 +253,7 @@ class UncertainDemand:
         return Decimal(total_orders / len(orders_list))
 
     def _revenue(self, orders: dict) -> Decimal:
-
+        orders_list = []
         total_order = 0
         for items in orders:
             orders_list = orders[items]
@@ -268,6 +270,7 @@ class UncertainDemand:
         getcontext().prec = 12
         deviation = Decimal(0)
         variance = []
+        orders_list = []
         for item in self.__orders:
             orders_list = self.__orders[item]
         for item in orders_list:
@@ -305,36 +308,36 @@ class UncertainDemand:
 
     def _excess_qty(self):
         if self.__quantity_on_hand > self.__reorder_level + (self.__reorder_level - self.__safety_stock):
-            return round(self.__quantity_on_hand - (self.__reorder_level + (self.__reorder_level - self.__safety_stock)),0)
+            return round(
+                self.__quantity_on_hand - (self.__reorder_level + (self.__reorder_level - self.__safety_stock)), 0)
         else:
             return 0
 
-    # make another summary for as a dictionary and allow each value to be retrieved individually
-    # TODO-optimise Dump all summary stats in list and retrieve from list
+    def _summary(self, keywords: list) -> dict:
+        pre_build = {'sku': self.__sku_id, 'average_order': '{:.0f}'.format(self.__average_order),
+                     'standard_deviation': '{:.0f}'.format(self.__orders_standard_deviation),
+                     'safety_stock': '{:.0f}'.format(self.__safety_stock),
+                     'demand_variability': '{:.3f}'.format(self.__demand_variability),
+                     'reorder_level': '{:.0f}'.format(self.__reorder_level),
+                     'reorder_quantity': '{:.0f}'.format(self.__fixed_reorder_quantity),
+                     'revenue': '{}'.format(self.__sku_revenue),
+                     'economic_order_quantity': '{:.0f}'.format(self.__economic_order_qty),
+                     'economic_order_variable_cost': '{:.2f}'.format(self.__economic_order_variable_cost),
+                     'ABC_XYZ_Classification': '{0}{1}'.format(self.__abc_classification, self.__xyz_classification),
+                     'excess_stock': '{}'.format(self.__excess_stock),
+                     'shortages': '{}'.format(self.__shortage_qty)}
+
+        summary = {}
+        for key in keywords:
+            summary.update({key: pre_build.get(key)})
+        return summary
+
     def orders_summary(self) -> dict:
-        return {'sku': self.__sku_id, 'average_order': '{:.0f}'.format(self.__average_order),
-                'standard_deviation': '{:.0f}'.format(self.__orders_standard_deviation),
-                'safety_stock': '{:.0f}'.format(self.__safety_stock),
-                'demand_variability': '{:.3f}'.format(self.__demand_variability),
-                'reorder_level': '{:.0f}'.format(self.__reorder_level),
-                'reorder_quantity': '{:.0f}'.format(self.__fixed_reorder_quantity),
-                'revenue': '{}'.format(self.__sku_revenue),
-                'economic_order_quantity': '{:.0f}'.format(self.__economic_order_qty),
-                'economic_order_variable_cost': '{:.2f}'.format(self.__economic_order_variable_cost),
-                'ABC_XYZ_Classification': '{0}{1}'.format(self.__abc_classification, self.__xyz_classification),
-                'excess_stock': '{}'.format(self.__excess_stock),
-                'shortages': '{}'.format(self.__shortage_qty)}
+        return self._summary(self._summary_keywords)
 
     def orders_summary_simple(self) -> dict:
-        return {'sku': self.__sku_id, 'average_order': '{:.0f}'.format(self.__average_order),
-                'standard_deviation': '{:.0f}'.format(self.__orders_standard_deviation),
-                'safety_stock': '{:.0f}'.format(self.__safety_stock),
-                'demand_variability': '{:.3f}'.format(self.__demand_variability),
-                'reorder_level': '{:.0f}'.format(self.__reorder_level),
-                'reorder_quantity': '{:.0f}'.format(self.__fixed_reorder_quantity),
-                'revenue': '{:.2f}'.format(self.__sku_revenue),
-                'excess_stock': '{}'.format(self.__excess_stock),
-                'shortages': '{}'.format(self.__shortage_qty)}
+        return self._summary(
+            itertools.chain(self._summary_keywords[:6], self._summary_keywords[9:len(self._summary_keywords)]))
 
     def __repr__(self):
         representation = "(sku_id: {}, average_order: {:.0f}, standard_deviation: {:.0f}, safety_stock: {:0f}, \n" \
@@ -373,5 +376,3 @@ class UncertainDemand:
         self.__reorder_level = None
         self.__reorder_cost = None
         self.__fixed_reorder_quantity = None
-        # class_name = self.__class__.__name__
-        # print(class_name + " destroyed")

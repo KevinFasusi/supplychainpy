@@ -1,10 +1,6 @@
-from _decimal import ROUND_FLOOR
-from math import isclose
 from operator import itemgetter
 
 import itertools
-
-from decimal import getcontext
 
 def closing_stockout_percentage( list closing_stock, int period_length):
 

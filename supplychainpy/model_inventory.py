@@ -1,11 +1,12 @@
 from decimal import Decimal
+
 from supplychainpy import data_cleansing
-from supplychainpy.demand import analyse_uncertain_demand, economic_order_quantity
+from supplychainpy.demand import analyse_uncertain_demand
+from supplychainpy.demand import economic_order_quantity
 from supplychainpy.demand import summarise_demand
 from supplychainpy.demand.abc_xyz import AbcXyz
-from supplychainpy.enum_formats import FileFormats, PeriodFormats
-import numpy as np
-
+from supplychainpy.enum_formats import FileFormats
+from supplychainpy.enum_formats import  PeriodFormats
 
 # TODO-feature retrieve data from csv based on column heading
 def retrieve_data_from_csv():

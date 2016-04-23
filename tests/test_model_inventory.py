@@ -14,11 +14,10 @@ class TestBuildModel(TestCase):
     _yearly_demand = {'jan': 75, 'feb': 75, 'mar': 75, 'apr': 75, 'may': 75, 'jun': 75, 'jul': 25,
                       'aug': 25, 'sep': 25, 'oct': 25, 'nov': 25, 'dec': 25}
     _yearly_demand2 = {'jan': 75}
-    _t = {}
-    _inventory_summary = {'average_order': type(0.00), 'economic_order_quantity': type(0.00),
-                          'reorder_level': type(0.00)}
+
 
     def test_model_orders_type(self):
+        """Test summary format"""
         summary = model_inventory.analyse_orders(self._yearly_demand,
                                                  sku_id='RX983-90',
                                                  lead_time=Decimal(3),
@@ -27,8 +26,8 @@ class TestBuildModel(TestCase):
                                                  z_value=Decimal(1.28),
                                                  retail_price=Decimal(600),
                                                  quantity_on_hand=Decimal(390))
-        print(summary)
-        self.assertIs(type(summary), type(self._t))
+
+        self.assertIsInstance(summary, dict)
 
     def test_model_orders_length(self):
         with self.assertRaises(expected_exception=ValueError):
@@ -186,7 +185,7 @@ class TestBuildModel(TestCase):
                                                                   reorder_cost=Decimal(5000),
                                                                   file_type="csv")
 
-    def test_file_path_abcxyz(self):
+    def test_abcxyz_classification(self):
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplychainpy/data2.csv'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))

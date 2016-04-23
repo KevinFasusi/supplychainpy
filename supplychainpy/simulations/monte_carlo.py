@@ -1,8 +1,8 @@
-import collections
-from _decimal import localcontext, ROUND_FLOOR
-
+from decimal import ROUND_FLOOR
+from decimal import Decimal
+from decimal import getcontext
 import numpy as np
-from decimal import Decimal, getcontext
+
 
 from supplychainpy.demand.abc_xyz import AbcXyz
 from supplychainpy.enum_formats import PeriodFormats

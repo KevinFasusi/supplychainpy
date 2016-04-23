@@ -3,7 +3,9 @@ from kivy.app import App
 from kivy.core.window import Window
 from kivy.uix.widget import Widget
 from kivy.uix.label import Label
-from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty
+from kivy.properties import NumericProperty
+from kivy.properties import ReferenceListProperty
+from kivy.properties import ObjectProperty
 from kivy.vector import Vector
 from kivy.clock import Clock
 from random import randint, random

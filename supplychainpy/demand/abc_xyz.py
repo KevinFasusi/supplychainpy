@@ -5,7 +5,7 @@ from operator import attrgetter
 # TODO-feature Allow user to set the boundaries for classe classification
 class AbcXyz:
     '''Applies abc xyz analysis on a collection of demand passed into the '''
-    __orders = {}
+
     __cumulative_total_revenue = Decimal(0)
     __percentage_revenue = Decimal(0)
     __a_class = "A"
@@ -16,12 +16,12 @@ class AbcXyz:
     __z_class = "Z"
     __abcxyz_summary = []
 
-    def __init__(self, orders_collection):
+    def __init__(self, orders_collection: list):
         self.__orders = orders_collection
         self.__cumulative_total_revenue = self._cumulative_total()
 
     @property
-    def orders(self):
+    def orders(self)->list:
         return self.__orders
 
     @orders.setter
@@ -29,14 +29,14 @@ class AbcXyz:
         self.__orders = orders
 
     @property
-    def abcxyz_summary(self):
+    def abcxyz_summary(self)->list:
         return self.__abcxyz_summary
 
     @abcxyz_summary.setter
     def abcxyz_summary(self, abcxyz):
         self.__abcxyz_summary = abcxyz
 
-    def _cumulative_total(self):
+    def _cumulative_total(self)->Decimal:
         cumulative_total = Decimal(0)
         for sku in self.__orders:
             cumulative_total += Decimal(sku.revenue)

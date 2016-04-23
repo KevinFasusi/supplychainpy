@@ -13,4 +13,4 @@ class TestCleanser(TestCase):
         f = open(abs_file_path)
 
         with self.assertRaises(expected_exception=Exception):
-            data_cleansing.clean_orders_data_row_csv(f, length=10)
+            data_cleansing.clean_orders_data_row_csv(f, length=11)

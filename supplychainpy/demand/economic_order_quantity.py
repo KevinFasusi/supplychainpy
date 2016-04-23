@@ -4,8 +4,8 @@ from supplychainpy.demand import analyse_uncertain_demand
 import pyximport
 
 pyximport.install()
-from supplychainpy.demand.eoq import minimum_variable_cost, economic_order_quantity
-from supplychainpy.demand.analyse_uncertain_demand import UncertainDemand
+from supplychainpy.demand.eoq import minimum_variable_cost
+from supplychainpy.demand.eoq import economic_order_quantity
 
 
 class EconomicOrderQuantity:

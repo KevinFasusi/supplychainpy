@@ -1,5 +1,6 @@
 import numpy as np
-from decimal import Decimal, localcontext
+from decimal import Decimal
+from decimal import localcontext
 
 
 class Forecast:

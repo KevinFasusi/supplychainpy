@@ -1,8 +1,8 @@
 import os
-from cmath import isclose
-from unittest import TestCase
-import numpy as np
 from decimal import Decimal
+from unittest import TestCase
+
+import numpy as np
 
 from supplychainpy import model_inventory
 from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
@@ -25,7 +25,9 @@ class TestMonteCarlo(TestCase):
                                                                           reorder_cost=Decimal(5000),
                                                                           file_type="csv")
 
-        sim = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis.orders, period_length=1)
+        sim = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis.orders,
+                                          period_length=1)
+
         for sku in orders_analysis.orders:
             item = sku.orders_summary()
             if item['sku'] == 'KR202-209':

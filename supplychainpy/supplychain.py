@@ -16,6 +16,9 @@ def main():
     orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
                                                                       reorder_cost=Decimal(5000), file_type="csv",
                                                                       length=12)
+    for order in orders_analysis.orders:
+        print(order.orders_summary_simple())
+
 
     top_ten_shortages = [item for item in
                          SKU(analysed_orders=orders_analysis.orders).top_sku(attribute="shortage", count=10,
@@ -28,8 +31,7 @@ def main():
     for order in SKU(analysed_orders=orders_analysis.orders).top_sku(attribute="shortage", count=10, reverse=False):
         print(order)
 
-    for order in orders_analysis.orders:
-        print(order.orders_summary())
+
 
     sim = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, runs=30, period_length=12)
 
