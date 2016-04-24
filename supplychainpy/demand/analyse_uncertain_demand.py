@@ -50,6 +50,7 @@ class UncertainDemand:
     _summary_keywords = ['sku', 'standard_deviation', 'safety_stock', 'demand_variability', 'reorder_level',
                          'reorder_quantity', 'revenue', 'economic_order_quantity', 'economic_order_variable_cost',
                          'ABC_XYZ_Classification', 'excess_stock', 'shortages']
+    __rank = 0
 
     def __init__(self, orders: dict, sku: str, lead_time: Decimal, unit_cost: Decimal, reorder_cost: Decimal,
                  z_value: Decimal = Decimal(1.28), holding_cost: Decimal = 0.00, retail_price: Decimal = 0.00,
@@ -82,6 +83,26 @@ class UncertainDemand:
         self.__shortage_qty = self._shortage_qty()
 
     @property
+    def excess_stock_cost(self):
+        return self.__excess_stock * self.__unit_cost
+
+    @property
+    def shortage_cost(self):
+        return self.__shortage_qty * self.__unit_cost
+
+    @property
+    def safety_stock_cost(self):
+        return self.__safety_stock * self.__unit_cost
+
+    @property
+    def retail_price(self):
+        return self.__retail_price
+
+    @retail_price.setter
+    def retail_price(self, retail_price):
+        self.__retail_price = retail_price
+
+    @property
     def excess_stock(self):
         return self.__excess_stock
 
@@ -90,11 +111,11 @@ class UncertainDemand:
         self.__excess_stock = excess
 
     @property
-    def shortage(self):
+    def shortages(self):
         return self.__shortage_qty
 
-    @shortage.setter
-    def shortage(self, shortage):
+    @shortages.setter
+    def shortages(self, shortage):
         self.__shortage_qty = shortage
 
     @property
@@ -157,6 +178,10 @@ class UncertainDemand:
     @cumulative_percentage.setter
     def cumulative_percentage(self, percentage_orders):
         self.__cumulative_percentage = percentage_orders
+
+    @property
+    def orders(self):
+        return self.__orders.get("demand")
 
     @property
     def order(self):
@@ -357,9 +382,6 @@ class UncertainDemand:
     def __iter__(self):
         for original_order in self.__orders.get("demand"):
             yield original_order
-
-    def __getattr__(self, name):
-        pass
 
     def __len__(self):
         return len(self.__orders.get("demand"))

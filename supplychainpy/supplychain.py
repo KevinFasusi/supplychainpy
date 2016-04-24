@@ -22,7 +22,16 @@ def main():
     summary = OrdersAnalysis(analysed_orders=orders_analysis)
     abc_raw = summary.abc_xyz_raw
 
-    ax_shortages = summary.abc_xyz_summary(classification=['AY','AZ'])
+    #for analysis in summary.abc_xyz_summary():
+    #    print(analysis)
+
+    #for top_shortages in summary.top_sku(attribute="shortages", count=10, reverse=False):
+    #    print(top_shortages)
+
+    for summarised in summary.describe_sku('KR202-209','KR202-210'):
+        print(summarised)
+    #print("keys {}".format(list(ax_shortages.keys())))
+    #print("values {}".format(list(ax_shortages.values())))
 
     # top_ten_shortages = [item for item in
     #                     SKU(analysed_orders=orders_analysis.orders).top_sku(attribute="shortage", count=10,
@@ -37,9 +46,8 @@ def main():
     #
     #
     #
-    sim = simulate.run_monte_carlo(orders_analysis=orders_analysis, runs=30, period_length=12)
 
-    sim_window = simulate.summarize_window(simulation_frame=sim, period_length=12)
+    #sim_window = simulate.summarize_window(simulation_frame=sim, period_length=12)
     #
     # sim_frame = simulate.summarise_frame(sim_window)
     #

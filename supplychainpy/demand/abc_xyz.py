@@ -26,7 +26,7 @@ class AbcXyz:
         self.__abcxyz_summary = self.classification_summary()
 
     def __repr__(self):
-        representation = "AX: {}, AY: {}, AZ: {} \nBX: {}, BY: {}, BZ: {}\nCX: {}, CY: {}, CZ: {}"
+        representation = "AX: {}, AY: {}, AZ: {} \nBX: {}, BY: {}, BZ: {} \nCX: {}, CY: {}, CZ: {}"
         return representation.format(len(self.__abcxyz_summary.get('AX')),
                                      len(self.__abcxyz_summary.get('AY')),
                                      len(self.__abcxyz_summary.get('AZ')),
