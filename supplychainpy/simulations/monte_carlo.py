@@ -20,7 +20,7 @@ class SetupMonteCarlo:
     _conversion = 1
     _window = {}
 
-    def __init__(self, analysed_orders: AbcXyz, period: str = PeriodFormats.months.name, period_length: int = 12):
+    def __init__(self, analysed_orders: list, period: str = PeriodFormats.months.name, period_length: int = 12):
         self._analysed_orders = analysed_orders
         self._normal_random_distribution = self.generate_normal_random_distribution(period_length=period_length)
 

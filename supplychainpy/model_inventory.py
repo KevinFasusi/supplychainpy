@@ -200,7 +200,7 @@ def analyse_orders_from_file_row(file_path: str, z_value: Decimal, reorder_cost:
 # TODO Remove hard coded holding cost and make it a parameter
 def analyse_orders_abcxyz_from_file(file_path: str, z_value: Decimal, reorder_cost: Decimal,
                                     file_type: str = FileFormats.text.name,
-                                    period: str = "month", length: int = 12) -> AbcXyz:
+                                    period: str = "month", length: int = 12) -> list:
     """Analyse orders data from file and returns ABCXYZ analysis
 
     Analyses orders data for a single sku, using the values from a file arranged in columns.The data should be arranged
@@ -288,9 +288,7 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: Decimal, reorder_co
 
     abc = AbcXyz(analysed_orders_collection)
 
-
     return analysed_orders_collection
-
 
 
 # the np method allows a numpy array to be used. This requires the specification of a period and length the data is

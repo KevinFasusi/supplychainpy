@@ -8,7 +8,7 @@ class TestCleanser(TestCase):
 
     def test_incorrect_row_length(self):
         app_dir = os.path.dirname(__file__, )
-        rel_path = 'supplychainpy/data.csv'
+        rel_path = 'supplychainpy/data2.csv'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
         f = open(abs_file_path)
 

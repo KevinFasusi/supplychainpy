@@ -32,23 +32,14 @@ class TestAnalyseOrders(TestCase):
                                                                           unit_cost=Decimal(55))
 
     def test_orders_type(self):
-        self.assertIsInstance(self._orders_analysis.orders, list)
+        self.assertIsInstance(self._orders_analysis, list)
 
     def test_order_list_type(self):
-        for order in self._orders_analysis.orders:
+        for order in self._orders_analysis:
             self.assertIsInstance(order, UncertainDemand)
 
     def test_safety_stock(self):
-        print(self.
-
-
-
-
-
-
-
-              _uncertain_demand.safety_stock)
-
+        pass
 
 
     def test_is_average(self):

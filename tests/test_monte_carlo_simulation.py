@@ -25,10 +25,10 @@ class TestMonteCarlo(TestCase):
                                                                           reorder_cost=Decimal(5000),
                                                                           file_type="csv")
 
-        sim = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis.orders,
+        sim = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis,
                                           period_length=1)
 
-        for sku in orders_analysis.orders:
+        for sku in orders_analysis:
             item = sku.orders_summary()
             if item['sku'] == 'KR202-209':
                 # assertd
@@ -46,7 +46,7 @@ class TestMonteCarlo(TestCase):
                                                                           reorder_cost=Decimal(5000),
                                                                           file_type="csv")
 
-        simulation_windows = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, runs=1)
+        simulation_windows = simulate.run_monte_carlo(orders_analysis=orders_analysis, runs=1)
 
         self.assertEqual(len(simulation_windows), 384)
 
@@ -58,7 +58,7 @@ class TestMonteCarlo(TestCase):
         orders_analysis = analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
                                                           reorder_cost=Decimal(5000), file_type="csv")
 
-        simulation_windows = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, runs=1, period_length=12)
+        simulation_windows = simulate.run_monte_carlo(orders_analysis=orders_analysis, runs=1, period_length=12)
         collect_sim = []
         for i in simulate.summarize_window(simulation_frame=simulation_windows):
             collect_sim.append(i)
@@ -78,7 +78,7 @@ class TestMonteCarlo(TestCase):
         period_length = 12
         sim_collection = []
         for k in range(0, 1):
-            simulation = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis.orders)
+            simulation = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis)
             random_demand = simulation.generate_normal_random_distribution(period_length=period_length)
             for sim_window in simulation.build_window(random_normal_demand=random_demand, period_length=period_length):
                 sim_dict = {"index": "{:.0f}".format(sim_window.index), "period": "{:.0f}".format(sim_window.position),

@@ -19,7 +19,7 @@ class TestSimulate(TestCase):
         orders_analysis = analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
                                                           reorder_cost=Decimal(5000), file_type="csv")
 
-        sim = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders,
+        sim = simulate.run_monte_carlo(orders_analysis=orders_analysis,
                                        runs=1, period_length=12)
         for period in sim:
             if int(period[0].get("backlog")) == 0:
@@ -49,7 +49,7 @@ class TestSimulate(TestCase):
         orders_analysis = analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
                                                           reorder_cost=Decimal(5000), file_type="csv")
 
-        sim = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, runs=1, period_length=12)
+        sim = simulate.run_monte_carlo(orders_analysis=orders_analysis, runs=1, period_length=12)
         for period in sim:
             if int(period[0].get("shortage_cost")) > 0:
                 self.assertGreater(int(period[0].get("backlog")), 0)
@@ -64,7 +64,7 @@ class TestSimulate(TestCase):
         orders_analysis = analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
                                                           reorder_cost=Decimal(5000), file_type="csv")
 
-        sim = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, runs=1, period_length=12)
+        sim = simulate.run_monte_carlo(orders_analysis=orders_analysis, runs=1, period_length=12)
         for period in sim:
             if int(period[0].get("closing_stock")) == 0:
                 self.assertGreater(int(period[0].get("po_quantity")), 0)
@@ -80,7 +80,7 @@ class TestSimulate(TestCase):
         orders_analysis = analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
                                                           reorder_cost=Decimal(5000), file_type="csv")
 
-        sim = simulate.run_monte_carlo(orders_analysis=orders_analysis.orders, runs=1, period_length=12)
+        sim = simulate.run_monte_carlo(orders_analysis=orders_analysis, runs=1, period_length=12)
         for period in sim:
             if int(period[0].get("closing_stock")) == 0 and int(period[0].get("backlog")) > 0:
                 self.assertRegex(period[0].get("po_raised"), expected_regex=po_regex, msg='True')
