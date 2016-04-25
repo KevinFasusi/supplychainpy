@@ -41,7 +41,6 @@ class TestAnalyseOrders(TestCase):
     def test_safety_stock(self):
         pass
 
-
     def test_is_average(self):
         # act
 

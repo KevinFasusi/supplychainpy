@@ -16,7 +16,7 @@ class OrdersAnalysis:
     def abc_xyz_raw(self):
         return self.__abc_xyz
 
-    def top_sku(self, attribute: str, count: int = 0, reverse: bool = True) -> dict:
+    def sku_ranking_filter(self, attribute: str, count: int = 0, reverse: bool = True) -> dict:
         if count == 0:
             count = len(self.__analysed_orders)
 
@@ -31,7 +31,7 @@ class OrdersAnalysis:
                                   "\nstandard_deviation\nreorder_level\nreorder_quantity\nrevenue\n" \
                                   "economic_order_quantity\neconomic_order_variable_cost\n" \
                                   "ABC_XYZ_Classification'\nexcess_stock\nshortages"
-            print(possible_attributes)
+            raise AttributeError(possible_attributes)
 
         except TypeError as e:
             print("Failed {}".format(e))
@@ -42,8 +42,8 @@ class OrdersAnalysis:
         # return total excess, shortages,
         return abc
 
-    def abc_xyz_summary(self, classification: list = ('AX', 'AY', 'AZ', 'BX', 'BY', 'BZ', 'CX', 'CY', 'CZ'),
-                        category: list = ('excess_stock', 'shortages', 'revenue'), value: str = 'currency') -> dict:
+    def abc_xyz_summary(self, classification: tuple = ('AX', 'AY', 'AZ', 'BX', 'BY', 'BZ', 'CX', 'CY', 'CZ'),
+                        category: tuple = ('excess_stock', 'shortages', 'revenue'), value: str = 'currency') -> dict:
         """Retrieve currency value or units for key metrics by classification"""
 
         # Retrieves a subset of the orders analysis based on the classification (AX, AY, AZ...) held in dict
@@ -92,9 +92,12 @@ class OrdersAnalysis:
 
     def describe_sku(self, *args):
         summary = []
-        for arg in args:
-            summary.append(self._summarise_sku(arg))
-        yield summary
+        try:
+            for arg in args:
+                summary.append(self._summarise_sku(arg))
+            yield summary
+        except TypeError as e:
+            raise TypeError("SKU id {} is not valid, please make sure you supply the correct sku id. {}".format(args, e))
 
     def _summarise_sku(self, sku_id: str):
         selection = UncertainDemand
@@ -116,15 +119,15 @@ class OrdersAnalysis:
                    'excess_units': '{}'.format(selection.excess_stock),
                    'excess_cost': '{}'.format(Decimal(selection.excess_stock_cost)),
                    'shortage_rank': '{}'.format(self._rank(sku_id=sku_id, attribute='shortage_cost')),
-                   'shortage_units': '{}'.format(selection.shortages),
+                   'shortage_units': '{}'.format(round(selection.shortages)),
                    'shortage_cost': '{}'.format(selection.shortage_cost),
-                   'safety_stock_units': '{}'.format(selection.safety_stock),
+                   'safety_stock_units': '{}'.format(round(selection.safety_stock)),
                    'safety_stock_cost': '{}'.format(selection.safety_stock_cost),
                    'safety_stock_rank': '{}'.format(self._rank(sku_id=sku_id, attribute='safety_stock_cost')),
                    'classification': '{}'.format(selection.abcxyz_classification),
-                   'average_orders': '{}'.format(selection.average_orders),
-                   'min_order': '{}'.format(min(map(int,selection.orders))),
-                   'max_order': '{}'.format(max(map(int,selection.orders))),
+                   'average_orders': '{}'.format(round(selection.average_orders)),
+                   'min_order': '{}'.format(min(map(int, selection.orders))),
+                   'max_order': '{}'.format(max(map(int, selection.orders))),
                    'percentage_contribution_revenue': '{}'.format(selection.percentage_revenue)
                    }
         return summary
