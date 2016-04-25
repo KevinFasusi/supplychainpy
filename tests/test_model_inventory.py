@@ -102,7 +102,7 @@ class TestBuildModel(TestCase):
                                                           file_type="text",
                                                           retail_price=Decimal(30))
         # assert
-        self.assertEqual(len(d), 12)
+        self.assertEqual(len(d), 13)
 
     def test_standard_deviation_col_count_csv(self):
         # arrange
@@ -118,7 +118,7 @@ class TestBuildModel(TestCase):
                                                          file_type="csv",
                                                          retail_price=Decimal(30))
         # assert
-        self.assertEqual(len(d), 12)
+        self.assertEqual(len(d), 13)
 
     def test_standard_deviation_row_value(self):
         # arrange

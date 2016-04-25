@@ -33,7 +33,7 @@ class TestMonteCarlo(TestCase):
             if item['sku'] == 'KR202-209':
                 # assertd
                 diff = abs(
-                    float(item['average_order']) - float(np.mean(sim.normal_random_distribution[0]['KR202-209'][0][0])))
+                    float(item['average_orders']) - float(np.mean(sim.normal_random_distribution[0]['KR202-209'][0][0])))
                 self.assertLess(diff, float(item['standard_deviation']))
 
     def test_run_simulation(self):

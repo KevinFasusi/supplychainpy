@@ -103,6 +103,7 @@ class OrdersAnalysis:
             if sku.sku_id == sku_id:
                 selection = sku
                 break
+
         # TODO-fix fix problem with min and max values
         summary = {'sku_id': '{}'.format(selection.sku_id),
                    'revenue_rank': '{}'.format(self._rank(sku_id=sku_id, attribute='revenue')),
@@ -122,9 +123,9 @@ class OrdersAnalysis:
                    'safety_stock_rank': '{}'.format(self._rank(sku_id=sku_id, attribute='safety_stock_cost')),
                    'classification': '{}'.format(selection.abcxyz_classification),
                    'average_orders': '{}'.format(selection.average_orders),
-                   'min_order': '{}'.format(min([*selection.orders])),
-                   'max_order': '{}'.format(max([*selection.orders])),
-                   'percentage_contribution_revenue' :'{}'.format(selection.percentage_revenue)
+                   'min_order': '{}'.format(min(map(int,selection.orders))),
+                   'max_order': '{}'.format(max(map(int,selection.orders))),
+                   'percentage_contribution_revenue': '{}'.format(selection.percentage_revenue)
                    }
         return summary
 

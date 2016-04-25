@@ -49,7 +49,7 @@ class UncertainDemand:
     getcontext().prec = 8
     _summary_keywords = ['sku', 'standard_deviation', 'safety_stock', 'demand_variability', 'reorder_level',
                          'reorder_quantity', 'revenue', 'economic_order_quantity', 'economic_order_variable_cost',
-                         'ABC_XYZ_Classification', 'excess_stock', 'shortages']
+                         'ABC_XYZ_Classification', 'excess_stock', 'shortages', 'average_orders']
     __rank = 0
 
     def __init__(self, orders: dict, sku: str, lead_time: Decimal, unit_cost: Decimal, reorder_cost: Decimal,
@@ -350,7 +350,8 @@ class UncertainDemand:
                      'economic_order_variable_cost': '{:.2f}'.format(self.__economic_order_variable_cost),
                      'ABC_XYZ_Classification': '{0}{1}'.format(self.__abc_classification, self.__xyz_classification),
                      'excess_stock': '{}'.format(self.__excess_stock),
-                     'shortages': '{}'.format(self.__shortage_qty)}
+                     'shortages': '{}'.format(self.__shortage_qty),
+                     'average_orders': '{}'.format(self.__average_order)}
 
         summary = {}
         for key in keywords:

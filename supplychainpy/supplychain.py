@@ -27,8 +27,9 @@ def main():
 
     #for top_shortages in summary.top_sku(attribute="shortages", count=10, reverse=False):
     #    print(top_shortages)
-
-    for summarised in summary.describe_sku('KR202-209','KR202-210'):
+    #get sku keys from category analysis and unpack for describe sku
+    questions = ['KR202-209', 'KR202-210', 'KR202-211']
+    for summarised in summary.describe_sku('KR202-210'):
         print(summarised)
     #print("keys {}".format(list(ax_shortages.keys())))
     #print("values {}".format(list(ax_shortages.values())))
