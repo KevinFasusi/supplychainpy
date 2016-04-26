@@ -1,5 +1,4 @@
 from supplychainpy.demand import forecast_demand
-from decimal import Decimal
 
 
 # TODO-feature analyse demand from list and produce forecast

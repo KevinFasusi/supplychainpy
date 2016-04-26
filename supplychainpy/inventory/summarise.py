@@ -1,12 +1,11 @@
-from collections import ChainMap
+from decimal import Decimal
 from operator import attrgetter
 
-from decimal import Decimal
-import numpy as np
-from supplychainpy.demand.abc_xyz import AbcXyz
-from supplychainpy.demand.analyse_uncertain_demand import UncertainDemand
+from supplychainpy.inventory.abc_xyz import AbcXyz
 
+from supplychainpy.inventory.analyse_uncertain_demand import UncertainDemand
 
+# summaries and analysis must always be able to be placed in a cell.
 class OrdersAnalysis:
     def __init__(self, analysed_orders: list):
         self.__analysed_orders = analysed_orders
@@ -68,8 +67,8 @@ class OrdersAnalysis:
                 for label in category:
                     summary = style.get(id)
                     for sku in summary:
-                        unit_cost = sku.unit_cost
-                        t = {**sku.orders_summary()}
+                        unit_cost = Decimal(sku.get("unit_cost"))
+                        t = {**sku}
                         temp_sum += Decimal(t.get(label))
                         t.clear()
 
@@ -95,7 +94,7 @@ class OrdersAnalysis:
         try:
             for arg in args:
                 summary.append(self._summarise_sku(arg))
-            yield summary
+            yield summary[0]
         except TypeError as e:
             raise TypeError("SKU id {} is not valid, please make sure you supply the correct sku id. {}".format(args, e))
 

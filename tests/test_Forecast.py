@@ -1,6 +1,5 @@
 import unittest
 from unittest import TestCase
-from decimal import Decimal
 
 from supplychainpy.demand import forecast_demand
 

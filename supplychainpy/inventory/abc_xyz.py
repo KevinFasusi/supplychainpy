@@ -37,7 +37,6 @@ class AbcXyz:
                                      len(self.__abcxyz_summary.get('CY')),
                                      len(self.__abcxyz_summary.get('CZ')))
 
-
     @property
     def ax(self):
         return self.__abcxyz_summary.get('AX')
@@ -75,7 +74,7 @@ class AbcXyz:
         return self.__abcxyz_summary.get('CZ')
 
 
-                    # @property
+        # @property
         # def orders(self)->list:
         #     return self.__orders
 
@@ -127,33 +126,33 @@ class AbcXyz:
 
     def classification_summary(self):
 
-        ax_count = [sku for sku in self.__orders if sku.abcxyz_classification == 'AX']
+        ax_count = [sku.orders_summary() for sku in self.__orders if sku.abcxyz_classification == 'AX']
 
-        ay_count = [sku for sku in self.__orders if sku.abcxyz_classification == 'AY']
+        ay_count = [sku.orders_summary() for sku in self.__orders if sku.abcxyz_classification == 'AY']
 
-        az_count = [sku for sku in self.__orders if sku.abcxyz_classification == 'AZ']
+        az_count = [sku.orders_summary() for sku in self.__orders if sku.abcxyz_classification == 'AZ']
 
-        bx_count = [sku for sku in self.__orders if sku.abcxyz_classification == 'BX']
+        bx_count = [sku.orders_summary() for sku in self.__orders if sku.abcxyz_classification == 'BX']
 
-        by_count = [sku for sku in self.__orders if sku.abcxyz_classification == 'BY']
+        by_count = [sku.orders_summary() for sku in self.__orders if sku.abcxyz_classification == 'BY']
 
-        bz_count = [sku for sku in self.__orders if sku.abcxyz_classification == 'BZ']
+        bz_count = [sku.orders_summary() for sku in self.__orders if sku.abcxyz_classification == 'BZ']
 
-        cx_count = [sku for sku in self.__orders if sku.abcxyz_classification == 'CX']
+        cx_count = [sku.orders_summary() for sku in self.__orders if sku.abcxyz_classification == 'CX']
 
-        cy_count = [sku for sku in self.__orders if sku.abcxyz_classification == 'CY']
+        cy_count = [sku.orders_summary() for sku in self.__orders if sku.abcxyz_classification == 'CY']
 
-        cz_count = [sku for sku in self.__orders if sku.abcxyz_classification == 'CZ']
+        cz_count = [sku.orders_summary() for sku in self.__orders if sku.abcxyz_classification == 'CZ']
 
-        classification_matrix ={"AX": ax_count,
-                                "AY": ay_count,
-                                "AZ": az_count,
-                                "BX": bx_count,
-                                "BY": by_count,
-                                "BZ": bz_count,
-                                "CX": cx_count,
-                                "CY": cy_count,
-                                "CZ": cz_count}
+        classification_matrix = {"AX": ax_count,
+                                 "AY": ay_count,
+                                 "AZ": az_count,
+                                 "BX": bx_count,
+                                 "BY": by_count,
+                                 "BZ": bz_count,
+                                 "CX": cx_count,
+                                 "CY": cy_count,
+                                 "CZ": cz_count}
         self.__orders = []
         return classification_matrix
 

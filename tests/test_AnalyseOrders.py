@@ -4,8 +4,8 @@ from decimal import Decimal
 from unittest import TestCase
 
 from supplychainpy import model_inventory
-from supplychainpy.demand import analyse_uncertain_demand
-from supplychainpy.demand.analyse_uncertain_demand import UncertainDemand
+from supplychainpy.inventory import analyse_uncertain_demand
+from supplychainpy.inventory.analyse_uncertain_demand import UncertainDemand
 
 
 class TestAnalyseOrders(TestCase):

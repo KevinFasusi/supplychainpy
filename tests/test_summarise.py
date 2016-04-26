@@ -1,11 +1,9 @@
 import os
-from operator import attrgetter
+from decimal import Decimal
 from unittest import TestCase
 
-from decimal import Decimal
-
 from supplychainpy import model_inventory
-from supplychainpy.demand.summarise import OrdersAnalysis
+from supplychainpy.inventory.summarise import OrdersAnalysis
 
 
 class TestSummariseAnalysis(TestCase):
@@ -22,19 +20,29 @@ class TestSummariseAnalysis(TestCase):
                                                                                  file_type="csv",
                                                                                  length=12)
         self.__categories = ['excess_stock', 'shortages', 'average_orders']
+        self.__abc_classification = ('AX', 'AY', 'AZ', 'BX', 'BY', 'BZ', 'CX', 'CY', 'CZ')
         self.__analysis_summary = OrdersAnalysis(analysed_orders=self.__orders_analysis)
+        self.__describe_sku = ['excess_cost', 'percentage_contribution_revenue', 'markup_percentage',
+                               'shortage_rank', 'unit_cost', 'max_order', 'retail_price', 'classification',
+                               'excess_rank', 'average_orders', 'revenue_rank', 'excess_units', 'safety_stock_units',
+                               'shortage_cost', 'revenue', 'min_order', 'safety_stock_rank', 'safety_stock_cost',
+                               'sku_id', 'gross_profit_margin', 'shortage_units']
 
         self.__abc_raw = self.__analysis_summary.abc_xyz_raw
 
     def test_describe_sku_length(self):
-        for description in self.__analysis_summary.describe_sku('KR202-209'):
-            for items in description:
-                self.assertEqual(21, len(items))
+        item = [description for description in self.__analysis_summary.describe_sku('KR202-209')]
+        self.assertEqual(21, len(item[0]))
 
     def test_describe_type_error(self):
         with self.assertRaises(expected_exception=TypeError):
             for description in self.__analysis_summary.describe_sku('KR2-0'):
                 print(description)
+
+    def test_describe_sku_keys(self):
+        s = [summarised for summarised in self.__analysis_summary.describe_sku('KR202-217')]
+        for key in self.__describe_sku:
+            self.assertIn(key, s[0])
 
     # TODO-fix makes sure that all categories have are safe in this method
     def test_category_ranking_filter_top10(self):
@@ -75,13 +83,18 @@ class TestSummariseAnalysis(TestCase):
                                 attribute=category, count=10, reverse=True)]:
                     self.assertLessEqual(Decimal(item[category]), Decimal(Top[category]))
 
-    def test_abcxyz_category_selection(self):
-        pass
+    def test_abcxyz_summary_category_selection(self):
+        # assert that every summarised cost is eqal to the cost of every sku with that
+        # category in the original structure
+        for category in self.__categories:
+            for analysis in self.__analysis_summary.abc_xyz_summary(category=(category,)):
+                self.assertEqual(1, len(analysis))
 
     def test_abcxyz_classification_selection(self):
-        for ay_summary in self.__analysis_summary.abc_xyz_summary(classification=('AY',)):
-            for ay in ay_summary:
-                self.assertEqual('AY', ay)
+        for category in self.__abc_classification:
+            for summary in self.__analysis_summary.abc_xyz_summary(classification=((category,))):
+                for classification in summary:
+                    self.assertEqual(category, classification)
 
     def test_abcxyz_units_summary(self):
         pass

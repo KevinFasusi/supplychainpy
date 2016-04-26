@@ -1,13 +1,10 @@
+import os
 import unittest
 from cmath import isclose
-from unittest import TestCase
 from decimal import Decimal
-
-import pytest
+from unittest import TestCase
 
 from supplychainpy import model_inventory
-from supplychainpy.demand import economic_order_quantity
-import os
 
 
 class TestBuildModel(TestCase):
@@ -102,7 +99,7 @@ class TestBuildModel(TestCase):
                                                           file_type="text",
                                                           retail_price=Decimal(30))
         # assert
-        self.assertEqual(len(d), 13)
+        self.assertEqual(len(d), 14)
 
     def test_standard_deviation_col_count_csv(self):
         # arrange
@@ -118,7 +115,7 @@ class TestBuildModel(TestCase):
                                                          file_type="csv",
                                                          retail_price=Decimal(30))
         # assert
-        self.assertEqual(len(d), 13)
+        self.assertEqual(len(d), 14)
 
     def test_standard_deviation_row_value(self):
         # arrange
