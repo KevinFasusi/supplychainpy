@@ -1,6 +1,21 @@
 Change Log
 ==========
 
+0.0.4
+-----
+
+Application
+^^^^^^^^^^^
+
+-   Excess, shortages added to the UncertainDemand order_summary.
+-   UncertainDemand __repr__ defined.
+-
+
+Documentation
+^^^^^^^^^^^^^
+
+-   Update Quick Guide
+
 
 0.0.3
 -----

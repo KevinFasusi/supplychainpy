@@ -123,25 +123,23 @@ The orders analysis can be retrieved by using:
 
 .. code:: python
 
+
     >>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
-    >>> orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path="data.csv", z_value=Decimal(1.28),
-    >>>                                                                  reorder_cost=Decimal(5000), file_type="csv",
-    >>>                                                                  length=12)
-    >>> for sku in orders_analysis.orders:
-    >>>     print (sku)
+    >>>
+    >>> orders_analysis = [analysis.orders_summary() for analysis in
+    >>>                   model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
+    >>>                                                                   reorder_cost=Decimal(5000), file_type="csv",
+    >>>                                                                   length=12)]
+    >>> print(orders_analysis)
+
+output:
 
 .. parsed-literal::
 
-    (sku_id: KR202-20, average_order: 1446, standard_deviation: 976, safety_stock: 1766.7012,
-    demand_variability: 0.675, reorder_level: 3812, reorder_quantity: 380, revenue: 15621300.00, excess_stock: 0, shortages: 4855)
-    (sku_id: KR202-210, average_order: 1636, standard_deviation: 950, safety_stock: 1719.0632,
-    demand_variability: 0.580, reorder_level: 4033, reorder_quantity: 408, revenue: 25524200.00, excess_stock: 0, shortages: 0)
-    (sku_id: KR202-211, average_order: 1367, standard_deviation: 789, safety_stock: 2019.9868,
-    demand_variability: 0.577, reorder_level: 4754, reorder_quantity: 355, revenue: 19688400.00, excess_stock: 0, shortages: 7099)
-    (sku_id: KR202-212, average_order: 24414, standard_deviation: 75555, safety_stock: 2105533.1,
-    demand_variability: 3.095, reorder_level: 2637073, reorder_quantity: 12758, revenue: 878919.00, excess_stock: 0, shortages: 3168602)
-    (sku_id: KR202-213, average_order: 1041, standard_deviation: 600, safety_stock: 768.36265,
-    demand_variability: 0.577, reorder_level: 1809, reorder_quantity: 285, revenue: 24976000.00, excess_stock: 0, shortages: 0)
+    {'unit_cost': '400', 'standard_deviation': '976', 'economic_order_quantity': '1311', 'ABC_XYZ_Classification': 'CZ',
+    'safety_stock': '1767', 'reorder_level': '3812', 'demand_variability': '0.675', 'shortages': '4855', 'excess_stock': '0',
+    'reorder_quantity': '380', 'revenue': '15621300', 'economic_order_variable_cost': '186365.16', 'sku': 'KR202-209', 
+    'average_orders': '1446.4167'}, 
 
 This analysis completed in:
 
@@ -152,54 +150,141 @@ This analysis completed in:
      +-------+----------------------+
      |  Mac  | 0.024185895919799805 |
      +-------+----------------------+
+     
+Use the `describe_sku` method a retrieve a summary for a specific skus:
 
-The best way to retrieve a full summary is by doing the following:
+.. code::
 
-.. code:: python
+    >>> from supplychainpy import model_inventory
+    >>> from supplychainpy.inventory.summarise import OrdersAnalysis
+    >>> analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
+    >>>
+    >>> for summarised in analysis_summary.describe_sku('KR202-217'):
+    >>>     print(summarised)
 
-    >>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
-    >>> orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
-    >>>                                                                  reorder_cost=Decimal(5000), file_type="csv",
-    >>>                                                                  length=12)
-    >>> for sku in orders_analysis.orders:
-    >>>		print(sku.orders_summary())
+The output for a sku description is different to the `oreders_summary` method for the whole analysis:
 
 .. parsed-literal::
 
-    {'excess_stock': '0', 'economic_order_quantity': '1311', 'demand_variability': '0.675', 'standard_deviation': '976',
-    'average_order': '1446', 'sku': 'KR202-20', 'reorder_quantity': '380', 'reorder_level': '3812', 'revenue': '15621300',
-    'economic_order_variable_cost': '186365.16', 'safety_stock': '1767', 'ABC_XYZ_Classification': 'CZ', 'shortages': '4855'}
-    {'excess_stock': '0', 'economic_order_quantity': '1405', 'demand_variability': '0.580', 'standard_deviation': '950',
-     'average_order': '1636', 'sku': 'KR202-210', 'reorder_quantity': '408', 'reorder_level': '4033', 'revenue': '25524200',
-     'economic_order_variable_cost': '196720.63', 'safety_stock': '1719', 'ABC_XYZ_Classification': 'CY', 'shortages': '0'}
-    {'excess_stock': '0', 'economic_order_quantity': '1224', 'demand_variability': '0.577', 'standard_deviation': '789', '
-    average_order': '1367', 'sku': 'KR202-211', 'reorder_quantity': '355', 'reorder_level': '4754', 'revenue': '19688400',
-    'economic_order_variable_cost': '188736.92', 'safety_stock': '2020', 'ABC_XYZ_Classification': 'CY', 'shortages': '7099'}
+    {'shortage_units': '7245', 'retail_price': '5433', 'shortage_rank': '12', 'safety_stock_units': '1871', 
+    'average_orders': '1664', 'min_order': '224', 'excess_units': '0', 'percentage_contribution_revenue': '0.021250938', 
+    'gross_profit_margin': '4759', 'safety_stock_cost': '1261211.3', 'sku_id': 'KR202-217', 'classification': 'AY', 
+    'excess_cost': '0', 'safety_stock_rank': '20', 'revenue_rank': '12', 'unit_cost': '674', 'revenue': '108480711', 
+    'excess_rank': '13', 'markup_percentage': '7.0608309', 'max_order': '2987', 'shortage_cost': '4883130'}
+    
+The descriptive summary includes:
 
-This analysis completed in:
-
-     +-------+----------------------+
-     | system| time (seconds)       |
-     +=======+======================+
-     |  PC   | 0.009218931198120117 |
-     +-------+----------------------+
-     |  Mac  | 0.02485513687133789  |
-     +-------+----------------------+
+- shortage_rank
+- min/max orders
+- excess_units
+- revenue_rank
+- excess_rank
+- average_orders
+- gross_profit_margin
+- markup_percentage
+- max_order
 
 
-Filtering the results based on an attribute:
+The describe_sku method can take multiple parameters:
+
+.. code::
+
+    >>> from supplychainpy import model_inventory
+    >>> from supplychainpy.inventory.summarise import OrdersAnalysis
+    >>> analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
+    >>> 
+    >>> skus = ['KR202-209', 'KR202-210', 'KR202-211']
+    >>>
+    >>> skus_description = [summarised for summarised in analysis_summary.describe_sku(*skus)]
+    >>> print(skus_description)
+    
+Or simply:
+
+.. code::
+
+    >>> from supplychainpy import model_inventory
+    >>> from supplychainpy.inventory.summarise import OrdersAnalysis
+    >>> analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
+    >>> 
+    >>> for summarised in analysis_summary.describe_sku('KR202-209', 'KR202-210', 'KR202-211'):
+    >>>     print(summarised)
+
+Output:
+
+.. parsed-literal::
+
+
+    [{'markup_percentage': '1.25', 'retail_price': '900', 'excess_units': '0', 'classification': 'CZ',
+     'excess_cost': '0', 'safety_stock_cost': '706680.47', 'safety_stock_rank': '29', 'revenue_rank': '31',
+     'sku_id': 'KR202-209', 'excess_rank': '6', 'safety_stock_units': '1767', 'gross_profit_margin': '500', 
+     'shortage_rank': '18', 'percentage_contribution_revenue': '0.0030601503', 'revenue': '15621300', 
+     'average_orders': '1446', 'shortage_units': '4855', 'shortage_cost': '1942000', 'unit_cost': '400', 
+     'max_order': '2927', 'min_order': '88'}, 
+     {'markup_percentage': '2.2994924', 'retail_price': '1300', 'excess_units': '0', 'classification': 'CY',
+      'excess_cost': '0', 'safety_stock_cost': '677310.89', 'safety_stock_rank': '30', 'revenue_rank': '28', 
+      'sku_id': 'KR202-210', 'excess_rank': '7', 
+      'safety_stock_units': '1719', 'gross_profit_margin': '906', 'shortage_rank': '19', 
+      'percentage_contribution_revenue': '0.0050000889', 'revenue': '25524200', 'average_orders': '1636', 
+      'shortage_units': '0', 'shortage_cost': '0', 'unit_cost': '394', 'max_order': '2809', 'min_order': '206'}, 
+     {'markup_percentage': '1.7649770', 'retail_price': '1200', 'excess_units': '0', 'classification': 'CY', 'excess_cost': '0',
+      'safety_stock_cost': '876674.29', 'safety_stock_rank': '27', 'revenue_rank': '30', 'sku_id': 'KR202-211', 'excess_rank': '8',
+      'safety_stock_units': '2020', 'gross_profit_margin': '766', 'shortage_rank': '17', 
+      'percentage_contribution_revenue': '0.0038568790', 'revenue': '19688400', 'average_orders': '1367', 'shortage_units': '7099', 
+      'shortage_cost': '3080966', 'unit_cost': '434', 'max_order': '2737', 'min_order': '218'}]
+
+
+The example below filters the results based on an attribute, in this case `shortage cost` using the attribute name shortages:
 
 
 .. code:: python
 
-    >>> from supplychainpy.demand.summarise import SKU
+    >>> from supplychainpy.inventory.summarise import OrdersAnalysis
     >>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
-    >>> orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
-    >>>                                                                  reorder_cost=Decimal(5000), file_type="csv",
-    >>>                                                                  length=12)
-    >>> for order in SKU(analysed_orders=orders_analysis.orders).top_sku(attribute="shortage", count=10, reverse=False):
-    >>>    print(order)
+    >>>
+    >>> orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path,
+    >>>                                                                             z_value=Decimal(1.28),
+    >>>                                                                             reorder_cost=Decimal(5000),
+    >>>                                                                             file_type="csv",
+    >>>                                                                             length=12)
+    >>>
+    >>> analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
+    >>> 
+    >>> top_ten_shortages = [item for item in analysis_summary.sku_ranking_filter(attribute="shortages", count=10, reverse=True)]
+    >>> 
+    >>> print(top_ten_shortages)
+    
 
+The results for `top_ten_shortages`:
+
+
+.. parsed-literal::
+    
+    {'demand_variability': '0.409', 'unit_cost': '994', 'sku': 'KR202-225', 'revenue': '195934200', 'average_orders': '1925', 
+    'standard_deviation': '787', 'ABC_XYZ_Classification': 'AY', 'reorder_level': '7181', 'economic_order_quantity': '960', 
+    'shortages': '11474', 'reorder_quantity': '278', 'excess_stock': '0', 'safety_stock': '2466', 'economic_order_variable_cost': '338919.52'},
+    {'demand_variability': '0.565', 'unit_cost': '474', 'sku': 'KR202-212', 'revenue': '207330', 'average_orders': '1727.75', 
+    'standard_deviation': '976', 'ABC_XYZ_Classification': 'CY', 'reorder_level': '5156', 'economic_order_quantity': '1317',
+    'shortages': '7759', 'reorder_quantity': '382', 'excess_stock': '0', 'safety_stock': '2164', 'economic_order_variable_cost': '221726.52'},
+    {'demand_variability': '0.613', 'unit_cost': '1074', 'sku': 'KR202-227', 'revenue': '98847720', 'average_orders': '1674.25', 
+    'standard_deviation': '1027', 'ABC_XYZ_Classification': 'BZ', 'reorder_level': '5177', 'economic_order_quantity': '861', 
+    'shortages': '7587', 'reorder_quantity': '250', 'excess_stock': '0', 'safety_stock': '2277', 'economic_order_variable_cost': '328549.13'}, 
+    {'demand_variability': '0.360', 'unit_cost': '1394', 'sku': 'KR202-235', 'revenue': '1372010500', 'average_orders': '1921.5833', 
+    'standard_deviation': '691', 'ABC_XYZ_Classification': 'AY', 'reorder_level': '4861', 'economic_order_quantity': '810', 
+    'shortages': '7339', 'reorder_quantity': '235', 'excess_stock': '0', 'safety_stock': '1532', 'economic_order_variable_cost': '401004.30'}, 
+    {'demand_variability': '0.507', 'unit_cost': '674', 'sku': 'KR202-217', 'revenue': '108480711', 'average_orders': '1663.9167', 
+    'standard_deviation': '844', 'ABC_XYZ_Classification': 'AY', 'reorder_level': '4753', 'economic_order_quantity': '1083', 
+    'shortages': '7245', 'reorder_quantity': '314', 'excess_stock': '0', 'safety_stock': '1871', 'economic_order_variable_cost': '259467.97'}, 
+    {'demand_variability': '0.577', 'unit_cost': '434', 'sku': 'KR202-211', 'revenue': '19688400', 'average_orders': '1367.25', 
+    'standard_deviation': '789', 'ABC_XYZ_Classification': 'CY', 'reorder_level': '4754', 'economic_order_quantity': '1224', 
+    'shortages': '7099', 'reorder_quantity': '355', 'excess_stock': '0', 'safety_stock': '2020', 'economic_order_variable_cost': '188736.92'}, 
+    {'demand_variability': '0.618', 'unit_cost': '1594', 'sku': 'KR202-240', 'revenue': '73256997', 'average_orders': '1548.25', 
+    'standard_deviation': '956', 'ABC_XYZ_Classification': 'CZ', 'reorder_level': '4802', 'economic_order_quantity': '680', 
+    'shortages': '7094', 'reorder_quantity': '197', 'excess_stock': '0', 'safety_stock': '2120', 'economic_order_variable_cost': '384904.27'}, 
+    {'demand_variability': '0.579', 'unit_cost': '634', 'sku': 'KR202-216', 'revenue': '53917641', 'average_orders': '1481.4167', 
+    'standard_deviation': '858', 'ABC_XYZ_Classification': 'CY', 'reorder_level': '4467', 'economic_order_quantity': '1054', 
+    'shortages': '6999', 'reorder_quantity': '306', 'excess_stock': '0', 'safety_stock': '1901', 'economic_order_variable_cost': '237449.51'} ... 
+    
+    
 Available attributes:
 
 - demand_variability
@@ -216,18 +301,6 @@ Available attributes:
 - excess_stock
 - shortages
 
-Using a list comprehension on the generator can be useful for creating smaller lists for analysis:
-
-.. code:: python
-
-    >>> from supplychainpy.demand.summarise import SKU
-    >>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
-    >>> orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
-    >>>                                                                  reorder_cost=Decimal(5000), file_type="csv",
-    >>>                                                                  length=12)
-    >>>
-    >>> top_ten_shortages = [item for item in SKU(analysed_orders=orders_analysis.orders).top_sku(attribute="shortage", count=10, reverse=True)]
-    >>> top_ten_excess = [item for item in SKU(analysed_orders=orders_analysis.orders).top_sku(attribute="excess_stock", count=10, reverse=True)]
 
 Although `quantity_on_hand` is not a mandatory field, omitting will cause shortages to reflect the `reorder_level + the lead_time_demand`
 
@@ -267,7 +340,6 @@ To start we need to analyse the orders again like we did in the inventory analys
     >>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
     >>> orders_analysis = analyse_orders_abcxyz_from_file(file_path="data.csv", z_value=Decimal(1.28),
     >>>                                        reorder_cost=Decimal(5000), file_type="csv")
-
 
 The orders are then passed as a parameter to the monte carlo simulation:
 

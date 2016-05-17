@@ -5,6 +5,7 @@ from supplychainpy.inventory.abc_xyz import AbcXyz
 
 from supplychainpy.inventory.analyse_uncertain_demand import UncertainDemand
 
+
 # summaries and analysis must always be able to be placed in a cell.
 class OrdersAnalysis:
     def __init__(self, analysed_orders: list):
@@ -15,7 +16,7 @@ class OrdersAnalysis:
     def abc_xyz_raw(self):
         return self.__abc_xyz
 
-    def sku_ranking_filter(self, attribute: str, count: int = 0, reverse: bool = True) -> dict:
+    def rank_summary(self, attribute: str, count: int = 0, reverse: bool = True) -> dict:
         if count == 0:
             count = len(self.__analysed_orders)
 
@@ -93,10 +94,11 @@ class OrdersAnalysis:
         summary = []
         try:
             for arg in args:
-                summary.append(self._summarise_sku(arg))
-            yield summary[0]
+                yield self._summarise_sku(arg)
+
         except TypeError as e:
-            raise TypeError("SKU id {} is not valid, please make sure you supply the correct sku id. {}".format(args, e))
+            raise TypeError(
+                "SKU id {} is not valid, please make sure you supply the correct sku id. {}".format(args, e))
 
     def _summarise_sku(self, sku_id: str):
         selection = UncertainDemand
@@ -112,7 +114,8 @@ class OrdersAnalysis:
                    'revenue': '{}'.format(selection.revenue),
                    'retail_price': '{}'.format(selection.retail_price),
                    'gross_profit_margin': '{}'.format(Decimal(selection.retail_price) - selection.unit_cost),
-                   'markup_percentage': '{}'.format((Decimal(selection.retail_price) - selection.unit_cost) / selection.unit_cost),
+                   'markup_percentage': '{}'.format(
+                       (Decimal(selection.retail_price) - selection.unit_cost) / selection.unit_cost),
                    'unit_cost': '{}'.format(selection.unit_cost),
                    'excess_rank': '{}'.format(self._rank(sku_id=sku_id, attribute='excess_stock_cost')),
                    'excess_units': '{}'.format(selection.excess_stock),

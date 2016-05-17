@@ -2,7 +2,7 @@ from Cython.Build import cythonize
 from setuptools import setup, find_packages, Extension
 
 extensions =[Extension('supplychainpy.simulations.sim_summary', ['supplychainpy/simulations/sim_summary.pyx']),
-             Extension('supplychainpy.demand.eoq', ['supplychainpy/demand/eoq.pyx'])
+             Extension('supplychainpy.inventory.eoq', ['supplychainpy/inventory/eoq.pyx'])
              ]
 
 

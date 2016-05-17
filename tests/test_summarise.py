@@ -51,12 +51,12 @@ class TestSummariseAnalysis(TestCase):
 
         for category in self.__categories:
             top_ten = [item for item in
-                       self.__analysis_summary.sku_ranking_filter(
+                       self.__analysis_summary.rank_summary(
                            attribute=category, count=10, reverse=True)]
 
             for item in top_ten:
                 for bottom in [item for item in
-                               self.__analysis_summary.sku_ranking_filter(
+                               self.__analysis_summary.rank_summary(
                                    attribute=category, count=10, reverse=False)]:
                     self.assertGreaterEqual(Decimal(item[category]), Decimal(bottom[category]))
 
@@ -65,7 +65,7 @@ class TestSummariseAnalysis(TestCase):
 
         with self.assertRaises(expected_exception=AttributeError):
             top_ten_shortages = [item for item in
-                                 self.__analysis_summary.sku_ranking_filter(
+                                 self.__analysis_summary.rank_summary(
                                      attribute="shortage", count=10, reverse=True)]
             print(top_ten_shortages)
 
@@ -74,12 +74,12 @@ class TestSummariseAnalysis(TestCase):
         same category."""
         for category in self.__categories:
             bottom_ten = [item for item in
-                          self.__analysis_summary.sku_ranking_filter(
+                          self.__analysis_summary.rank_summary(
                               attribute=category, count=10, reverse=False)]
 
             for item in bottom_ten:
                 for Top in [item for item in
-                            self.__analysis_summary.sku_ranking_filter(
+                            self.__analysis_summary.rank_summary(
                                 attribute=category, count=10, reverse=True)]:
                     self.assertLessEqual(Decimal(item[category]), Decimal(Top[category]))
 

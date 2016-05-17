@@ -8,6 +8,7 @@ Subpackages
 
     supplychainpy.demand
     supplychainpy.distribution
+    supplychainpy.financials
     supplychainpy.inventory
     supplychainpy.production
     supplychainpy.simulations
