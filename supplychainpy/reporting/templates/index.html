@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block body%}
+<section class="content card">
+
+    <table id="ia" style="width:70%">
+        <caption>Inventory Analysis</caption>
+        <tr>
+            <th>SKU</th>
+            <th>Classification</th>
+            <th>Safety Stock</th>
+            <th>Revenue</th>
+        </tr>
+        {% for sku in inventory %}
+        <tr>
+            <td>{{sku.sku_id}}</td>
+            <td>{{sku.abc_xyz_classification}}</td>
+            <td>{{sku.safety_stock}}</td>
+            <td>{{sku.revenue}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</section>
+<section class="card">
+    <section id="ia" >
+        <h2>D3 graphic</h2>
+        <section id="chart">
+            <div class="item">Augsto Pinochet</div>
+            <div class="item">Mike Jacko</div>
+            <div class="item">Notorious Big</div>
+            <div class="item">Alex Keen</div>
+            <div class="item">Ian Wash</div>
+        </section>
+    </section>
+
+</section>
+
+<section class="card">
+    Reve
+</section>
+{% endblock %}

@@ -4,18 +4,27 @@ from decimal import Decimal
 
 from supplychainpy import model_inventory
 from supplychainpy.inventory.summarise import OrdersAnalysis
+from supplychainpy.reporting.report import launch_report
 
 __author__ = 'kevin'
 
 
 def main():
+
     start_time = time.time()
 
-    orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv",
-                                                                      z_value=Decimal(1.28),
-                                                                      reorder_cost=Decimal(5000),
-                                                                      file_type="csv", length=12)
+    #orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv",
+    #                                                                  z_value=Decimal(1.28),
+    #                                                                  reorder_cost=Decimal(5000),
+    #                                                                  file_type="csv", length=12)
 
+    #ia = [analysis.orders_summary() for analysis in
+    #                      model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
+    #                                                                      reorder_cost=Decimal(5000), file_type="csv",
+    #                                                                     length=12)]
+    #print(ia)
+
+    launch_report()
     analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
     skus = ['KR202-209', 'KR202-210', 'KR202-211']
 
