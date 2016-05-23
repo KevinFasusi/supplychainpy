@@ -2,7 +2,8 @@ import os
 from datetime import datetime
 
 import flask
-from flask import Flask, request,redirect, send_from_directory, url_for
+
+from flask import Flask, request, redirect, send_from_directory, url_for
 from werkzeug.contrib.jsrouting import render_template
 
 from supplychainpy.reporting import load
@@ -23,12 +24,24 @@ db = SQLAlchemy(app)
 
 
 class DataUpload(db.Model):
+    __table_args__ = {'sqlite_autoincrement': True}
+
     id = db.Column(db.Integer(), primary_key=True)
     data = db.Column(db.String(255))
     analysis_id = db.relationship('InventoryAnalysis', backref='DataUpload', lazy='dynamic')
     date = db.Column(db.DateTime())
 
+
+def dump_datetime(value):
+    """Deserialize datetime object into string form for JSON processing."""
+    if value is None:
+        return None
+    return [value.strftime("%Y-%m-%d"), value.strftime("%H:%M:%S")]
+
+
 class InventoryAnalysis(db.Model):
+    __table_args__ = {'sqlite_autoincrement': True}
+
     id = db.Column(db.Integer(), primary_key=True)
     sku_id = db.Column(db.String(255))
     abc_xyz_classification = db.Column(db.String(2))
@@ -47,12 +60,24 @@ class InventoryAnalysis(db.Model):
     date = db.Column(db.DateTime())
     data_upload_id = db.Column(db.Integer(), db.ForeignKey('data_upload.id'))
 
+    @property
+    def serialize(self):
+        """Return object data in easily serializeable format"""
+        return {
+            'id': self.sku_id,
+            'revenue': self.revenue,
+            'classification': self.abc_xyz_classification,
+            'Date': dump_datetime(self.date)
+
+        }
+
 
 @app.route('/')
 def hello_world():
-    inventory = db.session.query(InventoryAnalysis).filter(InventoryAnalysis.sku_id !=None).all()
+    inventory = db.session.query(InventoryAnalysis).filter(InventoryAnalysis.sku_id != None).all()
 
     return flask.render_template('index.html', inventory=inventory)
+
 
 @app.route('/upload/', methods=['POST', 'GET'])
 def upload_file():
@@ -64,8 +89,16 @@ def upload_file():
 
     return flask.render_template('upload.html', form=form)
 
-#@app.route('/upload/', methods=('GET', 'POST'))
-#def upload():
+
+@app.route('/reporting/api/v1.0/revenue', methods=['GET'])
+def get_tasks():
+    inventory = db.session.query(InventoryAnalysis).filter(InventoryAnalysis.sku_id != None).all()
+
+    return flask.jsonify(json_list=[i.serialize for i in inventory])
+
+
+# @app.route('/upload/', methods=('GET', 'POST'))
+# def upload():
 #    form = DataForm()
 #    upload_data = DataUpload()
 #
@@ -88,13 +121,15 @@ def upload_file():
 
 def launch_report():
     db.create_all()
-    load.load(InventoryAnalysis, DataUpload)
+    #load.load(InventoryAnalysis, DataUpload)
     app.run()
+
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
+
 
 if __name__ == '__main__':
     app.run()

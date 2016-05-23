@@ -1,13 +1,13 @@
 """initial
 
-Revision ID: 4b0277146c20
+Revision ID: 1986d4c5678c
 Revises: None
-Create Date: 2016-05-21 23:26:19.235593
+Create Date: 2016-05-23 13:23:32.133545
 
 """
 
 # revision identifiers, used by Alembic.
-revision = '4b0277146c20'
+revision = '1986d4c5678c'
 down_revision = None
 
 from alembic import op
@@ -20,7 +20,8 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('data', sa.String(length=255), nullable=True),
     sa.Column('date', sa.DateTime(), nullable=True),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id'),
+    sqlite_autoincrement=True
     )
     op.create_table('inventory_analysis',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -41,7 +42,8 @@ def upgrade():
     sa.Column('date', sa.DateTime(), nullable=True),
     sa.Column('data_upload_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['data_upload_id'], ['data_upload.id'], ),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id'),
+    sqlite_autoincrement=True
     )
     ### end Alembic commands ###
 

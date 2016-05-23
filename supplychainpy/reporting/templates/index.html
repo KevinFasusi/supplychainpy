@@ -1,15 +1,21 @@
 {% extends "base.html" %}
 
 {% block body%}
-<section class="content card">
 
-    <table id="ia" style="width:70%">
-        <caption>Inventory Analysis</caption>
+<section class="content card">
+    <section class="ia">
+        <h1>Inventory Analysis</h1>
+    </section>
+
+    <table id="container" class="ia" style="width:60%">
+
+        <caption>Calculated Values</caption>
         <tr>
             <th>SKU</th>
             <th>Classification</th>
             <th>Safety Stock</th>
             <th>Revenue</th>
+            <th>Reorder Level</th>
         </tr>
         {% for sku in inventory %}
         <tr>
@@ -17,26 +23,38 @@
             <td>{{sku.abc_xyz_classification}}</td>
             <td>{{sku.safety_stock}}</td>
             <td>{{sku.revenue}}</td>
+            <td>{{sku.reorder_level}}</td>
         </tr>
         {% endfor %}
     </table>
 
 </section>
 <section class="card">
-    <section id="ia" >
-        <h2>D3 graphic</h2>
-        <section id="chart">
-            <div class="item">Augsto Pinochet</div>
-            <div class="item">Mike Jacko</div>
-            <div class="item">Notorious Big</div>
-            <div class="item">Alex Keen</div>
-            <div class="item">Ian Wash</div>
-        </section>
+    <section class="ia" id="rope">
+        <h2>Sku Revenue Graph</h2>
+        <div id="chart">
+
+        </div>
     </section>
 
 </section>
 
 <section class="card">
-    Reve
+    <section class="ia">
+        <h2>D3 graphic</h2>
+        <section id="chart2">
+            <!--<svg width="300" height="300" style="background: #0A2933">
+                <rect x="100" y="100" height="100" width="100" style="fill: #259286" />
+                <circle r="40" cx="150" cy="150" style="fill: #909492"/>
+                <text x="125" y="155" font-family="san-serif" font-size="25" fill="white">SVG</text>
+                <g id="triangle">
+                    <polyline points="10 35 30 10 50 35" style="fill: #100039"/>
+                    <polyline points="10 35 50 10 50 35" style="fill: #100039"/>
+                    <polyline points="10 35 80 10 50 35" style="fill: #100039"/>
+                </g>
+                <use xlink:href="#triangle" x="20" y="30"/> <!-- copies grouped element using id and repositions it
+            </svg> -->
+        </section>
+    </section>
 </section>
 {% endblock %}

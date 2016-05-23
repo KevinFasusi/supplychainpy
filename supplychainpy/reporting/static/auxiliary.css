@@ -1,6 +1,38 @@
 @import url(https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700|Roboto+Slab);
 
-a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    vertical-align: baseline
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block
+}
+
+body {
+    line-height: 1
+}
+
+ol, ul {
+    list-style: none
+}
+
+blockquote, q {
+    quotes: none
+}
+
+blockquote:after, blockquote:before, q:after, q:before {
+    content: '';
+    content: none
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
 
 /* Solarized Palette - http://ethanschoonover.com/solarized ---------
   lightgray      : #819090;
@@ -20,7 +52,6 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
   cyan           : #259286;
   green          : #738A05; */
 
-
 body {
     background-color: #475B62;
     color: #708284;
@@ -28,20 +59,21 @@ body {
     font-size: 0.8em;
 }
 
-
-.content{
-  padding-top: 70px;
+.content {
+    padding-top: 0px;
+    padding-left: 0px;
 }
 
-.card{
+.card {
     background-color: white;
     color: black;
     box-shadow: 10px 5px 5px black;
     margin-left: 3pc;
-    margin-right: 3pc;
+    margin-right: 2pc;
     margin-top: 5pc;
     min-height: 390px;
-    min-width: 500px;
+    width: 500px;
+
     opacity: 0.8;
     float: left;
 }
@@ -51,35 +83,38 @@ table, th, td {
     border-collapse: collapse;
     border-spacing: 5px;
 }
+
 th, td {
     padding: 1px;
 }
 
-#ia{
+.ia {
     margin-left: 81px;
     float: left;
 }
 
-table#ia tr:nth-child(even) {
+table.ia tr:nth-child(even) {
     background-color: #FCF4DC;
 }
-table#ia tr:nth-child(odd) {
+
+table.ia tr:nth-child(odd) {
     background-color: #fff;
 }
-table#ia th {
+
+table.ia th {
     color: #8dc53e;
     background-color: #536870;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Roboto Slab', "Helvetica Neue", Helvetica, sans-serif;
-  font-weight: 700;
-  color: #8dc53e;
-  font-size: 1.75em;
-  margin-bottom: .4em;
+    font-family: 'Roboto Slab', "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: 700;
+    color: #8dc53e;
+    font-size: 1.75em;
+    margin-bottom: .4em;
 }
 
-.highlight{
-    color: #D11C24 ;
+.highlight {
+    color: #D11C24;
     font-weight: 600;
 }
