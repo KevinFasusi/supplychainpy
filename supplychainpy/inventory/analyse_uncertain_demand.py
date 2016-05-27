@@ -49,7 +49,8 @@ class UncertainDemand:
     getcontext().prec = 8
     _summary_keywords = ['sku', 'standard_deviation', 'safety_stock', 'demand_variability', 'reorder_level',
                          'reorder_quantity', 'revenue', 'economic_order_quantity', 'economic_order_variable_cost',
-                         'ABC_XYZ_Classification', 'excess_stock', 'shortages', 'average_orders','unit_cost']
+                         'ABC_XYZ_Classification', 'excess_stock', 'shortages', 'average_orders','unit_cost',
+                         'quantity_on_hand']
     __rank = 0
 
     def __init__(self, orders: dict, sku: str, lead_time: Decimal, unit_cost: Decimal, reorder_cost: Decimal,
@@ -81,6 +82,11 @@ class UncertainDemand:
         self.__period = period
         self.__excess_stock = self._excess_qty()
         self.__shortage_qty = self._shortage_qty()
+
+    @property
+    def quantity_on_hand(self):
+        return self.__quantity_on_hand
+
 
     @property
     def excess_stock_cost(self):
@@ -352,7 +358,8 @@ class UncertainDemand:
                      'excess_stock': '{}'.format(self.__excess_stock),
                      'shortages': '{}'.format(self.__shortage_qty),
                      'average_orders': '{}'.format(self.__average_order),
-                     'unit_cost': '{}'.format(self.__unit_cost)}
+                     'unit_cost': '{}'.format(self.__unit_cost),
+                     'quantity_on_hand': '{}'.format(self.__quantity_on_hand)}
 
         summary = {}
         for key in keywords:
@@ -369,7 +376,7 @@ class UncertainDemand:
     def __repr__(self):
         representation = "(sku_id: {}, average_order: {:.0f}, standard_deviation: {:.0f}, safety_stock: {:0f}, \n" \
                          "demand_variability: {:.3f}, reorder_level: {:.0f}, reorder_quantity: {:.0f}, " \
-                         "revenue: {:.2f}, excess_stock: {}, shortages: {}, unit_cost{})"
+                         "revenue: {:.2f}, excess_stock: {}, shortages: {}, unit_cost: {}, quantity_on_hand: {})"
         return representation.format(self.__sku_id,
                                      self.__average_order,
                                      self.__orders_standard_deviation,
@@ -380,7 +387,8 @@ class UncertainDemand:
                                      self.__sku_revenue,
                                      self.__excess_stock,
                                      self.__shortage_qty,
-                                     self.__unit_cost)
+                                     self.__unit_cost,
+                                     self.__quantity_on_hand)
 
     def __iter__(self):
         for original_order in self.__orders.get("demand"):

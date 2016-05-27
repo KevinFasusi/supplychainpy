@@ -53,32 +53,40 @@ table {
   green          : #738A05; */
 
 body {
-    background-color: #475B62;
+    background-color: black;
+
     color: #708284;
     font-family: "Roboto Slab";
     font-size: 0.8em;
 }
 
 .content {
-    padding-top: 0px;
-    padding-left: 0px;
+    padding-top: 40px;
+    padding-left: 30px;
+    height: 2000px;
+    background-color: #0A2933;
+    transition: transform3d 0.4s ease;
+
+}
+
+.active-nav .content {
+    transform: translate3d(200px, 0, 0);
+
 }
 
 .card {
-    background-color: white;
-    color: black;
-    box-shadow: 10px 5px 5px black;
-    margin-left: 3pc;
-    margin-right: 2pc;
-    margin-top: 5pc;
-    min-height: 390px;
-    width: 500px;
-
-    opacity: 0.8;
+    padding-left: 20px;
+    margin-left: -40px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    min-width: 100pc;
     float: left;
+    color: #042029;
+    opacity: .8;
 }
 
 table, th, td {
+    color: white;
     border: 1px solid black;
     border-collapse: collapse;
     border-spacing: 5px;
@@ -86,35 +94,136 @@ table, th, td {
 
 th, td {
     padding: 1px;
+    text-align: center;
 }
 
 .ia {
-    margin-left: 81px;
+    margin-top: 20px;
     float: left;
 }
 
 table.ia tr:nth-child(even) {
-    background-color: #FCF4DC;
+    background-color: #042029;
+
 }
 
 table.ia tr:nth-child(odd) {
-    background-color: #fff;
+    background-color: #0A2933;;
 }
 
 table.ia th {
-    color: #8dc53e;
-    background-color: #536870;
+    font-size: 1.2em;
+    color: white;
+    background-color: transparent;
+    font-family: "Roboto Slab";
+    font-weight: 600;
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Roboto Slab', "Helvetica Neue", Helvetica, sans-serif;
     font-weight: 700;
-    color: #8dc53e;
-    font-size: 1.75em;
+    color: white;
+
     margin-bottom: .4em;
+}
+
+h2 {
+    font-size: 1.8em;
 }
 
 .highlight {
     color: #D11C24;
     font-weight: 600;
+}
+
+.left {
+    position: fixed;
+    padding: 10px;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 150px;
+    transition: width ease .5s;
+    margin-right: 300px;
+
+}
+
+body {
+    overflow-x: hidden;
+}
+
+nav {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    bottom: 0;
+    width: 200px;
+    background-color: #080808;
+    transform: translate3d(-200px, 0, 0);
+    transition: transform 0.4s ease;
+
+}
+
+nav ul {
+    list-style: none;
+    margin-top: 100px;
+
+}
+
+nav ul li a {
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    color: white;
+    padding: 10px 0px;
+
+}
+
+.nav-toggle-btn {
+    display: block;
+    position: absolute;
+    left: 200px;
+    width: 170px;
+    height: 35px;
+    background: black;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.active-nav nav {
+    transform: translate3d(0, 0, 0);
+
+}
+
+#chart2, #chart5 {
+    padding-top: 20px;
+
+    width: auto;
+
+}
+
+#chart4 {
+    height: auto;
+
+}
+
+.notes {
+    padding-left: 60px;
+}
+
+.pebble {
+    margin-bottom: 30px;
+
+    background-color: #042029;
+    max-width: 350px;
+    height: 150px;
+    font-size: 1.8em;
+    text-align: center;
+}
+
+#shortage-table{
+    width: auto;
 }

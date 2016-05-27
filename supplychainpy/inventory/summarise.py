@@ -30,7 +30,7 @@ class OrdersAnalysis:
                                   "demand_variability\neconomic_order_quantity\naverage_order\nsafety_stock" \
                                   "\nstandard_deviation\nreorder_level\nreorder_quantity\nrevenue\n" \
                                   "economic_order_quantity\neconomic_order_variable_cost\n" \
-                                  "ABC_XYZ_Classification'\nexcess_stock\nshortages"
+                                  "ABC_XYZ_Classification'\nexcess_stock\nshortages\nquantity_on_hand"
             raise AttributeError(possible_attributes)
 
         except TypeError as e:
@@ -130,8 +130,8 @@ class OrdersAnalysis:
                    'average_orders': '{}'.format(round(selection.average_orders)),
                    'min_order': '{}'.format(min(map(int, selection.orders))),
                    'max_order': '{}'.format(max(map(int, selection.orders))),
-                   'percentage_contribution_revenue': '{}'.format(selection.percentage_revenue)
-                   }
+                   'percentage_contribution_revenue': '{}'.format(selection.percentage_revenue),
+                   'quantity_on_hand': '{}'.format(selection.quantity_on_hand)}
         return summary
 
     def _rank(self, sku_id, attribute):

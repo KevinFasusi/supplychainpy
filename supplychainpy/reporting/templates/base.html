@@ -15,34 +15,49 @@
     });
 </script>
 </head>
+
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <a href="/" class="navbar-brand">
-            <img src="{{ url_for('static', filename='logo.png') }}">
-        </a>
 
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
+<nav class="active-nav">
+    <a href="#" class="nav-toggle-btn">
+        <img src="{{ url_for('static', filename='logo.png') }}">
+    </a>
+    <ul>
+        <li><a href="{{url_for('raw_data')}}">Raw Data</a></li>
+        <li><a href="/">Reports</a></li>
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="/">Reports</a></li>
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="/">Reports</a></li>
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="/">Reports</a></li>
+    </ul>
 
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="/">Dashboard</a></li>
-                <li><a href="/">Reports</a></li>
-                </li>
-            </ul>
-        </div>
-    </div>
 </nav>
-{% block body%}
-{% endblock %}
+<script>
+
+(function toggle_nav() {
+    var bodyElement = $('body'),
+        navToggleBtn = bodyElement.find('.nav-toggle-btn');
+
+    navToggleBtn.on('click',function (e) {
+        bodyElement.toggleClass('active-nav');
+        e.preventDefault();
+    })
+})();
+</script>
+<div class="content">
+    {% block body%}
+    {% endblock %}
+
+</div>
+
+
+
+
 
 </body>
-</html>
+
+
+
 
