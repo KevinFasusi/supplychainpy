@@ -210,6 +210,7 @@ function create_shortages_table(data) {
 
     }
 
+// top shortage pebble
     $("#lg-shortage-sku").append().html("<h1><strong>" + shortages_data[0].sku_id + "</strong></h1>")
         .find("> h1").css("color", "#2176C7");
     $("#lg-shortage-cost").append().html("<h1><strong>" + "$" + shortages_data[0].shortage_cost + "</strong></h1>")
@@ -223,19 +224,37 @@ function create_shortages_table(data) {
 
 function create_excess_table(data) {
     var excess_data = new unpack.excess(data, 'table');
+    var total_excess = 0,
+        percentage_excess =0;
+
     $("#excess-table").append().html("<tr id='first'><th>SKU</th><th>Quantity on Hand</th><th>Average Orders</th>" +
-        "<th>Excess</th><th>Excess Cost</th><th>Classification</th></tr>");
+        "<th>Excess</th><th>Excess Cost</th><th>Excess Inventory %</th><th>Safety Stock</th><th>Reorder Level</th><th>Classification</th></tr>");
     //console.log(excess_data);
 
     for (obj in excess_data) {
         //console.log(excess_data[obj].sku_id);
+        total_excess += excess_data[obj].excess_cost;
+        percentage_excess = Math.round((excess_data[obj].excess_stock / excess_data[obj].quantity_on_hand) * 100);
         $("<tr><td><a href=\"sku_detail/" + excess_data[obj].sku_id + "\">" + excess_data[obj].sku_id + "</td>" +
             "<td>" + excess_data[obj].quantity_on_hand + "</td>" +
             "<td>" + excess_data[obj].average_orders + "</td>" +
             "<td>" + excess_data[obj].excess_stock + "</td>" +
             "<td>" + excess_data[obj].excess_cost + "</td>" +
+            "<td>" + percentage_excess + "%" + "</td>" +
+            "<td>" + excess_data[obj].safety_stock + "</td>" +
+            "<td>" + excess_data[obj].reorder_level + "</td>" +
             "<td>" + excess_data[obj].abc_xyz_classification + "</td></tr>").insertAfter("#excess-table tr:last");
     }
+
+    // top excess pebble
+    $("#lg-excess-sku").append().html("<h1><strong>" + excess_data[0].sku_id + "</strong></h1>")
+        .find("> h1").css("color", "#2176C7");
+    $("#lg-excess-cost").append().html("<h1><strong>" + "$" + excess_data[0].excess_cost + "</strong></h1>")
+        .find("> h1").css("color", "#D11C29");
+    $("#lg-excess-units").append().html("<h1><strong>" + excess_data[0].excess_stock + " units" + "</strong></h1>")
+        .find("> h1").css("color", "#819090");
+    $("#total-excess").append().html("<h1><strong>" + total_excess + "</strong></h1>")
+        .find("> h1").css("color", "#D11C29");
 
 }
 

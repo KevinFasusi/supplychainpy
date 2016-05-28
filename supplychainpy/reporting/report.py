@@ -215,7 +215,9 @@ def top_excess(rank: int = 10, classification: str = None):
                                                   InventoryAnalysis.percentage_contribution_revenue,
                                                   InventoryAnalysis.revenue_rank,
                                                   InventoryAnalysis.excess_stock,
-                                                  InventoryAnalysis.average_orders
+                                                  InventoryAnalysis.average_orders,
+                                                  InventoryAnalysis.safety_stock,
+                                                  InventoryAnalysis.reorder_level
                                                   ).filter(
             InventoryAnalysis.abc_xyz_classification == classification).order_by(
             desc(InventoryAnalysis.excess_cost)).limit(rank)
@@ -227,7 +229,9 @@ def top_excess(rank: int = 10, classification: str = None):
                                                   InventoryAnalysis.percentage_contribution_revenue,
                                                   InventoryAnalysis.revenue_rank,
                                                   InventoryAnalysis.excess_stock,
-                                                  InventoryAnalysis.average_orders
+                                                  InventoryAnalysis.average_orders,
+                                                  InventoryAnalysis.safety_stock,
+                                                  InventoryAnalysis.reorder_level
                                                   ).order_by(desc(InventoryAnalysis.excess_cost)).limit(rank)
 
     return flask.jsonify(json_list=[i for i in revenue_classification])
