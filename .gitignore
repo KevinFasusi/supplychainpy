@@ -1,4 +1,4 @@
-
+node_modules/
 # general things to ignore
 build/
 dist/
