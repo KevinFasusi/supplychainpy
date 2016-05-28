@@ -45,7 +45,7 @@ table {
   paleyellow     : #EAE3CB;
   yellow         : #A57706;
   orange         : #BD3613;
-  red            : #D11C24;
+  red            : ;
   pink           : #C61C6F;
   purple         : #595AB7;
   blue           : #2176C7;
@@ -53,7 +53,7 @@ table {
   green          : #738A05; */
 
 body {
-    background-color: black;
+    background-color: #0A2933;
 
     color: #708284;
     font-family: "Roboto Slab";
@@ -94,7 +94,13 @@ table, th, td {
 
 th, td {
     padding: 1px;
+    font-family: "Roboto Slab", "ff-tisa-web-pro", "Georgia", Arial, sans-serif;
     text-align: center;
+}
+
+th{
+    color: #259286;
+    font-size: 1.4em;
 }
 
 .ia {
@@ -122,13 +128,14 @@ table.ia th {
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Roboto Slab', "Helvetica Neue", Helvetica, sans-serif;
     font-weight: 700;
-    color: white;
 
+    color:#EAE3CB ;
     margin-bottom: .4em;
 }
 
 h2 {
-    font-size: 1.8em;
+    font-size: 5em;
+
 }
 
 .highlight {
@@ -158,7 +165,7 @@ nav {
     top: 0;
     bottom: 0;
     width: 200px;
-    background-color: #080808;
+    background-color: #042029;
     transform: translate3d(-200px, 0, 0);
     transition: transform 0.4s ease;
 
@@ -185,7 +192,7 @@ nav ul li a {
     left: 200px;
     width: 170px;
     height: 35px;
-    background: black;
+    background: #042029;
 }
 
 * {
@@ -201,7 +208,7 @@ nav ul li a {
 #chart2, #chart5 {
     padding-top: 20px;
 
-    width: auto;
+    width: 500px;
 
 }
 
@@ -215,15 +222,20 @@ nav ul li a {
 }
 
 .pebble {
-    margin-bottom: 30px;
-
-    background-color: #042029;
+    margin: 30px;
+    padding-top: 30px;
+    background-color: #092029;
     max-width: 350px;
     height: 150px;
     font-size: 1.8em;
     text-align: center;
+    margin-left: 20px;
 }
 
 #shortage-table{
+
     width: auto;
+}
+#short-table{
+        margin-right: 30px ;
 }

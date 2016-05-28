@@ -3,8 +3,7 @@ import os
 from flask.ext.uploads import UploadSet, DATA
 from wtforms import Form, SubmitField
 from flask_wtf.file import FileField, FileAllowed, FileRequired
-from wtforms.fields.html5 import URLField
-from wtforms.validators import url
+
 
 data = UploadSet('data', DATA)
 

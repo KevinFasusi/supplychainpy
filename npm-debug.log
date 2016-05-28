@@ -1,0 +1,276 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs',
+1 verbose cli   '/usr/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '--global',
+1 verbose cli   'babel-cli' ]
+2 info using npm@1.3.10
+3 info using node@v0.10.25
+4 verbose cache add [ 'babel-cli', null ]
+5 verbose cache add name=undefined spec="babel-cli" args=["babel-cli",null]
+6 verbose parsed url { protocol: null,
+6 verbose parsed url   slashes: null,
+6 verbose parsed url   auth: null,
+6 verbose parsed url   host: null,
+6 verbose parsed url   port: null,
+6 verbose parsed url   hostname: null,
+6 verbose parsed url   hash: null,
+6 verbose parsed url   search: null,
+6 verbose parsed url   query: null,
+6 verbose parsed url   pathname: 'babel-cli',
+6 verbose parsed url   path: 'babel-cli',
+6 verbose parsed url   href: 'babel-cli' }
+7 silly lockFile a7787cd8-babel-cli babel-cli
+8 verbose lock babel-cli /home/kevin/.npm/a7787cd8-babel-cli.lock
+9 silly lockFile a7787cd8-babel-cli babel-cli
+10 silly lockFile a7787cd8-babel-cli babel-cli
+11 verbose addNamed [ 'babel-cli', '' ]
+12 verbose addNamed [ null, '*' ]
+13 silly lockFile eb0cb740-babel-cli babel-cli@
+14 verbose lock babel-cli@ /home/kevin/.npm/eb0cb740-babel-cli.lock
+15 silly addNameRange { name: 'babel-cli', range: '*', hasData: false }
+16 verbose url raw babel-cli
+17 verbose url resolving [ 'https://registry.npmjs.org/', './babel-cli' ]
+18 verbose url resolved https://registry.npmjs.org/babel-cli
+19 info trying registry request attempt 1 at 11:55:31
+20 http GET https://registry.npmjs.org/babel-cli
+21 http 200 https://registry.npmjs.org/babel-cli
+22 silly registry.get cb [ 200,
+22 silly registry.get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+22 silly registry.get     etag: '"60HWJ8162562NGIRUOUPQH0MY"',
+22 silly registry.get     'content-type': 'application/json',
+22 silly registry.get     'cache-control': 'max-age=300',
+22 silly registry.get     'content-length': '65788',
+22 silly registry.get     'accept-ranges': 'bytes',
+22 silly registry.get     date: 'Fri, 27 May 2016 10:55:28 GMT',
+22 silly registry.get     via: '1.1 varnish',
+22 silly registry.get     age: '0',
+22 silly registry.get     connection: 'keep-alive',
+22 silly registry.get     'x-served-by': 'cache-lhr6332-LHR',
+22 silly registry.get     'x-cache': 'MISS',
+22 silly registry.get     'x-cache-hits': '0',
+22 silly registry.get     'x-timer': 'S1464346528.778704,VS0,VE91',
+22 silly registry.get     vary: 'Accept-Encoding' } ]
+23 silly addNameRange number 2 { name: 'babel-cli', range: '*', hasData: true }
+24 silly addNameRange versions [ 'babel-cli',
+24 silly addNameRange   [ '6.0.0',
+24 silly addNameRange     '6.0.2',
+24 silly addNameRange     '6.0.12',
+24 silly addNameRange     '6.0.14',
+24 silly addNameRange     '6.0.15',
+24 silly addNameRange     '6.1.0',
+24 silly addNameRange     '6.1.1',
+24 silly addNameRange     '6.1.2',
+24 silly addNameRange     '6.1.4',
+24 silly addNameRange     '6.1.5',
+24 silly addNameRange     '6.1.6',
+24 silly addNameRange     '6.1.7',
+24 silly addNameRange     '6.1.8',
+24 silly addNameRange     '6.1.9',
+24 silly addNameRange     '6.1.10',
+24 silly addNameRange     '6.1.11',
+24 silly addNameRange     '6.1.12',
+24 silly addNameRange     '6.1.13',
+24 silly addNameRange     '6.1.14',
+24 silly addNameRange     '6.1.15',
+24 silly addNameRange     '6.1.16',
+24 silly addNameRange     '6.1.17',
+24 silly addNameRange     '6.1.18',
+24 silly addNameRange     '6.2.0',
+24 silly addNameRange     '6.2.4',
+24 silly addNameRange     '6.3.13',
+24 silly addNameRange     '6.3.15',
+24 silly addNameRange     '6.3.17',
+24 silly addNameRange     '6.4.0',
+24 silly addNameRange     '6.4.5',
+24 silly addNameRange     '6.5.0',
+24 silly addNameRange     '6.5.0-1',
+24 silly addNameRange     '6.5.1',
+24 silly addNameRange     '6.6.0',
+24 silly addNameRange     '6.6.4',
+24 silly addNameRange     '6.6.5',
+24 silly addNameRange     '6.7.5',
+24 silly addNameRange     '6.7.7',
+24 silly addNameRange     '6.8.0',
+24 silly addNameRange     '6.9.0' ] ]
+25 verbose addNamed [ 'babel-cli', '6.9.0' ]
+26 verbose addNamed [ '6.9.0', '6.9.0' ]
+27 silly lockFile 0ea1405c-babel-cli-6-9-0 babel-cli@6.9.0
+28 verbose lock babel-cli@6.9.0 /home/kevin/.npm/0ea1405c-babel-cli-6-9-0.lock
+29 silly lockFile 06ed2829-rg-babel-cli-babel-cli-6-9-0-tgz https://registry.npmjs.org/babel-cli/-/babel-cli-6.9.0.tgz
+30 verbose lock https://registry.npmjs.org/babel-cli/-/babel-cli-6.9.0.tgz /home/kevin/.npm/06ed2829-rg-babel-cli-babel-cli-6-9-0-tgz.lock
+31 verbose addRemoteTarball [ 'https://registry.npmjs.org/babel-cli/-/babel-cli-6.9.0.tgz',
+31 verbose addRemoteTarball   '33744b4dc712ed16bb33172ff36d2a9ff9d74f60' ]
+32 info retry fetch attempt 1 at 11:55:32
+33 verbose fetch to= /home/kevin/tmp/npm-19536-PuKx4aYS/1464346532365-0.5390393931884319/tmp.tgz
+34 http GET https://registry.npmjs.org/babel-cli/-/babel-cli-6.9.0.tgz
+35 http 200 https://registry.npmjs.org/babel-cli/-/babel-cli-6.9.0.tgz
+36 verbose tar unpack /home/kevin/tmp/npm-19536-PuKx4aYS/1464346532365-0.5390393931884319/tmp.tgz
+37 silly lockFile ab408c19-32365-0-5390393931884319-package tar:///home/kevin/tmp/npm-19536-PuKx4aYS/1464346532365-0.5390393931884319/package
+38 verbose lock tar:///home/kevin/tmp/npm-19536-PuKx4aYS/1464346532365-0.5390393931884319/package /home/kevin/.npm/ab408c19-32365-0-5390393931884319-package.lock
+39 silly lockFile 8830fd7d-32365-0-5390393931884319-tmp-tgz tar:///home/kevin/tmp/npm-19536-PuKx4aYS/1464346532365-0.5390393931884319/tmp.tgz
+40 verbose lock tar:///home/kevin/tmp/npm-19536-PuKx4aYS/1464346532365-0.5390393931884319/tmp.tgz /home/kevin/.npm/8830fd7d-32365-0-5390393931884319-tmp-tgz.lock
+41 silly gunzTarPerm modes [ '755', '644' ]
+42 silly gunzTarPerm extractEntry package.json
+43 silly gunzTarPerm extractEntry .npmignore
+44 silly gunzTarPerm extractEntry README.md
+45 silly gunzTarPerm extractEntry index.js
+46 silly gunzTarPerm extractEntry lib/_babel-node.js
+47 silly gunzTarPerm extractEntry lib/babel-external-helpers.js
+48 silly gunzTarPerm extractEntry lib/babel-node.js
+49 silly gunzTarPerm extractEntry lib/babel/dir.js
+50 silly gunzTarPerm extractEntry lib/babel/file.js
+51 silly gunzTarPerm extractEntry lib/babel/index.js
+52 silly gunzTarPerm extractEntry lib/babel/util.js
+53 silly gunzTarPerm extractEntry lib/babel-doctor/index.js
+54 silly gunzTarPerm extractEntry lib/babel-doctor/rules/deduped.js
+55 silly gunzTarPerm extractEntry lib/babel-doctor/rules/has-config.js
+56 silly gunzTarPerm extractEntry lib/babel-doctor/rules/index.js
+57 silly gunzTarPerm extractEntry lib/babel-doctor/rules/latest-packages.js
+58 silly gunzTarPerm extractEntry lib/babel-doctor/rules/npm-3.js
+59 silly gunzTarPerm extractEntry bin/babel-doctor.js
+60 silly gunzTarPerm extractEntry bin/babel-external-helpers.js
+61 silly gunzTarPerm extractEntry bin/babel-node.js
+62 silly gunzTarPerm extractEntry bin/babel.js
+63 silly gunzTarPerm extractEntry scripts/bootstrap.sh
+64 silly lockFile ab408c19-32365-0-5390393931884319-package tar:///home/kevin/tmp/npm-19536-PuKx4aYS/1464346532365-0.5390393931884319/package
+65 silly lockFile ab408c19-32365-0-5390393931884319-package tar:///home/kevin/tmp/npm-19536-PuKx4aYS/1464346532365-0.5390393931884319/package
+66 silly lockFile 8830fd7d-32365-0-5390393931884319-tmp-tgz tar:///home/kevin/tmp/npm-19536-PuKx4aYS/1464346532365-0.5390393931884319/tmp.tgz
+67 silly lockFile 8830fd7d-32365-0-5390393931884319-tmp-tgz tar:///home/kevin/tmp/npm-19536-PuKx4aYS/1464346532365-0.5390393931884319/tmp.tgz
+68 verbose tar pack [ '/home/kevin/.npm/babel-cli/6.9.0/package.tgz',
+68 verbose tar pack   '/home/kevin/tmp/npm-19536-PuKx4aYS/1464346532365-0.5390393931884319/package' ]
+69 verbose tarball /home/kevin/.npm/babel-cli/6.9.0/package.tgz
+70 verbose folder /home/kevin/tmp/npm-19536-PuKx4aYS/1464346532365-0.5390393931884319/package
+71 silly lockFile ab408c19-32365-0-5390393931884319-package tar:///home/kevin/tmp/npm-19536-PuKx4aYS/1464346532365-0.5390393931884319/package
+72 verbose lock tar:///home/kevin/tmp/npm-19536-PuKx4aYS/1464346532365-0.5390393931884319/package /home/kevin/.npm/ab408c19-32365-0-5390393931884319-package.lock
+73 silly lockFile 79b2fc9b--npm-babel-cli-6-9-0-package-tgz tar:///home/kevin/.npm/babel-cli/6.9.0/package.tgz
+74 verbose lock tar:///home/kevin/.npm/babel-cli/6.9.0/package.tgz /home/kevin/.npm/79b2fc9b--npm-babel-cli-6-9-0-package-tgz.lock
+75 silly lockFile ab408c19-32365-0-5390393931884319-package tar:///home/kevin/tmp/npm-19536-PuKx4aYS/1464346532365-0.5390393931884319/package
+76 silly lockFile ab408c19-32365-0-5390393931884319-package tar:///home/kevin/tmp/npm-19536-PuKx4aYS/1464346532365-0.5390393931884319/package
+77 silly lockFile 79b2fc9b--npm-babel-cli-6-9-0-package-tgz tar:///home/kevin/.npm/babel-cli/6.9.0/package.tgz
+78 silly lockFile 79b2fc9b--npm-babel-cli-6-9-0-package-tgz tar:///home/kevin/.npm/babel-cli/6.9.0/package.tgz
+79 silly lockFile c4082311-evin-npm-babel-cli-6-9-0-package /home/kevin/.npm/babel-cli/6.9.0/package
+80 verbose lock /home/kevin/.npm/babel-cli/6.9.0/package /home/kevin/.npm/c4082311-evin-npm-babel-cli-6-9-0-package.lock
+81 silly lockFile c4082311-evin-npm-babel-cli-6-9-0-package /home/kevin/.npm/babel-cli/6.9.0/package
+82 silly lockFile c4082311-evin-npm-babel-cli-6-9-0-package /home/kevin/.npm/babel-cli/6.9.0/package
+83 verbose tar unpack /home/kevin/.npm/babel-cli/6.9.0/package.tgz
+84 silly lockFile b9c6e389-evin-npm-babel-cli-6-9-0-package tar:///home/kevin/.npm/babel-cli/6.9.0/package
+85 verbose lock tar:///home/kevin/.npm/babel-cli/6.9.0/package /home/kevin/.npm/b9c6e389-evin-npm-babel-cli-6-9-0-package.lock
+86 silly lockFile 79b2fc9b--npm-babel-cli-6-9-0-package-tgz tar:///home/kevin/.npm/babel-cli/6.9.0/package.tgz
+87 verbose lock tar:///home/kevin/.npm/babel-cli/6.9.0/package.tgz /home/kevin/.npm/79b2fc9b--npm-babel-cli-6-9-0-package-tgz.lock
+88 silly gunzTarPerm modes [ '755', '644' ]
+89 silly gunzTarPerm extractEntry package.json
+90 silly gunzTarPerm extractEntry .npmignore
+91 silly gunzTarPerm extractEntry README.md
+92 silly gunzTarPerm extractEntry index.js
+93 silly gunzTarPerm extractEntry bin/babel-doctor.js
+94 silly gunzTarPerm extractEntry bin/babel-external-helpers.js
+95 silly gunzTarPerm extractEntry bin/babel-node.js
+96 silly gunzTarPerm extractEntry bin/babel.js
+97 silly gunzTarPerm extractEntry lib/_babel-node.js
+98 silly gunzTarPerm extractEntry lib/babel-external-helpers.js
+99 silly gunzTarPerm extractEntry lib/babel-node.js
+100 silly gunzTarPerm extractEntry lib/babel/dir.js
+101 silly gunzTarPerm extractEntry lib/babel/file.js
+102 silly gunzTarPerm extractEntry lib/babel/index.js
+103 silly gunzTarPerm extractEntry lib/babel/util.js
+104 silly gunzTarPerm extractEntry lib/babel-doctor/index.js
+105 silly gunzTarPerm extractEntry lib/babel-doctor/rules/deduped.js
+106 silly gunzTarPerm extractEntry lib/babel-doctor/rules/has-config.js
+107 silly gunzTarPerm extractEntry lib/babel-doctor/rules/index.js
+108 silly gunzTarPerm extractEntry lib/babel-doctor/rules/latest-packages.js
+109 silly gunzTarPerm extractEntry lib/babel-doctor/rules/npm-3.js
+110 silly gunzTarPerm extractEntry scripts/bootstrap.sh
+111 silly lockFile b9c6e389-evin-npm-babel-cli-6-9-0-package tar:///home/kevin/.npm/babel-cli/6.9.0/package
+112 silly lockFile b9c6e389-evin-npm-babel-cli-6-9-0-package tar:///home/kevin/.npm/babel-cli/6.9.0/package
+113 silly lockFile 79b2fc9b--npm-babel-cli-6-9-0-package-tgz tar:///home/kevin/.npm/babel-cli/6.9.0/package.tgz
+114 silly lockFile 79b2fc9b--npm-babel-cli-6-9-0-package-tgz tar:///home/kevin/.npm/babel-cli/6.9.0/package.tgz
+115 verbose chmod /home/kevin/.npm/babel-cli/6.9.0/package.tgz 644
+116 verbose chown /home/kevin/.npm/babel-cli/6.9.0/package.tgz [ 1000, 1000 ]
+117 silly lockFile 06ed2829-rg-babel-cli-babel-cli-6-9-0-tgz https://registry.npmjs.org/babel-cli/-/babel-cli-6.9.0.tgz
+118 silly lockFile 06ed2829-rg-babel-cli-babel-cli-6-9-0-tgz https://registry.npmjs.org/babel-cli/-/babel-cli-6.9.0.tgz
+119 silly lockFile 0ea1405c-babel-cli-6-9-0 babel-cli@6.9.0
+120 silly lockFile 0ea1405c-babel-cli-6-9-0 babel-cli@6.9.0
+121 silly lockFile eb0cb740-babel-cli babel-cli@
+122 silly lockFile eb0cb740-babel-cli babel-cli@
+123 silly resolved [ { name: 'babel-cli',
+123 silly resolved     version: '6.9.0',
+123 silly resolved     description: 'Babel command line.',
+123 silly resolved     author: { name: 'Sebastian McKenzie', email: 'sebmck@gmail.com' },
+123 silly resolved     homepage: 'https://babeljs.io/',
+123 silly resolved     license: 'MIT',
+123 silly resolved     repository:
+123 silly resolved      { type: 'git',
+123 silly resolved        url: 'https://github.com/babel/babel/tree/master/packages/babel-cli' },
+123 silly resolved     dependencies:
+123 silly resolved      { 'babel-core': '^6.9.0',
+123 silly resolved        'babel-register': '^6.9.0',
+123 silly resolved        'babel-polyfill': '^6.9.0',
+123 silly resolved        'babel-runtime': '^6.9.0',
+123 silly resolved        'bin-version-check': '^2.1.0',
+123 silly resolved        chalk: '1.1.1',
+123 silly resolved        commander: '^2.8.1',
+123 silly resolved        'convert-source-map': '^1.1.0',
+123 silly resolved        'fs-readdir-recursive': '^0.1.0',
+123 silly resolved        glob: '^5.0.5',
+123 silly resolved        lodash: '^4.2.0',
+123 silly resolved        'log-symbols': '^1.0.2',
+123 silly resolved        'output-file-sync': '^1.1.0',
+123 silly resolved        'path-exists': '^1.0.0',
+123 silly resolved        'path-is-absolute': '^1.0.0',
+123 silly resolved        request: '^2.65.0',
+123 silly resolved        slash: '^1.0.0',
+123 silly resolved        'source-map': '^0.5.0',
+123 silly resolved        v8flags: '^2.0.10',
+123 silly resolved        chokidar: '^1.0.0' },
+123 silly resolved     optionalDependencies: { chokidar: '^1.0.0' },
+123 silly resolved     devDependencies: { 'babel-helper-fixtures': '^6.9.0' },
+123 silly resolved     bin:
+123 silly resolved      { 'babel-doctor': './bin/babel-doctor.js',
+123 silly resolved        babel: './bin/babel.js',
+123 silly resolved        'babel-node': './bin/babel-node.js',
+123 silly resolved        'babel-external-helpers': './bin/babel-external-helpers.js' },
+123 silly resolved     readme: '# babel-cli\n\n> Babel command line.\n\n## Install\n\n```sh\n$ npm install babel-cli\n```\n\n## Usage \n\n```sh\n$ babel script.js\n```\n\nFor more in depth documentation see: http://babeljs.io/docs/usage/cli/\n',
+123 silly resolved     readmeFilename: 'README.md',
+123 silly resolved     _id: 'babel-cli@6.9.0',
+123 silly resolved     dist: { shasum: '601e18071864874e17b637e7183981f34971493a' },
+123 silly resolved     _from: 'babel-cli@',
+123 silly resolved     _resolved: 'https://registry.npmjs.org/babel-cli/-/babel-cli-6.9.0.tgz' } ]
+124 info install babel-cli@6.9.0 into /usr/local/lib
+125 info installOne babel-cli@6.9.0
+126 info /usr/local/lib/node_modules/babel-cli unbuild
+127 verbose tar unpack /home/kevin/.npm/babel-cli/6.9.0/package.tgz
+128 silly lockFile 3c0b1672-local-lib-node-modules-babel-cli tar:///usr/local/lib/node_modules/babel-cli
+129 verbose lock tar:///usr/local/lib/node_modules/babel-cli /home/kevin/.npm/3c0b1672-local-lib-node-modules-babel-cli.lock
+130 silly lockFile 79b2fc9b--npm-babel-cli-6-9-0-package-tgz tar:///home/kevin/.npm/babel-cli/6.9.0/package.tgz
+131 verbose lock tar:///home/kevin/.npm/babel-cli/6.9.0/package.tgz /home/kevin/.npm/79b2fc9b--npm-babel-cli-6-9-0-package-tgz.lock
+132 silly gunzTarPerm modes [ '755', '644' ]
+133 error Error: EACCES, mkdir '/usr/local/lib/node_modules'
+133 error  { [Error: EACCES, mkdir '/usr/local/lib/node_modules']
+133 error   errno: 3,
+133 error   code: 'EACCES',
+133 error   path: '/usr/local/lib/node_modules',
+133 error   fstream_type: 'Directory',
+133 error   fstream_path: '/usr/local/lib/node_modules/babel-cli',
+133 error   fstream_class: 'DirWriter',
+133 error   fstream_stack:
+133 error    [ '/usr/lib/nodejs/fstream/lib/writer.js:171:23',
+133 error      '/usr/lib/nodejs/mkdirp/index.js:37:53',
+133 error      'Object.oncomplete (fs.js:107:15)' ] }
+134 error Please try running this command again as root/Administrator.
+135 error System Linux 3.13.0-86-generic
+136 error command "/usr/bin/nodejs" "/usr/bin/npm" "install" "--global" "babel-cli"
+137 error cwd /home/kevin/Projects/Python/supplychainpy
+138 error node -v v0.10.25
+139 error npm -v 1.3.10
+140 error path /usr/local/lib/node_modules
+141 error fstream_path /usr/local/lib/node_modules/babel-cli
+142 error fstream_type Directory
+143 error fstream_class DirWriter
+144 error code EACCES
+145 error errno 3
+146 error stack Error: EACCES, mkdir '/usr/local/lib/node_modules'
+147 error fstream_stack /usr/lib/nodejs/fstream/lib/writer.js:171:23
+147 error fstream_stack /usr/lib/nodejs/mkdirp/index.js:37:53
+147 error fstream_stack Object.oncomplete (fs.js:107:15)
+148 verbose exit [ 3, true ]

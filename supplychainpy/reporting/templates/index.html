@@ -4,79 +4,86 @@
 
 <div class=" row">
     <h2> Top 10 Shortages</h2>
-    <div id="short-table" class=" col-xs-3  col-md-4">
-        <table id="shortage-table" class=" table-responsive table ia">
-        </table>
+
+
+    <div class=" row">
+        <div class=" pebble col-md-3">
+            <h1>Largest Shortage: </h1>
+            <h1 id="lg-shortage"></h1>
+            <h1 id="lg-shortage_cost"></h1>
+        </div>
+        <div class=" pebble col-md-3">
+            <h1>Total Shortage: </h1>
+            <h1 id="total-shortage"></h1>
+        </div>
+        <div class=" pebble col-md-3">
+            <h1>Shortage as % Inventory </h1>
+            <h1><strong>10</strong></h1>
+        </div>
+        <div class=" pebble col-md-3">
+            <h1>Total Shortage: </h1>
+            <h1><strong>KR202-235</strong></h1>
+            <h1><strong>$11,405,156</strong></h1>
+        </div>
     </div>
-    <div class=" col-md-3">
+
+    <div class=" row">
+        <div id="short-table" class=" col-lg-6">
+            <table id="shortage-table" class=" table-responsive table ">
+            </table>
+        </div>
+        <div class=" col-md-4">
+            <div id="chart4"></div>
+
+            <div id="chart2">
+                <h3></h3>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class=" row">
+        <h2> Top 10 Excess</h2>
         <div class=" row">
-            <div class=" col-md-12">
-                <div class="pebble">
-                    <h1>Biggest Shortage: </h1>
-                    <h1><strong>KR202-235</strong></h1>
-                    <h1><strong>$11,405,156</strong></h1>
+            <div class=" pebble col-md-3">
+                <h1>Total Excess: </h1>
+                <h1><strong>KR202-235</strong></h1>
+                <h1><strong>$11,405,156</strong></h1>
+            </div>
+            <div class=" pebble col-md-3">
+                <h1>Largest Excess: </h1>
+                <h1><strong>KR202-235</strong></h1>
+                <h1><strong>$11,405,156</strong></h1>
+            </div>
+            <div id="excess-percent-inv" class=" pebble col-md-3">
+                <h1>Excess as % of Inventory: </h1>
+                <h1><strong>52%</strong></h1>
+                <h5>AX: 10% AY: 10% BX: 21% CZ: 20%</h5>
+            </div>
+            <div class=" pebble col-md-3">
+                <h1>Total Shortage: </h1>
+                <h1><strong>KR202-235</strong></h1>
+                <h1><strong>$11,405,156</strong></h1>
+            </div>
+        </div>
+
+        <div class=" row">
+            <div id="excess" class=" col-lg-6">
+                <table id="excess-table" class=" table-responsive table ">
+                </table>
+            </div>
+            <div class=" col-md-4">
+                <div id="excess-chart"></div>
+
+                <div id="excess-pie">
+                    <h3></h3>
                 </div>
+
             </div>
 
-            <div id="chart4" class="col-md-12">
-            </div>
         </div>
-    </div>
-    <div class="col-md-3">
-        <div class=" row">
-            <div id="chart2" class="col-md-12">
-                <h2>Shortages by Classification</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div id="" class="col-md-12">
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="card row">
-    <h2> Top 10 Excess</h2>
-    <div id="excess" class=" col-xs-4  col-md-4">
-        <table id="excess-table" class=" table-responsive table ia">
-        </table>
-    </div>
-    <div class=" col-md-3">
-        <div class="card row">
-            <div class=" col-md-12">
-                <div class="pebble">
-                    <h1>Biggest Shortage: </h1>
-                    <h1><strong>KR202-235</strong></h1>
-                    <h1><strong>$11,405,156</strong></h1>
-                </div>
-            </div>
-
-            <div id="excess-chart" class="col-md-12">
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class=" row">
-            <div id="excess-pie" class="col-md-12">
-                <h2>Shortages by Classification</h2>
-            </div>
-        </div>
-        <div class="card row">
-            <div class="col-md-12">
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-<div class="card row">
-    <div class="col-md-12">
-        <section class="ia">
-            <h2>Sku Revenue Graph</h2>
-            <div>
-            </div>
-        </section>
-    </div>
-</div>
 
 
-{% endblock %}
+    </div>
+    {% endblock %}

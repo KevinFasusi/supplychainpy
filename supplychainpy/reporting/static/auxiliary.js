@@ -60,6 +60,25 @@ $("document").ready(function () {
         }
     });
 
+
+    $.ajax({
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        url: 'http://127.0.0.1:5000/reporting/api/v1.0/top_excess',
+        dataType: 'json',
+        async: true,
+        data: "{}",
+        success: function (data) {
+            //console.log(data);
+            create_excess_table(data);
+
+
+        },
+        error: function (result) {
+            //console.log(result);// make 404.html page
+        }
+    });
+
 });
 
 
@@ -95,21 +114,31 @@ var unpack = {
         return barData;
     },
 
-    excess: function (data) {
-        var barData = [];
+    excess: function (data, target) {
+        var excess_data = [];
 
         for (key in data) {
             tempData = data[key];
             //console.log(tempData);
             for (i in tempData) {
-                //console.log(tempData[i].shortage_cost);
-                barData.push(tempData[i].shortage_cost);
-                //console.log(barData);
+                //console.log(tempData[i]);
+                switch (target) {
+
+                    case 'chart':
+                        excess_data.push([tempData[i].sku_id, tempData[i].excess_cost]);
+                        console.log(excess_data);
+                        break;
+
+                    case 'table':
+                        excess_data.push(tempData[i]);
+                        console.log(excess_data);
+                        break;
+                }
+
             }
 
-
         }
-        return barData;
+        return excess_data;
     },
 
     pie: function (data) {
@@ -159,18 +188,47 @@ var unpack = {
 
 function create_shortages_table(data) {
     var shortages_data = new unpack.shortages(data, 'table');
+    var total_shortage = 0;
+
     $("#shortage-table").append().html("<tr id='first'><th>SKU</th><th>Quantity on Hand</th><th>Average Orders</th>" +
         "<th>Shortage</th><th>Shortage Cost</th><th>Classification</th></tr>");
-    console.log("rr" + shortages_data);
+    //console.log(shortages_data[0].sku_id);
 
     for (obj in shortages_data) {
         //console.log(shortages_data[obj].sku_id);
-        $("<tr><td>" + shortages_data[obj].sku_id + "</td>" +
+        total_shortage += shortages_data[obj].shortage_cost;
+        console.log(total_shortage);
+
+        $("<tr><td><a href=\"sku_detail/" + shortages_data[obj].sku_id + "\">" + shortages_data[obj].sku_id + "</a></td>" +
             "<td>" + shortages_data[obj].quantity_on_hand + "</td>" +
             "<td>" + shortages_data[obj].average_orders + "</td>" +
             "<td>" + shortages_data[obj].shortages + "</td>" +
             "<td>" + shortages_data[obj].shortage_cost + "</td>" +
             "<td>" + shortages_data[obj].abc_xyz_classification + "</td></tr>").insertAfter("#shortage-table tr:last");
+
+    }
+
+    $("#lg-shortage").append().html("<h1><strong>" + shortages_data[0].sku_id + "</strong></h1>");
+    $("#lg-shortage_cost").append().html("<h1><strong>" + shortages_data[0].shortage_cost + "</strong></h1>");
+    $("#lg-shortage_cost > h1").css("color", "#D11C24");
+    $("#total-shortage").append().html("<h1><strong>" + total_shortage + "</strong></h1>");
+}
+
+
+function create_excess_table(data) {
+    var excess_data = new unpack.excess(data, 'table');
+    $("#excess-table").append().html("<tr id='first'><th>SKU</th><th>Quantity on Hand</th><th>Average Orders</th>" +
+        "<th>Excess</th><th>Excess Cost</th><th>Classification</th></tr>");
+    //console.log(excess_data);
+
+    for (obj in excess_data) {
+        //console.log(excess_data[obj].sku_id);
+        $("<tr><td><a href=\"sku_detail/" + excess_data[obj].sku_id + "\">" + excess_data[obj].sku_id + "</td>" +
+            "<td>" + excess_data[obj].quantity_on_hand + "</td>" +
+            "<td>" + excess_data[obj].average_orders + "</td>" +
+            "<td>" + excess_data[obj].excess_stock + "</td>" +
+            "<td>" + excess_data[obj].excess_cost + "</td>" +
+            "<td>" + excess_data[obj].abc_xyz_classification + "</td></tr>").insertAfter("#excess-table tr:last");
     }
 
 }
@@ -297,9 +355,9 @@ function render_revenue_graph(data, id) {
 function render_pie_chart(data) {
     //console.log(data);
 
-    var width = 300;
-    var height = 300;
-    var radius = 150;
+    var width = 200;
+    var height = 200;
+    var radius = 100;
     var colors = d3.scale.ordinal()
         .range(['#259286', '#2176C7', '#FCF4DC', 'white', '#819090', '#A57706', '#EAE3CB', '#2e004d']);
 
@@ -370,10 +428,10 @@ function render_shortages_chart(data, id) {
 
     console.log(nums);
 
-    var margin = {top: 10, right: 500, bottom: 40, left: 0.1};
+    var margin = {top: 10, right: 300, bottom: 40, left: 0.1};
 
     var height = 250 - margin.top - margin.bottom;
-    var width = 850 - margin.left - margin.right;
+    var width = 650 - margin.left - margin.right;
 
     var colors = d3.scale.linear()
         .domain([0, nums.length * .33, nums.length * .66, nums.length])
@@ -397,7 +455,7 @@ function render_shortages_chart(data, id) {
         .style('fill', function (d, i) {
             return colors(i);
         })
-        .attr('width', xScale.rangeBand() * .9)
+        .attr('width', xScale.rangeBand() * .5)
         .attr('height', 0)
         .attr('x', function (d, i) {
             return xScale(i);

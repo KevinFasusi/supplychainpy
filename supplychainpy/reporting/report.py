@@ -136,6 +136,17 @@ def sku_detail(sku_id: str = None):
     return flask.jsonify(json_list=[i.serialize for i in inventory])
 
 
+@app.route('/sku_detail', methods=['GET'])
+@app.route('/sku_detail/<string:sku_id>', methods=['GET'])
+def sku(sku_id: str = None):
+    """route for restful sku detail, whole content limited by most recent date or individual sku"""
+    if sku_id is not None:
+        inventory = db.session.query(InventoryAnalysis).filter(InventoryAnalysis.sku_id == sku_id).all()
+    else:
+        inventory = db.session.query(InventoryAnalysis).all()
+    return flask.render_template('sku.html', inventory=inventory)
+
+
 @app.route('/reporting/api/v1.0/abc_summary', methods=['GET'])
 @app.route('/reporting/api/v1.0/abc_summary/<string:classification>', methods=['GET'])
 def get_classification_summary(classification: str = None):
@@ -187,6 +198,37 @@ def top_shortages(rank: int = 10, classification: str = None):
     return flask.jsonify(json_list=[i for i in revenue_classification])
 
 
+@app.route('/reporting/api/v1.0/top_excess', methods=['GET'])
+@app.route('/reporting/api/v1.0/top_excess/<int:rank>', methods=['GET'])
+@app.route('/reporting/api/v1.0/top_excess/<string:classification>', methods=['GET'])
+def top_excess(rank: int = 10, classification: str = None):
+    """ route for restful summary of top skus """
+    if classification is not None:
+        revenue_classification = db.session.query(InventoryAnalysis.abc_xyz_classification,
+                                                  InventoryAnalysis.sku_id,
+                                                  InventoryAnalysis.excess_cost,
+                                                  InventoryAnalysis.quantity_on_hand,
+                                                  InventoryAnalysis.percentage_contribution_revenue,
+                                                  InventoryAnalysis.revenue_rank,
+                                                  InventoryAnalysis.excess_stock,
+                                                  InventoryAnalysis.average_orders
+                                                  ).filter(
+            InventoryAnalysis.abc_xyz_classification == classification).order_by(
+            desc(InventoryAnalysis.excess_cost)).limit(rank)
+    else:
+        revenue_classification = db.session.query(InventoryAnalysis.abc_xyz_classification,
+                                                  InventoryAnalysis.sku_id,
+                                                  InventoryAnalysis.excess_cost,
+                                                  InventoryAnalysis.quantity_on_hand,
+                                                  InventoryAnalysis.percentage_contribution_revenue,
+                                                  InventoryAnalysis.revenue_rank,
+                                                  InventoryAnalysis.excess_stock,
+                                                  InventoryAnalysis.average_orders
+                                                  ).order_by(desc(InventoryAnalysis.excess_cost)).limit(rank)
+
+    return flask.jsonify(json_list=[i for i in revenue_classification])
+
+
 # @app.route('/upload/', methods=('GET', 'POST'))
 # def upload():
 #    form = DataForm()
@@ -211,8 +253,8 @@ def top_shortages(rank: int = 10, classification: str = None):
 
 def launch_report():
     from supplychainpy.reporting import load
-    # db.create_all()
-    # load.load()
+    #db.create_all()
+    #load.load()
     app.run()
 
 
