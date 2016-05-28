@@ -45,7 +45,7 @@ table {
   paleyellow     : #EAE3CB;
   yellow         : #A57706;
   orange         : #BD3613;
-  red            : ;
+  red            : #D11C29;
   pink           : #C61C6F;
   purple         : #595AB7;
   blue           : #2176C7;
@@ -62,7 +62,8 @@ body {
 
 .content {
     padding-top: 40px;
-    padding-left: 30px;
+    padding-left: 40px;
+    padding-right: 40px;
     height: 2000px;
     background-color: #0A2933;
     transition: transform3d 0.4s ease;
@@ -98,7 +99,7 @@ th, td {
     text-align: center;
 }
 
-th{
+th {
     color: #259286;
     font-size: 1.4em;
 }
@@ -129,7 +130,7 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Roboto Slab', "Helvetica Neue", Helvetica, sans-serif;
     font-weight: 700;
 
-    color:#EAE3CB ;
+    color: #EAE3CB;
     margin-bottom: .4em;
 }
 
@@ -207,7 +208,7 @@ nav ul li a {
 
 #chart2, #chart5 {
     padding-top: 20px;
-
+    padding-left: 76px;
     width: 500px;
 
 }
@@ -222,20 +223,28 @@ nav ul li a {
 }
 
 .pebble {
-    margin: 30px;
-    padding-top: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     background-color: #092029;
-    max-width: 350px;
+    max-width: 300px;
     height: 150px;
     font-size: 1.8em;
     text-align: center;
     margin-left: 20px;
 }
 
-#shortage-table{
+#shortage-table {
 
     width: auto;
 }
-#short-table{
-        margin-right: 30px ;
+
+#short-table {
+    margin-right: 30px;
+}
+
+.pad-chart-col {
+    padding-left: 110px
 }

@@ -191,7 +191,7 @@ function create_shortages_table(data) {
     var total_shortage = 0;
 
     $("#shortage-table").append().html("<tr id='first'><th>SKU</th><th>Quantity on Hand</th><th>Average Orders</th>" +
-        "<th>Shortage</th><th>Shortage Cost</th><th>Classification</th></tr>");
+        "<th>Shortage</th><th>Shortage Cost</th><th>Safety Stock</th><th>Reorder Level</th><th>Classification</th></tr>");
     //console.log(shortages_data[0].sku_id);
 
     for (obj in shortages_data) {
@@ -204,14 +204,20 @@ function create_shortages_table(data) {
             "<td>" + shortages_data[obj].average_orders + "</td>" +
             "<td>" + shortages_data[obj].shortages + "</td>" +
             "<td>" + shortages_data[obj].shortage_cost + "</td>" +
+            "<td>" + shortages_data[obj].safety_stock + "</td>" +
+            "<td>" + shortages_data[obj].reorder_level + "</td>" +
             "<td>" + shortages_data[obj].abc_xyz_classification + "</td></tr>").insertAfter("#shortage-table tr:last");
 
     }
 
-    $("#lg-shortage").append().html("<h1><strong>" + shortages_data[0].sku_id + "</strong></h1>");
-    $("#lg-shortage_cost").append().html("<h1><strong>" + shortages_data[0].shortage_cost + "</strong></h1>");
-    $("#lg-shortage_cost > h1").css("color", "#D11C24");
-    $("#total-shortage").append().html("<h1><strong>" + total_shortage + "</strong></h1>");
+    $("#lg-shortage-sku").append().html("<h1><strong>" + shortages_data[0].sku_id + "</strong></h1>")
+        .find("> h1").css("color", "#2176C7");
+    $("#lg-shortage-cost").append().html("<h1><strong>" + "$" + shortages_data[0].shortage_cost + "</strong></h1>")
+        .find("> h1").css("color", "#D11C29");
+    $("#lg-shortage-units").append().html("<h1><strong>" + shortages_data[0].shortages + " units" + "</strong></h1>")
+        .find("> h1").css("color", "#819090");
+    $("#total-shortage").append().html("<h1><strong>" + total_shortage + "</strong></h1>")
+        .find("> h1").css("color", "#D11C29");
 }
 
 
