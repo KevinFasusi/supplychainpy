@@ -2,19 +2,27 @@ language: python
 python:
   - "3.5"
 
+node_js:
+  - "4.2"
+
 install:
   - pip install numpy
   - pip install coveralls
   - pip install cython
   - pip install pytest
+  - npm install
+  - npm install mocha
+  - npm install chai
+  - npm supervisor
 
 script:
   - python -m unittest discover tests/
   #- py.test --pyargs /home/travis/build/KevinFasusi/supplychainpy/tests/
   - coverage run --source=/home/travis/build/KevinFasusi/supplychainpy/ -m unittest discover tests/
   #- coverage run --source=/home/travis/build/KevinFasusi/supplychainpy/ -m py.test --pyargs /home/travis/build/KevinFasusi/supplychainpy/tests/
-
-
+  - mocha --reporter mocha-lcov-reporter --source=/home/travis/build/KevinFasusi/supplychainpy/tests/* > coverage.info
+  - coveralls-lcov -v -n coverage.info > coverage.json
+  - coveralls --merge=coverage.json
 
 after_success:
   - coveralls

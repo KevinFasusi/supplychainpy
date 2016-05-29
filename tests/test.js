@@ -1,13 +1,35 @@
 /**
  * Created by kevin on 28/05/16.
  */
-var assert = require('chai').assert;
-describe('Array', function() {
-  describe('#indexOf()', function () {
-    it('should return -1 when the value is not present', function () {
-      assert.equal(-1, [1,2,3].indexOf(5));
-      assert.equal(-1, [1,2,3].indexOf(0));
-    });
-  });
-});
+var assert = require('/usr/local/lib/node_modules/chai').assert;
+var expect = require('/usr/local/lib/node_modules/chai').expect;
+var supertest = require('/usr/local/lib/node_modules/supertest');
 
+var api = supertest('http://localhost:5000');
+
+describe('Endpoints', function () {
+    describe('sku_detail', function () {
+        it('should return a response of 200', function (done) {
+            api.get('/reporting/api/v1.0/sku_detail')
+                .set('accept', 'application/json')
+                .expect(200, done);
+        });
+
+    });
+
+    describe('sku_detail', function () {
+        it('should return a response of 200', function (done) {
+            api.get('/reporting/api/v1.0/sku_detail')
+                .set('accept', 'application/json')
+                .expect(200)
+                .end(function (err, res) {
+                    //console.log(res.body.json_list[0]);
+                    expect(res.body.json_list[0]).to.have.property("id");
+                    expect(res.body.json_list[0].average_orders).to.not.equal(null);
+                    expect(res.body.json_list[0]).to.have.property("classification");
+                    expect(res.body.json_list[0].classification).to.not.equal(null);
+                    done();
+                })
+        });
+    });
+});

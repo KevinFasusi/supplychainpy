@@ -16,3 +16,4 @@ __pycache__/
 .DS_Store
 ._.DS_Store
 .pypirc
+.db
