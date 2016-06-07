@@ -1,9 +1,9 @@
 /**
  * Created by kevin on 28/05/16.
  */
-var assert = require('/usr/local/lib/node_modules/chai').assert;
-var expect = require('/usr/local/lib/node_modules/chai').expect;
-var supertest = require('/usr/local/lib/node_modules/supertest');
+
+var expect = require('../node_modules/chai/chai.js').expect;
+var supertest = require('../node_modules/supertest');
 
 var api = supertest('http://localhost:5000');
 

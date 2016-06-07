@@ -30,13 +30,16 @@ def analyse_orders(data_set: dict, sku_id: str, lead_time: Decimal, unit_cost: D
 
     Args:
         data_set (dict):        The orders data for a specified period.
-        sku_id (str):           The unique id of the sku
+        sku_id (str):           The unique id of the sku.
         lead_time (Decimal):    The average lead-time for the sku over the period represented by the data,
                                 in the same unit.
         unit_cost (Decimal):    The unit cost of the sku to the organisation.
         reorder_cost (Decimal): The cost to place a reorder. This is usually the cost of the operation divided by number
                                 of purchase orders placed in the previous period.
-        z_value (Decimal):      The service level required to calculate the safety stock
+        z_value (Decimal):      The service level required to calculate the safety stock.
+        retail_price (Decimal): The retail or standard price of the sku.
+        quantity_on_hand (Decimal): The quantity currently on hand as of analysis or retrieving data set.
+
     Returns:
         dict:       The summary of the analysis, containing:
                     average_order,standard_deviation, safety_stock, demand_variability, reorder_level
@@ -47,8 +50,24 @@ def analyse_orders(data_set: dict, sku_id: str, lead_time: Decimal, unit_cost: D
                     'average_order': '539', 'reorder_level': '813', 'economic_order_quantity': '277', 'sku': 'RR381-33',
                     'demand_variability': '0.052', 'economic_order_variable_cost': '29557.61',
                     'standard_deviation': '28', 'safety_stock': '51'}
+
     Raises:
-        ValueError: Dictionary too small. Please use a minimum of 3 entries.
+        ValueError: Dataset too small. Please use a minimum of 3 entries.
+
+
+    Examples:
+
+        yearly_demand = {'jan': 75, 'feb': 75, 'mar': 75, 'apr': 75, 'may': 75, 'jun': 75, 'jul': 25,
+                      'aug': 25, 'sep': 25, 'oct': 25, 'nov': 25, 'dec': 25}
+
+        summary = model_inventory.analyse_orders(yearly_demand,
+                                         sku_id='RX983-90',
+                                         lead_time=Decimal(3),
+                                         unit_cost=Decimal(50.99),
+                                         reorder_cost=Decimal(400),
+                                         z_value=Decimal(1.28),
+                                         retail_price=Decimal(600),
+                                         quantity_on_hand=Decimal(390))
     """
     if len(data_set) > 2:
         d = analyse_uncertain_demand.UncertainDemand(orders=data_set, sku=sku_id, lead_time=lead_time,
@@ -56,7 +75,7 @@ def analyse_orders(data_set: dict, sku_id: str, lead_time: Decimal, unit_cost: D
                                                      z_value=z_value, retail_price=retail_price,
                                                      quantity_on_hand=quantity_on_hand)
     else:
-        raise ValueError("Dictionary too small. Please use a minimum of 3 entries.")
+        raise ValueError("Dataset too small. Please use a minimum of 3 entries.")
     return d.orders_summary_simple()
 
 
@@ -96,6 +115,9 @@ def analyse_orders_from_file_col(file_path, sku_id: str, lead_time: Decimal, uni
     Raises:
         Exception:  Incorrect file type specified. Please specify 'csv' or 'text' for the file_type parameter.
         Exception:  Unspecified file type, Please specify 'csv' or 'text' for file_type parameter.
+
+    Example:
+
     """
 
     if _check_extension(file_path=file_path, file_type=file_type):

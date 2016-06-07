@@ -59,6 +59,7 @@ class OrdersAnalysis:
                  'CZ': [analysis if self.__abc_xyz.cz is not None else 0 for analysis in self.__abc_xyz.cz]}
         try:
             # filters the subset based on classification and category requested and return the currency vale of the
+
             temp_sum = Decimal(0)
             unit_cost = Decimal(0)
 
@@ -66,26 +67,33 @@ class OrdersAnalysis:
 
             for id in classification:
                 for label in category:
-                    summary = style.get(id)
-                    for sku in summary:
-                        unit_cost = Decimal(sku.get("unit_cost"))
-                        t = {**sku}
-                        temp_sum += Decimal(t.get(label))
-                        t.clear()
+                    if label in ('excess_stock', 'shortages', 'revenue'):
+                        summary = style.get(id)
+                        for sku in summary:
+                            unit_cost = Decimal(sku.get("unit_cost"))
+                            t = {**sku}
+                            temp_sum += Decimal(t.get(label))
+                            t.clear()
 
-                    if label == 'revenue':
-                        temp_currency_summary.update({label: float(temp_sum)})
+                        if label == 'revenue':
+                            temp_currency_summary.update({label: float(temp_sum)})
 
-                    elif label != 'revenue' and value == 'currency':
-                        temp_currency_summary.update({'{}_cost'.format(label): float(temp_sum * unit_cost)})
+                        elif label != 'revenue' and value == 'currency':
+                            temp_currency_summary.update({'{}_cost'.format(label): float(temp_sum * unit_cost)})
 
+                        else:
+                            temp_currency_summary.update({'{}_units'.format(label): float(temp_sum)})
+
+                        temp_sum = 0
                     else:
-                        temp_currency_summary.update({'{}_cost'.format(label): float(temp_sum)})
+                        raise TypeError
 
-                    temp_sum = 0
 
                 yield {id: temp_currency_summary}
                 temp_currency_summary.clear()
+
+        except TypeError as e:
+            raise TypeError("abc_xyz_summary terminated {}".format(e))
 
         except AttributeError as e:
             print("Incorrect Category or Attribute empty. {}".format(e))

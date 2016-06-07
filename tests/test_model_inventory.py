@@ -12,9 +12,15 @@ class TestBuildModel(TestCase):
                       'aug': 25, 'sep': 25, 'oct': 25, 'nov': 25, 'dec': 25}
     _yearly_demand2 = {'jan': 75}
 
+    _categories = ('unit_cost', 'sku', 'reorder_level', 'safety_stock', 'reorder_quantity', 'ABC_XYZ_Classification',
+                   'revenue', 'standard_deviation', 'quantity_on_hand', 'average_orders', 'shortages', 'excess_stock',
+                   'demand_variability')
+
+    _expected_values = ('50', 'RX983-90', '99' , '12', '57', '', '360000', '25', '390', '50', '0', '205', '0.500')
+
 
     def test_model_orders_type(self):
-        """Test summary format"""
+        """Tests analyse_orders returns a 'dict' type. """
         summary = model_inventory.analyse_orders(self._yearly_demand,
                                                  sku_id='RX983-90',
                                                  lead_time=Decimal(3),
@@ -27,6 +33,7 @@ class TestBuildModel(TestCase):
         self.assertIsInstance(summary, dict)
 
     def test_model_orders_length(self):
+        """supplied orders data must be greater than 3 items long."""
         with self.assertRaises(expected_exception=ValueError):
             summary = model_inventory.analyse_orders(self._yearly_demand2,
                                                      sku_id="RX983-90",
@@ -38,16 +45,19 @@ class TestBuildModel(TestCase):
                                                      quantity_on_hand=Decimal(390))
 
     def test_model_orders_content(self):
+        """ test the return values for simple analyse orders"""
         summary = model_inventory.analyse_orders(self._yearly_demand,
                                                  sku_id="RX983-90",
                                                  lead_time=Decimal(3),
-                                                 unit_cost=Decimal(50.99),
+                                                 unit_cost=Decimal(50),
                                                  reorder_cost=Decimal(400),
                                                  z_value=Decimal(.28),
                                                  retail_price=Decimal(600),
                                                  quantity_on_hand=Decimal(390))
 
-        self.assertEqual(int(summary.get("standard_deviation")), int(25))
+        for i, k in zip(self._categories, self._expected_values):
+            self.assertEqual(str(k), summary.get(i))
+
         # finish with all members
 
     def test_standard_deviation_row_count(self):
@@ -90,14 +100,14 @@ class TestBuildModel(TestCase):
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplychainpy/test.txt'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
-        d = model_inventory.analyse_orders_from_file_col( file_path= abs_file_path,
-                                                          sku_id='RX9304-43',
-                                                          lead_time=Decimal(2),
-                                                          unit_cost=Decimal(400),
-                                                          reorder_cost=Decimal(45),
-                                                          z_value=Decimal(1.28),
-                                                          file_type="text",
-                                                          retail_price=Decimal(30))
+        d = model_inventory.analyse_orders_from_file_col(file_path=abs_file_path,
+                                                         sku_id='RX9304-43',
+                                                         lead_time=Decimal(2),
+                                                         unit_cost=Decimal(400),
+                                                         reorder_cost=Decimal(45),
+                                                         z_value=Decimal(1.28),
+                                                         file_type="text",
+                                                         retail_price=Decimal(30))
         # assert
         self.assertEqual(len(d), 14)
 
@@ -119,11 +129,13 @@ class TestBuildModel(TestCase):
 
     def test_standard_deviation_row_value(self):
         # arrange
+        std = int(0)
+
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplychainpy/test_row_small.txt'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
         # act
-        d = model_inventory.analyse_orders_from_file_row(file_path= abs_file_path,
+        d = model_inventory.analyse_orders_from_file_row(file_path=abs_file_path,
                                                          retail_price=Decimal(400),
                                                          reorder_cost=Decimal(450),
                                                          z_value=Decimal(1.28))
@@ -193,7 +205,7 @@ class TestBuildModel(TestCase):
         for sku in abc:
             item = sku.orders_summary()
             if item['sku'] == 'KR202-209':
-                self.assertEqual(item['ABC_XYZ_Classification'], 'CZ')
+                self.assertEqual(item['ABC_XYZ_Classification'], 'AY')
 
 
 if __name__ == '__main__':

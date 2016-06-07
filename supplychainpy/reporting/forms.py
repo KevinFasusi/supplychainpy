@@ -4,14 +4,13 @@ from flask.ext.uploads import UploadSet, DATA
 from wtforms import Form, SubmitField
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 
-
 data = UploadSet('data', DATA)
-
 
 app_dir = os.path.dirname(__file__, )
 rel_path = '../uploads'
 abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
 UPLOAD_FOLDER = abs_file_path
+
 
 class DataForm(Form):
     orders = FileField('You data:',

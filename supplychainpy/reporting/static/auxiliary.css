@@ -66,12 +66,12 @@ body {
     padding-right: 40px;
     height: 2000px;
     background-color: #0A2933;
-    transition: transform3d 0.4s ease;
+    transition: transform3d 0.8s ease;
 
 }
 
 .active-nav .content {
-    transform: translate3d(200px, 0, 0);
+    transform: translate3d(100px, 0, 0);
 
 }
 
@@ -105,6 +105,7 @@ th {
 }
 
 .ia {
+    margin-left: 20px;
     margin-top: 20px;
     float: left;
 }
@@ -119,8 +120,7 @@ table.ia tr:nth-child(odd) {
 }
 
 table.ia th {
-    font-size: 1.2em;
-    color: white;
+
     background-color: transparent;
     font-family: "Roboto Slab";
     font-weight: 600;
@@ -151,7 +151,7 @@ h2 {
     left: 0;
     height: 100%;
     width: 150px;
-    transition: width ease .5s;
+    transition: width ease .8s;
     margin-right: 300px;
 
 }
@@ -165,10 +165,10 @@ nav {
     z-index: 1000;
     top: 0;
     bottom: 0;
-    width: 200px;
+    width: 100px;
     background-color: #042029;
-    transform: translate3d(-200px, 0, 0);
-    transition: transform 0.4s ease;
+    transform: translate3d(-100px, 0, 0);
+    transition: transform 0.2s ease;
 
 }
 
@@ -183,14 +183,16 @@ nav ul li a {
     display: block;
     text-align: center;
     color: white;
-    padding: 10px 0px;
+    padding: 20px 0;
+    font-size: 1.5em;
+    margin-bottom: 20px;
 
 }
 
 .nav-toggle-btn {
     display: block;
     position: absolute;
-    left: 200px;
+    left: 100px;
     width: 170px;
     height: 35px;
     background: #042029;
@@ -206,14 +208,14 @@ nav ul li a {
 
 }
 
-#chart2, #chart5 {
+#pie-shortage, #excess-pie {
     padding-top: 20px;
     padding-left: 76px;
     width: 500px;
 
 }
 
-#chart4 {
+#shortage-chart {
     height: auto;
 
 }
@@ -242,9 +244,31 @@ nav ul li a {
 }
 
 #short-table {
-    margin-right: 30px;
+    margin: 30px;
+
 }
 
 .pad-chart-col {
     padding-left: 110px
+}
+
+#popup{
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    float: left;
+
+
+    background-color: #00A000;
+}
+
+
+.highlight-event{
+    background-color: #0A2933;
+
+}
+
+.sub-row{
+    margin-right: 15px;
+     padding-left: 15px;
 }

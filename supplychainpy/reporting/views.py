@@ -1,3 +1,13 @@
+import flask
+
+from flask import request, send_from_directory
+
+from sqlalchemy import func, desc
+
+import flask.ext.restless
+from supplychainpy.reporting.forms import DataForm, upload
+
+
 import os
 from ctypes import cast
 from datetime import datetime
@@ -10,7 +20,7 @@ from sqlalchemy import func, desc
 
 from supplychainpy.reporting.config import DevConfig
 from flask.ext.sqlalchemy import SQLAlchemy
-
+import flask.ext.restless
 from supplychainpy.reporting.forms import DataForm, upload
 
 app_dir = os.path.dirname(__file__, )
@@ -22,6 +32,13 @@ app.config.from_object(DevConfig)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 db = SQLAlchemy(app)
+
+
+def convert_datetime(value):
+    """Deserialize datetime object into string"""
+    if value is None:
+        return None
+    return [value.strftime("%d-%m-%y"), value.strftime("%H:%M:%S")]
 
 
 class InventoryAnalysis(db.Model):
@@ -95,11 +112,11 @@ class InventoryAnalysis(db.Model):
         }
 
 
-def convert_datetime(value):
-    """Deserialize datetime object into string"""
-    if value is None:
-        return None
-    return [value.strftime("%d-%m-%y"), value.strftime("%H:%M:%S")]
+#db.create_all()
+
+manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
+manager.create_api(InventoryAnalysis, methods=['GET', 'POST', 'DELETE', 'PATCH'])
+
 
 
 @app.route('/')
@@ -154,14 +171,16 @@ def get_classification_summary(classification: str = None):
     if classification is not None:
         revenue_classification = db.session.query(InventoryAnalysis.abc_xyz_classification,
                                                   func.sum(InventoryAnalysis.revenue).label('total_revenue'),
-                                                  func.sum(InventoryAnalysis.shortage_cost).label('total_shortages')
+                                                  func.sum(InventoryAnalysis.shortage_cost).label('total_shortages'),
+                                                  func.sum(InventoryAnalysis.excess_cost).label('total_excess')
                                                   ).filter(
             InventoryAnalysis.abc_xyz_classification == classification).group_by(
             InventoryAnalysis.abc_xyz_classification).all()
     else:
         revenue_classification = db.session.query(InventoryAnalysis.abc_xyz_classification,
                                                   func.sum(InventoryAnalysis.revenue).label('total_revenue'),
-                                                  func.sum(InventoryAnalysis.shortage_cost).label('total_shortages')
+                                                  func.sum(InventoryAnalysis.shortage_cost).label('total_shortages'),
+                                                  func.sum(InventoryAnalysis.excess_cost).label('total_excess')
                                                   ).group_by(InventoryAnalysis.abc_xyz_classification).all()
 
     return flask.jsonify(json_list=[i for i in revenue_classification])
@@ -258,12 +277,6 @@ def top_excess(rank: int = 10, classification: str = None):
 #
 #    return flask.render_template('upload.html', form=form)
 
-
-def launch_report():
-    from supplychainpy.reporting import load
-    #db.create_all()
-    #load.load()
-    app.run()
 
 
 @app.route('/uploads/<filename>')

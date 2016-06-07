@@ -32,7 +32,7 @@ def load():
 
     for item in ia:
         skus_description = [summarised for summarised in analysis_summary.describe_sku(item['sku'])]
-        from supplychainpy.reporting.report import InventoryAnalysis
+        from supplychainpy.reporting.views import InventoryAnalysis
         i_up = InventoryAnalysis()
         i_up.abc_xyz_classification = item['ABC_XYZ_Classification']
         i_up.standard_deviation = item['standard_deviation']
@@ -67,5 +67,5 @@ def load():
     db.session.commit()
 
 
-#if __name__ == '__main__':
-#    load()
+if __name__ == '__main__':
+    load()

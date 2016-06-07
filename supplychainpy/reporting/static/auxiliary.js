@@ -3,6 +3,9 @@
  */
 
 $("document").ready(function () {
+    $('div.nav-tab').hover(highlight);
+
+
     // ajax request for json containing sku related. Is used to: builds revenue chart (#chart).
     $.ajax({
         type: "GET",
@@ -12,9 +15,8 @@ $("document").ready(function () {
         async: true,
         data: "{}",
         success: function (data) {
-
             //console.log(data);
-            render_revenue_graph(data, '#chart');
+            //render_revenue_graph(data, '#chart');
 
         },
         error: function (result) {
@@ -33,8 +35,11 @@ $("document").ready(function () {
         data: "{}",
         success: function (data) {
             //console.log(data);
-            render_pie_chart(data);
-            //render_pie_chart_test(data);
+            var pie_chart1 = new RenderPieChart(data, '#pie-shortage');
+            pie_chart1.shortages();
+            var pie_chart2 = new RenderPieChart(data, '#excess-pie');
+            pie_chart2.excess();
+            create_classification_table(data);
         },
         error: function (result) {
             //console.log(result);// make 404.html page
@@ -52,7 +57,7 @@ $("document").ready(function () {
         success: function (data) {
             //console.log(data);
             create_shortages_table(data);
-            render_shortages_chart(data, '#chart4')
+            render_shortages_chart(data, '#shortage-chart')
 
         },
         error: function (result) {
@@ -93,12 +98,14 @@ var unpack = {
 
     sku_detail: function (data, value) {
         var barData = [];
-
+        var tempData;
+        var key;
+        var i;
         for (key in data) {
             tempData = data[key];
             //console.log(tempData);
             for (i in tempData) {
-                //console.log(tempData[i].revenue);
+                //.log(tempData[i].revenue);
                 switch (value) {
                     case unpack.attribute_enum.revenue:
                         barData.push(tempData[i].revenue);
@@ -116,7 +123,8 @@ var unpack = {
 
     excess: function (data, target) {
         var excess_data = [];
-
+        var tempData;
+        var key;
         for (key in data) {
             tempData = data[key];
             //console.log(tempData);
@@ -125,13 +133,13 @@ var unpack = {
                 switch (target) {
 
                     case 'chart':
-                        excess_data.push([tempData[i].sku_id, tempData[i].excess_cost]);
-                        console.log(excess_data);
+                        excess_data.push([tempData[i].abc_xyz_classification, tempData[i].total_excess]);
+                        //console.log (excess_data);
                         break;
 
                     case 'table':
                         excess_data.push(tempData[i]);
-                        console.log(excess_data);
+                        //console.log(excess_data);
                         break;
                 }
 
@@ -143,6 +151,8 @@ var unpack = {
 
     pie: function (data) {
         var pieData = [];
+        var tempData;
+        var key;
 
         for (key in data) {
             tempData = data[key];
@@ -160,7 +170,9 @@ var unpack = {
 
     shortages: function (data, target) {
         var shortages_data = [];
-
+        var tempData;
+        var key;
+        var i;
         for (key in data) {
             tempData = data[key];
             //console.log(tempData);
@@ -170,12 +182,12 @@ var unpack = {
 
                     case 'chart':
                         shortages_data.push([tempData[i].sku_id, tempData[i].shortage_cost]);
-                        console.log(shortages_data);
+                        //console.log(shortages_data);
                         break;
 
                     case 'table':
                         shortages_data.push(tempData[i]);
-                        console.log(shortages_data);
+                        //console.log(shortages_data);
                         break;
                 }
 
@@ -183,21 +195,57 @@ var unpack = {
 
         }
         return shortages_data;
+    },
+
+
+    abc_xyz: function abc_xyz(data, target) {
+        var abcxyz_data = [];
+        var tempData;
+        var key;
+        var i;
+        for (key in data) {
+            tempData = data[key];
+            console.log(tempData);
+            for (i in tempData) {
+                //console.log(tempData[i]);
+                switch (target) {
+
+                    case 'chart':
+                        abcxyz_data.push([tempData[i].sku_id, tempData[i].shortage_cost]);
+                        //console.log(shortages_data);
+                        break;
+
+                    case 'table':
+                        abcxyz_data.push(tempData[i]);
+                        //console.log(shortages_data);
+                        break;
+                }
+            }
+        }
+        return abcxyz_data;
     }
+
 };
+
+function highlight() {
+
+    $(this).toggleClass('highlight-event');
+
+}
 
 function create_shortages_table(data) {
     var shortages_data = new unpack.shortages(data, 'table');
     var total_shortage = 0;
 
     $("#shortage-table").append().html("<tr id='first'><th>SKU</th><th>Quantity on Hand</th><th>Average Orders</th>" +
-        "<th>Shortage</th><th>Shortage Cost</th><th>Safety Stock</th><th>Reorder Level</th><th>Classification</th></tr>");
+        "<th>Shortage</th><th>Shortage Cost</th><th>Safety Stock</th><th>Reorder Level</th> " +
+        "<th>Percentage Contribution</th><th>Revenue Rank</th><th>Classification</th></tr>");
     //console.log(shortages_data[0].sku_id);
-
+    var obj;
     for (obj in shortages_data) {
         //console.log(shortages_data[obj].sku_id);
         total_shortage += shortages_data[obj].shortage_cost;
-        console.log(total_shortage);
+        //console.log(total_shortage);
 
         $("<tr><td><a href=\"sku_detail/" + shortages_data[obj].sku_id + "\">" + shortages_data[obj].sku_id + "</a></td>" +
             "<td>" + shortages_data[obj].quantity_on_hand + "</td>" +
@@ -206,6 +254,8 @@ function create_shortages_table(data) {
             "<td>" + shortages_data[obj].shortage_cost + "</td>" +
             "<td>" + shortages_data[obj].safety_stock + "</td>" +
             "<td>" + shortages_data[obj].reorder_level + "</td>" +
+            "<td>" + Math.round(shortages_data[obj].percentage_contribution_revenue * 100) + "%</td>" +
+            "<td>" + shortages_data[obj].revenue_rank + "</td>" +
             "<td>" + shortages_data[obj].abc_xyz_classification + "</td></tr>").insertAfter("#shortage-table tr:last");
 
     }
@@ -225,12 +275,12 @@ function create_shortages_table(data) {
 function create_excess_table(data) {
     var excess_data = new unpack.excess(data, 'table');
     var total_excess = 0,
-        percentage_excess =0;
+        percentage_excess = 0;
 
     $("#excess-table").append().html("<tr id='first'><th>SKU</th><th>Quantity on Hand</th><th>Average Orders</th>" +
         "<th>Excess</th><th>Excess Cost</th><th>Excess Inventory %</th><th>Safety Stock</th><th>Reorder Level</th><th>Classification</th></tr>");
     //console.log(excess_data);
-
+    var obj;
     for (obj in excess_data) {
         //console.log(excess_data[obj].sku_id);
         total_excess += excess_data[obj].excess_cost;
@@ -255,6 +305,174 @@ function create_excess_table(data) {
         .find("> h1").css("color", "#819090");
     $("#total-excess").append().html("<h1><strong>" + total_excess + "</strong></h1>")
         .find("> h1").css("color", "#D11C29");
+
+}
+
+function create_classification_table(data) {
+    var abc_xyz_data = new unpack.abc_xyz(data, 'table');
+
+    $("#classification-table").append().html("<tr id='classification-row'><th>Classification</th><th>Revenue</th><th>Shortages</th>" + "<th>Excess</th></tr>");
+    //console.log(excess_data);
+
+    var obj;
+    for (obj in abc_xyz_data) {
+        console.log(abc_xyz_data[obj].abc_xyz_classification);
+        $("<tr><td><a href=\"abcxyz/" + abc_xyz_data[obj].abc_xyz_classification + "\">" + abc_xyz_data[obj].abc_xyz_classification + "</a>"
+            + "<td>" + abc_xyz_data[obj].total_revenue + "</td>"
+            + "<td>" + abc_xyz_data[obj].total_shortages + "</td>"
+            + "<td>" + abc_xyz_data[obj].total_excess + "</td>"
+            + "</td></tr>").insertAfter("#classification-table tr:last");
+    }
+
+    var max_shortage = 0;
+    var max_class;
+    var max_excess = 0;
+    var excess_class;
+    var item;
+    var tempValue;
+    var tempClass;
+    for (item in abc_xyz_data) {
+        if (abc_xyz_data[item].total_shortages > max_shortage) {
+            max_shortage = abc_xyz_data[item].total_shortages;
+            max_class = abc_xyz_data[item].abc_xyz_classification;
+        }
+        if (abc_xyz_data[item].total_excess > max_excess) {
+            max_excess = abc_xyz_data[item].total_excess;
+            excess_class = abc_xyz_data[item].abc_xyz_classification;
+        }
+    }
+
+    $("#lg-shortage-classification").append().html("<h1><strong>" + max_shortage + "</strong></h1>")
+        .find("> h1").css("color", "#2176C7");
+    $("#lg-shortage-classification-class").append().html("<h1><strong>" + max_class + "</strong></h1>")
+        .find("> h1").css("color", "#2176C7");
+    $("#lg-excess-classification").append().html("<h1><strong>" + max_excess + "</strong></h1>")
+        .find("> h1").css("color", "#2176C7");
+    $("#lg-excess-classification-class").append().html("<h1><strong>" + excess_class + "</strong></h1>")
+        .find("> h1").css("color", "#2176C7");
+
+}
+
+
+class RenderPieChart {
+    constructor(data, id) {
+        this.data = data;
+        this.id = id;
+
+    }
+
+    shortages() {
+        //console.log(data);
+
+        var width = 350;
+        var height = 350;
+        var radius = 175;
+        var colors = d3.scale.ordinal()
+            .range(['#259286', '#2176C7', '#FCF4DC', 'white', '#819090', '#A57706', '#EAE3CB', '#2e004d']);
+
+        var pieData = unpack.pie(this.data);
+        //console.log(pieData);
+
+        var pie = d3.layout.pie()
+            .value(function (d) {
+                //console.log(d[1]);
+                return d[1];
+            });
+
+        var arc = d3.svg.arc()
+            .outerRadius(radius);
+
+        var myChart = d3.select(this.id).append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .append('g')
+            .attr('transform', 'translate(' + (width - radius) + ',' + (height - radius) + ')')
+            .selectAll('path').data(pie(pieData))
+            .enter().append('g')
+            .attr('class', 'slice');
+
+        var slices = d3.selectAll('g.slice')
+            .append('path')
+            .attr('fill', function (d, i) {
+                return colors(i);
+            })
+            .attr('opacity', .6)
+            .attr('d', arc);
+
+        var text = d3.selectAll('g.slice')
+            .append('text')
+            .text(function (d, i) {
+                //console.log(d.data[0]);
+
+                return d.data[0];
+
+            })
+            .attr('text-anchor', 'middle')
+            .attr('fill', 'white')
+            .attr('transform', function (d) {
+                d.innerRadius = 0;
+                d.outerRadius = radius;
+                return 'translate(' + arc.centroid(d) + ')'
+            });
+
+    }
+
+    excess() {
+        //console.log(data);
+
+        var width = 350;
+        var height = 350;
+        var radius = 175;
+        var colors = d3.scale.ordinal()
+            .range(['#259286', '#2176C7', '#FCF4DC', 'white', '#819090', '#A57706', '#EAE3CB', '#2e004d']);
+
+        var pieData = unpack.excess(this.data, 'chart');
+        //console.log(pieData);
+
+        var pie = d3.layout.pie()
+            .value(function (d) {
+                //console.log(d[1]);
+                return d[1];
+            });
+
+        var arc = d3.svg.arc()
+            .outerRadius(radius);
+
+        var myChart = d3.select(this.id).append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .append('g')
+            .attr('transform', 'translate(' + (width - radius) + ',' + (height - radius) + ')')
+            .selectAll('path').data(pie(pieData))
+            .enter().append('g')
+            .attr('class', 'slice');
+
+        var slices = d3.selectAll('g.slice')
+            .append('path')
+            .attr('fill', function (d, i) {
+                return colors(i);
+            })
+            .attr('opacity', .6)
+            .attr('d', arc);
+
+        var text = d3.selectAll('g.slice')
+            .append('text')
+            .text(function (d, i) {
+                //console.log(d.data);
+
+                return d.data[0];
+
+            })
+            .attr('text-anchor', 'middle')
+            .attr('fill', 'white')
+            .attr('transform', function (d) {
+                d.innerRadius = 0;
+                d.outerRadius = radius;
+                return 'translate(' + arc.centroid(d) + ')'
+            });
+
+
+    }
 
 }
 
@@ -377,64 +595,6 @@ function render_revenue_graph(data, id) {
 }
 
 
-function render_pie_chart(data) {
-    //console.log(data);
-
-    var width = 200;
-    var height = 200;
-    var radius = 100;
-    var colors = d3.scale.ordinal()
-        .range(['#259286', '#2176C7', '#FCF4DC', 'white', '#819090', '#A57706', '#EAE3CB', '#2e004d']);
-
-    var pieData = unpack.pie(data);
-    //console.log(pieData);
-
-    var pie = d3.layout.pie()
-        .value(function (d) {
-            //console.log(d[1]);
-            return d[1];
-        });
-
-    var arc = d3.svg.arc()
-        .outerRadius(radius);
-
-    var myChart = d3.select('#chart2').append('svg')
-        .attr('width', width)
-        .attr('height', height)
-        .append('g')
-        .attr('transform', 'translate(' + (width - radius) + ',' + (height - radius) + ')')
-        .selectAll('path').data(pie(pieData))
-        .enter().append('g')
-        .attr('class', 'slice');
-
-    var slices = d3.selectAll('g.slice')
-        .append('path')
-        .attr('fill', function (d, i) {
-            return colors(i);
-        })
-        .attr('opacity', .6)
-        .attr('d', arc);
-
-    var text = d3.selectAll('g.slice')
-        .append('text')
-        .text(function (d, i) {
-            //console.log(d.data[0]);
-
-            return d.data[0];
-
-        })
-        .attr('text-anchor', 'middle')
-        .attr('fill', 'white')
-        .attr('transform', function (d) {
-            d.innerRadius = 0;
-            d.outerRadius = radius;
-            return 'translate(' + arc.centroid(d) + ')'
-        });
-
-
-}
-
-
 function render_shortages_chart(data, id) {
     var bardata = unpack.shortages(data, 'chart');
     var nums = [];
@@ -451,12 +611,12 @@ function render_shortages_chart(data, id) {
         .style('padding', '0 10px')
         .style('opacity', 0);
 
-    console.log(nums);
+    //console.log(nums);
 
-    var margin = {top: 10, right: 300, bottom: 40, left: 0.1};
+    var margin = {top: 30, right: 50, bottom: 40, left: 75};
 
-    var height = 250 - margin.top - margin.bottom;
-    var width = 650 - margin.left - margin.right;
+    var height = 400 - margin.top - margin.bottom;
+    var width = 600 - margin.left - margin.right;
 
     var colors = d3.scale.linear()
         .domain([0, nums.length * .33, nums.length * .66, nums.length])
@@ -468,25 +628,26 @@ function render_shortages_chart(data, id) {
 
     var xScale = d3.scale.ordinal()
         .domain(d3.range(0, nums.length))
-        .rangeBands([0, width]);
+        .rangeBands([0, width], .2); // space the bars on the chart
 
     var shortage_chart = d3.select(id).append('svg')
-        .attr('width', width)
-        .attr('height', height)
+        .style('background', '#0A2933;')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom)
         .append('g')
-        .style('background', 'white')
+        .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')') //moving the chart graphic
         .selectAll('rect').data(nums)
         .enter().append('rect')
         .style('fill', function (d, i) {
             return colors(i);
         })
-        .attr('width', xScale.rangeBand() * .5)
+        .attr('width', xScale.rangeBand())
         .attr('height', 0)
         .attr('x', function (d, i) {
             return xScale(i);
         })
         .attr('y', height).on('mouseover', function (d) {
-            console.log(d);
+            //console.log(d);
             tooltip.transition()
                 .style('opacity', 0.5);
             tooltip.html(d)
@@ -521,77 +682,42 @@ function render_shortages_chart(data, id) {
     }).ease('elastic');
 
     var vGuideScale = d3.scale.linear()
-        .domain([0, d3.max(nums)]).range([height, 0.5]); //reversing the order of the scale on the y axi
+        .domain([0, d3.max(nums)])
+        .range([height, 0]); //reversing the order of the scale on the y axi
 
     var vAxis = d3.svg.axis()
         .scale(vGuideScale)
         .orient('left')
         .ticks(10);
 
-    var vGuide = d3.select('#chart4 > svg').append('g');
+    var vGuide = d3.select('#shortage-chart > svg').append('g');
     vAxis(vGuide);
     vGuide.attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
     vGuide.selectAll('path')
-        .style({fill: 'none', stroke: "#000"});
+        .style({fill: 'none', stroke: "white"});
     vGuide.selectAll('line')
-        .style({stroke: "#000"});
+        .style({stroke: "white"});
+    vGuide.selectAll('text')
+        .style({stroke: "grey"});
 
-
-}
-
-function render_pie_chart_test(data) {
-    //console.log(data);
-
-    var width = 150;
-    var height = 150;
-    var radius = 75;
-    var colors = d3.scale.ordinal()
+    var name = d3.scale.ordinal()
         .range(['#259286', '#2176C7', '#FCF4DC', 'white', '#819090', '#A57706', '#EAE3CB', '#2e004d']);
 
-    var pieData = unpack.pie(data);
-    //console.log(pieData);
+    var hAxis = d3.svg.axis()
+        .scale(xScale)
+        .orient('bottom')
+        .tickValues(xScale.domain().filter(function (d, i) {
+            return !(i % (nums.length / 5));
+        }));
 
-    var pie = d3.layout.pie()
-        .value(function (d) {
-            //console.log(d[1]);
-            return d[1];
-        });
-
-    var arc = d3.svg.arc()
-        .outerRadius(radius);
-
-    var myChart = d3.select('#chart5').append('svg')
-        .attr('width', width)
-        .attr('height', height)
-        .append('g')
-        .attr('transform', 'translate(' + (width - radius) + ',' + (height - radius) + ')')
-        .selectAll('path').data(pie(pieData))
-        .enter().append('g')
-        .attr('class', 'slice');
-
-    var slices = d3.selectAll('g.slice')
-        .append('path')
-        .attr('fill', function (d, i) {
-            return colors(i);
-        })
-        .attr('opacity', .6)
-        .attr('d', arc);
-
-    var text = d3.selectAll('g.slice')
-        .append('text')
-        .text(function (d, i) {
-            //console.log(d.data[0]);
-
-            return d.data[0];
-
-        })
-        .attr('text-anchor', 'middle')
-        .attr('fill', 'white')
-        .attr('transform', function (d) {
-            d.innerRadius = 0;
-            d.outerRadius = radius;
-            return 'translate(' + arc.centroid(d) + ')'
-        });
-
+    var hGuide = d3.select('svg').append('g');
+    hAxis(hGuide);
+    hGuide.attr('transform', 'translate(' + margin.left + ', ' + (height + margin.top) + ')');
+    hGuide.selectAll('path')
+        .style({fill: 'none', stroke: "white"});
+    hGuide.selectAll('line')
+        .style({stroke: "white"});
+    hGuide.selectAll('text')
+        .style({stroke: "grey"});
 
 }

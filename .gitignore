@@ -9,7 +9,6 @@ env/
 __pycache__/
 *~
 .idea/
-.idea/workspace.xml
 # due to using tox and pytest
 .tox
 .cache
@@ -17,3 +16,8 @@ __pycache__/
 ._.DS_Store
 .pypirc
 .db
+.babelrc
+karma.conf*
+package.json
+docs/
+npm*

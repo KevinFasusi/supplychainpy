@@ -12,29 +12,47 @@ from supplychainpy.simulations.simulation_frame_summary import MonteCarloFrameSu
 
 
 class TestMonteCarlo(TestCase):
-    def test_normal_distribution_mean(self):
-        """ Verifies mean and variance for random normal distribution.
-        """
-        # arrange
+    """Tests the the monte carlo computations. """
+
+    def setUp(self):
         app_dir = os.path.dirname(__file__, )
         rel_path = 'supplychainpy/data2.csv'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
-        # act
-        orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path,
-                                                                          z_value=Decimal(1.28),
-                                                                          reorder_cost=Decimal(5000),
-                                                                          file_type="csv")
 
-        sim = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis,
+        self.__skus = ['KR202-209', 'KR202-210', 'KR202-211']
+
+        self.__orders_analysis = analyse_orders_abcxyz_from_file(file_path=abs_file_path,
+                                                                 z_value=Decimal(1.28),
+                                                                 reorder_cost=Decimal(5000),
+                                                                 file_type="csv",
+                                                                 length=12)
+
+        self.__sim = monte_carlo.SetupMonteCarlo(analysed_orders=self.__orders_analysis,
                                           period_length=1)
 
-        for sku in orders_analysis:
+    def test_normal_distribution_mean(self):
+        """ Verifies mean and variance for random normal distribution.
+        """
+
+
+        for sku in self.__orders_analysis:
             item = sku.orders_summary()
             if item['sku'] == 'KR202-209':
                 # assertd
                 diff = abs(
-                    float(item['average_orders']) - float(np.mean(sim.normal_random_distribution[0]['KR202-209'][0][0])))
+                    float(item['average_orders']) - float(np.mean(self.__sim.normal_random_distribution[0]['KR202-209'][0][0])))
                 self.assertLess(diff, float(item['standard_deviation']))
+
+    def test_demand_is_normally_distibuted(self):
+
+        random_demand = [demand.get('KR202-209')for demand in self.__sim.normal_random_distribution][0][0][0]
+        average_orders = [orders.orders_summary() for orders in self.__orders_analysis][0]['average_orders']
+        standard_deviation = [orders.orders_summary() for orders in self.__orders_analysis][0]['standard_deviation']
+        print(standard_deviation, average_orders, random_demand)
+        z_value = (random_demand - float(average_orders)) / float(standard_deviation)
+        print(z_value)
+
+
 
     def test_run_simulation(self):
         app_dir = os.path.dirname(__file__, )

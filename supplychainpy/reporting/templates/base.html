@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='auxiliary.css') }}">
 <script type="text/javascript" src="{{ url_for('static', filename='jquery-2.2.3.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='bootstrap.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='auxiliary.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='bundle.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='d3.js') }}"></script>
 <script>
     $(document).ready(function () {
@@ -23,28 +23,51 @@
         <img src="{{ url_for('static', filename='logo.png') }}">
     </a>
     <ul>
-        <li><a href="{{url_for('raw_data')}}">Raw Data</a></li>
-        <li><a href="/">Reports</a></li>
-        <li><a href="/">Dashboard</a></li>
-        <li><a href="/">Reports</a></li>
-        <li><a href="/">Dashboard</a></li>
-        <li><a href="/">Reports</a></li>
-        <li><a href="/">Dashboard</a></li>
-        <li><a href="/">Reports</a></li>
-    </ul>
 
+        <li>
+            <a class="nav-tabs" href="{{url_for('raw_data')}}">
+                <div class=" row sub-row">
+                    <div class="  col-md-11"><img src="{{ url_for('static', filename='data.png') }}"></div>
+
+                </div>
+            </a>
+        </li>
+
+        <li>
+            <a class="nav-tabs" href="/">
+                <div class=" row sub-row">
+                    <div class="col-md-11"><img src="{{ url_for('static', filename='dash.png') }}"></div>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a class="nav-tabs" href="/">
+                <div class=" row sub-row">
+                    <div class="col-md-11"><img src="{{ url_for('static', filename='reporting.png') }}"></div>
+                </div>
+            </a>
+        </li>
+                <li>
+            <a class="nav-tabs" href="/">
+                <div class=" row sub-row">
+                    <div class="col-md-11"><img src="{{ url_for('static', filename='settings.png') }}"></div>
+                </div>
+            </a>
+        </li>
+    </ul>
+<p> <h4>Contact</h4></p>
 </nav>
 <script>
 
-(function toggle_nav() {
-    var bodyElement = $('body'),
-        navToggleBtn = bodyElement.find('.nav-toggle-btn');
+    (function toggle_nav() {
+        var bodyElement = $('body'),
+                navToggleBtn = bodyElement.find('.nav-toggle-btn');
 
-    navToggleBtn.on('click',function (e) {
-        bodyElement.toggleClass('active-nav');
-        e.preventDefault();
-    })
-})();
+        navToggleBtn.on('click', function (e) {
+            bodyElement.toggleClass('active-nav');
+            e.preventDefault();
+        })
+    })();
 </script>
 <div class="content container-fluid">
     {% block body%}
@@ -53,11 +76,8 @@
 </div>
 
 
-
-
-
 </body>
 
-
+</html>
 
 
