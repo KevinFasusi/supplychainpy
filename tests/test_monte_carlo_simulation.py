@@ -48,9 +48,9 @@ class TestMonteCarlo(TestCase):
         random_demand = [demand.get('KR202-209')for demand in self.__sim.normal_random_distribution][0][0][0]
         average_orders = [orders.orders_summary() for orders in self.__orders_analysis][0]['average_orders']
         standard_deviation = [orders.orders_summary() for orders in self.__orders_analysis][0]['standard_deviation']
-        print(standard_deviation, average_orders, random_demand)
+       # print(standard_deviation, average_orders, random_demand)
         z_value = (random_demand - float(average_orders)) / float(standard_deviation)
-        print(z_value)
+       # print(z_value)
 
 
 

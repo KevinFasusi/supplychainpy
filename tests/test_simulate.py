@@ -31,7 +31,7 @@ class TestSimulate(TestCase):
         sim = simulate.run_monte_carlo(orders_analysis=self.__orders_analysis,
                                        runs=1, period_length=12)
         for period in sim:
-            print(period)
+           # print(period)
             if int(period[0].get("backlog")) == 0:
                 self.assertEqual(int(period[0].get("shortage_cost")), 0)
 
@@ -51,7 +51,7 @@ class TestSimulate(TestCase):
         sim = simulate.run_monte_carlo(orders_analysis=self.__orders_analysis, runs=1, period_length=12)
         for period in sim:
             if int(period[0].get("closing_stock")) == 0:
-                print(period[0].get("po_quantity"))
+               # print(period[0].get("po_quantity"))
                 self.assertGreater(int(period[0].get("po_quantity")), 0)
 
 
