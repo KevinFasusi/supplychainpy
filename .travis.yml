@@ -10,9 +10,9 @@ install:
   - pip install coveralls
   - pip install cython
   - pip install pytest
-  - npm install mocha
-  - npm install chai
-  - npm install supervisor
+  #- npm install mocha
+  #- npm install chai
+  #- npm install supervisor
 
 script:
   - python -m unittest discover tests/

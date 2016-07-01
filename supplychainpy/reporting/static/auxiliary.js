@@ -6,6 +6,7 @@ const $ = require('jquery');
 $("document").ready(function () {
     $('div.nav-tab').hover(highlight);
 
+
     // ajax request for json containing sku related. Is used to: builds revenue chart (#chart).
     $.ajax({
         type: "GET",

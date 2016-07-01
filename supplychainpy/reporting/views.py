@@ -7,7 +7,6 @@ from sqlalchemy import func, desc
 import flask.ext.restless
 from supplychainpy.reporting.forms import DataForm, upload
 
-
 import os
 from ctypes import cast
 from datetime import datetime
@@ -112,11 +111,10 @@ class InventoryAnalysis(db.Model):
         }
 
 
-#db.create_all()
+# db.create_all()
 
 manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 manager.create_api(InventoryAnalysis, methods=['GET', 'POST', 'DELETE', 'PATCH'])
-
 
 
 @app.route('/')
@@ -184,6 +182,15 @@ def get_classification_summary(classification: str = None):
                                                   ).group_by(InventoryAnalysis.abc_xyz_classification).all()
 
     return flask.jsonify(json_list=[i for i in revenue_classification])
+
+
+@app.route('/abcxyz/<string:classification>')
+def abxyz(classification: str = None):
+    abc = db.session.query(InventoryAnalysis.sku_id,
+                           ).filter(
+        InventoryAnalysis.abc_xyz_classification == classification).all()
+
+    return flask.render_template('abcxyz.html', inventory=abc)
 
 
 @app.route('/reporting/api/v1.0/top_shortages', methods=['GET'])

@@ -271,4 +271,15 @@ nav ul li a {
 .sub-row{
     margin-right: 15px;
      padding-left: 15px;
+
+
+}
+
+#analysis_table{
+
+
+}
+
+.dataTables_wrapper .dataTables_paginate {
+    color: white;
 }
