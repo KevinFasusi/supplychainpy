@@ -1,10 +1,10 @@
 /**
  * Created by Fasusi on 22/05/2016.
  */
+const $ = require('jquery');
 
 $("document").ready(function () {
     $('div.nav-tab').hover(highlight);
-
 
     // ajax request for json containing sku related. Is used to: builds revenue chart (#chart).
     $.ajax({
@@ -16,7 +16,7 @@ $("document").ready(function () {
         data: "{}",
         success: function (data) {
             //console.log(data);
-            //render_revenue_graph(data, '#chart');
+            render_revenue_graph(data, '#chart');
 
         },
         error: function (result) {

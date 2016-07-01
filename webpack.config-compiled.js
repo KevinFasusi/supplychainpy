@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
     entry: './supplychainpy/reporting/static/auxiliary-compiled.js',
     output: {
@@ -6,3 +8,5 @@ module.exports = {
     },
     devtool: 'source-map'
 };
+
+//# sourceMappingURL=webpack.config-compiled.js.map

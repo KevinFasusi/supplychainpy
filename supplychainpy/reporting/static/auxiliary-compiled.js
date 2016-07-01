@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -7,6 +7,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /**
  * Created by Fasusi on 22/05/2016.
  */
+var $ = require('jquery');
 
 $("document").ready(function () {
     $('div.nav-tab').hover(highlight);
@@ -21,8 +22,7 @@ $("document").ready(function () {
         data: "{}",
         success: function success(data) {
             //console.log(data);
-            //render_revenue_graph(data, '#chart');
-
+            render_revenue_graph(data, '#chart');
         },
         error: function error(result) {}
     });
@@ -308,7 +308,7 @@ var RenderPieChart = function () {
     }
 
     _createClass(RenderPieChart, [{
-        key: "shortages",
+        key: 'shortages',
         value: function shortages() {
             //console.log(data);
 
@@ -344,7 +344,7 @@ var RenderPieChart = function () {
             });
         }
     }, {
-        key: "excess",
+        key: 'excess',
         value: function excess() {
             //console.log(data);
 
