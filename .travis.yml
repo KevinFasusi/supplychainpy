@@ -12,7 +12,7 @@ install:
   - pip install pytest
   - npm install mocha
   - npm install chai
-  - npm supervisor
+  - npm install supervisor
 
 script:
   - python -m unittest discover tests/
