@@ -57,8 +57,9 @@ body {
 
     color: #708284;
     font-family: "Roboto Slab";
-    font-size: 0.8em;
+    font-size: 1em;
 }
+
 
 .content {
     padding-top: 40px;
@@ -233,7 +234,7 @@ nav ul li a {
     background-color: #092029;
     max-width: 300px;
     height: 150px;
-    font-size: 1.8em;
+    font-size: 1.3em;
     text-align: center;
     margin-left: 20px;
 }
