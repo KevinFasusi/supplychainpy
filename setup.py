@@ -14,9 +14,14 @@ setup(name='supplychainpy',
       author='Kevin Fasusi',
       author_email='kevin@supplybi.com',
       license='BSD 3',
-      packages=find_packages(exclude=['docs', 'tests']),
+      packages=find_packages(exclude=['docs', 'tests', 'scratch.py']),
       test_suite='supplychainpy/tests',
       install_requires=['NumPy', 'cython', 'flask'],
       keywords=['supply chain', 'operations research', 'operations management', 'simulation'],
       ext_modules=cythonize(extensions),
+      entry_points={
+          'console_scripts': [
+              'supplychainpy = supplychainpy.supplychain:main'
+          ]
+      },
       )

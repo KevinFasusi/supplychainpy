@@ -38,6 +38,7 @@ class SupplychainpyReporting:
     def __init__(self, master):
         master.title('Supplychainpy')
         master.resizable(False,False)
+
         self.spawn = ReportsLauncher()
         self.parent = master
         self.hyperlink = ''

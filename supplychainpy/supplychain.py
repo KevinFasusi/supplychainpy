@@ -1,112 +1,36 @@
-#!/usr/bin/env python3
-import time
-from decimal import Decimal
+#!/usr/bin/env python
 
-from supplychainpy import model_inventory
-from supplychainpy.inventory.summarise import OrdersAnalysis
-from supplychainpy.reporting.load import load
+import argparse
+
 from supplychainpy.launch_reports import launch_report
 
-__author__ = 'kevin'
+from supplychainpy.reporting import load
+from supplychainpy.reporting.views import db, app
 
 
 def main():
-    start_time = time.time()
+    parser = argparse.ArgumentParser(description='Supplychainpy commandline interface a')
 
-    orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv",
-                                                                      z_value=Decimal(1.28),
-                                                                      reorder_cost=Decimal(5000),
-                                                                     file_type="csv", length=12)
+    parser.add_argument(dest='filenames', metavar='filename', nargs='?')
 
-    #ia = [analysis.orders_summary() for analysis in
-    #      model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
-    #                                                      reorder_cost=Decimal(5000), file_type="csv",
-    #                                                      length=12)]
-    #print(ia)
+    parser.add_argument('-l', '--lau', dest='launch', action='store_true',
+                        help='launch supplychainpy reporting')
 
-    launch_report()
-    analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
-    # skus = ['KR202-209', 'KR202-210', 'KR202-211']
+    parser.add_argument('-p', dest='process', action='store_true',
+                        help='process file and perform analysis/')
 
-    # skus_description = [summarised for summarised in analysis_summary.describe_sku('KR202-209')]
-    # print(skus_description)
+    parser.add_argument('-o', dest='outfile', action='store',
+                        help='output file')
 
-    # top_ten_shortages = [item for item in analysis_summary.rank_summary(attribute="shortages", count=10, reverse=True)]
+    args = parser.parse_args()
 
-    # print(top_ten_shortages)
+    if args.launch == True and args.process == True and args.filenames is not None:
+        db.create_all()
+        load.load(args.filenames)
+        launch_report()
 
-    # inventory_analysis = [analysis.orders_summary() for analysis in
-    #                      model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
-    #                                                                      reorder_cost=Decimal(5000), file_type="csv",
-    #                                                                      length=12)]
-    # print(inventory_analysis)
-    # for orders in inventory_analysis:
-    #    print(orders)
-
-
-#
-# summary = OrdersAnalysis(analysed_orders=inventory_analysis)
-# abc_raw = summary.abc_xyz_raw
-# print(abc_raw.ay)
-#
-# for analysis in summary.abc_xyz_summary():
-#    print(analysis.get("AX"))  # print(analysis.get("AX")["revenue"] for entering cell
-#
-# ar = [analysis.get("AZ")['revenue'] for analysis in summary.abc_xyz_summary() if analysis.get("AZ")]
-# print(ar)
-#
-# ax_d = abc_raw.ay
-#
-# for sku in ax_d:
-#    print("stuff", sku.get("safety_stock"))
-#
-# print("AX stuff", ax_d)
-#
-## for top_shortages in summary.top_sku(attribute="shortages", count=10, reverse=False):
-##    print(top_shortages)
-## get sku keys from category analysis and unpack_sku_detail for describe sku
-# questions = ['KR202-209', 'KR202-210', 'KR202-211']
-# for summarised in summary.describe_sku('KR202-217'):
-#    print(summarised)
-##
-# s = [summarised for summarised in summary.describe_sku('KR202-217')]
-# print("\n", "new one", s)
-##
-#
-# print("keys {}".format(list(ax_shortages.keys())))
-# print("values {}".format(list(ax_shortages.values())))
-
-# top_ten_shortages = [item for item in
-#                     SKU(analysed_orders=orders_analysis.orders).top_sku(attribute="shortage", count=10,
-#                                                                         reverse=True)]
-#
-# top_ten_excess = [item for item in
-#                  SKU(analysed_orders=orders_analysis.orders).top_sku(attribute="excess_stock", count=10,
-#                                                                      reverse=True)]
-#
-# for order in SKU(analysed_orders=orders_analysis.orders).top_sku(attribute="shortage", count=10, reverse=False):
-#    print(order)
-#
-#
-#
-
-# sim_window = simulate.summarize_window(simulation_frame=sim, period_length=12)
-#
-# sim_frame = simulate.summarise_frame(sim_window)
-#
-# optimised_orders = simulate.optimise_service_level(service_level=95.0, frame_summary=sim_frame,
-#                                                   orders_analysis=orders_analysis.orders, runs=100,
-#                                                   percentage_increase=1.30)
-#
-# sim_frame = simulate.summarise_frame(sim_window)
-#
-# optimised_orders = simulate.optimise_service_level(service_level=95.0, frame_summary=sim_frame,
-#                                                   orders_analysis=orders_analysis.orders, runs=100,
-#                                                   percentage_increase=1.30)
-# end = time.time()
-#
-# secs = end - start_time
-# print(secs)
+    elif args.launch == True:
+        launch_report()
 
 
 if __name__ == '__main__':

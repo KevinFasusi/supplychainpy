@@ -258,6 +258,8 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: Decimal, reorder_co
 
     analysed_orders_collection = []
     item_list = {}
+    print(file_path)
+    print(file_type)
 
     if _check_extension(file_path=file_path, file_type=file_type):
         if file_type == FileFormats.text.name:
