@@ -37,7 +37,7 @@ class SupplychainpyReporting:
 
     def __init__(self, master):
         master.title('Supplychainpy')
-        master.resizable(False,False)
+        master.resizable(False, False)
 
         self.spawn = ReportsLauncher()
         self.parent = master
@@ -48,33 +48,33 @@ class SupplychainpyReporting:
         logo = tk.PhotoImage(file=abs_file_path)
 
         # set supplychainpy logo for report launcher gui
-        self.image = ttk.Label(master, image=logo)
+        self.image = tk.Label(master, image=logo)
         self.image.image = logo
         self.image.config(background='black')
         self.image.grid(row=0, column=1, columnspan=2)
 
-        self.instruction_label = ttk.Label(master, text='Launch supplychainpy reports')
+        self.instruction_label = tk.Label(master, text='Launch supplychainpy reports')
         self.instruction_label.grid(row=1, column=1, columnspan=6)
         self.instruction_label.config(background='black', foreground='white')
 
-        self.hyperlink_label = ttk.Label(master)
+        self.hyperlink_label = tk.Label(master)
         self.hyperlink_label.config(background='black', foreground='#8dc53e', text='click to open browser:',
                                     font=('system', 10, 'bold'))
 
-        self.validation_label = ttk.Label(master)
+        self.validation_label = tk.Label(master)
         self.validation_label.config(background='black', foreground='red',
                                      text='Incorrect port! Please enter correct port number',
                                      font=('system', 10, 'bold'))
 
-        self.runtime_validation_label = ttk.Label(master)
+        self.runtime_validation_label = tk.Label(master)
         self.runtime_validation_label.config(background='black', foreground='red',
                                              text='The reports are already running @ {}'.format(self.hyperlink),
                                              font=('system', 10, 'bold'))
 
-        self.port_label = ttk.Label(master, text='Change port (default :5000):')
+        self.port_label = tk.Label(master, text='Change port (default :5000):')
         self.port_label.config(background='black', foreground='white', justify=tk.RIGHT)
 
-        self.port_text = ttk.Entry(master, width=10)
+        self.port_text = tk.Entry(master, width=10)
 
         self.change_port = tk.BooleanVar()
         self.change_port.set(False)
@@ -88,13 +88,15 @@ class SupplychainpyReporting:
         self.change_port_checkbutton.config(onvalue=True)
         self.change_port_checkbutton.grid(row=2, column=1, columnspan=2, pady=(0, 10))
 
-        self.hyperlink_text = ttk.Label(master)
+        self.hyperlink_text = tk.Label(master)
         self.hyperlink_text.config(background='black', foreground='lightblue', font=('courier', 11, 'underline'))
         self.hyperlink_text.bind("<Button-1>", lambda e, url=str(self.hyperlink): launch_browser(e, url))
 
-        ttk.Button(master, text='Launch Reporting', command=lambda: self.spawn_reports()).grid(row=6, column=1,
-                                                                                               padx=(15, 5))
-        ttk.Button(master, text='Exit Reporting', command=lambda: exit_report()).grid(row=6, column=2, padx=(5, 15))
+        self.launcher_button = tk.Button(master, bg='black',text='Launch Reporting', command=lambda: self.spawn_reports()).grid(
+            row=6, column=1,
+            padx=(15, 5))
+
+        tk.Button(master, bg='black', text='Exit Reporting', command=lambda: exit_report()).grid(row=6, column=2, padx=(5, 15))
 
     def spawn_reports(self):
         """Checks if port number is specified, then validates port number."""
