@@ -41,6 +41,9 @@ $("document").ready(function () {
             var pie_chart2 = new RenderPieChart(data, '#excess-pie');
             pie_chart2.excess();
             create_classification_table(data);
+            var pie_chart3 = new RenderPieChart(data, '#class-chart');
+            pie_chart3.excess_classification();
+
         },
         error: function (result) {
             //console.log(result);// make 404.html page
@@ -473,6 +476,59 @@ class RenderPieChart {
             });
 
 
+    }
+    
+    excess_classification(){
+                var width = 350;
+        var height = 350;
+        var radius = 175;
+        var colors = d3.scale.ordinal()
+            .range(['#259286', '#2176C7', '#FCF4DC', 'white', '#819090', '#A57706', '#EAE3CB', '#2e004d']);
+
+        var pieData = unpack.excess(this.data, 'chart');
+        console.log(pieData);
+
+        var pie = d3.layout.pie()
+            .value(function (d) {
+                //console.log(d[1]);
+                return d[1];
+            });
+
+        var arc = d3.svg.arc()
+            .outerRadius(radius);
+
+        var myChart = d3.select(this.id).append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .append('g')
+            .attr('transform', 'translate(' + (width - radius) + ',' + (height - radius) + ')')
+            .selectAll('path').data(pie(pieData))
+            .enter().append('g')
+            .attr('class', 'slice');
+
+        var slices = d3.selectAll('g.slice')
+            .append('path')
+            .attr('fill', function (d, i) {
+                return colors(i);
+            })
+            .attr('opacity', .6)
+            .attr('d', arc);
+
+        var text = d3.selectAll('g.slice')
+            .append('text')
+            .text(function (d, i) {
+                //console.log(d.data);
+
+                return d.data[0];
+
+            })
+            .attr('text-anchor', 'middle')
+            .attr('fill', 'white')
+            .attr('transform', function (d) {
+                d.innerRadius = 0;
+                d.outerRadius = radius;
+                return 'translate(' + arc.centroid(d) + ')'
+            });
     }
 
 }
