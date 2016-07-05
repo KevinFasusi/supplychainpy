@@ -109,6 +109,7 @@ th {
     margin-left: 20px;
     margin-top: 20px;
     float: left;
+    box-shadow: 10px 5px 5px black;
 }
 
 table.ia tr:nth-child(even) {
@@ -218,6 +219,7 @@ nav ul li a {
 
 #shortage-chart {
     height: auto;
+    padding-left: 20px;
 
 }
 
@@ -237,6 +239,7 @@ nav ul li a {
     font-size: 1.3em;
     text-align: center;
     margin-left: 20px;
+    box-shadow: 10px 5px 5px black;
 }
 
 #shortage-table {
@@ -283,4 +286,22 @@ nav ul li a {
 
 .dataTables_wrapper .dataTables_paginate {
     color: white;
+}
+
+.strip{
+    background-color: #708284
+}
+
+.pebble2 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #092029;
+
+    font-size: 1.3em;
+    text-align: center;
+    margin-left: 20px;
+    box-shadow: 10px 5px 5px black;
 }

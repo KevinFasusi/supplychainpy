@@ -4,144 +4,149 @@
 
 
 <div class=" row">
+    <button id="classifications-btn" class=" btn btn-primary btn-sm active" data-toggle="button" aria-pressed="false" autocomplete="off">Classification Breakdown</button>
+    <button id="shortages-btn" class=" btn btn-sm btn-primary active" data-toggle="button" aria-pressed="false" autocomplete="off">Top 10 Shortages</button>
+    <button id="excess-btn" class=" btn btn-sm btn-primary active" data-toggle="button" aria-pressed="false" autocomplete="off">Top 10 Excess</button>
+    <div id="collapse-classification">
+        <div class="container-fluid">
+            <div class=" row">
+                <h2>Classification Breakdown</h2>
+                <div class=" pebble col-md-3">
+                    <h1>Highest Shortage: </h1>
+                    <h1 id="lg-shortage-classification-class"></h1>
+                    <h1 id="lg-shortage-classification"></h1>
+                    <h1></h1>
+                </div>
+                <div class=" pebble col-md-3">
+                    <h1>Highest Excess: </h1>
+                    <h1 id="lg-excess-classification-class"></h1>
+                    <h1 id="lg-excess-classification"></h1>
+                    <h1></h1>
+                </div>
+                <div class=" pebble col-md-3">
+                    <h1>Total Shortage: </h1>
 
+                    <h1 id="lg-total-shortage"></h1>
+                    <h1></h1>
+                    <h1></h1>
+                </div>
+                <div class=" pebble col-md-3">
+                    <h1>Total Excess: </h1>
 
+                    <h1 id="lg-total-excess"></h1>
+                    <h1></h1>
+                    <h1></h1>
+                </div>
+            </div>
+        </div>
+        <div class=" row">
+            <div class=" pad-chart-col col-md-6">
+                <div id="class-chart"></div>
+            </div>
+            <div class=" pad-chart-col col-md-4">
+                <div id="ax-pie">
+                    <h3></h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class=" col-lg-11">
+                <table id="classification-table" class="  ia table-responsive table ">
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="collapse-shortages">
+        <div class="container-fluid">
+            <div class=" row">
+                <h2> Top 10 Shortages</h2>
+                <div class=" pebble col-md-3">
+                    <h1>Largest Shortage: </h1>
+                    <div id="popup"></div>
+                    <h1 id="lg-shortage-sku"></h1>
+                    <h1 id="lg-shortage-cost"></h1>
+                    <h1 id="lg-shortage-units"></h1>
+                </div>
+                <div class=" pebble col-md-3">
+                    <h1>Total Shortage: </h1>
+                    <h1 id="total-shortage"></h1>
+                </div>
+                <div class=" pebble col-md-3">
+                    <h1>Shortage as % Inventory </h1>
+                    <h1><strong>10</strong></h1>
+                </div>
+                <div class=" pebble col-md-3">
+                    <h1>Total Shortage: </h1>
+                    <h1><strong>KR202-235</strong></h1>
+                    <h1><strong>$11,405,156</strong></h1>
+                </div>
+            </div>
+        </div>
+        <div class=" row">
+            <div class=" pad-chart-col col-md-6">
+                <div id="shortage-chart"></div>
+            </div>
+            <div class=" pad-chart-col col-md-4">
+                <div id="pie-shortage">
+                    <h3></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class=" row">
+            <div id="short-table" class=" col-lg-11">
+                <table id="shortage-table" class=" ia table-responsive table ">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="collapse-excess">
     <div class="container-fluid">
         <div class=" row">
-            <h2>Classification Beakdown</h2>
-            <div class=" pebble col-md-3">
-                <h1>Largest Shortage: </h1>
-                <h1 id="lg-shortage-classification-class"></h1>
-                <h1 id="lg-shortage-classification"></h1>
-                <h1></h1>
-            </div>
-            <div class=" pebble col-md-3">
-                <h1>Largest Excess: </h1>
-                <h1 id="lg-excess-classification-class"></h1>
-                <h1 id="lg-excess-classification"></h1>
-                <h1></h1>
-            </div>
-            <div class=" pebble col-md-3">
-                <h1>Largest Shortage: </h1>
-
-                <h1></h1>
-                <h1></h1>
-                <h1></h1>
-            </div>
-            <div class=" pebble col-md-3">
-                <h1>Largest Shortage: </h1>
-
-                <h1></h1>
-                <h1></h1>
-                <h1></h1>
+            <div class=" row">
+                <h2> Top 10 Excess</h2>
+                <div class=" pebble col-md-3">
+                    <h1>Top Excess: </h1>
+                    <h1 id="lg-excess-sku"></h1>
+                    <h1 id="lg-excess-cost"></h1>
+                    <h1 id="lg-excess-units"></h1>
+                </div>
+                <div class=" pebble col-md-3">
+                    <h1>Total Excess: </h1>
+                    <h1 id="total-excess"></h1>
+                </div>
+                <div id="excess-percent-inv" class=" pebble col-md-3">
+                    <h1>Excess as % of Inventory: </h1>
+                    <h1><strong>52%</strong></h1>
+                    <h5>AX: 10% AY: 10% BX: 21% CZ: 20%</h5>
+                </div>
+                <div class=" pebble col-md-3">
+                    <h1>Total Shortage: </h1>
+                    <h1><strong>KR202-235</strong></h1>
+                    <h1><strong>$11,405,156</strong></h1>
+                </div>
             </div>
         </div>
-    </div>
-    <div class=" row">
-        <div class=" pad-chart-col col-md-6">
-            <div id="class-chart"></div>
-        </div>
-        <div class=" pad-chart-col col-md-4">
-            <div id="ax-pie">
-                <h3></h3>
-            </div>
-        </div>
-    </div>
-    <div class=" row">
-        <div class=" col-lg-11">
-            <table id="classification-table" class=" ia table-responsive table ">
-            </table>
-        </div>
-    </div>
-
-
-    <h2> Top 10 Shortages</h2>
-    <div class="container-fluid">
         <div class=" row">
-            <div class=" pebble col-md-3">
-                <h1>Largest Shortage: </h1>
-                <div id="popup"></div>
-                <h1 id="lg-shortage-sku"></h1>
-                <h1 id="lg-shortage-cost"></h1>
-                <h1 id="lg-shortage-units"></h1>
+            <div class=" pad-chart-col col-md-6">
+                <div id="excess-chart"></div>
             </div>
-            <div class=" pebble col-md-3">
-                <h1>Total Shortage: </h1>
-                <h1 id="total-shortage"></h1>
-            </div>
-            <div class=" pebble col-md-3">
-                <h1>Shortage as % Inventory </h1>
-                <h1><strong>10</strong></h1>
-            </div>
-            <div class=" pebble col-md-3">
-                <h1>Total Shortage: </h1>
-                <h1><strong>KR202-235</strong></h1>
-                <h1><strong>$11,405,156</strong></h1>
+            <div class=" pad-chart-col col-md-4">
+                <div id="excess-pie">
+                    <h3></h3>
+                </div>
             </div>
         </div>
-    </div>
-    <div class=" row">
-        <div class=" pad-chart-col col-md-6">
-            <div id="shortage-chart"></div>
-        </div>
-        <div class=" pad-chart-col col-md-4">
-            <div id="pie-shortage">
-                <h3></h3>
+        <div class=" row">
+            <div id="execess" class=" col-lg-11">
+                <table id="excess-table" class=" ia table-responsive table ">
+                </table>
             </div>
         </div>
     </div>
 </div>
-<div class=" row">
-    <div id="short-table" class=" col-lg-11">
-        <table id="shortage-table" class=" ia table-responsive table ">
-        </table>
-    </div>
 
 
-</div>
-
-<div class=" row">
-    <h2> Top 10 Excess</h2>
-    <div class=" row">
-        <div class=" pebble col-md-3">
-            <h1>Top Excess: </h1>
-            <h1 id="lg-excess-sku"></h1>
-            <h1 id="lg-excess-cost"></h1>
-            <h1 id="lg-excess-units"></h1>
-        </div>
-        <div class=" pebble col-md-3">
-            <h1>Total Excess: </h1>
-            <h1 id="total-excess"></h1>
-        </div>
-        <div id="excess-percent-inv" class=" pebble col-md-3">
-            <h1>Excess as % of Inventory: </h1>
-            <h1><strong>52%</strong></h1>
-            <h5>AX: 10% AY: 10% BX: 21% CZ: 20%</h5>
-        </div>
-        <div class=" pebble col-md-3">
-            <h1>Total Shortage: </h1>
-            <h1><strong>KR202-235</strong></h1>
-            <h1><strong>$11,405,156</strong></h1>
-        </div>
-    </div>
-
-    <div class=" row">
-        <div class=" pad-chart-col col-md-6">
-            <div id="excess-chart"></div>
-        </div>
-        <div class=" pad-chart-col col-md-4">
-            <div id="excess-pie">
-                <h3></h3>
-            </div>
-        </div>
-    </div>
-</div>
-<div class=" row">
-    <div id="execess" class=" col-lg-6">
-        <table id="excess-table" class=" table-responsive table ">
-        </table>
-    </div>
-
-
-</div>
 {% endblock %}

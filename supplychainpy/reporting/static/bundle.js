@@ -43,6 +43,7 @@
 /******/ ([
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -54,7 +55,17 @@
 
 	$("document").ready(function () {
 	    $('div.nav-tab').hover(highlight);
+	    $('#classifications-btn').click(function () {
+	        toggle_reporting_view('collapse-classification');
+	    });
 
+	    $('#shortages-btn').click(function () {
+	        toggle_reporting_view('collapse-shortages');
+	    });
+
+	    $('#excess-btn').click(function () {
+	        toggle_reporting_view('collapse-excess');
+	    });
 	    // ajax request for json containing sku related. Is used to: builds revenue chart (#chart).
 	    $.ajax({
 	        type: "GET",
@@ -85,6 +96,8 @@
 	            var pie_chart2 = new RenderPieChart(data, '#excess-pie');
 	            pie_chart2.excess();
 	            create_classification_table(data);
+	            var pie_chart3 = new RenderPieChart(data, '#class-chart');
+	            pie_chart3.excess_classification();
 	        },
 	        error: function error(result) {
 	            //console.log(result);// make 404.html page
@@ -119,12 +132,17 @@
 	        success: function success(data) {
 	            //console.log(data);
 	            create_excess_table(data);
+	            render_excess_chart(data, '#excess-chart');
 	        },
 	        error: function error(result) {
 	            //console.log(result);// make 404.html page
 	        }
 	    });
 	});
+
+	function format_number(num) {
+	    return num.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+	}
 
 	// helper functions for unpacking data from ajax requests
 	var unpack = {
@@ -227,6 +245,64 @@
 	        }
 	        return shortages_data;
 	    },
+	    excess_cost: function excess_cost(data, target) {
+	        var excess_data = [];
+	        var tempData;
+	        var key;
+	        var i;
+	        for (key in data) {
+	            tempData = data[key];
+	            //console.log(tempData);
+	            for (i in tempData) {
+	                //console.log(tempData[i]);
+	                switch (target) {
+
+	                    case 'chart':
+	                        excess_data.push([tempData[i].sku_id, tempData[i].excess_cost]);
+	                        //console.log(shortages_data);
+	                        break;
+
+	                    case 'table':
+	                        excess_data.push(tempData[i]);
+	                        //console.log(shortages_data);
+	                        break;
+	                }
+	            }
+	        }
+	        return excess_data;
+	    },
+
+	    excess_by_class: function excess_by_class(data, target, classification) {
+	        var excess_data = [];
+	        var tempData;
+	        var key;
+	        for (key in data) {
+	            tempData = data[key];
+	            //console.log(tempData[0]);
+	            for (i in tempData) {
+	                //console.log(tempData[i]);
+	                switch (target) {
+
+	                    case 'chart':
+	                        switch (classification) {
+	                            case 'AY':
+	                                if (tempData[i].abc_xyz_classification == 'AY') {
+	                                    excess_data.push([['excess', tempData[i].total_excess], ['revenue', tempData[i].total_revenue], ['shortage', tempData[i].total_shortages]]);
+	                                }
+	                        }
+	                        //console.log (excess_data);
+	                        break;
+
+	                    case 'table':
+	                        excess_data.push(tempData[i]);
+	                        //console.log(excess_data);
+	                        break;
+	                }
+	            }
+	        }
+	        console.log(excess_data);
+	        return excess_data;
+	    },
 
 	    abc_xyz: function abc_xyz(data, target) {
 	        var abcxyz_data = [];
@@ -235,7 +311,7 @@
 	        var i;
 	        for (key in data) {
 	            tempData = data[key];
-	            console.log(tempData);
+	            //console.log(tempData);
 	            for (i in tempData) {
 	                //console.log(tempData[i]);
 	                switch (target) {
@@ -262,6 +338,10 @@
 	    $(this).toggleClass('highlight-event');
 	}
 
+	function toggle_reporting_view(id) {
+	    $('#' + id).toggle("slow");
+	}
+
 	function create_shortages_table(data) {
 	    var shortages_data = new unpack.shortages(data, 'table');
 	    var total_shortage = 0;
@@ -274,14 +354,14 @@
 	        total_shortage += shortages_data[obj].shortage_cost;
 	        //console.log(total_shortage);
 
-	        $("<tr><td><a href=\"sku_detail/" + shortages_data[obj].sku_id + "\">" + shortages_data[obj].sku_id + "</a></td>" + "<td>" + shortages_data[obj].quantity_on_hand + "</td>" + "<td>" + shortages_data[obj].average_orders + "</td>" + "<td>" + shortages_data[obj].shortages + "</td>" + "<td>" + shortages_data[obj].shortage_cost + "</td>" + "<td>" + shortages_data[obj].safety_stock + "</td>" + "<td>" + shortages_data[obj].reorder_level + "</td>" + "<td>" + Math.round(shortages_data[obj].percentage_contribution_revenue * 100) + "%</td>" + "<td>" + shortages_data[obj].revenue_rank + "</td>" + "<td>" + shortages_data[obj].abc_xyz_classification + "</td></tr>").insertAfter("#shortage-table tr:last");
+	        $("<tr><td><a href=\"sku_detail/" + shortages_data[obj].sku_id + "\">" + shortages_data[obj].sku_id + "</a></td>" + "<td>" + shortages_data[obj].quantity_on_hand + "</td>" + "<td>" + shortages_data[obj].average_orders + "</td>" + "<td>" + shortages_data[obj].shortages + "</td>" + "<td>" + shortages_data[obj].shortage_cost + "</td>" + "<td>" + shortages_data[obj].safety_stock + "</td>" + "<td>" + shortages_data[obj].reorder_level + "</td>" + "<td>" + Math.round(shortages_data[obj].percentage_contribution_revenue * 100) + "%</td>" + "<td>" + shortages_data[obj].revenue_rank + "</td>" + "<td><a href=\"abcxyz/" + shortages_data[obj].abc_xyz_classification + "\">" + shortages_data[obj].abc_xyz_classification + "</a></td></tr>").insertAfter("#shortage-table tr:last");
 	    }
 
 	    // top shortage pebble
 	    $("#lg-shortage-sku").append().html("<h1><strong>" + shortages_data[0].sku_id + "</strong></h1>").find("> h1").css("color", "#2176C7");
-	    $("#lg-shortage-cost").append().html("<h1><strong>" + "$" + shortages_data[0].shortage_cost + "</strong></h1>").find("> h1").css("color", "#D11C29");
-	    $("#lg-shortage-units").append().html("<h1><strong>" + shortages_data[0].shortages + " units" + "</strong></h1>").find("> h1").css("color", "#819090");
-	    $("#total-shortage").append().html("<h1><strong>" + total_shortage + "</strong></h1>").find("> h1").css("color", "#D11C29");
+	    $("#lg-shortage-cost").append().html("<h1><strong>" + "$" + format_number(shortages_data[0].shortage_cost) + "</strong></h1>").find("> h1").css("color", "#D11C29");
+	    $("#lg-shortage-units").append().html("<h1><strong>" + format_number(shortages_data[0].shortages) + " units" + "</strong></h1>").find("> h1").css("color", "#819090");
+	    $("#total-shortage").append().html("<h1><strong>" + format_number(total_shortage) + "</strong></h1>").find("> h1").css("color", "#D11C29");
 	}
 
 	function create_excess_table(data) {
@@ -296,7 +376,7 @@
 	        //console.log(excess_data[obj].sku_id);
 	        total_excess += excess_data[obj].excess_cost;
 	        percentage_excess = Math.round(excess_data[obj].excess_stock / excess_data[obj].quantity_on_hand * 100);
-	        $("<tr><td><a href=\"sku_detail/" + excess_data[obj].sku_id + "\">" + excess_data[obj].sku_id + "</td>" + "<td>" + excess_data[obj].quantity_on_hand + "</td>" + "<td>" + excess_data[obj].average_orders + "</td>" + "<td>" + excess_data[obj].excess_stock + "</td>" + "<td>" + excess_data[obj].excess_cost + "</td>" + "<td>" + percentage_excess + "%" + "</td>" + "<td>" + excess_data[obj].safety_stock + "</td>" + "<td>" + excess_data[obj].reorder_level + "</td>" + "<td>" + excess_data[obj].abc_xyz_classification + "</td></tr>").insertAfter("#excess-table tr:last");
+	        $("<tr><td><a href=\"sku_detail/" + excess_data[obj].sku_id + "\">" + excess_data[obj].sku_id + "</td>" + "<td>" + excess_data[obj].quantity_on_hand + "</td>" + "<td>" + excess_data[obj].average_orders + "</td>" + "<td>" + excess_data[obj].excess_stock + "</td>" + "<td>" + excess_data[obj].excess_cost + "</td>" + "<td>" + percentage_excess + "%" + "</td>" + "<td>" + excess_data[obj].safety_stock + "</td>" + "<td>" + excess_data[obj].reorder_level + "</td>" + "<td><a href=\"abcxyz/" + excess_data[obj].abc_xyz_classification + "\">" + excess_data[obj].abc_xyz_classification + "</a></td></tr>").insertAfter("#excess-table tr:last");
 	    }
 
 	    // top excess pebble
@@ -314,14 +394,16 @@
 
 	    var obj;
 	    for (obj in abc_xyz_data) {
-	        console.log(abc_xyz_data[obj].abc_xyz_classification);
-	        $("<tr><td><a href=\"abcxyz/" + abc_xyz_data[obj].abc_xyz_classification + "\">" + abc_xyz_data[obj].abc_xyz_classification + "</a>" + "<td>" + abc_xyz_data[obj].total_revenue + "</td>" + "<td>" + abc_xyz_data[obj].total_shortages + "</td>" + "<td>" + abc_xyz_data[obj].total_excess + "</td>" + "</td></tr>").insertAfter("#classification-table tr:last");
+	        //console.log(abc_xyz_data[obj].abc_xyz_classification);
+	        $("<tr><td><a href=\"abcxyz/" + abc_xyz_data[obj].abc_xyz_classification + "\">" + abc_xyz_data[obj].abc_xyz_classification + "</a>" + "<td>" + format_number(abc_xyz_data[obj].total_revenue) + "</td>" + "<td>" + format_number(abc_xyz_data[obj].total_shortages) + "</td>" + "<td>" + format_number(abc_xyz_data[obj].total_excess) + "</td>" + "</td></tr>").insertAfter("#classification-table tr:last");
 	    }
 
 	    var max_shortage = 0;
 	    var max_class;
 	    var max_excess = 0;
 	    var excess_class;
+	    var total_shortages = 0;
+	    var total_excess = 0;
 	    var item;
 	    var tempValue;
 	    var tempClass;
@@ -334,12 +416,16 @@
 	            max_excess = abc_xyz_data[item].total_excess;
 	            excess_class = abc_xyz_data[item].abc_xyz_classification;
 	        }
+	        total_shortages += abc_xyz_data[item].total_shortages;
+	        total_excess += abc_xyz_data[item].total_excess;
 	    }
 
-	    $("#lg-shortage-classification").append().html("<h1><strong>" + max_shortage + "</strong></h1>").find("> h1").css("color", "#2176C7");
+	    $("#lg-shortage-classification").append().html("<h1><strong>" + format_number(max_shortage) + "</strong></h1>").find("> h1").css("color", "#2176C7");
 	    $("#lg-shortage-classification-class").append().html("<h1><strong>" + max_class + "</strong></h1>").find("> h1").css("color", "#2176C7");
-	    $("#lg-excess-classification").append().html("<h1><strong>" + max_excess + "</strong></h1>").find("> h1").css("color", "#2176C7");
+	    $("#lg-excess-classification").append().html("<h1><strong>" + format_number(max_excess) + "</strong></h1>").find("> h1").css("color", "#2176C7");
 	    $("#lg-excess-classification-class").append().html("<h1><strong>" + excess_class + "</strong></h1>").find("> h1").css("color", "#2176C7");
+	    $("#lg-total-shortage").append().html("<h1><strong>" + format_number(total_shortages) + "</strong></h1>").find("> h1").css("color", "#2176C7");
+	    $("#lg-total-excess").append().html("<h1><strong>" + format_number(total_excess) + "</strong></h1>").find("> h1").css("color", "#2176C7");
 	}
 
 	var RenderPieChart = function () {
@@ -422,6 +508,9 @@
 	                return 'translate(' + arc.centroid(d) + ')';
 	            });
 	        }
+	    }, {
+	        key: 'excess_classification',
+	        value: function excess_classification() {}
 	    }]);
 
 	    return RenderPieChart;
@@ -434,6 +523,7 @@
 	    var barData = unpack.sku_detail(data, "revenue"); //change to enums
 	    var tempData = [];
 
+	    console.log(barData);
 	    //var height = 350,
 	    //   width = 300,
 	    var margin = { top: 30, right: 20, bottom: 40, left: 90 };
@@ -510,7 +600,7 @@
 
 	    //console.log(nums);
 
-	    var margin = { top: 30, right: 50, bottom: 40, left: 75 };
+	    var margin = { top: 30, right: 50, bottom: 40, left: 95 };
 
 	    var height = 400 - margin.top - margin.bottom;
 	    var width = 600 - margin.left - margin.right;
@@ -564,7 +654,83 @@
 	        return !(i % (nums.length / 5));
 	    }));
 
-	    var hGuide = d3.select('svg').append('g');
+	    var hGuide = d3.select('#shortage-chart > svg').append('g');
+	    hAxis(hGuide);
+	    hGuide.attr('transform', 'translate(' + margin.left + ', ' + (height + margin.top) + ')');
+	    hGuide.selectAll('path').style({ fill: 'none', stroke: "white" });
+	    hGuide.selectAll('line').style({ stroke: "white" });
+	    hGuide.selectAll('text').style({ stroke: "grey" });
+	}
+
+	function render_excess_chart(data, id) {
+	    var bardata = unpack.excess_cost(data, 'chart');
+	    console.log(bardata);
+	    var nums = [];
+	    var switchColor;
+
+	    for (i in bardata) {
+	        nums.push(bardata[i][1]);
+	    }
+
+	    var tooltip = d3.select('body').append('div').style('position', 'absolute').style('background', 'white').style('padding', '0 10px').style('opacity', 0);
+
+	    //console.log(nums);
+
+	    var margin = { top: 30, right: 50, bottom: 40, left: 95 };
+
+	    var height = 400 - margin.top - margin.bottom;
+	    var width = 600 - margin.left - margin.right;
+
+	    var colors = d3.scale.linear().domain([0, nums.length * .33, nums.length * .66, nums.length]).range(['white', '#259286', '#738A05', '#2176C7']);
+
+	    var yScale = d3.scale.linear().domain([0, d3.max(nums)]).range([0, height]);
+
+	    var xScale = d3.scale.ordinal().domain(d3.range(0, nums.length)).rangeBands([0, width], .2); // space the bars on the chart
+
+	    var shortage_chart = d3.select(id).append('svg').style('background', '#0A2933;').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom).append('g').attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')') //moving the chart graphic
+	    .selectAll('rect').data(nums).enter().append('rect').style('fill', function (d, i) {
+	        return colors(i);
+	    }).attr('width', xScale.rangeBand()).attr('height', 0).attr('x', function (d, i) {
+	        return xScale(i);
+	    }).attr('y', height).on('mouseover', function (d) {
+	        //console.log(d);
+	        tooltip.transition().style('opacity', 0.5);
+	        tooltip.html(d).style('left', d3.event.pageX - 35 + 'px').style('top', d3.event.pageY - 30 + 'px');
+
+	        switchColor = this.style.fill;
+	        d3.select(this).style('opacity', .5);
+	        d3.select(this).style('fill', '#D11C24');
+	    }).on('mouseout', function (d) {
+	        d3.select(this).transition().delay(300).duration(300).style('fill', switchColor);
+	        d3.select(this).style('opacity', 1);
+	    });
+	    //transitions graph in
+	    shortage_chart.transition().attr('height', function (d, i) {
+	        return yScale(d);
+	    }).attr('y', function (d) {
+	        return height - yScale(d);
+	    }).delay(function (d, i) {
+	        return i * 70;
+	    }).ease('elastic');
+
+	    var vGuideScale = d3.scale.linear().domain([0, d3.max(nums)]).range([height, 0]); //reversing the order of the scale on the y axi
+
+	    var vAxis = d3.svg.axis().scale(vGuideScale).orient('left').ticks(10);
+
+	    var vGuide = d3.select('#excess-chart > svg').append('g');
+	    vAxis(vGuide);
+	    vGuide.attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+	    vGuide.selectAll('path').style({ fill: 'none', stroke: "white" });
+	    vGuide.selectAll('line').style({ stroke: "white" });
+	    vGuide.selectAll('text').style({ stroke: "grey" });
+
+	    var name = d3.scale.ordinal().range(['#259286', '#2176C7', '#FCF4DC', 'white', '#819090', '#A57706', '#EAE3CB', '#2e004d']);
+
+	    var hAxis = d3.svg.axis().scale(xScale).orient('bottom').tickValues(xScale.domain().filter(function (d, i) {
+	        return !(i % (nums.length / 5));
+	    }));
+
+	    var hGuide = d3.select('#excess-chart > svg').append('g');
 	    hAxis(hGuide);
 	    hGuide.attr('transform', 'translate(' + margin.left + ', ' + (height + margin.top) + ')');
 	    hGuide.selectAll('path').style({ fill: 'none', stroke: "white" });

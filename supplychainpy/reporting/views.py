@@ -39,6 +39,11 @@ def convert_datetime(value):
         return None
     return [value.strftime("%d-%m-%y"), value.strftime("%H:%M:%S")]
 
+class Currency(db.Model):
+    __table_args__ = {'sqlite_autoincrement': True}
+    id = db.Column(db.Integer(), primary_key=True)
+    currency  = db.relationship("inventory_analysis", backref='currency', lazy='dynamic')
+    country = db.Column(db.String(255))
 
 class InventoryAnalysis(db.Model):
     __table_args__ = {'sqlite_autoincrement': True}
@@ -72,6 +77,7 @@ class InventoryAnalysis(db.Model):
     max_order = db.Column(db.Integer())
     shortage_cost = db.Column(db.Numeric(18, 2))
     quantity_on_hand = db.Column(db.Integer())
+    currency_id = db.Column(db.Integer, db.ForeignKey('currency.id'))
 
     @property
     def serialize(self):
@@ -111,8 +117,10 @@ class InventoryAnalysis(db.Model):
         }
 
 
-# db.create_all()
 
+
+
+# db.create_all()
 manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 manager.create_api(InventoryAnalysis, methods=['GET', 'POST', 'DELETE', 'PATCH'])
 

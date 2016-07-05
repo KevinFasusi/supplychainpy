@@ -15,9 +15,13 @@ db = SQLAlchemy(app)
 def load(file_path):
     from supplychainpy import model_inventory
     from supplychainpy.inventory.summarise import OrdersAnalysis
+    from supplychainpy.reporting.views import Currency
+
     app_dir = os.path.dirname(__file__, )
     rel_path = '../supplychainpy/data2.csv'
     abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
+
+    currency_codes = {'United Arab Emirates Dirham': 'AED'}
 
     orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=file_path,
                                                                       z_value=Decimal(1.28),

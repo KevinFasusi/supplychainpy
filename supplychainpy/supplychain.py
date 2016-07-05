@@ -45,8 +45,6 @@ def main():
 
     if args.filenames is None and False == args.process and False == args.launch and args.outfile is None:
         filename = input('path to "CSV" or "text" file: ')
-        db
-
 
 if __name__ == '__main__':
     main()
