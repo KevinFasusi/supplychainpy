@@ -316,6 +316,28 @@ function toggle_reporting_view(id){
             $('#'+id).toggle("slow");
 }
 
+function sku_identifier(id){
+
+    var filters = [{"name": "sku_id", "op": "eq", "val": id}];
+
+    $.ajax({
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        url: 'http://127.0.0.1:5000/api/inventory_analysis',
+        dataType: 'json',
+        async: true,
+        data: {"q": JSON.stringify({"filters": filters})},
+        success: function (data) {
+            console.log(data.objects[0].sku.sku_id);
+            data.objects[0].sku.sku_id;
+        },
+        error: function (result) {
+
+
+        }
+    });
+
+}
 
 function create_shortages_table(data) {
     var shortages_data = new unpack.shortages(data, 'table');
@@ -331,7 +353,7 @@ function create_shortages_table(data) {
         total_shortage += shortages_data[obj].shortage_cost;
         //console.log(total_shortage);
 
-        $("<tr><td><a href=\"sku_detail/" + shortages_data[obj].sku_id + "\">" + shortages_data[obj].sku_id + "</a></td>" +
+        $("<tr><td><a href=\"sku_detail/" + sku_identifier(shortages_data[obj].sku_id) + "\">" + shortages_data[obj].sku_id + "</a></td>" +
             "<td>" + shortages_data[obj].quantity_on_hand + "</td>" +
             "<td>" + shortages_data[obj].average_orders + "</td>" +
             "<td>" + shortages_data[obj].shortages + "</td>" +
@@ -572,6 +594,9 @@ class RenderPieChart {
     }
 
 }
+
+// --------------Graphing-----------------------
+
 
 // change functions to graph rendering class
 function render_revenue_graph(data, id) {

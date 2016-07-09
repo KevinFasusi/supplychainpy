@@ -342,6 +342,25 @@
 	    $('#' + id).toggle("slow");
 	}
 
+	function sku_identifier(id) {
+
+	    var filters = [{ "name": "sku_id", "op": "eq", "val": id }];
+
+	    $.ajax({
+	        type: "GET",
+	        contentType: "application/json; charset=utf-8",
+	        url: 'http://127.0.0.1:5000/api/inventory_analysis',
+	        dataType: 'json',
+	        async: true,
+	        data: { "q": JSON.stringify({ "filters": filters }) },
+	        success: function success(data) {
+	            console.log(data.objects[0].sku.sku_id);
+	            data.objects[0].sku.sku_id;
+	        },
+	        error: function error(result) {}
+	    });
+	}
+
 	function create_shortages_table(data) {
 	    var shortages_data = new unpack.shortages(data, 'table');
 	    var total_shortage = 0;
@@ -354,7 +373,7 @@
 	        total_shortage += shortages_data[obj].shortage_cost;
 	        //console.log(total_shortage);
 
-	        $("<tr><td><a href=\"sku_detail/" + shortages_data[obj].sku_id + "\">" + shortages_data[obj].sku_id + "</a></td>" + "<td>" + shortages_data[obj].quantity_on_hand + "</td>" + "<td>" + shortages_data[obj].average_orders + "</td>" + "<td>" + shortages_data[obj].shortages + "</td>" + "<td>" + shortages_data[obj].shortage_cost + "</td>" + "<td>" + shortages_data[obj].safety_stock + "</td>" + "<td>" + shortages_data[obj].reorder_level + "</td>" + "<td>" + Math.round(shortages_data[obj].percentage_contribution_revenue * 100) + "%</td>" + "<td>" + shortages_data[obj].revenue_rank + "</td>" + "<td><a href=\"abcxyz/" + shortages_data[obj].abc_xyz_classification + "\">" + shortages_data[obj].abc_xyz_classification + "</a></td></tr>").insertAfter("#shortage-table tr:last");
+	        $("<tr><td><a href=\"sku_detail/" + sku_identifier(shortages_data[obj].sku_id) + "\">" + shortages_data[obj].sku_id + "</a></td>" + "<td>" + shortages_data[obj].quantity_on_hand + "</td>" + "<td>" + shortages_data[obj].average_orders + "</td>" + "<td>" + shortages_data[obj].shortages + "</td>" + "<td>" + shortages_data[obj].shortage_cost + "</td>" + "<td>" + shortages_data[obj].safety_stock + "</td>" + "<td>" + shortages_data[obj].reorder_level + "</td>" + "<td>" + Math.round(shortages_data[obj].percentage_contribution_revenue * 100) + "%</td>" + "<td>" + shortages_data[obj].revenue_rank + "</td>" + "<td><a href=\"abcxyz/" + shortages_data[obj].abc_xyz_classification + "\">" + shortages_data[obj].abc_xyz_classification + "</a></td></tr>").insertAfter("#shortage-table tr:last");
 	    }
 
 	    // top shortage pebble
@@ -515,6 +534,8 @@
 
 	    return RenderPieChart;
 	}();
+
+	// --------------Graphing-----------------------
 
 	// change functions to graph rendering class
 

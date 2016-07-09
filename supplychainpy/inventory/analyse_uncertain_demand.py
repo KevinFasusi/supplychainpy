@@ -49,11 +49,12 @@ class UncertainDemand:
     getcontext().prec = 8
     _summary_keywords = ['sku', 'standard_deviation', 'safety_stock', 'demand_variability', 'reorder_level',
                          'reorder_quantity', 'revenue', 'economic_order_quantity', 'economic_order_variable_cost',
-                         'ABC_XYZ_Classification', 'excess_stock', 'shortages', 'average_orders','unit_cost',
+                         'ABC_XYZ_Classification', 'excess_stock', 'shortages', 'average_orders', 'unit_cost',
                          'quantity_on_hand', 'currency']
     __rank = 0
 
-    def __init__(self, orders: dict, sku: str,currency: str, lead_time: Decimal, unit_cost: Decimal, reorder_cost: Decimal,
+    def __init__(self, orders: dict, sku: str, currency: str, lead_time: Decimal, unit_cost: Decimal,
+                 reorder_cost: Decimal,
                  z_value: Decimal = Decimal(1.28), holding_cost: Decimal = 0.00, retail_price: Decimal = 0.00,
                  period: str = PeriodFormats.months.name, quantity_on_hand: Decimal = 0.00):
         self.__currency = currency
@@ -90,7 +91,6 @@ class UncertainDemand:
     @property
     def quantity_on_hand(self):
         return self.__quantity_on_hand
-
 
     @property
     def excess_stock_cost(self):
@@ -381,7 +381,8 @@ class UncertainDemand:
     def __repr__(self):
         representation = "(sku_id: {}, average_order: {:.0f}, standard_deviation: {:.0f}, safety_stock: {:0f}, \n" \
                          "demand_variability: {:.3f}, reorder_level: {:.0f}, reorder_quantity: {:.0f}, " \
-                         "revenue: {:.2f}, excess_stock: {}, shortages: {}, unit_cost: {}, quantity_on_hand: {})"
+                         "revenue: {:.2f}, excess_stock: {}, shortages: {}, unit_cost: {}, quantity_on_hand: {}, " \
+                         "currency_code: {})"
         return representation.format(self.__sku_id,
                                      self.__average_order,
                                      self.__orders_standard_deviation,
@@ -393,7 +394,8 @@ class UncertainDemand:
                                      self.__excess_stock,
                                      self.__shortage_qty,
                                      self.__unit_cost,
-                                     self.__quantity_on_hand)
+                                     self.__quantity_on_hand,
+                                     self.__currency)
 
     def __iter__(self):
         for original_order in self.__orders.get("demand"):

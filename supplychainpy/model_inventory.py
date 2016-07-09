@@ -222,7 +222,7 @@ def analyse_orders_from_file_row(file_path: str, z_value: Decimal, reorder_cost:
 # TODO Remove hard coded holding cost and make it a parameter
 def analyse_orders_abcxyz_from_file(file_path: str, z_value: Decimal, reorder_cost: Decimal,
                                     file_type: str = FileFormats.text.name,
-                                    period: str = "month", length: int = 12, currency:str='USD') -> list:
+                                    period: str = "month", length: int = 12, currency: str = 'USD') -> list:
     """Analyse orders data from file and returns ABCXYZ analysis
 
     Analyses orders data for a single sku, using the values from a file arranged in columns.The data should be arranged
@@ -289,7 +289,7 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: Decimal, reorder_co
                                                                    reorder_cost=Decimal(reorder_cost),
                                                                    z_value=Decimal(z_value),
                                                                    retail_price=retail_price,
-                                                                   quantity_on_hand=quantity_on_hand)
+                                                                   quantity_on_hand=quantity_on_hand, currency=currency)
 
         average_orders = analysed_orders.average_orders
 

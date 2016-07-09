@@ -30,8 +30,9 @@ app = Flask(__name__)
 app.config.from_object(DevConfig)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-db = SQLAlchemy(app)
 
+db = SQLAlchemy(app)
+db.create_all()
 
 def convert_datetime(value):
     """Deserialize datetime object into string"""
@@ -39,16 +40,33 @@ def convert_datetime(value):
         return None
     return [value.strftime("%d-%m-%y"), value.strftime("%H:%M:%S")]
 
+
+class MasterSkuList(db.Model):
+    __table_args__ = {'sqlite_autoincrement': True}
+    id = db.Column(db.Integer(), primary_key=True)
+    sku_id = db.Column(db.String(255))
+    analysis = db.relationship("InventoryAnalysis", backref='sku', lazy='dynamic')
+
+
 class Currency(db.Model):
     __table_args__ = {'sqlite_autoincrement': True}
     id = db.Column(db.Integer(), primary_key=True)
-    currency  = db.relationship("inventory_analysis", backref='currency', lazy='dynamic')
+    fx = db.relationship("InventoryAnalysis", backref='currency', lazy='dynamic')
+    currency_code = db.Column(db.String(3))
     country = db.Column(db.String(255))
+
+
+class TransactionLog(db.Model):
+    __table_args__ = {'sqlite_autoincrement': True}
+    id = db.Column(db.Integer(), primary_key=True)
+    date = db.Column(db.DateTime())
+    transaction = db.relationship("InventoryAnalysis", backref='log', lazy='dynamic')
+
 
 class InventoryAnalysis(db.Model):
     __table_args__ = {'sqlite_autoincrement': True}
     id = db.Column(db.Integer(), primary_key=True)
-    sku_id = db.Column(db.String(255))
+    sku_id = db.Column(db.Integer, db.ForeignKey('master_sku_list.id'))
     abc_xyz_classification = db.Column(db.String(2))
     standard_deviation = db.Column(db.Integer())
     safety_stock = db.Column(db.Integer())
@@ -78,6 +96,7 @@ class InventoryAnalysis(db.Model):
     shortage_cost = db.Column(db.Numeric(18, 2))
     quantity_on_hand = db.Column(db.Integer())
     currency_id = db.Column(db.Integer, db.ForeignKey('currency.id'))
+    transaction_log_id = db.Column(db.Integer, db.ForeignKey('transaction_log.id'))
 
     @property
     def serialize(self):
@@ -87,7 +106,6 @@ class InventoryAnalysis(db.Model):
             'revenue': self.revenue,
             'classification': self.abc_xyz_classification,
             'eoq': self.economic_order_quantity,
-            'safe'
             'Date': convert_datetime(self.date),
             'standard_deviation': self.standard_deviation,
             'safety_stock': self.safety_stock,
@@ -114,19 +132,15 @@ class InventoryAnalysis(db.Model):
             'max_order': self.max_order,
             'shortage_cost': float(self.shortage_cost),
             'quantity_on_hand': self.quantity_on_hand
+
         }
 
-
-
-
-
-# db.create_all()
 manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 manager.create_api(InventoryAnalysis, methods=['GET', 'POST', 'DELETE', 'PATCH'])
 
 
 @app.route('/')
-def hello_world():
+def dashboard():
     return flask.render_template('index.html')
 
 
@@ -155,7 +169,10 @@ def sku_detail(sku_id: str = None):
     if sku_id is not None:
         inventory = db.session.query(InventoryAnalysis).filter(InventoryAnalysis.sku_id == sku_id).all()
     else:
+        transaction_sub = db.session.query(db.func.max(TransactionLog.date))
+        transaction_id = db.session.query(TransactionLog).filter(TransactionLog.date == transaction_sub).first()
         inventory = db.session.query(InventoryAnalysis).all()
+
     return flask.jsonify(json_list=[i.serialize for i in inventory])
 
 
@@ -269,6 +286,13 @@ def top_excess(rank: int = 10, classification: str = None):
                                                   ).order_by(desc(InventoryAnalysis.excess_cost)).limit(rank)
 
     return flask.jsonify(json_list=[i for i in revenue_classification])
+
+
+@app.route('/reporting/api/v1.0/currency', methods=['GET'])
+def currency():
+    pass
+    # currency_code =
+    # db.session.query(Currency.id).filter(Currency.currency_code == item['currency']).first()
 
 
 # @app.route('/upload/', methods=('GET', 'POST'))

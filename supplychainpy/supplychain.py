@@ -2,10 +2,9 @@
 
 import argparse
 
-from supplychainpy.launch_reports import launch_report
+import sys
 
-from supplychainpy.reporting import load
-from supplychainpy.reporting.views import db, app
+from supplychainpy.launch_reports import launch_load_report, launch_report
 
 
 def main():
@@ -31,12 +30,13 @@ def main():
     args = parser.parse_args()
 
     if args.launch == True and args.process == True and args.filenames is not None:
-        db.create_all()
-        load.load(args.filenames)
+        print(4)
+        launch_load_report(args.filenames)
+
+    elif args.launch:
+        print(3)
         launch_report()
 
-    elif args.launch == True:
-        launch_report()
 
     if args.verbose:
         print('filenames = {}'.format(args.filenames))
@@ -44,7 +44,9 @@ def main():
         print('process file = {}'.format(args.process))
 
     if args.filenames is None and False == args.process and False == args.launch and args.outfile is None:
-        filename = input('path to "CSV" or "text" file: ')
+        filename = input('path to "CSV" or "text" file... ')
+        sys.stdout.flush()
+
 
 if __name__ == '__main__':
     main()
