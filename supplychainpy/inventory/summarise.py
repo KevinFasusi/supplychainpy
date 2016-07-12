@@ -88,7 +88,6 @@ class OrdersAnalysis:
                     else:
                         raise TypeError
 
-
                 yield {id: temp_currency_summary}
                 temp_currency_summary.clear()
 

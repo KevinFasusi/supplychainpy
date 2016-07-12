@@ -29,7 +29,8 @@ class TestAnalyseOrders(TestCase):
                                                                           z_value=Decimal(1.28),
                                                                           holding_cost=Decimal(0.25),
                                                                           retail_price=Decimal(400.58),
-                                                                          unit_cost=Decimal(55))
+                                                                          unit_cost=Decimal(55),
+                                                                          currency='USD')
 
     def test_orders_type(self):
         self.assertIsInstance(self._orders_analysis, list)
@@ -47,7 +48,7 @@ class TestAnalyseOrders(TestCase):
         d = analyse_uncertain_demand.UncertainDemand(self._data_set, sku='Rx493-90', lead_time=Decimal(4),
                                                      reorder_cost=Decimal(450), z_value=Decimal(1.28),
                                                      holding_cost=Decimal(0.25), retail_price=Decimal(4.58),
-                                                     unit_cost=Decimal(55))
+                                                     unit_cost=Decimal(55), currency='USD')
         a = Decimal(d.average_orders)
         # assert
         self.assertEqual(a, 50)
@@ -60,7 +61,7 @@ class TestAnalyseOrders(TestCase):
         with self.assertRaises(AttributeError):
             analyse_uncertain_demand.UncertainDemand(orders=orders_placed, sku='Rx493-90', lead_time=Decimal(4),
                                                      unit_cost=Decimal(40), reorder_cost=Decimal(400),
-                                                     retail_price=Decimal(600))
+                                                     retail_price=Decimal(600), currency='USD')
 
     def test_standard_deviation(self):
         # arrange
@@ -68,7 +69,7 @@ class TestAnalyseOrders(TestCase):
         d = analyse_uncertain_demand.UncertainDemand(self._data_set, sku='Rx493-90', lead_time=Decimal(4),
                                                      reorder_cost=Decimal(450), z_value=Decimal(1.28),
                                                      holding_cost=Decimal(0.25), retail_price=Decimal(4.58),
-                                                     unit_cost=Decimal(55))
+                                                     unit_cost=Decimal(55), currency='USD')
         a = d.standard_deviation
         # assert
         self.assertEqual(a, 25)

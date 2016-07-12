@@ -109,7 +109,8 @@ class TestBuildModel(TestCase):
                                                          file_type="text",
                                                          retail_price=Decimal(30))
         # assert
-        self.assertEqual(len(d), 14)
+        print(d)
+        self.assertEqual(len(d), 16)
 
     def test_standard_deviation_col_count_csv(self):
         # arrange
@@ -125,7 +126,7 @@ class TestBuildModel(TestCase):
                                                          file_type="csv",
                                                          retail_price=Decimal(30))
         # assert
-        self.assertEqual(len(d), 14)
+        self.assertEqual(len(d), 16)
 
     def test_standard_deviation_row_value(self):
         # arrange
@@ -173,7 +174,8 @@ class TestBuildModel(TestCase):
                                                          reorder_cost=Decimal(45),
                                                          z_value=Decimal(1.28),
                                                          file_type="csv",
-                                                         retail_price=Decimal(30))
+                                                         retail_price=Decimal(30),
+                                                         currency='USD')
         std = 0
         for row in d:
             if row['sku'] == 'KR202-210':

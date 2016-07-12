@@ -20,7 +20,7 @@ class TestSummariseAnalysis(TestCase):
                                                                                  file_type="csv",
                                                                                  length=12)
 
-        self.__categories = ['excess_stock', 'shortages', 'average_orders']
+        self.__categories = ['excess_stock', 'shortages', 'revenue']
         self.__abc_classification = ('AX', 'AY', 'AZ', 'BX', 'BY', 'BZ', 'CX', 'CY', 'CZ')
         self.__analysis_summary = OrdersAnalysis(analysed_orders=self.__orders_analysis)
         self.__describe_sku = ['excess_cost', 'percentage_contribution_revenue', 'markup_percentage',
@@ -36,7 +36,6 @@ class TestSummariseAnalysis(TestCase):
 
         """
         item = [description for description in self.__analysis_summary.describe_sku('KR202-209')]
-        print(22, item[0])
 
     def test_describe_type_error(self):
         with self.assertRaises(expected_exception=TypeError):
