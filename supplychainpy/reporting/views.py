@@ -30,9 +30,9 @@ app = Flask(__name__)
 app.config.from_object(DevConfig)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-
 db = SQLAlchemy(app)
 db.create_all()
+
 
 def convert_datetime(value):
     """Deserialize datetime object into string"""
@@ -135,13 +135,26 @@ class InventoryAnalysis(db.Model):
 
         }
 
+
 manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 manager.create_api(InventoryAnalysis, methods=['GET', 'POST', 'DELETE', 'PATCH'])
 
 
 @app.route('/')
 def dashboard():
-    return flask.render_template('index.html')
+    top_ten_shortages = db.session.query(InventoryAnalysis.abc_xyz_classification,
+                               InventoryAnalysis.id,
+                               InventoryAnalysis.shortage_cost,
+                               InventoryAnalysis.quantity_on_hand,
+                               InventoryAnalysis.percentage_contribution_revenue,
+                               InventoryAnalysis.revenue_rank,
+                               InventoryAnalysis.shortages,
+                               InventoryAnalysis.average_orders,
+                               InventoryAnalysis.safety_stock,
+                               InventoryAnalysis.reorder_level
+                               ).order_by(desc(InventoryAnalysis.shortage_cost)).limit(10)
+
+    return flask.render_template('index.html', shortages=top_ten_shortages)
 
 
 @app.route('/data')
