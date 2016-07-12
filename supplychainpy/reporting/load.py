@@ -111,7 +111,7 @@ def load(file_path: str):
         i_up.reorder_level = item['reorder_level']
         i_up.economic_order_quantity = item['economic_order_quantity']
         i_up.demand_variability = item['demand_variability']
-        i_up.average_orders = item['average_orders']
+        i_up.average_orders = round(float(item['average_orders']))
         i_up.shortages = item['shortages']
         i_up.excess_stock = item['excess_stock']
         i_up.reorder_quantity = item['reorder_quantity']
