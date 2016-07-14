@@ -137,22 +137,22 @@ class InventoryAnalysis(db.Model):
 
 
 manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
-manager.create_api(InventoryAnalysis, methods=['GET', 'POST', 'DELETE', 'PATCH'])
+manager.create_api(InventoryAnalysis, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
 
 
 @app.route('/')
 def dashboard():
     top_ten_shortages = db.session.query(InventoryAnalysis.abc_xyz_classification,
-                               InventoryAnalysis.id,
-                               InventoryAnalysis.shortage_cost,
-                               InventoryAnalysis.quantity_on_hand,
-                               InventoryAnalysis.percentage_contribution_revenue,
-                               InventoryAnalysis.revenue_rank,
-                               InventoryAnalysis.shortages,
-                               InventoryAnalysis.average_orders,
-                               InventoryAnalysis.safety_stock,
-                               InventoryAnalysis.reorder_level
-                               ).order_by(desc(InventoryAnalysis.shortage_cost)).limit(10)
+                                         InventoryAnalysis.id,
+                                         InventoryAnalysis.shortage_cost,
+                                         InventoryAnalysis.quantity_on_hand,
+                                         InventoryAnalysis.percentage_contribution_revenue,
+                                         InventoryAnalysis.revenue_rank,
+                                         InventoryAnalysis.shortages,
+                                         InventoryAnalysis.average_orders,
+                                         InventoryAnalysis.safety_stock,
+                                         InventoryAnalysis.reorder_level
+                                         ).order_by(desc(InventoryAnalysis.shortage_cost)).limit(10)
 
     return flask.render_template('index.html', shortages=top_ten_shortages)
 
@@ -214,6 +214,7 @@ def get_classification_summary(classification: str = None):
             InventoryAnalysis.abc_xyz_classification).all()
     else:
         revenue_classification = db.session.query(InventoryAnalysis.abc_xyz_classification,
+                                                  InventoryAnalysis.currency_id,
                                                   func.sum(InventoryAnalysis.revenue).label('total_revenue'),
                                                   func.sum(InventoryAnalysis.shortage_cost).label('total_shortages'),
                                                   func.sum(InventoryAnalysis.excess_cost).label('total_excess')
@@ -224,11 +225,13 @@ def get_classification_summary(classification: str = None):
 
 @app.route('/abcxyz/<string:classification>')
 def abxyz(classification: str = None):
-    abc = db.session.query(InventoryAnalysis.sku_id,
+    abc = db.session.query(InventoryAnalysis
                            ).filter(
         InventoryAnalysis.abc_xyz_classification == classification).all()
 
-    return flask.render_template('abcxyz.html', inventory=abc)
+    msk = db.session.query(MasterSkuList).all()
+
+    return flask.render_template('abcxyz.html', inventory=abc, mks=msk)
 
 
 @app.route('/reporting/api/v1.0/top_shortages', methods=['GET'])
@@ -301,11 +304,21 @@ def top_excess(rank: int = 10, classification: str = None):
     return flask.jsonify(json_list=[i for i in revenue_classification])
 
 
+@app.route('/api/total_inventory', methods=['GET'])
+def total_inventory():
+    revenue_classification = db.session.query(
+        InventoryAnalysis.sku_id,
+        InventoryAnalysis.unit_cost,
+        InventoryAnalysis.quantity_on_hand,
+        InventoryAnalysis.transaction_log_id).all()
+
+    return flask.jsonify(json_list=[i for i in revenue_classification])
+
+
 @app.route('/reporting/api/v1.0/currency', methods=['GET'])
 def currency():
     pass
-    # currency_code =
-    # db.session.query(Currency.id).filter(Currency.currency_code == item['currency']).first()
+    #  currency_code = db.session.query(Currency.id).filter(Currency.currency_code == item['currency']).first()
 
 
 # @app.route('/upload/', methods=('GET', 'POST'))

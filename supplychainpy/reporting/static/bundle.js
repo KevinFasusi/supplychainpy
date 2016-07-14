@@ -46,32 +46,45 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _jquery = __webpack_require__(1);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _slatesCompiled = __webpack_require__(2);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	/**
-	 * Created by Fasusi on 22/05/2016.
-	 */
-	var $ = __webpack_require__(1);
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /**
+	                                                                                                                                                                                                     * Created by Fasusi on 22/05/2016.
+	                                                                                                                                                                                                     */
 
-	$("document").ready(function () {
-	    $('div.nav-tab').hover(highlight);
-	    $('#classifications-btn').click(function () {
+
+	(0, _jquery2.default)("document").ready(function () {
+	    (0, _jquery2.default)('div.nav-tab').hover(highlight);
+	    (0, _jquery2.default)('#classifications-btn').click(function () {
 	        toggle_reporting_view('collapse-classification');
 	    });
 
-	    $('#shortages-btn').click(function () {
+	    (0, _jquery2.default)('#shortages-btn').click(function () {
 	        toggle_reporting_view('collapse-shortages');
 	    });
 
-	    $('#excess-btn').click(function () {
+	    (0, _jquery2.default)('#excess-btn').click(function () {
 	        toggle_reporting_view('collapse-excess');
 	    });
+	    var test = new _slatesCompiled.PlainSlate();
+	    load_currency_codes();
 	    // ajax request for json containing sku related. Is used to: builds revenue chart (#chart).
-
 	    var filters = [{ "name": "shortage_cost", "op": "gt", "val": 0, "direction": "desc", "limit": 10 }];
 	    var excess_filters = [{ "name": "excess_cost", "op": "gt", "val": 0, "direction": "desc", "limit": 10 }];
+	    var classification_filter = [{ "name": "sum", "field": "shortage_cost" }, {
+	        "name": "sum",
+	        "field": "excess_cost"
+	    }, { "name": "sum", "field": "revenue" }, { "name": "abcxyz_classification" }];
 
-	    $.ajax({
+	    _jquery2.default.ajax({
 	        type: "GET",
 	        contentType: "application/json; charset=utf-8",
 	        url: 'http://127.0.0.1:5000/api/inventory_analysis',
@@ -85,7 +98,7 @@
 	        error: function error(result) {}
 	    });
 
-	    $.ajax({
+	    _jquery2.default.ajax({
 	        type: "GET",
 	        contentType: "application/json; charset=utf-8",
 	        url: 'http://127.0.0.1:5000/api/inventory_analysis',
@@ -99,7 +112,25 @@
 	        error: function error(result) {}
 	    });
 
-	    $.ajax({
+	    //$.ajax({
+	    //    type: "GET",
+	    //    contentType: "application/json; charset=utf-8",
+	    //    url: 'http://127.0.0.1:5000/api/inventory_analysis',
+	    //    dataType: 'json',
+	    //    async: true,
+	    //    data: {"function": JSON.stringify({"filters": classification_filter})},
+	    //    success: function (data) {
+	    //        console.log(data.objects);
+	    //        create_classification_table(data);
+	    //    },
+	    //    error: function (result) {
+	    //
+	    //
+	    //    }
+	    //
+	    //}
+
+	    _jquery2.default.ajax({
 	        type: "GET",
 	        contentType: "application/json; charset=utf-8",
 	        url: 'http://127.0.0.1:5000/reporting/api/v1.0/sku_detail',
@@ -114,7 +145,7 @@
 	    });
 
 	    //ajax request for json containing all costs summarised by product class (abcxyz), builds pie chart (#chart2)
-	    $.ajax({
+	    _jquery2.default.ajax({
 	        type: "GET",
 	        contentType: "application/json; charset=utf-8",
 	        url: 'http://127.0.0.1:5000/reporting/api/v1.0/abc_summary',
@@ -137,7 +168,7 @@
 	    });
 
 	    //ajax request for json containing all costs summarised by product class (abcxyz), builds pie chart (#chart2)
-	    $.ajax({
+	    _jquery2.default.ajax({
 	        type: "GET",
 	        contentType: "application/json; charset=utf-8",
 	        url: 'http://127.0.0.1:5000/reporting/api/v1.0/top_shortages',
@@ -154,7 +185,7 @@
 	        }
 	    });
 
-	    $.ajax({
+	    _jquery2.default.ajax({
 	        type: "GET",
 	        contentType: "application/json; charset=utf-8",
 	        url: 'http://127.0.0.1:5000/reporting/api/v1.0/top_excess',
@@ -364,20 +395,29 @@
 
 	};
 
+	//loads the currency codes into dropdown
+	function load_currency_codes() {
+	    var currency_symbols = [["AED", "United Arab Emirates Dirham"], ["AFN", "Afghanistan Afghani"], ["ALL", "Albania Lek"], ["AMD", "Armenia Dram"], ["ANG", "Netherlands Antilles Guilder"], ["AOA", "Angola Kwanza"], ["ARS", "Argentina Peso"], ["AUD", "Australia Dollar"], ["AWG", "Aruba Guilder"], ["AZN", "Azerbaijan New Manat"], ["BAM", "Bosnia and Herzegovina Convertible Marka"], ["BBD", "Barbados Dollar"], ["BDT", "Bangladesh Taka"], ["BGN", "Bulgaria Lev"], ["BHD", "Bahrain Dinar"], ["BIF", "Burundi Franc"], ["BMD", "Bermuda Dollar"], ["BND", "Brunei Darussalam Dollar"], ["BOB", "Bolivia Bolíviano"], ["BRL", "Brazil Real"], ["BSD", "Bahamas Dollar"], ["BTN", "Bhutan Ngultrum"], ["BWP", "Botswana Pula"], ["BYR", "Belarus Ruble"], ["BZD", "Belize Dollar"], ["CAD", "Canada Dollar"], ["CDF", "Congo/Kinshasa Franc"], ["CHF", "Switzerland Franc"], ["CLP", "Chile Peso"], ["CNY", "China Yuan Renminbi"], ["COP", "Colombia Peso"], ["CRC", "Costa Rica Colon"], ["CUC", "Cuba Convertible Peso"], ["CUP", "Cuba Peso"], ["CVE", "Cape Verde Escudo"], ["CZK", "Czech Republic Koruna"], ["DJF", "Djibouti Franc"], ["DKK", "Denmark Krone"], ["DOP", "Dominican Republic Peso"], ["DZD", "Algeria Dinar"], ["EGP", "Egypt Pound"], ["ERN", "Eritrea Nakfa"], ["ETB", "Ethiopia Birr"], ["EUR", "Euro Member Countries"], ["FJD", "Fiji Dollar"], ["FKP", "Falkland Islands (Malvinas) Pound"], ["GBP", "United Kingdom Pound"], ["GEL", "Georgia Lari"], ["GGP", "Guernsey Pound"], ["GHS", "Ghana Cedi"], ["GIP", "Gibraltar Pound"], ["GMD", "Gambia Dalasi"], ["GNF", "Guinea Franc"], ["GTQ", "Guatemala Quetzal"], ["GYD", "Guyana Dollar"], ["HKD", "Hong Kong Dollar"], ["HNL", "Honduras Lempira"], ["HRK", "Croatia Kuna"], ["HTG", "Haiti Gourde"], ["HUF", "Hungary Forint"], ["IDR", "Indonesia Rupiah", "ILS", "Israel Shekel"], ["IMP", "Isle of Man Pound"], ["INR", "India Rupee"], ["IQD", "Iraq Dinar"], ["IRR", "Iran Rial"], ["ISK", "Iceland Krona"], ["JEP", "Jersey Pound"], ["JMD", "Jamaica Dollar"], ["JOD", "Jordan Dinar"], ["JPY", "Japan Yen"], ["KES", "Kenya Shilling"], ["KGS", "Kyrgyzstan Som"], ["KHR", "Cambodia Riel"], ["KMF", "Comoros Franc"], ["KPW", "Korea (North) Won"], ["KRW", "Korea (South) Won"], ["KWD", "Kuwait Dinar"], ["KYD", "Cayman Islands Dollar"], ["KZT", "Kazakhstan Tenge"], ["LAK:", "Laos Kip"], ["LBP", "Lebanon Pound"], ["LKR", "Sri Lanka Rupee"], ["LRD", "Liberia Dollar"], ["LSL", "Lesotho Loti"], ["LYD", "Libya Dinar"], ["MAD", "Morocco Dirham"], ["MDL", "Moldova Leu"], ["MGA", "Madagascar Ariary"], ["MKD", "Macedonia Denar"], ["MMK", "Myanmar (Burma) Kyat"], ["MNT", "Mongolia Tughrik"], ["MOP", "Macau Pataca"], ["MRO", "Mauritania Ouguiya"], ["MUR", "Mauritius Rupee"], ["MVR", "Maldives (Maldive Islands) Rufiyaa"], ["MWK", "Malawi Kwacha"], ["MXN", "Mexico Peso"], ["MYR", "Malaysia Ringgit"], ["MZN", "Mozambique Metical"], ["NAD", "Namibia Dollar"], ["NGN", "Nigeria Naira"], ["NIO", "Nicaragua Cordoba"], ["NOK:", "Norway Krone"], ["NPR", "Nepal Rupee"], ["NZD", "New Zealand Dollar"], ["OMR", "Oman Rial"], ["PAB", "Panama Balboa"], ["PEN", "Peru Sol"], ["PGK", "Papua New Guinea Kina"], ["PHP", "Philippines Peso"], ["PKR", "Pakistan Rupee"], ["PLN", "Poland Zloty"], ["PYG", "Paraguay Guarani"], ["QAR", "Qatar Riyal"], ["RON", "Romania New Leu"], ["RSD", "Serbia Dinar"], ["RUB", "Russia Ruble"], ["RWF", "Rwanda Franc"], ["SAR", "Saudi Arabia Riyal"], ["SBD", "Solomon Islands Dollar"], ["SCR", "Seychelles Rupee"], ["SDG", "Sudan Pound"], ["SEK", "Sweden Krona"], ["SGD", "Singapore Dollar"], ["SHP", "Saint Helena Pound"], ["SLL", "Sierra Leone Leone"], ["SOS", "Somalia Shilling"], ["SPL:", "Seborga Luigino"], ["SR:D", "Suriname Dollar"], ["STD", "São Tomé and Príncipe Dobra"], ["SVC", "El Salvador Colon"], ["SYP", "Syria Pound"], ["SZL", "Swaziland Lilangeni"], ["THB", "Thailand Baht"], ["TJS", "Tajikistan Somoni"], ["TMT", "Turkmenistan Manat"], ["TND", "Tunisia Dinar"], ["TOP", "Tonga Pa'anga"], ["TRY", "Turkey Lira"], ["TTD", "Trinidad and Tobago Dollar"], ["TVD", "Tuvalu Dollar"], ["TWD", "Taiwan New Dollar"], ["TZS", "Tanzania Shilling"], ["UAH", "Ukraine Hryvnia"], ["UGX", "Uganda Shilling"], ["USD", "American Dollars"], ["UYU", "Uruguay Peso"], ["UZS", "Uzbekistan Som"], ["VEF", "Venezuela Bolivar"], ["VND", "Viet Nam Dong"], ["VUV", "Vanuatu Vatu"], ["WST", "Samoa Tala"], ["XAF", "Communauté Financière Africaine (BEAC) CFA Franc BEAC"], ["XCD", "East Caribbean Dollar"], ["XDR", "International Monetary Fund (IMF) Special Drawing Rights"], ["XOF", "Communauté Financière Africaine (BCEAO) Franc"], ["XPF", "Comptoirs Français du Pacifique (CFP) Franc"], ["YER", "Yemen Rial"], ["ZAR", "South Africa Rand"], ["ZMW", "Zambia Kwacha"], ["ZWD", "Zimbabwe Dollar"]];
+	    for (var i = 0; i < currency_symbols.length; i++) {
+	        //console.log(currency_symbols[i][0]);
+	        (0, _jquery2.default)("<li role=\"presentation\"><a role=\"menuitem\" class =\"text-center\" tabindex=\"-1\" href=\"#\">" + currency_symbols[i][0] + "</a></li>").insertAfter("#currency-list li:last");
+	    }
+	}
+
 	function highlight() {
 
-	    $(this).toggleClass('highlight-event');
+	    (0, _jquery2.default)(this).toggleClass('highlight-event');
 	}
 
 	function toggle_reporting_view(id) {
-	    $('#' + id).toggle("slow");
+	    (0, _jquery2.default)('#' + id).toggle("slow");
 	}
 
 	function sku_identifier(id) {
 
 	    var filters = [{ "name": "sku_id", "op": "eq", "val": id }];
 
-	    $.ajax({
+	    _jquery2.default.ajax({
 	        type: "GET",
 	        contentType: "application/json; charset=utf-8",
 	        url: 'http://127.0.0.1:5000/api/inventory_analysis',
@@ -392,71 +432,210 @@
 	    });
 	}
 
+	function currency_symbol_allocator(currency_symbol) {
+	    var currency_symbols = {
+	        "AED": "د.إ", "AFN": "&#1547;", "ALL": "Albania Lek",
+	        "AMD": "Armenia Dram", "ANG": "Netherlands Antilles Guilder", "AOA": "Angola Kwanza",
+	        "ARS": "Argentina Peso", "AUD": "Australia Dollar", "AWG": "Aruba Guilder",
+	        "AZN": "Azerbaijan New Manat", "BAM": "Bosnia and Herzegovina Convertible Marka",
+	        "BBD": "Barbados Dollar", "BDT": "Bangladesh Taka", "BGN": "Bulgaria Lev", "BHD": "Bahrain Dinar",
+	        "BIF": "Burundi Franc", "BMD": "Bermuda Dollar", "BND": "Brunei Darussalam Dollar",
+	        "BOB": "Bolivia Bolíviano", "BRL": "Brazil Real", "BSD": "Bahamas Dollar",
+	        "BTN": "Bhutan Ngultrum", "BWP": "Botswana Pula", "BYR": "Belarus Ruble", "BZD": "Belize Dollar",
+	        "CAD": "Canada Dollar", "CDF": "Congo/Kinshasa Franc", "CHF": "Switzerland Franc",
+	        "CLP": "Chile Peso", "CNY": "China Yuan Renminbi", "COP": "Colombia Peso",
+	        "CRC": "Costa Rica Colon", "CUC": "Cuba Convertible Peso", "CUP": "Cuba Peso",
+	        "CVE": "Cape Verde Escudo", "CZK": "Czech Republic Koruna", "DJF": "Djibouti Franc",
+	        "DKK": "Denmark Krone", "DOP": "Dominican Republic Peso", "DZD": "Algeria Dinar",
+	        "EGP": "Egypt Pound", "ERN": "Eritrea Nakfa", "ETB": "Ethiopia Birr",
+	        "EUR": "Euro Member Countries", "FJD": "Fiji Dollar", "FKP": "Falkland Islands (Malvinas) Pound",
+	        "GBP": "United Kingdom Pound", "GEL": "Georgia Lari", "GGP": "Guernsey Pound",
+	        "GHS": "Ghana Cedi", "GIP": "Gibraltar Pound", "GMD": "Gambia Dalasi", "GNF": "Guinea Franc",
+	        "GTQ": "Guatemala Quetzal", "GYD": "Guyana Dollar", "HKD": "Hong Kong Dollar",
+	        "HNL": "Honduras Lempira", "HRK": "Croatia Kuna", "HTG": "Haiti Gourde", "HUF": "Hungary Forint",
+	        "IDR": "Indonesia Rupiah", "ILS": "Israel Shekel", "IMP": "Isle of Man Pound",
+	        "INR": "India Rupee", "IQD": "Iraq Dinar", "IRR": "Iran Rial", "ISK": "Iceland Krona",
+	        "JEP": "Jersey Pound", "JMD": "Jamaica Dollar", "JOD": "Jordan Dinar", "JPY": "Japan Yen",
+	        "KES": "Kenya Shilling", "KGS": "Kyrgyzstan Som", "KHR": "Cambodia Riel", "KMF": "Comoros Franc",
+	        "KPW": "Korea (North) Won", "KRW": "Korea (South) Won", "KWD": "Kuwait Dinar",
+	        "KYD": "Cayman Islands Dollar", "KZT": "Kazakhstan Tenge", "LAK:": "Laos Kip",
+	        "LBP": "Lebanon Pound", "LKR": "Sri Lanka Rupee", "LRD": "Liberia Dollar", "LSL": "Lesotho Loti",
+	        "LYD": "Libya Dinar", "MAD": "Morocco Dirham", "MDL": "Moldova Leu", "MGA": "Madagascar Ariary",
+	        "MKD": "Macedonia Denar", "MMK": "Myanmar (Burma) Kyat", "MNT": "Mongolia Tughrik",
+	        "MOP": "Macau Pataca", "MRO": "Mauritania Ouguiya", "MUR": "Mauritius Rupee",
+	        "MVR": "Maldives (Maldive Islands) Rufiyaa", "MWK": "Malawi Kwacha", "MXN": "Mexico Peso",
+	        "MYR": "Malaysia Ringgit", "MZN": "Mozambique Metical", "NAD": "Namibia Dollar",
+	        "NGN": "Nigeria Naira", "NIO": "Nicaragua Cordoba", "NOK:": "Norway Krone", "NPR": "Nepal Rupee",
+	        "NZD": "New Zealand Dollar", "OMR": "Oman Rial", "PAB": "Panama Balboa", "PEN": "Peru Sol",
+	        "PGK": "Papua New Guinea Kina", "PHP": "Philippines Peso", "PKR": "Pakistan Rupee",
+	        "PLN": "Poland Zloty", "PYG": "Paraguay Guarani", "QAR": "Qatar Riyal", "RON": "Romania New Leu",
+	        "RSD": "Serbia Dinar", "RUB": "Russia Ruble", "RWF": "Rwanda Franc", "SAR": "Saudi Arabia Riyal",
+	        "SBD": "Solomon Islands Dollar", "SCR": "Seychelles Rupee", "SDG": "Sudan Pound",
+	        "SEK": "Sweden Krona", "SGD": "Singapore Dollar", "SHP": "Saint Helena Pound",
+	        "SLL": "Sierra Leone Leone", "SOS": "Somalia Shilling", "SPL:": "Seborga Luigino",
+	        "SR:D": "Suriname Dollar", "STD": "São Tomé and Príncipe Dobra", "SVC": "El Salvador Colon",
+	        "SYP": "Syria Pound", "SZL": "Swaziland Lilangeni", "THB": "Thailand Baht",
+	        "TJS": "Tajikistan Somoni", "TMT": "Turkmenistan Manat", "TND": "Tunisia Dinar",
+	        "TOP": "Tonga Pa'anga", "TRY": "Turkey Lira", "TTD": "Trinidad and Tobago Dollar",
+	        "TVD": "Tuvalu Dollar", "TWD": "Taiwan New Dollar", "TZS": "Tanzania Shilling",
+	        "UAH": "Ukraine Hryvnia", "UGX": "Uganda Shilling", "USD": "&#36;",
+	        "UYU": "Uruguay Peso", "UZS": "Uzbekistan Som", "VEF": "Venezuela Bolivar",
+	        "VND": "Viet Nam Dong", "VUV": "Vanuatu Vatu", "WST": "Samoa Tala",
+	        "XAF": "Communauté Financière Africaine (BEAC) CFA Franc BEAC", "XCD": "East Caribbean Dollar",
+	        "XDR": "International Monetary Fund (IMF) Special Drawing Rights",
+	        "XOF": "Communauté Financière Africaine (BCEAO) Franc",
+	        "XPF": "Comptoirs Français du Pacifique (CFP) Franc", "YER": "Yemen Rial",
+	        "ZAR": "South Africa Rand", "ZMW": "Zambia Kwacha", "ZWD": "Zimbabwe Dollar"
+	    };
+
+	    return currency_symbols[currency_symbol];
+	}
+
 	function create_shortages_table(data) {
 	    var total_shortage = 0;
 	    //console.log(data.objects);
 	    //var max_shortage = Math.max(data.shortage_cost);
+	    //console.log(currency_symbol_allocator("AFN"));
 
-	    $("#shortage-table").append().html("<tr id='first'><th>SKU</th><th>Quantity on Hand</th><th>Average Orders</th>" + "<th>Shortage</th><th>Shortage Cost</th><th>Safety Stock</th><th>Reorder Level</th> " + "<th>Percentage Contribution</th><th>Revenue Rank</th><th>Classification</th></tr>");
-
+	    (0, _jquery2.default)("#shortage-table").append().html("<tr id='first'><th>SKU</th><th>Quantity on Hand</th><th>Average Orders</th>" + "<th>Shortage</th><th>Shortage Cost</th><th>Safety Stock</th><th>Reorder Level</th> " + "<th>Percentage Contribution</th><th>Revenue Rank</th><th>Classification</th></tr>");
+	    var percentage_stockoout = 0;
 	    var t = [];
 	    var largest = 0;
+	    var understocked_qoh = 0;
+	    var understocked_sku;
+	    var understocked_rol;
+
 	    for (var i = 0; i < data.objects.length; i++) {
 	        //console.log(data.objects[i].shortage_cost);
-
+	        var symbols = currency_symbol_allocator(data.objects[i].currency.currency_code);
 	        total_shortage += data.objects[i].shortage_cost;
+	        var currency_code = currency_symbol_allocator(data.objects[i].currency.currency_code);
 
-	        $("<tr><td><a href=\"sku_detail/" + data.objects[i].sku.sku_id + "\">" + data.objects[i].sku.sku_id + "</a></td>" + "<td>" + format_number(data.objects[i].quantity_on_hand) + "</td>" + "<td>" + format_number(Math.round(data.objects[i].average_orders)) + "</td>" + "<td>" + data.objects[i].shortages + "</td>" + "<td>" + format_number(data.objects[i].shortage_cost) + "</td>" + "<td>" + data.objects[i].safety_stock + "</td>" + "<td>" + data.objects[i].reorder_level + "</td>" + "<td>" + Math.round(data.objects[i].percentage_contribution_revenue * 100) + "%</td>" + "<td>" + data.objects[i].revenue_rank + "</td>" + "<td><a href=\"abcxyz/" + data.objects[i].abc_xyz_classification + "\">" + data.objects[i].abc_xyz_classification + "</a></td></tr>").insertAfter("#shortage-table tr:last");
+	        (0, _jquery2.default)("<tr><td><a href=\"sku_detail/" + data.objects[i].sku.sku_id + "\">" + data.objects[i].sku.sku_id + "</a></td>" + "<td>" + format_number(data.objects[i].quantity_on_hand) + "</td>" + "<td>" + format_number(Math.round(data.objects[i].average_orders)) + "</td>" + "<td>" + data.objects[i].shortages + "</td>" + "<td>" + currency_code + format_number(data.objects[i].shortage_cost) + "</td>" + "<td>" + data.objects[i].safety_stock + "</td>" + "<td>" + data.objects[i].reorder_level + "</td>" + "<td>" + Math.round(data.objects[i].percentage_contribution_revenue * 100) + "%</td>" + "<td>" + data.objects[i].revenue_rank + "</td>" + "<td><a href=\"abcxyz/" + data.objects[i].abc_xyz_classification + "\">" + data.objects[i].abc_xyz_classification + "</a></td></tr>").insertAfter("#shortage-table tr:last");
 	        var shortage_sku_id;
 	        var shortage_units;
 
 	        if (parseInt(data.objects[i].shortage_cost) > parseInt(largest)) {
 	            largest = data.objects[i].shortage_cost;
-	            console.log(parseInt(largest));
+	            //console.log(parseInt(largest));
 	            shortage_sku_id = data.objects[i].sku.sku_id;
 	            shortage_units = data.objects[i].shortages;
 	        }
+
+	        if (parseInt(data.objects[i].quantity_on_hand) < parseInt(data.objects[i].safety_stock) / 2) {
+	            percentage_stockoout += 1;
+	        }
+	        var temp_net_stock = data.objects[i].quantity_on_hand - data.objects[i].reorder_level;
+	        if (Math.abs(temp_net_stock) > understocked_qoh) {
+	            understocked_qoh = data.objects[i].quantity_on_hand;
+	            understocked_sku = data.objects[i].sku.sku_id;
+	            understocked_rol = data.objects[i].reorder_level;
+	        }
 	    }
 
-	    $("#total-shortage").append().html("<h1><strong>" + format_number(total_shortage) + "</strong></h1>").find("> h1").css("color", "#D11C29");
-	    // top shortage pebble
-	    $("#lg-shortage-sku").append().html("<h1><strong>" + shortage_sku_id + "</strong></h1>").find("> h1").css("color", "#2176C7");
-	    $("#lg-shortage-cost").append().html("<h1><strong>" + format_number(largest) + "</strong></h1>").find("> h1").css("color", "#D11C29");
+	    // Percentage of top 10 SKU likely to face a stock-out situation. SKU is at risk below 50% of the safety stock.
+	    //This should be moved into the main library.
+	    percentage_stockoout = parseInt(percentage_stockoout) / data.objects.length * 100;
 
-	    $("#lg-shortage-units").append().html("<h1><strong>" + format_number(shortage_units) + " units" + "</strong></h1>").find("> h1").css("color", "#819090");
+	    //Total Shortage of the to ten.
+	    //console.log(percentage_stockoout);
+	    (0, _jquery2.default)("#total-shortage").append().html("<h1><strong>" + symbols + format_number(total_shortage) + "</strong></h1>").find("> h1").css("color", "#D11C29");
+
+	    // top shortage SKU id
+	    (0, _jquery2.default)("#lg-shortage-sku").append().html("<h1><strong>" + shortage_sku_id + "</strong></h1>").find("> h1").css("color", "#2176C7");
+
+	    //largest shortage cost
+	    (0, _jquery2.default)("#lg-shortage-cost").append().html("<h1><strong>" + symbols + format_number(largest) + "</strong></h1>").find("> h1").css("color", "#D11C29");
+
+	    //units for largest shortage cost.
+	    (0, _jquery2.default)("#lg-shortage-units").append().html("<h1><strong>" + format_number(shortage_units) + " units" + "</strong></h1>").find("> h1").css("color", "#819090");
+
+	    //percentage of SKUs likely to experience stock-out
+	    (0, _jquery2.default)("#shortage-percentage").append().html("<h1><strong>" + percentage_stockoout + "%" + "</strong></h1>").find("> h1").css("color", "#819090");
+
+	    (0, _jquery2.default)("#understocked-sku").append().html("<h1><strong>" + understocked_sku + "</strong></h1>").find("> h1").css("color", "#2176C7");
+
+	    (0, _jquery2.default)("#understocked-qoh").append().html("<h1><strong>" + "qty on hand: " + understocked_qoh + " units" + "</strong></h1>").find("> h1").css("color", "#819090");
+
+	    (0, _jquery2.default)("#understocked_rol").append().html("<h1><strong>" + "reorder level: " + understocked_rol + " units" + "</strong></h1>").find("> h1").css("color", "#819090");
 	}
 
 	function create_excess_table(data) {
 	    var total_excess = 0,
 	        percentage_excess = 0;
 
-	    $("#excess-table").append().html("<tr id='first'><th>SKU</th><th>Quantity on Hand</th><th>Average Orders</th>" + "<th>Excess</th><th>Excess Cost</th><th>Excess Inventory %</th><th>Safety Stock</th><th>Reorder Level</th><th>Classification</th></tr>");
+	    (0, _jquery2.default)("#excess-table").append().html("<tr id='first'><th>SKU</th><th>Quantity on Hand</th><th>Average Orders</th>" + "<th>Excess</th><th>Excess Cost</th><th>Excess Inventory %</th><th>Safety Stock</th><th>Reorder Level</th><th>Classification</th></tr>");
 	    //console.log(excess_data);
 	    var obj;
+	    var largest = 0;
+	    var excess_sku_id;
+	    var excess_units;
+	    var excess_cost;
+	    var holding_cost = 0;
+
 	    for (var i = 0; i < data.objects.length; i++) {
 	        //console.log(excess_data[obj].sku_id);
 	        total_excess += data.objects[i].excess_cost;
+	        holding_cost += data.objects[i].quantity_on_hand * (data.objects[i].unit_cost * 0.25); //change later to be chosen by use
+	        var symbols = currency_symbol_allocator(data.objects[i].currency.currency_code);
 	        percentage_excess = Math.round(data.objects[i].excess_stock / data.objects[i].quantity_on_hand * 100);
-	        $("<tr><td><a href=\"sku_detail/" + data.objects[i].sku.sku_id + "\">" + data.objects[i].sku.sku_id + "</td>" + "<td>" + data.objects[i].quantity_on_hand + "</td>" + "<td>" + data.objects[i].average_orders + "</td>" + "<td>" + data.objects[i].excess_stock + "</td>" + "<td>" + data.objects[i].excess_cost + "</td>" + "<td>" + percentage_excess + "%" + "</td>" + "<td>" + data.objects[i].safety_stock + "</td>" + "<td>" + data.objects[i].reorder_level + "</td>" + "<td><a href=\"abcxyz/" + data.objects[i].abc_xyz_classification + "\">" + data.objects[i].abc_xyz_classification + "</a></td></tr>").insertAfter("#excess-table tr:last");
+	        (0, _jquery2.default)("<tr><td><a href=\"sku_detail/" + data.objects[i].sku.sku_id + "\">" + data.objects[i].sku.sku_id + "</td>" + "<td>" + data.objects[i].quantity_on_hand + "</td>" + "<td>" + data.objects[i].average_orders + "</td>" + "<td>" + data.objects[i].excess_stock + "</td>" + "<td>" + currency_symbol_allocator(data.objects[i].currency.currency_code) + format_number(data.objects[i].excess_cost) + "</td>" + "<td>" + percentage_excess + "%" + "</td>" + "<td>" + data.objects[i].safety_stock + "</td>" + "<td>" + data.objects[i].reorder_level + "</td>" + "<td><a href=\"abcxyz/" + data.objects[i].abc_xyz_classification + "\">" + data.objects[i].abc_xyz_classification + "</a></td></tr>").insertAfter("#excess-table tr:last");
+
+	        if (parseInt(data.objects[i].excess_cost) > parseInt(largest)) {
+	            largest = data.objects[i].excess_cost;
+	            //console.log(parseInt(largest));
+	            excess_sku_id = data.objects[i].sku.sku_id;
+	            excess_units = data.objects[i].excess_stock;
+	            excess_cost = data.objects[i].excess_cost;
+	        }
 	    }
 
+	    _jquery2.default.ajax({
+	        type: "GET",
+	        contentType: "application/json; charset=utf-8",
+	        url: 'http://127.0.0.1:5000/api/total_inventory',
+	        dataType: 'json',
+	        async: true,
+	        data: "{}",
+	        success: function success(data) {
+	            // console.log(data);
+	            var items = [].concat(_toConsumableArray(data.json_list));
+	            //console.log(items.length);
+	            var total_invetory = 0;
+	            for (i = 0; i < items.length; i++) {
+
+	                total_invetory += items[i].quantity_on_hand * items[i].unit_cost;
+
+	                //console.log(total_invetory);
+	            }
+	            var percentage_excess;
+	            //console.log(total_invetory);
+	            percentage_excess = Math.round(total_excess / total_invetory * 100, 0);
+
+	            (0, _jquery2.default)("#excess-inventory-sl").append().html("<h1><strong>" + percentage_excess + "%" + "</strong></h1>").find("> h1").css("color", "#D11C29");
+	        },
+	        error: function error(result) {}
+	    });
+
 	    // top excess pebble
-	    $("#lg-excess-sku").append().html("<h1><strong>" + excess_data[0].sku_id + "</strong></h1>").find("> h1").css("color", "#2176C7");
-	    $("#lg-excess-cost").append().html("<h1><strong>" + "$" + excess_data[0].excess_cost + "</strong></h1>").find("> h1").css("color", "#D11C29");
-	    $("#lg-excess-units").append().html("<h1><strong>" + excess_data[0].excess_stock + " units" + "</strong></h1>").find("> h1").css("color", "#819090");
-	    $("#total-excess").append().html("<h1><strong>" + total_excess + "</strong></h1>").find("> h1").css("color", "#D11C29");
+	    (0, _jquery2.default)("#lg-excess-sku").append().html("<h1><strong>" + excess_sku_id + "</strong></h1>").find("> h1").css("color", "#2176C7");
+	    (0, _jquery2.default)("#lg-excess-cost").append().html("<h1><strong>" + symbols + format_number(excess_cost) + "</strong></h1>").find("> h1").css("color", "#D11C29");
+	    (0, _jquery2.default)("#lg-excess-units").append().html("<h1><strong>" + format_number(excess_units) + " units" + "</strong></h1>").find("> h1").css("color", "#819090");
+	    (0, _jquery2.default)("#total-excess").append().html("<h1><strong>" + symbols + format_number(total_excess) + "</strong></h1>").find("> h1").css("color", "#D11C29");
+
+	    (0, _jquery2.default)("#excess-holding-cost-sl").append().html("<h1><strong>" + symbols + format_number(holding_cost) + "</strong></h1>").find("> h1").css("color", "#D11C29");
 	}
 
 	function create_classification_table(data) {
 	    var abc_xyz_data = new unpack.abc_xyz(data, 'table');
 
-	    $("#classification-table").append().html("<tr id='classification-row'><th>Classification</th><th>Revenue</th><th>Shortages</th>" + "<th>Excess</th></tr>");
+	    (0, _jquery2.default)("#classification-table").append().html("<tr id='classification-row'><th>Classification</th><th>Revenue</th><th>Shortages</th>" + "<th>Excess</th></tr>");
 	    //console.log(excess_data);
 
 	    var obj;
 	    for (obj in abc_xyz_data) {
 	        //console.log(abc_xyz_data[obj].abc_xyz_classification);
-	        $("<tr><td><a href=\"abcxyz/" + abc_xyz_data[obj].abc_xyz_classification + "\">" + abc_xyz_data[obj].abc_xyz_classification + "</a>" + "<td>" + format_number(abc_xyz_data[obj].total_revenue) + "</td>" + "<td>" + format_number(abc_xyz_data[obj].total_shortages) + "</td>" + "<td>" + format_number(abc_xyz_data[obj].total_excess) + "</td>" + "</td></tr>").insertAfter("#classification-table tr:last");
+	        (0, _jquery2.default)("<tr><td><a href=\"abcxyz/" + abc_xyz_data[obj].abc_xyz_classification + "\">" + abc_xyz_data[obj].abc_xyz_classification + "</a>" + "<td>" + format_number(abc_xyz_data[obj].total_revenue) + "</td>" + "<td>" + format_number(abc_xyz_data[obj].total_shortages) + "</td>" + "<td>" + format_number(abc_xyz_data[obj].total_excess) + "</td>" + "</td></tr>").insertAfter("#classification-table tr:last");
 	    }
 
 	    var max_shortage = 0;
@@ -481,12 +660,12 @@
 	        total_excess += abc_xyz_data[item].total_excess;
 	    }
 
-	    $("#lg-shortage-classification").append().html("<h1><strong>" + format_number(max_shortage) + "</strong></h1>").find("> h1").css("color", "#2176C7");
-	    $("#lg-shortage-classification-class").append().html("<h1><strong>" + max_class + "</strong></h1>").find("> h1").css("color", "#2176C7");
-	    $("#lg-excess-classification").append().html("<h1><strong>" + format_number(max_excess) + "</strong></h1>").find("> h1").css("color", "#2176C7");
-	    $("#lg-excess-classification-class").append().html("<h1><strong>" + excess_class + "</strong></h1>").find("> h1").css("color", "#2176C7");
-	    $("#lg-total-shortage").append().html("<h1><strong>" + format_number(total_shortages) + "</strong></h1>").find("> h1").css("color", "#2176C7");
-	    $("#lg-total-excess").append().html("<h1><strong>" + format_number(total_excess) + "</strong></h1>").find("> h1").css("color", "#2176C7");
+	    (0, _jquery2.default)("#lg-shortage-classification").append().html("<h1><strong>" + format_number(max_shortage) + "</strong></h1>").find("> h1").css("color", "#2176C7");
+	    (0, _jquery2.default)("#lg-shortage-classification-class").append().html("<h1><strong>" + max_class + "</strong></h1>").find("> h1").css("color", "#2176C7");
+	    (0, _jquery2.default)("#lg-excess-classification").append().html("<h1><strong>" + format_number(max_excess) + "</strong></h1>").find("> h1").css("color", "#2176C7");
+	    (0, _jquery2.default)("#lg-excess-classification-class").append().html("<h1><strong>" + excess_class + "</strong></h1>").find("> h1").css("color", "#2176C7");
+	    (0, _jquery2.default)("#lg-total-shortage").append().html("<h1><strong>" + format_number(total_shortages) + "</strong></h1>").find("> h1").css("color", "#2176C7");
+	    (0, _jquery2.default)("#lg-total-excess").append().html("<h1><strong>" + format_number(total_excess) + "</strong></h1>").find("> h1").css("color", "#2176C7");
 	}
 
 	var RenderPieChart = function () {
@@ -10622,6 +10801,60 @@
 	return jQuery;
 	}));
 
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var PlainSlate = exports.PlainSlate = function () {
+	    function PlainSlate(id_tag, html_template, location, css_style) {
+	        _classCallCheck(this, PlainSlate);
+
+	        this.id_tag = id_tag;
+	        this.html_template = html_template;
+	        this.location = location;
+	        this.css_style = css_style;
+	    }
+
+	    _createClass(PlainSlate, [{
+	        key: "load_slate",
+	        value: function load_slate() {
+
+	            $(this.id_tag).append().html(this.html_template).find(this.location).css(this.css_style);
+	        }
+	    }]);
+
+	    return PlainSlate;
+	}();
+
+	var IndicatorSlate = exports.IndicatorSlate = function (_PlainSlate) {
+	    _inherits(IndicatorSlate, _PlainSlate);
+
+	    function IndicatorSlate(icon) {
+	        _classCallCheck(this, IndicatorSlate);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(IndicatorSlate).call(this));
+
+	        _this.icon = icon;
+	        return _this;
+	    }
+
+	    return IndicatorSlate;
+	}(PlainSlate);
+
+	//# sourceMappingURL=slates-compiled.js.map
 
 /***/ }
 /******/ ]);

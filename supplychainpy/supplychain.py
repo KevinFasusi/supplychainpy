@@ -27,7 +27,17 @@ def main():
     parser.add_argument('-db', dest='database', action='store',
                         help='database engine uri e.g. ')
 
+    parser.add_argument('-loc', dest='location', action='store',
+                        help='database path e.g. ')
+
     args = parser.parse_args()
+
+
+    if args.verbose:
+        print('filenames = {}'.format(args.filenames))
+        print('launch reports = {}'.format(args.launch))
+        print('process file = {}'.format(args.process))
+        print('database location = {}'.format(args.location))
 
     if args.launch == True and args.process == True and args.filenames is not None:
         print(4)
@@ -36,12 +46,6 @@ def main():
     elif args.launch:
         print(3)
         launch_report()
-
-
-    if args.verbose:
-        print('filenames = {}'.format(args.filenames))
-        print('launch reports = {}'.format(args.launch))
-        print('process file = {}'.format(args.process))
 
     if args.filenames is None and False == args.process and False == args.launch and args.outfile is None:
         filename = input('path to "CSV" or "text" file... ')

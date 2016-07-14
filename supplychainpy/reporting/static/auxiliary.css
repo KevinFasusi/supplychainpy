@@ -60,7 +60,6 @@ body {
     font-size: 1em;
 }
 
-
 .content {
     padding-top: 40px;
     padding-left: 40px;
@@ -256,31 +255,27 @@ nav ul li a {
     padding-left: 110px
 }
 
-#popup{
+#popup {
     width: 20px;
     height: 20px;
     border-radius: 10px;
     float: left;
 
-
     background-color: #00A000;
 }
 
-
-.highlight-event{
+.highlight-event {
     background-color: #0A2933;
 
 }
 
-.sub-row{
+.sub-row {
     margin-right: 15px;
-     padding-left: 15px;
-
+    padding-left: 15px;
 
 }
 
-#analysis_table{
-
+#analysis_table {
 
 }
 
@@ -288,7 +283,7 @@ nav ul li a {
     color: white;
 }
 
-.strip{
+.strip {
     background-color: #708284
 }
 
@@ -304,4 +299,51 @@ nav ul li a {
     text-align: center;
     margin-left: 20px;
     box-shadow: 10px 5px 5px black;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 130px;
+    overflow-x: hidden;
+}
+
+.scribble-panel {
+    background-color: #708284;
+    min-height: 200px;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 2em;
+}
+
+.scribble-card, .scribble-card > h3 {
+    min-width: 50%;
+    background-color: white;
+    min-height: 300px;
+    color: #708284;
+    margin-bottom: 0;
+    margin-right: 0;
+    padding-right: 0;
+}
+
+.scribble-card-alt, .scribble-card-alt > h3 {
+    min-width: 50%;
+    background-color: #708284;
+    min-height: 300px;
+    color: white;
+    margin-bottom: 0;
+    margin-right: 0;
+    padding-right: 0;
+}
+
+#total-shortage {
+    font-size: 2.0em;
+}
+
+
+.slate-text-lg{
+        font-size: 2.0em;
+}
+
+.slate-text-sm{
+    font-size: 0.6em;
 }

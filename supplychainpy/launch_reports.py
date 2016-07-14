@@ -2,7 +2,7 @@ import os
 import threading
 import webbrowser
 
-from supplychainpy.reporting.views import app, db
+from supplychainpy.reporting.views import db, app
 import tkinter as tk
 from tkinter import ttk
 
@@ -149,6 +149,7 @@ class SupplychainpyReporting:
 
 def launch_load_report(file):
     from supplychainpy.reporting import load
+    #t.config['SQLALCHEMY_DATABASE_URI']='sqlite:///{}/reporting.db'.format(location)
     db.create_all()
     load.load(file)
     launcher = tk.Tk()

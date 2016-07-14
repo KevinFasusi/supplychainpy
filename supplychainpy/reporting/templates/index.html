@@ -4,15 +4,29 @@
 
 
 <div class=" row">
-    <button id="classifications-btn" class=" btn btn-primary btn-sm active" data-toggle="button" aria-pressed="false"
-    >Classification Breakdown
-    </button>
-    <button id="shortages-btn" class=" btn btn-sm btn-primary active" data-toggle="button" aria-pressed="false"
-    >Top 10 Shortages
-    </button>
-    <button id="excess-btn" class=" btn btn-sm btn-primary active" data-toggle="button" aria-pressed="false">Top 10
-        Excess
-    </button>
+    <div class=" col-md-10">
+        <button id="classifications-btn" class=" btn btn-primary btn-sm active" data-toggle="button"
+                aria-pressed="false"
+        >Classification Breakdown
+        </button>
+        <button id="shortages-btn" class=" btn btn-sm btn-primary active" data-toggle="button" aria-pressed="false"
+        >Top 10 Shortages
+        </button>
+        <button id="excess-btn" class=" btn btn-sm btn-primary active" data-toggle="button" aria-pressed="false">Top 10
+            Excess
+        </button>
+    </div>
+    <div class="  col-md-2">
+        <div class="dropdown">
+            <button class="btn btn-sm btn-primary dropdown-toggle " id="menu1" type="button" data-toggle="dropdown">
+                Currency
+                <span class="caret"></span></button>
+            <ul id="currency-list" class="dropdown-menu scrollable-menu " role="menu" aria-labelledby="menu1">
+                <li></li>
+            </ul>
+        </div>
+    </div>
+
     <div id="collapse-classification">
         <div class="container-fluid">
             <div class=" row">
@@ -55,10 +69,20 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class=" col-lg-11">
-                <table id="classification-table" class="  ia table-responsive table ">
-                </table>
+        <div class="container-fluid">
+            <div class="row">
+                <div class=" col-lg-11">
+                    <table id="classification-table" class="  ia table-responsive table ">
+                    </table>
+                </div>
+            </div>
+            <div class="row scribble-panel">
+                <div class=" col-lg-5 scribble-card-alt">
+                    <h3>Analysis:</h3>
+                </div>
+                <div class=" col-lg-5 scribble-card">
+                    <h3>Remedial Actions</h3>
+                </div>
             </div>
         </div>
     </div>
@@ -76,16 +100,17 @@
                 </div>
                 <div class=" pebble col-md-3">
                     <h1>Total Shortage: </h1>
-                    <h1 id="total-shortage"></h1>
+                    <h2 id="total-shortage"></h2>
                 </div>
                 <div class=" pebble col-md-3">
-                    <h1>Shortage as % Inventory </h1>
-                    <h1><strong>10</strong></h1>
+                    <h1>Percentage of Top 10 SKUs at Risk of Stock-Out </h1>
+                    <h1 class="slate-text-lg" id="shortage-percentage"></h1>
                 </div>
-                <div  class="  pebble col-md-3">
-                    <h1>Total Shortage</h1>
-                    <h1 id="total-shortage-sku"></h1>
-                    <h1></h1>
+                <div class="  pebble col-md-3">
+                    <h1>Most Understocked SKU</h1>
+                    <h1 id="understocked-sku"></h1>
+                    <h1 id="understocked-qoh"> </h1>
+                    <h1 id="understocked_rol"></h1>
                 </div>
             </div>
         </div>
@@ -124,14 +149,14 @@
                     <h1 id="total-excess"></h1>
                 </div>
                 <div id="excess-percent-inv" class=" pebble col-md-3">
-                    <h1>Excess as % of Inventory: </h1>
-                    <h1><strong>52%</strong></h1>
-                    <h5>AX: 10% AY: 10% BX: 21% CZ: 20%</h5>
+                    <h1>Top 10 Excess as % of Inventory Value: </h1>
+                    <h1 id="excess-inventory-sl"></h1>
+                    <h5></h5>
                 </div>
                 <div class=" pebble col-md-3">
-                    <h1>Total Shortage: </h1>
-                    <h1><strong>KR202-235</strong></h1>
-                    <h1><strong>$11,405,156</strong></h1>
+                    <h1>Excess Holding Cost </h1>
+                    <h1 id="excess-holding-cost-sl"></h1>
+                    <h1></h1>
                 </div>
             </div>
         </div>

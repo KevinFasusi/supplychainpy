@@ -5,12 +5,11 @@ from decimal import Decimal
 
 from supplychainpy import model_inventory
 from supplychainpy.inventory.summarise import OrdersAnalysis
-from supplychainpy.reporting.views import db
 from supplychainpy.reporting.views import TransactionLog
 from supplychainpy.reporting.views import InventoryAnalysis
 from supplychainpy.reporting.views import MasterSkuList
 from supplychainpy.reporting.views import Currency
-
+from supplychainpy.launch_reports import db
 
 def currency_codes():
     codes = {"AED": "United Arab Emirates Dirham", "AFN": "Afghanistan Afghani", "ALL": "Albania Lek",
