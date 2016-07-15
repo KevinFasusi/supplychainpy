@@ -2,8 +2,9 @@
  * Created by Fasusi on 14/07/2016.
  */
 "use strict";
+var React = require('react');
 
-export class PlainSlate {
+export class PlainSlate extends React.Component{
     constructor(id_tag, html_template, location, css_style) {
         this.id_tag = id_tag;
         this.html_template = html_template;
