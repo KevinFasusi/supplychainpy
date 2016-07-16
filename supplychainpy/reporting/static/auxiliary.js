@@ -2,11 +2,16 @@
  * Created by Fasusi on 22/05/2016.
  */
 import $ from 'jquery';
-import {PlainSlate} from './slates-compiled';
-
 
 $("document").ready(function () {
+
+    $('#currency-dropdown-btn >li').click(function () {
+        var currency = $(".dropdown-menu > li > a").text();
+        $('#currency-dropdown-btn').text(currency);
+    });
+
     $('div.nav-tab').hover(highlight);
+
     $('#classifications-btn').click(function () {
         toggle_reporting_view('collapse-classification');
     });
@@ -18,7 +23,7 @@ $("document").ready(function () {
     $('#excess-btn').click(function () {
         toggle_reporting_view('collapse-excess');
     });
-    var test = new PlainSlate();
+
     load_currency_codes();
     // ajax request for json containing sku related. Is used to: builds revenue chart (#chart).
     var filters = [{"name": "shortage_cost", "op": "gt", "val": 0, "direction": "desc", "limit": 10}];
@@ -161,6 +166,10 @@ $("document").ready(function () {
 
 
 });
+
+function print_me() {
+    console.log("me");
+}
 
 function format_number(num) {
     return num.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
@@ -441,19 +450,23 @@ function toggle_reporting_view(id) {
     $('#' + id).toggle("slow");
 }
 
-function sku_identifier(id) {
+function currency_fetch(id) {
 
-    var filters = [{"name": "sku_id", "op": "eq", "val": id}];
+    var filters = [{"name": "id", "op": "eq", "val": id, "direction": "asc", "limit": 1}];
 
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:5000/api/inventory_analysis',
+        url: 'http://127.0.0.1:5000/api/currency',
         dataType: 'json',
         async: true,
         data: {"q": JSON.stringify({"filters": filters})},
         success: function (data) {
+            //console.log(JSON.stringify({"filters": filters}));
             //console.log(data);
+            var li = [...data.objects];
+            //console.log(li[0].currency_code);
+            $('#currency-code').text(li[0].currency_code);
 
         },
         error: function (result) {
@@ -626,7 +639,7 @@ function create_excess_table(data) {
     var excess_sku_id;
     var excess_units;
     var excess_cost;
-    var holding_cost =0;
+    var holding_cost = 0;
 
     for (var i = 0; i < data.objects.length; i++) {
         //console.log(excess_data[obj].sku_id);
@@ -667,7 +680,7 @@ function create_excess_table(data) {
             // console.log(data);
             var items = [...data.json_list];
             //console.log(items.length);
-            var total_invetory=0;
+            var total_invetory = 0;
             for (i = 0; i < items.length; i++) {
 
                 total_invetory += items[i].quantity_on_hand * items[i].unit_cost;
@@ -702,19 +715,27 @@ function create_excess_table(data) {
 
 }
 
+
 function create_classification_table(data) {
+
     var abc_xyz_data = new unpack.abc_xyz(data, 'table');
+    var currency_code;
+
 
     $("#classification-table").append().html("<tr id='classification-row'><th>Classification</th><th>Revenue</th><th>Shortages</th>" + "<th>Excess</th></tr>");
     //console.log(excess_data);
-
+    var code = $('#currency-code').text().trim(" ");
+    console.log(code);
+    var symbols = currency_symbol_allocator(code);
     var obj;
+    console.log(abc_xyz_data[0].currency_id);
+    var d = currency_fetch(abc_xyz_data[0].currency_id);
     for (obj in abc_xyz_data) {
         //console.log(abc_xyz_data[obj].abc_xyz_classification);
         $("<tr><td><a href=\"abcxyz/" + abc_xyz_data[obj].abc_xyz_classification + "\">" + abc_xyz_data[obj].abc_xyz_classification + "</a>"
-            + "<td>" + format_number(abc_xyz_data[obj].total_revenue) + "</td>"
-            + "<td>" + format_number(abc_xyz_data[obj].total_shortages) + "</td>"
-            + "<td>" + format_number(abc_xyz_data[obj].total_excess) + "</td>"
+            + "<td>" + symbols + format_number(abc_xyz_data[obj].total_revenue) + "</td>"
+            + "<td>" + symbols + format_number(abc_xyz_data[obj].total_shortages) + "</td>"
+            + "<td>" + symbols + format_number(abc_xyz_data[obj].total_excess) + "</td>"
             + "</td></tr>").insertAfter("#classification-table tr:last");
     }
 
@@ -742,17 +763,17 @@ function create_classification_table(data) {
         total_excess += abc_xyz_data[item].total_excess;
     }
 
-    $("#lg-shortage-classification").append().html("<h1><strong>" + format_number(max_shortage) + "</strong></h1>")
+    $("#lg-shortage-classification").append().html("<h1><strong>" + symbols + format_number(max_shortage) + "</strong></h1>")
         .find("> h1").css("color", "#2176C7");
     $("#lg-shortage-classification-class").append().html("<h1><strong>" + max_class + "</strong></h1>")
         .find("> h1").css("color", "#2176C7");
-    $("#lg-excess-classification").append().html("<h1><strong>" + format_number(max_excess) + "</strong></h1>")
+    $("#lg-excess-classification").append().html("<h1><strong>" + symbols + format_number(max_excess) + "</strong></h1>")
         .find("> h1").css("color", "#2176C7");
     $("#lg-excess-classification-class").append().html("<h1><strong>" + excess_class + "</strong></h1>")
         .find("> h1").css("color", "#2176C7");
-    $("#lg-total-shortage").append().html("<h1><strong>" + format_number(total_shortages) + "</strong></h1>")
+    $("#lg-total-shortage").append().html("<h1><strong>" + symbols + format_number(total_shortages) + "</strong></h1>")
         .find("> h1").css("color", "#2176C7");
-    $("#lg-total-excess").append().html("<h1><strong>" + format_number(total_excess) + "</strong></h1>")
+    $("#lg-total-excess").append().html("<h1><strong>" + symbols + format_number(total_excess) + "</strong></h1>")
         .find("> h1").css("color", "#2176C7");
 }
 

@@ -50,8 +50,6 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _slatesCompiled = __webpack_require__(2);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -62,7 +60,14 @@
 
 
 	(0, _jquery2.default)("document").ready(function () {
+
+	    (0, _jquery2.default)('#currency-dropdown-btn >li').click(function () {
+	        var currency = (0, _jquery2.default)(".dropdown-menu > li > a").text();
+	        (0, _jquery2.default)('#currency-dropdown-btn').text(currency);
+	    });
+
 	    (0, _jquery2.default)('div.nav-tab').hover(highlight);
+
 	    (0, _jquery2.default)('#classifications-btn').click(function () {
 	        toggle_reporting_view('collapse-classification');
 	    });
@@ -74,7 +79,7 @@
 	    (0, _jquery2.default)('#excess-btn').click(function () {
 	        toggle_reporting_view('collapse-excess');
 	    });
-	    var test = new _slatesCompiled.PlainSlate();
+
 	    load_currency_codes();
 	    // ajax request for json containing sku related. Is used to: builds revenue chart (#chart).
 	    var filters = [{ "name": "shortage_cost", "op": "gt", "val": 0, "direction": "desc", "limit": 10 }];
@@ -201,6 +206,10 @@
 	        }
 	    });
 	});
+
+	function print_me() {
+	    console.log("me");
+	}
 
 	function format_number(num) {
 	    return num.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
@@ -413,20 +422,23 @@
 	    (0, _jquery2.default)('#' + id).toggle("slow");
 	}
 
-	function sku_identifier(id) {
+	function currency_fetch(id) {
 
-	    var filters = [{ "name": "sku_id", "op": "eq", "val": id }];
+	    var filters = [{ "name": "id", "op": "eq", "val": id, "direction": "asc", "limit": 1 }];
 
 	    _jquery2.default.ajax({
 	        type: "GET",
 	        contentType: "application/json; charset=utf-8",
-	        url: 'http://127.0.0.1:5000/api/inventory_analysis',
+	        url: 'http://127.0.0.1:5000/api/currency',
 	        dataType: 'json',
 	        async: true,
 	        data: { "q": JSON.stringify({ "filters": filters }) },
 	        success: function success(data) {
+	            //console.log(JSON.stringify({"filters": filters}));
 	            //console.log(data);
-
+	            var li = [].concat(_toConsumableArray(data.objects));
+	            //console.log(li[0].currency_code);
+	            (0, _jquery2.default)('#currency-code').text(li[0].currency_code);
 	        },
 	        error: function error(result) {}
 	    });
@@ -627,15 +639,21 @@
 	}
 
 	function create_classification_table(data) {
+
 	    var abc_xyz_data = new unpack.abc_xyz(data, 'table');
+	    var currency_code;
 
 	    (0, _jquery2.default)("#classification-table").append().html("<tr id='classification-row'><th>Classification</th><th>Revenue</th><th>Shortages</th>" + "<th>Excess</th></tr>");
 	    //console.log(excess_data);
-
+	    var code = (0, _jquery2.default)('#currency-code').text().trim(" ");
+	    console.log(code);
+	    var symbols = currency_symbol_allocator(code);
 	    var obj;
+	    console.log(abc_xyz_data[0].currency_id);
+	    var d = currency_fetch(abc_xyz_data[0].currency_id);
 	    for (obj in abc_xyz_data) {
 	        //console.log(abc_xyz_data[obj].abc_xyz_classification);
-	        (0, _jquery2.default)("<tr><td><a href=\"abcxyz/" + abc_xyz_data[obj].abc_xyz_classification + "\">" + abc_xyz_data[obj].abc_xyz_classification + "</a>" + "<td>" + format_number(abc_xyz_data[obj].total_revenue) + "</td>" + "<td>" + format_number(abc_xyz_data[obj].total_shortages) + "</td>" + "<td>" + format_number(abc_xyz_data[obj].total_excess) + "</td>" + "</td></tr>").insertAfter("#classification-table tr:last");
+	        (0, _jquery2.default)("<tr><td><a href=\"abcxyz/" + abc_xyz_data[obj].abc_xyz_classification + "\">" + abc_xyz_data[obj].abc_xyz_classification + "</a>" + "<td>" + symbols + format_number(abc_xyz_data[obj].total_revenue) + "</td>" + "<td>" + symbols + format_number(abc_xyz_data[obj].total_shortages) + "</td>" + "<td>" + symbols + format_number(abc_xyz_data[obj].total_excess) + "</td>" + "</td></tr>").insertAfter("#classification-table tr:last");
 	    }
 
 	    var max_shortage = 0;
@@ -660,12 +678,12 @@
 	        total_excess += abc_xyz_data[item].total_excess;
 	    }
 
-	    (0, _jquery2.default)("#lg-shortage-classification").append().html("<h1><strong>" + format_number(max_shortage) + "</strong></h1>").find("> h1").css("color", "#2176C7");
+	    (0, _jquery2.default)("#lg-shortage-classification").append().html("<h1><strong>" + symbols + format_number(max_shortage) + "</strong></h1>").find("> h1").css("color", "#2176C7");
 	    (0, _jquery2.default)("#lg-shortage-classification-class").append().html("<h1><strong>" + max_class + "</strong></h1>").find("> h1").css("color", "#2176C7");
-	    (0, _jquery2.default)("#lg-excess-classification").append().html("<h1><strong>" + format_number(max_excess) + "</strong></h1>").find("> h1").css("color", "#2176C7");
+	    (0, _jquery2.default)("#lg-excess-classification").append().html("<h1><strong>" + symbols + format_number(max_excess) + "</strong></h1>").find("> h1").css("color", "#2176C7");
 	    (0, _jquery2.default)("#lg-excess-classification-class").append().html("<h1><strong>" + excess_class + "</strong></h1>").find("> h1").css("color", "#2176C7");
-	    (0, _jquery2.default)("#lg-total-shortage").append().html("<h1><strong>" + format_number(total_shortages) + "</strong></h1>").find("> h1").css("color", "#2176C7");
-	    (0, _jquery2.default)("#lg-total-excess").append().html("<h1><strong>" + format_number(total_excess) + "</strong></h1>").find("> h1").css("color", "#2176C7");
+	    (0, _jquery2.default)("#lg-total-shortage").append().html("<h1><strong>" + symbols + format_number(total_shortages) + "</strong></h1>").find("> h1").css("color", "#2176C7");
+	    (0, _jquery2.default)("#lg-total-excess").append().html("<h1><strong>" + symbols + format_number(total_excess) + "</strong></h1>").find("> h1").css("color", "#2176C7");
 	}
 
 	var RenderPieChart = function () {
@@ -10801,60 +10819,6 @@
 	return jQuery;
 	}));
 
-
-/***/ },
-/* 2 */
-/***/ function(module, exports) {
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var PlainSlate = exports.PlainSlate = function () {
-	    function PlainSlate(id_tag, html_template, location, css_style) {
-	        _classCallCheck(this, PlainSlate);
-
-	        this.id_tag = id_tag;
-	        this.html_template = html_template;
-	        this.location = location;
-	        this.css_style = css_style;
-	    }
-
-	    _createClass(PlainSlate, [{
-	        key: "load_slate",
-	        value: function load_slate() {
-
-	            $(this.id_tag).append().html(this.html_template).find(this.location).css(this.css_style);
-	        }
-	    }]);
-
-	    return PlainSlate;
-	}();
-
-	var IndicatorSlate = exports.IndicatorSlate = function (_PlainSlate) {
-	    _inherits(IndicatorSlate, _PlainSlate);
-
-	    function IndicatorSlate(icon) {
-	        _classCallCheck(this, IndicatorSlate);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(IndicatorSlate).call(this));
-
-	        _this.icon = icon;
-	        return _this;
-	    }
-
-	    return IndicatorSlate;
-	}(PlainSlate);
-
-	//# sourceMappingURL=slates-compiled.js.map
 
 /***/ }
 /******/ ]);

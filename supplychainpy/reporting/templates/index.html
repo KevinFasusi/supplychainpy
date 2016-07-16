@@ -17,13 +17,17 @@
         </button>
     </div>
     <div class="  col-md-2">
-        <div class="dropdown">
-            <button class="btn btn-sm btn-primary dropdown-toggle " id="menu1" type="button" data-toggle="dropdown">
+        <div id="currency-dropdown" class="dropdown">
+            <button id="currency-dropdown-btn" class="btn btn-sm btn-primary dropdown-toggle " id="menu1" type="button" data-toggle="dropdown">
                 Currency
                 <span class="caret"></span></button>
             <ul id="currency-list" class="dropdown-menu scrollable-menu " role="menu" aria-labelledby="menu1">
                 <li></li>
             </ul>
+            <div id="currency-code">
+                <strong>USD</strong>
+            </div>
+
         </div>
     </div>
 
@@ -109,7 +113,7 @@
                 <div class="  slate col-md-3">
                     <h1>Most Understocked SKU</h1>
                     <h1 id="understocked-sku"></h1>
-                    <h1 id="understocked-qoh"> </h1>
+                    <h1 id="understocked-qoh"></h1>
                     <h1 id="understocked_rol"></h1>
                 </div>
             </div>

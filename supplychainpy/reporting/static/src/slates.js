@@ -2,9 +2,8 @@
  * Created by Fasusi on 14/07/2016.
  */
 "use strict";
-var React = require('react');
 
-export class PlainSlate extends React.Component{
+class PlainSlate {
     constructor(id_tag, html_template, location, css_style) {
         this.id_tag = id_tag;
         this.html_template = html_template;
@@ -22,7 +21,7 @@ export class PlainSlate extends React.Component{
 }
 
 
-export class IndicatorSlate extends PlainSlate {
+class IndicatorSlate extends PlainSlate {
     constructor(icon) {
         super();
         this.icon = icon;

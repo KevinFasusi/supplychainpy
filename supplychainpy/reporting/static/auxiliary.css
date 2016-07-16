@@ -347,3 +347,7 @@ nav ul li a {
 .slate-text-sm{
     font-size: 0.6em;
 }
+
+.currency-code{
+    margin-left: 30px;
+}
