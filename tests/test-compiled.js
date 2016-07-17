@@ -2,10 +2,7 @@
  * Created by kevin on 28/05/16.
  */
 
-import { magic } from 'test';
-
-var assert = require('../node_modules/chai').assert;
-var expect = require('../node_modules/chai').expect;
+var expect = require('../node_modules/chai/chai.js').expect;
 var supertest = require('../node_modules/supertest');
 
 var api = supertest('http://localhost:5000');

@@ -7,7 +7,7 @@ var supertest = require('../node_modules/supertest');
 
 var api = supertest('http://localhost:5000');
 
-describe('Endpoints', function () {
+describe('Endpoints', function () { 
     describe('sku_detail', function () {
         it('should return a response of 200', function (done) {
             api.get('/reporting/api/v1.0/sku_detail')
