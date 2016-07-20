@@ -15,7 +15,7 @@ import flask
 
 from flask import Flask, request, send_from_directory
 
-from sqlalchemy import func, desc
+from sqlalchemy import func, desc, asc
 
 from supplychainpy.reporting.config import DevConfig
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -97,6 +97,7 @@ class InventoryAnalysis(db.Model):
     quantity_on_hand = db.Column(db.Integer())
     currency_id = db.Column(db.Integer, db.ForeignKey('currency.id'))
     transaction_log_id = db.Column(db.Integer, db.ForeignKey('transaction_log.id'))
+    orders_id = db.relationship("Orders", backref='demand', lazy='dynamic')
 
     @property
     def serialize(self):
@@ -131,15 +132,23 @@ class InventoryAnalysis(db.Model):
             'markup_percentage': self.markup_percentage,
             'max_order': self.max_order,
             'shortage_cost': float(self.shortage_cost),
-            'quantity_on_hand': self.quantity_on_hand
+            'quantity_on_hand': self.quantity_on_hand,
 
         }
+
+
+class Orders(db.Model):
+    __table_args__ = {'sqlite_autoincrement': True}
+    id = db.Column(db.Integer(), primary_key=True)
+    analysis_id = db.Column(db.Integer, db.ForeignKey('inventory_analysis.id'))
+    order_quantity = db.Column(db.Integer())
+    rank = db.Column(db.Integer())
 
 
 manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 manager.create_api(InventoryAnalysis, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
 manager.create_api(Currency, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
-
+manager.create_api(Orders, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
 
 
 @app.route('/')
@@ -196,10 +205,14 @@ def sku_detail(sku_id: str = None):
 def sku(sku_id: str = None):
     """route for restful sku detail, whole content limited by most recent date or individual sku"""
     if sku_id is not None:
-        inventory = db.session.query(InventoryAnalysis).filter(InventoryAnalysis.sku_id == sku_id).all()
-    else:
-        inventory = db.session.query(InventoryAnalysis).all()
-    return flask.render_template('sku.html', inventory=inventory)
+        sku = db.session.query(MasterSkuList).filter(MasterSkuList.id == sku_id).first()
+        inventory = db.session.query(InventoryAnalysis).filter(InventoryAnalysis.sku_id == sku.id).all()
+        inven = db.session.query(InventoryAnalysis.id).filter(InventoryAnalysis.sku_id == sku.id).first()
+        orders = db.session.query(Orders).filter(Orders.analysis_id == inven.id).order_by(
+            asc(Orders.rank)).all()
+        #inventory = db.session.query(InventoryAnalysis).all()
+
+    return flask.render_template('sku.html', inventory=inventory, orders= orders)
 
 
 @app.route('/reporting/api/v1.0/abc_summary', methods=['GET'])

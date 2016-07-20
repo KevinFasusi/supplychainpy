@@ -9,7 +9,9 @@ from supplychainpy.reporting.views import TransactionLog
 from supplychainpy.reporting.views import InventoryAnalysis
 from supplychainpy.reporting.views import MasterSkuList
 from supplychainpy.reporting.views import Currency
+from supplychainpy.reporting.views import Orders
 from supplychainpy.launch_reports import db
+
 
 def currency_codes():
     codes = {"AED": "United Arab Emirates Dirham", "AFN": "Afghanistan Afghani", "ALL": "Albania Lek",
@@ -95,7 +97,10 @@ def load(file_path: str):
     transaction_sub = db.session.query(db.func.max(TransactionLog.date))
     transaction_id = db.session.query(TransactionLog).filter(TransactionLog.date == transaction_sub).first()
 
+    orders_data = Orders()
+
     for item in ia:
+        re = 0
         skus_description = [summarised for summarised in analysis_summary.describe_sku(item['sku'])]
         denom = db.session.query(Currency.id).filter(Currency.currency_code == item['currency']).first()
         master_sku = MasterSkuList()
@@ -104,6 +109,8 @@ def load(file_path: str):
         i_up = InventoryAnalysis()
         mk = db.session.query(MasterSkuList.id).filter(MasterSkuList.sku_id == item['sku']).first()
         i_up.sku_id = mk.id
+        tuple_orders = (o for o in item['orders'].values())
+        # print(tuple_orders)
         i_up.abc_xyz_classification = item['ABC_XYZ_Classification']
         i_up.standard_deviation = item['standard_deviation']
         i_up.safety_stock = item['safety_stock']
@@ -135,6 +142,16 @@ def load(file_path: str):
         i_up.currency_id = denom.id
         i_up.transaction_log_id = transaction_id.id
         db.session.add(i_up)
+        inva = db.session.query(InventoryAnalysis.id).filter(InventoryAnalysis.sku_id == mk.id).first()
+        for t in tuple_orders:
+            for i, r in enumerate(t, 1):
+                orders_data = Orders()
+                # print(r)
+                orders_data.order_quantity = r
+                orders_data.rank = i
+                orders_data.analysis_id = inva.id
+                db.session.add(orders_data)
+
     db.session.commit()
 
 

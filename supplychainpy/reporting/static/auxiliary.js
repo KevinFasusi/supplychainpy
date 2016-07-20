@@ -163,9 +163,39 @@ $("document").ready(function () {
             //console.log(result);// make 404.html page
         }
     });
-
+    bar_chart_sku();
 
 });
+
+function bar_chart_sku() {
+    var orders_data = document.getElementById("orders-data");
+    //console.log(orders_data.getElementsByTagName("li")[0].innerText);
+    var wins = [];
+    var period = [];
+
+    for (i=0; i < orders_data.getElementsByTagName("li").length; i++){
+
+        wins.push([i+1,parseInt(orders_data.getElementsByTagName("li")[i].innerText)]);
+        period.push([i+1,i+1]);
+        console.log(wins);
+    }
+    wins= [wins];
+    console.log(period);
+
+    Flotr.draw(document.getElementById("test-chart"), wins, {
+        bars: {
+            show: true,
+            barWidth: 0.5
+        },
+        yaxis: {
+            min: 0,
+            tickDecimals: 0
+        },
+        xaxis: {
+            ticks: period
+        }
+    });
+}
 
 function print_me() {
     console.log("me");
@@ -560,7 +590,7 @@ function create_shortages_table(data) {
         total_shortage += data.objects[i].shortage_cost;
         var currency_code = currency_symbol_allocator(data.objects[i].currency.currency_code);
 
-        $("<tr><td><a href=\"sku_detail/" + data.objects[i].sku.sku_id + "\">" + data.objects[i].sku.sku_id + "</a></td>" +
+        $("<tr><td><a href=\"sku_detail/" + data.objects[i].sku_id + "\">" + data.objects[i].sku.sku_id + "</a></td>" +
             "<td>" + format_number(data.objects[i].quantity_on_hand) + "</td>" +
             "<td>" + format_number(Math.round(data.objects[i].average_orders)) + "</td>" +
             "<td>" + data.objects[i].shortages + "</td>" +
@@ -647,7 +677,7 @@ function create_excess_table(data) {
         holding_cost += data.objects[i].quantity_on_hand * ( data.objects[i].unit_cost * 0.25); //change later to be chosen by use
         var symbols = currency_symbol_allocator(data.objects[i].currency.currency_code);
         percentage_excess = Math.round((data.objects[i].excess_stock / data.objects[i].quantity_on_hand) * 100);
-        $("<tr><td><a href=\"sku_detail/" + data.objects[i].sku.sku_id + "\">" + data.objects[i].sku.sku_id + "</td>" +
+        $("<tr><td><a href=\"sku_detail/" + data.objects[i].sku_id + "\">" + data.objects[i].sku.sku_id + "</td>" +
             "<td>" + data.objects[i].quantity_on_hand + "</td>" +
             "<td>" + data.objects[i].average_orders + "</td>" +
             "<td>" + data.objects[i].excess_stock + "</td>" +

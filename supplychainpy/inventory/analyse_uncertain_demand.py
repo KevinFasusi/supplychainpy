@@ -50,7 +50,7 @@ class UncertainDemand:
     _summary_keywords = ['sku', 'standard_deviation', 'safety_stock', 'demand_variability', 'reorder_level',
                          'reorder_quantity', 'revenue', 'economic_order_quantity', 'economic_order_variable_cost',
                          'ABC_XYZ_Classification', 'excess_stock', 'shortages', 'average_orders', 'unit_cost',
-                         'quantity_on_hand', 'currency']
+                         'quantity_on_hand', 'currency', 'orders']
     __rank = 0
 
     def __init__(self, orders: dict, sku: str, currency: str, lead_time: Decimal, unit_cost: Decimal,
@@ -364,7 +364,8 @@ class UncertainDemand:
                      'average_orders': '{}'.format(self.__average_order),
                      'unit_cost': '{}'.format(self.__unit_cost),
                      'quantity_on_hand': '{}'.format(self.__quantity_on_hand),
-                     'currency': '{}'.format(self.__currency)}
+                     'currency': '{}'.format(self.__currency),
+                     'orders': self.__orders}
 
         summary = {}
         for key in keywords:

@@ -2,44 +2,33 @@
 
 {% block body%}
 <div>
+    <div>
 
-    {% for sku in inventory %}
+        {% for sku in inventory %}
+        <h2> {{sku.sku.sku_id}}</h2>
+        {% endfor %}
 
-    {{sku.sku_id}}
-    {{sku.quantity_on_hand}}
-
-    {% endfor %}
-
-    <div class=" row">
-        <div class=" slate col-md-3">
-            <h1>Biggest Shortage: </h1>
-            <h1><strong>KR202-235</strong></h1>
-            <h1><strong>$11,405,156</strong></h1>
-        </div>
-        <div class=" slate col-md-3">
-            <h1>Total Shortage: </h1>
-            <h1><strong>$11,405,156</strong></h1>
-        </div>
-        <div class=" slate col-md-3">
-            <h1>Shortage as % Inventory </h1>
-            <h1><strong>10</strong></h1>
-        </div>
-        <div class=" slate col-md-3">
-            <h1>Total Shortage: </h1>
-            <h1><strong>KR202-235</strong></h1>
-            <h1><strong>$11,405,156</strong></h1>
-        </div>
 
     </div>
 
     <div class=" row">
+        {% for sku in inventory %}
         <div class=" slate col-md-3">
-            <h1>Biggest Shortage: </h1>
-            <h1><strong>KR202-235</strong></h1>
-            <h1><strong>$11,405,156</strong></h1>
+            <div class=" row">
+                <p><h1>Quantity On Hand: {{sku.quantity_on_hand}}</h1></p>
+            </div>
+            <div class=" row">
+                {% if (sku.excess_stock > sku.shortages) %}
+                <p>Status: <strong>Excess</strong></p>
+                {% elif (sku.excess_stock < sku.shortages) %}
+                <p>Status: <strong>Shortage</strong></p>
+                {% else %}
+                <p>Status: <strong>Healthy</strong></p>
+                {% endif %}
+            </div>
         </div>
         <div class=" slate col-md-3">
-            <h1>Total Shortage: </h1>
+            <h1>Average Orders</h1>
             <h1><strong>$11,405,156</strong></h1>
         </div>
         <div class=" slate col-md-3">
@@ -50,6 +39,26 @@
             <h1>Total Shortage: </h1>
             <h1><strong>KR202-235</strong></h1>
             <h1><strong>$11,405,156</strong></h1>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class=" row">
+        <div class="  col-md-6">
+            <div id="test-chart" style="width:100%; height: 400px">
+
+            </div>
+        </div>
+        <div class="  col-md-6">
+            <div id="">
+                <ul id="orders-data">
+                    {% for order in orders %}
+                    <li>
+                        {{order.order_quantity}}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
 

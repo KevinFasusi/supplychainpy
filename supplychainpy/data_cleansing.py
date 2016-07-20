@@ -90,7 +90,8 @@ def clean_orders_data_row_csv(file, length: int = 12) -> dict:
                         composite["quantity_on_hand"] = item
                         # if the sku id is not unique the the data will just append. Need to check if there are duplicates
                         # and through an exception.
-                composite["demand"] = sku_list
+                composite["demand"] = tuple(sku_list)
+                composite["headers"] = headers
                 sku_list = []
 
                 if composite.get("sku id") is None or composite.get("unit cost") is None or composite.get("lead time") is \
