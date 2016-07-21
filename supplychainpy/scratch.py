@@ -25,17 +25,17 @@ def main():
    # for i in orders_analysis:
    #     print(i.orders_summary())
 
-    ia = [analysis.orders_summary() for analysis in
-          model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
-                                                          reorder_cost=Decimal(5000), file_type="csv",
-                                                          length=12)]
-    print(ia)
+   # ia = [analysis.orders_summary() for analysis in
+   #       model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
+   #                                                       reorder_cost=Decimal(5000), file_type="csv",
+   #                                                       length=12)]
+   # print(ia)
 
     #launch_report()
     analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
-    # skus = ['KR202-209', 'KR202-210', 'KR202-211']
+    skus = ['KR202-209', 'KR202-210', 'KR202-211']
 
-    skus_description = [summarised for summarised in analysis_summary.describe_sku('KR202-209')]
+    skus_description = [summarised for summarised in analysis_summary.describe_sku(*skus)]
     print(skus_description)
 
     # top_ten_shortages = [item for item in analysis_summary.rank_summary(attribute="shortages", count=10, reverse=True)]

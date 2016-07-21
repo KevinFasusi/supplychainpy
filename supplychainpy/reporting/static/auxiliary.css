@@ -308,11 +308,16 @@ nav ul li a {
 }
 
 .scribble-panel {
-    background-color: #708284;
+    background-color: #475B62;
+    min-width: 400px;
     min-height: 200px;
+    margin-top: 20px;
     margin-left: 20px;
-    margin-right: 20px;
-    font-size: 2em;
+    margin-right: 50px;
+    font-size: 1.5em;
+    box-shadow: 10px 5px 5px black;
+    padding: 10px;
+    color: #738A05;
 }
 
 .scribble-card, .scribble-card > h3 {
@@ -333,21 +338,26 @@ nav ul li a {
     margin-bottom: 0;
     margin-right: 0;
     padding-right: 0;
+
 }
 
 #total-shortage {
     font-size: 2.0em;
 }
 
-
-.slate-text-lg{
-        font-size: 2.0em;
+.slate-text-lg {
+    font-size: 2.0em;
 }
 
-.slate-text-sm{
+.slate-text-sm {
     font-size: 0.6em;
 }
 
-.currency-code{
+.currency-code {
     margin-left: 30px;
+}
+
+#demand-chart {
+    width: 100%;
+    height: 400px
 }

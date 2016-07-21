@@ -1,22 +1,42 @@
 {% extends "base.html" %}
 
 {% block body%}
-<div>
+<div class="container-fluid">
     <div>
 
         {% for sku in inventory %}
         <h2> {{sku.sku.sku_id}}</h2>
+
+        {% if (sku.excess_stock > sku.shortages) %}
+        <p><img src="{{ url_for('static', filename='excess.png') }}"></p>
+        {% elif (sku.excess_stock < sku.shortages) %}
+        <p><img src="{{ url_for('static', filename='shortages.png') }}"></p>
+        {% else %}
+        <p><img src="{{ url_for('static', filename='healthy.png') }}"></p>
+        {% endif %}
         {% endfor %}
-
-
     </div>
 
     <div class=" row">
         {% for sku in inventory %}
         <div class=" slate col-md-3">
             <div class=" row">
-                <p><h1>Quantity On Hand: {{sku.quantity_on_hand}}</h1></p>
+                <p>
+                <h1>Quantity On Hand: {{sku.quantity_on_hand}}</h1></p>
             </div>
+
+            <p>Retail Price: <strong>{{sku.retail_price}}</strong></p>
+            <p>Unit Cost: <strong> {{sku.unit_cost}}</strong></p>
+            <p>Markup: <strong> {{(sku.markup_percentage * 100)|round(0)|int}}%</strong></p>
+            <p1>Gross Margin: <strong> {{sku.gross_profit_margin}}</strong></p1>
+        </div>
+        <div class=" slate col-md-3">
+            <h1>Average Orders: <strong>{{sku.average_orders}}</strong></h1>
+            <p>Minimum Order: <strong>{{sku.min_order}}</strong></p>
+            <p>Maximum Order: <strong>{{sku.max_order}}</strong></p>
+            <p>Standard Deviation: <strong>{{sku.standard_deviation}}</strong></p>
+        </div>
+        <div class=" slate col-md-3">
             <div class=" row">
                 {% if (sku.excess_stock > sku.shortages) %}
                 <p>Status: <strong>Excess</strong></p>
@@ -26,45 +46,96 @@
                 <p>Status: <strong>Healthy</strong></p>
                 {% endif %}
             </div>
+            <h1>Safety Stock: <strong>{{sku.safety_stock}}</strong></h1>
+            <h1>Reorder Level: <strong> {{sku.reorder_level}}</strong></h1>
         </div>
         <div class=" slate col-md-3">
-            <h1>Average Orders</h1>
-            <h1><strong>$11,405,156</strong></h1>
-        </div>
-        <div class=" slate col-md-3">
-            <h1>Shortage as % Inventory </h1>
-            <h1><strong>10</strong></h1>
-        </div>
-        <div class=" slate col-md-3">
-            <h1>Total Shortage: </h1>
-            <h1><strong>KR202-235</strong></h1>
-            <h1><strong>$11,405,156</strong></h1>
+
+            <h1>Revenue: <strong>{{sku.revenue}}</strong></h1>
+            <p1>Contribution to Revenue: <strong> {{sku.percentage_contribution_revenue *100}}</strong></p1>
+            <p1>Revenue Rank: <strong> {{sku.revenue_rank}}</strong></p1>
         </div>
         {% endfor %}
     </div>
 
     <div class=" row">
-        <div class="  col-md-6">
-            <div id="test-chart" style="width:100%; height: 400px">
-
-            </div>
+        <div class="  col-lg-6">
+            <div id="demand-chart"></div>
         </div>
-        <div class="  col-md-6">
-            <div id="">
-                <ul id="orders-data">
-                    {% for order in orders %}
-                    <li>
+        <div class="  col-md-1">
+            <table>
+                <thead>
+                <tr>
+                    <td>Period</td>
+                    <td>Orders</td>
+                </tr>
+                </thead>
+                <tbody id="orders-data">
+                {% set count = 1 %}
+                {% for order in orders %}
+                <tr>
+                    <td>
+                        {{ count }}
+                        {% set count = count + 1 %}
+                    </td>
+                    <td class="orders-raw-data">
                         {{order.order_quantity}}
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="  col-lg-4">
+            <table style="width:100%">
+                {% for sku in inventory %}
+                <tr>
+                    <th>Economic Order (qty):</th>
+                    <td>{{sku.economic_order_quantity}}</td>
+                </tr>
+                <tr>
+                    <th>Economic:</th>
+                    <td>55577854</td>
+                </tr>
+                <tr>
+                    <td>55577855</td>
+                </tr>
+                <tr>
+                    <th>Economic:</th>
+                    <td>55577854</td>
+                </tr>
+                <tr>
+                    <td>55577855</td>
+                </tr>
+                <td>{{sku.safety_stock}}</td>
+
+
+                <td>{{sku.standard_deviation}}</td>
+                <!--<td>{{sku.demand_variability}}</td>-->
+                <td>{{sku.average_orders}}</td>
+                <td>{{sku.shortages}}</td>
+                <td>{{sku.excess_stock}}</td>
+                <td>{{sku.reorder_quantity}}</td>
+
+            </table>
+
         </div>
     </div>
 
+
+    <div class="row scribble-panel">
+
+        <h3>Recommendations:</h3>
+
+        <p>SKU {{sku.sku.sku_id}} is currently </p>
+
+    </div>
+            {% endfor %}
+
     <div class=" row">
+        <h2> Forecast</h2>
         <div class=" slate col-md-3">
-            <h1>Biggest Shortage: </h1>
+            <h1>Forecast: </h1>
             <h1><strong>KR202-235</strong></h1>
             <h1><strong>$11,405,156</strong></h1>
         </div>
@@ -82,111 +153,90 @@
             <h1><strong>$11,405,156</strong></h1>
         </div>
     </div>
+</div>
+<!--      <div class=" row">
+      <div class=" slate col-md-3">
+          <h1>Biggest Shortage: </h1>
+          <h1><strong>KR202-235</strong></h1>
+          <h1><strong>$11,405,156</strong></h1>
+      </div>
+      <div class=" slate col-md-3">
+          <h1>Total Shortage: </h1>
+          <h1><strong>$11,405,156</strong></h1>
+      </div>
+      <div class=" slate col-md-3">
+          <h1>Shortage as % Inventory </h1>
+          <h1><strong>10</strong></h1>
+      </div>
+      <div class=" slate col-md-3">
+          <h1>Total Shortage: </h1>
+          <h1><strong>KR202-235</strong></h1>
+          <h1><strong>$11,405,156</strong></h1>
+      </div>
+  </div>
 
-    <div class=" row">
-        <div class=" slate col-md-3">
-            <h1>Biggest Shortage: </h1>
-            <h1><strong>KR202-235</strong></h1>
-            <h1><strong>$11,405,156</strong></h1>
-        </div>
-        <div class=" slate col-md-3">
-            <h1>Total Shortage: </h1>
-            <h1><strong>$11,405,156</strong></h1>
-        </div>
-        <div class=" slate col-md-3">
-            <h1>Shortage as % Inventory </h1>
-            <h1><strong>10</strong></h1>
-        </div>
-        <div class=" slate col-md-3">
-            <h1>Total Shortage: </h1>
-            <h1><strong>KR202-235</strong></h1>
-            <h1><strong>$11,405,156</strong></h1>
-        </div>
-    </div>
+  <div class=" row">
+      <div class=" slate col-md-3">
+          <h1>Biggest Shortage: </h1>
+          <h1><strong>KR202-235</strong></h1>
+          <h1><strong>$11,405,156</strong></h1>
+      </div>
+      <div class=" slate col-md-3">
+          <h1>Total Shortage: </h1>
+          <h1><strong>$11,405,156</strong></h1>
+      </div>
+      <div class=" slate col-md-3">
+          <h1>Shortage as % Inventory </h1>
+          <h1><strong>10</strong></h1>
+      </div>
+      <div class=" slate col-md-3">
+          <h1>Total Shortage: </h1>
+          <h1><strong>KR202-235</strong></h1>
+          <h1><strong>$11,405,156</strong></h1>
+      </div>
+  </div>
 
-    <div class=" row">
-        <div class=" slate col-md-3">
-            <h1>Biggest Shortage: </h1>
-            <h1><strong>KR202-235</strong></h1>
-            <h1><strong>$11,405,156</strong></h1>
-        </div>
-        <div class=" slate col-md-3">
-            <h1>Total Shortage: </h1>
-            <h1><strong>$11,405,156</strong></h1>
-        </div>
-        <div class=" slate col-md-3">
-            <h1>Shortage as % Inventory </h1>
-            <h1><strong>10</strong></h1>
-        </div>
-        <div class=" slate col-md-3">
-            <h1>Total Shortage: </h1>
-            <h1><strong>KR202-235</strong></h1>
-            <h1><strong>$11,405,156</strong></h1>
-        </div>
-    </div>
+  <div class=" row">
+      <div class=" slate col-md-3">
+          <h1>Biggest Shortage: </h1>
+          <h1><strong>KR202-235</strong></h1>
+          <h1><strong>$11,405,156</strong></h1>
+      </div>
+      <div class=" slate col-md-3">
+          <h1>Total Shortage: </h1>
+          <h1><strong>$11,405,156</strong></h1>
+      </div>
+      <div class=" slate col-md-3">
+          <h1>Shortage as % Inventory </h1>
+          <h1><strong>10</strong></h1>
+      </div>
+      <div class=" slate col-md-3">
+          <h1>Total Shortage: </h1>
+          <h1><strong>KR202-235</strong></h1>
+          <h1><strong>$11,405,156</strong></h1>
+      </div>
+  </div>
 
-    <div class=" row">
-        <div class=" slate col-md-3">
-            <h1>Biggest Shortage: </h1>
-            <h1><strong>KR202-235</strong></h1>
-            <h1><strong>$11,405,156</strong></h1>
-        </div>
-        <div class=" slate col-md-3">
-            <h1>Total Shortage: </h1>
-            <h1><strong>$11,405,156</strong></h1>
-        </div>
-        <div class=" slate col-md-3">
-            <h1>Shortage as % Inventory </h1>
-            <h1><strong>10</strong></h1>
-        </div>
-        <div class=" slate col-md-3">
-            <h1>Total Shortage: </h1>
-            <h1><strong>KR202-235</strong></h1>
-            <h1><strong>$11,405,156</strong></h1>
-        </div>
-    </div>
-
-    <div class=" row">
-        <div class=" slate col-md-3">
-            <h1>Biggest Shortage: </h1>
-            <h1><strong>KR202-235</strong></h1>
-            <h1><strong>$11,405,156</strong></h1>
-        </div>
-        <div class=" slate col-md-3">
-            <h1>Total Shortage: </h1>
-            <h1><strong>$11,405,156</strong></h1>
-        </div>
-        <div class=" slate col-md-3">
-            <h1>Shortage as % Inventory </h1>
-            <h1><strong>10</strong></h1>
-        </div>
-        <div class=" slate col-md-3">
-            <h1>Total Shortage: </h1>
-            <h1><strong>KR202-235</strong></h1>
-            <h1><strong>$11,405,156</strong></h1>
-        </div>
-    </div>
-
-    <div class=" row">
-        <div class=" slate col-md-3">
-            <h1>Biggest Shortage: </h1>
-            <h1><strong>KR202-235</strong></h1>
-            <h1><strong>$11,405,156</strong></h1>
-        </div>
-        <div class=" slate col-md-3">
-            <h1>Total Shortage: </h1>
-            <h1><strong>$11,405,156</strong></h1>
-        </div>
-        <div class=" slate col-md-3">
-            <h1>Shortage as % Inventory </h1>
-            <h1><strong>10</strong></h1>
-        </div>
-        <div class=" slate col-md-3">
-            <h1>Total Shortage: </h1>
-            <h1><strong>KR202-235</strong></h1>
-            <h1><strong>$11,405,156</strong></h1>
-        </div>
-    </div>
+  <div class=" row">
+      <div class=" slate col-md-3">
+          <h1>Biggest Shortage: </h1>
+          <h1><strong>KR202-235</strong></h1>
+          <h1><strong>$11,405,156</strong></h1>
+      </div>
+      <div class=" slate col-md-3">
+          <h1>Total Shortage: </h1>
+          <h1><strong>$11,405,156</strong></h1>
+      </div>
+      <div class=" slate col-md-3">
+          <h1>Shortage as % Inventory </h1>
+          <h1><strong>10</strong></h1>
+      </div>
+      <div class=" slate col-md-3">
+          <h1>Total Shortage: </h1>
+          <h1><strong>KR202-235</strong></h1>
+          <h1><strong>$11,405,156</strong></h1>
+      </div>
+  </div> -->
 
 
 </div>

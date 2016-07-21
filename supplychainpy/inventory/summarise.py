@@ -115,12 +115,11 @@ class OrdersAnalysis:
                 selection = sku
                 break
 
-        # TODO-fix fix problem with min and max values
         summary = {'sku_id': '{}'.format(selection.sku_id),
                    'revenue_rank': '{}'.format(self._rank(sku_id=sku_id, attribute='revenue')),
                    'revenue': '{}'.format(selection.revenue),
                    'retail_price': '{}'.format(selection.retail_price),
-                   'gross_profit_margin': '{}'.format(Decimal(selection.retail_price) - selection.unit_cost),
+                   'gross_profit_margin': '{}'.format(Decimal(selection.retail_price) - Decimal(selection.unit_cost)),
                    'markup_percentage': '{}'.format(
                        (Decimal(selection.retail_price) - selection.unit_cost) / selection.unit_cost),
                    'unit_cost': '{}'.format(selection.unit_cost),
@@ -139,6 +138,10 @@ class OrdersAnalysis:
                    'max_order': '{}'.format(max(map(int, selection.orders))),
                    'percentage_contribution_revenue': '{}'.format(selection.percentage_revenue),
                    'quantity_on_hand': '{}'.format(selection.quantity_on_hand)}
+
+        rr = selection.retail_price - selection.unit_cost
+        print(selection)
+        print(selection.retail_price,selection.unit_cost)
         return summary
 
     def _rank(self, sku_id, attribute):

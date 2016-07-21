@@ -169,20 +169,20 @@ $("document").ready(function () {
 
 function bar_chart_sku() {
     var orders_data = document.getElementById("orders-data");
-    //console.log(orders_data.getElementsByTagName("li")[0].innerText);
+    console.log(orders_data.getElementsByClassName("orders-raw-data"));
     var wins = [];
     var period = [];
 
-    for (i=0; i < orders_data.getElementsByTagName("li").length; i++){
+    for (i=0; i < orders_data.getElementsByClassName("orders-raw-data").length; i++){
 
-        wins.push([i+1,parseInt(orders_data.getElementsByTagName("li")[i].innerText)]);
+        wins.push([i+1,parseInt(orders_data.getElementsByClassName("orders-raw-data")[i].innerText)]);
         period.push([i+1,i+1]);
         console.log(wins);
     }
     wins= [wins];
     console.log(period);
 
-    Flotr.draw(document.getElementById("test-chart"), wins, {
+    Flotr.draw(document.getElementById("demand-chart"), wins, {
         bars: {
             show: true,
             barWidth: 0.5
