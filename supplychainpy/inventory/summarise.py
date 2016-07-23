@@ -137,11 +137,10 @@ class OrdersAnalysis:
                    'min_order': '{}'.format(min(map(int, selection.orders))),
                    'max_order': '{}'.format(max(map(int, selection.orders))),
                    'percentage_contribution_revenue': '{}'.format(selection.percentage_revenue),
-                   'quantity_on_hand': '{}'.format(selection.quantity_on_hand)}
+                   'quantity_on_hand': '{}'.format(selection.quantity_on_hand),
+                   
+                   }
 
-        rr = selection.retail_price - selection.unit_cost
-        print(selection)
-        print(selection.retail_price,selection.unit_cost)
         return summary
 
     def _rank(self, sku_id, attribute):
