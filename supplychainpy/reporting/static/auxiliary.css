@@ -315,9 +315,9 @@ nav ul li a {
     margin-left: 20px;
     margin-right: 50px;
     font-size: 1.5em;
-    box-shadow: 10px 5px 5px black;
+    box-shadow: 10px 5px 10px black;
     padding: 10px;
-    color: #738A05;
+    color: white;
 }
 
 .scribble-card, .scribble-card > h3 {
@@ -360,4 +360,12 @@ nav ul li a {
 #demand-chart {
     width: 100%;
     height: 400px
+}
+
+#oldchap{
+   float: right  ;
+}
+
+#inventory-summary-table th{
+    text-align: left;
 }

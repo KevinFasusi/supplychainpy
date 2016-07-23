@@ -30,6 +30,7 @@ def main():
     parser.add_argument('-loc', dest='location', action='store',
                         help='database path e.g. ')
 
+
     args = parser.parse_args()
 
 

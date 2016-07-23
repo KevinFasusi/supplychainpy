@@ -5,14 +5,17 @@
     <div>
 
         {% for sku in inventory %}
-        <h2> {{sku.sku.sku_id}}</h2>
+
 
         {% if (sku.excess_stock > sku.shortages) %}
-        <p><img src="{{ url_for('static', filename='excess.png') }}"></p>
+        <p>
+        <h2> {{sku.sku.sku_id}}<img src="{{ url_for('static', filename='excess.png') }}"></h2></p>
         {% elif (sku.excess_stock < sku.shortages) %}
-        <p><img src="{{ url_for('static', filename='shortages.png') }}"></p>
+        <p>
+        <h2> {{sku.sku.sku_id}}<img src="{{ url_for('static', filename='shortages.png') }}"></h2></p>
         {% else %}
-        <p><img src="{{ url_for('static', filename='healthy.png') }}"></p>
+        <p>
+        <h2> {{sku.sku.sku_id}}<img src="{{ url_for('static', filename='healthy.png') }}"></h2></p>
         {% endif %}
         {% endfor %}
     </div>
@@ -87,35 +90,20 @@
             </table>
         </div>
         <div class="  col-lg-4">
-            <table style="width:100%">
+            <table id="inventory-summary-table" style="width:100%">
                 {% for sku in inventory %}
                 <tr>
                     <th>Economic Order (qty):</th>
                     <td>{{sku.economic_order_quantity}}</td>
                 </tr>
                 <tr>
-                    <th>Economic:</th>
+                    <th>Days of Inventory:</th>
                     <td>55577854</td>
                 </tr>
                 <tr>
+                    <th>Reorder Quantity:</th>
                     <td>55577855</td>
                 </tr>
-                <tr>
-                    <th>Economic:</th>
-                    <td>55577854</td>
-                </tr>
-                <tr>
-                    <td>55577855</td>
-                </tr>
-                <td>{{sku.safety_stock}}</td>
-
-
-                <td>{{sku.standard_deviation}}</td>
-                <!--<td>{{sku.demand_variability}}</td>-->
-                <td>{{sku.average_orders}}</td>
-                <td>{{sku.shortages}}</td>
-                <td>{{sku.excess_stock}}</td>
-                <td>{{sku.reorder_quantity}}</td>
 
             </table>
 
@@ -124,13 +112,18 @@
 
 
     <div class="row scribble-panel">
-
-        <h3>Recommendations:</h3>
-
+        <div class="row">
+            <div class="col-xs-10">
+                <h3>Recommendations:</h3>
+            </div>
+            <div class="col-xs-2">
+                <img id="oldchap" src="{{ url_for('static', filename='oldchap.png') }}">
+            </div>
+        </div>
         <p>SKU {{sku.sku.sku_id}} is currently </p>
 
     </div>
-            {% endfor %}
+    {% endfor %}
 
     <div class=" row">
         <h2> Forecast</h2>

@@ -34,7 +34,7 @@
                 </thead>
                 {% for sku in inventory %}
                 <tr>
-                    <td><a href="/sku_detail/{{sku.sku.sku_id}}">{{sku.sku.sku_id}}</a></td>
+                    <td><a href="/sku_detail/{{sku.sku_id}}">{{sku.sku.sku_id}}</a></td>
                     <td>{{sku.abc_xyz_classification}}</td>
                     <td>{{sku.safety_stock}}</td>
                     <td>{{sku.revenue}}</td>
