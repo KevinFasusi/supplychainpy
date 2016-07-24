@@ -3,6 +3,14 @@ import os
 import time
 from decimal import Decimal
 
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib as mpl
+import matplotlib.mlab as mlab
+from sklearn.datasets import fetch_california_housing
+from sklearn.datasets import load_boston
+
 from supplychainpy import model_inventory
 from supplychainpy.inventory.summarise import OrdersAnalysis
 from supplychainpy.reporting.load import load
@@ -18,24 +26,63 @@ def main():
     abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
 
     orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path,
-                                                                     z_value=Decimal(1.28),
-                                                                     reorder_cost=Decimal(5000),
-                                                                     file_type="csv", length=12)
-   #for i in orders_analysis:
-   #    print(i.orders_summary())
+                                                                      z_value=Decimal(1.28),
+                                                                      reorder_cost=Decimal(5000),
+                                                                      file_type="csv", length=12)
+    # for i in orders_analysis:
+    #    print(i.orders_summary())
 
     ia = [analysis.orders_summary() for analysis in
-         model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
-                                                         reorder_cost=Decimal(5000), file_type="csv",
-                                                         length=12)]
-    #print(ia)
+          model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
+                                                          reorder_cost=Decimal(5000), file_type="csv",
+                                                          length=12)]
 
-    #launch_report()
-    analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
-    skus = ['KR202-209', 'KR202-210', 'KR202-211']
+    # print([i['orders'].values() for i in ia])
+    orders = [i['orders'].values() for i in ia]
+    orders1 = [i for i in orders[0]]
+    orders2 = [i for i in orders1[0]]
+    vector = np.array(orders2)
+    #print(vector)
+    row_vector = vector.reshape((12, 1))
+    #print(row_vector)
+    column_vector = vector.reshape((1, 12))
+    #print(column_vector)
+    single_feature_matrix = vector.reshape((1, 12))
+    #print(single_feature_matrix)
+    #pd_data = pd.Series(orders2, name='orders')
+    #print(pd_data)
+    #mean_expected_value = np.mean(pd_data)
 
-    skus_description = [summarised for summarised in analysis_summary.describe_sku(*[i['sku'] for i in ia])]
-    print(skus_description)
+    #print(pd_data[0])
+
+    #squared_errors_pd = pd.Series(mean_expected_value - pd_data[0])  **2
+
+    #print(pd_data)
+    #print(np.mean(pd_data))
+    pd.set_option('display.float_format', lambda x: '%.3f' % x)
+    dataset = pd.DataFrame(data=row_vector)
+    print(dataset.mean())
+
+    mean_expected_value = dataset.mean()
+    print(dataset[0])
+    squared_error =  pd.Series((mean_expected_value - dataset[0].astype(float)) **2)
+    print(squared_error)
+    #boston = load_boston()
+    #california = fetch_california_housing()
+    #dataset2 = pd.DataFrame(boston.data, columns=boston.feature_names)
+    #dataset2['target'] = boston.target
+    #print(dataset2['target'])
+    #print(dataset2['target'].mean())
+
+    #mean_expected_value = np.mean(dataset2)
+    #print(mean_expected_value)
+
+    # launch_report()
+    # analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
+    # skus = ['KR202-209', 'KR202-210', 'KR202-211']
+
+    # skus_description = [summarised for summarised in analysis_summary.describe_sku(*[i['sku'] for i in ia])]
+    # print(skus_description)
 
     # top_ten_shortages = [item for item in analysis_summary.rank_summary(attribute="shortages", count=10, reverse=True)]
 
