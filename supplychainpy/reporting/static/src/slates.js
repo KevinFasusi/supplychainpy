@@ -11,12 +11,6 @@ class PlainSlate {
         this.css_style = css_style;
     }
 
-    load_slate() {
-
-        $(this.id_tag).append().html(this.html_template)
-            .find(this.location).css(this.css_style);
-
-    }
 
 }
 

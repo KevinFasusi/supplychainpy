@@ -42,15 +42,16 @@
         <div class=" slate col-md-3">
             <div class=" row">
                 {% if (sku.excess_stock > sku.shortages) %}
-                <p>Status: <strong>Excess</strong></p>
+                <h3>Status: <strong>Excess</strong></h3>
+                <h3>Excess Units: {{sku.excess_stock}}</h3>
                 {% elif (sku.excess_stock < sku.shortages) %}
-                <p>Status: <strong>Shortage</strong></p>
+                <h3>Status: <strong>Shortage</strong></h3>
+                <h3>Shortage Units: {{sku.shortages}}</h3>
                 {% else %}
-                <p>Status: <strong>Healthy</strong></p>
+                <h3>Status: <strong>Healthy</strong></h3>
                 {% endif %}
             </div>
-            <h1>Safety Stock: <strong>{{sku.safety_stock}}</strong></h1>
-            <h1>Reorder Level: <strong> {{sku.reorder_level}}</strong></h1>
+
         </div>
         <div class=" slate col-md-3">
 
@@ -97,12 +98,45 @@
                     <td>{{sku.economic_order_quantity}}</td>
                 </tr>
                 <tr>
-                    <th>Days of Inventory:</th>
-                    <td>55577854</td>
+                    <th>Retail Price</th>
+                    <td>{{sku.retail_price}}</td>
                 </tr>
                 <tr>
+                    <th>Unit Cost</th>
+                    <td>{{sku.unit_cost}}</td>
+                </tr>
+                <tr>
+                    <th>Retail Price</th>
+                    <td>{{sku.retail_price}}</td>
+                </tr>
+                <tr>
+                    <th>Markup</th>
+                    <td>{{(sku.markup_percentage * 100)|round(0)|int}}%</td>
+                </tr>
+                <tr>
+                    <th>Gross Margin:</th>
+                    <td>{{sku.gross_profit_margin}}</td>
+                </tr>
+                <p1> <strong> </strong></p1>
+                <tr>
                     <th>Reorder Quantity:</th>
-                    <td>55577855</td>
+                    <td>{{sku.reorder_quantity}}</td>
+                </tr>
+                <tr>
+                    <th>Inventory Turns:</th>
+                    <td>{{sku.inventory_turns}}</td>
+                </tr>
+                <tr>
+                    <th>Inventory Classification:</th>
+                    <td>{{sku.abc_xyz_classification}}</td>
+                </tr>
+                <tr>
+                    <th>Safety Stock:</th>
+                    <td>{{sku.safety_stock}}</td>
+                </tr>
+                <tr>
+                    <th>Reorder Level:</th>
+                    <td>{{sku.reorder_level}}</td>
                 </tr>
 
             </table>
@@ -116,7 +150,7 @@
             <div class="col-xs-10">
                 <h3>Recommendations:</h3>
             </div>
-            <div class="col-xs-2">
+            <div class=" col-xs-2">
                 <img id="oldchap" src="{{ url_for('static', filename='oldchap.png') }}">
             </div>
         </div>

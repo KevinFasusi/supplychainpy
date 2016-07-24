@@ -50,7 +50,7 @@ class UncertainDemand:
     _summary_keywords = ['sku', 'standard_deviation', 'safety_stock', 'demand_variability', 'reorder_level',
                          'reorder_quantity', 'revenue', 'economic_order_quantity', 'economic_order_variable_cost',
                          'ABC_XYZ_Classification', 'excess_stock', 'shortages', 'average_orders', 'unit_cost',
-                         'quantity_on_hand', 'currency', 'orders', 'total_units_ordered']
+                         'quantity_on_hand', 'currency', 'orders', 'total_orders']
     __rank = 0
 
     def __init__(self, orders: dict, sku: str, currency: str, lead_time: Decimal, unit_cost: Decimal,
@@ -289,7 +289,11 @@ class UncertainDemand:
         total_orders = 0
         orders_list = []
         for item in self.__orders:
-            orders_list = self.__orders[item]
+            if isinstance(self.__orders[item], Iterable):
+                orders_list = self.__orders[item]
+            else:
+                orders_list.append(self.__orders[item])
+
         total_orders = sum([Decimal(item) for item in orders_list])
         return total_orders
 
@@ -380,8 +384,8 @@ class UncertainDemand:
                      'unit_cost': '{}'.format(self.__unit_cost),
                      'quantity_on_hand': '{}'.format(self.__quantity_on_hand),
                      'currency': '{}'.format(self.__currency),
-                     'orders': '{}'.format(self.__orders),
-                     'total_units_ordered': '{}'.format(self.__total_orders)}
+                     'orders': self.__orders,
+                     'total_orders': '{}'.format(self.__total_orders)}
         summary = {}
         for key in keywords:
             summary.update({key: pre_build.get(key)})
@@ -398,7 +402,7 @@ class UncertainDemand:
         representation = "(sku_id: {}, average_order: {:.0f}, standard_deviation: {:.0f}, safety_stock: {:0f}, \n" \
                          "demand_variability: {:.3f}, reorder_level: {:.0f}, reorder_quantity: {:.0f}, " \
                          "revenue: {:.2f}, excess_stock: {}, shortages: {}, unit_cost: {}, quantity_on_hand: {}, " \
-                         "currency_code: {}, total_orders_units: {})"
+                         "currency_code: {}, total_orders: {})"
         return representation.format(self.__sku_id,
                                      self.__average_order,
                                      self.__orders_standard_deviation,

@@ -109,8 +109,8 @@ def load(file_path: str):
         i_up = InventoryAnalysis()
         mk = db.session.query(MasterSkuList.id).filter(MasterSkuList.sku_id == item['sku']).first()
         i_up.sku_id = mk.id
-        tuple_orders = (o for o in item['orders'].values())
-        # print(tuple_orders)
+        tuple_orders = item['orders']
+        #print(tuple_orders)
         i_up.abc_xyz_classification = item['ABC_XYZ_Classification']
         i_up.standard_deviation = item['standard_deviation']
         i_up.safety_stock = item['safety_stock']
@@ -140,17 +140,17 @@ def load(file_path: str):
         i_up.shortage_cost = skus_description[0]['shortage_cost']
         i_up.quantity_on_hand = item['quantity_on_hand']
         i_up.currency_id = denom.id
+        i_up.inventory_turns = skus_description[0]['inventory_turns']
         i_up.transaction_log_id = transaction_id.id
         db.session.add(i_up)
         inva = db.session.query(InventoryAnalysis.id).filter(InventoryAnalysis.sku_id == mk.id).first()
-        for t in tuple_orders:
-            for i, r in enumerate(t, 1):
-                orders_data = Orders()
-                # print(r)
-                orders_data.order_quantity = r
-                orders_data.rank = i
-                orders_data.analysis_id = inva.id
-                db.session.add(orders_data)
+        for i ,t in enumerate(tuple_orders['demand'], 1):
+            orders_data = Orders()
+            # print(r)
+            orders_data.order_quantity = t
+            orders_data.rank = i
+            orders_data.analysis_id = inva.id
+            db.session.add(orders_data)
 
     db.session.commit()
 

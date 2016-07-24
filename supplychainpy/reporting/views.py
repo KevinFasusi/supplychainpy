@@ -98,6 +98,7 @@ class InventoryAnalysis(db.Model):
     currency_id = db.Column(db.Integer, db.ForeignKey('currency.id'))
     transaction_log_id = db.Column(db.Integer, db.ForeignKey('transaction_log.id'))
     orders_id = db.relationship("Orders", backref='demand', lazy='dynamic')
+    inventory_turns = db.Column(db.Float())
 
     @property
     def serialize(self):
@@ -133,7 +134,7 @@ class InventoryAnalysis(db.Model):
             'max_order': self.max_order,
             'shortage_cost': float(self.shortage_cost),
             'quantity_on_hand': self.quantity_on_hand,
-
+            'inventory_turns' : self.inventory_turns
         }
 
 

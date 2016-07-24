@@ -31,6 +31,7 @@ class TestAnalyseOrders(TestCase):
                                                                           retail_price=Decimal(400.58),
                                                                           unit_cost=Decimal(55),
                                                                           currency='USD')
+        print(self._uncertain_demand.orders_summary())
 
     def test_orders_type(self):
         self.assertIsInstance(self._orders_analysis, list)

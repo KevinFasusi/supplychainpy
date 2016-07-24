@@ -138,12 +138,35 @@ class OrdersAnalysis:
                    'max_order': '{}'.format(max(map(int, selection.orders))),
                    'percentage_contribution_revenue': '{}'.format(selection.percentage_revenue),
                    'quantity_on_hand': '{}'.format(selection.quantity_on_hand),
-                   
+                   'inventory_turns': '{}'.format((Decimal(selection.total_orders) * Decimal(selection.unit_cost)) / (
+                       Decimal(selection.quantity_on_hand) * Decimal(selection.unit_cost))),
+                   'inventory_traffic_light': '{}'.format(self._quantity_on_hand_alert(selection))
                    }
-
+        # print(selection.total_orders,selection.unit_cost,selection.average_orders)
         return summary
 
     def _rank(self, sku_id, attribute):
         for index, t in enumerate(sorted(self.__analysed_orders, key=attrgetter(attribute), reverse=True)):
             if t.sku_id == sku_id:
                 return index + 1
+
+    def _quantity_on_hand_alert(self, selection: UncertainDemand) -> str:
+        """Indicates whether the quantity of units to hand is (quantity_on_hand < reorder_level(Amber)),
+        (quantity_on_hand <50% safety_stock(Red)) and (quantity_on_hand < 75% safety stock(white)"""
+        traffic_light = ''
+
+        half_safety_stock = float(selection.safety_stock) * 0.5
+        two_thirds_safety_stock = float(selection.safety_stock)  * 0.75
+        if selection.reorder_level > selection.quantity_on_hand > selection.safety_stock:
+            traffic_light = 'amber'
+        elif half_safety_stock > selection.quantity_on_hand > two_thirds_safety_stock:
+            traffic_light = 'red'
+        elif selection.quantity_on_hand < two_thirds_safety_stock:
+            traffic_light = 'white'
+        else:
+            traffic_light = 'green'
+
+        return traffic_light
+
+    def traffic_lights_system(self):
+        pass
