@@ -10,7 +10,7 @@ from supplychainpy.reporting.views import InventoryAnalysis
 from supplychainpy.reporting.views import MasterSkuList
 from supplychainpy.reporting.views import Currency
 from supplychainpy.reporting.views import Orders
-from supplychainpy.launch_reports import db
+from supplychainpy.launch_reports import db, app
 
 
 def currency_codes():
@@ -69,7 +69,10 @@ def currency_codes():
     return codes
 
 
-def load(file_path: str):
+def load(file_path: str, location: str = None):
+    if location is not None:
+        app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///{}/reporting.db'.format(location)
+
     db.create_all()
     fx = currency_codes()
     for key, value in fx.items():

@@ -147,14 +147,18 @@ class SupplychainpyReporting:
             self.port_label.forget()
 
 
-def launch_load_report(file):
+def launch_load_report(file: str, location: str=None):
     from supplychainpy.reporting import load
-    #t.config['SQLALCHEMY_DATABASE_URI']='sqlite:///{}/reporting.db'.format(location)
+    if location is not None:
+        app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///{}/reporting.db'.format(location)
+
     db.create_all()
+    if location is not None:
+        load.load(file, location)
     load.load(file)
     launcher = tk.Tk()
-    app = SupplychainpyReporting(launcher)
-    app.parent.configure(background='black')
+    app_launch = SupplychainpyReporting(launcher)
+    app_launch.parent.configure(background='black')
     launcher.mainloop()
 
 

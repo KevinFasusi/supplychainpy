@@ -40,9 +40,13 @@ def main():
         print('process file = {}'.format(args.process))
         print('database location = {}'.format(args.location))
 
-    if args.launch == True and args.process == True and args.filenames is not None:
-        print(4)
+    if args.launch == True and args.process == True and args.filenames is not None and args.location is None:
+        print(1)
         launch_load_report(args.filenames)
+
+    elif args.launch == True and args.process == True and args.filenames is not None and args.location is not None:
+        print(2)
+        launch_load_report(args.filenames, args.location)
 
     elif args.launch:
         print(3)
