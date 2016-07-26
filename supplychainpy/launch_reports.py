@@ -78,12 +78,20 @@ class SupplychainpyReporting:
 
         self.change_port = tk.BooleanVar()
         self.change_port.set(False)
+        if os.name in ['posix', 'mac']:
+            self.change_port_checkbutton = tk.Checkbutton(master, variable=self.change_port, activebackground='black',
+                                                          activeforeground='white',
+                                                          bg='white', fg='white', relief='solid', selectcolor='blue',
+                                                          text='Change default port (default :5000)',
+                                                          command=lambda: self.show_port_entry())
 
-        self.change_port_checkbutton = tk.Checkbutton(master, variable=self.change_port, activebackground='black',
-                                                      activeforeground='white',
-                                                      bg='black', fg='white', relief='solid', selectcolor='blue',
-                                                      text='Change default port (default :5000)',
-                                                      command=lambda: self.show_port_entry())
+        elif os.name == 'nt':
+            print('nt')
+            self.change_port_checkbutton = tk.Checkbutton(master, variable=self.change_port, activebackground='black',
+                                                          activeforeground='white',
+                                                          bg='black', fg='white', relief='solid', selectcolor='blue',
+                                                          text='Change default port (default :5000)',
+                                                          command=lambda: self.show_port_entry())
 
         self.change_port_checkbutton.config(onvalue=True)
         self.change_port_checkbutton.grid(row=2, column=1, columnspan=2, pady=(0, 10))
@@ -100,9 +108,9 @@ class SupplychainpyReporting:
         tk.Button(master, bg='black', fg='grey', text='Exit Reporting', command=lambda: exit_report()).grid(row=6,
                                                                                                             column=2,
                                                                                                             pady=(
-                                                                                                            5, 10),
+                                                                                                                5, 10),
                                                                                                             padx=(
-                                                                                                            5, 15))
+                                                                                                                5, 15))
 
     def spawn_reports(self):
         """Checks if port number is specified, then validates port number."""
@@ -147,24 +155,54 @@ class SupplychainpyReporting:
             self.port_label.forget()
 
 
-def launch_load_report(file: str, location: str=None):
+def launch_load_report(file: str, location: str = None):
     from supplychainpy.reporting import load
-    if location is not None:
-        app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///{}/reporting.db'.format(location)
+
+    if location is not None and os.name in ['posix', 'mac']:
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/reporting.db'.format(location)
+
+    elif location is not None and os.name == 'nt':
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}\\reporting.db'.format(location)
 
     db.create_all()
     if location is not None:
         load.load(file, location)
-    load.load(file)
+    else:
+        load.load(file)
+        
     launcher = tk.Tk()
     app_launch = SupplychainpyReporting(launcher)
     app_launch.parent.configure(background='black')
     launcher.mainloop()
 
 
-def launch_report():
+def launch_report(location: str = None):
+
+    if location is not None and os.name in ['posix', 'mac']:
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/reporting.db'.format(location)
+
+    elif location is not None and os.name == 'nt':
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}\\reporting.db'.format(location)
+
     db.create_all()
     launcher = tk.Tk()
-    app = SupplychainpyReporting(launcher)
-    app.parent.configure(background='black')
+    app_launch = SupplychainpyReporting(launcher)
+    app_launch.parent.configure(background='black')
     launcher.mainloop()
+
+
+def load_db(file: str, location: str = None):
+    from supplychainpy.reporting import load
+
+    if location is not None and os.name in ['posix', 'mac']:
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/reporting.db'.format(location)
+
+    elif location is not None and os.name == 'nt':
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}\\reporting.db'.format(location)
+
+    db.create_all()
+    if location is not None:
+        load.load(file, location)
+    else:
+      load.load(file)
+

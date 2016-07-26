@@ -70,8 +70,11 @@ def currency_codes():
 
 
 def load(file_path: str, location: str = None):
-    if location is not None:
+    if location is not None and os.name in ['posix', 'mac']:
         app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///{}/reporting.db'.format(location)
+
+    elif location is not None and os.name == 'nt':
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}\\reporting.db'.format(location)
 
     db.create_all()
     fx = currency_codes()
@@ -156,6 +159,7 @@ def load(file_path: str, location: str = None):
             db.session.add(orders_data)
 
     db.session.commit()
+    print("Analysis database loaded...")
 
 
 if __name__ == '__main__':

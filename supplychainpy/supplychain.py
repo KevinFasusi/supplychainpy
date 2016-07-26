@@ -4,7 +4,7 @@ import argparse
 
 import sys
 
-from supplychainpy.launch_reports import launch_load_report, launch_report
+from supplychainpy.launch_reports import launch_load_report, launch_report, load_db
 
 
 def main():
@@ -30,9 +30,7 @@ def main():
     parser.add_argument('-loc', dest='location', action='store',
                         help='database path e.g. ')
 
-
     args = parser.parse_args()
-
 
     if args.verbose:
         print('filenames = {}'.format(args.filenames))
@@ -48,9 +46,13 @@ def main():
         print(2)
         launch_load_report(args.filenames, args.location)
 
-    elif args.launch:
+    elif args.launch and args.location is not None:
         print(3)
-        launch_report()
+        launch_report(location=args.location)
+
+    elif args.process and args.location is not None and args.filenames is not None:
+        print(4)
+        load_db(file=args.filenames, location=args.location)
 
     if args.filenames is None and False == args.process and False == args.launch and args.outfile is None:
         filename = input('path to "CSV" or "text" file... ')
