@@ -118,8 +118,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
             var pie_chart2 = new RenderPieChart(data, '#excess-pie');
             pie_chart2.excess();
             create_classification_table(data);
-            var pie_chart3 = new RenderPieChart(data, '#class-chart');
-            pie_chart3.excess_classification();
+            var pie_chart3 = new RenderPieChart(data, '#revenue-class-chart');
+            pie_chart3.classification('#revenue-class-chart');
         },
         error: function error(result) {
             //console.log(result);// make 404.html page
@@ -164,7 +164,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 function bar_chart_sku() {
     var orders_data = document.getElementById("orders-data");
-    console.log(orders_data.getElementsByClassName("orders-raw-data"));
+    //console.log(orders_data.getElementsByClassName("orders-raw-data"));
     var wins = [];
     var period = [];
 
@@ -172,10 +172,10 @@ function bar_chart_sku() {
 
         wins.push([i + 1, parseInt(orders_data.getElementsByClassName("orders-raw-data")[i].innerText)]);
         period.push([i + 1, i + 1]);
-        console.log(wins);
+        //console.log(wins);
     }
     wins = [wins];
-    console.log(period);
+    //console.log(period);
 
     Flotr.draw(document.getElementById("demand-chart"), wins, {
         bars: {
@@ -385,6 +385,38 @@ var unpack = {
             }
         }
         return abcxyz_data;
+    },
+
+    classification: function classification(data, target) {
+        var tempData;
+        var key;
+        var classification_data = [];
+        var i;
+        for (key in data) {
+            tempData = data[key];
+            //console.log(tempData);
+            for (i in tempData) {
+                //console.log(tempData[i]);
+                switch (target) {
+
+                    case 'revenue':
+                        classification_data.push([tempData[i].abc_xyz_classification, tempData[i].total_revenue]);
+                        console.log(classification_data);
+                        break;
+
+                    case 'shortage':
+                        classification_data.push([tempData[i].abc_xyz_classification, tempData[i].total_shortages]);
+                        //console.log(classification_data);
+                        break;
+
+                    case 'excess':
+                        classification_data.push([tempData[i].abc_xyz_classification, tempData[i].total_excesss]);
+                        //console.log(classification_data);
+                        break;
+                }
+            }
+        }
+        return classification_data;
     }
 
 };
@@ -488,189 +520,6 @@ function currency_symbol_allocator(currency_symbol) {
     return currency_symbols[currency_symbol];
 }
 
-function create_shortages_table(data) {
-    var total_shortage = 0;
-    //console.log(data.objects);
-    //var max_shortage = Math.max(data.shortage_cost);
-    //console.log(currency_symbol_allocator("AFN"));
-
-    (0, _jquery2.default)("#shortage-table").append().html("<tr id='first'><th>SKU</th><th>Quantity on Hand</th><th>Average Orders</th>" + "<th>Shortage</th><th>Shortage Cost</th><th>Safety Stock</th><th>Reorder Level</th> " + "<th>Percentage Contribution</th><th>Revenue Rank</th><th>Classification</th></tr>");
-    var percentage_stockoout = 0;
-    var t = [];
-    var largest = 0;
-    var understocked_qoh = 0;
-    var understocked_sku;
-    var understocked_rol;
-
-    for (var i = 0; i < data.objects.length; i++) {
-        //console.log(data.objects[i].shortage_cost);
-        var symbols = currency_symbol_allocator(data.objects[i].currency.currency_code);
-        total_shortage += data.objects[i].shortage_cost;
-        var currency_code = currency_symbol_allocator(data.objects[i].currency.currency_code);
-
-        (0, _jquery2.default)("<tr><td><a href=\"sku_detail/" + data.objects[i].sku_id + "\">" + data.objects[i].sku.sku_id + "</a></td>" + "<td>" + format_number(data.objects[i].quantity_on_hand) + "</td>" + "<td>" + format_number(Math.round(data.objects[i].average_orders)) + "</td>" + "<td>" + data.objects[i].shortages + "</td>" + "<td>" + currency_code + format_number(data.objects[i].shortage_cost) + "</td>" + "<td>" + data.objects[i].safety_stock + "</td>" + "<td>" + data.objects[i].reorder_level + "</td>" + "<td>" + Math.round(data.objects[i].percentage_contribution_revenue * 100) + "%</td>" + "<td>" + data.objects[i].revenue_rank + "</td>" + "<td><a href=\"abcxyz/" + data.objects[i].abc_xyz_classification + "\">" + data.objects[i].abc_xyz_classification + "</a></td></tr>").insertAfter("#shortage-table tr:last");
-        var shortage_sku_id;
-        var shortage_units;
-
-        if (parseInt(data.objects[i].shortage_cost) > parseInt(largest)) {
-            largest = data.objects[i].shortage_cost;
-            //console.log(parseInt(largest));
-            shortage_sku_id = data.objects[i].sku.sku_id;
-            shortage_units = data.objects[i].shortages;
-        }
-
-        if (parseInt(data.objects[i].quantity_on_hand) < parseInt(data.objects[i].safety_stock) / 2) {
-            percentage_stockoout += 1;
-        }
-        var temp_net_stock = data.objects[i].quantity_on_hand - data.objects[i].reorder_level;
-        if (Math.abs(temp_net_stock) > understocked_qoh) {
-            understocked_qoh = data.objects[i].quantity_on_hand;
-            understocked_sku = data.objects[i].sku.sku_id;
-            understocked_rol = data.objects[i].reorder_level;
-        }
-    }
-
-    // Percentage of top 10 SKU likely to face a stock-out situation. SKU is at risk below 50% of the safety stock.
-    //This should be moved into the main library.
-    percentage_stockoout = parseInt(percentage_stockoout) / data.objects.length * 100;
-
-    //Total Shortage of the to ten.
-    //console.log(percentage_stockoout);
-    (0, _jquery2.default)("#total-shortage").append().html("<h1><strong>" + symbols + format_number(total_shortage) + "</strong></h1>").find("> h1").css("color", "#D11C29");
-
-    // top shortage SKU id
-    (0, _jquery2.default)("#lg-shortage-sku").append().html("<h1><strong>" + shortage_sku_id + "</strong></h1>").find("> h1").css("color", "#2176C7");
-
-    //largest shortage cost
-    (0, _jquery2.default)("#lg-shortage-cost").append().html("<h1><strong>" + symbols + format_number(largest) + "</strong></h1>").find("> h1").css("color", "#D11C29");
-
-    //units for largest shortage cost.
-    (0, _jquery2.default)("#lg-shortage-units").append().html("<h1><strong>" + format_number(shortage_units) + " units" + "</strong></h1>").find("> h1").css("color", "#819090");
-
-    //percentage of SKUs likely to experience stock-out
-    (0, _jquery2.default)("#shortage-percentage").append().html("<h1><strong>" + percentage_stockoout + "%" + "</strong></h1>").find("> h1").css("color", "#819090");
-
-    (0, _jquery2.default)("#understocked-sku").append().html("<h1><strong>" + understocked_sku + "</strong></h1>").find("> h1").css("color", "#2176C7");
-
-    (0, _jquery2.default)("#understocked-qoh").append().html("<h1><strong>" + "qty on hand: " + understocked_qoh + " units" + "</strong></h1>").find("> h1").css("color", "#819090");
-
-    (0, _jquery2.default)("#understocked_rol").append().html("<h1><strong>" + "reorder level: " + understocked_rol + " units" + "</strong></h1>").find("> h1").css("color", "#819090");
-}
-
-function create_excess_table(data) {
-    var total_excess = 0,
-        percentage_excess = 0;
-
-    (0, _jquery2.default)("#excess-table").append().html("<tr id='first'><th>SKU</th><th>Quantity on Hand</th><th>Average Orders</th>" + "<th>Excess</th><th>Excess Cost</th><th>Excess Inventory %</th><th>Safety Stock</th><th>Reorder Level</th><th>Classification</th></tr>");
-    //console.log(excess_data);
-    var obj;
-    var largest = 0;
-    var excess_sku_id;
-    var excess_units;
-    var excess_cost;
-    var holding_cost = 0;
-
-    for (var i = 0; i < data.objects.length; i++) {
-        //console.log(excess_data[obj].sku_id);
-        total_excess += data.objects[i].excess_cost;
-        holding_cost += data.objects[i].quantity_on_hand * (data.objects[i].unit_cost * 0.25); //change later to be chosen by use
-        var symbols = currency_symbol_allocator(data.objects[i].currency.currency_code);
-        percentage_excess = Math.round(data.objects[i].excess_stock / data.objects[i].quantity_on_hand * 100);
-        (0, _jquery2.default)("<tr><td><a href=\"sku_detail/" + data.objects[i].sku_id + "\">" + data.objects[i].sku.sku_id + "</td>" + "<td>" + data.objects[i].quantity_on_hand + "</td>" + "<td>" + data.objects[i].average_orders + "</td>" + "<td>" + data.objects[i].excess_stock + "</td>" + "<td>" + currency_symbol_allocator(data.objects[i].currency.currency_code) + format_number(data.objects[i].excess_cost) + "</td>" + "<td>" + percentage_excess + "%" + "</td>" + "<td>" + data.objects[i].safety_stock + "</td>" + "<td>" + data.objects[i].reorder_level + "</td>" + "<td><a href=\"abcxyz/" + data.objects[i].abc_xyz_classification + "\">" + data.objects[i].abc_xyz_classification + "</a></td></tr>").insertAfter("#excess-table tr:last");
-
-        if (parseInt(data.objects[i].excess_cost) > parseInt(largest)) {
-            largest = data.objects[i].excess_cost;
-            //console.log(parseInt(largest));
-            excess_sku_id = data.objects[i].sku.sku_id;
-            excess_units = data.objects[i].excess_stock;
-            excess_cost = data.objects[i].excess_cost;
-        }
-    }
-
-    _jquery2.default.ajax({
-        type: "GET",
-        contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:5000/api/total_inventory',
-        dataType: 'json',
-        async: true,
-        data: "{}",
-        success: function success(data) {
-            // console.log(data);
-            var items = [].concat(_toConsumableArray(data.json_list));
-            //console.log(items.length);
-            var total_invetory = 0;
-            for (i = 0; i < items.length; i++) {
-
-                total_invetory += items[i].quantity_on_hand * items[i].unit_cost;
-
-                //console.log(total_invetory);
-            }
-            var percentage_excess;
-            //console.log(total_invetory);
-            percentage_excess = Math.round(total_excess / total_invetory * 100, 0);
-
-            (0, _jquery2.default)("#excess-inventory-sl").append().html("<h1><strong>" + percentage_excess + "%" + "</strong></h1>").find("> h1").css("color", "#D11C29");
-        },
-        error: function error(result) {}
-    });
-
-    // top excess pebble
-    (0, _jquery2.default)("#lg-excess-sku").append().html("<h1><strong>" + excess_sku_id + "</strong></h1>").find("> h1").css("color", "#2176C7");
-    (0, _jquery2.default)("#lg-excess-cost").append().html("<h1><strong>" + symbols + format_number(excess_cost) + "</strong></h1>").find("> h1").css("color", "#D11C29");
-    (0, _jquery2.default)("#lg-excess-units").append().html("<h1><strong>" + format_number(excess_units) + " units" + "</strong></h1>").find("> h1").css("color", "#819090");
-    (0, _jquery2.default)("#total-excess").append().html("<h1><strong>" + symbols + format_number(total_excess) + "</strong></h1>").find("> h1").css("color", "#D11C29");
-
-    (0, _jquery2.default)("#excess-holding-cost-sl").append().html("<h1><strong>" + symbols + format_number(holding_cost) + "</strong></h1>").find("> h1").css("color", "#D11C29");
-}
-
-function create_classification_table(data) {
-
-    var abc_xyz_data = new unpack.abc_xyz(data, 'table');
-    var currency_code;
-
-    (0, _jquery2.default)("#classification-table").append().html("<tr id='classification-row'><th>Classification</th><th>Revenue</th><th>Shortages</th>" + "<th>Excess</th></tr>");
-    //console.log(excess_data);
-    var code = (0, _jquery2.default)('#currency-code').text().trim(" ");
-    console.log(code);
-    var symbols = currency_symbol_allocator(code);
-    var obj;
-    console.log(abc_xyz_data[0].currency_id);
-    var d = currency_fetch(abc_xyz_data[0].currency_id);
-    for (obj in abc_xyz_data) {
-        //console.log(abc_xyz_data[obj].abc_xyz_classification);
-        (0, _jquery2.default)("<tr><td><a href=\"abcxyz/" + abc_xyz_data[obj].abc_xyz_classification + "\">" + abc_xyz_data[obj].abc_xyz_classification + "</a>" + "<td>" + symbols + format_number(abc_xyz_data[obj].total_revenue) + "</td>" + "<td>" + symbols + format_number(abc_xyz_data[obj].total_shortages) + "</td>" + "<td>" + symbols + format_number(abc_xyz_data[obj].total_excess) + "</td>" + "</td></tr>").insertAfter("#classification-table tr:last");
-    }
-
-    var max_shortage = 0;
-    var max_class;
-    var max_excess = 0;
-    var excess_class;
-    var total_shortages = 0;
-    var total_excess = 0;
-    var item;
-    var tempValue;
-    var tempClass;
-    for (item in abc_xyz_data) {
-        if (abc_xyz_data[item].total_shortages > max_shortage) {
-            max_shortage = abc_xyz_data[item].total_shortages;
-            max_class = abc_xyz_data[item].abc_xyz_classification;
-        }
-        if (abc_xyz_data[item].total_excess > max_excess) {
-            max_excess = abc_xyz_data[item].total_excess;
-            excess_class = abc_xyz_data[item].abc_xyz_classification;
-        }
-        total_shortages += abc_xyz_data[item].total_shortages;
-        total_excess += abc_xyz_data[item].total_excess;
-    }
-
-    (0, _jquery2.default)("#lg-shortage-classification").append().html("<h1><strong>" + symbols + format_number(max_shortage) + "</strong></h1>").find("> h1").css("color", "#2176C7");
-    (0, _jquery2.default)("#lg-shortage-classification-class").append().html("<h1><strong>" + max_class + "</strong></h1>").find("> h1").css("color", "#2176C7");
-    (0, _jquery2.default)("#lg-excess-classification").append().html("<h1><strong>" + symbols + format_number(max_excess) + "</strong></h1>").find("> h1").css("color", "#2176C7");
-    (0, _jquery2.default)("#lg-excess-classification-class").append().html("<h1><strong>" + excess_class + "</strong></h1>").find("> h1").css("color", "#2176C7");
-    (0, _jquery2.default)("#lg-total-shortage").append().html("<h1><strong>" + symbols + format_number(total_shortages) + "</strong></h1>").find("> h1").css("color", "#2176C7");
-    (0, _jquery2.default)("#lg-total-excess").append().html("<h1><strong>" + symbols + format_number(total_excess) + "</strong></h1>").find("> h1").css("color", "#2176C7");
-}
-
 var RenderPieChart = function () {
     function RenderPieChart(data, id) {
         _classCallCheck(this, RenderPieChart);
@@ -752,26 +601,245 @@ var RenderPieChart = function () {
             });
         }
     }, {
-        key: 'excess_classification',
-        value: function excess_classification() {}
+        key: 'classification',
+        value: function classification(id) {
+            var width = 350;
+            var height = 350;
+            var radius = 175;
+            var colors = d3.scale.ordinal().range(['#259286', '#2176C7', '#FCF4DC', 'white', '#819090', '#A57706', '#EAE3CB', '#2e004d']);
+
+            var pieData = unpack.classification(this.data, 'revenue');
+            //console.log(pieData);
+
+            var pie = new d3.layout.pie().value(function (d) {
+                //console.log(d[1]);
+                return d[1];
+            });
+
+            var arc = new d3.svg.arc().outerRadius(radius);
+
+            var myChart = d3.select(this.id).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + (width - radius) + ',' + (height - radius) + ')').selectAll('path').data(pie(pieData)).enter().append('g').attr('class', 'slice');
+
+            var slices = d3.selectAll('g.slice').append('path').attr('fill', function (d, i) {
+                return colors(i);
+            }).attr('opacity', .6).attr('d', arc);
+
+            var text = d3.selectAll('g.slice').append('text').text(function (d, i) {
+                //console.log(d.data[0]);
+
+                return d.data[0];
+            }).attr('text-anchor', 'middle').attr('fill', 'white').attr('transform', function (d) {
+                d.innerRadius = 0;
+                d.outerRadius = radius;
+                return 'translate(' + arc.centroid(d) + ')';
+            });
+        }
     }]);
 
     return RenderPieChart;
 }();
 
+function create_shortages_table(data) {
+    var total_shortage = 0;
+    //console.log(data.objects);
+    //var max_shortage = Math.max(data.shortage_cost);
+    //console.log(currency_symbol_allocator("AFN"));
+
+    (0, _jquery2.default)("#shortage-table").append().html("<tr id='first'><th>SKU</th><th>Quantity on Hand</th><th>Average Orders</th>" + "<th>Shortage</th><th>Shortage Cost</th><th>Safety Stock</th><th>Reorder Level</th> " + "<th>Percentage Contribution</th><th>Revenue Rank</th><th>Classification</th></tr>");
+    var percentage_stockoout = 0;
+    var t = [];
+    var largest = 0;
+    var understocked_qoh = 0;
+    var understocked_sku;
+    var understocked_rol;
+    var understocked_id;
+    for (var i = 0; i < data.objects.length; i++) {
+        //console.log(data.objects[i].shortage_cost);
+        var symbols = currency_symbol_allocator(data.objects[i].currency.currency_code);
+        total_shortage += data.objects[i].shortage_cost;
+        var currency_code = currency_symbol_allocator(data.objects[i].currency.currency_code);
+
+        (0, _jquery2.default)("<tr><td><a href=\"sku_detail/" + data.objects[i].sku_id + "\">" + data.objects[i].sku.sku_id + "</a></td>" + "<td>" + format_number(data.objects[i].quantity_on_hand) + "</td>" + "<td>" + format_number(Math.round(data.objects[i].average_orders)) + "</td>" + "<td>" + data.objects[i].shortages + "</td>" + "<td>" + currency_code + format_number(data.objects[i].shortage_cost) + "</td>" + "<td>" + data.objects[i].safety_stock + "</td>" + "<td>" + data.objects[i].reorder_level + "</td>" + "<td>" + Math.round(data.objects[i].percentage_contribution_revenue * 100) + "%</td>" + "<td>" + data.objects[i].revenue_rank + "</td>" + "<td><a href=\"abcxyz/" + data.objects[i].abc_xyz_classification + "\">" + data.objects[i].abc_xyz_classification + "</a></td></tr>").insertAfter("#shortage-table tr:last");
+        var shortage_sku_id;
+        var shortage_units;
+        var shortage_id;
+        if (parseInt(data.objects[i].shortage_cost) > parseInt(largest)) {
+            largest = data.objects[i].shortage_cost;
+            //console.log(parseInt(largest));
+            shortage_id = data.objects[i].sku.id;
+            shortage_sku_id = data.objects[i].sku.sku_id;
+            shortage_units = data.objects[i].shortages;
+        }
+
+        if (parseInt(data.objects[i].quantity_on_hand) < parseInt(data.objects[i].safety_stock) / 2) {
+            percentage_stockoout += 1;
+        }
+        var temp_net_stock = data.objects[i].quantity_on_hand - data.objects[i].reorder_level;
+        if (Math.abs(temp_net_stock) > understocked_qoh) {
+            understocked_qoh = data.objects[i].quantity_on_hand;
+            understocked_sku = data.objects[i].sku.sku_id;
+            understocked_rol = data.objects[i].reorder_level;
+            understocked_id = data.objects[i].sku.id;
+        }
+    }
+
+    // Percentage of top 10 SKU likely to face a stock-out situation. SKU is at risk below 50% of the safety stock.
+    //This should be moved into the main library.
+    percentage_stockoout = parseInt(percentage_stockoout) / data.objects.length * 100;
+
+    //Total Shortage of the to ten.
+    //console.log(percentage_stockoout);
+    (0, _jquery2.default)("#total-shortage").append().html("<h1><strong>" + symbols + format_number(total_shortage) + "</strong></h1>").find("> h1").css("color", "white");
+
+    // top shortage SKU id
+    (0, _jquery2.default)("#lg-shortage-sku").append().html("<a href=\"sku_detail/" + shortage_id + "\">" + "<strong>" + shortage_sku_id + "</strong></a>").find("> h1").css("color", "#2176C7");
+
+    //largest shortage cost
+    (0, _jquery2.default)("#lg-shortage-cost").append().html("<h1 class='slate-text-lg'><strong>" + symbols + format_number(largest) + "</strong></h1>").find("> h1").css("color", "white");
+
+    //units for largest shortage cost.
+    (0, _jquery2.default)("#lg-shortage-units").append().html("<h1><strong>" + format_number(shortage_units) + " units" + "</strong></h1>").find("> h1").css("color", "#819090");
+
+    //percentage of SKUs likely to experience stock-out
+    (0, _jquery2.default)("#shortage-percentage").append().html("<h1><strong>" + percentage_stockoout + "%" + "</strong></h1>").find("> h1").css("color", "#819090");
+
+    (0, _jquery2.default)("#understocked-sku").append().html("<a href=\"sku_detail/" + understocked_id + "\">" + "<strong>" + understocked_sku + "</strong></a>").find("> h1").css("color", "#2176C7");
+
+    (0, _jquery2.default)("#understocked-qoh").append().html("<h1><strong>" + "qty on hand: " + understocked_qoh + " units" + "</strong></h1>").find("> h1").css("color", "#819090");
+
+    (0, _jquery2.default)("#understocked_rol").append().html("<h1><strong>" + "reorder level: " + understocked_rol + " units" + "</strong></h1>").find("> h1").css("color", "#819090");
+}
+
+function create_excess_table(data) {
+    var total_excess = 0,
+        percentage_excess = 0;
+
+    (0, _jquery2.default)("#excess-table").append().html("<tr id='first'><th>SKU</th><th>Quantity on Hand</th><th>Average Orders</th>" + "<th>Excess</th><th>Excess Cost</th><th>Excess Inventory %</th><th>Safety Stock</th><th>Reorder Level</th><th>Classification</th></tr>");
+    //console.log(excess_data);
+    var obj;
+    var largest = 0;
+    var excess_sku_id;
+    var excess_units;
+    var excess_cost;
+    var holding_cost = 0;
+    var excess_id;
+
+    for (var i = 0; i < data.objects.length; i++) {
+        //console.log(excess_data[obj].sku_id);
+        total_excess += data.objects[i].excess_cost;
+        holding_cost += data.objects[i].quantity_on_hand * (data.objects[i].unit_cost * 0.25); //change later to be chosen by use
+        var symbols = currency_symbol_allocator(data.objects[i].currency.currency_code);
+        percentage_excess = Math.round(data.objects[i].excess_stock / data.objects[i].quantity_on_hand * 100);
+        (0, _jquery2.default)("<tr><td><a href=\"sku_detail/" + data.objects[i].sku_id + "\">" + data.objects[i].sku.sku_id + "</td>" + "<td>" + data.objects[i].quantity_on_hand + "</td>" + "<td>" + data.objects[i].average_orders + "</td>" + "<td>" + data.objects[i].excess_stock + "</td>" + "<td>" + currency_symbol_allocator(data.objects[i].currency.currency_code) + format_number(data.objects[i].excess_cost) + "</td>" + "<td>" + percentage_excess + "%" + "</td>" + "<td>" + data.objects[i].safety_stock + "</td>" + "<td>" + data.objects[i].reorder_level + "</td>" + "<td><a href=\"abcxyz/" + data.objects[i].abc_xyz_classification + "\">" + data.objects[i].abc_xyz_classification + "</a></td></tr>").insertAfter("#excess-table tr:last");
+
+        if (parseInt(data.objects[i].excess_cost) > parseInt(largest)) {
+            largest = data.objects[i].excess_cost;
+            //console.log(parseInt(largest));
+            excess_sku_id = data.objects[i].sku.sku_id;
+            excess_units = data.objects[i].excess_stock;
+            excess_cost = data.objects[i].excess_cost;
+            excess_id = data.objects[i].sku.id;
+        }
+    }
+
+    _jquery2.default.ajax({
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        url: 'http://127.0.0.1:5000/api/total_inventory',
+        dataType: 'json',
+        async: true,
+        data: "{}",
+        success: function success(data) {
+            // console.log(data);
+            var items = [].concat(_toConsumableArray(data.json_list));
+            //console.log(items.length);
+            var total_invetory = 0;
+            for (i = 0; i < items.length; i++) {
+
+                total_invetory += items[i].quantity_on_hand * items[i].unit_cost;
+
+                //console.log(total_invetory);
+            }
+            var percentage_excess;
+            //console.log(total_invetory);
+            percentage_excess = Math.round(total_excess / total_invetory * 100, 0);
+
+            (0, _jquery2.default)("#excess-inventory-sl").append().html("<h1><strong>" + percentage_excess + "%" + "</strong></h1>").find("> h1").css("color", "#D11C29");
+        },
+        error: function error(result) {}
+    });
+
+    // top excess pebble
+    (0, _jquery2.default)("#lg-excess-sku").append().html("<a href=\"sku_detail/" + excess_id + "\">" + "<strong>" + excess_sku_id + "</strong></a>").find("> h1").css("color", "#2176C7");
+    (0, _jquery2.default)("#lg-excess-cost").append().html("<h1 class='slate-text-lg'><strong>" + symbols + format_number(excess_cost) + "</strong></h1>").find("> h1").css("color", "white");
+    (0, _jquery2.default)("#lg-excess-units").append().html("<h1><strong>" + format_number(excess_units) + " units" + "</strong></h1>").find("> h1").css("color", "#819090");
+    (0, _jquery2.default)("#total-excess").append().html("<h1 class='slate-text-lg'><strong>" + symbols + format_number(total_excess) + "</strong></h1>").find("> h1").css("color", "white");
+
+    (0, _jquery2.default)("#excess-holding-cost-sl").append().html("<h1 class='slate-text-lg'><strong>" + symbols + format_number(holding_cost) + "</strong></h1>").find("> h1").css("color", "white");
+}
+
+function create_classification_table(data) {
+
+    var abc_xyz_data = new unpack.abc_xyz(data, 'table');
+    var currency_code;
+
+    (0, _jquery2.default)("#classification-table").append().html("<tr id='classification-row'><th>Classification</th><th>Revenue</th><th>Shortages</th>" + "<th>Excess</th></tr>");
+    //console.log(excess_data);
+    var code = (0, _jquery2.default)('#currency-code').text().trim(" ");
+    //console.log(code);
+    var symbols = currency_symbol_allocator(code);
+    var obj;
+    //console.log(abc_xyz_data[0].currency_id);
+    var d = currency_fetch(abc_xyz_data[0].currency_id);
+    for (obj in abc_xyz_data) {
+        //console.log(abc_xyz_data[obj].abc_xyz_classification);
+        (0, _jquery2.default)("<tr><td><a href=\"abcxyz/" + abc_xyz_data[obj].abc_xyz_classification + "\">" + abc_xyz_data[obj].abc_xyz_classification + "</a>" + "<td>" + symbols + format_number(abc_xyz_data[obj].total_revenue) + "</td>" + "<td>" + symbols + format_number(abc_xyz_data[obj].total_shortages) + "</td>" + "<td>" + symbols + format_number(abc_xyz_data[obj].total_excess) + "</td>" + "</td></tr>").insertAfter("#classification-table tr:last");
+    }
+
+    var max_shortage = 0;
+    var max_class;
+    var max_excess = 0;
+    var excess_class;
+    var total_shortages = 0;
+    var total_excess = 0;
+    var item;
+    var tempValue;
+    var tempClass;
+    for (item in abc_xyz_data) {
+        if (abc_xyz_data[item].total_shortages > max_shortage) {
+            max_shortage = abc_xyz_data[item].total_shortages;
+            max_class = abc_xyz_data[item].abc_xyz_classification;
+        }
+        if (abc_xyz_data[item].total_excess > max_excess) {
+            max_excess = abc_xyz_data[item].total_excess;
+            excess_class = abc_xyz_data[item].abc_xyz_classification;
+        }
+        total_shortages += abc_xyz_data[item].total_shortages;
+        total_excess += abc_xyz_data[item].total_excess;
+    }
+
+    (0, _jquery2.default)("#lg-shortage-classification").append().html("<h1 class='slate-text-lg'><strong>" + symbols + format_number(max_shortage) + "</strong></h1>").find("> h1").css("color", "white");
+    (0, _jquery2.default)("#lg-shortage-classification-class").append().html("<a href=\"abcxyz/" + max_class + "\">" + "<strong>" + max_class + "</strong></a>").find("> h1").css("color", "#2176C7");
+    (0, _jquery2.default)("#lg-total-shortage").append().html("<h1 class='slate-text-lg'><strong>" + symbols + format_number(total_shortages) + "</strong></h1>").find("> h1").css("color", "white");
+    (0, _jquery2.default)("#lg-shortage-percentage").append().html("<h1><strong>" + Math.round(max_shortage / total_shortages * 100) + "% of Total Shortage" + "</strong></h1>").find("> h1").css("color", "#708284");
+
+    (0, _jquery2.default)("#lg-excess-classification").append().html("<h1 class='slate-text-lg'><strong>" + symbols + format_number(max_excess) + "</strong></h1>").find("> h1").css("color", "white");
+    (0, _jquery2.default)("#lg-excess-classification-class").append().html("<a href=\"abcxyz/" + excess_class + "\">" + "<strong>" + excess_class + "</strong>").find("> h1").css("color", "#2176C7");
+    (0, _jquery2.default)("#lg-excess-percentage").append().html("<h1><strong>" + Math.round(max_excess / total_excess * 100) + "% of Total Excess" + "</strong></h1>").find("> h1").css("color", "#708284");
+    (0, _jquery2.default)("#lg-total-excess").append().html("<h1 class='slate-text-lg'><strong>" + symbols + format_number(total_excess) + "</strong></h1>").find("> h1").css("color", "white");
+}
+
 // --------------Graphing-----------------------
 
 // change functions to graph rendering class
-
-
-function render_revenue_graph(data, id) {
-    var barData = unpack.sku_detail(data, "revenue"); //change to enums
+/*function render_revenue_graph(data, id) {
+    var barData = unpack.sku_detail(data, "revenue");//change to enums
     var tempData = [];
 
     //console.log(barData);
     //var height = 350,
     //   width = 300,
-    var margin = { top: 30, right: 20, bottom: 40, left: 90 };
+    var margin = {top: 30, right: 20, bottom: 40, left: 90};
 
     var height = 350 - margin.top - margin.bottom;
     var width = 400 - margin.left - margin.right;
@@ -780,57 +848,108 @@ function render_revenue_graph(data, id) {
 
     var tempColor;
 
-    var yScale = d3.scale.linear().domain([0, d3.max(barData)]) //  calculates the max range of the chart area
-    .range([0, height]); // the range of the chart area
 
-    var xScale = d3.scale.ordinal().domain(d3.range(0, barData.length)).rangeBands([0, width]);
+    var yScale = d3.scale.linear()
+        .domain([0, d3.max(barData)]) //  calculates the max range of the chart area
+        .range([0, height]); // the range of the chart area
 
-    var colors = d3.scale.linear().domain([0, barData.length * .33, barData.length * .88, barData.length]).range(['#FFB832', '#C61C6F', '#C31C6F', '#382982']); //the number of values in the domain must match the number of values in the range
+    var xScale = d3.scale.ordinal()
+        .domain(d3.range(0, barData.length))
+        .rangeBands([0, width]);
 
-    var myChart = d3.select(id).append('svg').style('background', 'transparent').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom).append('g').attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')').selectAll('rect').data(barData).enter().append('rect') //the data command reads the bar data and the appends the selectall rect for each piece of data
-    .style('fill', colors).attr('width', xScale.rangeBand()).attr('height', 0).attr('x', function (d, i) {
-        return xScale(i);
-    }).attr('y', height).on('mouseover', function (d) {
+    var colors = d3.scale.linear()
+        .domain([0, barData.length * .33, barData.length * .88, barData.length])
+        .range(['#FFB832', '#C61C6F', '#C31C6F', '#382982']); //the number of values in the domain must match the number of values in the range
 
-        tooltip.transaction().style('opacity', 0.5);
-        tooltip.html(d).style('left', d3.event.pageX - 35 + 'px').style('top', d3.event.pageY - 30 + 'px');
+    var myChart = d3.select(id).append('svg')
+        .style('background', 'transparent')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom)
+        .append('g')
+        .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
+        .selectAll('rect').data(barData)
+        .enter().append('rect') //the data command reads the bar data and the appends the selectall rect for each piece of data
+        .style('fill', colors)
+        .attr('width', xScale.rangeBand())
+        .attr('height', 0)
+        .attr('x', function (d, i) {
+            return xScale(i);
+        })
+        .attr('y', height)
+        .on('mouseover', function (d) {
 
-        tempColor = this.style.fill;
+            tooltip.transaction()
+                .style('opacity', 0.5);
+            tooltip.html(d)
+                .style('left', (d3.event.pageX - 35) + 'px')
+                .style('top', (d3.event.pageY - 30) + 'px');
 
-        d3.select(this).style('opacity', .5).style('fill', '#389334');
-    }).on('mouseout', function (d) {
-        d3.select(this).style('opacity', 1).style('fill', tempColor);
-    });
+            tempColor = this.style.fill;
 
-    myChart.transition().attr('height', function (d) {
-        return yScale(d);
-    }).attr('y', function (d) {
-        return height - yScale(d);
-    }).delay(function (d, i) {
-        return i * 20;
-    }).duration(1000).ease('elastic');
+            d3.select(this)
+                .style('opacity', .5)
+                .style('fill', '#389334')
 
-    var tooltip = d3.select('body').append('div').style('position', 'absolute').style('background', 'white').style('padding', '0 10px').style('opacity', 0);
+        }).on('mouseout', function (d) {
+            d3.select(this)
+                .style('opacity', 1)
+                .style('fill', tempColor)
+        });
 
-    var vGuideScale = d3.scale.linear().domain([0, d3.max(barData)]).range([height, 0]); //reversing the order of the scale on the y axis
-    var vAxis = d3.svg.axis().scale(vGuideScale).orient('left').ticks(10);
+    myChart.transition()
+        .attr('height', function (d) {
+            return yScale(d);
+        })
+        .attr('y', function (d) {
+            return height - yScale(d);
+        })
+        .delay(function (d, i) {
+            return i * 20;
+        })
+        .duration(1000)
+        .ease('elastic');
+
+
+    var tooltip = d3.select('body')
+        .append('div')
+        .style('position', 'absolute')
+        .style('background', 'white')
+        .style('padding', '0 10px')
+        .style('opacity', 0);
+
+    var vGuideScale = d3.scale.linear()
+        .domain([0, d3.max(barData)]).range([height, 0]); //reversing the order of the scale on the y axis
+    var vAxis = d3.svg.axis()
+        .scale(vGuideScale)
+        .orient('left')
+        .ticks(10);
 
     var vGuide = d3.select('svg').append('g');
     vAxis(vGuide);
     vGuide.attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
-    vGuide.selectAll('path').style({ fill: 'none', stroke: "#000" });
-    vGuide.selectAll('line').style({ stroke: "#000" });
+    vGuide.selectAll('path')
+        .style({fill: 'none', stroke: "#000"});
+    vGuide.selectAll('line')
+        .style({stroke: "#000"});
 
-    var hAxis = d3.svg.axis().scale(xScale).orient('bottom').tickValues(xScale.domain().filter(function (d, i) {
-        return !(i % (barData.length / 10));
-    }));
+    var hAxis = d3.svg.axis()
+        .scale(xScale)
+        .orient('bottom')
+        .tickValues(xScale.domain().filter(function (d, i) {
+            return !(i % (barData.length / 10));
+        }));
 
     var hGuide = d3.select('svg').append('g');
     hAxis(hGuide);
     hGuide.attr('transform', 'translate(' + margin.left + ', ' + (height + margin.top) + ')');
-    hGuide.selectAll('path').style({ fill: 'none', stroke: "#000" });
-    hGuide.selectAll('line').style({ stroke: "#000" });
+    hGuide.selectAll('path')
+        .style({fill: 'none', stroke: "#000"});
+    hGuide.selectAll('line')
+        .style({stroke: "#000"});
+
+
 }
+*/
 
 function render_shortages_chart(data, id) {
     var bardata = unpack.shortages(data, 'chart');

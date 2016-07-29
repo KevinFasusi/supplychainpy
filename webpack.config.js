@@ -4,5 +4,5 @@ module.exports = {
         path: './supplychainpy',
         filename: './supplychainpy/reporting/static/build/bundle.js'
     },
-    devtool: 'source-map'
+    devtool: 'source-map',
 };

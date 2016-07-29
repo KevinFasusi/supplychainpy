@@ -18,7 +18,8 @@
     </div>
     <div class="  col-md-2">
         <div id="currency-dropdown" class="dropdown">
-            <button id="currency-dropdown-btn" class="btn btn-sm btn-primary dropdown-toggle " id="menu1" type="button" data-toggle="dropdown">
+            <button id="currency-dropdown-btn" class="btn btn-sm btn-primary dropdown-toggle " id="menu1" type="button"
+                    data-toggle="dropdown">
                 Currency
                 <span class="caret"></span></button>
             <ul id="currency-list" class="dropdown-menu scrollable-menu " role="menu" aria-labelledby="menu1">
@@ -36,15 +37,17 @@
             <div class=" row">
                 <h2>Classification Breakdown</h2>
                 <div class=" slate col-md-3">
-                    <h1>Highest Shortage: </h1>
+                    <h1>Largest Shortage: </h1>
                     <h1 id="lg-shortage-classification-class"></h1>
                     <h1 id="lg-shortage-classification"></h1>
+                    <h1 id="lg-shortage-percentage"></h1>
                     <h1></h1>
                 </div>
                 <div class=" slate col-md-3">
-                    <h1>Highest Excess: </h1>
+                    <h1>Largest Excess: </h1>
                     <h1 id="lg-excess-classification-class"></h1>
                     <h1 id="lg-excess-classification"></h1>
+                    <h1 id="lg-excess-percentage"></h1>
                     <h1></h1>
                 </div>
                 <div class=" slate col-md-3">
@@ -65,7 +68,7 @@
         </div>
         <div class=" row">
             <div class=" pad-chart-col col-md-6">
-                <div id="class-chart"></div>
+                <div id="revenue-class-chart"></div>
             </div>
             <div class=" pad-chart-col col-md-4">
                 <div id="ax-pie">
@@ -90,7 +93,7 @@
                 <h2> Top 10 Shortages</h2>
                 <div class=" slate col-md-3">
                     <h1>Largest Shortage: </h1>
-                    <div id="popup"></div>
+                    <!--<div id="popup"></div>-->
                     <h1 id="lg-shortage-sku"></h1>
                     <h1 id="lg-shortage-cost"></h1>
                     <h1 id="lg-shortage-units"></h1>
