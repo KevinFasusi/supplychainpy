@@ -76,6 +76,8 @@ def load(file_path: str, location: str = None):
     elif location is not None and os.name == 'nt':
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}\\reporting.db'.format(location)
 
+    print('Loading data analysis for reporting suite...')
+
     db.create_all()
     fx = currency_codes()
     for key, value in fx.items():

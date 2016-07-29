@@ -204,5 +204,5 @@ def load_db(file: str, location: str = None):
     if location is not None:
         load.load(file, location)
     else:
-      load.load(file)
+        load.load(file)
 

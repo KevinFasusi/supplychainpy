@@ -61,19 +61,22 @@ def main():
     #print(np.mean(pd_data))
     pd.set_option('display.float_format', lambda x: '%.3f' % x)
     dataset = pd.DataFrame(data=row_vector)
-    print(dataset.mean())
+    print(dataset[0].mean())
 
     mean_expected_value = dataset.mean()
-    print(dataset[0])
-    squared_error =  pd.Series((mean_expected_value - dataset[0].astype(float)) **2)
-    print(squared_error)
-    #boston = load_boston()
-    #california = fetch_california_housing()
-    #dataset2 = pd.DataFrame(boston.data, columns=boston.feature_names)
-    #dataset2['target'] = boston.target
-    #print(dataset2['target'])
-    #print(dataset2['target'].mean())
 
+    #squared_error =  pd.Series([mean_expected_value - (x ** 2) for x in dataset[0].astype(float)])
+   # print(squared_error)
+    boston = load_boston()
+    #california = fetch_california_housing()
+    dataset2 = pd.DataFrame(boston.data, columns=boston.feature_names)
+    dataset2['target'] = boston.target
+    print(dataset2['target'])
+    #print(dataset2['target'].mean())
+    squared_error =  pd.Series(mean_expected_value - dataset['target']) ** 2
+    print(squared_error)
+    sse = sum(squared_error)
+    density_plot = squared_error.plot('hist')
     #mean_expected_value = np.mean(dataset2)
     #print(mean_expected_value)
 
