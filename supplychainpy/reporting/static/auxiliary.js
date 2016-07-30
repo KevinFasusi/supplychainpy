@@ -26,13 +26,30 @@ $("document").ready(function () {
 
     load_currency_codes();
     // ajax request for json containing sku related. Is used to: builds revenue chart (#chart).
-    var ay = [{"name": "abc_xyz_classification", "op": "eq", "val": "AY"}];
-    var filters = [{"name": "shortage_cost", "op": "gt", "val": 0, "direction": "desc", "limit": 10}];
+    var ay = [{
+        "name": "abc_xyz_classification",
+        "op": "eq",
+        "val": "AY",
+        "direction": "desc",
+        "limit": 10
+    }, {"name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10}];
+    var ax = [{
+        "name": "abc_xyz_classification",
+        "op": "eq",
+        "val": "AX",
+        "direction": "desc",
+        "limit": 10
+    }, {"name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10}];
+
+    var filters = [{
+        "name": "shortage_rank",
+        "op": "le",
+        "val": 10,
+        "direction": "desc",
+        "limit": 10,
+        "results_per_page": 10
+    }];
     var excess_filters = [{"name": "excess_cost", "op": "gt", "val": 0, "direction": "desc", "limit": 10}];
-    var classification_filter = [{"name": "sum", "field": "shortage_cost"}, {
-        "name": "sum",
-        "field": "excess_cost"
-    }, {"name": "sum", "field": "revenue"}, {"name": "abcxyz_classification"}];
 
     $.ajax({
         type: "GET",
@@ -51,24 +68,52 @@ $("document").ready(function () {
 
         }
     });
+    //build force node graph on classification view page, is dependent on jinja template logic inserting a tag on the page
+    //to identify what classification view has been triggered.
+    var ay_val = $('#AY-node').length;
+    var ax_val = $('#AX-node').length;
+    console.log(ax_val);
+    if (ay_val > 0) {
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: 'http://127.0.0.1:5000/api/inventory_analysis',
+            dataType: 'json',
+            async: true,
+            data: {"q": JSON.stringify({"filters": ay})},
+            success: function (data) {
+                //console.log(data.objects);
+                var node_chart = new RenderForceChart(data, '#node-chart');
+                node_chart.classification_force();
+            },
+            error: function (result) {
 
-    $.ajax({
-        type: "GET",
-        contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:5000/api/inventory_analysis',
-        dataType: 'json',
-        async: true,
-        data: {"q": JSON.stringify({"filters": ay})},
-        success: function (data) {
-            //console.log(data.objects);
-            var node_chart = new RenderForceChart(data, '#node-chart');
-            node_chart.classification_force();
-        },
-        error: function (result) {
+
+            }
+        });
+    } else if (ax_val > 0) {
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: 'http://127.0.0.1:5000/api/inventory_analysis',
+            dataType: 'json',
+            async: true,
+            data: {"q": JSON.stringify({"filters": ax})},
+            success: function (data) {
+                //console.log(data.objects);
+                if (data != null) {
+                    var node_chart2 = new RenderForceChart(data, '#node-chart');
+                    node_chart2.classification_force();
+                }
+
+            },
+            error: function (result) {
 
 
-        }
-    });
+            }
+        });
+    }
+
 
     $.ajax({
         type: "GET",
@@ -168,7 +213,7 @@ function bar_chart_sku() {
 }
 
 function print_me() {
-    console.log("me");
+    //console.log("me");
 }
 
 function format_number(num) {
@@ -271,7 +316,7 @@ var unpack = {
 
                     case 'chart':
                         shortages_data.push([tempData[i].sku_id, tempData[i].shortage_cost]);
-                        console.log(shortages_data);
+                        //console.log(shortages_data);
                         break;
 
                     case 'table':
@@ -390,7 +435,7 @@ var unpack = {
 
                     case 'revenue':
                         classification_data.push([tempData[i].abc_xyz_classification, tempData[i].total_revenue]);
-                        console.log(classification_data);
+                        //console.log(classification_data);
                         break;
 
                     case 'shortage':
@@ -754,7 +799,7 @@ class RenderForceChart {
     }
 
     classification_force() {
-        var w = 400,
+        var w = 800,
             h = 400;
 
         var circleWidth = 5;
@@ -780,12 +825,16 @@ class RenderForceChart {
             "yellowgreen": "#738A05"
         };
 
-        var nodes1 = [{name: this.data.objects[0].currency.abc_xyz_classification}];
-
-            for (var s = 0; s < this.data.objects.length; s++) {
-
-              nodes1.push({name: this.data.objects[s].sku.sku_id, target: [0]});
+        var nodes1 = [];
+        for (var s = 0; s < this.data.objects.length; s++) {
+            if (s == 0) {
+                nodes1.push({name: this.data.objects[s].abc_xyz_classification})
+            } else {
+                nodes1.push({name: this.data.objects[s].sku.sku_id, target: [0]});
             }
+
+
+        }
 
         var nodes = [
             {name: "Parent"},
@@ -838,9 +887,60 @@ class RenderForceChart {
                 return d.y;
             })
             .attr('r', circleWidth)
-            .attr('fill', palette.pink);
+            .attr('fill', function (d, i) {
+                if (i > 0) {
+                    return palette.blue
+                }
+                else {
+                    return palette.pink
+                }
+            });
 
         node.append('text')
+            .text(function (d) {
+                return d.name
+
+            })
+            .attr('fill', function (d, i) {
+                if (i > 0) {
+                    return palette.paleyellow
+                }
+                else {
+                    return palette.blue
+                }
+            })
+            .attr('x', function (d, i) {
+                if (i > 0) {
+                    return circleWidth + 3
+                }
+                else {
+                    return circleWidth - 5
+                }
+            }).attr('y', function (d, i) {
+            if (i > 0) {
+                return circleWidth
+            }
+            else {
+                return circleWidth - 8
+            }
+        })
+            .attr('font-family', 'Roboto Slab')
+            .attr('text-anchor', function (d, i) {
+                if (i > 0) {
+                    return 'beginning'
+                }
+                else {
+                    return 'end'
+                }
+            })
+            .attr('font-size', function (d, i) {
+                if (i > 0) {
+                    return '1em'
+                }
+                else {
+                    return '1.5em'
+                }
+            });
 
         force.on('tick', function (e) {
             node.attr('transform', function (d, i) {

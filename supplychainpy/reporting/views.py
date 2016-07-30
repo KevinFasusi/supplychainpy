@@ -134,7 +134,7 @@ class InventoryAnalysis(db.Model):
             'max_order': self.max_order,
             'shortage_cost': float(self.shortage_cost),
             'quantity_on_hand': self.quantity_on_hand,
-            'inventory_turns' : self.inventory_turns
+            'inventory_turns': self.inventory_turns
         }
 
 
@@ -147,7 +147,8 @@ class Orders(db.Model):
 
 
 manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
-manager.create_api(InventoryAnalysis, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
+manager.create_api(InventoryAnalysis, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True,
+                   results_per_page=10, max_results_per_page=500)
 manager.create_api(Currency, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
 manager.create_api(Orders, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
 
@@ -211,9 +212,9 @@ def sku(sku_id: str = None):
         inven = db.session.query(InventoryAnalysis.id).filter(InventoryAnalysis.sku_id == sku.id).first()
         orders = db.session.query(Orders).filter(Orders.analysis_id == inven.id).order_by(
             asc(Orders.rank)).all()
-        #inventory = db.session.query(InventoryAnalysis).all()
+        # inventory = db.session.query(InventoryAnalysis).all()
 
-    return flask.render_template('sku.html', inventory=inventory, orders= orders)
+    return flask.render_template('sku.html', inventory=inventory, orders=orders)
 
 
 @app.route('/reporting/api/v1.0/abc_summary', methods=['GET'])

@@ -15,25 +15,11 @@
                     <th>Class</th>
                     <th>Safety Stock (qty)</th>
                     <th>Revenue</th>
-                    <th>Reorder Level (qty)</th>
                     <th>Economic Order (qty)</th>
-                    <th>Standard Deviation</th>
-                    <!--<th>Demand Variability</th>-->
                     <th>Average Orders (qty)</th>
                     <th>Shortage Units (qty)</th>
                     <th>Excess Stock (qty) (qty)</th>
-                    <th>Reorder Quantity</th>
-                    <!--<th>EOQ Variable Cost</th>-->
-                    <th>Unit Cost</th>
-                    <!--<th>Excess Cost</th>
-                    <th>Percentage Contribution</th>
-                    <th>Retail Price</th>
-                    <th>Gross Profit Margin</th>
-                    <th>Min Order (qty)</th>
-                    <th>Safety Stock Cost</th>
-                    <th>Markup Percentage</th>
-                    <th>Max Order</th>
-                    <th>Shortage Cost</th> -->
+                    <th>Shortage Cost</th>
                 </tr>
                 </thead>
                 {% for sku in inventory %}
@@ -42,25 +28,11 @@
                     <td><a href="abcxyz/{{sku.abc_xyz_classification}}">{{sku.abc_xyz_classification}}</a></td>
                     <td>{{sku.safety_stock}}</td>
                     <td>{{sku.revenue}}</td>
-                    <td>{{sku.reorder_level}}</td>
                     <td>{{sku.economic_order_quantity}}</td>
-                    <td>{{sku.standard_deviation}}</td>
-                    <!--<td>{{sku.demand_variability}}</td>-->
                     <td>{{sku.average_orders}}</td>
                     <td>{{sku.shortages}}</td>
                     <td>{{sku.excess_stock}}</td>
-                    <td>{{sku.reorder_quantity}}</td>
-                    <!--<td>{{sku.economic_order_variable_cost}}</td>-->
-                    <td>{{sku.unit_cost}}</td>
-                    <!-- <td>{{sku.excess_cost}}</td>
-                    <td>{{sku.percentage_contribution_revenue}}</td>
-                    <td>{{sku.retail_price}}</td>
-                    <td>{{sku.gross_profit_margin}}</td>
-                    <td>{{sku.min_order}}</td>
-                    <td>{{sku.safety_stock_cost}}</td>
-                    <td>{{sku.markup_percentage}}</td>
-                    <td>{{sku.max_order}}</td>
-                    <td>{{sku.shortage_cost}}</td>-->
+                    <td>{{sku.shortage_cost}}</td>
                 </tr>
                 {% endfor %}
             </div>

@@ -126,7 +126,7 @@ class OrdersAnalysis:
                    'excess_rank': '{}'.format(self._rank(sku_id=sku_id, attribute='excess_stock_cost')),
                    'excess_units': '{}'.format(selection.excess_stock),
                    'excess_cost': '{}'.format(Decimal(selection.excess_stock_cost)),
-                   'shortage_rank': '{}'.format(self._rank(sku_id=sku_id, attribute='shortage_cost')),
+                   'shortage_rank': self._rank(sku_id=sku_id, attribute='shortage_cost'),
                    'shortage_units': '{}'.format(round(selection.shortages)),
                    'shortage_cost': '{}'.format(selection.shortage_cost),
                    'safety_stock_units': '{}'.format(round(selection.safety_stock)),
@@ -142,7 +142,7 @@ class OrdersAnalysis:
                        Decimal(selection.quantity_on_hand) * Decimal(selection.unit_cost))),
                    'inventory_traffic_light': '{}'.format(self._quantity_on_hand_alert(selection))
                    }
-        # print(selection.total_orders,selection.unit_cost,selection.average_orders)
+        #print(self._rank(sku_id=sku_id, attribute='shortage_cost'))
         return summary
 
     def _rank(self, sku_id, attribute):

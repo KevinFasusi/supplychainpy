@@ -48,7 +48,7 @@
                 {% elif (sku.excess_stock < sku.shortages) %}
                 <h3>Status: <strong>Shortage</strong></h3>
                 <h3>Shortage Units: {{sku.shortages}}</h3>
-                <h3>Shortage Units: {{sku.shortage_cost}}</h3>
+                <h3>Shortage Cost: {{sku.shortage_cost}}</h3>
                 {% else %}
                 <h3>Status: <strong>Healthy</strong></h3>
                 {% endif %}

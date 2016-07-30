@@ -37,17 +37,17 @@ def main():
                                                           reorder_cost=Decimal(5000), file_type="csv",
                                                           length=12)]
 
-    # print([i['orders'].values() for i in ia])
-    orders = [i['orders'].values() for i in ia]
-    orders1 = [i for i in orders[0]]
-    orders2 = [i for i in orders1[0]]
-    vector = np.array(orders2)
-    #print(vector)
-    row_vector = vector.reshape((12, 1))
-    #print(row_vector)
-    column_vector = vector.reshape((1, 12))
-    #print(column_vector)
-    single_feature_matrix = vector.reshape((1, 12))
+    #print([i['orders'].values() for i in ia])
+   #orders = [i['orders'].values() for i in ia]
+   #orders1 = [i for i in orders[0]]
+   #orders2 = [i for i in orders1[0]]
+   #vector = np.array(orders2)
+   ##print(vector)
+   # row_vector = vector.reshape((12, 1))
+   # #print(row_vector)
+   # column_vector = vector.reshape((1, 12))
+   # #print(column_vector)
+   # single_feature_matrix = vector.reshape((1, 12))
     #print(single_feature_matrix)
     #pd_data = pd.Series(orders2, name='orders')
     #print(pd_data)
@@ -59,33 +59,33 @@ def main():
 
     #print(pd_data)
     #print(np.mean(pd_data))
-    pd.set_option('display.float_format', lambda x: '%.3f' % x)
-    dataset = pd.DataFrame(data=row_vector)
-    print(dataset[0].mean())
+    #pd.set_option('display.float_format', lambda x: '%.3f' % x)
+    #dataset = pd.DataFrame(data=row_vector)
+    #print(dataset[0].mean())
+#
+    #mean_expected_value = dataset.mean()
+#
+    ##squared_error =  pd.Series([mean_expected_value - (x ** 2) for x in dataset[0].astype(float)])
+   ## print(squared_error)
+    #boston = load_boston()
+    ##california = fetch_california_housing()
+    #dataset2 = pd.DataFrame(boston.data, columns=boston.feature_names)
+    #dataset2['target'] = boston.target
+    #print(dataset2['target'])
+    ##print(dataset2['target'].mean())
+    #squared_error =  pd.Series(mean_expected_value - dataset['target']) ** 2
+    #print(squared_error)
+    #sse = sum(squared_error)
+    #density_plot = squared_error.plot('hist')
+    ##mean_expected_value = np.mean(dataset2)
+    ##print(mean_expected_value)
+#
+    ## launch_report()
+    analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
+    skus = ['KR202-209', 'KR202-210', 'KR202-211']
 
-    mean_expected_value = dataset.mean()
-
-    #squared_error =  pd.Series([mean_expected_value - (x ** 2) for x in dataset[0].astype(float)])
-   # print(squared_error)
-    boston = load_boston()
-    #california = fetch_california_housing()
-    dataset2 = pd.DataFrame(boston.data, columns=boston.feature_names)
-    dataset2['target'] = boston.target
-    print(dataset2['target'])
-    #print(dataset2['target'].mean())
-    squared_error =  pd.Series(mean_expected_value - dataset['target']) ** 2
-    print(squared_error)
-    sse = sum(squared_error)
-    density_plot = squared_error.plot('hist')
-    #mean_expected_value = np.mean(dataset2)
-    #print(mean_expected_value)
-
-    # launch_report()
-    # analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
-    # skus = ['KR202-209', 'KR202-210', 'KR202-211']
-
-    # skus_description = [summarised for summarised in analysis_summary.describe_sku(*[i['sku'] for i in ia])]
-    # print(skus_description)
+    skus_description = [summarised for summarised in analysis_summary.describe_sku(*[i['sku'] for i in ia])]
+    print(skus_description)
 
     # top_ten_shortages = [item for item in analysis_summary.rank_summary(attribute="shortages", count=10, reverse=True)]
 
