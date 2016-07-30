@@ -82,6 +82,7 @@
 
 	    load_currency_codes();
 	    // ajax request for json containing sku related. Is used to: builds revenue chart (#chart).
+	    var ay = [{ "name": "abc_xyz_classification", "op": "eq", "val": "AY" }];
 	    var filters = [{ "name": "shortage_cost", "op": "gt", "val": 0, "direction": "desc", "limit": 10 }];
 	    var excess_filters = [{ "name": "excess_cost", "op": "gt", "val": 0, "direction": "desc", "limit": 10 }];
 	    var classification_filter = [{ "name": "sum", "field": "shortage_cost" }, {
@@ -99,6 +100,22 @@
 	        success: function success(data) {
 	            //console.log(data.objects);
 	            create_shortages_table(data);
+	            render_shortages_chart(data, '#shortage-chart');
+	        },
+	        error: function error(result) {}
+	    });
+
+	    _jquery2.default.ajax({
+	        type: "GET",
+	        contentType: "application/json; charset=utf-8",
+	        url: 'http://127.0.0.1:5000/api/inventory_analysis',
+	        dataType: 'json',
+	        async: true,
+	        data: { "q": JSON.stringify({ "filters": ay }) },
+	        success: function success(data) {
+	            //console.log(data.objects);
+	            var node_chart = new RenderForceChart(data, '#node-chart');
+	            node_chart.classification_force();
 	        },
 	        error: function error(result) {}
 	    });
@@ -113,38 +130,6 @@
 	        success: function success(data) {
 	            //console.log(data.objects);
 	            create_excess_table(data);
-	        },
-	        error: function error(result) {}
-	    });
-
-	    //$.ajax({
-	    //    type: "GET",
-	    //    contentType: "application/json; charset=utf-8",
-	    //    url: 'http://127.0.0.1:5000/api/inventory_analysis',
-	    //    dataType: 'json',
-	    //    async: true,
-	    //    data: {"function": JSON.stringify({"filters": classification_filter})},
-	    //    success: function (data) {
-	    //        console.log(data.objects);
-	    //        create_classification_table(data);
-	    //    },
-	    //    error: function (result) {
-	    //
-	    //
-	    //    }
-	    //
-	    //}
-
-	    _jquery2.default.ajax({
-	        type: "GET",
-	        contentType: "application/json; charset=utf-8",
-	        url: 'http://127.0.0.1:5000/reporting/api/v1.0/sku_detail',
-	        dataType: 'json',
-	        async: true,
-	        data: "{}",
-	        success: function success(data) {
-	            //console.log(data);
-	            render_revenue_graph(data, '#chart');
 	        },
 	        error: function error(result) {}
 	    });
@@ -165,25 +150,11 @@
 	            pie_chart2.excess();
 	            create_classification_table(data);
 	            var pie_chart3 = new RenderPieChart(data, '#revenue-class-chart');
-	            pie_chart3.classification('#revenue-class-chart');
-	        },
-	        error: function error(result) {
-	            //console.log(result);// make 404.html page
-	        }
-	    });
-
-	    //ajax request for json containing all costs summarised by product class (abcxyz), builds pie chart (#chart2)
-	    _jquery2.default.ajax({
-	        type: "GET",
-	        contentType: "application/json; charset=utf-8",
-	        url: 'http://127.0.0.1:5000/reporting/api/v1.0/top_shortages',
-	        dataType: 'json',
-	        async: true,
-	        data: "{}",
-	        success: function success(data) {
-	            //console.log(data);
-
-	            render_shortages_chart(data, '#shortage-chart');
+	            pie_chart3.classification('revenue');
+	            var pie_chart4 = new RenderPieChart(data, '#shortage-class-chart');
+	            pie_chart4.classification('shortage');
+	            var pie_chart5 = new RenderPieChart(data, '#excess-class-chart');
+	            pie_chart5.classification('excess');
 	        },
 	        error: function error(result) {
 	            //console.log(result);// make 404.html page
@@ -193,7 +164,7 @@
 	    _jquery2.default.ajax({
 	        type: "GET",
 	        contentType: "application/json; charset=utf-8",
-	        url: 'http://127.0.0.1:5000/reporting/api/v1.0/top_excess',
+	        url: 'http://127.0.0.1:5000/reporting/api/v1.0/top_excess/10',
 	        dataType: 'json',
 	        async: true,
 	        data: "{}",
@@ -335,7 +306,7 @@
 
 	                    case 'chart':
 	                        shortages_data.push([tempData[i].sku_id, tempData[i].shortage_cost]);
-	                        //console.log(shortages_data);
+	                        console.log(shortages_data);
 	                        break;
 
 	                    case 'table':
@@ -456,7 +427,7 @@
 	                        break;
 
 	                    case 'excess':
-	                        classification_data.push([tempData[i].abc_xyz_classification, tempData[i].total_excesss]);
+	                        classification_data.push([tempData[i].abc_xyz_classification, tempData[i].total_excess]);
 	                        //console.log(classification_data);
 	                        break;
 	                }
@@ -579,9 +550,9 @@
 	        value: function shortages() {
 	            //console.log(data);
 
-	            var width = 350;
-	            var height = 350;
-	            var radius = 175;
+	            var width = 300;
+	            var height = 300;
+	            var radius = 150;
 	            var colors = d3.scale.ordinal().range(['#259286', '#2176C7', '#FCF4DC', 'white', '#819090', '#A57706', '#EAE3CB', '#2e004d']);
 
 	            var pieData = unpack.pie(this.data);
@@ -615,9 +586,9 @@
 	        value: function excess() {
 	            //console.log(data);
 
-	            var width = 350;
-	            var height = 350;
-	            var radius = 175;
+	            var width = 300;
+	            var height = 300;
+	            var radius = 150;
 	            var colors = d3.scale.ordinal().range(['#259286', '#2176C7', '#FCF4DC', 'white', '#819090', '#A57706', '#EAE3CB', '#2e004d']);
 
 	            var pieData = unpack.excess(this.data, 'chart');
@@ -649,12 +620,12 @@
 	    }, {
 	        key: 'classification',
 	        value: function classification(id) {
-	            var width = 350;
-	            var height = 350;
-	            var radius = 175;
+	            var width = 300;
+	            var height = 300;
+	            var radius = 150;
 	            var colors = d3.scale.ordinal().range(['#259286', '#2176C7', '#FCF4DC', 'white', '#819090', '#A57706', '#EAE3CB', '#2e004d']);
 
-	            var pieData = unpack.classification(this.data, 'revenue');
+	            var pieData = unpack.classification(this.data, id);
 	            //console.log(pieData);
 
 	            var pie = new d3.layout.pie().value(function (d) {
@@ -683,6 +654,104 @@
 	    }]);
 
 	    return RenderPieChart;
+	}();
+
+	var RenderForceChart = function () {
+	    function RenderForceChart(data, id) {
+	        _classCallCheck(this, RenderForceChart);
+
+	        this.data = data;
+	        this.id = id;
+	    }
+
+	    _createClass(RenderForceChart, [{
+	        key: 'classification_force',
+	        value: function classification_force() {
+	            var w = 400,
+	                h = 400;
+
+	            var circleWidth = 5;
+
+	            var palette = {
+	                "lightgray": "#819090",
+	                "gray": "#708284",
+	                "mediumgray": "#536870",
+	                "darkgray": "#475B62",
+
+	                "darkblue": "#0A2933",
+	                "darkerblue": "#042029",
+
+	                "paleryellow": "#FCF4DC",
+	                "paleyellow": "#EAE3CB",
+	                "yellow": "#A57706",
+	                "orange": "#BD3613",
+	                "red": "#D11C24",
+	                "pink": "#C61C6F",
+	                "purple": "#595AB7",
+	                "blue": "#2176C7",
+	                "green": "#259286",
+	                "yellowgreen": "#738A05"
+	            };
+
+	            var nodes1 = [{ name: this.data.objects[0].currency.abc_xyz_classification }];
+
+	            for (var s = 0; s < this.data.objects.length; s++) {
+
+	                nodes1.push({ name: this.data.objects[s].sku.sku_id, target: [0] });
+	            }
+
+	            var nodes = [{ name: "Parent" }, { name: "child1" }, { name: "child2", target: [0] }, { name: "child3", target: [0] }, { name: "child4", target: [1] }, { name: "child5", target: [0, 1, 2, 3] }];
+
+	            var links = [];
+
+	            for (var i = 0; i < nodes1.length; i++) {
+	                if (nodes1[i].target !== undefined) {
+	                    for (var x = 0; x < nodes1[i].target.length; x++) {
+	                        links.push({
+	                            source: nodes1[i],
+	                            target: nodes1[nodes1[i].target[x]]
+	                        });
+	                    }
+	                }
+	            }
+
+	            var myChart = d3.select(this.id).append('svg').attr('width', w).attr('height', h);
+
+	            var force = d3.layout.force().nodes(nodes1).links([]).gravity(0.3).charge(-1000).size([w, h]);
+
+	            var link = myChart.selectAll('line').data(links).enter().append('line').attr('stroke', palette.gray);
+
+	            var node = myChart.selectAll('circle').data(nodes1).enter().append('g').call(force.drag);
+
+	            node.append('circle').attr('cx', function (d) {
+	                return d.x;
+	            }).attr('cy', function (d) {
+	                return d.y;
+	            }).attr('r', circleWidth).attr('fill', palette.pink);
+
+	            node.append('text');
+
+	            force.on('tick', function (e) {
+	                node.attr('transform', function (d, i) {
+	                    return 'translate(' + d.x + ', ' + d.y + ')';
+	                });
+
+	                link.attr('x1', function (d) {
+	                    return d.source.x;
+	                }).attr('y1', function (d) {
+	                    return d.source.y;
+	                }).attr('x2', function (d) {
+	                    return d.target.x;
+	                }).attr('y2', function (d) {
+	                    return d.target.y;
+	                });
+	            });
+
+	            force.start();
+	        }
+	    }]);
+
+	    return RenderForceChart;
 	}();
 
 	function create_shortages_table(data) {
@@ -879,123 +948,123 @@
 
 	// change functions to graph rendering class
 	/*function render_revenue_graph(data, id) {
-	    var barData = unpack.sku_detail(data, "revenue");//change to enums
-	    var tempData = [];
+	 var barData = unpack.sku_detail(data, "revenue");//change to enums
+	 var tempData = [];
 
-	    //console.log(barData);
-	    //var height = 350,
-	    //   width = 300,
-	    var margin = {top: 30, right: 20, bottom: 40, left: 90};
+	 //console.log(barData);
+	 //var height = 350,
+	 //   width = 300,
+	 var margin = {top: 30, right: 20, bottom: 40, left: 90};
 
-	    var height = 350 - margin.top - margin.bottom;
-	    var width = 400 - margin.left - margin.right;
-	    var barWidth = 10;
-	    var barOffset = 5;
+	 var height = 350 - margin.top - margin.bottom;
+	 var width = 400 - margin.left - margin.right;
+	 var barWidth = 10;
+	 var barOffset = 5;
 
-	    var tempColor;
-
-
-	    var yScale = d3.scale.linear()
-	        .domain([0, d3.max(barData)]) //  calculates the max range of the chart area
-	        .range([0, height]); // the range of the chart area
-
-	    var xScale = d3.scale.ordinal()
-	        .domain(d3.range(0, barData.length))
-	        .rangeBands([0, width]);
-
-	    var colors = d3.scale.linear()
-	        .domain([0, barData.length * .33, barData.length * .88, barData.length])
-	        .range(['#FFB832', '#C61C6F', '#C31C6F', '#382982']); //the number of values in the domain must match the number of values in the range
-
-	    var myChart = d3.select(id).append('svg')
-	        .style('background', 'transparent')
-	        .attr('width', width + margin.left + margin.right)
-	        .attr('height', height + margin.top + margin.bottom)
-	        .append('g')
-	        .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
-	        .selectAll('rect').data(barData)
-	        .enter().append('rect') //the data command reads the bar data and the appends the selectall rect for each piece of data
-	        .style('fill', colors)
-	        .attr('width', xScale.rangeBand())
-	        .attr('height', 0)
-	        .attr('x', function (d, i) {
-	            return xScale(i);
-	        })
-	        .attr('y', height)
-	        .on('mouseover', function (d) {
-
-	            tooltip.transaction()
-	                .style('opacity', 0.5);
-	            tooltip.html(d)
-	                .style('left', (d3.event.pageX - 35) + 'px')
-	                .style('top', (d3.event.pageY - 30) + 'px');
-
-	            tempColor = this.style.fill;
-
-	            d3.select(this)
-	                .style('opacity', .5)
-	                .style('fill', '#389334')
-
-	        }).on('mouseout', function (d) {
-	            d3.select(this)
-	                .style('opacity', 1)
-	                .style('fill', tempColor)
-	        });
-
-	    myChart.transition()
-	        .attr('height', function (d) {
-	            return yScale(d);
-	        })
-	        .attr('y', function (d) {
-	            return height - yScale(d);
-	        })
-	        .delay(function (d, i) {
-	            return i * 20;
-	        })
-	        .duration(1000)
-	        .ease('elastic');
+	 var tempColor;
 
 
-	    var tooltip = d3.select('body')
-	        .append('div')
-	        .style('position', 'absolute')
-	        .style('background', 'white')
-	        .style('padding', '0 10px')
-	        .style('opacity', 0);
+	 var yScale = d3.scale.linear()
+	 .domain([0, d3.max(barData)]) //  calculates the max range of the chart area
+	 .range([0, height]); // the range of the chart area
 
-	    var vGuideScale = d3.scale.linear()
-	        .domain([0, d3.max(barData)]).range([height, 0]); //reversing the order of the scale on the y axis
-	    var vAxis = d3.svg.axis()
-	        .scale(vGuideScale)
-	        .orient('left')
-	        .ticks(10);
+	 var xScale = d3.scale.ordinal()
+	 .domain(d3.range(0, barData.length))
+	 .rangeBands([0, width]);
 
-	    var vGuide = d3.select('svg').append('g');
-	    vAxis(vGuide);
-	    vGuide.attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
-	    vGuide.selectAll('path')
-	        .style({fill: 'none', stroke: "#000"});
-	    vGuide.selectAll('line')
-	        .style({stroke: "#000"});
+	 var colors = d3.scale.linear()
+	 .domain([0, barData.length * .33, barData.length * .88, barData.length])
+	 .range(['#FFB832', '#C61C6F', '#C31C6F', '#382982']); //the number of values in the domain must match the number of values in the range
 
-	    var hAxis = d3.svg.axis()
-	        .scale(xScale)
-	        .orient('bottom')
-	        .tickValues(xScale.domain().filter(function (d, i) {
-	            return !(i % (barData.length / 10));
-	        }));
+	 var myChart = d3.select(id).append('svg')
+	 .style('background', 'transparent')
+	 .attr('width', width + margin.left + margin.right)
+	 .attr('height', height + margin.top + margin.bottom)
+	 .append('g')
+	 .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
+	 .selectAll('rect').data(barData)
+	 .enter().append('rect') //the data command reads the bar data and the appends the selectall rect for each piece of data
+	 .style('fill', colors)
+	 .attr('width', xScale.rangeBand())
+	 .attr('height', 0)
+	 .attr('x', function (d, i) {
+	 return xScale(i);
+	 })
+	 .attr('y', height)
+	 .on('mouseover', function (d) {
 
-	    var hGuide = d3.select('svg').append('g');
-	    hAxis(hGuide);
-	    hGuide.attr('transform', 'translate(' + margin.left + ', ' + (height + margin.top) + ')');
-	    hGuide.selectAll('path')
-	        .style({fill: 'none', stroke: "#000"});
-	    hGuide.selectAll('line')
-	        .style({stroke: "#000"});
+	 tooltip.transaction()
+	 .style('opacity', 0.5);
+	 tooltip.html(d)
+	 .style('left', (d3.event.pageX - 35) + 'px')
+	 .style('top', (d3.event.pageY - 30) + 'px');
+
+	 tempColor = this.style.fill;
+
+	 d3.select(this)
+	 .style('opacity', .5)
+	 .style('fill', '#389334')
+
+	 }).on('mouseout', function (d) {
+	 d3.select(this)
+	 .style('opacity', 1)
+	 .style('fill', tempColor)
+	 });
+
+	 myChart.transition()
+	 .attr('height', function (d) {
+	 return yScale(d);
+	 })
+	 .attr('y', function (d) {
+	 return height - yScale(d);
+	 })
+	 .delay(function (d, i) {
+	 return i * 20;
+	 })
+	 .duration(1000)
+	 .ease('elastic');
 
 
-	}
-	*/
+	 var tooltip = d3.select('body')
+	 .append('div')
+	 .style('position', 'absolute')
+	 .style('background', 'white')
+	 .style('padding', '0 10px')
+	 .style('opacity', 0);
+
+	 var vGuideScale = d3.scale.linear()
+	 .domain([0, d3.max(barData)]).range([height, 0]); //reversing the order of the scale on the y axis
+	 var vAxis = d3.svg.axis()
+	 .scale(vGuideScale)
+	 .orient('left')
+	 .ticks(10);
+
+	 var vGuide = d3.select('svg').append('g');
+	 vAxis(vGuide);
+	 vGuide.attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+	 vGuide.selectAll('path')
+	 .style({fill: 'none', stroke: "#000"});
+	 vGuide.selectAll('line')
+	 .style({stroke: "#000"});
+
+	 var hAxis = d3.svg.axis()
+	 .scale(xScale)
+	 .orient('bottom')
+	 .tickValues(xScale.domain().filter(function (d, i) {
+	 return !(i % (barData.length / 10));
+	 }));
+
+	 var hGuide = d3.select('svg').append('g');
+	 hAxis(hGuide);
+	 hGuide.attr('transform', 'translate(' + margin.left + ', ' + (height + margin.top) + ')');
+	 hGuide.selectAll('path')
+	 .style({fill: 'none', stroke: "#000"});
+	 hGuide.selectAll('line')
+	 .style({stroke: "#000"});
+
+
+	 }
+	 */
 
 	function render_shortages_chart(data, id) {
 	    var bardata = unpack.shortages(data, 'chart');
@@ -1012,7 +1081,7 @@
 
 	    var margin = { top: 30, right: 50, bottom: 40, left: 95 };
 
-	    var height = 400 - margin.top - margin.bottom;
+	    var height = 350 - margin.top - margin.bottom;
 	    var width = 600 - margin.left - margin.right;
 
 	    var colors = d3.scale.linear().domain([0, nums.length * .33, nums.length * .66, nums.length]).range(['white', '#259286', '#738A05', '#2176C7']);
@@ -1088,7 +1157,7 @@
 
 	    var margin = { top: 30, right: 50, bottom: 40, left: 95 };
 
-	    var height = 400 - margin.top - margin.bottom;
+	    var height = 350 - margin.top - margin.bottom;
 	    var width = 600 - margin.left - margin.right;
 
 	    var colors = d3.scale.linear().domain([0, nums.length * .33, nums.length * .66, nums.length]).range(['white', '#259286', '#738A05', '#2176C7']);
