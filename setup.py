@@ -24,4 +24,7 @@ setup(name='supplychainpy',
               'supplychainpy = supplychainpy.supplychain:main'
           ]
       },
+      package_data={
+          'supplychainpy':['reporting/static/*', 'reporting/templates/*']
+      }
       )
