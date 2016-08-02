@@ -1,3 +1,4 @@
+pandas
 alabaster==0.7.7
 Babel==2.2.0
 coverage==4.0

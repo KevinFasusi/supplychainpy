@@ -35,14 +35,13 @@ class SimulationFramework(Widget):
     parcel = ObjectProperty(None)
     stock = ObjectProperty(None)
 
-    def despatch_inventory(self, vel=(0,-4)):
+    def despatch_inventory(self, vel=(0, -4)):
         # use variables for size x, y. Increment for growth
         self.parcel.center = (self.width / 2, self.height / 2 - 58)
         print(self.parcel.center)
         self.stock.center = self.center
         self.parcel.velocity = vel
-       # self.stock.center, self.stock.size = self.center, (80, 80)
-
+        # self.stock.center, self.stock.size = self.center, (80, 80)
 
     def set_globe(self, vel=(0, -4)):
         self.parcel.center = (self.width / 2, self.height)
@@ -62,6 +61,7 @@ class SimulationFramework(Widget):
         if self.stock.receive_inventory(self.parcel):
             self.update(self)
             self.despatch_inventory()
+
 
 class SimulationGuiApp(App):
     def build(self):
