@@ -14,6 +14,7 @@ Contents:
    changelog
    Installation
    quickstart
+   reports
    calculations
 
 

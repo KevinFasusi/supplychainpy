@@ -15,7 +15,7 @@ from supplychainpy import model_inventory
 from supplychainpy.inventory.summarise import OrdersAnalysis
 from supplychainpy.reporting.load import load
 from supplychainpy.launch_reports import launch_load_report, launch_report
-from supplychainpy.demand.forecast_demand import sum_squared_errors
+from supplychainpy.demand.regression import LinearRegression
 
 __author__ = 'kevin'
 
@@ -26,14 +26,14 @@ def main():
     rel_path = 'supplychainpy/data_col.csv'
     abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
 
-   # orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path,
-      #                                                                z_value=Decimal(1.28),
-      ##                                                                reorder_cost=Decimal(5000),
-      #                                                                file_type="csv", length=12)
+    # orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path,
+    #                                                                z_value=Decimal(1.28),
+    ##                                                                reorder_cost=Decimal(5000),
+    #                                                                file_type="csv", length=12)
     # for i in orders_analysis:
     #    print(i.orders_summary())
 
-    #ia = [analysis.orders_summary() for analysis in
+    # ia = [analysis.orders_summary() for analysis in
     #      model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
     #                                                      reorder_cost=Decimal(5000), file_type="csv",
     #                                                      length=12)]
@@ -55,10 +55,12 @@ def main():
         fdata['AVG'] = AVG
 
     fdata.plot(y=['orders', 'AVG'])
+    l = LinearRegression(data['orders'])
 
-
-    sse =  sum_squared_errors(orders=ia[0]['orders'])
+    sse = l.SSE
     sse['squared_errors'].plot('hist')
+    plt.show()
+
     print('s')
     # print([i['orders'].values() for i in ia])
     # orders = [i['orders'].values() for i in ia]

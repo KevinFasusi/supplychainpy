@@ -4,7 +4,7 @@ import pandas as pd
 
 
 class LinearRegression:
-    def __init__(self, orders: dict):
+    def __init__(self, orders: list):
         self.orders = orders
 
     @property
@@ -12,7 +12,7 @@ class LinearRegression:
         return self._sum_squared_errors()
 
     def _sum_squared_errors(self) -> dict:
-        orders_list = [i for i in self.orders["demand"]]
+        orders_list = [i for i in self.orders]
         orders_series = pd.Series(orders_list, name='orders').astype(float)
         orders_series.plot(y='orders')
         mean_expected_value = np.mean(orders_series)

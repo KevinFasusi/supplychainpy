@@ -133,11 +133,14 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="supplychainpy-demand-evolutionary-algorithms-module">
+<h2>supplychainpy.demand.evolutionary_algorithms module<a class="headerlink" href="#supplychainpy-demand-evolutionary-algorithms-module" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="module-supplychainpy.demand.forecast_demand">
 <span id="supplychainpy-demand-forecast-demand-module"></span><h2>supplychainpy.demand.forecast_demand module<a class="headerlink" href="#module-supplychainpy.demand.forecast_demand" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="supplychainpy.demand.forecast_demand.Forecast">
-<em class="property">class </em><code class="descclassname">supplychainpy.demand.forecast_demand.</code><code class="descname">Forecast</code><span class="sig-paren">(</span><em>orders: list</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">supplychainpy.demand.forecast_demand.</code><code class="descname">Forecast</code><span class="sig-paren">(</span><em>orders: list</em>, <em>average_orders: float=None</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="supplychainpy.demand.forecast_demand.Forecast.autoregressive">
@@ -371,7 +374,17 @@ increase the start_position in the list.n</p>
 
 <dl class="method">
 <dt id="supplychainpy.demand.forecast_demand.Forecast.simple_exponential_smoothing">
-<code class="descname">simple_exponential_smoothing</code><span class="sig-paren">(</span><em>forecasts: list</em><span class="sig-paren">)</span> &rarr; list<a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.simple_exponential_smoothing" title="Permalink to this definition">¶</a></dt>
+<code class="descname">simple_exponential_smoothing</code><span class="sig-paren">(</span><em>*alpha</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.simple_exponential_smoothing" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="supplychainpy.demand.forecast_demand.Forecast.standard_error">
+<em class="property">static </em><code class="descname">standard_error</code><span class="sig-paren">(</span><em>sse: dict</em>, <em>orders_count</em>, <em>smoothing_parameter: float</em><span class="sig-paren">)</span> &rarr; float<a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.standard_error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="supplychainpy.demand.forecast_demand.Forecast.sum_squared_errors">
+<em class="property">static </em><code class="descname">sum_squared_errors</code><span class="sig-paren">(</span><em>squared_error: list</em>, <em>smoothing_parameter: float</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.sum_squared_errors" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -428,6 +441,20 @@ weights.&#8217;.format(sum(weights), len(weights)))</p>
 </tbody>
 </table>
 </dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-supplychainpy.demand.regression">
+<span id="supplychainpy-demand-regression-module"></span><h2>supplychainpy.demand.regression module<a class="headerlink" href="#module-supplychainpy.demand.regression" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="supplychainpy.demand.regression.LinearRegression">
+<em class="property">class </em><code class="descclassname">supplychainpy.demand.regression.</code><code class="descname">LinearRegression</code><span class="sig-paren">(</span><em>orders: list</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.regression.LinearRegression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="supplychainpy.demand.regression.LinearRegression.SSE">
+<code class="descname">SSE</code><a class="headerlink" href="#supplychainpy.demand.regression.LinearRegression.SSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 

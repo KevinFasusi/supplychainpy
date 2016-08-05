@@ -136,6 +136,68 @@
 <div class="section" id="module-supplychainpy.warehouse.optimise_warehouse">
 <span id="supplychainpy-warehouse-optimise-warehouse-module"></span><h2>supplychainpy.warehouse.optimise_warehouse module<a class="headerlink" href="#module-supplychainpy.warehouse.optimise_warehouse" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="module-supplychainpy.warehouse.storage_unit">
+<span id="supplychainpy-warehouse-storage-unit-module"></span><h2>supplychainpy.warehouse.storage_unit module<a class="headerlink" href="#module-supplychainpy.warehouse.storage_unit" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="supplychainpy.warehouse.storage_unit.Pallet">
+<em class="property">class </em><code class="descclassname">supplychainpy.warehouse.storage_unit.</code><code class="descname">Pallet</code><a class="headerlink" href="#supplychainpy.warehouse.storage_unit.Pallet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="supplychainpy.warehouse.storage_unit.Pallet.recalculate_height">
+<code class="descname">recalculate_height</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.warehouse.storage_unit.Pallet.recalculate_height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.warehouse.storage_unit.Pallet.recalculate_weight">
+<code class="descname">recalculate_weight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.warehouse.storage_unit.Pallet.recalculate_weight" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="supplychainpy.warehouse.storage_unit.PalletBuilder">
+<em class="property">class </em><code class="descclassname">supplychainpy.warehouse.storage_unit.</code><code class="descname">PalletBuilder</code><a class="headerlink" href="#supplychainpy.warehouse.storage_unit.PalletBuilder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="supplychainpy.warehouse.storage_unit.PalletBuilder.make_new_pallet">
+<code class="descname">make_new_pallet</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.warehouse.storage_unit.PalletBuilder.make_new_pallet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="supplychainpy.warehouse.storage_unit.PalletDirector">
+<em class="property">class </em><code class="descclassname">supplychainpy.warehouse.storage_unit.</code><code class="descname">PalletDirector</code><span class="sig-paren">(</span><em>pallet_builder: supplychainpy.warehouse.storage_unit.PalletBuilder</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.warehouse.storage_unit.PalletDirector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="supplychainpy.warehouse.storage_unit.PalletDirector.add_package">
+<code class="descname">add_package</code><span class="sig-paren">(</span><em>package: supplychainpy.inventory.units.Package</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.warehouse.storage_unit.PalletDirector.add_package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.warehouse.storage_unit.PalletDirector.construct_pallet">
+<code class="descname">construct_pallet</code><span class="sig-paren">(</span><em>length: float</em>, <em>width: float</em>, <em>height: float</em>, <em>weight: float</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.warehouse.storage_unit.PalletDirector.construct_pallet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.warehouse.storage_unit.PalletDirector.pallet">
+<code class="descname">pallet</code><a class="headerlink" href="#supplychainpy.warehouse.storage_unit.PalletDirector.pallet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.warehouse.storage_unit.PalletDirector.recalculate_dimensions">
+<code class="descname">recalculate_dimensions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.warehouse.storage_unit.PalletDirector.recalculate_dimensions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="supplychainpy.warehouse.storage_unit.ShippingContainer">
+<em class="property">class </em><code class="descclassname">supplychainpy.warehouse.storage_unit.</code><code class="descname">ShippingContainer</code><a class="headerlink" href="#supplychainpy.warehouse.storage_unit.ShippingContainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#supplychainpy.warehouse.storage_unit.Pallet" title="supplychainpy.warehouse.storage_unit.Pallet"><code class="xref py py-class docutils literal"><span class="pre">supplychainpy.warehouse.storage_unit.Pallet</span></code></a></p>
+</dd></dl>
+
+</div>
 <div class="section" id="module-supplychainpy.warehouse">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-supplychainpy.warehouse" title="Permalink to this headline">¶</a></h2>
 </div>

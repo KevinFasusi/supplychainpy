@@ -11,6 +11,7 @@ Subpackages
     supplychainpy.financials
     supplychainpy.inventory
     supplychainpy.production
+    supplychainpy.reporting
     supplychainpy.simulations
     supplychainpy.warehouse
 
@@ -29,6 +30,14 @@ supplychainpy.enum_formats module
 ---------------------------------
 
 .. automodule:: supplychainpy.enum_formats
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+supplychainpy.launch_reports module
+-----------------------------------
+
+.. automodule:: supplychainpy.launch_reports
     :members:
     :undoc-members:
     :show-inheritance:
@@ -61,6 +70,14 @@ supplychainpy.model_warehouse module
 ------------------------------------
 
 .. automodule:: supplychainpy.model_warehouse
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+supplychainpy.scratch module
+----------------------------
+
+.. automodule:: supplychainpy.scratch
     :members:
     :undoc-members:
     :show-inheritance:

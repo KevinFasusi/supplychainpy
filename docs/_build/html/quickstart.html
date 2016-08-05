@@ -31,7 +31,7 @@
 
   
     <link rel="top" title="supplychainpy 0.0.3 documentation" href="index.html"/>
-        <link rel="next" title="Formulas and Equations" href="calculations.html"/>
+        <link rel="next" title="&lt;no title&gt;" href="reports.html"/>
         <link rel="prev" title="Installation" href="Installation.html"/> 
 
   
@@ -180,8 +180,7 @@ The computations here are mainly cpu bound, io may be a factor when reading from
 <p>Supplychainpy is a Python library for supply chain analysis, modeling and simulation. Using supplychainpy
 with modern data analysis libraries and tools such as Xlwings or Data Nitro (for Excel spreadsheet applications),
 Pandas, NumPy, Matplotlib, Ipython and Jupyter makes for a powerful supply chain data analysis toolchain.</p>
-<p>The library was created to assist a workflow that
-is reliant on Excel, Excel formulas and VBA. Below we go through the use cases and implementations particular to the
+<p>The library was created to assist a workflow that is reliant on Excel, Excel formulas and VBA. Below we go through the use cases and implementations particular to the
 domain (supply chain, operations and manufacturing).</p>
 <p>This quick guide is skewed towards analysts with the requisite domain knowledge, who predominantly use Excel. Some
 knowledge of Python or programming is assumed, although those new to data analysis or using Python will likely be able to
@@ -193,7 +192,7 @@ instructions for <span class="xref std std-ref">installation</span>.</p>
 <h2>Inventory Analysis<a class="headerlink" href="#inventory-analysis" title="Permalink to this headline">¶</a></h2>
 <p>A quick example of a typical inventory analysis takes several formulas, manual processes or pivot tables and in
 some cases VBA to achieve. Using the supplychainpy library can reduce the time taken and effort made for the same analysis.
-In the example below supplying a <cite>dict</cite> of &#8220;Orders&#8221; data-points can generate a summary.</p>
+In the example below supplying a dictionary of &#8220;Orders&#8221; data-points can generate a summary.</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="kn">import</span> <span class="n">model_inventory</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">yearly_demand</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;jan&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;feb&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;mar&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;apr&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span>                <span class="s1">&#39;may&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;jun&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;jul&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span><span class="s1">&#39;aug&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
@@ -234,6 +233,8 @@ KR202-214,2416,2010,2527,1409,1059,890,2837,276,987,2228,1095,1396,554,2,1800,55
 KR202-215,403,1737,753,1982,2775,380,1561,1230,1262,2249,824,743,594,1,2500,4308
 </pre></div>
 </div>
+<p>Getting the file into this format from a database source may require an ETL tool such as SSIS (for windows SQL server) or a stored procedure or SQL script.
+A blog post will be dedicated to the ETL process asap.</p>
 <p>A file named <cite>data.csv</cite>, supplied with this distribution (release 0.0.2 onwards) can be used to generate the
 same analysis in <cite>dict</cite> based example. The example below generates the result for 32 stock keeping units (sku).</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
@@ -687,7 +688,7 @@ for each release.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="calculations.html" class="btn btn-neutral float-right" title="Formulas and Equations" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="reports.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="Installation.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

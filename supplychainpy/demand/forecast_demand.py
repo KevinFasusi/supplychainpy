@@ -1,25 +1,7 @@
 import numpy as np
-from decimal import Decimal
-from decimal import localcontext
-
-import pandas as pd
-import matplotlib.pyplot as plt
-import matplotlib as mpl
-import matplotlib.mlab as mlab
-
-
-def sum_squared_errors(orders: dict) -> dict:
-    orders_list = [i for i in orders["demand"]]
-    orders_series = pd.Series(orders_list, name='orders').astype(float)
-    orders_series.plot(y='orders')
-    mean_expected_value = np.mean(orders_series)
-    squared_errors = pd.Series(mean_expected_value - orders_series) ** 2
-    sse = np.sum(squared_errors)
-    return {'SSE': sse, 'squared_errors': squared_errors}
-
 
 class Forecast:
-    def __init__(self, orders: list, average_orders: float):
+    def __init__(self, orders: list, average_orders: float = None):
         self.__weighted_moving_average = None
         self.__orders = orders
         self.__average_orders = average_orders
@@ -276,25 +258,46 @@ class Forecast:
 
         for arg in alpha:
             forecast = {}
-            level_estimate = lambda lvl, alpha, demand: lvl + alpha * (demand - lvl)
-            forecast_error = lambda demand, one_step_forecast: demand - one_step_forecast
+
             current_level_estimate = self.__average_orders
             forecast.update({'t': 0,
                              'demand': 0,
                              'level_estimates': current_level_estimate,
                              'one_step_forecast': 0,
-                             'forecast_error': 0})
+                             'forecast_error': 0,
+                             'squared_error': 0})
             previous_level_estimate = current_level_estimate
-            for index, order in enumerate(self.__orders, 1):
-                current_level_estimate = level_estimate(previous_level_estimate, arg, order)
-                forecast.update({'t': index,
-                                 'demand': order,
-                                 'level_estimates': current_level_estimate,
-                                 'one_step_forecast': previous_level_estimate,
-                                 'forecast_error': forecast_error(order, previous_level_estimate)})
+            for index, demand in enumerate(tuple(self.__orders), 1):
+                current_level_estimate = self._level_estimate(previous_level_estimate, arg, demand)
+                yield {'alpha': arg,
+                       't': index,
+                       'demand': demand,
+                       'level_estimates': current_level_estimate,
+                       'one_step_forecast': previous_level_estimate,
+                       'forecast_error': self._forecast_error(demand, previous_level_estimate),
+                       'squared_error': self._forecast_error(demand, previous_level_estimate) ** 2
+                       }
                 previous_level_estimate = current_level_estimate
 
-            yield {arg: forecast}
+    @staticmethod
+    def _level_estimate(lvl: float, smoothing_parameter: float, demand: int):
+        return lvl + smoothing_parameter * (demand - lvl)
+
+    @staticmethod
+    def _forecast_error(demand: int, one_step_forecast: float):
+        return demand - one_step_forecast
+
+    @staticmethod
+    def sum_squared_errors(squared_error: list, smoothing_parameter: float) -> dict:
+        sse = 0
+        for sq_e in squared_error:
+            if sq_e['alpha'] == smoothing_parameter:
+                sse += sq_e["squared_error"]
+        return {smoothing_parameter: sse}
+
+    @staticmethod
+    def standard_error(sse: dict, orders_count, smoothing_parameter:float) -> float:
+        return (sse[smoothing_parameter] / (orders_count - 1)) ** 0.5
 
     def mean_forecast_error(self):
 
@@ -403,14 +406,21 @@ class Forecast:
 
 
 if __name__ == '__main__':
-    orders = [165, 171, 147, 143, 164, 160, 152, 150, 159, 169, 173, 203, 169, 166, 162, 147]
+    orders = [165, 171, 147, 143, 164, 160, 152, 150, 159, 169, 173, 203, 169, 166, 162, 147, 188, 161, 162, 169, 185,
+              188, 200, 229, 189, 218, 185, 199, 210, 193, 211, 208, 216, 218, 264, 304]
+
     total_orders = 0
     avg_orders = 0
-    for order in orders:
+    for order in orders[:12]:
         total_orders += order
 
-    avg_orders = total_orders / len(orders)
+    avg_orders = total_orders / 12
     f = Forecast(orders, avg_orders)
     alpha = [0.2, 0.3, 0.4, 0.5, 0.6]
-    for i in f.simple_exponential_smoothing():
-        print(i)
+    s = [i for i in f.simple_exponential_smoothing(*alpha)]
+
+    sum_squared_error = f.sum_squared_errors(s, 0.5)
+    print(sum_squared_error)
+
+    standard_error = f.standard_error(sum_squared_error, len(orders))
+    print(standard_error)

@@ -28,8 +28,7 @@ Supplychainpy is a Python library for supply chain analysis, modeling and simula
 with modern data analysis libraries and tools such as Xlwings or Data Nitro (for Excel spreadsheet applications),
 Pandas, NumPy, Matplotlib, Ipython and Jupyter makes for a powerful supply chain data analysis toolchain.
 
-The library was created to assist a workflow that
-is reliant on Excel, Excel formulas and VBA. Below we go through the use cases and implementations particular to the
+The library was created to assist a workflow that is reliant on Excel, Excel formulas and VBA. Below we go through the use cases and implementations particular to the
 domain (supply chain, operations and manufacturing).
 
 This quick guide is skewed towards analysts with the requisite domain knowledge, who predominantly use Excel. Some
@@ -44,7 +43,7 @@ Inventory Analysis
 
 A quick example of a typical inventory analysis takes several formulas, manual processes or pivot tables and in
 some cases VBA to achieve. Using the supplychainpy library can reduce the time taken and effort made for the same analysis.
-In the example below supplying a `dict` of "Orders" data-points can generate a summary.
+In the example below supplying a dictionary of "Orders" data-points can generate a summary.
 
 .. code:: python
 
@@ -91,6 +90,10 @@ The same analysis can be made by supplying a pre-formatted `.csv` or `.txt`:
     KR202-213,489,954,1112,199,919,330,561,2372,921,1587,1532,1512,514,1,2000,2095
     KR202-214,2416,2010,2527,1409,1059,890,2837,276,987,2228,1095,1396,554,2,1800,55
     KR202-215,403,1737,753,1982,2775,380,1561,1230,1262,2249,824,743,594,1,2500,4308
+
+Getting the file into this format from a database source may require an ETL tool such as SSIS (for windows SQL server) or a stored procedure or SQL script.
+A blog post will be dedicated to the ETL process asap.
+
 
 A file named `data.csv`, supplied with this distribution (release 0.0.2 onwards) can be used to generate the
 same analysis in `dict` based example. The example below generates the result for 32 stock keeping units (sku).

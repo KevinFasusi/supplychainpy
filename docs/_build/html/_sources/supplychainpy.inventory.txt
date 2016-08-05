@@ -44,6 +44,14 @@ supplychainpy.inventory.summarise module
     :undoc-members:
     :show-inheritance:
 
+supplychainpy.inventory.units module
+------------------------------------
+
+.. automodule:: supplychainpy.inventory.units
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------
