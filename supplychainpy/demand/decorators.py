@@ -1,0 +1,1 @@
+from supplychainpy.demand.evolutionary_algorithms import Individual

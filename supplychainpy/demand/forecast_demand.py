@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class Forecast:
     def __init__(self, orders: list, average_orders: float = None):
         self.__weighted_moving_average = None
@@ -296,7 +297,16 @@ class Forecast:
         return {smoothing_parameter: sse}
 
     @staticmethod
-    def standard_error(sse: dict, orders_count, smoothing_parameter:float) -> float:
+    def sum_squared_errors_indi(squared_error: list, smoothing_parameter: float) -> dict:
+        sse = 0
+        for sq_e in squared_error:
+            for i in sq_e:
+                if i['alpha'] == smoothing_parameter:
+                    sse += i["squared_error"]
+        return {smoothing_parameter: sse}
+
+    @staticmethod
+    def standard_error(sse: dict, orders_count, smoothing_parameter: float) -> float:
         return (sse[smoothing_parameter] / (orders_count - 1)) ** 0.5
 
     def mean_forecast_error(self):
