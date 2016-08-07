@@ -22,8 +22,6 @@ gpgkeys==1.23
 itsdangerous==0.24
 Jinja2==2.8
 jsonschema==2.5.1
-Kivy==1.9.1
-Kivy-Garden==0.1.4
 kmd==2.2
 Mako==1.0.4
 MarkupSafe==0.23
