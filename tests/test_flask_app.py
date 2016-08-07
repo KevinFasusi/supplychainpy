@@ -36,6 +36,6 @@ class TestFlaskReports(unittest.TestCase):
         for heading in headings:
             assert heading in inventory_analysis.data
 
-    
+
 
 
