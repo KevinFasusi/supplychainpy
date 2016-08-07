@@ -30,7 +30,7 @@ def main():
     parser.add_argument('-loc', dest='location', action='store',
                         help='database path e.g. ')
 
-    args = parser
+    args = parser.parse_args()
 
     if args.verbose:
         print('filenames = {}'.format(args.filenames))
