@@ -6,11 +6,8 @@ node_js:
   - "4.2"
 
 install:
-  - pip install numpy
   - pip install coveralls
-  - pip install cython
-  - pip install pytest
-  - pip install flask
+  - pip install -r requirements.txt
   #- npm install mocha
   #- npm install chai
   #- npm install supervisor
