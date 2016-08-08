@@ -1,8 +1,9 @@
 import os
 import tempfile
 import unittest
+import tkinter as tk
 
-from supplychainpy.launch_reports import load_db
+from supplychainpy.launch_reports import load_db, SupplychainpyReporting
 from supplychainpy.reporting.views import app, db
 
 
@@ -35,6 +36,12 @@ class TestFlaskReports(unittest.TestCase):
         print(inventory_analysis.data)
         for heading in headings:
             assert heading in inventory_analysis.data
+
+    #def test_launch_report(self):
+    #    launcher = tk.Tk()
+    #    spawn = SupplychainpyReporting(launcher)
+    #    with self.assertRaises(ValueError):
+    #        spawn.spawn_reports()
 
 
 

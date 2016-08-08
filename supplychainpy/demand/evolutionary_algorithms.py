@@ -39,7 +39,7 @@ class Individual:
 
     @staticmethod
     def __genome_generator():
-        genome = tuple([uniform(0, 1) for i in range(1, 12)])
+        genome = tuple([uniform(0, 1) for i in range(0, 12)])
         return genome
 
 
@@ -52,13 +52,23 @@ class Population:
     def reproduce(self):
         offsprings = []
         offspring = {}
+        genome_count = 0
+        new_individual = {}
+        new_population = []
         if len(self.individuals) > 1:
             for index, individual in enumerate(self.individuals):
-                if index + 1 < len(self.individuals):
-                    offspring = {key:value for key, value in individual.items() if value > 0}
-                    offspring.update({key:value for key, value in individual.items() if value > 0})
+                for key, value in individual.items():
+                    if genome_count <= 5 and len(new_individual) < 12:
+                        new_individual.update({key: value})
+                        # print(new_individual)
+                        genome_count += 1
+                    else:
+                        genome_count += 1
 
-            print(offspring)
+                    if genome_count == 12:
+                        genome_count = 0
+                        yield new_individual
+
 
 
     def _recombination(self):
@@ -101,16 +111,15 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
          initialisation of the class. """
 
         parents = []
-        parents_population=[]
+        parents_population = []
         offspring = []
         population = []
         while len(parents_population) < self.__population_size:
             for i in range(0, self.__population_size):
                 parent = Individual(name='parent')
                 parents.append(parent)
-            #print(parents)
+                # print(parents)
                 # generate offspring here to verify parents traits and allow most promising to produce offspring
-
             populations_genome = [i for i in self.generate_smoothing_level_genome(parents=parents,
                                                                                   standard_error=self.__standard_error,
                                                                                   smoothing_level=self.__smoothing_level)]
@@ -123,8 +132,12 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
 
             parents_population += fit_population
 
-        #create_offspring = Population(individuals=parents_population)
-        #create_offspring.reproduce()
+
+        create_offspring = Population(individuals=parents_population)
+        new_population = [i for i in create_offspring.reproduce()]
+        for po in new_population:
+            pke = po.keys()
+            print(pke)
         return parents_population
 
     @staticmethod
@@ -153,7 +166,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
         # stack parents and offspring into a list for next steps
         for parent in parents:
             individuals_genome = self._run_exponential_smoothing_forecast(parent.genome)
-            #print(individuals_genome)
+            # print(individuals_genome)
             # individuals_traits = self._express_trait(standard_error, smoothing_level, individuals_genome)
 
             yield individuals_genome
