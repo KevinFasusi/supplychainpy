@@ -22,9 +22,12 @@ class Verbose:
 
 
 class Individual:
-    def __init__(self, name: str = 'offspring'):
+    _genome = 0
+
+    def __init__(self, name: str = 'offspring', overide: bool = False):
         self._name = name
-        self._genome = self.__genome_generator()
+        if not overide:
+            self._genome = self.__genome_generator()
 
     def __repr__(self):
         return '{}: {}'.format(self._name, self._genome)
@@ -32,6 +35,10 @@ class Individual:
     @property
     def genome(self):
         return self._genome
+
+    @genome.setter
+    def genome(self, val: tuple):
+        self._genome = val
 
     @property
     def name(self):
@@ -49,29 +56,43 @@ class Population:
     def __init__(self, individuals: list):
         self.individuals = individuals
 
-    def reproduce(self):
-        offsprings = []
-        offspring = {}
+    def reproduce(self) -> list:
+
         genome_count = 0
         new_individual = {}
-        new_population = []
-        if len(self.individuals) > 1:
-            for index, individual in enumerate(self.individuals):
-                for key, value in individual.items():
-                    if genome_count <= 5 and len(new_individual) < 12:
-                        new_individual.update({key: value})
-                        # print(new_individual)
-                        genome_count += 1
-                    else:
-                        genome_count += 1
+        new_individual_two = {}
+        population = []
+        try:
 
-                    if genome_count == 12:
-                        genome_count = 0
-                        yield new_individual
+            if len(self.individuals) > 1:
+                for index, individual in enumerate(self.individuals):
+                    for key, value in individual.items():
+                        if (genome_count <= 5 and len(new_individual) < 12) or (
+                                    12 < genome_count <= 18 and len(new_individual) < 12):
+                            new_individual.update({key: value})
+                            # print(new_individual)
+                            genome_count += 1
 
+                        elif genome_count >= 6 and len(new_individual_two) < 12 or 18 < genome_count <= 24 and len(
+                                new_individual) < 12:
+                            new_individual_two.update({key: value})
+                            # print(new_individual)
+                            genome_count += 1
+                        else:
+                            genome_count += 1
 
+                        if genome_count == 24:
+                            genome_count = 0
+                            yield (new_individual)
+                            yield (new_individual_two)
+            else:
+                raise ValueError()
+        except ValueError:
+            print('Population Size is too small for effective genetic recombination and reproduction of offspring')
 
-    def _recombination(self):
+        return population
+
+    def _recombination(self) -> object:
         pass
 
     def _mutation(self):
@@ -120,7 +141,8 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
                 parents.append(parent)
                 # print(parents)
                 # generate offspring here to verify parents traits and allow most promising to produce offspring
-            populations_genome = [i for i in self.generate_smoothing_level_genome(parents=parents,
+
+            populations_genome = [i for i in self.generate_smoothing_level_genome(population=parents,
                                                                                   standard_error=self.__standard_error,
                                                                                   smoothing_level=self.__smoothing_level)]
 
@@ -128,17 +150,56 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
                                                                                  standard_error=self.__standard_error,
                                                                                  smoothing_level=self.__smoothing_level)]
 
-            fit_population = self._population_fitness(population_xtraits=populations_traits)
+            fit_population = [i for i in self._population_fitness(population_xtraits=populations_traits)]
 
             parents_population += fit_population
 
-
         create_offspring = Population(individuals=parents_population)
         new_population = [i for i in create_offspring.reproduce()]
+
+        parent_offspring_population = []
+        new_individuals = []
+        while len(new_population) < self.__population_size * 10:
+            for po in new_population:
+                pke = po.keys()
+                parent_offspring_population.append(tuple(pke))
+
+            for genome in parent_offspring_population:
+                new_individual = Individual(overide=True)
+                new_individual.genome = genome
+                new_individuals.append(new_individual)
+
+            # while population allele boundary ie 50 70 95 is less than specified number.
+            new_population_genome = [i for i in self.generate_smoothing_level_genome(population=new_individuals,
+                                                                                     standard_error=self.__standard_error,
+                                                                                     smoothing_level=self.__smoothing_level)]
+
+            new_populations_traits = [i for i in
+                                      self.express_smoothing_level_genome(individuals_genome=new_population_genome,
+                                                                          standard_error=self.__standard_error,
+                                                                          smoothing_level=self.__smoothing_level)]
+
+            new_fit_population = [i for i in self._population_fitness(population_xtraits=new_populations_traits)]
+            new_population = new_fit_population
+
+            # change to function
+        new_individuals.clear()
         for po in new_population:
             pke = po.keys()
-            print(pke)
-        return parents_population
+            parent_offspring_population.append(tuple(pke))
+
+        for genome in parent_offspring_population:
+            new_individual = Individual(overide=True)
+            new_individual.genome = genome
+            new_individuals.append(new_individual)
+
+        final_error = [i for i in self.generate_smoothing_level_genome(population=new_individuals,
+                                                                       standard_error=self.__standard_error,
+                                                                       smoothing_level=self.__smoothing_level)]
+
+        minimum_smoothing_level = min(zip(final_error[0].values(), final_error[0].keys()))
+
+        return minimum_smoothing_level
 
     @staticmethod
     def _population_fitness(population_xtraits: list) -> list:
@@ -153,18 +214,17 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
             fit_population (list):  A population of individuals with a probability of procreating above 50%.
 
         """
-        fit_population = []
+
         for individual in population_xtraits:
             procreation_probability = sum(individual.values()) / len(individual.values())
-            if procreation_probability >= 0.50:
-                fit_population.append(individual)
 
-        return fit_population
+            if procreation_probability >= 0.7:
+                yield individual
 
-    def generate_smoothing_level_genome(self, parents: list, standard_error, smoothing_level):
+    def generate_smoothing_level_genome(self, population: list, standard_error, smoothing_level):
 
         # stack parents and offspring into a list for next steps
-        for parent in parents:
+        for parent in population:
             individuals_genome = self._run_exponential_smoothing_forecast(parent.genome)
             # print(individuals_genome)
             # individuals_traits = self._express_trait(standard_error, smoothing_level, individuals_genome)
@@ -229,8 +289,10 @@ if __name__ == '__main__':
     sum_squared_error = f.sum_squared_errors(s, 0.5)
     standard_error = f.standard_error(sum_squared_error, len(orders), 0.5)
 
-    evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=orders, average_order=avg_orders, smoothing_level=0.5,
-                                                     population_size=10, standard_error=standard_error)
+    evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=orders, average_order=avg_orders, smoothing_level=0.6,
+                                                     population_size=300, standard_error=standard_error)
+
+    print(evo_mod.initial_population)
     # evo_mod.run_smoothing_level_evolutionary_algorithm(parents=evo_mod.initial_population,
     #                                                  standard_error=standard_error,
     #                                                  smoothing_level=0.5)
