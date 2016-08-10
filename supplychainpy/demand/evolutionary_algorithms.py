@@ -160,14 +160,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
         parent_offspring_population = []
         new_individuals = []
         while len(new_population) < self.__population_size * 10:
-            for po in new_population:
-                pke = po.keys()
-                parent_offspring_population.append(tuple(pke))
-
-            for genome in parent_offspring_population:
-                new_individual = Individual(overide=True)
-                new_individual.genome = genome
-                new_individuals.append(new_individual)
+            new_individuals = [i for i in self.create_individuals(new_population)]
 
             # while population allele boundary ie 50 70 95 is less than specified number.
             new_population_genome = [i for i in self.generate_smoothing_level_genome(population=new_individuals,
@@ -184,14 +177,8 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
 
             # change to function
         new_individuals.clear()
-        for po in new_population:
-            pke = po.keys()
-            parent_offspring_population.append(tuple(pke))
 
-        for genome in parent_offspring_population:
-            new_individual = Individual(overide=True)
-            new_individual.genome = genome
-            new_individuals.append(new_individual)
+        new_individuals = [i for i in self.create_individuals(new_population)]
 
         final_error = [i for i in self.generate_smoothing_level_genome(population=new_individuals,
                                                                        standard_error=self.__standard_error,
@@ -200,6 +187,22 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
         minimum_smoothing_level = min(zip(final_error[0].values(), final_error[0].keys()))
 
         return minimum_smoothing_level
+
+    @staticmethod
+    def create_individuals(new_population:list)->list:
+        parent_offspring_population = []
+        new_individuals = []
+
+        for po in new_population:
+            pke = po.keys()
+            parent_offspring_population.append(tuple(pke))
+
+        for genome in parent_offspring_population:
+            new_individual = Individual(overide=True)
+            new_individual.genome = genome
+            yield new_individual
+
+
 
     @staticmethod
     def _population_fitness(population_xtraits: list) -> list:
@@ -290,7 +293,7 @@ if __name__ == '__main__':
     standard_error = f.standard_error(sum_squared_error, len(orders), 0.5)
 
     evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=orders, average_order=avg_orders, smoothing_level=0.6,
-                                                     population_size=300, standard_error=standard_error)
+                                                     population_size=1, standard_error=standard_error)
 
     print(evo_mod.initial_population)
     # evo_mod.run_smoothing_level_evolutionary_algorithm(parents=evo_mod.initial_population,
