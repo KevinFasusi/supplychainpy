@@ -12,56 +12,92 @@ from sklearn.datasets import fetch_california_housing
 from sklearn.datasets import load_boston
 
 from supplychainpy import model_inventory
+from supplychainpy.demand.evolutionary_algorithms import OptimiseSmoothingLevelGeneticAlgorithm
+from supplychainpy.demand.forecast_demand import Forecast
 from supplychainpy.inventory.summarise import OrdersAnalysis
 from supplychainpy.reporting.load import load
 from supplychainpy.launch_reports import launch_load_report, launch_report
 from supplychainpy.demand.regression import LinearRegression
-
+import logging
+logging.basicConfig(filename='suchpy_log.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 __author__ = 'kevin'
 
 
 def main():
     start_time = time.time()
-    app_dir = os.path.dirname(__file__, )
-    rel_path = 'supplychainpy/data_col.csv'
-    abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
+   #app_dir = os.path.dirname(__file__, )
+   #rel_path = 'supplychainpy/data_col.csv'
+   #abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
 
-    # orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path,
-    #                                                                z_value=Decimal(1.28),
-    ##                                                                reorder_cost=Decimal(5000),
-    #                                                                file_type="csv", length=12)
-    # for i in orders_analysis:
-    #    print(i.orders_summary())
+   ## orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path,
+   ##                                                                z_value=Decimal(1.28),
+   ###                                                                reorder_cost=Decimal(5000),
+   ##                                                                file_type="csv", length=12)
+   ## for i in orders_analysis:
+   ##    print(i.orders_summary())
 
-    # ia = [analysis.orders_summary() for analysis in
-    #      model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
-    #                                                      reorder_cost=Decimal(5000), file_type="csv",
-    #                                                      length=12)]
+   ## ia = [analysis.orders_summary() for analysis in
+   ##      model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
+   ##                                                      reorder_cost=Decimal(5000), file_type="csv",
+   ##                                                      length=12)]
 
-    data = pd.read_csv(abs_file_path, index_col=['month'])
-    tdata = data['jan':'dec']
-    fdata = data['jan':'dec']
+   #data = pd.read_csv(abs_file_path, index_col=['month'])
+   #tdata = data['jan':'dec']
+   #fdata = data['jan':'dec']
 
-    series = data['orders']
-    tseries = tdata['orders']
-    fseries = fdata['orders']
+   #series = data['orders']
+   #tseries = tdata['orders']
+   #fseries = fdata['orders']
 
-    fdata['orders_forecast'] = tseries[-1]
-    fserieslen = fdata['orders']
+   #fdata['orders_forecast'] = tseries[-1]
+   #fserieslen = fdata['orders']
 
-    AVG = np.mean(tseries)
+   #AVG = np.mean(tseries)
 
-    for i in range(1, len(fseries)):
-        fdata['AVG'] = AVG
+   #for i in range(1, len(fseries)):
+   #    fdata['AVG'] = AVG
 
-    fdata.plot(y=['orders', 'AVG'])
-    l = LinearRegression(data['orders'])
+   #fdata.plot(y=['orders', 'AVG'])
+   #l = LinearRegression(data['orders'])
 
-    sse = l.SSE
-    sse['squared_errors'].plot('hist')
-    plt.show()
+   #sse = l.SSE
+   #sse['squared_errors'].plot('hist')
+   #plt.show()
 
-    print('s')
+   #print('s')
+
+
+
+    orders = [165, 171, 147, 143, 164, 160, 152, 150, 159, 169, 173, 203, 169, 166, 162, 147, 188, 161, 162, 169, 185,
+              188, 200, 229, 189, 218, 185, 199, 210, 193, 211, 208, 216, 218, 264, 304]
+
+    total_orders = 0
+    avg_orders = 0
+    for order in orders[:12]:
+        total_orders += order
+
+    avg_orders = total_orders / 12
+    f = Forecast(orders, avg_orders)
+    alpha = [0.2, 0.3, 0.4, 0.5, 0.6]
+    s = [i for i in f.simple_exponential_smoothing(*alpha)]
+
+    sum_squared_error = f.sum_squared_errors(s, 0.5)
+    standard_error = f.standard_error(sum_squared_error, len(orders), 0.5)
+
+    print(standard_error)
+
+    evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=orders, average_order=avg_orders, smoothing_level=0.5,
+                                                     population_size=10, standard_error=standard_error)
+
+    optimal_alpha = evo_mod.initial_population
+
+    print(optimal_alpha)
+
+    print([i for i in f.simple_exponential_smoothing(optimal_alpha[1])])
+    # evo_mod.run_smoothing_level_evolutionary_algorithm(parents=evo_mod.initial_population,
+    #                                                  standard_error=standard_error,
+    #                                                  smoothing_level=0.5)
+
     # print([i['orders'].values() for i in ia])
     # orders = [i['orders'].values() for i in ia]
     # orders1 = [i for i in orders[0]]

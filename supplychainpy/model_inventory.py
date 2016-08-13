@@ -1,4 +1,5 @@
 from decimal import Decimal
+import logging
 
 from supplychainpy.inventory.abc_xyz import AbcXyz
 
@@ -7,6 +8,9 @@ from supplychainpy.inventory import economic_order_quantity
 from supplychainpy.enum_formats import FileFormats
 from supplychainpy.enum_formats import PeriodFormats
 from supplychainpy.inventory import analyse_uncertain_demand
+
+log = logging.getLogger(__name__)
+log.addHandler(logging.NullHandler())
 
 
 # TODO-feature retrieve data from csv based on column heading
@@ -23,7 +27,7 @@ def retrieve_data_from_csv():
 # TODO-feature specify length of orders, start position and period (day, week, month, ...)
 # in the analysis function specify service-level expected for safety stock, a default is specified in the class
 def analyse_orders(data_set: dict, sku_id: str, lead_time: Decimal, unit_cost: Decimal, reorder_cost: Decimal,
-                   z_value: Decimal, retail_price: Decimal, quantity_on_hand: Decimal, currency:str ='USD') -> dict:
+                   z_value: Decimal, retail_price: Decimal, quantity_on_hand: Decimal, currency: str = 'USD') -> dict:
     """Analyse orders data for one sku using a dictionary.
 
     Analyses orders data for a single sku using the values in the data_set dict.
@@ -119,27 +123,27 @@ def analyse_orders_from_file_col(file_path, sku_id: str, lead_time: Decimal, uni
     Example:
 
     """
-
+    orders = {}
     if _check_extension(file_path=file_path, file_type=file_type):
         if file_type == FileFormats.text.name:
-            f = open(file_path, 'r')
-            orders = data_cleansing.clean_orders_data_col_txt(f)
+            with open(file_path, 'r') as raw_data:
+                orders = data_cleansing.clean_orders_data_col_txt(raw_data)
         elif file_type == FileFormats.csv.name:
-            f = open(file_path)
-            orders = data_cleansing.clean_orders_data_col_csv(f)
+            with open(file_path) as raw_data:
+                orders = data_cleansing.clean_orders_data_col_csv(raw_data)
     else:
         raise Exception("Unspecified file type, Please specify 'csv' or 'text' for file_type parameter.")
-    f.close()
+
     d = analyse_uncertain_demand.UncertainDemand(orders=orders, sku=sku_id, lead_time=lead_time,
                                                  unit_cost=unit_cost, reorder_cost=reorder_cost, z_value=z_value,
                                                  period=period, retail_price=retail_price, currency=currency)
-    f.close()
+
     return d.orders_summary()
 
 
 def analyse_orders_from_file_row(file_path: str, z_value: Decimal, reorder_cost: Decimal, retail_price: Decimal,
                                  file_type: str = FileFormats.text.name,
-                                 period: str = "month", length: int = 12, currency: str ='USD') -> list:
+                                 period: str = "month", length: int = 12, currency: str = 'USD') -> list:
     """Analyse multiple SKUs from a file with data arranged by row.
 
     Analyses orders data for a single sku, using the values from a file arranged in columns.The data should be arranged

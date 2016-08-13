@@ -1,4 +1,8 @@
 import numpy as np
+import logging
+
+log = logging.getLogger(__name__)
+log.addHandler(logging.NullHandler())
 
 
 class Forecast:
@@ -294,15 +298,18 @@ class Forecast:
         for sq_e in squared_error:
             if sq_e['alpha'] == smoothing_parameter:
                 sse += sq_e["squared_error"]
+                log.debug('sq_e :{}  sse: {}'.format(sq_e['alpha'], sse))
         return {smoothing_parameter: sse}
 
     @staticmethod
     def sum_squared_errors_indi(squared_error: list, smoothing_parameter: float) -> dict:
         sse = 0
+
         for sq_e in squared_error:
             for i in sq_e:
                 if i['alpha'] == smoothing_parameter:
                     sse += i["squared_error"]
+                    log.debug('sq_e :{}  sse: {}'.format(i['alpha'], sse))
         return {smoothing_parameter: sse}
 
     @staticmethod
@@ -432,5 +439,5 @@ if __name__ == '__main__':
     sum_squared_error = f.sum_squared_errors(s, 0.5)
     print(sum_squared_error)
 
-    standard_error = f.standard_error(sum_squared_error, len(orders))
+    standard_error = f.standard_error(sum_squared_error, len(orders), smoothing_parameter=0.5)
     print(standard_error)
