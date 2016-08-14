@@ -1,16 +1,31 @@
 import numpy as np
 import logging
 
+from supplychainpy.demand.regression import LinearRegression
+
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
 
 
 class Forecast:
-    def __init__(self, orders: list, average_orders: float = None):
+
+    __simple_exponential_smoothing_forecast = {}
+
+    #make keyword args
+    def __init__(self, orders: list=None, average_orders: float = None):
         self.__weighted_moving_average = None
         self.__orders = orders
-        self.__average_orders = average_orders
+        self.__average_orders = sum([demand for demand in self.__orders]) / len(self.__orders)
         self.__moving_average = []
+        self.__total_orders = sum([demand for demand in self.__orders])
+
+    @property
+    def total_orders(self):
+        return self.__total_orders
+
+    @property
+    def simply(self):
+        pass
 
     @property
     def moving_average(self) -> list:
@@ -259,7 +274,23 @@ class Forecast:
 
         return std_array
 
-    def simple_exponential_smoothing(self, *alpha):
+    def simple_exponential_smoothing(self, *alpha)->dict:
+        """ Generates forecast using simple exponential smoothing (SES).
+
+        Args:
+            alpha(args):    A list of smoothing level constants (alpha values)
+
+        Returns:
+            dict:           Forecast containing
+                            {'demand': 165, 'level_estimates': 164.49748124123246, 'alpha': 0.7487406206162335,
+                            'one_step_forecast': 163.0, 'forecast_error': 2.0, 'squared_error': 4.0, 't': 1}
+         Examples:
+                            forecast_demand = Forecast(orders)
+                            alpha_values = [0.2, 0.3, 0.4, 0.5, 0.6]
+                            ses_forecast = [forecast for forecast in forecast_demand.simple_exponential_smoothing(*alpha_values)]
+
+       """
+
 
         for arg in alpha:
             forecast = {}
@@ -283,6 +314,8 @@ class Forecast:
                        'squared_error': self._forecast_error(demand, previous_level_estimate) ** 2
                        }
                 previous_level_estimate = current_level_estimate
+
+
 
     @staticmethod
     def _level_estimate(lvl: float, smoothing_parameter: float, demand: int):
@@ -334,22 +367,10 @@ class Forecast:
 
         pass
 
-    def mean_aboslute_percentage_error(self, **forecasts) -> list:
-
-        """
-
-        Args:
-            forecasts (int):        Number of periods to average.
-            base_forecast (bool):   A list of weights that sum up to one.
-
-
-        Returns:
-            np.array
-
-        Raises:
-            ValueError:
-        """
-        pass
+    def mean_aboslute_percentage_error_opt(self, forecast: list) -> list:
+        sum_ape = sum([abs((i['demand'] - i['level_estimates']) / i['demand']) for i in forecast])
+        mape = (sum_ape / len(forecast)) * 100
+        return mape
 
     def optimise(self):
 
@@ -420,6 +441,7 @@ class Forecast:
         """
 
         pass
+
 
 
 if __name__ == '__main__':

@@ -122,21 +122,26 @@ def analyse_orders_from_file_col(file_path, sku_id: str, lead_time: Decimal, uni
 
     Example:
 
+
     """
     orders = {}
+    file_type_processed =''
     if _check_extension(file_path=file_path, file_type=file_type):
         if file_type == FileFormats.text.name:
             with open(file_path, 'r') as raw_data:
                 orders = data_cleansing.clean_orders_data_col_txt(raw_data)
+            file_type_processed = 'txt'
         elif file_type == FileFormats.csv.name:
             with open(file_path) as raw_data:
                 orders = data_cleansing.clean_orders_data_col_csv(raw_data)
+            file_type_processed = 'csv'
     else:
         raise Exception("Unspecified file type, Please specify 'csv' or 'text' for file_type parameter.")
 
     d = analyse_uncertain_demand.UncertainDemand(orders=orders, sku=sku_id, lead_time=lead_time,
                                                  unit_cost=unit_cost, reorder_cost=reorder_cost, z_value=z_value,
                                                  period=period, retail_price=retail_price, currency=currency)
+    log.debug('Raw data columnar from {} analysed'.format(file_type_processed))
 
     return d.orders_summary()
 

@@ -1,5 +1,5 @@
 from decimal import Decimal
-import re
+from warnings import warn
 import csv
 
 
@@ -28,11 +28,12 @@ def clean_orders_data_col_csv(file) -> dict:
 
 # TODO-feature allow data munger to accept any delimiter as a parameter
 def clean_orders_data_row(file, length: int) -> dict:
+    collection = []
     try:
         sku_list = []
         split_line = []
         composite = {}
-        collection = []
+
         # unpacks the line form the txt file and splits using delimiter (default pipe) to split_line list
         for line in file:
             split_line.append(line.split("|"))
@@ -64,11 +65,12 @@ def clean_orders_data_row(file, length: int) -> dict:
 def clean_orders_data_row_csv(file, length: int = 12) -> dict:
     # check length of list, check length of the length specified and validate the length and make sure it is long enough
     # to support the unit_cost, lead_time, asp, quantity_on_hand
+    collection = []
     try:
 
         sku_list = []
         composite = {}
-        collection = []
+
         read_csv = csv.reader(file)
         headers = next(read_csv)
         split_line = list(read_csv)

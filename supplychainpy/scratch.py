@@ -19,52 +19,53 @@ from supplychainpy.reporting.load import load
 from supplychainpy.launch_reports import launch_load_report, launch_report
 from supplychainpy.demand.regression import LinearRegression
 import logging
-logging.basicConfig(filename='suchpy_log.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+
+# logging.basicConfig(filename='suchpy_log.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 __author__ = 'kevin'
 
 
 def main():
     start_time = time.time()
-   #app_dir = os.path.dirname(__file__, )
-   #rel_path = 'supplychainpy/data_col.csv'
-   #abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
+    # app_dir = os.path.dirname(__file__, )
+    # rel_path = 'supplychainpy/data_col.csv'
+    # abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
 
-   ## orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path,
-   ##                                                                z_value=Decimal(1.28),
-   ###                                                                reorder_cost=Decimal(5000),
-   ##                                                                file_type="csv", length=12)
-   ## for i in orders_analysis:
-   ##    print(i.orders_summary())
+    ## orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path,
+    ##                                                                z_value=Decimal(1.28),
+    ###                                                                reorder_cost=Decimal(5000),
+    ##                                                                file_type="csv", length=12)
+    ## for i in orders_analysis:
+    ##    print(i.orders_summary())
 
-   ## ia = [analysis.orders_summary() for analysis in
-   ##      model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
-   ##                                                      reorder_cost=Decimal(5000), file_type="csv",
-   ##                                                      length=12)]
+    ## ia = [analysis.orders_summary() for analysis in
+    ##      model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
+    ##                                                      reorder_cost=Decimal(5000), file_type="csv",
+    ##                                                      length=12)]
 
-   #data = pd.read_csv(abs_file_path, index_col=['month'])
-   #tdata = data['jan':'dec']
-   #fdata = data['jan':'dec']
+    # data = pd.read_csv(abs_file_path, index_col=['month'])
+    # tdata = data['jan':'dec']
+    # fdata = data['jan':'dec']
 
-   #series = data['orders']
-   #tseries = tdata['orders']
-   #fseries = fdata['orders']
+    # series = data['orders']
+    # tseries = tdata['orders']
+    # fseries = fdata['orders']
 
-   #fdata['orders_forecast'] = tseries[-1]
-   #fserieslen = fdata['orders']
+    # fdata['orders_forecast'] = tseries[-1]
+    # fserieslen = fdata['orders']
 
-   #AVG = np.mean(tseries)
+    # AVG = np.mean(tseries)
 
-   #for i in range(1, len(fseries)):
-   #    fdata['AVG'] = AVG
+    # for i in range(1, len(fseries)):
+    #    fdata['AVG'] = AVG
 
-   #fdata.plot(y=['orders', 'AVG'])
-   #l = LinearRegression(data['orders'])
+    # fdata.plot(y=['orders', 'AVG'])
+    # l = LinearRegression(data['orders'])
 
-   #sse = l.SSE
-   #sse['squared_errors'].plot('hist')
-   #plt.show()
+    # sse = l.SSE
+    # sse['squared_errors'].plot('hist')
+    # plt.show()
 
-   #print('s')
+    # print('s')
 
 
 
@@ -93,7 +94,13 @@ def main():
 
     print(optimal_alpha)
 
-    print([i for i in f.simple_exponential_smoothing(optimal_alpha[1])])
+    forecast = [i for i in f.simple_exponential_smoothing(optimal_alpha[1])]
+    s = LinearRegression(forecast)
+    w = s.least_squared_error()
+    mape = f.mean_aboslute_percentage_error_opt(forecast)
+
+    sim = evo_mod.simple_exponential_smoothing_evo(0.5, 12)
+    print(sim)
     # evo_mod.run_smoothing_level_evolutionary_algorithm(parents=evo_mod.initial_population,
     #                                                  standard_error=standard_error,
     #                                                  smoothing_level=0.5)

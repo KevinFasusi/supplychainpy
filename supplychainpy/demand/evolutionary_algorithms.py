@@ -1,8 +1,10 @@
-from random import random, uniform, randint
+from random import uniform
 import logging
-#logging.basicConfig(filename='suchpy_log.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+# logging.basicConfig(filename='suchpy_log.txt', level=logging.DEBUG,
+#  format='%(asctime)s - %(levelname)s - %(message)s')
 
 from supplychainpy.demand.forecast_demand import Forecast
+from supplychainpy.demand.regression import LinearRegression
 
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
@@ -74,7 +76,7 @@ class Population:
         self.individuals = individuals
         self.mutation_probability = mutation_probability
 
-    def reproduce(self, recombination_type:str='single_point') -> list:
+    def reproduce(self, recombination_type: str = 'single_point') -> list:
         log.debug('{} reproduction started'.format(recombination_type))
         if recombination_type == self._recombination_type[0]:
             yield [i for i in self._recombination()][0]
@@ -84,10 +86,7 @@ class Population:
         genome_count = 0
         new_individual = {}
         new_individual_two = {}
-        population = []
         mutation_count = 0
-        population_allele_count = 0
-        number_of_mutations_allowed = 0
         mutation_index = 0
         try:
 
@@ -98,7 +97,7 @@ class Population:
                         number_of_mutations_allowed = round(population_allele_count * self.mutation_probability)
                         mutation_index += 1
                         if (genome_count <= 5 and len(new_individual) < 12) or (
-                                            12 < genome_count <= 18 and len(new_individual) < 12):
+                                            18 >= genome_count > 12 > len(new_individual)):
 
                             if mutation_index == number_of_mutations_allowed:
                                 new_individual.update(self._mutation({key: value}))
@@ -324,7 +323,8 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
         # print('The standard error as a trait has been calculated {}'.format(appraised_individual))
         return appraised_individual
 
-    def _express_trait(self, original_standard_error: float, appraised_individual: dict):
+    @staticmethod
+    def _express_trait(original_standard_error: float, appraised_individual: dict):
         # fitness test? over 50% of the alleles must be positive traits. give percentage score
         # print(original_standard_error)
         for key in appraised_individual:
@@ -338,3 +338,45 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
 
     def _selection_population(self, individuals_fitness: dict, appraised_individual: list):
         pass
+
+    def simple_exponential_smoothing_evo(self, smoothing_level_constant: float, initial_estimate_period: int) -> list:
+        """ Simple exponential smoothing using evolutionary algorithm for optimising smoothing level constant (alpha value)
+
+            Args:
+                initial_estimate_period (int):      The number of previous data points required for initial level estimate.
+                smoothing_level_constant (float):   Best guess at smoothing level constant appropriate for forecast.
+
+           Returns:
+               dict:
+
+            Example:
+
+        """
+
+        sum_orders = 0
+
+        for demand in self.__orders[:initial_estimate_period]:
+            sum_orders += demand
+
+        avg_orders = sum_orders / initial_estimate_period
+
+        forecast_demand = Forecast(self.__orders, avg_orders)
+
+        ses_forecast = [i for i in forecast_demand.simple_exponential_smoothing(*(smoothing_level_constant,))]
+
+        sum_squared_error = forecast_demand.sum_squared_errors(ses_forecast, smoothing_level_constant)
+
+        standard_error = forecast_demand.standard_error(sum_squared_error, len(self.__orders),
+                                                        smoothing_level_constant)
+
+        evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=self.__orders, average_order=avg_orders, smoothing_level=0.5,
+                                                         population_size=10, standard_error=standard_error)
+
+        optimal_alpha = evo_mod.initial_population
+
+        optimal_ses_forecast = [i for i in forecast_demand.simple_exponential_smoothing(optimal_alpha[1])]
+
+        ape = LinearRegression(optimal_ses_forecast)
+        optimal_ses_forecast.append(ape.least_squared_error())
+        optimal_ses_forecast.append(forecast_demand.mean_aboslute_percentage_error_opt(optimal_ses_forecast))
+        return optimal_ses_forecast

@@ -1,10 +1,13 @@
 import os
 import unittest
+import logging
 from cmath import isclose
 from decimal import Decimal
 from unittest import TestCase
 
 from supplychainpy import model_inventory
+
+logging.basicConfig(filename='suchpy_tests_log.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class TestBuildModel(TestCase):
@@ -16,8 +19,7 @@ class TestBuildModel(TestCase):
                    'revenue', 'standard_deviation', 'quantity_on_hand', 'average_orders', 'shortages', 'excess_stock',
                    'demand_variability')
 
-    _expected_values = ('50', 'RX983-90', '99' , '12', '57', '', '360000', '25', '390', '50', '0', '205', '0.500')
-
+    _expected_values = ('50', 'RX983-90', '99', '12', '57', '', '360000', '25', '390', '50', '0', '205', '0.500')
 
     def test_model_orders_type(self):
         """Tests analyse_orders returns a 'dict' type. """
@@ -58,7 +60,7 @@ class TestBuildModel(TestCase):
         for i, k in zip(self._categories, self._expected_values):
             self.assertEqual(str(k), summary.get(i))
 
-        # finish with all members
+            # finish with all members
 
     def test_standard_deviation_row_count(self):
         # arrange, act
@@ -80,9 +82,9 @@ class TestBuildModel(TestCase):
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
         # assert
         with self.assertRaises(expected_exception=Exception):
-            d = model_inventory.analyse_orders_from_file_row(file_path=abs_file_path,
-                                                             reorder_cost=Decimal(450),
-                                                             z_value=Decimal(1.28))
+            model_inventory.analyse_orders_from_file_row(file_path=abs_file_path,
+                                                         reorder_cost=Decimal(450),
+                                                         z_value=Decimal(1.28), retail_price=Decimal(455))
 
     def test_file_path_extension_col(self):
         # arrange, act
@@ -91,9 +93,9 @@ class TestBuildModel(TestCase):
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
         # assert
         with self.assertRaises(expected_exception=Exception):
-            d = model_inventory.analyse_orders_from_file_row(abs_file_path,
-                                                             reorder_cost=Decimal(450),
-                                                             z_value=Decimal(1.28))
+            model_inventory.analyse_orders_from_file_row(abs_file_path,
+                                                         reorder_cost=Decimal(450),
+                                                         z_value=Decimal(1.28), retail_price=Decimal(100))
 
     def test_standard_deviation_col_count(self):
         # arrange, act
@@ -109,7 +111,6 @@ class TestBuildModel(TestCase):
                                                          file_type="text",
                                                          retail_price=Decimal(30))
         # assert
-        print(d)
         self.assertEqual(len(d), 18)
 
     def test_standard_deviation_col_count_csv(self):
