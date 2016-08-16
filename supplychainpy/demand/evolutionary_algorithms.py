@@ -79,9 +79,9 @@ class Population:
     def reproduce(self, recombination_type: str = 'single_point') -> list:
         log.debug('{} reproduction started'.format(recombination_type))
         if recombination_type == self._recombination_type[0]:
-            yield [i for i in self._recombination()][0]
+            yield [i for i in self._single_point_crossover_recombination()][0]
 
-    def _recombination(self) -> object:
+    def _single_point_crossover_recombination(self) -> object:
 
         genome_count = 0
         new_individual = {}
@@ -125,6 +125,10 @@ class Population:
 
                         if genome_count == 24:
                             genome_count = 0
+                            if new_individual != new_individual_two:
+                                log.debug('single point crossover was successful')
+                            else:
+                                log.debug('single point crossover resulted in clone of parent')
                             yield (new_individual)
                             yield (new_individual_two)
 
@@ -134,7 +138,23 @@ class Population:
         except ValueError:
             print('Population Size is too small for effective genetic recombination and reproduction of offspring')
 
-            return
+    def _two_point_crossover_recombination(self):
+        genome_count = 0
+        new_individual = {}
+        new_individual_two = {}
+        mutation_count = 0
+        mutation_index = 0
+        try:
+
+            if len(self.individuals) > 1:
+               for index, individual in enumerate(self.individuals):
+                   for key, value in individual.items():
+                       population_allele_count = len(self.individuals) * len(individual.items())
+                       number_of_mutations_allowed = round(population_allele_count * self.mutation_probability)
+                       mutation_index += 1
+                       if (genome_count <= 3 and len(new_individual) < 12) or (
+                                           9 > genome_count <=  > len(new_individual)):
+
 
     @staticmethod
     def _mutation(gene: dict):
@@ -339,7 +359,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
     def _selection_population(self, individuals_fitness: dict, appraised_individual: list):
         pass
 
-    def simple_exponential_smoothing_evo(self, smoothing_level_constant: float, initial_estimate_period: int) -> list:
+    def simple_exponential_smoothing_evo(self, smoothing_level_constant: float, initial_estimate_period: int) -> dict:
         """ Simple exponential smoothing using evolutionary algorithm for optimising smoothing level constant (alpha value)
 
             Args:
@@ -377,6 +397,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
         optimal_ses_forecast = [i for i in forecast_demand.simple_exponential_smoothing(optimal_alpha[1])]
 
         ape = LinearRegression(optimal_ses_forecast)
-        optimal_ses_forecast.append(ape.least_squared_error())
-        optimal_ses_forecast.append(forecast_demand.mean_aboslute_percentage_error_opt(optimal_ses_forecast))
-        return optimal_ses_forecast
+        mape = forecast_demand.mean_aboslute_percentage_error_opt(optimal_ses_forecast)
+        stats = ape.least_squared_error()
+
+        return {'forecast': optimal_ses_forecast, 'mape': mape, 'statistics': stats}

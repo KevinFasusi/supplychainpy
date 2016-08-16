@@ -43,17 +43,6 @@ class LinearRegression:
         slope_standard_error = std_residuals / ss
         test_statistic = slope / slope_standard_error
         pvalue = stats.t.sf(abs(test_statistic), n-2) * 2
-        print(pvalue)
-        print(test_statistic)
-        print(ss)
-        print(slope_standard_error)
-        print(intercept)
-        print(std_residuals)
-        # print(sum_x_sq)
-        # print(sum_x_mul_x)
-        # print(sum_x_mul_y)
-        # print(sum_y)
-        # print(sum_x)
-        # print(x_mul_y)
-        # print(x_mul_x)
-        return slope
+        return {'slope': slope, 'pvalue': pvalue, 'test_statistic': test_statistic,
+                'slope_standard_error': slope_standard_error, 'intercept': intercept,
+                'std_residuals': std_residuals}

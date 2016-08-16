@@ -8,11 +8,10 @@ log.addHandler(logging.NullHandler())
 
 
 class Forecast:
-
     __simple_exponential_smoothing_forecast = {}
 
-    #make keyword args
-    def __init__(self, orders: list=None, average_orders: float = None):
+    # make keyword args
+    def __init__(self, orders: list = None, average_orders: float = None):
         self.__weighted_moving_average = None
         self.__orders = orders
         self.__average_orders = sum([demand for demand in self.__orders]) / len(self.__orders)
@@ -274,7 +273,7 @@ class Forecast:
 
         return std_array
 
-    def simple_exponential_smoothing(self, *alpha)->dict:
+    def simple_exponential_smoothing(self, *alpha) -> dict:
         """ Generates forecast using simple exponential smoothing (SES).
 
         Args:
@@ -290,7 +289,6 @@ class Forecast:
                             ses_forecast = [forecast for forecast in forecast_demand.simple_exponential_smoothing(*alpha_values)]
 
        """
-
 
         for arg in alpha:
             forecast = {}
@@ -314,8 +312,6 @@ class Forecast:
                        'squared_error': self._forecast_error(demand, previous_level_estimate) ** 2
                        }
                 previous_level_estimate = current_level_estimate
-
-
 
     @staticmethod
     def _level_estimate(lvl: float, smoothing_parameter: float, demand: int):
@@ -441,7 +437,6 @@ class Forecast:
         """
 
         pass
-
 
 
 if __name__ == '__main__':
