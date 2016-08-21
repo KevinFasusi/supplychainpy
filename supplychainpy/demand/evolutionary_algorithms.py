@@ -104,10 +104,9 @@ class Population:
 
         Yields:
             individual (dict):          Parents p1-xxxxxxxxxxxx and p2-oooooooooooo will produce offspring c1-xxxxxxooooo
-                                        and c2-ooooooxxxxxx. Individual_two yields the first offspring.
+                                        and c2-ooooooxxxxxx. Individual yields the first offspring (c1).
             individual_two (dict):      Parents p1-xxxxxxxxxxxxx and p2-oooooooooooo will produce offspring c1-xxxxxxooooo
-                                        and c2-ooooooxxxxxx. Individual_two yields the second offspring.
-
+                                        and c2-ooooooxxxxxx. Individual_two yields the second offspring (c2).
         """
 
         genome_count = 0
@@ -172,9 +171,9 @@ class Population:
 
         Yields:
             individual (dict):          Parents p1-xxxxxxxxxxxxx and p2-oooooooooooo will produce offspring c1-xxxooooooxxx
-                                        and c2-oooxxxxxxooo. Individual_two yields the first offspring.
+                                        and c2-oooxxxxxxooo. Individual yields the first offspring (c1).
             individual_two (dict):      Parents p1-xxxxxxxxxxxxx and p2-oooooooooooo will produce offspring c1-xxxooooooxxx
-                                        and c2-oooxxxxxxooo. Individual_two yields the second offspring.
+                                        and c2-oooxxxxxxooo. Individual_two yields the second offspring (c2).
         """
 
         genome_count = 0

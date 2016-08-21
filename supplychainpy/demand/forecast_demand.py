@@ -1,3 +1,5 @@
+from functools import wraps
+
 import numpy as np
 import logging
 
@@ -5,6 +7,17 @@ from supplychainpy.demand.regression import LinearRegression
 
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
+
+
+def test_print(func):
+    @wraps(func)
+    def printstuff(*args):
+        d = [p for p in func(*args)]
+        print(d)
+        print('hi i am stuff\n')
+        return d
+
+    return printstuff
 
 
 class Forecast:
@@ -294,7 +307,8 @@ class Forecast:
             forecast = {}
 
             current_level_estimate = self.__average_orders
-            forecast.update({'t': 0,
+            forecast.update({'alpha': arg,
+                             't': 0,
                              'demand': 0,
                              'level_estimates': current_level_estimate,
                              'one_step_forecast': 0,
@@ -313,16 +327,87 @@ class Forecast:
                        }
                 previous_level_estimate = current_level_estimate
 
-    def holts_trend_corrected_exponential_smoothing(self):
-        pass
+    def holts_trend_corrected_exponential_smoothing(self, alpha: float, gamma: float, intercept: float, slope: float):
+        forecast = {}
+        log.debug('holts ')
+        current_level_estimate = intercept
+        forecast.update({'alpha': alpha,
+                         'gamma': gamma,
+                         't': 0,
+                         'demand': 0,
+                         'level_estimates': current_level_estimate,
+                         'trend': slope,
+                         'one_step_forecast': 0,
+                         'forecast_error': 0,
+                         'squared_error': 0
+
+                         })
+        previous_trend = slope
+        previous_level_estimate = current_level_estimate
+        for index, demand in enumerate(tuple(self.__orders), 1):
+            log.debug('demand: {}'.format(demand))
+            one_step = previous_level_estimate + previous_trend
+            print('one_step: {}'.format(one_step))
+            forecast_error = self._forecast_error(demand, one_step)
+            print('forecast_error: {}'.format(forecast_error))
+            current_trend = self._holts_trend(previous_trend, gamma, alpha, forecast_error)
+            print('trend: {}'.format(current_trend))
+            current_level_estimate = self._level_estimate_holts_trend_corrected(previous_level_estimate,
+                                                                                alpha,
+                                                                                previous_trend,
+                                                                                forecast_error)
+            print('current_level: {}'.format(current_level_estimate))
+            squared_error = forecast_error ** 2
+            yield {'alpha': alpha,
+                   'gamma': gamma,
+                   't': index,
+                   'demand': demand,
+                   'trend': current_trend,
+                   'level_estimates': current_level_estimate,
+                   'one_step_forecast': one_step,
+                   'forecast_error': forecast_error,
+                   'squared_error': squared_error
+                   }
+            print('squared_error: {}'.format(squared_error))
+            previous_level_estimate = current_level_estimate
+            previous_trend = current_trend
+
+    def holts_trend_corrected_forecast(self, forecast: list, forecast_length: int):
+        """Creates a forecast for as many periods.
+
+        Args:
+            forecast:
+            forecast_length:
+
+        Returns:
+
+        """
+        end_of_forecast = len(forecast) - 1
+        print(forecast[end_of_forecast])
+
+        new_forecast = []
+
+        for i in range(forecast_length):
+            demand_forecast = forecast[end_of_forecast]['level_estimates'] + i * forecast[end_of_forecast]['trend']
+            new_forecast.append(demand_forecast)
+        return new_forecast
+
+    @staticmethod
+    def _holts_trend(previous_trend: float, gamma: float, alpha: float, current_forecast_error: float):
+        return previous_trend + alpha * gamma * current_forecast_error
 
     @staticmethod
     def _level_estimate(lvl: float, smoothing_parameter: float, demand: int):
         return lvl + smoothing_parameter * (demand - lvl)
 
     @staticmethod
+    def _level_estimate_holts_trend_corrected(previous_level: float, smoothing_parameter: float, previous_trend: float,
+                                              forecast_error: float):
+        return previous_level + previous_trend + smoothing_parameter * forecast_error
+
+    @staticmethod
     def _forecast_error(demand: int, one_step_forecast: float):
-        return demand - one_step_forecast
+        return float(demand) - one_step_forecast
 
     @staticmethod
     def sum_squared_errors(squared_error: list, smoothing_parameter: float) -> dict:
@@ -345,8 +430,8 @@ class Forecast:
         return {smoothing_parameter: sse}
 
     @staticmethod
-    def standard_error(sse: dict, orders_count, smoothing_parameter: float) -> float:
-        return (sse[smoothing_parameter] / (orders_count - 1)) ** 0.5
+    def standard_error(sse: dict, orders_count, smoothing_parameter: float, df:int=1) -> float:
+        return (sse[smoothing_parameter] / (orders_count - df)) ** 0.5
 
     def mean_forecast_error(self):
 
@@ -420,25 +505,6 @@ class Forecast:
         Raises:
             ValueError:
         """
-        pass
-
-    # select which algorithm to use list available algorithms in the documentations
-    def genetic_algorithm(self):
-
-        """
-
-        Args:
-            forecasts (int):        Number of periods to average.
-            base_forecast (bool):   A list of weights that sum up to one.
-
-
-        Returns:
-            np.array
-
-        Raises:
-            ValueError:
-        """
-
         pass
 
 
