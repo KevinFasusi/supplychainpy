@@ -3,8 +3,6 @@ from functools import wraps
 import numpy as np
 import logging
 
-from supplychainpy.demand.regression import LinearRegression
-
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
 
@@ -24,7 +22,7 @@ class Forecast:
     __simple_exponential_smoothing_forecast = {}
 
     # make keyword args
-    def __init__(self, orders: list = None, average_orders: float = None):
+    def __init__(self, orders: list = None):
         self.__weighted_moving_average = None
         self.__orders = orders
         self.__average_orders = sum([demand for demand in self.__orders]) / len(self.__orders)
