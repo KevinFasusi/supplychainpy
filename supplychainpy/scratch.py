@@ -20,7 +20,7 @@ from supplychainpy.launch_reports import launch_load_report, launch_report
 from supplychainpy.demand.regression import LinearRegression
 import logging
 
-# logging.basicConfig(filename='suchpy_log.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+#logging.basicConfig( level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 __author__ = 'kevin'
 
 
@@ -74,6 +74,7 @@ def main():
 
     total_orders = 0
     avg_orders = 0
+
     for order in orders[:12]:
         total_orders += order
 
@@ -85,10 +86,12 @@ def main():
     sum_squared_error = f.sum_squared_errors(s, 0.5)
     standard_error = f.standard_error(sum_squared_error, len(orders), 0.5)
 
-    print(standard_error)
-
-    evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=orders, average_order=avg_orders, smoothing_level=0.5,
-                                                     population_size=10, standard_error=standard_error)
+    evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=orders,
+                                                     average_order=avg_orders,
+                                                     smoothing_level=0.5,
+                                                     population_size=10,
+                                                     standard_error=standard_error,
+                                                     recombination_type='two_point')
 
     optimal_alpha = evo_mod.initial_population
 
@@ -98,10 +101,9 @@ def main():
     s = LinearRegression(forecast)
     w = s.least_squared_error()
     mape = f.mean_aboslute_percentage_error_opt(forecast)
-
-    sim = evo_mod.simple_exponential_smoothing_evo(0.5, 12)
+    sim = evo_mod.simple_exponential_smoothing_evo(0.5, 12, 'two_point')
     print(sim)
-    # evo_mod.run_smoothing_level_evolutionary_algorithm(parents=evo_mod.initial_population,
+    #evo_mod.run_smoothing_level_evolutionary_algorithm(parents=evo_mod.initial_population,
     #                                                  standard_error=standard_error,
     #                                                  smoothing_level=0.5)
 

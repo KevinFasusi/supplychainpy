@@ -77,17 +77,46 @@ class Population:
         self.mutation_probability = mutation_probability
 
     def reproduce(self, recombination_type: str = 'single_point') -> list:
+        """ Coordinates the reproduction of two individuals, using one of three recombination methods 'single_point,
+        two_point or uniform'.
+
+        Args:
+            recombination_type: The method of recombination used to
+
+        Yields:
+            (dict):     The result of recombination and mutation.
+
+        """
         log.debug('{} reproduction started'.format(recombination_type))
+
         if recombination_type == self._recombination_type[0]:
+            log.debug('started single point recombination')
             yield [i for i in self._single_point_crossover_recombination()][0]
+        if recombination_type == self._recombination_type[1]:
+            log.debug('started two point recombination')
+            yield [i for i in self._two_point_crossover_recombination()][0]
+        if recombination_type == self._recombination_type[2]:
+            log.debug('started uniform recombination')
+            yield [i for i in self._uniform_crossover_recombination()][0]
 
     def _single_point_crossover_recombination(self) -> object:
+        """ Selects genes from the parent to crossover based on one point along the chromosome.
+
+        Yields:
+            individual (dict):          Parents p1-xxxxxxxxxxxx and p2-oooooooooooo will produce offspring c1-xxxxxxooooo
+                                        and c2-ooooooxxxxxx. Individual_two yields the first offspring.
+            individual_two (dict):      Parents p1-xxxxxxxxxxxxx and p2-oooooooooooo will produce offspring c1-xxxxxxooooo
+                                        and c2-ooooooxxxxxx. Individual_two yields the second offspring.
+
+        """
 
         genome_count = 0
         new_individual = {}
         new_individual_two = {}
+
         mutation_count = 0
         mutation_index = 0
+
         try:
 
             if len(self.individuals) > 1:
@@ -108,8 +137,8 @@ class Population:
                                 new_individual.update({key: value})
                                 genome_count += 1
 
-                        elif genome_count >= 6 and len(new_individual_two) < 12 or 18 < genome_count <= 24 and len(
-                                new_individual) < 12:
+                        elif (genome_count >= 6 and len(new_individual_two) < 12) or (18 < genome_count <= 24 and len(
+                                new_individual) < 12):
 
                             if mutation_index == number_of_mutations_allowed:
                                 new_individual_two.update(self._mutation({key: value}))
@@ -139,25 +168,85 @@ class Population:
             print('Population Size is too small for effective genetic recombination and reproduction of offspring')
 
     def _two_point_crossover_recombination(self):
+        """ Selects genes from the parent to crossover based on two points along the chromosome.
+
+        Yields:
+            individual (dict):          Parents p1-xxxxxxxxxxxxx and p2-oooooooooooo will produce offspring c1-xxxooooooxxx
+                                        and c2-oooxxxxxxooo. Individual_two yields the first offspring.
+            individual_two (dict):      Parents p1-xxxxxxxxxxxxx and p2-oooooooooooo will produce offspring c1-xxxooooooxxx
+                                        and c2-oooxxxxxxooo. Individual_two yields the second offspring.
+        """
+
         genome_count = 0
         new_individual = {}
-        new_individual_two = {}
+
         mutation_count = 0
         mutation_index = 0
+        new_individual_two = {}
+
         try:
-
             if len(self.individuals) > 1:
-               for index, individual in enumerate(self.individuals):
-                   for key, value in individual.items():
-                       population_allele_count = len(self.individuals) * len(individual.items())
-                       number_of_mutations_allowed = round(population_allele_count * self.mutation_probability)
-                       mutation_index += 1
-                       if (genome_count <= 3 and len(new_individual) < 12) or (
-                                           9 > genome_count <=  > len(new_individual)):
+                for index, individual in enumerate(self.individuals):
+                    for key, value in individual.items():
+                        population_allele_count = len(self.individuals) * len(individual.items())
+                        number_of_mutations_allowed = round(population_allele_count * self.mutation_probability)
+                        mutation_index += 1
+                        if (2 >= genome_count and len(new_individual) < 12) or (15 <= genome_count <= 20) or (
+                                        9 <= genome_count <= 11):
+                            if mutation_index == number_of_mutations_allowed:
+                                new_individual.update(self._mutation({key: value}))
+                                genome_count += 1
+                                mutation_index = 0
+                                mutation_count += 1
+                            else:
+                                new_individual.update({key: value})
+                                genome_count += 1
 
+                        elif (12 <= genome_count <= 14 and len(new_individual_two) < 12) or (
+                                        3 <= genome_count <= 8) and (len(
+                            new_individual) < 12 or 21 <= genome_count <= 23):
+                            if mutation_index == number_of_mutations_allowed:
+                                new_individual.update(self._mutation({key: value}))
+                                genome_count += 1
+                                mutation_index = 0
+                                mutation_count += 1
+                            else:
+                                new_individual.update({key: value})
+                                genome_count += 1
+                        else:
+                            genome_count += 1
+
+                        if genome_count == 24:
+                            genome_count = 0
+                            if new_individual != new_individual_two:
+                                log.debug('single point crossover was successful')
+                            else:
+                                log.debug('single point crossover resulted in clone of parent')
+                            yield (new_individual)
+                            yield (new_individual_two)
+
+
+
+        except OSError as e:
+
+            print(e)
+
+    #TODO-feature uniform crossover recombination for reproduction
+    def _uniform_crossover_recombination(self):
+        pass
 
     @staticmethod
     def _mutation(gene: dict):
+        """Mutates a gene and reinserts it into the chromosome. A phenotype expressed as a standard error is altered
+        by having the bit representing it flipped.
+
+        Args:
+            gene:   The alpha value and bit representing the positive or negative fit of the gene.
+
+        Returns:
+            dict:   The new gene with an altered value for the it representing the positive or negative fit of the gene.
+
+        """
 
         original_gene = [[k, v] for k, v in gene.items()]
 
@@ -167,6 +256,7 @@ class Population:
                 log.debug(
                     'A mutation occurred on gene {}. The result of the mutation is {}'.format({original_gene[0][0]: 0},
                                                                                               {original_gene[0][0]: 1}))
+                print('mutation')
                 return {original_gene[0][0]: 1}
             elif original_gene[0][1] == 1:
                 log.debug(
@@ -194,10 +284,16 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
         self.__population_size = kwargs['population_size']
         self.__standard_error = kwargs['standard_error']
         self.__smoothing_level = kwargs['smoothing_level']
-        self.__initial_population = self.initialise_smoothing_level_evolutionary_algorithm_population()
+        self.__recombination_type = kwargs['recombination_type']
+        self.__initial_population = self._initialise_smoothing_level_evolutionary_algorithm_population()
 
     @property
     def initial_population(self):
+        """Initialises population and initiates the optimisation of the standard error by searching for an optimum
+        alpha value.
+        Returns:
+
+        """
         return self.__initial_population
 
     @property
@@ -208,7 +304,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
     def population_size(self, population_size):
         self.__population_size = population_size
 
-    def initialise_smoothing_level_evolutionary_algorithm_population(self):
+    def _initialise_smoothing_level_evolutionary_algorithm_population(self):
         """ Starts the process for creating the population. The number of parents is specified during the
          initialisation of the class. """
 
@@ -233,7 +329,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
         create_offspring = Population(individuals=parents_population)
 
         # population reproduce
-        new_population = [i for i in create_offspring.reproduce()]
+        new_population = [i for i in create_offspring.reproduce(recombination_type=self.__recombination_type)]
 
         if new_population is None:
             return 0
@@ -359,7 +455,8 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
     def _selection_population(self, individuals_fitness: dict, appraised_individual: list):
         pass
 
-    def simple_exponential_smoothing_evo(self, smoothing_level_constant: float, initial_estimate_period: int) -> dict:
+    def simple_exponential_smoothing_evo(self, smoothing_level_constant: float, initial_estimate_period: int,
+                                         recombination_type: str = 'single_point', population_size: int = 10) -> dict:
         """ Simple exponential smoothing using evolutionary algorithm for optimising smoothing level constant (alpha value)
 
             Args:
@@ -372,6 +469,8 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
             Example:
 
         """
+        if None != self.__recombination_type:
+            recombination_type = self.__recombination_type
 
         sum_orders = 0
 
@@ -389,8 +488,12 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
         standard_error = forecast_demand.standard_error(sum_squared_error, len(self.__orders),
                                                         smoothing_level_constant)
 
-        evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=self.__orders, average_order=avg_orders, smoothing_level=0.5,
-                                                         population_size=10, standard_error=standard_error)
+        evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=self.__orders,
+                                                         average_order=avg_orders,
+                                                         smoothing_level=0.5,
+                                                         population_size=population_size,
+                                                         standard_error=standard_error,
+                                                         recombination_type=recombination_type)
 
         optimal_alpha = evo_mod.initial_population
 

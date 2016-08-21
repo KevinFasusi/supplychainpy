@@ -23,9 +23,9 @@ class LinearRegression:
         sse = np.sum(squared_errors)
         return {'SSE': sse, 'squared_errors': squared_errors}
 
-    def least_squared_error(self):
+    def least_squared_error(self, slice_start: int, slice_end:int):
         x_y_values = {}
-        for i in self.orders:
+        for i in self.orders[:]:
             x_y_values.update({i['t']: i['demand']})
         x_mul_y = {k: k * v for k, v in x_y_values.items()}
         x_sq = {k: k ** 2 for k in x_y_values.keys()}

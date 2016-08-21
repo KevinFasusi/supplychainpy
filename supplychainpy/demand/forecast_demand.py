@@ -313,6 +313,9 @@ class Forecast:
                        }
                 previous_level_estimate = current_level_estimate
 
+    def holts_trend_corrected_exponential_smoothing(self):
+        pass
+
     @staticmethod
     def _level_estimate(lvl: float, smoothing_parameter: float, demand: int):
         return lvl + smoothing_parameter * (demand - lvl)
@@ -327,7 +330,7 @@ class Forecast:
         for sq_e in squared_error:
             if sq_e['alpha'] == smoothing_parameter:
                 sse += sq_e["squared_error"]
-                log.debug('sq_e :{}  sse: {}'.format(sq_e['alpha'], sse))
+        log.debug('finished sse')
         return {smoothing_parameter: sse}
 
     @staticmethod
@@ -338,7 +341,7 @@ class Forecast:
             for i in sq_e:
                 if i['alpha'] == smoothing_parameter:
                     sse += i["squared_error"]
-                    log.debug('sq_e :{}  sse: {}'.format(i['alpha'], sse))
+        log.debug('finished sse')
         return {smoothing_parameter: sse}
 
     @staticmethod
