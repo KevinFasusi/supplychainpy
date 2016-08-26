@@ -22,7 +22,7 @@ class Forecast:
     __simple_exponential_smoothing_forecast = {}
 
     # make keyword args
-    def __init__(self, orders: list = None):
+    def __init__(self, orders: list = None, average_orders: float = None):
         self.__weighted_moving_average = None
         self.__orders = orders
         self.__average_orders = sum([demand for demand in self.__orders]) / len(self.__orders)
@@ -345,16 +345,16 @@ class Forecast:
         for index, demand in enumerate(tuple(self.__orders), 1):
             log.debug('demand: {}'.format(demand))
             one_step = previous_level_estimate + previous_trend
-            print('one_step: {}'.format(one_step))
+            log.debug('one_step: {}'.format(one_step))
             forecast_error = self._forecast_error(demand, one_step)
-            print('forecast_error: {}'.format(forecast_error))
+            log.debug('forecast_error: {}'.format(forecast_error))
             current_trend = self._holts_trend(previous_trend, gamma, alpha, forecast_error)
-            print('trend: {}'.format(current_trend))
+            log.debug('trend: {}'.format(current_trend))
             current_level_estimate = self._level_estimate_holts_trend_corrected(previous_level_estimate,
                                                                                 alpha,
                                                                                 previous_trend,
                                                                                 forecast_error)
-            print('current_level: {}'.format(current_level_estimate))
+            log.debug('current_level: {}'.format(current_level_estimate))
             squared_error = forecast_error ** 2
             yield {'alpha': alpha,
                    'gamma': gamma,
@@ -366,7 +366,7 @@ class Forecast:
                    'forecast_error': forecast_error,
                    'squared_error': squared_error
                    }
-            print('squared_error: {}'.format(squared_error))
+            log.debug('squared_error: {}'.format(squared_error))
             previous_level_estimate = current_level_estimate
             previous_trend = current_trend
 
@@ -381,7 +381,7 @@ class Forecast:
 
         """
         end_of_forecast = len(forecast) - 1
-        print(forecast[end_of_forecast])
+        # print(forecast[end_of_forecast])
 
         new_forecast = []
 

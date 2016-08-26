@@ -21,3 +21,4 @@ karma.conf*
 package.json
 docs/
 npm*
+*suchpy_tests_log.txt

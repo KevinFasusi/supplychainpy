@@ -76,7 +76,7 @@ class TestForecast(TestCase):
         alpha = [0.2, 0.3, 0.4, 0.5, 0.6]
         s = [i for i in f.simple_exponential_smoothing(*alpha)]
         sum_squared_error = f.sum_squared_errors(s, 0.5)
-        self.assertEqual(15346.859449597407, sum_squared_error[0.5])
+        self.assertEqual(16077.772334466823, sum_squared_error[0.5])
 
     def test_standard_error(self):
         total_orders = 0
@@ -88,7 +88,7 @@ class TestForecast(TestCase):
         s = [i for i in f.simple_exponential_smoothing(*alpha)]
         sum_squared_error = f.sum_squared_errors(s, 0.5)
         standard_error = f.standard_error(sum_squared_error, len(self.__orders_ex), 0.5)
-        self.assertEqual(20.93995459784777, standard_error)
+        self.assertEqual(21.432800186674378, standard_error)
 
     def test_optimise_smoothing_level_genetic_algorithm(self):
         total_orders = 0
@@ -99,11 +99,49 @@ class TestForecast(TestCase):
         alpha = [0.2, 0.3, 0.4, 0.5, 0.6]
         s = [i for i in f.simple_exponential_smoothing(*alpha)]
         sum_squared_error = f.sum_squared_errors(s, 0.5)
-        standard_error = f.standard_error(sum_squared_error, len(self.__orders_ex), 0.5)
-        evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=self.__orders_ex, average_order=avg_orders,
+        standard_error = f.standard_error(sum_squared_error, len(self.__orders_ex), 0.5, 2)
+        evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=self.__orders_ex,
+                                                         average_order=avg_orders,
                                                          smoothing_level=0.5,
-                                                         population_size=10, standard_error=standard_error)
-        self.assertGreaterEqual(len(evo_mod.initial_population),10)
+                                                         population_size=10,
+                                                         standard_error=standard_error,
+                                                         recombination_type='single_point')
+
+        self.assertGreaterEqual(len(evo_mod.initial_population), 2)
+        self.assertNotAlmostEqual(evo_mod.initial_population[0], 20.72, places=3)
+        self.assertNotAlmostEqual(evo_mod.initial_population[1], 0.73, places=3)
+
+    def test_holts_trend_corrected_exponential_smoothing_len(self):
+        total_orders = 0
+
+        for order in self.__orders_ex[:12]:
+            total_orders += order
+
+        avg_orders = total_orders / 12
+        f = Forecast(self.__orders_ex)
+        p = [i for i in f.holts_trend_corrected_exponential_smoothing(0.5, 0.5, 155.88, 0.8369)]
+        self.assertEqual(len(p), 36)
+
+    def test_holts_trend_corrected_exponential_smoothing_forecast(self):
+        total_orders = 0
+
+        for order in self.__orders_ex[:12]:
+            total_orders += order
+
+        f = Forecast(self.__orders_ex)
+        p = [i for i in f.holts_trend_corrected_exponential_smoothing(0.5, 0.5, 155.88, 0.8369)]
+        holts_forecast = f.holts_trend_corrected_forecast(forecast=p, forecast_length=4)
+        self.assertEqual(round(holts_forecast[0]), 281)
+        self.assertEqual(round(holts_forecast[1]), 308)
+        self.assertEqual(round(holts_forecast[2]), 334)
+        self.assertEqual(round(holts_forecast[3]), 361)
+
+
+        # sum_squared_error = f.sum_squared_errors(p, 0.5)
+        # print(sum_squared_error)
+        # standard_error = f.standard_error(sum_squared_error, len(self.__orders_ex), 0.5, 2)
+        # print(standard_error)
+        # standard_error = f.standard_error(sum_squared_error, len(self.__orders_ex), 0.5)
 
 
 if __name__ == '__main__':

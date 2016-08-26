@@ -255,13 +255,11 @@ class Population:
                 log.debug(
                     'A mutation occurred on gene {}. The result of the mutation is {}'.format({original_gene[0][0]: 0},
                                                                                               {original_gene[0][0]: 1}))
-                print('mutation')
                 return {original_gene[0][0]: 1}
             elif original_gene[0][1] == 1:
                 log.debug(
                     'A mutation occurred on gene {}. The result of the mutation is {}'.format({original_gene[0][0]: 1},
                                                                                               {original_gene[0][0]: 0}))
-                print('mutation')
                 return {original_gene[0][0]: 0}
             else:
                 return {original_gene[0][0]: original_gene[0][0]}
@@ -287,13 +285,16 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
         self.__initial_population = self._initialise_smoothing_level_evolutionary_algorithm_population()
 
     @property
-    def initial_population(self):
+    def initial_population(self, forecast_type:str ='ses'):
         """Initialises population and initiates the optimisation of the standard error by searching for an optimum
         alpha value.
         Returns:
 
         """
-        return self.__initial_population
+        if forecast_type == 'ses':
+            return self.__initial_population
+        elif forecast_type == 'hes':
+            return self.__initial_population
 
     @property
     def population_size(self):
@@ -302,6 +303,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
     @population_size.setter
     def population_size(self, population_size):
         self.__population_size = population_size
+
 
     def _initialise_smoothing_level_evolutionary_algorithm_population(self):
         """ Starts the process for creating the population. The number of parents is specified during the
@@ -503,3 +505,22 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
         stats = ape.least_squared_error()
 
         return {'forecast': optimal_ses_forecast, 'mape': mape, 'statistics': stats}
+
+    def holts_trend_corrected_exponential_smoothing_evo(self, alpha: float, gamma:float ,initial_estimate_period: int,
+                                         recombination_type: str = 'single_point', population_size: int = 10 ):
+
+
+        if None != self.__recombination_type:
+            recombination_type = self.__recombination_type
+
+        sum_orders = 0
+
+        for demand in self.__orders[:initial_estimate_period]:
+            sum_orders += demand
+
+        avg_orders = sum_orders / initial_estimate_period
+
+        forecast_demand = Forecast(self.__orders, avg_orders)
+
+
+        holts_trend_forecast = [i for i in forecast_demand.holts_trend_corrected_exponential_smoothing(0.5, 0.5, 155.88, 0.8369)]

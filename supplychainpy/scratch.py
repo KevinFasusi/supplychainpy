@@ -79,7 +79,7 @@ def main():
         total_orders += order
 
     avg_orders = total_orders / 12
-    f = Forecast(orders, avg_orders)
+    f = Forecast(orders)
     alpha = [0.2, 0.3, 0.4, 0.5, 0.6]
     s = [i for i in f.simple_exponential_smoothing(*alpha)]
     p = [i for i in f.holts_trend_corrected_exponential_smoothing(0.5,0.5, 155.88, 0.8369)]
