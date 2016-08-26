@@ -20,7 +20,7 @@ from supplychainpy.launch_reports import launch_load_report, launch_report
 from supplychainpy.demand.regression import LinearRegression
 import logging
 
-#logging.basicConfig( level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig( filename='suchpy_log.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 __author__ = 'kevin'
 
 
