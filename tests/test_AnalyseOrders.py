@@ -31,7 +31,9 @@ class TestAnalyseOrders(TestCase):
                                                                           retail_price=Decimal(400.58),
                                                                           unit_cost=Decimal(55),
                                                                           currency='USD')
-        print(self._uncertain_demand.orders_summary())
+
+
+        print(self._orders_analysis)
 
     def test_orders_type(self):
         self.assertIsInstance(self._orders_analysis, list)
@@ -52,6 +54,7 @@ class TestAnalyseOrders(TestCase):
                                                      unit_cost=Decimal(55), currency='USD')
         a = Decimal(d.average_orders)
         # assert
+
         self.assertEqual(a, 50)
 
     def test_order_constraint(self):
@@ -72,6 +75,7 @@ class TestAnalyseOrders(TestCase):
                                                      holding_cost=Decimal(0.25), retail_price=Decimal(4.58),
                                                      unit_cost=Decimal(55), currency='USD')
         a = d.standard_deviation
+
         # assert
         self.assertEqual(a, 25)
 

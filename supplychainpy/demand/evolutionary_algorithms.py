@@ -31,9 +31,11 @@ class Verbose:
 class Individual:
     _genome = 0
 
-    def __init__(self, name: str = 'offspring', overide: bool = False, gene_count: int = 12):
+    def __init__(self, name: str = 'offspring', overide: bool = False, gene_count: int = 12,
+                 forecast_type: str = 'ses'):
         self._name = name
         self._gene_count = gene_count
+        self._forecast_type = forecast_type
         if not overide:
             self._genome = self.__genome_generator()
 
@@ -61,7 +63,12 @@ class Individual:
         return self._name
 
     def __genome_generator(self):
-        genome = tuple([uniform(0, 1) for i in range(0, self._gene_count)])
+        genome = ()
+        if self._forecast_type == 'ses':
+            genome = tuple([uniform(0, 1) for i in range(0, self._gene_count)])
+        else:
+            genome = tuple([(uniform(0, 1), uniform(0, 1)) for i in range(0, self._gene_count)])
+
         return genome
 
 
@@ -230,7 +237,7 @@ class Population:
 
             print(e)
 
-    #TODO-feature uniform crossover recombination for reproduction
+    # TODO-feature uniform crossover recombination for reproduction
     def _uniform_crossover_recombination(self):
         pass
 
@@ -277,24 +284,19 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
 
     def __init__(self, orders: list, **kwargs):
         self.__orders = orders
-        self.__average_order = kwargs['average_order']
-        self.__population_size = kwargs['population_size']
-        self.__standard_error = kwargs['standard_error']
-        self.__smoothing_level = kwargs['smoothing_level']
-        self.__recombination_type = kwargs['recombination_type']
-        self.__initial_population = self._initialise_smoothing_level_evolutionary_algorithm_population()
+        if len(kwargs) != 0:
+            self.__average_order = kwargs['average_order']
+            self.__population_size = kwargs['population_size']
+            self.__standard_error = kwargs['standard_error']
+            self.__recombination_type = kwargs['recombination_type']
 
-    @property
-    def initial_population(self, forecast_type:str ='ses'):
+    def initial_population(self, individual_type: str = 'ses'):
         """Initialises population and initiates the optimisation of the standard error by searching for an optimum
         alpha value.
         Returns:
 
         """
-        if forecast_type == 'ses':
-            return self.__initial_population
-        elif forecast_type == 'hes':
-            return self.__initial_population
+        return self._initialise_smoothing_level_evolutionary_algorithm_population(individual_type=individual_type)
 
     @property
     def population_size(self):
@@ -304,8 +306,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
     def population_size(self, population_size):
         self.__population_size = population_size
 
-
-    def _initialise_smoothing_level_evolutionary_algorithm_population(self):
+    def _initialise_smoothing_level_evolutionary_algorithm_population(self, individual_type: str):
         """ Starts the process for creating the population. The number of parents is specified during the
          initialisation of the class. """
 
@@ -314,17 +315,20 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
 
         while len(parents_population) < self.__population_size:
             for i in range(0, self.__population_size):
-                parent = Individual(name='parent')
+                parent = Individual(name='parent', forecast_type=individual_type)
                 log.debug('Initial parent created {}'.format(parent))
                 parents.append(parent)
 
-            populations_genome = [i for i in self.generate_smoothing_level_genome(population=parents)]
+            populations_genome = [i for i in self.generate_smoothing_level_genome(population=parents, individual_type=individual_type)]
             log.debug('Population with genome {}'.format(populations_genome))
             populations_traits = [i for i in self.express_smoothing_level_genome(individuals_genome=populations_genome,
                                                                                  standard_error=self.__standard_error)]
 
-            fit_population = [i for i in self._population_fitness(population=populations_traits)]
+            fit_population = [i for i in
+                              self._population_fitness(population=populations_traits, individual_type=individual_type)]
+
             log.debug('Fit population {}'.format(fit_population))
+
             parents_population += fit_population
 
         create_offspring = Population(individuals=parents_population)
@@ -348,20 +352,23 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
                 new_individuals.append(new_individual)
 
             # while population allele boundary ie 50 70 95 is less than specified number.
-            new_population_genome = [i for i in self.generate_smoothing_level_genome(population=new_individuals)]
+            new_population_genome = [i for i in self.generate_smoothing_level_genome(population=new_individuals,
+                                                                                     individual_type=individual_type)]
 
             new_populations_traits = [i for i in
                                       self.express_smoothing_level_genome(individuals_genome=new_population_genome,
                                                                           standard_error=self.__standard_error)]
 
-            new_fit_population = [i for i in self._population_fitness(population=new_populations_traits)]
+            new_fit_population = [i for i in self._population_fitness(population=new_populations_traits,
+                                                                      individual_type=individual_type)]
             new_population = new_fit_population
 
         new_individuals.clear()
 
         new_individuals = [i for i in self.create_individuals(new_population)]
 
-        final_error = [i for i in self.generate_smoothing_level_genome(population=new_individuals)]
+        final_error = [i for i in self.generate_smoothing_level_genome(population=new_individuals,
+                                                                       individual_type=individual_type)]
 
         minimum_smoothing_level = min(zip(final_error[0].values(), final_error[0].keys()))
 
@@ -370,7 +377,6 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
     @staticmethod
     def create_individuals(new_population: list) -> list:
         """Create individuals using class from genomes striped during processing fitness.
-
         Args:
             new_population (list):  new population of individual genomes.
         """
@@ -386,7 +392,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
             yield new_individual
 
     @staticmethod
-    def _population_fitness(population: list) -> list:
+    def _population_fitness(population: list, individual_type: str = 'ses') -> list:
         """ Assess the population for fitness before crossover and creating next generation. Positive traits
         should be reflected by more than 70% of the genes in the genome.
 
@@ -396,25 +402,58 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
             the original standard error respectively.
 
         Returns:
-            fit_population (list):  A population of individuals with a probability of procreating above 50%.
-
-        """
+            fit_population (list):  A population of individuals with a probability of procreating above 70% for simple
+                                    exponential smoothing and 30% for holts trend correcting. """
 
         for individual in population:
             procreation_probability = sum(individual.values()) / len(individual.values())
+            if individual_type == 'ses':
+                if procreation_probability >= 0.5:
+                    yield individual
+            else:
+                if procreation_probability >= 0.3:
+                    yield individual
 
-            if procreation_probability >= 0.7:
-                yield individual
-
-    def generate_smoothing_level_genome(self, population: list):
+    def generate_smoothing_level_genome(self, population: list, individual_type: str = 'ses'):
 
         # stack parents and offspring into a list for next steps
-        for parent in population:
-            individuals_genome = self._run_exponential_smoothing_forecast(parent.genome)
-            # print(individuals_genome)
-            # individuals_traits = self._express_trait(standard_error, smoothing_level, individuals_genome)
+        if individual_type == 'ses':
+            for parent in population:
+                individuals_genome = self._run_exponential_smoothing_forecast(parent.genome)
+                # print(individuals_genome)
+                # individuals_traits = self._express_trait(standard_error, smoothing_level, individuals_genome)
 
-            yield individuals_genome
+                yield individuals_genome
+        else:
+            for parent in population:
+                individuals_genome = self._run_holts_trend_corrected_exponential_smoothing(parent.genome)
+                # print(individuals_genome)
+                # individuals_traits = self._express_trait(standard_error, smoothing_level, individuals_genome)
+
+                yield individuals_genome
+
+    def _run_holts_trend_corrected_exponential_smoothing(self, individual: tuple):
+        f = Forecast(self.__orders, self.__average_order)
+        holts_trend_corrected_smoothing = []
+        demand = [{'t': index, 'demand': order} for index, order in enumerate(self.__orders, 1)]
+        stats = LinearRegression(demand)
+        log_stats = stats.least_squared_error(slice_end=6)
+
+        for sm_lvl in individual:
+            p = [i for i in f.holts_trend_corrected_exponential_smoothing(alpha=sm_lvl[0], gamma=sm_lvl[1],
+                                                                          intercept=log_stats.get('intercept'),
+                                                                          slope=log_stats.get('slope'))]
+            # print(p)
+            holts_trend_corrected_smoothing.append(p)
+
+        appraised_individual = {}
+        for smoothing_level in individual:
+            sum_squared_error = f.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,
+                                                                alpha=smoothing_level[0], gamma=smoothing_level[1])
+            standard_error = f.standard_error(sum_squared_error, len(self.__orders), smoothing_level)
+            appraised_individual.update({smoothing_level: standard_error})
+        # print('The standard error as a trait has been calculated {}'.format(appraised_individual))
+        return appraised_individual
 
     def express_smoothing_level_genome(self, individuals_genome: list, standard_error):
 
@@ -496,7 +535,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
                                                          standard_error=standard_error,
                                                          recombination_type=recombination_type)
 
-        optimal_alpha = evo_mod.initial_population
+        optimal_alpha = evo_mod.initial_population()
 
         optimal_ses_forecast = [i for i in forecast_demand.simple_exponential_smoothing(optimal_alpha[1])]
 
@@ -506,9 +545,9 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
 
         return {'forecast': optimal_ses_forecast, 'mape': mape, 'statistics': stats}
 
-    def holts_trend_corrected_exponential_smoothing_evo(self, alpha: float, gamma:float ,initial_estimate_period: int,
-                                         recombination_type: str = 'single_point', population_size: int = 10 ):
-
+    def holts_trend_corrected_exponential_smoothing_evo(self, alpha: float, gamma: float, initial_estimate_period: int,
+                                                        recombination_type: str = 'single_point',
+                                                        population_size: int = 10):
 
         if None != self.__recombination_type:
             recombination_type = self.__recombination_type
@@ -522,5 +561,69 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
 
         forecast_demand = Forecast(self.__orders, avg_orders)
 
+        holts_trend_forecast = [i for i in
+                                forecast_demand.holts_trend_corrected_exponential_smoothing(0.5, 0.5, 155.88, 0.8369)]
 
-        holts_trend_forecast = [i for i in forecast_demand.holts_trend_corrected_exponential_smoothing(0.5, 0.5, 155.88, 0.8369)]
+    #def initialise_HES_smoothing_level_evolutionary_algorithm_population(self):
+    #    parents = []
+    #    parents_population = []
+#
+    #    while len(parents_population) < self.__population_size:
+    #        for i in range(0, self.__population_size):
+    #            parent = Individual(name='parent', forecast_type='htces')
+    #            log.debug('Initial parent created {}'.format(parent))
+    #            parents.append(parent)
+#
+    #            populations_genome = [i for i in
+    #                                  self.generate_smoothing_level_genome(population=parents, individual_type='htces')]
+#
+    #            populations_traits = [i for i in
+    #                                  self.express_smoothing_level_genome(individuals_genome=populations_genome,
+    #                                                                      standard_error=self.__standard_error)]
+#
+    #            fit_population = [i for i in
+    #                              self._population_fitness(population=populations_traits, individual_type='htces')]
+    #            log.debug('Fit population {}'.format(fit_population))
+    #            parents_population += fit_population
+#
+    #        create_offspring = Population(individuals=parents_population)
+#
+    #        new_population = [i for i in create_offspring.reproduce(recombination_type=self.__recombination_type)]
+#
+    #        if new_population is None:
+    #            return 0
+#
+    #        parent_offspring_population = []
+    #        new_individuals = []
+    #        while len(new_population) < self.__population_size * 10:
+    #            for po in new_population:
+    #                pke = po.keys()
+    #                parent_offspring_population.append(tuple(pke))
+#
+    #            for genome in parent_offspring_population:
+    #                new_individual = Individual(overide=True)
+    #                new_individual.genome = genome
+    #                new_individuals.append(new_individual)
+#
+    #            # while population allele boundary ie 50 70 95 is less than specified number.
+    #            new_population_genome = [i for i in self.generate_smoothing_level_genome(population=new_individuals,
+    #                                                                                     individual_type='htces')]
+#
+    #            new_populations_traits = [i for i in
+    #                                      self.express_smoothing_level_genome(individuals_genome=new_population_genome,
+    #                                                                          standard_error=self.__standard_error)]
+#
+    #            new_fit_population = [i for i in self._population_fitness(population=new_populations_traits,
+    #                                                                      individual_type='htces')]
+    #            new_population = new_fit_population
+#
+    #        new_individuals.clear()
+#
+    #        new_individuals = [i for i in self.create_individuals(new_population)]
+#
+    #        final_error = [i for i in
+    #                       self.generate_smoothing_level_genome(population=new_individuals, individual_type='htces')]
+#
+    #        minimum_smoothing_level = min(zip(final_error[0].values(), final_error[0].keys()))
+#
+    #        return minimum_smoothing_level

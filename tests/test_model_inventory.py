@@ -7,7 +7,7 @@ from unittest import TestCase
 
 from supplychainpy import model_inventory
 
-logging.basicConfig(filename='suchpy_tests_log.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+#logging.basicConfig(filename='suchpy_tests_log.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class TestBuildModel(TestCase):

@@ -126,7 +126,7 @@ def analyse_orders_from_file_col(file_path, sku_id: str, lead_time: Decimal, uni
     """
     orders = {}
     file_type_processed =''
-    if _check_extension(file_path=file_path, file_type=file_type):
+    if check_extension(file_path=file_path, file_type=file_type):
         if file_type == FileFormats.text.name:
             with open(file_path, 'r') as raw_data:
                 orders = data_cleansing.clean_orders_data_col_txt(raw_data)
@@ -187,7 +187,7 @@ def analyse_orders_from_file_row(file_path: str, z_value: Decimal, reorder_cost:
     analysed_orders_summary = []
     analysed_orders_collection = []
 
-    if _check_extension(file_path=file_path, file_type=file_type):
+    if check_extension(file_path=file_path, file_type=file_type):
         if file_type == FileFormats.text.name:
             f = open(file_path, 'r')
             item_list = (data_cleansing.clean_orders_data_row(f, length=length))
@@ -268,7 +268,7 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: Decimal, reorder_co
 
     analysed_orders_collection = []
     item_list = {}
-    if _check_extension(file_path=file_path, file_type=file_type):
+    if check_extension(file_path=file_path, file_type=file_type):
         if file_type == FileFormats.text.name:
             f = open(file_path, 'r')
             item_list = (data_cleansing.clean_orders_data_row(f, length))
@@ -333,7 +333,7 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: Decimal, reorder_co
 #    d.print_period()
 
 
-def _check_extension(file_path, file_type: str) -> bool:
+def check_extension(file_path, file_type: str) -> bool:
     """ Check the correct file type has been selected.
 
     Args:

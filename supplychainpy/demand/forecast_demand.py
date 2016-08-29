@@ -25,9 +25,9 @@ class Forecast:
     def __init__(self, orders: list = None, average_orders: float = None):
         self.__weighted_moving_average = None
         self.__orders = orders
-        self.__average_orders = sum([demand for demand in self.__orders]) / len(self.__orders)
+        self.__average_orders = sum([int(demand) for demand in self.__orders]) / len(self.__orders)
         self.__moving_average = []
-        self.__total_orders = sum([demand for demand in self.__orders])
+        self.__total_orders = sum([int(demand) for demand in self.__orders])
 
     @property
     def total_orders(self):
@@ -428,7 +428,18 @@ class Forecast:
         return {smoothing_parameter: sse}
 
     @staticmethod
-    def standard_error(sse: dict, orders_count, smoothing_parameter: float, df:int=1) -> float:
+    def sum_squared_errors_indi_htces(squared_error: list, alpha: float, gamma:float) -> dict:
+        sse = 0
+
+        for sq_e in squared_error:
+            for i in sq_e:
+                if i['alpha'] == alpha and i['gamma']==gamma:
+                    sse += i["squared_error"]
+        log.debug('finished sse')
+        return {(alpha, gamma): sse}
+
+    @staticmethod
+    def standard_error(sse: dict, orders_count, smoothing_parameter, df:int=1) -> float:
         return (sse[smoothing_parameter] / (orders_count - df)) ** 0.5
 
     def mean_forecast_error(self):
