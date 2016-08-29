@@ -4,6 +4,9 @@ from collections import Iterable
 
 import itertools
 
+from supplychainpy.demand.evolutionary_algorithms import OptimiseSmoothingLevelGeneticAlgorithm
+from supplychainpy.demand.forecast_demand import Forecast
+
 from supplychainpy.enum_formats import PeriodFormats
 
 
@@ -85,7 +88,9 @@ class UncertainDemand:
         self.__shortage_qty = self._shortage_qty()
         self.__total_orders = self._sum_orders()
 
-
+    @property
+    def simple_exponential_smoothing_forecast(self):
+        return self._generate_optimised_ses_forecast()
 
     @property
     def total_orders(self):
@@ -285,7 +290,7 @@ class UncertainDemand:
     def average_order(self):
         return float(sum(self.__orders.values()) / self.__count_orders)
 
-    def _sum_orders(self)->int:
+    def _sum_orders(self) -> int:
         total_orders = 0
         orders_list = []
         for item in self.__orders:
@@ -366,6 +371,34 @@ class UncertainDemand:
                 self.__quantity_on_hand - (self.__reorder_level + (self.__reorder_level - self.__safety_stock)), 0)
         else:
             return 0
+
+    def _generate_optimised_ses_forecast(self):
+        try:
+            demand = (list(self.__orders.get("demand")))
+            orders = [int(i) for i in demand]
+            forecast_demand = Forecast(orders)
+
+            alpha = [0.2, 0.3, 0.4, 0.5, 0.6]
+            ses_forecast = [i for i in forecast_demand.simple_exponential_smoothing(*alpha)]
+
+            # filter for lowest standard order and use for evo model
+            sum_squared_error = forecast_demand.sum_squared_errors(ses_forecast, 0.5)
+
+            standard_error = forecast_demand.standard_error(sum_squared_error, len(self.__orders.get("demand")), 0.5)
+
+            evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=orders,
+                                                             average_order=self.average_orders,
+                                                             smoothing_level=0.5,
+                                                             population_size=10,
+                                                             standard_error=standard_error,
+                                                             recombination_type='single_point')
+            optimised = evo_mod.initial_population()
+
+            ses_evo_forecast = evo_mod.simple_exponential_smoothing_evo(optimised[1], 12, 'single_point')
+            return ses_evo_forecast
+
+        except TypeError as e:
+            print('Exponential smoothing forecast (evolutionary model) failed. {}'.format(e))
 
     def _summary(self, keywords: list) -> dict:
         pre_build = {'sku': self.__sku_id, 'average_order': '{:.0f}'.format(self.__average_order),

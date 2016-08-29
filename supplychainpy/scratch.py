@@ -15,16 +15,20 @@ from supplychainpy import model_inventory
 from supplychainpy.demand.evolutionary_algorithms import OptimiseSmoothingLevelGeneticAlgorithm
 from supplychainpy.demand.forecast_demand import Forecast
 from supplychainpy.inventory.summarise import OrdersAnalysis
+from supplychainpy.model_demand import holts_trend_corrected_exponential_smoothing_forecast
 from supplychainpy.reporting.load import load
 from supplychainpy.launch_reports import launch_load_report, launch_report
 from supplychainpy.demand.regression import LinearRegression
 import logging
 
-logging.basicConfig( filename='suchpy_log.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+
+# logging.basicConfig( filename='suchpy_log.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+
 __author__ = 'kevin'
 
 
 def main():
+
     start_time = time.time()
     # app_dir = os.path.dirname(__file__, )
     # rel_path = 'supplychainpy/data_col.csv'
@@ -67,50 +71,49 @@ def main():
 
     # print('s')
 
-
-
-    orders = [165, 171, 147, 143, 164, 160, 152, 150, 159, 169, 173, 203, 169, 166, 162, 147, 188, 161, 162, 169, 185,
-              188, 200, 229, 189, 218, 185, 199, 210, 193, 211, 208, 216, 218, 264, 304]
-
-    total_orders = 0
-    avg_orders = 0
-
-    for order in orders[:12]:
-        total_orders += order
-
-    avg_orders = total_orders / 12
-    f = Forecast(orders)
-    alpha = [0.2, 0.3, 0.4, 0.5, 0.6]
-    s = [i for i in f.simple_exponential_smoothing(*alpha)]
-    p = [i for i in f.holts_trend_corrected_exponential_smoothing(0.5,0.5, 155.88, 0.8369)]
-    print(p)
-    holts_forecast = f.holts_trend_corrected_forecast(forecast=p, forecast_length=4)
-    print(holts_forecast)
-    sum_squared_error = f.sum_squared_errors(p, 0.5)
-    print(sum_squared_error)
-    sum_squared_error = f.sum_squared_errors(s, 0.5)
-    standard_error = f.standard_error(sum_squared_error, len(orders), 0.5, 2)
-    print(standard_error)
-    standard_error = f.standard_error(sum_squared_error, len(orders), 0.5)
-
-    evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=orders,
-                                                     average_order=avg_orders,
-                                                     smoothing_level=0.5,
-                                                     population_size=10,
-                                                     standard_error=standard_error,
-                                                     recombination_type='two_point')
-
-    optimal_alpha = evo_mod.initial_population
-
-    print(optimal_alpha)
-
-    forecast = [i for i in f.simple_exponential_smoothing(optimal_alpha[1])]
-    s = LinearRegression(forecast)
-    w = s.least_squared_error()
-    mape = f.mean_aboslute_percentage_error_opt(forecast)
-    sim = evo_mod.simple_exponential_smoothing_evo(0.5, 12, 'two_point')
-    print(sim)
-    #evo_mod.run_smoothing_level_evolutionary_algorithm(parents=evo_mod.initial_population,
+    #orders = [165, 171, 147, 143, 164, 160, 152, 150, 159, 169, 173, 203, 169, 166, 162, 147, 188, 161, 162, 169, 185,
+    #          188, 200, 229, 189, 218, 185, 199, 210, 193, 211, 208, 216, 218, 264, 304]
+#
+    #total_orders = 0
+    #avg_orders = 0
+#
+    #for order in orders[:12]:
+    #    total_orders += order
+#
+    #avg_orders = total_orders / 12
+    #f = Forecast(orders)
+    #alpha = [0.2, 0.3, 0.4, 0.5, 0.6]
+    #s = [i for i in f.simple_exponential_smoothing(*alpha)]
+    ##p = [i for i in f.holts_trend_corrected_exponential_smoothing(0.5, 0.5, 155.88, 0.8369)]
+    ##print(p)
+    #holts_forecast = f.holts_trend_corrected_forecast(forecast=p, forecast_length=4)
+    #print(holts_forecast)
+    ##sas = holts_trend_corrected_exponential_smoothing_forecast(orders,0.5,0.5,forecast_length=4, initial_period=18,
+    ##                                                           optimise=True)
+    ##print(sas)
+    ##sum_squared_error = f.sum_squared_errors(p, 0.5)
+    ##print(sum_squared_error)
+    #sum_squared_error = f.sum_squared_errors(s, 0.5)
+    #standard_error = f.standard_error(sum_squared_error, len(orders), 0.5, 2)
+    #print(standard_error)
+    #standard_error = f.standard_error(sum_squared_error, len(orders), 0.5)
+#
+    #evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=orders,
+    #                                                 average_order=avg_orders,
+    #                                                 population_size=10,
+    #                                                 standard_error=standard_error,
+    #                                                 recombination_type='single_point')
+#
+    #optimal_alpha = evo_mod.initial_population(individual_type='htces')
+#
+    #print(optimal_alpha)
+    #forecast = [i for i in f.simple_exponential_smoothing(optimal_alpha[1])]
+    #s = LinearRegression(forecast)
+    #w = s.least_squared_error()
+    #mape = f.mean_aboslute_percentage_error_opt(forecast)
+    #sim = evo_mod.simple_exponential_smoothing_evo(0.5, 12, 'two_point')
+    #print(sim)
+    ## evo_mod.run_smoothing_level_evolutionary_algorithm(parents=evo_mod.initial_population,
     #                                                  standard_error=standard_error,
     #                                                  smoothing_level=0.5)
 
@@ -168,13 +171,19 @@ def main():
 
     # print(top_ten_shortages)
 
-    # inventory_analysis = [analysis.orders_summary() for analysis in
-    #                      model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
-    #                                                                      reorder_cost=Decimal(5000), file_type="csv",
-    #                                                                      length=12)]
-    # print(inventory_analysis)
-    # for orders in inventory_analysis:
-    #    print(orders)
+    inventory_analysis = [analysis.orders_summary() for analysis in
+                          model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
+                                                                          reorder_cost=Decimal(5000), file_type="csv",
+                                                                          length=12)]
+
+    print({analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
+               model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
+                                                               reorder_cost=Decimal(5000), file_type="csv",
+                                                               length=12)})
+
+
+    #for orders in inventory_analysis:
+     #  print(orders)
 
 
 #

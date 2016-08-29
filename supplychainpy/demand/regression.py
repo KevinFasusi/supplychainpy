@@ -65,7 +65,11 @@ class LinearRegression:
         intercept = 0.00
         slope_standard_error = 0.00
         std_residuals = 0.00
+<<<<<<< HEAD
 
+=======
+        trend = False
+>>>>>>> 75c963f43d4fec5feb44d93e06b0cbab0d1ff534
         try:
             if slice_end == 0 and slice_start == 0:
                 slice_start, slice_end = 0, (len(self.orders) - 1)
@@ -94,6 +98,14 @@ class LinearRegression:
             test_statistic = slope / slope_standard_error
             pvalue = stats.t.sf(abs(test_statistic), n - 2) * 2
 
+<<<<<<< HEAD
+=======
+            if pvalue < 0.05:
+                trend = True
+            else:
+                trend = False
+
+>>>>>>> 75c963f43d4fec5feb44d93e06b0cbab0d1ff534
         except ValueError as e:
             log.debug('The value supplied to slice the orders list is out of range. {}'.format(e))
             print('Please review the range of orders requested. The current length of the orders is {}. '
@@ -101,4 +113,8 @@ class LinearRegression:
 
         return {'slope': slope, 'pvalue': pvalue, 'test_statistic': test_statistic,
                 'slope_standard_error': slope_standard_error, 'intercept': intercept,
+<<<<<<< HEAD
                 'std_residuals': std_residuals}
+=======
+                'std_residuals': std_residuals, 'trend': trend}
+>>>>>>> 75c963f43d4fec5feb44d93e06b0cbab0d1ff534
