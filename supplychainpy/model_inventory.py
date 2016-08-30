@@ -1,6 +1,7 @@
 from decimal import Decimal
 import logging
 
+from supplychainpy.data_cleansing import check_extension
 from supplychainpy.inventory.abc_xyz import AbcXyz
 
 from supplychainpy import data_cleansing
@@ -334,22 +335,5 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: Decimal, reorder_co
 #    d.print_period()
 
 
-def check_extension(file_path, file_type: str) -> bool:
-    """ Check the correct file type has been selected.
-
-    Args:
-        file_path (file):   The path to the file containing two columns of data, 1 period and 1 data-point for 1 sku.
-        file_type (str):    specifying 'csv' or 'text'
-    Returns:
-        bool:
-
-    """
-    if file_path.endswith(".txt") and file_type.lower() == "text":
-        flag = True
-    elif file_path.endswith(".csv") and file_type.lower() == "csv":
-        flag = True
-    else:
-        flag = False
-    return flag
 
     # rewrite all of the to deal with database tables and rows instead of csv files.

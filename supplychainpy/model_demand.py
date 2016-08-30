@@ -1,9 +1,10 @@
 from supplychainpy import data_cleansing
+from supplychainpy.data_cleansing import check_extension
 from supplychainpy.demand.evolutionary_algorithms import OptimiseSmoothingLevelGeneticAlgorithm
 from supplychainpy.demand.forecast_demand import Forecast
 from supplychainpy.demand.regression import LinearRegression
 from supplychainpy.enum_formats import FileFormats
-from supplychainpy.model_inventory import check_extension
+
 
 
 def simple_exponential_smoothing_forecast(demand: list, smoothing_level_constant: float, initial_estimate_period=6,
@@ -23,7 +24,7 @@ def simple_exponential_smoothing_forecast(demand: list, smoothing_level_constant
     forecast_demand = Forecast(orders)
 
     # optimise, population_size, genome_length, mutation_probability, recombination_types
-    if kwargs['optimise'] == True:
+    if kwargs['optimise']:
         # if kwargs['recombination_type'] is None:
         #    recombination_type = 'single_point'
         # else:
@@ -63,9 +64,8 @@ def simple_exponential_smoothing_forecast(demand: list, smoothing_level_constant
 
 def simple_exponential_smoothing_forecast_from_file(file_path: str, file_type: str, length: int,
                                                     smoothing_level_constant: float, **kwargs) -> dict:
-    analysed_orders_collection = []
-
     item_list = {}
+
     if check_extension(file_path=file_path, file_type=file_type):
         if file_type == FileFormats.text.name:
             f = open(file_path, 'r')
@@ -97,7 +97,7 @@ def simple_exponential_smoothing_forecast_from_file(file_path: str, file_type: s
 def holts_trend_corrected_exponential_smoothing_forecast(demand: list, alpha: float, gamma: float,
                                                          forecast_length: int = 4, initial_period: int = 6, **kwargs):
     if len(kwargs) != 0:
-        if kwargs['optimise'] == True:
+        if kwargs['optimise']:
 
             total_orders = 0
 
@@ -119,9 +119,6 @@ def holts_trend_corrected_exponential_smoothing_forecast(demand: list, alpha: fl
                                                                                           slope=log_stats.get(
                                                                                               'slope'))]
 
-            holts_forecast = forecast_demand.holts_trend_corrected_forecast(forecast=htces_forecast,
-                                                                            forecast_length=forecast_length)
-
             sum_squared_error = forecast_demand.sum_squared_errors_indi_htces(squared_error=[htces_forecast],
                                                                               alpha=alpha, gamma=gamma)
 
@@ -134,7 +131,7 @@ def holts_trend_corrected_exponential_smoothing_forecast(demand: list, alpha: fl
                                                              recombination_type='single_point')
 
             optimal_alpha = evo_mod.initial_population(individual_type='htces')
-           # print(optimal_alpha[1][0], optimal_alpha[1][1])
+            # print(optimal_alpha[1][0], optimal_alpha[1][1])
             htces_forecast = [i for i in
                               forecast_demand.holts_trend_corrected_exponential_smoothing(alpha=optimal_alpha[1][0],
                                                                                           gamma=optimal_alpha[1][1],
@@ -178,7 +175,7 @@ def holts_trend_corrected_exponential_smoothing_forecast(demand: list, alpha: fl
         mape = forecast_demand.mean_aboslute_percentage_error_opt(htces_forecast)
         stats = ape.least_squared_error()
 
-        return {'forecast': holts_forecast, 'mape': mape, 'statistics': stats}
+        return {'forecast': holts_forecast, 'mape': mape, 'statistics': stats, 'sum_squared_errors': sum_squared_error}
 
 
 def holts_trend_corrected_exponential_smoothing_forecast_from_file(file_path: str, file_type: str, length: int,

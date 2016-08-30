@@ -8,6 +8,7 @@ from supplychainpy.demand.evolutionary_algorithms import OptimiseSmoothingLevelG
 from supplychainpy.demand.forecast_demand import Forecast
 
 from supplychainpy.enum_formats import PeriodFormats
+from supplychainpy.model_demand import simple_exponential_smoothing_forecast
 
 
 def _standard_deviation_orders(orders: dict, average_order: Decimal) -> Decimal:
@@ -376,25 +377,9 @@ class UncertainDemand:
         try:
             demand = (list(self.__orders.get("demand")))
             orders = [int(i) for i in demand]
-            forecast_demand = Forecast(orders)
-
-            alpha = [0.2, 0.3, 0.4, 0.5, 0.6]
-            ses_forecast = [i for i in forecast_demand.simple_exponential_smoothing(*alpha)]
-
             # filter for lowest standard order and use for evo model
-            sum_squared_error = forecast_demand.sum_squared_errors(ses_forecast, 0.5)
+            ses_evo_forecast = simple_exponential_smoothing_forecast(demand=orders, smoothing_level_constant=0.5, optimise=True)
 
-            standard_error = forecast_demand.standard_error(sum_squared_error, len(self.__orders.get("demand")), 0.5)
-
-            evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=orders,
-                                                             average_order=self.average_orders,
-                                                             smoothing_level=0.5,
-                                                             population_size=10,
-                                                             standard_error=standard_error,
-                                                             recombination_type='single_point')
-            optimised = evo_mod.initial_population()
-
-            ses_evo_forecast = evo_mod.simple_exponential_smoothing_evo(optimised[1], 12, 'single_point')
             return ses_evo_forecast
 
         except TypeError as e:

@@ -116,6 +116,25 @@ def clean_orders_data_row_csv(file, length: int = 12) -> dict:
     return collection
 
 
+def check_extension(file_path, file_type: str) -> bool:
+    """ Check the correct file type has been selected.
+
+    Args:
+        file_path (file):   The path to the file containing two columns of data, 1 period and 1 data-point for 1 sku.
+        file_type (str):    specifying 'csv' or 'text'
+    Returns:
+        bool:
+
+    """
+    if file_path.endswith(".txt") and file_type.lower() == "text":
+        flag = True
+    elif file_path.endswith(".csv") and file_type.lower() == "csv":
+        flag = True
+    else:
+        flag = False
+    return flag
+
+
 # refocator length to column count
 # if a user specifies a lower column_count than actually supplied then the oher columns are going to be incorrect.
 # probably best to check heading using regx
