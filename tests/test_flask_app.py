@@ -10,9 +10,9 @@ from supplychainpy.reporting.views import app, db
 class TestFlaskReports(unittest.TestCase):
 
     def setUp(self):
-        app_dir = os.path.dirname(__file__, )
+        self.app_dir = os.path.dirname(__file__, )
         rel_path = 'supplychainpy/data2.csv'
-        abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
+        abs_file_path = os.path.abspath(os.path.join(self.app_dir, '..', rel_path))
 
         self.db_rs, app.config['DATABASE'] = tempfile.mkstemp()
         app.config['TESTING'] = True
@@ -21,8 +21,12 @@ class TestFlaskReports(unittest.TestCase):
             load_db(file=abs_file_path)
 
     def tearDown(self):
+        """Close database link and delete sqlite database"""
         os.close(self.db_rs)
         os.unlink(app.config['DATABASE'])
+        rel_path = 'tests/reporting.db'
+        abs_file_path = os.path.abspath(os.path.join(self.app_dir, '..', rel_path))
+        os.remove(abs_file_path)
 
     def test_loaded_db(self):
         index_page = self.app.get('/')

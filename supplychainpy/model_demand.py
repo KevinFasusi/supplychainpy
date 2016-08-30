@@ -6,12 +6,13 @@ from supplychainpy.demand.regression import LinearRegression
 from supplychainpy.enum_formats import FileFormats
 
 
-
-def simple_exponential_smoothing_forecast(demand: list, smoothing_level_constant: float, initial_estimate_period=6,
+def simple_exponential_smoothing_forecast(demand: list, smoothing_level_constant: float, forecast_length: int = 5,
+                                          initial_estimate_period: int = 6,
                                           **kwargs) -> dict:
     """
 
     Args:
+        forecast_length:
         demand:
         smoothing_level_constant:
         initial_estimate_period:
@@ -55,15 +56,20 @@ def simple_exponential_smoothing_forecast(demand: list, smoothing_level_constant
         return ses_evo_forecast
     else:
 
-        forecast = [i for i in forecast_demand.simple_exponential_smoothing(smoothing_level_constant)]
-        ape = LinearRegression(forecast)
-        mape = forecast_demand.mean_aboslute_percentage_error_opt(forecast)
+        forecast_breakdown = [i for i in forecast_demand.simple_exponential_smoothing(smoothing_level_constant)]
+        ape = LinearRegression(forecast_breakdown)
+        mape = forecast_demand.mean_aboslute_percentage_error_opt(forecast_breakdown)
         stats = ape.least_squared_error()
-        return {'forecast': forecast, 'mape': mape, 'statistics': stats}
+        simple_forecast = forecast_demand.simple_exponential_smoothing_forecast(forecast=forecast_breakdown,
+                                                                                forecast_length=forecast_length)
+
+        return {'forecast_breakdown': forecast_breakdown, 'mape': mape, 'statistics': stats,
+                'forecast': simple_forecast}
 
 
 def simple_exponential_smoothing_forecast_from_file(file_path: str, file_type: str, length: int,
-                                                    smoothing_level_constant: float, **kwargs) -> dict:
+                                                    smoothing_level_constant: float, forecast_length=5,
+                                                    **kwargs) -> dict:
     item_list = {}
 
     if check_extension(file_path=file_path, file_type=file_type):
@@ -86,11 +92,13 @@ def simple_exponential_smoothing_forecast_from_file(file_path: str, file_type: s
 
         if kwargs['optimise']:
             yield {sku_id: simple_exponential_smoothing_forecast(demand=orders,
+                                                                 forecast_length=forecast_length,
                                                                  smoothing_level_constant=smoothing_level_constant,
                                                                  optimise=True)}
 
         else:
             yield {sku_id: simple_exponential_smoothing_forecast(demand=orders,
+                                                                 forecast_length=forecast_length,
                                                                  smoothing_level_constant=smoothing_level_constant)}
 
 

@@ -378,12 +378,16 @@ class UncertainDemand:
             demand = (list(self.__orders.get("demand")))
             orders = [int(i) for i in demand]
             # filter for lowest standard order and use for evo model
-            ses_evo_forecast = simple_exponential_smoothing_forecast(demand=orders, smoothing_level_constant=0.5, optimise=True)
+            ses_evo_forecast = simple_exponential_smoothing_forecast(demand=orders, smoothing_level_constant=0.5,
+                                                                     optimise=True)
 
             return ses_evo_forecast
 
         except TypeError as e:
             print('Exponential smoothing forecast (evolutionary model) failed. {}'.format(e))
+
+    def holts_trend_corrected_exponential_smoothing(self):
+        pass
 
     def _summary(self, keywords: list) -> dict:
         pre_build = {'sku': self.__sku_id, 'average_order': '{:.0f}'.format(self.__average_order),

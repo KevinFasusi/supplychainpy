@@ -370,7 +370,8 @@ class Forecast:
             previous_level_estimate = current_level_estimate
             previous_trend = current_trend
 
-    def holts_trend_corrected_forecast(self, forecast: list, forecast_length: int):
+    @staticmethod
+    def holts_trend_corrected_forecast(forecast: list, forecast_length: int):
         """Creates a forecast for as many periods.
 
         Args:
@@ -387,6 +388,16 @@ class Forecast:
 
         for i in range(forecast_length):
             demand_forecast = forecast[end_of_forecast]['level_estimates'] + i * forecast[end_of_forecast]['trend']
+            new_forecast.append(demand_forecast)
+        return new_forecast
+
+    @staticmethod
+    def simple_exponential_smoothing_forecast(forecast: list, forecast_length: int):
+        end_of_forecast = len(forecast) - 1
+        new_forecast = []
+
+        for i in range(forecast_length):
+            demand_forecast = forecast[end_of_forecast]['level_estimates']
             new_forecast.append(demand_forecast)
         return new_forecast
 

@@ -98,6 +98,7 @@ class InventoryAnalysis(db.Model):
     currency_id = db.Column(db.Integer, db.ForeignKey('currency.id'))
     transaction_log_id = db.Column(db.Integer, db.ForeignKey('transaction_log.id'))
     orders_id = db.relationship("Orders", backref='demand', lazy='dynamic')
+    forecast_id = db.relationship("Forecast", backref='forecasts', lazy='dynamic')
     inventory_turns = db.Column(db.Float())
 
     @property
@@ -144,6 +145,16 @@ class Orders(db.Model):
     analysis_id = db.Column(db.Integer, db.ForeignKey('inventory_analysis.id'))
     order_quantity = db.Column(db.Integer())
     rank = db.Column(db.Integer())
+
+
+class Forecast(db.Model):
+    __table_args__ = {'sqlite_autoincrement': True}
+    id = db.Column(db.Integer(), primary_key=True)
+    analysis_id = db.Column(db.Integer, db.ForeignKey('inventory_analysis.id'))
+    forecast_quantity = db.Column(db.Integer())
+    forecast_type = db.Column(db.String(10))
+    period = db.Column(db.Integer())
+    create_date = db.Column(db.DateTime())
 
 
 manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
