@@ -8,7 +8,8 @@ from supplychainpy.demand.evolutionary_algorithms import OptimiseSmoothingLevelG
 from supplychainpy.demand.forecast_demand import Forecast
 
 from supplychainpy.enum_formats import PeriodFormats
-from supplychainpy.model_demand import simple_exponential_smoothing_forecast
+from supplychainpy.model_demand import simple_exponential_smoothing_forecast, \
+    holts_trend_corrected_exponential_smoothing_forecast
 
 
 def _standard_deviation_orders(orders: dict, average_order: Decimal) -> Decimal:
@@ -92,6 +93,10 @@ class UncertainDemand:
     @property
     def simple_exponential_smoothing_forecast(self):
         return self._generate_optimised_ses_forecast()
+
+    @property
+    def holts_trend_corrected_forecast(self):
+        return self._generate_holts_es_forecast()
 
     @property
     def total_orders(self):
@@ -386,8 +391,13 @@ class UncertainDemand:
         except TypeError as e:
             print('Exponential smoothing forecast (evolutionary model) failed. {}'.format(e))
 
-    def holts_trend_corrected_exponential_smoothing(self):
-        pass
+    def _generate_holts_es_forecast(self):
+        demand = (list(self.__orders.get("demand")))
+        orders = [int(i) for i in demand]
+
+        htces = holts_trend_corrected_exponential_smoothing_forecast(demand=orders,alpha=0.5, gamma=0.5,optimise=True)
+
+        return htces
 
     def _summary(self, keywords: list) -> dict:
         pre_build = {'sku': self.__sku_id, 'average_order': '{:.0f}'.format(self.__average_order),
@@ -462,3 +472,5 @@ class UncertainDemand:
         self.__reorder_level = None
         self.__reorder_cost = None
         self.__fixed_reorder_quantity = None
+
+

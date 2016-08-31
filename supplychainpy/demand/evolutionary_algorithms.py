@@ -410,7 +410,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
         for individual in population:
             procreation_probability = sum(individual.values()) / len(individual.values())
             if individual_type == 'ses':
-                if procreation_probability >= 0.5:
+                if procreation_probability >= 0.3:
                     yield individual
             else:
                 if procreation_probability >= 0.3:
@@ -549,7 +549,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
                                                                                 forecast_length=forecast_length)
 
         return {'forecast_breakdown': optimal_ses_forecast, 'mape': mape, 'statistics': stats,
-                'forecast': simple_forecast}
+                'forecast': simple_forecast, 'optimal_alpha': optimal_alpha[1]}
 
     def holts_trend_corrected_exponential_smoothing_evo(self, alpha: float, gamma: float, initial_estimate_period: int,
                                                         recombination_type: str = 'single_point',

@@ -5,7 +5,7 @@ from decimal import Decimal
 
 from supplychainpy import model_inventory
 from supplychainpy.inventory.summarise import OrdersAnalysis
-from supplychainpy.reporting.views import TransactionLog
+from supplychainpy.reporting.views import TransactionLog, Forecast, ForecastType, ForecastStatistics
 from supplychainpy.reporting.views import InventoryAnalysis
 from supplychainpy.reporting.views import MasterSkuList
 from supplychainpy.reporting.views import Currency
@@ -71,14 +71,16 @@ def currency_codes():
 
 def load(file_path: str, location: str = None):
     if location is not None and os.name in ['posix', 'mac']:
-        app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///{}/reporting.db'.format(location)
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/reporting.db'.format(location)
 
     elif location is not None and os.name == 'nt':
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}\\reporting.db'.format(location)
 
-    print('Loading data analysis for reporting suite...')
+    print('Loading data analysis for reporting suite... \n')
 
     db.create_all()
+
+    print('loading currency symbols...\n')
     fx = currency_codes()
     for key, value in fx.items():
         codes = Currency()
@@ -86,16 +88,30 @@ def load(file_path: str, location: str = None):
         codes.currency_code = key
         db.session.add(codes)
     db.session.commit()
+
+    print('Analysing file: {}...\n'.format(file_path))
     orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=file_path,
                                                                       z_value=Decimal(1.28),
                                                                       reorder_cost=Decimal(5000),
                                                                       file_type="csv", length=12)
+
+    # remove assumption file type is csv
 
     ia = [analysis.orders_summary() for analysis in
           model_inventory.analyse_orders_abcxyz_from_file(file_path=file_path, z_value=Decimal(1.28),
                                                           reorder_cost=Decimal(5000), file_type="csv", length=12)]
     date_now = datetime.datetime.now()
     analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
+
+    print('Calculating Forecasts...\n')
+    simple_forecast = {analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
+                       model_inventory.analyse_orders_abcxyz_from_file(file_path=file_path, z_value=Decimal(1.28),
+                                                                       reorder_cost=Decimal(5000), file_type="csv",
+                                                                       length=12)}
+    holts_forecast = {analysis.sku_id: analysis.holts_trend_corrected_forecast for analysis in
+                      model_inventory.analyse_orders_abcxyz_from_file(file_path=file_path, z_value=Decimal(1.28),
+                                                                      reorder_cost=Decimal(5000), file_type="csv",
+                                                                      length=12)}
 
     transact = TransactionLog()
     transact.date = date_now
@@ -105,8 +121,17 @@ def load(file_path: str, location: str = None):
     transaction_sub = db.session.query(db.func.max(TransactionLog.date))
     transaction_id = db.session.query(TransactionLog).filter(TransactionLog.date == transaction_sub).first()
 
-    orders_data = Orders()
+    forecast_types = ('ses', 'htces')
 
+    for f_type in forecast_types:
+        forecast_type = ForecastType()
+        forecast_type.type = f_type
+        db.session.add(forecast_type)
+    db.session.commit()
+
+    ses_id = db.session.query(ForecastType.id).filter(ForecastType.type == forecast_types[0]).first()
+    htces_id = db.session.query(ForecastType.id).filter(ForecastType.type == forecast_types[1]).first()
+    print('loading database ...\n')
     for item in ia:
         re = 0
         skus_description = [summarised for summarised in analysis_summary.describe_sku(item['sku'])]
@@ -118,7 +143,7 @@ def load(file_path: str, location: str = None):
         mk = db.session.query(MasterSkuList.id).filter(MasterSkuList.sku_id == item['sku']).first()
         i_up.sku_id = mk.id
         tuple_orders = item['orders']
-        #print(tuple_orders)
+        # print(tuple_orders)
         i_up.abc_xyz_classification = item['ABC_XYZ_Classification']
         i_up.standard_deviation = item['standard_deviation']
         i_up.safety_stock = item['safety_stock']
@@ -133,7 +158,7 @@ def load(file_path: str, location: str = None):
         i_up.unit_cost = item['unit_cost']
         i_up.revenue = item['revenue']
         i_up.date = date_now
-        i_up.safety_stock_rank= skus_description[0]['safety_stock_rank']
+        i_up.safety_stock_rank = skus_description[0]['safety_stock_rank']
         i_up.shortage_rank = skus_description[0]['shortage_rank']
         i_up.excess_cost = skus_description[0]['excess_cost']
         i_up.percentage_contribution_revenue = skus_description[0]['percentage_contribution_revenue']
@@ -152,16 +177,67 @@ def load(file_path: str, location: str = None):
         i_up.transaction_log_id = transaction_id.id
         db.session.add(i_up)
         inva = db.session.query(InventoryAnalysis.id).filter(InventoryAnalysis.sku_id == mk.id).first()
-        for i ,t in enumerate(tuple_orders['demand'], 1):
+        for i, t in enumerate(tuple_orders['demand'], 1):
             orders_data = Orders()
             # print(r)
             orders_data.order_quantity = t
             orders_data.rank = i
             orders_data.analysis_id = inva.id
             db.session.add(orders_data)
+            # need to select sku id
+        for i, forecasted_demand in enumerate(simple_forecast, 1):
+            if forecasted_demand == item['sku']:
+                forecast_stats = ForecastStatistics()
+                forecast_stats.analysis_id = inva.id
+                forecast_stats.mape = simple_forecast.get(forecasted_demand)['mape']
+                forecast_stats.forecast_type_id = ses_id.id
+                forecast_stats.slope = simple_forecast.get(forecasted_demand)['statistics']['slope']
+                forecast_stats.p_value = simple_forecast.get(forecasted_demand)['statistics']['pvalue']
+                forecast_stats.test_statistic = simple_forecast.get(forecasted_demand)['statistics']['test_statistic']
+                forecast_stats.slope_standard_error= simple_forecast.get(forecasted_demand)['statistics']['slope_standard_error']
+                forecast_stats.intercept = simple_forecast.get(forecasted_demand)['statistics']['intercept']
+                forecast_stats.standard_residuals = simple_forecast.get(forecasted_demand)['statistics']['std_residuals']
+                forecast_stats.trending = simple_forecast.get(forecasted_demand)['statistics']['trend']
+                forecast_stats.optimal_alpha =simple_forecast.get(forecasted_demand)['optimal_alpha']
+                forecast_stats.optimal_gamma = 0
+                db.session.add(forecast_stats)
+                for p in range(0, len(simple_forecast.get(forecasted_demand)['forecast'])):
+                    forecast_data = Forecast()
+                    forecast_data.forecast_quantity = simple_forecast.get(forecasted_demand)['forecast'][p]
+                    forecast_data.analysis_id = inva.id
+                    forecast_data.forecast_type_id = ses_id.id
+                    forecast_data.period = p + 1
+                    forecast_data.create_date = date_now
+                    db.session.add(forecast_data)
+
+                break
+        for i, holts_forecast_demand in enumerate(holts_forecast, 1):
+            if holts_forecast_demand == item['sku']:
+                forecast_stats = ForecastStatistics()
+                forecast_stats.analysis_id = inva.id
+                forecast_stats.mape = holts_forecast.get(holts_forecast_demand)['mape']
+                forecast_stats.forecast_type_id = htces_id.id
+                forecast_stats.slope = holts_forecast.get(holts_forecast_demand)['statistics']['slope']
+                forecast_stats.p_value = holts_forecast.get(holts_forecast_demand)['statistics']['pvalue']
+                forecast_stats.test_statistic = holts_forecast.get(holts_forecast_demand)['statistics']['test_statistic']
+                forecast_stats.slope_standard_error = holts_forecast.get(holts_forecast_demand)['statistics']['slope_standard_error']
+                forecast_stats.intercept = holts_forecast.get(holts_forecast_demand)['statistics']['intercept']
+                forecast_stats.standard_residuals = holts_forecast.get(holts_forecast_demand)['statistics']['std_residuals']
+                forecast_stats.trending = holts_forecast.get(holts_forecast_demand)['statistics']['trend']
+                forecast_stats.optimal_alpha = holts_forecast.get(holts_forecast_demand)['optimal_alpha']
+                forecast_stats.optimal_gamma = holts_forecast.get(holts_forecast_demand)['optimal_gamma']
+                db.session.add(forecast_stats)
+                for p in range(0, len(holts_forecast.get(holts_forecast_demand)['forecast'])):
+                    forecast_data = Forecast()
+                    forecast_data.forecast_quantity = holts_forecast.get(holts_forecast_demand)['forecast'][p]
+                    forecast_data.analysis_id = inva.id
+                    forecast_data.forecast_type_id = htces_id.id
+                    forecast_data.period = p + 1
+                    forecast_data.create_date = date_now
+                    db.session.add(forecast_data)
 
     db.session.commit()
-    print("Analysis database loaded...")
+    print("Analysis database loaded...\n")
 
 
 if __name__ == '__main__':

@@ -170,13 +170,30 @@ def main():
 
     # print(top_ten_shortages)
 
-    print({analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
-           model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
-                                                           reorder_cost=Decimal(5000), file_type="csv",
-                                                           length=12)})
+    #simple_forecast  = {analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
+    #       model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
+    #                                                       reorder_cost=Decimal(5000), file_type="csv",
+    #                                                       length=12)}
+#
+    #for p, i in enumerate(simple_forecast, 1):
+    #    print(simple_forecast.get(i)['forecast'][p-1])
 
+    holts_forecast = {analysis.sku_id: analysis.holts_trend_corrected_forecast for analysis in
+                      model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
+                                                                      reorder_cost=Decimal(5000), file_type="csv",
+                                                                      length=12)}
 
-    # for orders in inventory_analysis:
+    ses_forecast = {analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
+                      model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
+                                                                      reorder_cost=Decimal(5000), file_type="csv",
+                                                                      length=12)}
+    for i in holts_forecast:
+        print(holts_forecast.get(i)['statistics'])
+
+    for i in ses_forecast:
+        print(ses_forecast.get(i)['statistics'])
+
+        # for orders in inventory_analysis:
     #  print(orders)
 
 

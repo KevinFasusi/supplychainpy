@@ -147,14 +147,39 @@ class Orders(db.Model):
     rank = db.Column(db.Integer())
 
 
+class ForecastType(db.Model):
+    __table_args__ = {'sqlite_autoincrement': True}
+    id = db.Column(db.Integer(), primary_key=True)
+    type = db.Column(db.String(10))
+    forecast_id = db.relationship("Forecast", backref='type', lazy='dynamic')
+    forecast_statistic_id = db.relationship("ForecastStatistics", backref='details', lazy='dynamic')
+
+
 class Forecast(db.Model):
     __table_args__ = {'sqlite_autoincrement': True}
     id = db.Column(db.Integer(), primary_key=True)
     analysis_id = db.Column(db.Integer, db.ForeignKey('inventory_analysis.id'))
     forecast_quantity = db.Column(db.Integer())
-    forecast_type = db.Column(db.String(10))
+    forecast_type_id = db.Column(db.Integer, db.ForeignKey('forecast_type.id'))
     period = db.Column(db.Integer())
     create_date = db.Column(db.DateTime())
+
+
+class ForecastStatistics(db.Model):
+    __table_args__ = {'sqlite_autoincrement': True}
+    id = db.Column(db.Integer(), primary_key=True)
+    analysis_id = db.Column(db.Integer, db.ForeignKey('inventory_analysis.id'))
+    forecast_type_id = db.Column(db.Integer, db.ForeignKey('forecast_type.id'))
+    slope = db.Column(db.Float())
+    p_value = db.Column(db.Float())
+    test_statistic = db.Column(db.Float())
+    slope_standard_error = db.Column(db.Float())
+    intercept = db.Column(db.Float())
+    standard_residuals = db.Column(db.Float())
+    trending = db.Column(db.Boolean)
+    mape = db.Column(db.Float())
+    optimal_alpha = db.Column(db.Float())
+    optimal_gamma = db.Column(db.Float())
 
 
 manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
@@ -162,6 +187,8 @@ manager.create_api(InventoryAnalysis, methods=['GET', 'POST', 'DELETE', 'PATCH']
                    results_per_page=10, max_results_per_page=500)
 manager.create_api(Currency, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
 manager.create_api(Orders, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
+manager.create_api(Forecast, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
+manager.create_api(ForecastStatistics, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
 
 
 @app.route('/')

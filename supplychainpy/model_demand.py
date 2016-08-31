@@ -25,35 +25,33 @@ def simple_exponential_smoothing_forecast(demand: list, smoothing_level_constant
     forecast_demand = Forecast(orders)
 
     # optimise, population_size, genome_length, mutation_probability, recombination_types
-    if kwargs['optimise']:
-        # if kwargs['recombination_type'] is None:
-        #    recombination_type = 'single_point'
-        # else:
-        #    recombination_type = kwargs['recombination_type']
+    if len(kwargs) != 0:
+        if kwargs['optimise']:
 
-        ses_forecast = [i for i in forecast_demand.simple_exponential_smoothing(*(smoothing_level_constant,))]
+            ses_forecast = [i for i in forecast_demand.simple_exponential_smoothing(*(smoothing_level_constant,))]
 
-        sum_squared_error = forecast_demand.sum_squared_errors(ses_forecast, smoothing_level_constant)
+            sum_squared_error = forecast_demand.sum_squared_errors(ses_forecast, smoothing_level_constant)
 
-        standard_error = forecast_demand.standard_error(sum_squared_error, len(orders), smoothing_level_constant)
-        total_orders = 0
+            standard_error = forecast_demand.standard_error(sum_squared_error, len(orders), smoothing_level_constant)
+            total_orders = 0
 
-        for order in orders[:initial_estimate_period]:
-            total_orders += order
+            for order in orders[:initial_estimate_period]:
+                total_orders += order
 
-        avg_orders = total_orders / initial_estimate_period
+            avg_orders = total_orders / initial_estimate_period
 
-        evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=orders,
-                                                         average_order=avg_orders,
-                                                         smoothing_level=smoothing_level_constant,
-                                                         population_size=10,
-                                                         standard_error=standard_error,
-                                                         recombination_type='single_point')
+            evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=orders,
+                                                             average_order=avg_orders,
+                                                             smoothing_level=smoothing_level_constant,
+                                                             population_size=10,
+                                                             standard_error=standard_error,
+                                                             recombination_type='single_point')
 
-        ses_evo_forecast = evo_mod.simple_exponential_smoothing_evo(smoothing_level_constant=smoothing_level_constant,
-                                                                    initial_estimate_period=initial_estimate_period)
+            ses_evo_forecast = evo_mod.simple_exponential_smoothing_evo(
+                smoothing_level_constant=smoothing_level_constant,
+                initial_estimate_period=initial_estimate_period)
 
-        return ses_evo_forecast
+            return ses_evo_forecast
     else:
 
         forecast_breakdown = [i for i in forecast_demand.simple_exponential_smoothing(smoothing_level_constant)]
@@ -64,7 +62,7 @@ def simple_exponential_smoothing_forecast(demand: list, smoothing_level_constant
                                                                                 forecast_length=forecast_length)
 
         return {'forecast_breakdown': forecast_breakdown, 'mape': mape, 'statistics': stats,
-                'forecast': simple_forecast}
+                'forecast': simple_forecast, 'alpha': smoothing_level_constant}
 
 
 def simple_exponential_smoothing_forecast_from_file(file_path: str, file_type: str, length: int,
@@ -155,7 +153,7 @@ def holts_trend_corrected_exponential_smoothing_forecast(demand: list, alpha: fl
             mape = forecast_demand.mean_aboslute_percentage_error_opt(htces_forecast)
             stats = ape.least_squared_error()
 
-            return {'forecast': holts_forecast, 'mape': mape, 'statistics': stats, 'optimal_alpha': optimal_alpha[1][0],
+            return {'forecast_breakdown': htces_forecast,'forecast': holts_forecast, 'mape': mape, 'statistics': stats, 'optimal_alpha': optimal_alpha[1][0],
                     'optimal_gamma': optimal_alpha[1][1]}
 
     else:
@@ -183,7 +181,11 @@ def holts_trend_corrected_exponential_smoothing_forecast(demand: list, alpha: fl
         mape = forecast_demand.mean_aboslute_percentage_error_opt(htces_forecast)
         stats = ape.least_squared_error()
 
-        return {'forecast': holts_forecast, 'mape': mape, 'statistics': stats, 'sum_squared_errors': sum_squared_error}
+        return {'forecast_breakdown': htces_forecast,
+                'forecast': holts_forecast,
+                'mape': mape,
+                'statistics': stats,
+                'sum_squared_errors': sum_squared_error}
 
 
 def holts_trend_corrected_exponential_smoothing_forecast_from_file(file_path: str, file_type: str, length: int,
