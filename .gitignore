@@ -24,3 +24,5 @@ npm*
 *suchpy_tests_log.txt
 *suchpy_log.txt
 reporting.db
+/uploads
+coverage
