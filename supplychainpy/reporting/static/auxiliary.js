@@ -24,6 +24,10 @@ $("document").ready(function () {
         toggle_reporting_view('collapse-excess');
     });
 
+    $('#chat-btn').click(function () {
+        chat_to_bot();
+    });
+
     load_currency_codes();
     // ajax request for json containing sku related. Is used to: builds revenue chart (#chart).
     var ay = [{
@@ -54,7 +58,7 @@ $("document").ready(function () {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:5000/api/inventory_analysis',
+        url: 'http://127.0.0.1:'+ location.port +'/api/inventory_analysis',
         dataType: 'json',
         async: true,
         data: {"q": JSON.stringify({"filters": filters})},
@@ -72,12 +76,12 @@ $("document").ready(function () {
     //to identify what classification view has been triggered.
     var ay_val = $('#AY-node').length;
     var ax_val = $('#AX-node').length;
-    console.log(ax_val);
+    //console.log(ax_val);
     if (ay_val > 0) {
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
-            url: 'http://127.0.0.1:5000/api/inventory_analysis',
+            url: 'http://127.0.0.1:'+ location.port +'/api/inventory_analysis',
             dataType: 'json',
             async: true,
             data: {"q": JSON.stringify({"filters": ay})},
@@ -95,7 +99,7 @@ $("document").ready(function () {
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
-            url: 'http://127.0.0.1:5000/api/inventory_analysis',
+            url: 'http://127.0.0.1:'+ location.port +'/api/inventory_analysis',
             dataType: 'json',
             async: true,
             data: {"q": JSON.stringify({"filters": ax})},
@@ -118,7 +122,7 @@ $("document").ready(function () {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:5000/api/inventory_analysis',
+        url: 'http://127.0.0.1:'+ location.port +'/api/inventory_analysis',
         dataType: 'json',
         async: true,
         data: {"q": JSON.stringify({"filters": excess_filters})},
@@ -137,7 +141,7 @@ $("document").ready(function () {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:5000/reporting/api/v1.0/abc_summary',
+        url: 'http://127.0.0.1:'+ location.port +'/reporting/api/v1.0/abc_summary',
         dataType: 'json',
         async: true,
         data: "{}",
@@ -164,7 +168,7 @@ $("document").ready(function () {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:5000/reporting/api/v1.0/top_excess/10',
+        url: 'http://127.0.0.1:'+ location.port +'/reporting/api/v1.0/top_excess/10',
         dataType: 'json',
         async: true,
         data: "{}",
@@ -177,10 +181,67 @@ $("document").ready(function () {
             //console.log(result);// make 404.html page
         }
     });
-    bar_chart_sku();
 
+        $.ajax({
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        url: 'http://127.0.0.1:'+ location.port +'/api/forecast_breakdown',
+        dataType: 'json',
+        async: true,
+        data: "{}",
+        success: function (data) {
+            //console.log(data);
+            //console.log(data);
+
+        },
+        error: function (result) {
+            //console.log(result);// make 404.html page
+        }
+    });
+
+    bar_chart_sku();
+    line_chart_forecast();
 });
 
+function chat_to_bot(){
+    var user = 'you';
+    var message = $('#chat-input').val();
+
+    render_bot_response(message, user);
+
+    $.ajax({
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        url: 'http://127.0.0.1:'+ location.port +'/chat/'+ message,
+        dataType: 'json',
+        async: true,
+        data: "{}",
+        success: function (data) {
+            var communicator = 'Dash';
+            render_bot_response(data,communicator);
+            //console.log(data);
+
+        },
+        error: function (result) {
+            //console.log(result);// make 404.html page
+        }
+    });
+
+    $('#chat-input').val('');
+}
+
+function render_bot_response(message,communicator){
+
+     switch(communicator){
+         case 'you':
+             $('<p> '+ communicator + ': ' +message + '</p>').insertAfter('#response-panel p:last').fadeIn("slow");
+             break;
+         case 'Dash':
+             $('<p> '+ communicator + ': ' +message.json_list[0] + '</p>').hide().insertAfter('#response-panel p:last').delay(1000).fadeIn(1500);
+             break;
+     }
+
+}
 
 function bar_chart_sku() {
     var orders_data = document.getElementById("orders-data");
@@ -212,8 +273,43 @@ function bar_chart_sku() {
     });
 }
 
-function print_me() {
-    //console.log("me");
+function line_chart_forecast() {
+    var orders_data = document.getElementById("orders-data");
+    var forecast_data = document.getElementById("forecast-data");
+    var forecast_values = document.getElementById("forecast");
+    //console.log(forecast_data.getElementsByClassName("forecast-raw-data"));
+    var forecast = [];
+    var orders = [];
+
+    for (i = 0; i < forecast_data.getElementsByClassName("forecast-raw-data").length; i++) {
+
+        forecast.push([i + 1, parseInt(forecast_data.getElementsByClassName("forecast-raw-data")[i].innerText)]);
+
+    }
+
+    for (i = 0; i < orders_data.getElementsByClassName("orders-raw-data").length; i++) {
+
+        orders.push([i + 1, parseInt(orders_data.getElementsByClassName("orders-raw-data")[i].innerText)]);
+
+    }
+
+    for (i = 0; i < forecast_values.getElementsByClassName("forecast-values").length; i++) {
+
+        forecast.push([forecast.length + i, parseInt(forecast_values.getElementsByClassName("forecast-values")[i].innerText)]);
+
+    }
+
+    console.log(forecast);
+    //console.log(wins);
+
+
+    Flotr.draw(
+        document.getElementById("forecast-chart"),
+        [
+            {data: orders, lines: {show: true}},
+            {data: forecast, lines: {show: true}}
+        ]
+    );
 }
 
 function format_number(num) {
@@ -534,7 +630,7 @@ function currency_fetch(id) {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:5000/api/currency',
+        url: 'http://127.0.0.1:'+ location.port +'/api/currency',
         dataType: 'json',
         async: true,
         data: {"q": JSON.stringify({"filters": filters})},

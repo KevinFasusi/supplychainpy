@@ -21,7 +21,7 @@ from supplychainpy.launch_reports import launch_load_report, launch_report
 from supplychainpy.demand.regression import LinearRegression
 import logging
 
-# logging.basicConfig( filename='suchpy_log.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+#logging.basicConfig(level=logging.CRITICAL, format='%(asctime)s - %(levelname)s - %(message)s')
 
 __author__ = 'kevin'
 
@@ -179,19 +179,21 @@ def main():
     #    print(simple_forecast.get(i)['forecast'][p-1])
 
     holts_forecast = {analysis.sku_id: analysis.holts_trend_corrected_forecast for analysis in
-                      model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
+                     model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
                                                                       reorder_cost=Decimal(5000), file_type="csv",
-                                                                      length=12)}
+                                                                     length=12)}
 
-    ses_forecast = {analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
-                      model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
-                                                                      reorder_cost=Decimal(5000), file_type="csv",
-                                                                      length=12)}
+    #ses_forecast = {analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
+     #                 model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
+     #                                                                 reorder_cost=Decimal(5000), file_type="csv",
+    #                                                                  length=12)}
+
+    #for i in holts_forecast:
+     #   print(holts_forecast.get(i))
+
     for i in holts_forecast:
-        print(holts_forecast.get(i)['statistics'])
-
-    for i in ses_forecast:
-        print(ses_forecast.get(i)['statistics'])
+        for g in holts_forecast.get(i)['forecast_breakdown']:
+            print(g)
 
         # for orders in inventory_analysis:
     #  print(orders)

@@ -1,3 +1,5 @@
+import logging
+
 from decimal import Decimal
 from decimal import getcontext
 from collections import Iterable
@@ -8,6 +10,7 @@ from supplychainpy.demand.evolutionary_algorithms import OptimiseSmoothingLevelG
 from supplychainpy.demand.forecast_demand import Forecast
 
 from supplychainpy.enum_formats import PeriodFormats
+from supplychainpy.helpers.monitor import log_this
 from supplychainpy.model_demand import simple_exponential_smoothing_forecast, \
     holts_trend_corrected_exponential_smoothing_forecast
 
@@ -378,6 +381,7 @@ class UncertainDemand:
         else:
             return 0
 
+    @log_this(logging.CRITICAL, message='Called to generate optimised SES forecast.')
     def _generate_optimised_ses_forecast(self):
         try:
             demand = (list(self.__orders.get("demand")))
@@ -391,6 +395,7 @@ class UncertainDemand:
         except TypeError as e:
             print('Exponential smoothing forecast (evolutionary model) failed. {}'.format(e))
 
+    @log_this(logging.CRITICAL, message='Called to generate optimised HTCES forecast.')
     def _generate_holts_es_forecast(self):
         demand = (list(self.__orders.get("demand")))
         orders = [int(i) for i in demand]

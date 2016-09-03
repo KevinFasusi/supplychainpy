@@ -1,16 +1,23 @@
 import datetime
+import logging
 import os
 
 from decimal import Decimal
 
 from supplychainpy import model_inventory
+from supplychainpy.helpers.monitor import log_this
 from supplychainpy.inventory.summarise import OrdersAnalysis
-from supplychainpy.reporting.views import TransactionLog, Forecast, ForecastType, ForecastStatistics
+from supplychainpy.reporting.views import TransactionLog, Forecast, ForecastType, ForecastStatistics, ForecastBreakdown
 from supplychainpy.reporting.views import InventoryAnalysis
 from supplychainpy.reporting.views import MasterSkuList
 from supplychainpy.reporting.views import Currency
 from supplychainpy.reporting.views import Orders
 from supplychainpy.launch_reports import db, app
+
+log = logging.getLogger(__name__)
+log.addHandler(logging.NullHandler())
+
+#logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 def currency_codes():
@@ -76,10 +83,11 @@ def load(file_path: str, location: str = None):
     elif location is not None and os.name == 'nt':
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}\\reporting.db'.format(location)
 
-    print('Loading data analysis for reporting suite... \n')
+    log.log(logging.DEBUG, 'Loading data analysis for reporting suite... \n')
 
     db.create_all()
 
+    log.log(logging.DEBUG, 'loading currency symbols...\n')
     print('loading currency symbols...\n')
     fx = currency_codes()
     for key, value in fx.items():
@@ -89,6 +97,7 @@ def load(file_path: str, location: str = None):
         db.session.add(codes)
     db.session.commit()
 
+    log.log(logging.DEBUG, 'Analysing file: {}...\n'.format(file_path))
     print('Analysing file: {}...\n'.format(file_path))
     orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=file_path,
                                                                       z_value=Decimal(1.28),
@@ -103,6 +112,7 @@ def load(file_path: str, location: str = None):
     date_now = datetime.datetime.now()
     analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
 
+    log.log(logging.DEBUG, 'Calculating Forecasts...\n')
     print('Calculating Forecasts...\n')
     simple_forecast = {analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
                        model_inventory.analyse_orders_abcxyz_from_file(file_path=file_path, z_value=Decimal(1.28),
@@ -131,7 +141,9 @@ def load(file_path: str, location: str = None):
 
     ses_id = db.session.query(ForecastType.id).filter(ForecastType.type == forecast_types[0]).first()
     htces_id = db.session.query(ForecastType.id).filter(ForecastType.type == forecast_types[1]).first()
+    log.log(logging.DEBUG, 'loading database ...\n')
     print('loading database ...\n')
+
     for item in ia:
         re = 0
         skus_description = [summarised for summarised in analysis_summary.describe_sku(item['sku'])]
@@ -194,11 +206,13 @@ def load(file_path: str, location: str = None):
                 forecast_stats.slope = simple_forecast.get(forecasted_demand)['statistics']['slope']
                 forecast_stats.p_value = simple_forecast.get(forecasted_demand)['statistics']['pvalue']
                 forecast_stats.test_statistic = simple_forecast.get(forecasted_demand)['statistics']['test_statistic']
-                forecast_stats.slope_standard_error= simple_forecast.get(forecasted_demand)['statistics']['slope_standard_error']
+                forecast_stats.slope_standard_error = simple_forecast.get(forecasted_demand)['statistics'][
+                    'slope_standard_error']
                 forecast_stats.intercept = simple_forecast.get(forecasted_demand)['statistics']['intercept']
-                forecast_stats.standard_residuals = simple_forecast.get(forecasted_demand)['statistics']['std_residuals']
+                forecast_stats.standard_residuals = simple_forecast.get(forecasted_demand)['statistics'][
+                    'std_residuals']
                 forecast_stats.trending = simple_forecast.get(forecasted_demand)['statistics']['trend']
-                forecast_stats.optimal_alpha =simple_forecast.get(forecasted_demand)['optimal_alpha']
+                forecast_stats.optimal_alpha = simple_forecast.get(forecasted_demand)['optimal_alpha']
                 forecast_stats.optimal_gamma = 0
                 db.session.add(forecast_stats)
                 for p in range(0, len(simple_forecast.get(forecasted_demand)['forecast'])):
@@ -209,7 +223,20 @@ def load(file_path: str, location: str = None):
                     forecast_data.period = p + 1
                     forecast_data.create_date = date_now
                     db.session.add(forecast_data)
-
+                for sesf in simple_forecast.get(forecasted_demand)['forecast_breakdown']:
+                    forecast_breakdown = ForecastBreakdown()
+                    forecast_breakdown.analysis_id = inva.id
+                    forecast_breakdown.forecast_type_id = ses_id.id
+                    forecast_breakdown.trend = 0
+                    forecast_breakdown.period = sesf['t']
+                    forecast_breakdown.level_estimates = \
+                        sesf['level_estimates']
+                    forecast_breakdown.one_step_forecast = \
+                        sesf['one_step_forecast']
+                    forecast_breakdown.forecast_error = \
+                        sesf['forecast_error']
+                    forecast_breakdown.squared_error = sesf['squared_error']
+                    db.session.add(forecast_breakdown)
                 break
         for i, holts_forecast_demand in enumerate(holts_forecast, 1):
             if holts_forecast_demand == item['sku']:
@@ -219,10 +246,13 @@ def load(file_path: str, location: str = None):
                 forecast_stats.forecast_type_id = htces_id.id
                 forecast_stats.slope = holts_forecast.get(holts_forecast_demand)['statistics']['slope']
                 forecast_stats.p_value = holts_forecast.get(holts_forecast_demand)['statistics']['pvalue']
-                forecast_stats.test_statistic = holts_forecast.get(holts_forecast_demand)['statistics']['test_statistic']
-                forecast_stats.slope_standard_error = holts_forecast.get(holts_forecast_demand)['statistics']['slope_standard_error']
+                forecast_stats.test_statistic = holts_forecast.get(holts_forecast_demand)['statistics'][
+                    'test_statistic']
+                forecast_stats.slope_standard_error = holts_forecast.get(holts_forecast_demand)['statistics'][
+                    'slope_standard_error']
                 forecast_stats.intercept = holts_forecast.get(holts_forecast_demand)['statistics']['intercept']
-                forecast_stats.standard_residuals = holts_forecast.get(holts_forecast_demand)['statistics']['std_residuals']
+                forecast_stats.standard_residuals = holts_forecast.get(holts_forecast_demand)['statistics'][
+                    'std_residuals']
                 forecast_stats.trending = holts_forecast.get(holts_forecast_demand)['statistics']['trend']
                 forecast_stats.optimal_alpha = holts_forecast.get(holts_forecast_demand)['optimal_alpha']
                 forecast_stats.optimal_gamma = holts_forecast.get(holts_forecast_demand)['optimal_gamma']
@@ -235,10 +265,25 @@ def load(file_path: str, location: str = None):
                     forecast_data.period = p + 1
                     forecast_data.create_date = date_now
                     db.session.add(forecast_data)
+                for htcesf in holts_forecast.get(holts_forecast_demand)['forecast_breakdown']:
+                    forecast_breakdown = ForecastBreakdown()
+                    forecast_breakdown.analysis_id = inva.id
+                    forecast_breakdown.forecast_type_id = htces_id.id
+                    forecast_breakdown.trend = htcesf['trend']
+                    forecast_breakdown.period = htcesf['t']
+                    forecast_breakdown.level_estimates = \
+                        htcesf['level_estimates']
+                    forecast_breakdown.one_step_forecast = \
+                        htcesf['one_step_forecast']
+                    forecast_breakdown.forecast_error = \
+                        htcesf['forecast_error']
+                    forecast_breakdown.squared_error = htcesf['squared_error']
+                    db.session.add(forecast_breakdown)
+                break
 
     db.session.commit()
+    log.log(logging.DEBUG, "Analysis database loaded...\n")
     print("Analysis database loaded...\n")
-
 
 if __name__ == '__main__':
     rel_path = 'data2.csv'

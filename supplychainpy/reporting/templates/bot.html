@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block body%}
+<div class="container-fluid">
+    <h2>Chat with Dash:</h2>
+    <div class="row scribble-panel">
+        <div class="row">
+            <div class="col-xs-11">
+                <div id="response-panel">
+                    <p></p>
+
+                </div>
+
+            </div>
+            <div class=" col-md-1">
+                <img id="oldchap" src="{{ url_for('static', filename='bot.png') }}">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-11">
+                <div class="form-group">
+                    <label id="chat-label" for="chat-input">Chat:</label>
+                    <input class="form-control input-lg" id="chat-input" type="text">
+                </div>
+                <button id="chat-btn" class=" btn btn-sm btn-primary"
+                        aria-pressed="false"
+                >Send
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

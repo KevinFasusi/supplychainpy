@@ -5,6 +5,7 @@ from flask import request, send_from_directory
 from sqlalchemy import func, desc
 
 import flask.ext.restless
+from supplychainpy.bi.dash import ChatBot
 from supplychainpy.reporting.forms import DataForm, upload
 
 import os
@@ -99,6 +100,7 @@ class InventoryAnalysis(db.Model):
     transaction_log_id = db.Column(db.Integer, db.ForeignKey('transaction_log.id'))
     orders_id = db.relationship("Orders", backref='demand', lazy='dynamic')
     forecast_id = db.relationship("Forecast", backref='forecasts', lazy='dynamic')
+    forecast_breakdown_id = db.relationship("ForecastBreakdown", backref='estimates', lazy='dynamic')
     inventory_turns = db.Column(db.Float())
 
     @property
@@ -153,6 +155,7 @@ class ForecastType(db.Model):
     type = db.Column(db.String(10))
     forecast_id = db.relationship("Forecast", backref='type', lazy='dynamic')
     forecast_statistic_id = db.relationship("ForecastStatistics", backref='details', lazy='dynamic')
+    forecast_breakdown_id = db.relationship("ForecastBreakdown", backref='breakdown', lazy='dynamic')
 
 
 class Forecast(db.Model):
@@ -182,6 +185,19 @@ class ForecastStatistics(db.Model):
     optimal_gamma = db.Column(db.Float())
 
 
+class ForecastBreakdown(db.Model):
+    __table_args__ = {'sqlite_autoincrement': True}
+    id = db.Column(db.Integer(), primary_key=True)
+    period = db.Column(db.Integer())
+    analysis_id = db.Column(db.Integer, db.ForeignKey('inventory_analysis.id'))
+    forecast_type_id = db.Column(db.Integer, db.ForeignKey('forecast_type.id'))
+    level_estimates = db.Column(db.Float())
+    trend = db.Column(db.Float())
+    one_step_forecast = db.Column(db.Float())
+    forecast_error = db.Column(db.Float())
+    squared_error = db.Column(db.Float())
+
+
 manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 manager.create_api(InventoryAnalysis, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True,
                    results_per_page=10, max_results_per_page=500)
@@ -189,6 +205,7 @@ manager.create_api(Currency, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_f
 manager.create_api(Orders, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
 manager.create_api(Forecast, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
 manager.create_api(ForecastStatistics, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
+manager.create_api(ForecastBreakdown, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
 
 
 @app.route('/')
@@ -206,6 +223,19 @@ def dashboard():
                                          ).order_by(desc(InventoryAnalysis.shortage_cost)).limit(10)
 
     return flask.render_template('index.html', shortages=top_ten_shortages)
+
+
+@app.route('/bot')
+def bot():
+    return flask.render_template('bot.html')
+
+
+@app.route('/chat/<string:message>', methods=['GET'])
+def chat(message: str = None):
+    dash = ChatBot()
+    response = dash.receive_message(message=message)
+
+    return flask.jsonify(json_list=response)
 
 
 @app.route('/data')
@@ -250,9 +280,13 @@ def sku(sku_id: str = None):
         inven = db.session.query(InventoryAnalysis.id).filter(InventoryAnalysis.sku_id == sku.id).first()
         orders = db.session.query(Orders).filter(Orders.analysis_id == inven.id).order_by(
             asc(Orders.rank)).all()
+        forecast_breakdown = db.session.query(ForecastBreakdown).filter(ForecastBreakdown.analysis_id == inven.id)
+        forecast = db.session.query(Forecast).filter(Forecast.analysis_id == inven.id).all()
+        forecast_statistics = db.session.query(ForecastStatistics).filter(ForecastStatistics.analysis_id == inven.id)
         # inventory = db.session.query(InventoryAnalysis).all()
 
-    return flask.render_template('sku.html', inventory=inventory, orders=orders)
+    return flask.render_template('sku.html', inventory=inventory, orders=orders, breakdown=forecast_breakdown,
+                                 forecast=forecast, statistics=forecast_statistics)
 
 
 @app.route('/reporting/api/v1.0/abc_summary', methods=['GET'])
