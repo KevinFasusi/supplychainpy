@@ -1,27 +1,37 @@
-import flask
-
-from flask import request, send_from_directory
-
-from sqlalchemy import func, desc
-
-import flask.ext.restless
-from supplychainpy.bi.dash import ChatBot
-from supplychainpy.reporting.forms import DataForm, upload
+# Copyright (c) 2015-2016, Kevin Fasusi
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+# following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the
+# following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+# following disclaimer in the documentation and/or other materials provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote
+# products derived from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+# INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+# DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+# SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
+# USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import os
-from ctypes import cast
-from datetime import datetime
 
 import flask
-
-from flask import Flask, request, send_from_directory
-
-from sqlalchemy import func, desc, asc
-
-from supplychainpy.reporting.config import DevConfig
-from flask.ext.sqlalchemy import SQLAlchemy
 import flask.ext.restless
-from supplychainpy.reporting.forms import DataForm, upload
+import flask.ext.restless
+from flask import Flask, request, send_from_directory
+from flask.ext.sqlalchemy import SQLAlchemy
+from sqlalchemy import func, desc, asc
+from supplychainpy.bot.dash import ChatBot
+from supplychainpy.reporting.config import DevConfig
+from supplychainpy.reporting.forms import DataForm, upload, SettingsForm
 
 app_dir = os.path.dirname(__file__, )
 rel_path = '../uploads'
@@ -206,6 +216,7 @@ manager.create_api(Orders, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_fun
 manager.create_api(Forecast, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
 manager.create_api(ForecastStatistics, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
 manager.create_api(ForecastBreakdown, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
+manager.create_api(MasterSkuList, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
 
 
 @app.route('/')
@@ -255,6 +266,10 @@ def upload_file():
 
     return flask.render_template('upload.html', form=form)
 
+@app.route('/settings', methods=['POST', 'GET'])
+def settings():
+    form = SettingsForm()
+    return flask.render_template('settings.html', form=form)
 
 @app.route('/reporting/api/v1.0/sku_detail', methods=['GET'])
 @app.route('/reporting/api/v1.0/sku_detail/<string:sku_id>', methods=['GET'])

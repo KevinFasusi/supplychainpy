@@ -50,7 +50,7 @@ table {
   purple         : #595AB7;
   blue           : #2176C7;
   cyan           : #259286;
-  green          : #738A05; */
+  green          : #0A2933; */
 
 body {
     background-color: #0A2933;
@@ -328,6 +328,7 @@ nav ul li a {
     height: 250px;
     padding: 20px;
     overflow: auto;
+    margin-top: 20px;
     box-shadow: 10px 5px 10px black;
 }
 

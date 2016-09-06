@@ -21,43 +21,46 @@
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from decimal import Decimal, getcontext, ROUND_HALF_UP
+import os
 
-import pyximport
-
-from supplychainpy.inventory import analyse_uncertain_demand
-
-pyximport.install()
-from supplychainpy.inventory.eoq import minimum_variable_cost
-from supplychainpy.inventory.eoq import economic_order_quantity
+from sqlalchemy import MetaData
+from sqlalchemy import Table
+from sqlalchemy import create_engine
+from sqlalchemy import select, and_
+from supplychainpy.helpers.pickle_config import deserialise_config
 
 
-class EconomicOrderQuantity:
-    __economic_order_quantity = Decimal(0)
-    analyse_uncertain_demand.UncertainDemand.__reorder_cost = Decimal(0)
-    __holding_cost = Decimal(0)
-    __min_variable_cost = Decimal(0)
-    __reorder_quantity = Decimal(0)
-    __unit_cost = 0.00
+def database_connection_uri():
+    config = deserialise_config()
+    db_uri = ''
+    if os.name in ['posix', 'mac']:
+        db_uri = 'sqlite:///{}/reporting.db'.format(config['database_path'])
 
-    @property
-    def minimum_variable_cost(self) -> Decimal:
-        return self.__min_variable_cost
+    elif os.name == 'nt':
+        db_uri = 'sqlite:///{}\\reporting.db'.format(config['database_path'])
 
-    @property
-    def economic_order_quantity(self) -> Decimal:
-        return self.__economic_order_quantity
-
-    def __init__(self, reorder_quantity: float, holding_cost: float, reorder_cost: float, average_orders: float,
-                 unit_cost: float, total_orders: float):
-        getcontext().prec = 8
-        getcontext().rounding = ROUND_HALF_UP
-        self.__reorder_quantity = Decimal(reorder_quantity)
-        self.__holding_cost = holding_cost
-        self.__reorder_cost = reorder_cost
-        self.__unit_cost = unit_cost
-        self.__min_variable_cost = minimum_variable_cost(total_orders, reorder_cost, unit_cost, holding_cost)
-        self.__economic_order_quantity = economic_order_quantity(total_orders, reorder_cost, unit_cost, holding_cost,
-                                                                 reorder_quantity)
+    return db_uri
 
 
+def connection(uri):
+    engine = create_engine(uri)
+    return engine
+
+def master_sku_list(uri:str):
+    """Uses connection and reflects database object from table to execute query for all skus in master_sku table"""
+    meta = MetaData()
+    engine = connection(uri)
+    msk_table = Table('master_sku_list', meta, autoload=True, autoload_with=engine)
+    skus = select([msk_table.columns.id, msk_table.columns.sku_id])
+    rp = engine.execute(skus)
+    result = []
+    for i in rp:
+        result.append((i['id'],i['sku_id']))
+    rp.close()
+
+    return result
+
+
+
+
+    #master_sku_list = select()

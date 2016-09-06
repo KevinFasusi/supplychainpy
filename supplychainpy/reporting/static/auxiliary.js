@@ -3,7 +3,7 @@
  */
 import $ from 'jquery';
 
-$("document").ready(function () {
+$(function () {
 
     $('#currency-dropdown-btn >li').click(function () {
         var currency = $(".dropdown-menu > li > a").text();
@@ -26,6 +26,13 @@ $("document").ready(function () {
 
     $('#chat-btn').click(function () {
         chat_to_bot();
+    });
+
+
+    $('#chat-input').keypress(function (event) {
+        if (event.keyCode == 13) {
+            $('#chat-btn').click();
+        }
     });
 
     load_currency_codes();
@@ -58,7 +65,7 @@ $("document").ready(function () {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:'+ location.port +'/api/inventory_analysis',
+        url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
         dataType: 'json',
         async: true,
         data: {"q": JSON.stringify({"filters": filters})},
@@ -81,7 +88,7 @@ $("document").ready(function () {
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
-            url: 'http://127.0.0.1:'+ location.port +'/api/inventory_analysis',
+            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
             dataType: 'json',
             async: true,
             data: {"q": JSON.stringify({"filters": ay})},
@@ -99,7 +106,7 @@ $("document").ready(function () {
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
-            url: 'http://127.0.0.1:'+ location.port +'/api/inventory_analysis',
+            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
             dataType: 'json',
             async: true,
             data: {"q": JSON.stringify({"filters": ax})},
@@ -122,7 +129,7 @@ $("document").ready(function () {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:'+ location.port +'/api/inventory_analysis',
+        url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
         dataType: 'json',
         async: true,
         data: {"q": JSON.stringify({"filters": excess_filters})},
@@ -141,7 +148,7 @@ $("document").ready(function () {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:'+ location.port +'/reporting/api/v1.0/abc_summary',
+        url: 'http://127.0.0.1:' + location.port + '/reporting/api/v1.0/abc_summary',
         dataType: 'json',
         async: true,
         data: "{}",
@@ -168,7 +175,7 @@ $("document").ready(function () {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:'+ location.port +'/reporting/api/v1.0/top_excess/10',
+        url: 'http://127.0.0.1:' + location.port + '/reporting/api/v1.0/top_excess/10',
         dataType: 'json',
         async: true,
         data: "{}",
@@ -182,10 +189,10 @@ $("document").ready(function () {
         }
     });
 
-        $.ajax({
+    $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:'+ location.port +'/api/forecast_breakdown',
+        url: 'http://127.0.0.1:' + location.port + '/api/forecast_breakdown',
         dataType: 'json',
         async: true,
         data: "{}",
@@ -203,8 +210,8 @@ $("document").ready(function () {
     line_chart_forecast();
 });
 
-function chat_to_bot(){
-    var user = 'you';
+function chat_to_bot() {
+    var user = 'You';
     var message = $('#chat-input').val();
 
     render_bot_response(message, user);
@@ -212,13 +219,13 @@ function chat_to_bot(){
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:'+ location.port +'/chat/'+ message,
+        url: 'http://127.0.0.1:' + location.port + '/chat/' + message,
         dataType: 'json',
         async: true,
         data: "{}",
         success: function (data) {
             var communicator = 'Dash';
-            render_bot_response(data,communicator);
+            render_bot_response(data, communicator);
             //console.log(data);
 
         },
@@ -230,16 +237,33 @@ function chat_to_bot(){
     $('#chat-input').val('');
 }
 
-function render_bot_response(message,communicator){
+function render_bot_response(message, communicator) {
 
-     switch(communicator){
-         case 'you':
-             $('<p> '+ communicator + ': ' +message + '</p>').insertAfter('#response-panel p:last').fadeIn("slow");
-             break;
-         case 'Dash':
-             $('<p> '+ communicator + ': ' +message.json_list[0] + '</p>').hide().insertAfter('#response-panel p:last').delay(1000).fadeIn(1500);
-             break;
-     }
+    switch (communicator) {
+        case 'You':
+
+            $('<p style=\"color:#042029;\"> ' + communicator + ': ' + message + '</p><br><p></p>')
+                .insertAfter('#response-panel p:last')
+                .fadeIn("slow");
+
+            break;
+        case 'Dash':
+
+            console.log(message.json_list);
+            for (i = 0; i < message.json_list.length; i++) {
+                if (message.json_list[i] != null) {
+                    $('<p> ' + communicator + ': ' + message.json_list[i] + '</p><br><p></p>')
+                        .hide()
+                        .insertAfter('#response-panel p:last')
+                        .delay(800)
+                        .fadeIn(1000);
+                }
+
+            }
+
+
+            break;
+    }
 
 }
 
@@ -630,7 +654,7 @@ function currency_fetch(id) {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:'+ location.port +'/api/currency',
+        url: 'http://127.0.0.1:' + location.port + '/api/currency',
         dataType: 'json',
         async: true,
         data: {"q": JSON.stringify({"filters": filters})},

@@ -59,7 +59,7 @@
 	                                                                                                                                                                                                     */
 
 
-	(0, _jquery2.default)("document").ready(function () {
+	(0, _jquery2.default)(function () {
 
 	    (0, _jquery2.default)('#currency-dropdown-btn >li').click(function () {
 	        var currency = (0, _jquery2.default)(".dropdown-menu > li > a").text();
@@ -82,6 +82,12 @@
 
 	    (0, _jquery2.default)('#chat-btn').click(function () {
 	        chat_to_bot();
+	    });
+
+	    (0, _jquery2.default)('#chat-input').keypress(function (event) {
+	        if (event.keyCode == 13) {
+	            (0, _jquery2.default)('#chat-btn').click();
+	        }
 	    });
 
 	    load_currency_codes();
@@ -243,7 +249,7 @@
 	});
 
 	function chat_to_bot() {
-	    var user = 'you';
+	    var user = 'You';
 	    var message = (0, _jquery2.default)('#chat-input').val();
 
 	    render_bot_response(message, user);
@@ -271,11 +277,20 @@
 	function render_bot_response(message, communicator) {
 
 	    switch (communicator) {
-	        case 'you':
-	            (0, _jquery2.default)('<p> ' + communicator + ': ' + message + '</p>').insertAfter('#response-panel p:last').fadeIn("slow");
+	        case 'You':
+
+	            (0, _jquery2.default)('<p style=\"color:#042029;\"> ' + communicator + ': ' + message + '</p><br><p></p>').insertAfter('#response-panel p:last').fadeIn("slow");
+
 	            break;
 	        case 'Dash':
-	            (0, _jquery2.default)('<p> ' + communicator + ': ' + message.json_list[0] + '</p>').hide().insertAfter('#response-panel p:last').delay(1000).fadeIn(1500);
+
+	            console.log(message.json_list);
+	            for (i = 0; i < message.json_list.length; i++) {
+	                if (message.json_list[i] != null) {
+	                    (0, _jquery2.default)('<p> ' + communicator + ': ' + message.json_list[i] + '</p><br><p></p>').hide().insertAfter('#response-panel p:last').delay(800).fadeIn(1000);
+	                }
+	            }
+
 	            break;
 	    }
 	}
