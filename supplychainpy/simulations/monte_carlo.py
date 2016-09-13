@@ -26,8 +26,7 @@ from decimal import ROUND_FLOOR
 from decimal import getcontext
 
 import numpy as np
-
-from supplychainpy.enum_formats import PeriodFormats
+from supplychainpy._helpers._enum_formats import PeriodFormats
 from supplychainpy.simulations import simulation_window
 
 

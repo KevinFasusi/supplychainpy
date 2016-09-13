@@ -1,5 +1,4 @@
 node_modules/
-# general things to ignore
 build/
 dist/
 env/
@@ -8,7 +7,7 @@ env/
 *.py[co]
 __pycache__/
 *~
-.idea/
+*.idea/
 # due to using tox and pytest
 .tox
 .cache
@@ -26,3 +25,5 @@ npm*
 reporting.db
 /uploads
 coverage
+_build/
+webpack.config*

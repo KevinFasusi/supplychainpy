@@ -21,17 +21,16 @@
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from decimal import Decimal
 import logging
-
-from supplychainpy.data_cleansing import check_extension
-from supplychainpy.inventory.abc_xyz import AbcXyz
+from decimal import Decimal
 
 from supplychainpy import data_cleansing
-from supplychainpy.inventory import economic_order_quantity
-from supplychainpy.enum_formats import FileFormats
-from supplychainpy.enum_formats import PeriodFormats
+from supplychainpy.data_cleansing import check_extension
+from supplychainpy._helpers._enum_formats import FileFormats
+from supplychainpy._helpers._enum_formats import PeriodFormats
 from supplychainpy.inventory import analyse_uncertain_demand
+from supplychainpy.inventory import economic_order_quantity
+from supplychainpy.inventory.abc_xyz import AbcXyz
 
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())

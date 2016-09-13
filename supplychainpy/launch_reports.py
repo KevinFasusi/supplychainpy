@@ -25,7 +25,7 @@ import os
 import threading
 import webbrowser
 
-from supplychainpy.helpers.pickle_config import deserialise_config, serialise_config
+from supplychainpy._helpers._pickle_config import deserialise_config, serialise_config
 from supplychainpy.reporting.views import db, app
 import tkinter as tk
 from tkinter import ttk
@@ -43,9 +43,9 @@ class ReportsLauncher(threading.Thread):
 
     def run(self):
         config = deserialise_config()
-        config['port']=self.port
-        serialise_config()
-        #print(self.port)
+        config['port'] = self.port
+        serialise_config(config)
+        # print(self.port)
         app.run(port=self.port)
 
 
@@ -196,7 +196,7 @@ def launch_load_report(file: str, location: str = None):
         load.load(file, location)
     else:
         load.load(file)
-        
+
     launcher = tk.Tk()
     app_launch = SupplychainpyReporting(launcher)
     app_launch.parent.configure(background='black')
@@ -204,7 +204,6 @@ def launch_load_report(file: str, location: str = None):
 
 
 def launch_report(location: str = None):
-
     if location is not None and os.name in ['posix', 'mac']:
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/reporting.db'.format(location)
 
@@ -232,4 +231,3 @@ def load_db(file: str, location: str = None):
         load.load(file, location)
     else:
         load.load(file)
-

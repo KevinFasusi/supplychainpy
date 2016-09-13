@@ -21,21 +21,16 @@
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+import itertools
 import logging
-
+from collections import Iterable
 from decimal import Decimal
 from decimal import getcontext
-from collections import Iterable
 
-import itertools
-
-from supplychainpy.demand.evolutionary_algorithms import OptimiseSmoothingLevelGeneticAlgorithm
-from supplychainpy.demand.forecast_demand import Forecast
-
-from supplychainpy.enum_formats import PeriodFormats
-from supplychainpy.helpers.monitor import log_this
-from supplychainpy.model_demand import simple_exponential_smoothing_forecast, \
-    holts_trend_corrected_exponential_smoothing_forecast
+from supplychainpy._helpers._decorators import log_this
+from supplychainpy._helpers._enum_formats import PeriodFormats
+from supplychainpy.model_demand import holts_trend_corrected_exponential_smoothing_forecast
+from supplychainpy.model_demand import simple_exponential_smoothing_forecast
 
 
 def _standard_deviation_orders(orders: dict, average_order: Decimal) -> Decimal:
@@ -423,7 +418,7 @@ class UncertainDemand:
         demand = (list(self.__orders.get("demand")))
         orders = [int(i) for i in demand]
 
-        htces = holts_trend_corrected_exponential_smoothing_forecast(demand=orders,alpha=0.5, gamma=0.5,optimise=True)
+        htces = holts_trend_corrected_exponential_smoothing_forecast(demand=orders, alpha=0.5, gamma=0.5, optimise=True)
 
         return htces
 
@@ -500,5 +495,3 @@ class UncertainDemand:
         self.__reorder_level = None
         self.__reorder_cost = None
         self.__fixed_reorder_quantity = None
-
-

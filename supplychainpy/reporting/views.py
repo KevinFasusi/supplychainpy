@@ -27,6 +27,7 @@ import flask
 import flask.ext.restless
 import flask.ext.restless
 from flask import Flask, request, send_from_directory
+from flask.ext.restless import APIManager
 from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy import func, desc, asc
 from supplychainpy.bot.dash import ChatBot
@@ -208,7 +209,7 @@ class ForecastBreakdown(db.Model):
     squared_error = db.Column(db.Float())
 
 
-manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
+manager = APIManager(app, flask_sqlalchemy_db=db)
 manager.create_api(InventoryAnalysis, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True,
                    results_per_page=10, max_results_per_page=500)
 manager.create_api(Currency, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
@@ -241,10 +242,15 @@ def bot():
     return flask.render_template('bot.html')
 
 
+@app.route('/lexicon')
+def lexicon():
+    return flask.render_template('lexicon.html')
+
+
 @app.route('/chat/<string:message>', methods=['GET'])
 def chat(message: str = None):
     dash = ChatBot()
-    response = dash.receive_message(message=message)
+    response = dash.chat(message=message)
 
     return flask.jsonify(json_list=response)
 
@@ -266,10 +272,12 @@ def upload_file():
 
     return flask.render_template('upload.html', form=form)
 
+
 @app.route('/settings', methods=['POST', 'GET'])
 def settings():
     form = SettingsForm()
     return flask.render_template('settings.html', form=form)
+
 
 @app.route('/reporting/api/v1.0/sku_detail', methods=['GET'])
 @app.route('/reporting/api/v1.0/sku_detail/<string:sku_id>', methods=['GET'])
@@ -452,6 +460,7 @@ def currency():
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
+
 
 
 if __name__ == '__main__':

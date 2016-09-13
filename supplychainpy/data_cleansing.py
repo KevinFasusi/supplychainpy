@@ -133,8 +133,8 @@ def clean_orders_data_row_csv(file, length: int = 12) -> dict:
                                  "and quantity on hand the csv row should be {} columns long.\n The current" \
                                  " column count  is {}. Please check the file or specified length."
                 raise Exception(formatting_err.format(length, length + 5, len(row)))
-    except OSError:
-        print("check")
+    except OSError as e:
+        print(e)
 
     return collection
 
@@ -149,13 +149,16 @@ def check_extension(file_path, file_type: str) -> bool:
         bool:
 
     """
-    if file_path.endswith(".txt") and file_type.lower() == "text":
-        flag = True
-    elif file_path.endswith(".csv") and file_type.lower() == "csv":
-        flag = True
-    else:
-        flag = False
-    return flag
+    try:
+        if file_path.endswith(".txt") and file_type.lower() == "text":
+            flag = True
+        elif file_path.endswith(".csv") and file_type.lower() == "csv":
+            flag = True
+        else:
+            flag = False
+        return flag
+    except AttributeError as e:
+        print(e)
 
 
 # refocator length to column count

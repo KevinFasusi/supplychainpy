@@ -424,3 +424,35 @@ nav ul li a {
 #chat-label {
     margin-top: 30px;
 }
+
+#quick-guide {
+    margin-top: 40px;
+    color: white;
+    font-size: 1.3em;
+    line-height: 1.3em;
+}
+
+.dash-examples {
+    margin-top: 40px;
+    color: black;
+    font-size: 1.3em;
+}
+
+.dash-notes {
+    color: white;
+    font-size: 1.3em;
+    line-height: 1.3em;
+}
+
+#nav-list-settings {
+    margin-top: 5px;
+}
+
+.keyword-table > thead > tr > th,
+.keyword-table > tbody > tr > th,
+.keyword-table > tfoot > tr > th,
+.keyword-table > thead > tr > td,
+.keyword-table > tbody > tr > td,
+.keyword-table > tfoot > tr > td {
+    text-align: left;
+}

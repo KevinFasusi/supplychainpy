@@ -251,7 +251,7 @@
 	function chat_to_bot() {
 	    var user = 'You';
 	    var message = (0, _jquery2.default)('#chat-input').val();
-
+	    console.log(message);
 	    render_bot_response(message, user);
 
 	    _jquery2.default.ajax({
@@ -264,10 +264,11 @@
 	        success: function success(data) {
 	            var communicator = 'Dash';
 	            render_bot_response(data, communicator);
-	            //console.log(data);
+	            console.log(data);
 	        },
 	        error: function error(result) {
-	            //console.log(result);// make 404.html page
+
+	            console.log(result); // make 404.html page
 	        }
 	    });
 
@@ -279,7 +280,7 @@
 	    switch (communicator) {
 	        case 'You':
 
-	            (0, _jquery2.default)('<p style=\"color:#042029;\"> ' + communicator + ': ' + message + '</p><br><p></p>').insertAfter('#response-panel p:last').fadeIn("slow");
+	            (0, _jquery2.default)('<p style=\"color:#042029;\">' + communicator + ': ' + message + '</p><br><p></p>').insertAfter('#response-panel p:last').fadeIn("slow");
 
 	            break;
 	        case 'Dash':
@@ -287,7 +288,7 @@
 	            console.log(message.json_list);
 	            for (i = 0; i < message.json_list.length; i++) {
 	                if (message.json_list[i] != null) {
-	                    (0, _jquery2.default)('<p> ' + communicator + ': ' + message.json_list[i] + '</p><br><p></p>').hide().insertAfter('#response-panel p:last').delay(800).fadeIn(1000);
+	                    (0, _jquery2.default)('<p style=\"color:#a2e1f6;\">' + communicator + ': ' + message.json_list[i] + '</p><br><p></p>').hide().insertAfter('#response-panel p:last').delay(800).fadeIn(1000);
 	                }
 	            }
 

@@ -26,8 +26,9 @@ import os
 from sqlalchemy import MetaData
 from sqlalchemy import Table
 from sqlalchemy import create_engine
-from sqlalchemy import select, and_
-from supplychainpy.helpers.pickle_config import deserialise_config
+from sqlalchemy import func
+from sqlalchemy import select
+from supplychainpy._helpers._pickle_config import deserialise_config
 
 
 def database_connection_uri():
@@ -46,7 +47,8 @@ def connection(uri):
     engine = create_engine(uri)
     return engine
 
-def master_sku_list(uri:str):
+
+def master_sku_list(uri: str):
     """Uses connection and reflects database object from table to execute query for all skus in master_sku table"""
     meta = MetaData()
     engine = connection(uri)
@@ -55,12 +57,97 @@ def master_sku_list(uri:str):
     rp = engine.execute(skus)
     result = []
     for i in rp:
-        result.append((i['id'],i['sku_id']))
+        result.append((i['id'], i['sku_id']))
     rp.close()
 
     return result
 
 
+def excess_controller(uri: str, direction: str = None, sku_id: str = None) -> tuple:
+    meta = MetaData()
+    engine = connection(uri)
+    inventory_analysis = Table('inventory_analysis', meta, autoload=True, autoload_with=engine)
+    if direction == 'biggest':
+        skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.excess_cost,
+                       func.min(inventory_analysis.columns.excess_rank)])
+    else:
+        skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.excess_cost,
+                       func.max(inventory_analysis.columns.excess_rank)])
+
+    # for i in inventory_analysis.columns:
+    #    print(i)
+    rp = engine.execute(skus)
+    result = []
+    sku_id = ""
+    for i in rp:
+        sku_id = str(i['sku_id'])
+        result.append((i['sku_id'], i['excess_cost']))
+    rp.close()
+    # print(sku_id)
+    msk_table = Table('master_sku_list', meta, autoload=True, autoload_with=engine)
+    skus = select([msk_table.columns.id, msk_table.columns.sku_id]).where(msk_table.columns.id == sku_id)
+    rp = engine.execute(skus)
+    for i in rp:
+        result.append(i['sku_id'])
+    rp.close()
+
+    return tuple(result)
 
 
-    #master_sku_list = select()
+def shortage_controller(uri: str, direction: str = None, sku_id: str = None) -> tuple:
+    meta = MetaData()
+    engine = connection(uri)
+    inventory_analysis = Table('inventory_analysis', meta, autoload=True, autoload_with=engine)
+
+    if direction == 'biggest':
+       skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.shortage_cost,
+                      func.min(inventory_analysis.columns.shortage_rank)])
+    else:
+       skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.shortage_cost,
+                      func.max(inventory_analysis.columns.shortage_rank)])
+
+    rp = engine.execute(skus)
+    result = []
+    sku_id = ""
+    for i in rp:
+        sku_id = str(i['sku_id'])
+        result.append((i['sku_id'], i['shortage_cost']))
+    rp.close()
+    # print(sku_id)
+    msk_table = Table('master_sku_list', meta, autoload=True, autoload_with=engine)
+    skus = select([msk_table.columns.id, msk_table.columns.sku_id]).where(msk_table.columns.id == sku_id)
+    rp = engine.execute(skus)
+    for i in rp:
+        result.append(i['sku_id'])
+    rp.close()
+    return tuple(result)
+
+
+def revenue_controller(uri: str, direction: str = None, sku_id: str = None) -> tuple:
+    meta = MetaData()
+    engine = connection(uri)
+    inventory_analysis = Table('inventory_analysis', meta, autoload=True, autoload_with=engine)
+
+    if direction == 'smallest':
+       skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.revenue,
+                      func.min(inventory_analysis.columns.revenue)])
+    else:
+       skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.revenue,
+                      func.max(inventory_analysis.columns.revenue)])
+
+
+    rp = engine.execute(skus)
+    result = []
+    sku_id = ""
+    for i in rp:
+        sku_id = str(i['sku_id'])
+        result.append((i['sku_id'], i['revenue']))
+    rp.close()
+    # print(sku_id)
+    msk_table = Table('master_sku_list', meta, autoload=True, autoload_with=engine)
+    skus = select([msk_table.columns.id, msk_table.columns.sku_id]).where(msk_table.columns.id == sku_id)
+    rp = engine.execute(skus)
+    for i in rp:
+        result.append(i['sku_id'])
+    rp.close()
+    return tuple(result)

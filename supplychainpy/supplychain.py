@@ -27,14 +27,15 @@ import pickle
 
 import sys
 
-from supplychainpy.launch_reports import launch_load_report, launch_report, load_db
+from supplychainpy.launch_reports import launch_load_report
+from supplychainpy.launch_reports import launch_report
+from supplychainpy.launch_reports import load_db
 
 
 def main():
     parser = argparse.ArgumentParser(description='Supplychainpy commandline interface a')
 
     parser.add_argument(dest='filenames', metavar='filename', nargs='?')
-
     parser.add_argument('-l', '--launch', dest='launch', action='store_true',
                         help='launch supplychainpy reporting')
 
@@ -84,6 +85,13 @@ def main():
 
     elif args.launch and args.location is not None:
         print(3)
+
+        app_settings = {
+            'database_path': args.location
+        }
+
+        serialise_response(app_settings)
+
         launch_report(location=args.location)
 
     elif args.analyse_file and args.location is not None and args.filenames is not None:

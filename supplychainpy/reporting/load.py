@@ -28,9 +28,12 @@ import os
 from decimal import Decimal
 
 from supplychainpy import model_inventory
-from supplychainpy.helpers.monitor import log_this
 from supplychainpy.inventory.summarise import OrdersAnalysis
-from supplychainpy.reporting.views import TransactionLog, Forecast, ForecastType, ForecastStatistics, ForecastBreakdown
+from supplychainpy.reporting.views import TransactionLog
+from supplychainpy.reporting.views import Forecast
+from supplychainpy.reporting.views import ForecastType
+from supplychainpy.reporting.views import ForecastStatistics
+from supplychainpy.reporting.views import ForecastBreakdown
 from supplychainpy.reporting.views import InventoryAnalysis
 from supplychainpy.reporting.views import MasterSkuList
 from supplychainpy.reporting.views import Currency

@@ -213,26 +213,29 @@ $(function () {
 function chat_to_bot() {
     var user = 'You';
     var message = $('#chat-input').val();
-
+    console.log(message);
     render_bot_response(message, user);
 
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:' + location.port + '/chat/' + message,
+        url: 'http://127.0.0.1:' + location.port + '/chat/'+ message,
         dataType: 'json',
         async: true,
         data: "{}",
         success: function (data) {
             var communicator = 'Dash';
             render_bot_response(data, communicator);
-            //console.log(data);
+            console.log(data);
 
         },
         error: function (result) {
-            //console.log(result);// make 404.html page
+
+                console.log(result);// make 404.html page
         }
     });
+
+
 
     $('#chat-input').val('');
 }
@@ -242,7 +245,7 @@ function render_bot_response(message, communicator) {
     switch (communicator) {
         case 'You':
 
-            $('<p style=\"color:#042029;\"> ' + communicator + ': ' + message + '</p><br><p></p>')
+            $('<p style=\"color:#042029;\">' + communicator + ': ' + message + '</p><br><p></p>')
                 .insertAfter('#response-panel p:last')
                 .fadeIn("slow");
 
@@ -252,7 +255,7 @@ function render_bot_response(message, communicator) {
             console.log(message.json_list);
             for (i = 0; i < message.json_list.length; i++) {
                 if (message.json_list[i] != null) {
-                    $('<p> ' + communicator + ': ' + message.json_list[i] + '</p><br><p></p>')
+                    $('<p style=\"color:#a2e1f6;\">' + communicator + ': ' + message.json_list[i] + '</p><br><p></p>')
                         .hide()
                         .insertAfter('#response-panel p:last')
                         .delay(800)

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <title>supplychainpy Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
@@ -26,7 +26,7 @@
     <a href="#" class="nav-toggle-btn">
         <img src="{{ url_for('static', filename='logo.png') }}">
     </a>
-    <ul>
+    <ul id="nav-list-settings">
 
         <li>
             <a class="nav-tabs" href="{{url_for('raw_data')}}">
