@@ -16,7 +16,7 @@ install:
 script:
   #- python -m unittest discover tests/
   #- py.test --pyargs /home/travis/build/KevinFasusi/supplychainpy/tests/
-  - coverage run --source=/home/travis/build/KevinFasusi/supplychainpy/supplychainpy/tests/ -m unittest discover tests/
+  - coverage run --source=/home/travis/build/KevinFasusi/supplychainpy/ -m unittest discover tests/
   #- coverage run --source=/home/travis/build/KevinFasusi/supplychainpy/ -m py.test --pyargs /home/travis/build/KevinFasusi/supplychainpy/tests/
   #- mocha --reporter mocha-lcov-reporter --source=/home/travis/build/KevinFasusi/supplychainpy/tests/* > coverage.info
   #- coveralls-lcov -v -n coverage.info > coverage.json
