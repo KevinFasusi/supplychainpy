@@ -3,7 +3,7 @@
  */
 
 var expect = require('../node_modules/chai/chai.js').expect;
-var supertest = require('../node_modules/supertest');
+var supertest = require('../node_modules/supertest/index');
 
 var api = supertest('http://localhost:5000');
 
