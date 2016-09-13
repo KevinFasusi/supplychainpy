@@ -28,6 +28,7 @@ matplotlib==1.5.1
 mimerender==0.6.0
 nltk==3.2.1
 numpy==1.10.4
+pandas==0.18.1
 pkginfo==1.2.1
 pockets==0.3
 py==1.4.31
