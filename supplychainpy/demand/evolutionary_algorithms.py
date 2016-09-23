@@ -1,4 +1,5 @@
-# Copyright (c) 2015-2016, Kevin Fasusi
+# Copyright (c) 2015-2016, The Authors and Contributors
+# <see AUTHORS file>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
@@ -432,7 +433,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
         for individual in population:
             procreation_probability = sum(individual.values()) / len(individual.values())
             if individual_type == 'ses':
-                if procreation_probability >= 0.3:
+                if procreation_probability >= 0.7:
                     yield individual
             else:
                 if procreation_probability >= 0.3:
@@ -555,7 +556,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
 
         evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=self.__orders,
                                                          average_order=avg_orders,
-                                                         smoothing_level=0.5,
+                                                         smoothing_level=smoothing_level_constant,
                                                          population_size=population_size,
                                                          standard_error=standard_error,
                                                          recombination_type=recombination_type)
@@ -571,4 +572,4 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
                                                                                 forecast_length=forecast_length)
 
         return {'forecast_breakdown': optimal_ses_forecast, 'mape': mape, 'statistics': stats,
-                'forecast': simple_forecast, 'optimal_alpha': optimal_alpha[1]}
+                'forecast': simple_forecast, 'optimal_alpha': optimal_alpha[1], 'standard_error': standard_error}

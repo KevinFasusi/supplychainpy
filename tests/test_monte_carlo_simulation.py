@@ -56,7 +56,7 @@ class TestMonteCarlo(TestCase):
 
         simulation_windows = simulate.run_monte_carlo(orders_analysis=self.__orders_analysis, runs=1)
 
-        self.assertEqual(len(simulation_windows), 348)
+        self.assertEqual(len(simulation_windows), 468)
 
     def test_summarize_simulation(self):
         orders_analysis = analyse_orders_abcxyz_from_file(file_path=ABS_FILE_PATH['COMPLETE_CSV_SM'], z_value=Decimal(1.28),
@@ -66,7 +66,7 @@ class TestMonteCarlo(TestCase):
         collect_sim = []
         for i in simulate.summarize_window(simulation_frame=simulation_windows):
             collect_sim.append(i)
-        self.assertEqual(len(collect_sim), 29)
+        self.assertEqual(len(collect_sim), 39)
 
     def test_build_window(self):
         sim_dict = {}

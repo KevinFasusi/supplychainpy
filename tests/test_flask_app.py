@@ -1,3 +1,4 @@
+import logging
 import os
 import tempfile
 import unittest
@@ -5,6 +6,8 @@ import unittest
 from supplychainpy.launch_reports import load_db
 from supplychainpy.reporting.views import app
 from supplychainpy.sample_data.config import ABS_FILE_PATH
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class TestFlaskReports(unittest.TestCase):

@@ -1,4 +1,5 @@
-# Copyright (c) 2015-2016, Kevin Fasusi
+# Copyright (c) 2015-2016, The Authors and Contributors
+# <see AUTHORS file>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
@@ -20,13 +21,16 @@
 # SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
 import argparse
 import os
 import pickle
 
 import sys
 
+from supplychainpy._csv_management._csv_manager import _Orchestrate
+from supplychainpy._csv_management._model._db_setup import create_management_db
+from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_APPLICATION_CONFIG
+from supplychainpy._helpers._pickle_config import serialise_config
 from supplychainpy.launch_reports import launch_load_report
 from supplychainpy.launch_reports import launch_report
 from supplychainpy.launch_reports import load_db
@@ -76,10 +80,17 @@ def main():
         print(2)
 
         app_settings = {
-            'database_path': args.location
+            'database_path': args.location,
+            'file': args.filenames
         }
 
-        serialise_response(app_settings)
+        serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
+
+        d = _Orchestrate()
+        d.copy_file()
+        db_present = d.check_for_db()
+        if db_present:
+            create_management_db()
 
         launch_load_report(args.filenames, args.location)
 
@@ -87,28 +98,21 @@ def main():
         print(3)
 
         app_settings = {
-            'database_path': args.location
+            'database_path': args.location,
         }
 
-        serialise_response(app_settings)
+        serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
 
         launch_report(location=args.location)
 
     elif args.analyse_file and args.location is not None and args.filenames is not None:
         print(4)
+
         load_db(file=args.filenames, location=args.location)
 
     if args.filenames is None and False == args.analyse_file and False == args.launch and args.outfile is None:
         filename = input('path to "CSV" or "text" file... ')
         sys.stdout.flush()
-
-
-def serialise_response(db_path: dict):
-    APP_DIR = os.path.dirname(__file__, )
-    REL_PATH = 'config.pickle'
-    ABS_FILE_PATH = os.path.abspath(os.path.join(APP_DIR, '', REL_PATH))
-    with open(ABS_FILE_PATH, 'wb') as f:
-        pickle.dump(db_path, f)
 
 
 if __name__ == '__main__':

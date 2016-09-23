@@ -1,4 +1,5 @@
-# Copyright (c) 2015-2016, Kevin Fasusi
+# Copyright (c) 2015-2016, The Authors and Contributors
+# <see AUTHORS file>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
@@ -29,12 +30,14 @@ COMPLETE_CSV_LG = 'complete_dataset_large'
 PARTIAL_COL_CSV_SM ='partial_dataset_col_small.csv'
 PARTIAL_ROW_TXT_SM = 'partial_dataset_row_small.txt'
 PARTIAL_COL_TXT_SM = 'partial_dataset_col_small.txt'
+PARTIAL_CSV_SM = 'partial_dataset_small.csv'
 
 ABS_FILE_PATH = {'COMPLETE_CSV_SM': os.path.abspath(os.path.join(APP_DIR, COMPLETE_CSV_SM)),
                  'PARTIAL_ROW_TXT_SM': os.path.abspath(os.path.join(APP_DIR, PARTIAL_ROW_TXT_SM)),
                  'COMPLETE_CSV_LG': os.path.abspath(os.path.join(APP_DIR, COMPLETE_CSV_LG)),
                  'PARTIAL_COL_TXT_SM': os.path.abspath(os.path.join(APP_DIR, PARTIAL_COL_TXT_SM)),
                  'PARTIAL_COL_CSV_SM': os.path.abspath(os.path.join(APP_DIR, PARTIAL_COL_CSV_SM)),
+                 'PARTIAL_CSV_SM': os.path.abspath(os.path.join(APP_DIR, PARTIAL_CSV_SM)),
                  }
 
 

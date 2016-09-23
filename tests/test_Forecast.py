@@ -53,7 +53,7 @@ class TestForecast(TestCase):
         k.moving_average_forecast(forecast_length=9, start_position=3, average_period=3)
         result_array = k.mean_absolute_deviation(forecast.weighted_moving_average)
         result_array2 = forecast.mean_absolute_deviation(k.moving_average)
-        self.assertEquals(result_array, result_array2)
+        self.assertEqual(result_array, result_array2)
 
     def test_mean_forecast_error(self):
         pass

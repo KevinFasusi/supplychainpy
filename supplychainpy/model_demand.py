@@ -1,4 +1,5 @@
-# Copyright (c) 2015-2016, Kevin Fasusi
+# Copyright (c) 2015-2016, The Authors and Contributors
+# <see AUTHORS file>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
@@ -21,17 +22,23 @@
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from supplychainpy import data_cleansing
-from supplychainpy.data_cleansing import check_extension
+import logging
+
+from supplychainpy._helpers import _data_cleansing
+from supplychainpy._helpers._enum_formats import FileFormats
+from supplychainpy._helpers._data_cleansing import check_extension
 from supplychainpy.demand.evolutionary_algorithms import OptimiseSmoothingLevelGeneticAlgorithm
 from supplychainpy.demand.forecast_demand import Forecast
 from supplychainpy.demand.regression import LinearRegression
-from supplychainpy._helpers._enum_formats import FileFormats
+
+log = logging.getLogger(__name__)
+log.addHandler(logging.NullHandler())
+
+UNKNOWN = "UNKNOWN"
 
 
-def simple_exponential_smoothing_forecast(demand: list, smoothing_level_constant: float, forecast_length: int = 5,
-                                          initial_estimate_period: int = 6,
-                                          **kwargs) -> dict:
+def simple_exponential_smoothing_forecast(demand: list = None, smoothing_level_constant: float = 0.5,
+                                          forecast_length: int = 5, initial_estimate_period: int = 6, **kwargs) -> dict:
     """
 
     Args:
@@ -44,12 +51,17 @@ def simple_exponential_smoothing_forecast(demand: list, smoothing_level_constant
     Returns:
 
     """
-    orders = [int(i) for i in demand]
+    ds = kwargs.get('ds', 'UNKNOWN')
+    if ds is not UNKNOWN:
+        orders = list(kwargs.get('ds', "UNKNOWN"))
+    else:
+        orders = [int(i) for i in demand]
     forecast_demand = Forecast(orders)
 
     # optimise, population_size, genome_length, mutation_probability, recombination_types
     if len(kwargs) != 0:
-        if kwargs['optimise']:
+        optimise_flag = kwargs.get('optimise', "UNKNOWN")
+        if optimise_flag is not UNKNOWN:
 
             ses_forecast = [i for i in forecast_demand.simple_exponential_smoothing(*(smoothing_level_constant,))]
 
@@ -75,17 +87,29 @@ def simple_exponential_smoothing_forecast(demand: list, smoothing_level_constant
                 initial_estimate_period=initial_estimate_period)
 
             return ses_evo_forecast
+        else:
+
+            return _ses_forecast(smoothing_level_constant=smoothing_level_constant,
+                                 forecast_demand=forecast_demand,
+                                 forecast_length=forecast_length)
     else:
 
-        forecast_breakdown = [i for i in forecast_demand.simple_exponential_smoothing(smoothing_level_constant)]
-        ape = LinearRegression(forecast_breakdown)
-        mape = forecast_demand.mean_aboslute_percentage_error_opt(forecast_breakdown)
-        stats = ape.least_squared_error()
-        simple_forecast = forecast_demand.simple_exponential_smoothing_forecast(forecast=forecast_breakdown,
-                                                                                forecast_length=forecast_length)
+        return _ses_forecast(smoothing_level_constant=smoothing_level_constant,
+                             forecast_demand=forecast_demand,
+                             forecast_length=forecast_length)
 
-        return {'forecast_breakdown': forecast_breakdown, 'mape': mape, 'statistics': stats,
-                'forecast': simple_forecast, 'alpha': smoothing_level_constant}
+
+def _ses_forecast(smoothing_level_constant, forecast_demand, forecast_length):
+
+    forecast_breakdown = [i for i in forecast_demand.simple_exponential_smoothing(smoothing_level_constant)]
+    ape = LinearRegression(forecast_breakdown)
+    mape = forecast_demand.mean_aboslute_percentage_error_opt(forecast_breakdown)
+    stats = ape.least_squared_error()
+    simple_forecast = forecast_demand.simple_exponential_smoothing_forecast(forecast=forecast_breakdown,
+                                                                            forecast_length=forecast_length)
+
+    return {'forecast_breakdown': forecast_breakdown, 'mape': mape, 'statistics': stats,
+            'forecast': simple_forecast, 'alpha': smoothing_level_constant}
 
 
 def simple_exponential_smoothing_forecast_from_file(file_path: str, file_type: str, length: int,
@@ -95,19 +119,19 @@ def simple_exponential_smoothing_forecast_from_file(file_path: str, file_type: s
 
     if check_extension(file_path=file_path, file_type=file_type):
         if file_type == FileFormats.text.name:
-            f = open(file_path, 'r')
-            item_list = (data_cleansing.clean_orders_data_row(f, length))
+            with open(file_path, 'r') as raw_data:
+                item_list = (_data_cleansing.clean_orders_data_row(file=raw_data, length= length))
         elif file_type == FileFormats.csv.name:
-            f = open(file_path)
-            item_list = data_cleansing.clean_orders_data_row_csv(f, length=length)
+            with open(file_path) as raw_data:
+                item_list = _data_cleansing.clean_orders_data_row_csv(file=raw_data, length=length)
     else:
         incorrect_file = "Incorrect file type specified. Please specify 'csv' or 'text' for the file_type parameter."
         raise Exception(incorrect_file)
 
     for sku in item_list:
 
-        sku_id, unit_cost, lead_time, retail_price, quantity_on_hand = sku.get("sku id"), sku.get("unit cost"), sku.get(
-            "lead time"), sku.get("retail_price"), sku.get("quantity_on_hand")
+        sku_id, unit_cost, lead_time, retail_price, quantity_on_hand = sku.get("sku_id"), sku.get("unit_cost"), sku.get(
+            "lead_time"), sku.get("retail_price"), sku.get("quantity_on_hand")
 
         orders = [int(i) for i in sku.get("demand")]
 
@@ -160,24 +184,37 @@ def holts_trend_corrected_exponential_smoothing_forecast(demand: list, alpha: fl
                                                              recombination_type='single_point')
 
             optimal_alpha = evo_mod.initial_population(individual_type='htces')
-            # print(optimal_alpha[1][0], optimal_alpha[1][1])
+
+            log.log(logging.INFO, 'An optimal alpha {} and optimal gamma {} have been found.'.format(optimal_alpha[1][0],
+                                                                                                     optimal_alpha[1][1]))
+
             htces_forecast = [i for i in
                               forecast_demand.holts_trend_corrected_exponential_smoothing(alpha=optimal_alpha[1][0],
                                                                                           gamma=optimal_alpha[1][1],
-                                                                                          intercept=log_stats.get(
-                                                                                              'intercept'),
-                                                                                          slope=log_stats.get(
-                                                                                              'slope'))]
+                                                                                          intercept=log_stats.get('intercept'),
+                                                                                          slope=log_stats.get('slope'))]
 
             holts_forecast = forecast_demand.holts_trend_corrected_forecast(forecast=htces_forecast,
                                                                             forecast_length=forecast_length)
+            log.log(logging.INFO, 'An OPTIMAL holts trend exponential smoothing forecast has been generated')
+
+            sum_squared_error_opt = forecast_demand.sum_squared_errors_indi_htces(squared_error=[htces_forecast ],
+                                                                              alpha=optimal_alpha[1][0], gamma=optimal_alpha[1][1])
+
+
+            standard_error_opt = forecast_demand.standard_error(sum_squared_error_opt, len(demand), (optimal_alpha[1][0], optimal_alpha[1][1]), 2)
+
 
             ape = LinearRegression(htces_forecast)
             mape = forecast_demand.mean_aboslute_percentage_error_opt(htces_forecast)
             stats = ape.least_squared_error()
 
-            return {'forecast_breakdown': htces_forecast,'forecast': holts_forecast, 'mape': mape, 'statistics': stats, 'optimal_alpha': optimal_alpha[1][0],
-                    'optimal_gamma': optimal_alpha[1][1]}
+            return {'forecast_breakdown': htces_forecast, 'forecast': holts_forecast, 'mape': mape, 'statistics': stats,
+                    'optimal_alpha': optimal_alpha[1][0],
+                    'optimal_gamma': optimal_alpha[1][1],
+                    'SSE': sum_squared_error_opt,
+                    'standard_error': standard_error_opt,
+                    'original_standard_error': standard_error}
 
     else:
 
@@ -196,6 +233,9 @@ def holts_trend_corrected_exponential_smoothing_forecast(demand: list, alpha: fl
 
         holts_forecast = forecast_demand.holts_trend_corrected_forecast(forecast=htces_forecast,
                                                                         forecast_length=forecast_length)
+
+        log.log(logging.INFO, 'A STANDARD holts trend exponential smoothing forecast has been generated')
+
 
         sum_squared_error = forecast_demand.sum_squared_errors_indi_htces(squared_error=[htces_forecast],
                                                                           alpha=alpha, gamma=gamma)
@@ -216,18 +256,18 @@ def holts_trend_corrected_exponential_smoothing_forecast_from_file(file_path: st
     item_list = {}
     if check_extension(file_path=file_path, file_type=file_type):
         if file_type == FileFormats.text.name:
-            f = open(file_path, 'r')
-            item_list = (data_cleansing.clean_orders_data_row(f, length))
+            with open(file_path, 'r') as raw_data:
+                item_list = (_data_cleansing.clean_orders_data_row(raw_data, length))
         elif file_type == FileFormats.csv.name:
-            f = open(file_path)
-            item_list = data_cleansing.clean_orders_data_row_csv(f, length=length)
+            with open(file_path) as raw_data:
+                item_list = _data_cleansing.clean_orders_data_row_csv(raw_data, length=length)
     else:
         incorrect_file = "Incorrect file type specified. Please specify 'csv' or 'text' for the file_type parameter."
         raise Exception(incorrect_file)
 
     for sku in item_list:
-        sku_id, unit_cost, lead_time, retail_price, quantity_on_hand = sku.get("sku id"), sku.get("unit cost"), sku.get(
-            "lead time"), sku.get("retail_price"), sku.get("quantity_on_hand")
+        sku_id, unit_cost, lead_time, retail_price, quantity_on_hand = sku.get("sku_id"), sku.get("unit_cost"), sku.get(
+            "lead_time"), sku.get("retail_price"), sku.get("quantity_on_hand")
 
         orders = [int(i) for i in sku.get("demand")]
 

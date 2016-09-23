@@ -1,4 +1,5 @@
-# Copyright (c) 2015-2016, Kevin Fasusi
+# Copyright (c) 2015-2016, The Authors and Contributors
+# <see AUTHORS file>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
@@ -24,6 +25,7 @@
 import os
 import time
 from decimal import Decimal
+import logging
 
 import numpy as np
 import pandas as pd
@@ -32,193 +34,202 @@ import matplotlib as mpl
 import matplotlib.mlab as mlab
 from sklearn.datasets import fetch_california_housing
 from sklearn.datasets import load_boston
+from pandas import Series, DataFrame
 
+# logging.basicConfig(level=logging.CRITICAL, format='%(asctime)s - %(levelname)s - %(message)s')
 from supplychainpy import model_inventory
-from supplychainpy.demand.evolutionary_algorithms import OptimiseSmoothingLevelGeneticAlgorithm
-from supplychainpy.demand.forecast_demand import Forecast
-from supplychainpy.inventory.summarise import OrdersAnalysis
-from supplychainpy.model_demand import holts_trend_corrected_exponential_smoothing_forecast
-from supplychainpy.reporting.load import load
-from supplychainpy.launch_reports import launch_load_report, launch_report
-from supplychainpy.demand.regression import LinearRegression
-import logging
-
-#logging.basicConfig(level=logging.CRITICAL, format='%(asctime)s - %(levelname)s - %(message)s')
-
-__author__ = 'kevin'
+from supplychainpy._csv_management._model._db_setup import transaction_type, metadata
+from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_CSV_MANAGEMENT_CONFIG, \
+    ABS_FILE_PATH_APPLICATION_CONFIG
+from supplychainpy._helpers._pickle_config import deserialise_config
+from supplychainpy.model_demand import simple_exponential_smoothing_forecast, \
+    holts_trend_corrected_exponential_smoothing_forecast_from_file
+from supplychainpy.model_inventory import analyse
+from supplychainpy.sample_data.config import ABS_FILE_PATH
 
 
 def main():
-    start_time = time.time()
-    # app_dir = os.path.dirname(__file__, )
-    # rel_path = 'supplychainpy/data_col.csv'
-    # abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
-
-    ## orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path,
-    ##                                                                z_value=Decimal(1.28),
-    ###                                                                reorder_cost=Decimal(5000),
-    ##                                                                file_type="csv", length=12)
-    ## for i in orders_analysis:
-    ##    print(i.orders_summary())
-
-    ## ia = [analysis.orders_summary() for analysis in
-    ##      model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
-    ##                                                      reorder_cost=Decimal(5000), file_type="csv",
-    ##                                                      length=12)]
-
-    # data = pd.read_csv(abs_file_path, index_col=['month'])
-    # tdata = data['jan':'dec']
-    # fdata = data['jan':'dec']
-
-    # series = data['orders']
-    # tseries = tdata['orders']
-    # fseries = fdata['orders']
-
-    # fdata['orders_forecast'] = tseries[-1]
-    # fserieslen = fdata['orders']
-
-    # AVG = np.mean(tseries)
-
-    # for i in range(1, len(fseries)):
-    #    fdata['AVG'] = AVG
-
-    # fdata.plot(y=['orders', 'AVG'])
-    # l = LinearRegression(data['orders'])
-
-    # sse = l.SSE
-    # sse['squared_errors'].plot('hist')
-    # plt.show()
-
-    # print('s')
-
-    # orders = [165, 171, 147, 143, 164, 160, 152, 150, 159, 169, 173, 203, 169, 166, 162, 147, 188, 161, 162, 169, 185,
-    #          188, 200, 229, 189, 218, 185, 199, 210, 193, 211, 208, 216, 218, 264, 304]
+    # metadata.create_all(engine)
+    print(deserialise_config(ABS_FILE_PATH_CSV_MANAGEMENT_CONFIG),'\n')
+    print(deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG))
+    # inventory_analysis = [i.orders_summary() for i in
+    #                      model_inventory.analyse(file_path=ABS_FILE_PATH['COMPLETE_CSV_SM'],
+    #                                                                      z_value=Decimal(1.28),
+    #                                                                      reorder_cost=Decimal(500),
+    #                                                                      file_type='csv')]
+    # print(inventory_analysis[0])
     #
-    # total_orders = 0
-    # avg_orders = 0
-    #
-    # for order in orders[:12]:
-    #    total_orders += order
-    #
-    # avg_orders = total_orders / 12
-    # f = Forecast(orders)
-    # alpha = [0.2, 0.3, 0.4, 0.5, 0.6]
-    # s = [i for i in f.simple_exponential_smoothing(*alpha)]
-    ##p = [i for i in f.holts_trend_corrected_exponential_smoothing(0.5, 0.5, 155.88, 0.8369)]
-    ##print(p)
-    # holts_forecast = f.holts_trend_corrected_forecast(forecast=p, forecast_length=4)
-    # print(holts_forecast)
-    ##sas = holts_trend_corrected_exponential_smoothing_forecast(orders,0.5,0.5,forecast_length=4, initial_period=18,
-    ##                                                           optimise=True)
-    ##print(sas)
-    ##sum_squared_error = f.sum_squared_errors(p, 0.5)
-    ##print(sum_squared_error)
-    # sum_squared_error = f.sum_squared_errors(s, 0.5)
-    # standard_error = f.standard_error(sum_squared_error, len(orders), 0.5, 2)
-    # print(standard_error)
-    # standard_error = f.standard_error(sum_squared_error, len(orders), 0.5)
-    #
-    # evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=orders,
-    #                                                 average_order=avg_orders,
-    #                                                 population_size=10,
-    #                                                 standard_error=standard_error,
-    #                                                 recombination_type='single_point')
-    #
-    # optimal_alpha = evo_mod.initial_population(individual_type='htces')
-    #
-    # print(optimal_alpha)
-    # forecast = [i for i in f.simple_exponential_smoothing(optimal_alpha[1])]
-    # s = LinearRegression(forecast)
-    # w = s.least_squared_error()
-    # mape = f.mean_aboslute_percentage_error_opt(forecast)
-    # sim = evo_mod.simple_exponential_smoothing_evo(0.5, 12, 'two_point')
-    # print(sim)
-    ## evo_mod.run_smoothing_level_evolutionary_algorithm(parents=evo_mod.initial_population,
 
-    #                                                  standard_error=standard_error,
-    #                                                  smoothing_level=0.5)
+    # raw_df = pd.read_csv(ABS_FILE_PATH['COMPLETE_CSV_SM'])
+    # # print(raw_df)
+    # analysis_df = analyse(df=raw_df, start=1, interval_length=12, interval_type='months')
+    # # print(analysis_df[['sku', 'quantity_on_hand', 'excess_stock', 'shortages', 'ABC_XYZ_Classification']])
 
-    # print([i['orders'].values() for i in ia])
-    # orders = [i['orders'].values() for i in ia]
-    # orders1 = [i for i in orders[0]]
-    # orders2 = [i for i in orders1[0]]
-    # vector = np.array(orders2)
-    ##print(vector)
-    # row_vector = vector.reshape((12, 1))
-    # #print(row_vector)
-    # column_vector = vector.reshape((1, 12))
-    # #print(column_vector)
-    # single_feature_matrix = vector.reshape((1, 12))
-    # print(single_feature_matrix)
-    # pd_data = pd.Series(orders2, name='orders')
-    # print(pd_data)
-    # mean_expected_value = np.mean(pd_data)
 
-    # print(pd_data[0])
-
-    # squared_errors_pd = pd.Series(mean_expected_value - pd_data[0])  **2
-
-    # print(pd_data)
-    # print(np.mean(pd_data))
-    # pd.set_option('display.float_format', lambda x: '%.3f' % x)
-    # dataset = pd.DataFrame(data=row_vector)
-    # print(dataset[0].mean())
-    #
-    # mean_expected_value = dataset.mean()
-    #
-    ##squared_error =  pd.Series([mean_expected_value - (x ** 2) for x in dataset[0].astype(float)])
-    ## print(squared_error)
-    # boston = load_boston()
-    ##california = fetch_california_housing()
-    # dataset2 = pd.DataFrame(boston.data, columns=boston.feature_names)
-    # dataset2['target'] = boston.target
-    # print(dataset2['target'])
-    ##print(dataset2['target'].mean())
-    # squared_error =  pd.Series(mean_expected_value - dataset['target']) ** 2
-    # print(squared_error)
-    # sse = sum(squared_error)
-    # density_plot = squared_error.plot('hist')
-    ##mean_expected_value = np.mean(dataset2)
-    ##print(mean_expected_value)
-    #
-    ## launch_report()
-    # analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
-    # skus = ['KR202-209', 'KR202-210', 'KR202-211']
-
-    # skus_description = [summarised for summarised in analysis_summary.describe_sku(*[i['sku'] for i in ia])]
-    # print(skus_description)
-
-    # top_ten_shortages = [item for item in analysis_summary.rank_summary(attribute="shortages", count=10, reverse=True)]
-
-    # print(top_ten_shortages)
-
-    #simple_forecast  = {analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
-    #       model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
-    #                                                       reorder_cost=Decimal(5000), file_type="csv",
-    #                                                       length=12)}
 #
-    #for p, i in enumerate(simple_forecast, 1):
-    #    print(simple_forecast.get(i)['forecast'][p-1])
+# row_ds = raw_df[raw_df['Sku'] == 'KR202-212'].squeeze()
+# print(row_ds[1:12])
+# d = simple_exponential_smoothing_forecast(ds=row_ds[1:12], length=12, smoothing_level_constant=0.5)
+# print(d)
+# htces_forecast = [i for i in holts_trend_corrected_exponential_smoothing_forecast_from_file(
+#                           file_path=ABS_FILE_PATH['COMPLETE_CSV_SM'],
+#                           file_type='csv',
+#                           length=12,
+#                           alpha=0.2,
+#                           gamma=0.2,
+#                           smoothing_level_constant=0.5,
+#                           optimise=True)]
+#
+# for i in htces_forecast:
+#    for k in i.values():
+#        k.get('standard_error')
+# start_time = time.time()
+# app_dir = os.path.dirname(__file__, )
+# rel_path = 'supplychainpy/data_col.csv'
+# abs_file_path = os.path.abspa§th(os.path.join(app_dir, '..', rel_path))
 
-    holts_forecast = {analysis.sku_id: analysis.holts_trend_corrected_forecast for analysis in
-                     model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
-                                                                      reorder_cost=Decimal(5000), file_type="csv",
-                                                                     length=12)}
+## orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path,
+##                                                                z_value=Decimal(1.28),
+###                                                                reorder_cost=Decimal(5000),
+##                                                                file_type="csv", length=12)
+## for i in orders_analysis:
+##    print(i.orders_summary())
 
-    #ses_forecast = {analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
-     #                 model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
-     #                                                                 reorder_cost=Decimal(5000), file_type="csv",
-    #                                                                  length=12)}
+## ia = [analysis.orders_summary() for analysis in
+##      model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path, z_value=Decimal(1.28),
+##                                                      reorder_cost=Decimal(5000), file_type="csv",
+##                                                      length=12)]
 
-    #for i in holts_forecast:
-     #   print(holts_forecast.get(i))
+# orders = [165, 171, 147, 143, 164, 160, 152, 150, 159, 169, 173, 203, 169, 166, 162, 147, 188, 161, 162, 169, 185,
+#          188, 200, 229, 189, 218, 185, 199, 210, 193, 211, 208, 216, 218, 264, 304]
+#
+# total_orders = 0
+# avg_orders = 0
+#
+# for order in orders[:12]:
+#    total_orders += order
+#
+# avg_orders = total_orders / 12
+# f = Forecast(orders)
+# alpha = [0.2, 0.3, 0.4, 0.5, 0.6]
+# s = [i for i in f.simple_exponential_smoothing(*alpha)]
+##p = [i for i in f.holts_trend_corrected_exponential_smoothing(0.5, 0.5, 155.88, 0.8369)]
+##print(p)
+# holts_forecast = f.holts_trend_corrected_forecast(forecast=p, forecast_length=4)
+# print(holts_forecast)
+##sas = holts_trend_corrected_exponential_smoothing_forecast(orders,0.5,0.5,forecast_length=4, initial_period=18,
+##                                                           optimise=True)
+##print(sas)
+##sum_squared_error = f.sum_squared_errors(p, 0.5)
+##print(sum_squared_error)
+# sum_squared_error = f.sum_squared_errors(s, 0.5)
+# standard_error = f.standard_error(sum_squared_error, len(orders), 0.5, 2)
+# print(standard_error)
+# standard_error = f.standard_error(sum_squared_error, len(orders), 0.5)
+#
+# evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=orders,
+#                                                 average_order=avg_orders,
+#                                                 population_size=10,
+#                                                 standard_error=standard_error,
+#                                                 recombination_type='single_point')
+#
+# optimal_alpha = evo_mod.initial_population(individual_type='htces')
+#
+# print(optimal_alpha)
+# forecast = [i for i in f.simple_exponential_smoothing(optimal_alpha[1])]
+# s = LinearRegression(forecast)
+# w = s.least_squared_error()
+# mape = f.mean_aboslute_percentage_error_opt(forecast)
+# sim = evo_mod.simple_exponential_smoothing_evo(0.5, 12, 'two_point')
+# print(sim)
+## evo_mod.run_smoothing_level_evolutionary_algorithm(parents=evo_mod.initial_population,
 
-    for i in holts_forecast:
-        for g in holts_forecast.get(i)['forecast_breakdown']:
-            print(g)
+#                                                  standard_error=standard_error,
+#                                                  smoothing_level=0.5)
 
-        # for orders in inventory_analysis:
-    #  print(orders)
+# print([i['orders'].values() for i in ia])
+# orders = [i['orders'].values() for i in ia]
+# orders1 = [i for i in orders[0]]
+# orders2 = [i for i in orders1[0]]
+# vector = np.array(orders2)
+##print(vector)
+# row_vector = vector.reshape((12, 1))
+# #print(row_vector)
+# column_vector = vector.reshape((1, 12))
+# #print(column_vector)
+# single_feature_matrix = vector.reshape((1, 12))
+# print(single_feature_matrix)
+# pd_data = pd.Series(orders2, name='orders')
+# print(pd_data)
+# mean_expected_value = np.mean(pd_data)
+
+# print(pd_data[0])
+
+# squared_errors_pd = pd.Series(mean_expected_value - pd_data[0])  **2
+
+# print(pd_data)
+# print(np.mean(pd_data))
+# pd.set_option('display.float_format', lambda x: '%.3f' % x)
+# dataset = pd.DataFrame(data=row_vector)
+# print(dataset[0].mean())
+#
+# mean_expected_value = dataset.mean()
+#
+##squared_error =  pd.Series([mean_expected_value - (x ** 2) for x in dataset[0].astype(float)])
+## print(squared_error)
+# boston = load_boston()
+##california = fetch_california_housing()
+# dataset2 = pd.DataFrame(boston.data, columns=boston.feature_names)
+# dataset2['target'] = boston.target
+# print(dataset2['target'])
+##print(dataset2['target'].mean())
+# squared_error =  pd.Series(mean_expected_value - dataset['target']) ** 2
+# print(squared_error)
+# sse = sum(squared_error)
+# density_plot = squared_error.plot('hist')
+##mean_expected_value = np.mean(dataset2)
+##print(mean_expected_value)
+#
+## launch_report()
+# analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
+# skus = ['KR202-209', 'KR202-210', 'KR202-211']
+
+# skus_description = [summarised for summarised in analysis_summary.describe_sku(*[i['sku'] for i in ia])]
+# print(skus_description)
+
+# top_ten_shortages = [item for item in analysis_summary.rank_summary(attribute="shortages", count=10, reverse=True)]
+
+# print(top_ten_shortages)
+
+# simple_forecast  = {analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
+#       model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
+#                                                       reorder_cost=Decimal(5000), file_type="csv",
+#                                                       length=12)}
+
+
+#
+# for p, i in enumerate(simple_forecast, 1):
+#    print(simple_forecast.get(i)['forecast'][p-1])
+
+# holts_forecast = {analysis.sku_id: analysis.holts_trend_corrected_forecast for analysis in
+#                 model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
+#                                                                  reorder_cost=Decimal(5000), file_type="csv",
+#                                                                length=12)}
+
+# ses_forecast = {analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
+#                 model_inventory.analyse_orders_abcxyz_from_file(file_path="data2.csv", z_value=Decimal(1.28),
+#                                                                 reorder_cost=Decimal(5000), file_type="csv",
+#                                                                  length=12)}
+
+# for i in holts_forecast:
+#   print(holts_forecast.get(i))
+
+# for i in holts_forecast:
+#    for g in holts_forecast.get(i)['forecast_breakdown']:
+#        print(g)
+
+# for orders in inventory_analysis:
+#  print(orders)
 
 
 #

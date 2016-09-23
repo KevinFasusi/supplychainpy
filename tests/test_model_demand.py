@@ -1,10 +1,13 @@
+import logging
 from unittest import TestCase
 
-from supplychainpy import data_cleansing
-from supplychainpy.model_demand import simple_exponential_smoothing_forecast_from_file
-from supplychainpy.model_demand import holts_trend_corrected_exponential_smoothing_forecast_from_file
+from supplychainpy._helpers import _data_cleansing
 from supplychainpy.model_demand import holts_trend_corrected_exponential_smoothing_forecast
+from supplychainpy.model_demand import holts_trend_corrected_exponential_smoothing_forecast_from_file
+from supplychainpy.model_demand import simple_exponential_smoothing_forecast_from_file
 from supplychainpy.sample_data.config import ABS_FILE_PATH
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class TestModelDemand(TestCase):
@@ -16,11 +19,11 @@ class TestModelDemand(TestCase):
                         169, 185, 188, 200, 229, 189, 218, 185, 199, 210, 193, 211, 208, 216, 218, 264, 304]
 
         with open(ABS_FILE_PATH['COMPLETE_CSV_SM'], 'r') as raw_data:
-            self.item_list = data_cleansing.clean_orders_data_row_csv(raw_data, length=12)
+            self.item_list = _data_cleansing.clean_orders_data_row_csv(raw_data, length=12)
         self.sku_id = []
 
         for sku in self.item_list:
-            self.sku_id.append(sku.get("sku id"))
+            self.sku_id.append(sku.get("sku_id"))
 
         self.ses_forecast = [i for i in
                              simple_exponential_smoothing_forecast_from_file(file_path=ABS_FILE_PATH['COMPLETE_CSV_SM'],
@@ -47,6 +50,7 @@ class TestModelDemand(TestCase):
     def test_simple_exponential_smoothing_forecast(self):
         """ Tests every sku listed in file, is processed for forecast """
         for key in self.sku_id:
+            print(key)
             self.assertIn(key, self.unpack_keys)
 
     def test_simple_exponential_smoothing_forecast_trend(self):
@@ -74,14 +78,7 @@ class TestModelDemand(TestCase):
         self.assertEqual(308, round(holts_trend_corrected_esf.get('forecast')[1]))
         self.assertEqual(334, round(holts_trend_corrected_esf.get('forecast')[2]))
 
-    def test_holts_evo_optised_alpha_gamma(self):
-
-        holts_trend_corrected_esf = holts_trend_corrected_exponential_smoothing_forecast(demand=self._orders,
-                                                                                         alpha=0.5,
-                                                                                         gamma=0.5,
-                                                                                         forecast_length=6,
-                                                                                         initial_period=18,
-                                                                                         optimise=True)
-
-        self.assertAlmostEqual(0.66, float('{:.2f}'.format(holts_trend_corrected_esf.get('optimal_alpha'))), delta=1.3)
-        self.assertAlmostEqual(0.05, holts_trend_corrected_esf.get('optimal_gamma'), delta=0.08)
+    def test_holts_optimisation(self):
+        for i in self.htces_forecast:
+            for k in i.values():
+                self.assertGreater(k.get('original_standard_error'), k.get('standard_error'))

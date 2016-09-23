@@ -22,20 +22,22 @@
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+import os
 
-import pickle
+APP_DIR = os.path.dirname(__file__, )
 
+REL_PATH_DASH = 'dash.pickle'
+REL_PATH_ARCHIVE = '../../_archive/'
+REL_PATH_CSV_MANAGEMENT_CONFIG = '../_pickled/csv_management_config.pickle'
+REL_PATH_APPLICATION_CONFIG = '../_pickled/application_config.pickle'
 
-def serialise_config(configuration: dict, file_path: str):
-    with open(file_path, 'wb') as f:
-        pickle.dump(configuration, f)
+ABS_FILE_PATH_DASH = os.path.abspath(os.path.join(APP_DIR, '../_pickled/', REL_PATH_DASH))
+ABS_FILE_PATH_APPLICATION_CONFIG = os.path.abspath(os.path.join(APP_DIR, '../_pickled/', REL_PATH_APPLICATION_CONFIG))
+ABS_FILE_PATH_CSV_MANAGEMENT_CONFIG = os.path.abspath(os.path.join(APP_DIR, REL_PATH_CSV_MANAGEMENT_CONFIG))
+ABS_FILE_PATH_ARCHIVE = os.path.abspath(os.path.join(APP_DIR, REL_PATH_ARCHIVE))
 
+def main():
+    print(ABS_FILE_PATH_APPLICATION_CONFIG)
 
-def deserialise_config(file_path: str):
-    try:
-        with open(file_path, 'rb') as f:
-            db_config = pickle.load(f)
-        return db_config
-    except OSError:
-        return {}
-
+if __name__ == '__main__':
+    main()

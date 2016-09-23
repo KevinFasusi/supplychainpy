@@ -1,4 +1,5 @@
-# Copyright (c) 2015-2016, Kevin Fasusi
+# Copyright (c) 2015-2016, The Authors and Contributors
+# <see AUTHORS file>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
@@ -27,22 +28,23 @@ from decimal import Decimal
 class MonteCarloSummary:
     """
     """
+    _opening_stock_average = 0.0
+    _opening_stock_min = 0.0
+    _opening_stock_max = 0.0
+    _opening_stock_final = 0.0
+    _opening_stock_std = 0.0
+    _closing_stock_average = 0.0
+    _closing_stock_min = 0.0
+    _closing_stock_max = 0.0
+    _closing_stock_final = 0.0
+    _closing_stock_std = 0.0
+    _stock_out_probability = 0.0
+    _negative_stock_probabilit = 0.0
+    _stock_out_count = 0.0
 
     def __init__(self):
-        self._opening_stock_average
-        self._opening_stock_min
-        self._opening_stock_max
-        self._opening_stock_final
-        self._opening_stock_std
-        self._opening_stock_std
-        self._closing_stock_average
-        self._closing_stock_min
-        self._closing_stock_max
-        self._closing_stock_final
-        self._closing_stock_std
-        self._stock_out_probability
-        self._negative_stock_probability
-        self._stock_out_count
+        pass
+
 
     @property
     def opening_stock_final(self):

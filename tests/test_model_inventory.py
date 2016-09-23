@@ -5,7 +5,10 @@ from cmath import isclose
 from decimal import Decimal
 from unittest import TestCase
 
+import pandas as pd
+from pandas import DataFrame
 from supplychainpy import model_inventory
+from supplychainpy.model_inventory import analyse
 from supplychainpy.sample_data.config import ABS_FILE_PATH
 
 
@@ -64,15 +67,13 @@ class TestBuildModel(TestCase):
             # finish with all members
 
     def test_standard_deviation_row_count(self):
-        d = model_inventory.analyse_orders_from_file_row(file_path=ABS_FILE_PATH['PARTIAL_ROW_TXT_SM'],
-                                                         z_value=Decimal(1.28),
-                                                         reorder_cost=Decimal(400),
-                                                         retail_price=Decimal(455),
-                                                         file_type='text')
+        d = model_inventory.analyse(file_path=ABS_FILE_PATH['COMPLETE_CSV_SM'],
+                                    z_value=Decimal(1.28),
+                                    reorder_cost=Decimal(400),
+                                    retail_price=Decimal(455),
+                                    file_type='csv')
 
-        # assert
-        print(d)
-        self.assertEqual(len(d), 16)
+        self.assertEqual(len(d), 39)
 
     def test_file_path_extension_row(self):
         with self.assertRaises(expected_exception=Exception):
@@ -119,6 +120,7 @@ class TestBuildModel(TestCase):
                                                          reorder_cost=Decimal(450),
                                                          z_value=Decimal(1.28))
         for row in d:
+            print(row)
             std = row.get('standard_deviation')
         self.assertEqual(Decimal(std), 25)
 
@@ -166,7 +168,13 @@ class TestBuildModel(TestCase):
         for sku in abc:
             item = sku.orders_summary()
             if item['sku'] == 'KR202-209':
-                self.assertEqual(item['ABC_XYZ_Classification'], 'AY')
+                self.assertEqual(item['ABC_XYZ_Classification'], 'BY')
+
+
+    def test_dataa_frame(self):
+        raw_df = pd.read_csv(ABS_FILE_PATH['COMPLETE_CSV_SM'])
+        analysis_df = analyse(df=raw_df, start=1, interval_length=12, interval_type='months')
+        self.assertIsInstance(analysis_df[['sku', 'quantity_on_hand', 'excess_stock', 'shortages', 'ABC_XYZ_Classification']], DataFrame)
 
 
 if __name__ == '__main__':

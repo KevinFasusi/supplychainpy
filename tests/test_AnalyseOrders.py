@@ -2,11 +2,14 @@ import os
 import unittest
 from decimal import Decimal
 from unittest import TestCase
+import logging
 
 from supplychainpy import model_inventory
 from supplychainpy.inventory import analyse_uncertain_demand
 from supplychainpy.inventory.analyse_uncertain_demand import UncertainDemand
 from supplychainpy.sample_data.config import ABS_FILE_PATH
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class TestAnalyseOrders(TestCase):
@@ -14,11 +17,12 @@ class TestAnalyseOrders(TestCase):
         self._data_set = {'jan': 25, 'feb': 25, 'mar': 25, 'apr': 25, 'may': 25, 'jun': 25, 'jul': 75,
                           'aug': 75, 'sep': 75, 'oct': 75, 'nov': 75, 'dec': 75}
 
-        self._orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=ABS_FILE_PATH['COMPLETE_CSV_SM'],
-                                                                                z_value=Decimal(1.28),
-                                                                                reorder_cost=Decimal(5000),
-                                                                                file_type="csv",
-                                                                                length=12)
+        self._orders_analysis = model_inventory.analyse(
+            file_path=ABS_FILE_PATH['COMPLETE_CSV_SM'],
+            z_value=Decimal(1.28),
+            reorder_cost=Decimal(5000),
+            file_type="csv",
+            length=12)
 
         self._uncertain_demand = analyse_uncertain_demand.UncertainDemand(self._data_set,
                                                                           sku='Rx493-90',

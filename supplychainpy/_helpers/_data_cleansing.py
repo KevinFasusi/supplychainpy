@@ -1,4 +1,5 @@
-# Copyright (c) 2015-2016, Kevin Fasusi
+# Copyright (c) 2015-2016, The Authors and Contributors
+# <see AUTHORS file>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
@@ -20,11 +21,21 @@
 # SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
 from decimal import Decimal
 from warnings import warn
 import csv
+import logging
 
+log = logging.getLogger(__name__)
+log.addHandler(logging.NullHandler())
+
+TABLE_HEADINGS = {
+    'UNIT_COST': 'unit_cost',
+    'LEAD_TIME': 'lead_time',
+    'RETAIL_PRICE': 'retail_price',
+    'QUANTITY_ON_HAND': 'quantity_on_hand',
+    'BACKLOG': 'backlog'
+}
 
 # TODO-feature format pandas frame
 # TODO-feature allow data munger to accept any delimiter as a parameter
@@ -64,13 +75,13 @@ def clean_orders_data_row(file, length: int) -> dict:
         for row in split_line:
             for index, item in enumerate(row):
                 if int(index) < 1:
-                    composite["sku id"] = item
+                    composite["sku_id"] = item
                 elif 1 <= int(index) <= length:
                     sku_list.append(item.strip("\n"))
                 elif int(index) == length + 1:
-                    composite["unit cost"] = item.strip("\n")
+                    composite["unit_cost"] = item.strip("\n")
                 elif int(index) == length + 2:
-                    composite["lead time"] = item.strip("\n")
+                    composite["lead_time"] = item.strip("\n")
                     # if the sku id is not unique the the data will just append. Need to check if there are duplicates
                     # and throw an exception.
                     composite["demand"] = sku_list
@@ -99,27 +110,39 @@ def clean_orders_data_row_csv(file, length: int = 12) -> dict:
         split_line = list(read_csv)
 
         for row in split_line:
-            if length == len(row) - 5:
+            if length == len(row) - 6:
                 for index, item in enumerate(row):
                     if int(index) < 1:
-                        composite["sku id"] = item
-                    elif 1 <= int(index) <= length:
+                        composite["sku_id"] = item
+                    elif 1 <= index <= length:
                         sku_list.append(item)
-                    elif int(index) == length + 1:
-                        composite["unit cost"] = item
-                    elif int(index) == length + 2:
-                        composite["lead time"] = item
-                    elif int(index) == length + 3:
+                    elif index == length + 1:
+                        composite["unit_cost"] = item
+                        log.info("Extracted unit cost for sku. SKU: {} UNIT COST: {} ".format(
+                            composite.get("sku_id", "UNKNOWN_SKU"), item))
+                    elif index == length + 2:
+                        composite["lead_time"] = item
+                        log.info("Extracted unit cost for sku. SKU: {} LEAD-TIME: {} ".format(
+                            composite.get("sku_id", "UNKNOWN_SKU"), item))
+                    elif index == length + 3:
                         composite["retail_price"] = item
-                    elif int(index) == length + 4:
+                        log.info("Extracted unit cost for sku. SKU: {}  RETAIL PRICE: {} ".format(
+                            composite.get("sku_id", "UNKNOWN_SKU"), item))
+                    elif index == length + 4:
                         composite["quantity_on_hand"] = item
+                        log.info("Extracted unit cost for sku. SKU: {} QUANTITY ON HAND: {} ".format(
+                            composite.get("sku_id", "UNKNOWN_SKU"), item))
+                    elif index == length + 5:
+                        composite["backlog"] = item
+                        log.info("Extracted unit cost for sku. SKU: {} BACKLOG: {} ".format(
+                            composite.get("sku_id", "UNKNOWN_SKU"), item))
                         # if the sku id is not unique the the data will just append. Need to check if there are duplicates
                         # and through an exception.
                 composite["demand"] = tuple(sku_list)
                 composite["headers"] = headers
                 sku_list = []
 
-                if composite.get("sku id") is None or composite.get("unit cost") is None or composite.get("lead time") is \
+                if composite.get("sku_id") is None or composite.get("unit_cost") is None or composite.get("lead_time") is \
                         None or composite.get("retail_price") is None:
                     err_msg = "csv file is formatted incorrectly. Please make sure the  formatted file\n [sku_id," \
                               " orders1,orders2....unit_cost, lead_time, retail_price, quantity_on_hand"
@@ -131,13 +154,15 @@ def clean_orders_data_row_csv(file, length: int = 12) -> dict:
                 formatting_err = "The file formatting is incorrect. The specified column count supplied as a" \
                                  " parameter is {}.\n Including the sku_id, unit_cost, lead_time, retail_price\n " \
                                  "and quantity on hand the csv row should be {} columns long.\n The current" \
-                                 " column count  is {}. Please check the file or specified length."
-                raise Exception(formatting_err.format(length, length + 5, len(row)))
+                                 " column count is {}. Please check the file or specified length."
+                raise Exception(formatting_err.format(length, (length + 1) + len(TABLE_HEADINGS), len(row)))
     except OSError as e:
         print(e)
 
     return collection
 
+def match_headers(headers: list)->dict:
+    pass
 
 def check_extension(file_path, file_type: str) -> bool:
     """ Check the correct file type has been selected.

@@ -1,4 +1,5 @@
-# Copyright (c) 2015-2016, Kevin Fasusi
+# Copyright (c) 2015-2016, The Authors and Contributors
+# <see AUTHORS file>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
@@ -37,19 +38,6 @@ log.addHandler(logging.NullHandler())
 class LinearRegression:
     def __init__(self, orders: list):
         self.orders = orders
-
-    @property
-    def SSE(self) -> dict:
-        return self._sum_squared_errors()
-
-    def _sum_squared_errors(self) -> dict:
-        orders_list = [i for i in self.orders]
-        orders_series = pd.Series(orders_list, name='orders').astype(float)
-        orders_series.plot(y='orders')
-        mean_expected_value = np.mean(orders_series)
-        squared_errors = pd.Series(mean_expected_value - orders_series) ** 2
-        sse = np.sum(squared_errors)
-        return {'SSE': sse, 'squared_errors': squared_errors}
 
     def least_squared_error(self, slice_end:int = 0, slice_start: int=0):
         """Calculate simple linear regression values and two_tail pvalue to determine linearity.
