@@ -307,7 +307,7 @@ nav ul li a {
     overflow-x: hidden;
 }
 
-.scribble-panel {
+.scribble-panel, .recommendation-panel {
     background-color: #475B62;
     min-width: 500px;
     min-height: 200px;
@@ -319,6 +319,13 @@ nav ul li a {
     padding: 10px;
     padding-left: 60px;
     color: white;
+
+}
+
+.recommendation-panel {
+    padding: 25px;
+    font-size: 1.3em;
+    line-height: 1.3em;
 
 }
 

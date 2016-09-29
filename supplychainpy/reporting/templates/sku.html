@@ -163,250 +163,260 @@
         </div>
 
 
-        <div class="row scribble-panel">
+        <div class="row recommendation-panel">
             <div class="row">
                 <div class="col-xs-10">
                     <h3>Recommendations:</h3>
+
                 </div>
                 <div class=" col-xs-2">
                     <img id="oldchap" src="{{ url_for('static', filename='bot.png') }}">
                 </div>
             </div>
-            <p>SKU {{sku.sku.sku_id}} is currently </p>
+            <div id="response-panel">
+                <p>
+                    {% for recommendation in recommendations%}
+                    {{recommendation.statement}}
+                    {% endfor %}
+                </p>
+
+            </div>
 
         </div>
 
-        <div class=" row">
-            <h2>Holts Trend Corrected Forecast</h2>
+    </div>
+
+    <div class=" row">
+        <h2>Holts Trend Corrected Forecast</h2>
+        {% endfor %}
+
+    </div>
+    <div class=" row">
+        <div class=" slate col-md-3">
+            <h1>Trend: </h1>
+            {% set holts = "htces" %}
+            {% set simple = "ses" %}
+            {% for item in statistics %}
+            {% if (item.details.type == holts) and (item.trending == true) %}
+
+            <h3 class="success">Linear Trend</h3>
+
+            {% elif (item.details.type == holts) and (item.trending == false) %}
+
+            <h3 class="fail">No Linear Trend</h3>
+            {% else %}
+            {% endif %}
             {% endfor %}
 
         </div>
-        <div class=" row">
-            <div class=" slate col-md-3">
-                <h1>Trend: </h1>
-                {% set holts = "htces" %}
-                {% set simple = "ses" %}
-                {% for item in statistics %}
-                {% if (item.details.type == holts) and (item.trending == true) %}
+        <div class=" slate col-md-3">
 
-                <h3 class="success">Linear Trend</h3>
-
-                {% elif (item.details.type == holts) and (item.trending == false) %}
-
-                <h3 class="fail">No Linear Trend</h3>
-                {% else %}
-                {% endif %}
-                {% endfor %}
-
-            </div>
-            <div class=" slate col-md-3">
-
-                {% for item in statistics %}
-                {% if (item.details.type == holts) %}
-                <h1>MAPE:</h1>
-                <h1>{{item.mape |round(2)}}</h1>
-                {% else %}
-                {% endif %}
-                {% endfor %}
-            </div>
-            <div class=" slate col-md-3">
-                <h1>Shortage as % Inventory </h1>
-                <h1><strong>10</strong></h1>
-            </div>
-            <div class=" slate col-md-3">
-                <h1></h1>
-                <h1><strong></strong></h1>
-                <h1><strong></strong></h1>
-            </div>
-
-
+            {% for item in statistics %}
+            {% if (item.details.type == holts) %}
+            <h1>MAPE:</h1>
+            <h1>{{item.mape |round(2)}}</h1>
+            {% else %}
+            {% endif %}
+            {% endfor %}
         </div>
-    </div>
-    <!-- Retrieves the holts trend corrected forecast for the -->
-    <div class=" row">
-        <div class="col-md-8">
-            <div id="forecast-chart">
-            </div>
+        <div class=" slate col-md-3">
+            <h1>Shortage as % Inventory </h1>
+            <h1><strong>10</strong></h1>
         </div>
-        <div class="col-md-4">
-            <div class=" row">
-                <table id="forecast" class="ia">
-                    <tr>
-                        <th>Forecast Period</th>
-                        <th>Forecast Quantity</th>
-                    </tr>
-
-                    {% for item in forecast %}
-                    {% if (item.type.type == holts) %}
-
-                    <tr>
-                        <td>{{item.period}}</td>
-                        <td class="forecast-values">{{item.forecast_quantity |round |int}}</td>
-                    </tr>
-                    {% else %}
-                    {% endif %}
-                    {% endfor %}
-
-                </table>
-            </div>
-            <div class=" row">
-                <table id="statistics-data" class="ia">
-                    {% for item in statistics %}
-                    {% if (item.details.type == holts) %}
-
-                    <tr>
-                        <th>p-value:</th>
-                        <td>{{item.p_value |round(4)}}</td>
-                    </tr>
-                    <tr>
-                        <th>Slope:</th>
-                        <td>{{item.slope |round(4)}}</td>
-                    </tr>
-                    <tr>
-                        <th>Optimal Alpha:</th>
-                        <td>{{item.optimal_alpha |round(4)}}</td>
-                    </tr>
-                    <tr>
-                        <th>Optimal Gamma:</th>
-                        <td>{{item.optimal_gamma |round(4)}}</td>
-                    </tr>
-                    <tr>
-                        <th>Intercept:</th>
-                        <td>{{item.intercept |round(4)}}</td>
-                    </tr>
-
-                    <tr>
-                        <th>Standard Error:</th>
-                        <td>{{item.slope_standard_error |round(4)}}</td>
-                    </tr>
-
-                    {% else %}
-                    {% endif %}
-                    {% endfor %}
-
-                </table>
-            </div>
-
+        <div class=" slate col-md-3">
+            <h1></h1>
+            <h1><strong></strong></h1>
+            <h1><strong></strong></h1>
         </div>
-
-        <div class=" row">
-
-            <div class="col-md-8">
-                <table class="ia">
-                    <tr>
-                        <th>Forecast Period</th>
-                        <th>Level Estimate</th>
-                        <th>One Step Forecast</th>
-                        <th>Forecast Error</th>
-                        <th>Trend</th>
-                        <th>Squared Error</th>
-                    </tr>
-                    <tbody id="forecast-data">
-                    {% for item in breakdown %}
-                    {% if (item.breakdown.type == holts)%}
-
-                    <tr>
-                        <td>{{item.period}}</td>
-                        <td>{{item.level_estimates |round(4) }}</td>
-                        <td class="forecast-raw-data">{{item.one_step_forecast |round(4)}}</td>
-                        <td>{{item.forecast_error |round(4)}}</td>
-                        <td>{{item.trend |round(4)}}</td>
-                        <td>{{item.squared_error |round(4)}}</td>
-                    </tr>
-                    {% else %}
-                    {% endif %}
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-
-
-        </div>
-        <!--      <div class=" row">
-              <div class=" slate col-md-3">
-                  <h1>Biggest Shortage: </h1>
-                  <h1><strong>KR202-235</strong></h1>
-                  <h1><strong>$11,405,156</strong></h1>
-              </div>
-              <div class=" slate col-md-3">
-                  <h1>Total Shortage: </h1>
-                  <h1><strong>$11,405,156</strong></h1>
-              </div>
-              <div class=" slate col-md-3">
-                  <h1>Shortage as % Inventory </h1>
-                  <h1><strong>10</strong></h1>
-              </div>
-              <div class=" slate col-md-3">
-                  <h1>Total Shortage: </h1>
-                  <h1><strong>KR202-235</strong></h1>
-                  <h1><strong>$11,405,156</strong></h1>
-              </div>
-          </div>
-
-          <div class=" row">
-              <div class=" slate col-md-3">
-                  <h1>Biggest Shortage: </h1>
-                  <h1><strong>KR202-235</strong></h1>
-                  <h1><strong>$11,405,156</strong></h1>
-              </div>
-              <div class=" slate col-md-3">
-                  <h1>Total Shortage: </h1>
-                  <h1><strong>$11,405,156</strong></h1>
-              </div>
-              <div class=" slate col-md-3">
-                  <h1>Shortage as % Inventory </h1>
-                  <h1><strong>10</strong></h1>
-              </div>
-              <div class=" slate col-md-3">
-                  <h1>Total Shortage: </h1>
-                  <h1><strong>KR202-235</strong></h1>
-                  <h1><strong>$11,405,156</strong></h1>
-              </div>
-          </div>
-
-          <div class=" row">
-              <div class=" slate col-md-3">
-                  <h1>Biggest Shortage: </h1>
-                  <h1><strong>KR202-235</strong></h1>
-                  <h1><strong>$11,405,156</strong></h1>
-              </div>
-              <div class=" slate col-md-3">
-                  <h1>Total Shortage: </h1>
-                  <h1><strong>$11,405,156</strong></h1>
-              </div>
-              <div class=" slate col-md-3">
-                  <h1>Shortage as % Inventory </h1>
-                  <h1><strong>10</strong></h1>
-              </div>
-              <div class=" slate col-md-3">
-                  <h1>Total Shortage: </h1>
-                  <h1><strong>KR202-235</strong></h1>
-                  <h1><strong>$11,405,156</strong></h1>
-              </div>
-          </div>
-
-          <div class=" row">
-              <div class=" slate col-md-3">
-                  <h1>Biggest Shortage: </h1>
-                  <h1><strong>KR202-235</strong></h1>
-                  <h1><strong>$11,405,156</strong></h1>
-              </div>
-              <div class=" slate col-md-3">
-                  <h1>Total Shortage: </h1>
-                  <h1><strong>$11,405,156</strong></h1>
-              </div>
-              <div class=" slate col-md-3">
-                  <h1>Shortage as % Inventory </h1>
-                  <h1><strong>10</strong></h1>
-              </div>
-              <div class=" slate col-md-3">
-                  <h1>Total Shortage: </h1>
-                  <h1><strong>KR202-235</strong></h1>
-                  <h1><strong>$11,405,156</strong></h1>
-              </div>
-          </div> -->
 
 
     </div>
 </div>
-    {% endblock %}
+<!-- Retrieves the holts trend corrected forecast for the -->
+<div class=" row">
+    <div class="col-md-8">
+        <div id="forecast-chart">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class=" row">
+            <table id="forecast" class="ia">
+                <tr>
+                    <th>Forecast Period</th>
+                    <th>Forecast Quantity</th>
+                </tr>
+
+                {% for item in forecast %}
+                {% if (item.type.type == holts) %}
+
+                <tr>
+                    <td>{{item.period}}</td>
+                    <td class="forecast-values">{{item.forecast_quantity |round |int}}</td>
+                </tr>
+                {% else %}
+                {% endif %}
+                {% endfor %}
+
+            </table>
+        </div>
+        <div class=" row">
+            <table id="statistics-data" class="ia">
+                {% for item in statistics %}
+                {% if (item.details.type == holts) %}
+
+                <tr>
+                    <th>p-value:</th>
+                    <td>{{item.p_value |round(4)}}</td>
+                </tr>
+                <tr>
+                    <th>Slope:</th>
+                    <td>{{item.slope |round(4)}}</td>
+                </tr>
+                <tr>
+                    <th>Optimal Alpha:</th>
+                    <td>{{item.optimal_alpha |round(4)}}</td>
+                </tr>
+                <tr>
+                    <th>Optimal Gamma:</th>
+                    <td>{{item.optimal_gamma |round(4)}}</td>
+                </tr>
+                <tr>
+                    <th>Intercept:</th>
+                    <td>{{item.intercept |round(4)}}</td>
+                </tr>
+
+                <tr>
+                    <th>Standard Error:</th>
+                    <td>{{item.slope_standard_error |round(4)}}</td>
+                </tr>
+
+                {% else %}
+                {% endif %}
+                {% endfor %}
+
+            </table>
+        </div>
+
+    </div>
+
+    <div class=" row">
+
+        <div class="col-md-8">
+            <table class="ia">
+                <tr>
+                    <th>Forecast Period</th>
+                    <th>Level Estimate</th>
+                    <th>One Step Forecast</th>
+                    <th>Forecast Error</th>
+                    <th>Trend</th>
+                    <th>Squared Error</th>
+                </tr>
+                <tbody id="forecast-data">
+                {% for item in breakdown %}
+                {% if (item.breakdown.type == holts)%}
+
+                <tr>
+                    <td>{{item.period}}</td>
+                    <td>{{item.level_estimates |round(4) }}</td>
+                    <td class="forecast-raw-data">{{item.one_step_forecast |round(4)}}</td>
+                    <td>{{item.forecast_error |round(4)}}</td>
+                    <td>{{item.trend |round(4)}}</td>
+                    <td>{{item.squared_error |round(4)}}</td>
+                </tr>
+                {% else %}
+                {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+    <!--      <div class=" row">
+          <div class=" slate col-md-3">
+              <h1>Biggest Shortage: </h1>
+              <h1><strong>KR202-235</strong></h1>
+              <h1><strong>$11,405,156</strong></h1>
+          </div>
+          <div class=" slate col-md-3">
+              <h1>Total Shortage: </h1>
+              <h1><strong>$11,405,156</strong></h1>
+          </div>
+          <div class=" slate col-md-3">
+              <h1>Shortage as % Inventory </h1>
+              <h1><strong>10</strong></h1>
+          </div>
+          <div class=" slate col-md-3">
+              <h1>Total Shortage: </h1>
+              <h1><strong>KR202-235</strong></h1>
+              <h1><strong>$11,405,156</strong></h1>
+          </div>
+      </div>
+
+      <div class=" row">
+          <div class=" slate col-md-3">
+              <h1>Biggest Shortage: </h1>
+              <h1><strong>KR202-235</strong></h1>
+              <h1><strong>$11,405,156</strong></h1>
+          </div>
+          <div class=" slate col-md-3">
+              <h1>Total Shortage: </h1>
+              <h1><strong>$11,405,156</strong></h1>
+          </div>
+          <div class=" slate col-md-3">
+              <h1>Shortage as % Inventory </h1>
+              <h1><strong>10</strong></h1>
+          </div>
+          <div class=" slate col-md-3">
+              <h1>Total Shortage: </h1>
+              <h1><strong>KR202-235</strong></h1>
+              <h1><strong>$11,405,156</strong></h1>
+          </div>
+      </div>
+
+      <div class=" row">
+          <div class=" slate col-md-3">
+              <h1>Biggest Shortage: </h1>
+              <h1><strong>KR202-235</strong></h1>
+              <h1><strong>$11,405,156</strong></h1>
+          </div>
+          <div class=" slate col-md-3">
+              <h1>Total Shortage: </h1>
+              <h1><strong>$11,405,156</strong></h1>
+          </div>
+          <div class=" slate col-md-3">
+              <h1>Shortage as % Inventory </h1>
+              <h1><strong>10</strong></h1>
+          </div>
+          <div class=" slate col-md-3">
+              <h1>Total Shortage: </h1>
+              <h1><strong>KR202-235</strong></h1>
+              <h1><strong>$11,405,156</strong></h1>
+          </div>
+      </div>
+
+      <div class=" row">
+          <div class=" slate col-md-3">
+              <h1>Biggest Shortage: </h1>
+              <h1><strong>KR202-235</strong></h1>
+              <h1><strong>$11,405,156</strong></h1>
+          </div>
+          <div class=" slate col-md-3">
+              <h1>Total Shortage: </h1>
+              <h1><strong>$11,405,156</strong></h1>
+          </div>
+          <div class=" slate col-md-3">
+              <h1>Shortage as % Inventory </h1>
+              <h1><strong>10</strong></h1>
+          </div>
+          <div class=" slate col-md-3">
+              <h1>Total Shortage: </h1>
+              <h1><strong>KR202-235</strong></h1>
+              <h1><strong>$11,405,156</strong></h1>
+          </div>
+      </div> -->
+
+
+</div>
+</div>
+{% endblock %}

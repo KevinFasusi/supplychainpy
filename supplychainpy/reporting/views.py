@@ -113,6 +113,7 @@ class InventoryAnalysis(db.Model):
     forecast_id = db.relationship("Forecast", backref='forecasts', lazy='dynamic')
     forecast_breakdown_id = db.relationship("ForecastBreakdown", backref='estimates', lazy='dynamic')
     inventory_turns = db.Column(db.Float())
+    recommendation_id = db.relationship("Recommendations", backref='rec', lazy='dynamic')
 
     @property
     def serialize(self):
@@ -209,6 +210,13 @@ class ForecastBreakdown(db.Model):
     squared_error = db.Column(db.Float())
 
 
+class Recommendations(db.Model):
+    __table_args__ = {'sqlite_autoincrement': True}
+    id = db.Column(db.Integer(), primary_key=True)
+    analysis_id = db.Column(db.Integer, db.ForeignKey('inventory_analysis.id'))
+    statement = db.Column(db.Text())
+
+
 manager = APIManager(app, flask_sqlalchemy_db=db)
 manager.create_api(InventoryAnalysis, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True,
                    results_per_page=10, max_results_per_page=500)
@@ -218,6 +226,7 @@ manager.create_api(Forecast, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_f
 manager.create_api(ForecastStatistics, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
 manager.create_api(ForecastBreakdown, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
 manager.create_api(MasterSkuList, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
+manager.create_api(Recommendations, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
 
 
 @app.route('/')
@@ -239,24 +248,61 @@ def dashboard():
 
 @app.route('/bot')
 def bot():
+    """the route for Dash the chat bot."""
     return flask.render_template('bot.html')
 
 
 @app.route('/lexicon')
 def lexicon():
+    """The route for displaying examples for interacting with the chat bot.
+
+    Returns:
+        html
+
+    """
     return flask.render_template('lexicon.html')
 
 
 @app.route('/chat/<string:message>', methods=['GET'])
 def chat(message: str = None):
+    """ Rest api for chat bot
+
+    Args:
+        message: User query to chat bot.
+
+    Returns:
+        json:   Response from chat bot.
+
+    """
     dash = ChatBot()
     response = dash.chat(message=message)
 
     return flask.jsonify(json_list=response)
 
 
+@app.route('/recommended/<string:sku_id>', methods=['GET'])
+def recommended(sku_id: str= None):
+    """The route to the rest api for retrieving recommendations for a SKU.
+
+    Args:
+        sku_id:     The SKU ID for a product.
+    Returns:
+
+    """
+    """Rest api for sku level recommendations."""
+    sku = db.session.query(MasterSkuList).filter(MasterSkuList.id == sku_id).first()
+    inventory = db.session.query(InventoryAnalysis.id).filter(InventoryAnalysis.sku_id == sku.id).first()
+    recommend = db.session.query(Recommendations.statement).filter(Recommendations.analysis_id == inventory.id).all()
+    return flask.jsonify(json_list=recommend)
+
+
 @app.route('/data')
 def raw_data():
+    """Route for the raw data from the analysis.
+
+    Returns:
+
+    """
     inventory = db.session.query(InventoryAnalysis).all()
 
     return flask.render_template('rawdata.html', inventory=inventory)
@@ -264,6 +310,11 @@ def raw_data():
 
 @app.route('/upload/', methods=['POST', 'GET'])
 def upload_file():
+    """
+
+    Returns:
+
+    """
     target = UPLOAD_FOLDER
     form = DataForm()
     if request.method == 'POST':
@@ -275,6 +326,11 @@ def upload_file():
 
 @app.route('/settings', methods=['POST', 'GET'])
 def settings():
+    """Route to settings view.
+
+    Returns:
+
+    """
     form = SettingsForm()
     return flask.render_template('settings.html', form=form)
 
@@ -282,7 +338,14 @@ def settings():
 @app.route('/reporting/api/v1.0/sku_detail', methods=['GET'])
 @app.route('/reporting/api/v1.0/sku_detail/<string:sku_id>', methods=['GET'])
 def sku_detail(sku_id: str = None):
-    """route for restful sku detail, whole content limited by most recent date or individual sku"""
+    """Route for restful sku detail, whole content limited by most recent date or individual sku
+
+    Args:
+        sku_id:
+
+    Returns:
+
+    """
     if sku_id is not None:
         inventory = db.session.query(InventoryAnalysis).filter(InventoryAnalysis.sku_id == sku_id).all()
     else:
@@ -306,10 +369,11 @@ def sku(sku_id: str = None):
         forecast_breakdown = db.session.query(ForecastBreakdown).filter(ForecastBreakdown.analysis_id == inven.id)
         forecast = db.session.query(Forecast).filter(Forecast.analysis_id == inven.id).all()
         forecast_statistics = db.session.query(ForecastStatistics).filter(ForecastStatistics.analysis_id == inven.id)
-        # inventory = db.session.query(InventoryAnalysis).all()
+        recommend = db.session.query(Recommendations.statement).filter(
+            Recommendations.analysis_id == inven.id).all()
 
     return flask.render_template('sku.html', inventory=inventory, orders=orders, breakdown=forecast_breakdown,
-                                 forecast=forecast, statistics=forecast_statistics)
+                                 forecast=forecast, statistics=forecast_statistics, recommendations=recommend)
 
 
 @app.route('/reporting/api/v1.0/abc_summary', methods=['GET'])
@@ -460,7 +524,6 @@ def currency():
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
-
 
 
 if __name__ == '__main__':

@@ -34,6 +34,7 @@ from supplychainpy._helpers._decorators import keyword_sniffer
 from supplychainpy._helpers._enum_formats import FileFormats
 from supplychainpy._helpers._enum_formats import PeriodFormats
 from supplychainpy._helpers._data_cleansing import check_extension
+from supplychainpy.bi.recommendation_generator import run_sku_recommendation_state_machine
 from supplychainpy.inventory import analyse_uncertain_demand
 from supplychainpy.inventory import economic_order_quantity
 from supplychainpy.inventory.abc_xyz import AbcXyz
@@ -506,6 +507,10 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: Decimal, reorder_co
     abc = AbcXyz(analysed_orders_collection)
 
     return analysed_orders_collection
+
+
+def recommendations(analysed_orders: dict, forecast: dict):
+    return run_sku_recommendation_state_machine(analysed_orders=analysed_orders, forecast=forecast)
 
 # the np method allows a numpy array to be used. This requires the specification of a period and length the data is
 # supposed to cover. This method also allows the use of lead time arrays for calculating average leadtimes. There

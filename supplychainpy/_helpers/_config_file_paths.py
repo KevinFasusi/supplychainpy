@@ -25,16 +25,18 @@
 import os
 
 APP_DIR = os.path.dirname(__file__, )
-
+REL_PATH_GENETIC_ALGORITHM = '../sample_data/population_genome.txt'
 REL_PATH_DASH = 'dash.pickle'
 REL_PATH_ARCHIVE = '../../_archive/'
 REL_PATH_CSV_MANAGEMENT_CONFIG = '../_pickled/csv_management_config.pickle'
 REL_PATH_APPLICATION_CONFIG = '../_pickled/application_config.pickle'
 
+
 ABS_FILE_PATH_DASH = os.path.abspath(os.path.join(APP_DIR, '../_pickled/', REL_PATH_DASH))
 ABS_FILE_PATH_APPLICATION_CONFIG = os.path.abspath(os.path.join(APP_DIR, '../_pickled/', REL_PATH_APPLICATION_CONFIG))
 ABS_FILE_PATH_CSV_MANAGEMENT_CONFIG = os.path.abspath(os.path.join(APP_DIR, REL_PATH_CSV_MANAGEMENT_CONFIG))
 ABS_FILE_PATH_ARCHIVE = os.path.abspath(os.path.join(APP_DIR, REL_PATH_ARCHIVE))
+ABS_FILE_GENETIC_ALGORITHM = os.path.abspath(os.path.join(APP_DIR, REL_PATH_ARCHIVE))
 
 def main():
     print(ABS_FILE_PATH_APPLICATION_CONFIG)

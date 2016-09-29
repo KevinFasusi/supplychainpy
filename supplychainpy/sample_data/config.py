@@ -31,6 +31,8 @@ PARTIAL_COL_CSV_SM ='partial_dataset_col_small.csv'
 PARTIAL_ROW_TXT_SM = 'partial_dataset_row_small.txt'
 PARTIAL_COL_TXT_SM = 'partial_dataset_col_small.txt'
 PARTIAL_CSV_SM = 'partial_dataset_small.csv'
+FORECAST_PICKLE = '../sample_data/forecast.pickle'
+RECOMMENDATION_PICKLE = '../sample_data/recommendation.pickle'
 
 ABS_FILE_PATH = {'COMPLETE_CSV_SM': os.path.abspath(os.path.join(APP_DIR, COMPLETE_CSV_SM)),
                  'PARTIAL_ROW_TXT_SM': os.path.abspath(os.path.join(APP_DIR, PARTIAL_ROW_TXT_SM)),
@@ -38,6 +40,8 @@ ABS_FILE_PATH = {'COMPLETE_CSV_SM': os.path.abspath(os.path.join(APP_DIR, COMPLE
                  'PARTIAL_COL_TXT_SM': os.path.abspath(os.path.join(APP_DIR, PARTIAL_COL_TXT_SM)),
                  'PARTIAL_COL_CSV_SM': os.path.abspath(os.path.join(APP_DIR, PARTIAL_COL_CSV_SM)),
                  'PARTIAL_CSV_SM': os.path.abspath(os.path.join(APP_DIR, PARTIAL_CSV_SM)),
+                 'FORECAST_PICKLE': os.path.abspath(os.path.join(APP_DIR, FORECAST_PICKLE)),
+                 'RECOMMENDATION_PICKLE': os.path.abspath(os.path.join(APP_DIR, RECOMMENDATION_PICKLE))
                  }
 
 

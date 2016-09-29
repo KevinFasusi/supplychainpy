@@ -164,7 +164,8 @@ class Inventory:
                    'quantity_on_hand': '{}'.format(selection.quantity_on_hand),
                    'inventory_turns': '{}'.format((Decimal(selection.total_orders) * Decimal(selection.unit_cost)) / (
                        Decimal(selection.quantity_on_hand) * Decimal(selection.unit_cost))),
-                   'inventory_traffic_light': '{}'.format(self._quantity_on_hand_alert(selection))
+                   'inventory_traffic_light': '{}'.format(self._quantity_on_hand_alert(selection)),
+                   'unit_cost_rank': self._rank(sku_id=sku_id, attribute='unit_cost'),
                    }
         #print(self._rank(sku_id=sku_id, attribute='shortage_cost'))
         return summary
@@ -180,7 +181,7 @@ class Inventory:
         traffic_light = ''
 
         half_safety_stock = float(selection.safety_stock) * 0.5
-        two_thirds_safety_stock = float(selection.safety_stock)  * 0.75
+        two_thirds_safety_stock = float(selection.safety_stock) * 0.75
         if selection.reorder_level > selection.quantity_on_hand > selection.safety_stock:
             traffic_light = 'amber'
         elif half_safety_stock > selection.quantity_on_hand > two_thirds_safety_stock:

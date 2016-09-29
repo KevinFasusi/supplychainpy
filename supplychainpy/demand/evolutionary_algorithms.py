@@ -261,7 +261,6 @@ class Population:
             print(e)
 
     # TODO-feature uniform crossover recombination for reproduction
-
     def _uniform_crossover_recombination(self):
         pass
 
@@ -348,6 +347,8 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
             log.debug('Population with genome {}'.format(populations_genome))
             populations_traits = [i for i in self.express_smoothing_level_genome(individuals_genome=populations_genome,
                                                                                  standard_error=self.__standard_error)]
+
+
 
             fit_population = [i for i in
                               self._population_fitness(population=populations_traits, individual_type=individual_type)]

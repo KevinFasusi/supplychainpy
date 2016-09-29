@@ -6,33 +6,14 @@ Subpackages
 
 .. toctree::
 
+    supplychainpy.bot
     supplychainpy.demand
-    supplychainpy.distribution
-    supplychainpy.financials
     supplychainpy.inventory
-    supplychainpy.production
     supplychainpy.reporting
     supplychainpy.simulations
-    supplychainpy.warehouse
 
 Submodules
 ----------
-
-supplychainpy.data_cleansing module
------------------------------------
-
-.. automodule:: supplychainpy.data_cleansing
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-supplychainpy.enum_formats module
----------------------------------
-
-.. automodule:: supplychainpy.enum_formats
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 supplychainpy.launch_reports module
 -----------------------------------
@@ -62,6 +43,14 @@ supplychainpy.model_inventory module
 ------------------------------------
 
 .. automodule:: supplychainpy.model_inventory
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+supplychainpy.model_production module
+-------------------------------------
+
+.. automodule:: supplychainpy.model_production
     :members:
     :undoc-members:
     :show-inheritance:

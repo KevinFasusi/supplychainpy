@@ -30,8 +30,9 @@ from decimal import Decimal
 
 from supplychainpy import model_inventory
 from supplychainpy._csv_management._csv_manager import _Orchestrate
+from supplychainpy.bi.recommendation_generator import run_sku_recommendation_state_machine
 from supplychainpy.inventory.summarise import Inventory
-from supplychainpy.reporting.views import TransactionLog
+from supplychainpy.reporting.views import TransactionLog, Recommendations
 from supplychainpy.reporting.views import Forecast
 from supplychainpy.reporting.views import ForecastType
 from supplychainpy.reporting.views import ForecastStatistics
@@ -116,7 +117,7 @@ def load(file_path: str, location: str = None):
     db.create_all()
 
     log.log(logging.DEBUG, 'loading currency symbols...\n')
-    print('loading currency symbols...\n')
+    print('loading currency symbols...', end="")
     fx = currency_codes()
     for key, value in fx.items():
         codes = Currency()
@@ -124,9 +125,10 @@ def load(file_path: str, location: str = None):
         codes.currency_code = key
         db.session.add(codes)
     db.session.commit()
+    print('[COMPLETED]\n')
 
     log.log(logging.DEBUG, 'Analysing file: {}...\n'.format(file_path))
-    print('Analysing file: {}...\n'.format(file_path))
+    print('Analysing file: {}...'.format(file_path), end="")
     orders_analysis = model_inventory.analyse(file_path=file_path,
                                                                       z_value=Decimal(1.28),
                                                                       reorder_cost=Decimal(5000),
@@ -139,9 +141,10 @@ def load(file_path: str, location: str = None):
                                                           reorder_cost=Decimal(5000), file_type="csv", length=12)]
     date_now = datetime.datetime.now()
     analysis_summary = Inventory(processed_orders=orders_analysis)
+    print('[COMPLETED]\n')
 
     log.log(logging.DEBUG, 'Calculating Forecasts...\n')
-    print('Calculating Forecasts...\n')
+    print('Calculating Forecasts...', end="")
     simple_forecast = {analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
                        model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
                                                                        reorder_cost=Decimal(5000), file_type="csv",
@@ -150,6 +153,7 @@ def load(file_path: str, location: str = None):
                       model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
                                                                       reorder_cost=Decimal(5000), file_type="csv",
                                                                       length=12)}
+
 
     transact = TransactionLog()
     transact.date = date_now
@@ -169,11 +173,11 @@ def load(file_path: str, location: str = None):
         forecast_type.type = f_type
         db.session.add(forecast_type)
     db.session.commit()
-
     ses_id = db.session.query(ForecastType.id).filter(ForecastType.type == forecast_types[0]).first()
     htces_id = db.session.query(ForecastType.id).filter(ForecastType.type == forecast_types[1]).first()
+    print('[COMPLETED]\n')
     log.log(logging.DEBUG, 'loading database ...\n')
-    print('loading database ...\n')
+    print('loading database ...', end="")
 
     for item in ia:
         re = 0
@@ -313,8 +317,28 @@ def load(file_path: str, location: str = None):
                 break
 
     db.session.commit()
-    log.log(logging.DEBUG, "Analysis database loaded...\n")
-    print("Analysis database loaded...\n")
+    print('[COMPLETED]\n')
+    loading = 'Loading recommendations into database... '
+    print(loading, end="")
+    load_recommendations(summary=ia, forecast=holts_forecast,analysed_order=orders_analysis)
+    print('[COMPLETED]\n')
+    log.log(logging.DEBUG, "Analysis ...\n")
+    print("Analysis ... [COMPLETED]")
+
+
+def load_recommendations(summary, forecast, analysed_order):
+    recommend = run_sku_recommendation_state_machine(analysed_orders=analysed_order, forecast=forecast)
+    for item in summary:
+        rec = Recommendations()
+        mk = db.session.query(MasterSkuList.id).filter(MasterSkuList.sku_id == item['sku']).first()
+        inva = db.session.query(InventoryAnalysis.id).filter(InventoryAnalysis.sku_id == mk.id).first()
+        rec.analysis_id = inva.id
+        reco = 'There are no recommendation at this time.' if recommend.get(item['sku'], 'None') == '' else recommend.get(item['sku'], 'None')
+        rec.statement = reco
+        db.session.add(rec)
+        db.session.commit()
+
+
 
 if __name__ == '__main__':
     rel_path = 'data2.csv'
