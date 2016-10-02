@@ -9,7 +9,7 @@ from supplychainpy.inventory import analyse_uncertain_demand
 from supplychainpy.inventory.analyse_uncertain_demand import UncertainDemand
 from supplychainpy.sample_data.config import ABS_FILE_PATH
 
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+#logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class TestAnalyseOrders(TestCase):
