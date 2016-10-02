@@ -30,7 +30,7 @@ from decimal import Decimal
 
 from supplychainpy import model_inventory
 from supplychainpy._csv_management._csv_manager import _Orchestrate
-from supplychainpy.bi.recommendation_generator import run_sku_recommendation_state_machine
+from supplychainpy.bi.recommendation_generator import run_sku_recommendation
 from supplychainpy.inventory.summarise import Inventory
 from supplychainpy.reporting.views import TransactionLog, Recommendations
 from supplychainpy.reporting.views import Forecast
@@ -327,7 +327,7 @@ def load(file_path: str, location: str = None):
 
 
 def load_recommendations(summary, forecast, analysed_order):
-    recommend = run_sku_recommendation_state_machine(analysed_orders=analysed_order, forecast=forecast)
+    recommend = run_sku_recommendation(analysed_orders=analysed_order, forecast=forecast)
     for item in summary:
         rec = Recommendations()
         mk = db.session.query(MasterSkuList.id).filter(MasterSkuList.sku_id == item['sku']).first()

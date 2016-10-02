@@ -1,3 +1,27 @@
+# Copyright (c) 2015-2016, The Authors and Contributors
+# <see AUTHORS file>
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+# following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the
+# following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+# following disclaimer in the documentation and/or other materials provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote
+# products derived from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+# INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+# DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+# SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
+# USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 class ResponseBorg:
     """ Borg class making  class attributes global """
     _shared_response = {}  # global attribute dictionary remember to use single under score not double
@@ -34,18 +58,46 @@ class RecommendationStateMachine:
     def set_start(self, name):
         self.start_state = name.upper()
 
-    def run(self, cargo):
+
+class SkuMachine(RecommendationStateMachine):
+    def __init__(self):
+        super(SkuMachine, self).__init__()
+
+    def run(self, sku_id):
+        new_state = ''
         try:
             handler = self.handlers[self.start_state]
         except:
-            raise OSError("must call .set_start() before .run()")
+            raise OSError("call .set_start() first before .run()")
         if not self.end_states:
-            raise OSError("at least one state must be an end_state")
+            raise OSError("must have at least one end_state")
 
         while True:
-            (new_state, cargo) = handler(cargo)
+            (new_state, sku_id) = handler(sku_id)
             if new_state.upper() in self.end_states:
-                #print("reached ", new_state)
                 break
             else:
                 handler = self.handlers[new_state.upper()]
+        return new_state, sku_id
+
+
+class ProfileMachine(RecommendationStateMachine):
+    def __init__(self):
+        super(ProfileMachine, self).__init__()
+
+    def run(self):
+        new_state = ''
+        try:
+            handler = self.handlers[self.start_state]
+        except:
+            raise OSError("call .set_start() first before .run()")
+        if not self.end_states:
+            raise OSError("must have at least one end_state")
+
+        while True:
+            new_state = handler()
+            if new_state.upper() in self.end_states:
+                break
+            else:
+                handler = self.handlers[new_state.upper()]
+        return new_state
