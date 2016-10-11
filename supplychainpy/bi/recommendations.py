@@ -21,7 +21,7 @@
 # SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-import operator
+import heapq
 from copy import deepcopy
 from decimal import Decimal
 
@@ -191,8 +191,10 @@ class SKUStates:
                            ', there is likely little need to panic. ' \
                            'Holding purchase orders for this SKU will reduce ' \
                            'the excess. Review consumption of this SKU until the quantity on hand, ' \
-                           'currently {}, is close to or below the reorder level of {}. '.format(
-                    sku_classification, sku, sku, quantity_on_hand, reorder_quantity)
+                           'currently {}, is close to or below the reorder level of {}. '.format(sku_classification,
+                                                                                                 sku, sku,
+                                                                                                 quantity_on_hand,
+                                                                                                 reorder_quantity)
                 self.append_response(response=response, sku=sku)
 
         state = self._TRANSITION_STATES.get('INVENTORY_TURNS_STATE', self._END_STATE)
@@ -298,8 +300,8 @@ class SKUStates:
         shortage_units = int(self._summary.get('shortage_units', 11))
 
         if traffic_light == 'white':
-            response = 'The QOH is less than 75% of safety stock, implying a substantial quantity of buffer stock has ' \
-                       'been consumed. Take into consideration that it is acceptable ' \
+            response = 'The QOH is less than 75% of safety stock, implying a substantial depletion of ' \
+                       'buffer stock. Take into consideration that it is acceptable ' \
                        'to dip into safety stock approximately 50% of the time. However, this situation ' \
                        'poses a threat for servicing future demand. This situation may be acceptable if this product ' \
                        'is \'end of life\' and the goal is to drive down stock. Corrective action is ' \
@@ -307,7 +309,7 @@ class SKUStates:
                        'receipt of a purchase order is not imminent. '.format(sku)
             self.append_response(response=response, sku=sku)
         elif traffic_light == 'red':
-            response = 'The QOH is is less 50% of the recommended safety stock. ' \
+            response = 'The QOH is less 50% of the recommended safety stock. ' \
                        'Take into consideration that it is acceptable ' \
                        'to dip into safety stock approximately 50% of the time, consuming ' \
                        'approximately 50% of its value.' \
@@ -315,13 +317,13 @@ class SKUStates:
                        'Checking that a purchase order has been placed may be prudent. '.format(sku)
             self.append_response(response=response, sku=sku)
         elif traffic_light == 'amber':
-            response = 'The QOH is is less than the reorder level but has yet to hit safety stock. ' \
-                       'There is little to worry about at this point. The periodic review of stock ' \
+            response = 'The QOH is less than the reorder level but has yet to hit safety stock. ' \
+                       'There is little to worry about at this point. The periodic review of inventory ' \
                        'and communication of any upcoming deals or promotions ' \
                        'that may significantly impact the demand profile should be a focus.'
             self.append_response(response=response, sku=sku)
-        elif traffic_light == 'green' and excess_units == 0 and classification not in ('CZ', 'CY', 'BZ', 'AZ') and \
-                        shortage_units == 0:
+        elif traffic_light == 'green' and excess_units == 0 and classification not in ('CZ', 'CY', 'BZ', 'AZ') \
+                and shortage_units == 0:
 
             response = 'Congratulations the QOH is within optimal boundaries.  ' \
                        'There is little to worry about at this point. The periodic review of stock ' \
@@ -335,7 +337,7 @@ class SKUStates:
         """Forecast state.
 
         Args:
-            sku (str):    SKU ID number
+            sku (str):    SKU unique identification number
 
         Returns:
             tuple:
@@ -346,9 +348,9 @@ class SKUStates:
             if self._htces_forecast.get(sku)['forecast'][0] < int(self._summary.get('excess_units')):
                 response = 'It is unlikely {} will fair better next month as the most optimistic forecast is '
                 self.append_response(response=response, sku=sku)
-        if self._htces_forecast.get(sku)['statistics']['trend'] and int(self._summary.get('excess_units')) > 0 and \
-                        self._summary.get('classification') in ('AX', 'AY', 'BX', 'BY', 'CX') and \
-                        self._htces_forecast.get(sku)['forecast'][0] > int(self._summary.get('excess_units')):
+        if self._htces_forecast.get(sku)['statistics']['trend'] and int(self._summary.get('excess_units')) > 0 \
+                and self._summary.get('classification') in ('AX', 'AY', 'BX', 'BY', 'CX') \
+                and self._htces_forecast.get(sku)['forecast'][0] > int(self._summary.get('excess_units')):
             response = 'The current excess can be reduced by reducing purchase orders and allow the ' \
                        'forecasted demand to be catered for from stock. '
             self.append_response(response=response, sku=sku)
@@ -395,18 +397,14 @@ class ProfileStates(SKUStates):
         """ Appends each response to the dict in the singleton.
 
         Args:
-            response:
-            sku:
-
-        Returns:
+            response (str):    Recommendation for transition state
+            sku (str):         SKU unique identification number
 
         """
 
         resp = self.compiled_response.shared_response.get("profile", "")
         response = resp + response
         self.compiled_response.shared_response.update(**{'{}'.format("profile"): response})
-
-
 
     def _percentage_of_revenue(self, revenue):
         return (revenue / self.total_revenue) ** 100
@@ -415,8 +413,8 @@ class ProfileStates(SKUStates):
         """ Summarised rank
 
         Args:
-            attribute:
-            count:
+            attribute (str):    SKU summary attribute to rank.
+            count (int):        Number of items to rank.
 
         Returns:
 
@@ -428,9 +426,10 @@ class ProfileStates(SKUStates):
         """
 
         Args:
-            sku:
+            sku (str):  SKU unique identification.
 
         Returns:
+            str:        New state.
 
         """
         top_10_revenue = self._rank_summary(attribute='revenue', count=10)
@@ -438,7 +437,7 @@ class ProfileStates(SKUStates):
         top_10_revenue_total = sum([Decimal(summary.get('revenue')) for summary in top_10_revenue])
 
         response = 'SKUs {SKUs} are the top ten contributors to revenue, generating ' \
-                   '{currency_symbol}{revenue:,.2f} of revenue.'.format(**{'SKUs': ", ".join(top_10_revenue_skus)},
+                   '{currency_symbol}{revenue:,.2f} of revenue. '.format(**{'SKUs': ", ".join(top_10_revenue_skus)},
                                                                         **{'currency_symbol': self.currency},
                                                                         **{'revenue': top_10_revenue_total}, )
 
@@ -447,6 +446,15 @@ class ProfileStates(SKUStates):
         return state
 
     def classification(self, sku: str = None) -> str:
+        """ Classification state.
+
+        Args:
+            sku (str):   SKU unique identification.
+
+        Returns:
+            str:        New state.
+
+        """
         inventory_class = ('AX', 'AY', 'AZ', 'BX', 'BY', 'BZ', 'CX', 'CY', 'CZ')
         classification_revenue = {}
 
@@ -456,15 +464,16 @@ class ProfileStates(SKUStates):
                 classification_revenue.update(deepcopy({i: classifications.get(i)['revenue']}))
 
         # response = 'The revenue by inventory classification can be broken down as: {breakdown}'.format(
-        #    **{'breakdown': ', '.join(['{}: {currency_symbol}{val:,.2f}'.format(key, **{'val':value}, **{'currency_symbol': self.currency}) for (key, value) in classification_revenue.items()])})
+        # **{'breakdown': ', '.join(['{}: {currency_symbol}{val:,.2f}'.format(key, **{'val':value},
+        # **{'currency_symbol': self.currency}) for (key, value) in classification_revenue.items()])})
 
-        response = 'The percentage contribution to reveneue by classification of SKU, can be broken down as follows: {breakdown}'.format(
-            **{'breakdown': ', '.join(
-                ['{}: {val:,.2f}%'.format(key, **{'val': (Decimal(value) / self.total_revenue) * 100}) for (key, value)
-                 in classification_revenue.items()])})
+        response = 'The percentage contribution to revenue by classification of SKU, can be broken down as follows: ' \
+                   '{breakdown} '.format(**{'breakdown': ', '.join(
+            ['{}: {val:,.2f}%'.format(key, **{'val': (Decimal(value) / self.total_revenue) * 100}) for (key, value)
+             in classification_revenue.items()])})
         self.append_response(response=response, sku=sku)
-
         top_revenue_classification = max(classification_revenue, key=lambda key: classification_revenue[key])
+
         if top_revenue_classification in ('AZ', 'BZ', 'CZ'):
             response = '{top} contributing the most to the inventory revenue may'.format(
                 **{'top': top_revenue_classification})
@@ -474,6 +483,15 @@ class ProfileStates(SKUStates):
         return state
 
     def excess(self, sku: str = None) -> str:
+        """ Excess state
+
+        Args:
+            sku (str):      SKU unique identification.
+
+        Returns:
+            str:            New state.
+
+        """
         top_10_excess = [item for item in self.summarised_inventory.rank_summary(attribute='excess_stock',
                                                                                  count=10, reverse=True)]
         excess_skus = [i.get('sku') for i in top_10_excess]
@@ -484,14 +502,14 @@ class ProfileStates(SKUStates):
         KR202_223 = [description for description in
                      self.summarised_inventory.describe_sku('KR202-223')]
 
-        response = 'Focus on reducing the excess for the following {sku}. These SKU account for {cost} of excess cost. \n'.format(
+        response = 'Focus on reducing the excess for the following {sku}. These SKU account for {cost} of excess cost. '.format(
             **{'sku': ", ".join(excess_skus)}, **{'cost': total_excess_cost})
 
         self.append_response(response=response, sku=sku)
-        state = self._TRANSITION_STATES.get('INVENTORY_STATE', self._END_STATE)
+        state = self._TRANSITION_STATES.get('SHORTAGE_STATE', self._END_STATE)
         return state
 
-    def inventory_turns(self, sku: str = None) -> str:
+    def shortage(self, sku: str = None) -> str:
 
         top_10_shortage = [item for item in self.summarised_inventory.rank_summary(attribute='shortages',
                                                                                    count=10, reverse=True)]
@@ -512,14 +530,45 @@ class ProfileStates(SKUStates):
         response = 'Consider increasing the stock holding of the following SKU: {sku}. ' \
                    'The total cost of covering the shortages is {cost}. ' \
                    'Give more consideration to SKUs {rev_sku} as they are particularly important, ' \
-                   'they are in the top 10 contributors to yearly revenue, they contribute {contr_rev:.2f} which is {perc: .2f}% ' \
-                   'of total revenue.'.format(
+                   'they are in the top 10 contributors to yearly revenue, they contribute {contr_rev:.2f} which is ' \
+                   '{perc: .2f}% of total revenue.'.format(
             **{'sku': ', '.join(shortage_skus)}, **{'cost': total_shortages},
             **{'rev_sku': ', '.join(shortage_skus_top_revenue)},
             **{'contr_rev': shortage_skus_top_revenue_total},
             **{'perc': (shortage_skus_top_revenue_total / self.total_revenue) * 100})
 
         self.append_response(response=response, sku=sku)
+
+        state = self._TRANSITION_STATES.get('INVENTORY_STATE', self._END_STATE)
+        return state
+
+    def inventory_turns(self, sku: str = None) -> str:
+        """ Inventory turns state.
+
+        Args:
+            sku (str):   SKU unique identification.
+
+        Returns:
+            str:         New state
+        """
+        skus = [i.sku_id for i in self.analysed_orders]
+
+        sku_inventory_turns = {skus[index]: description.get('inventory_turns') for index, description in
+                               enumerate(self.summarised_inventory.describe_sku(*skus))}
+
+        sku_unit_cost = {skus[index]: description.get('unit_cost') for index, description in
+                         enumerate(self.summarised_inventory.describe_sku(*skus))}
+
+        slow_turners = heapq.nsmallest(5, sku_inventory_turns, key=lambda s: sku_inventory_turns[s])
+        expensive_stock = heapq.nlargest(5, sku_unit_cost, key=lambda s: sku_inventory_turns[s])
+
+        slow_turning_expensive_stock = [sku for sku in slow_turners if sku in expensive_stock]
+
+        if len(slow_turning_expensive_stock) > 0:
+            response = '{sku} experience the slowest inventory turns in the inventory profile, while simultaneously ' \
+                       'being the most costly items.'
+            self.append_response(response=response, sku=sku)
+
         serialise_config(configuration=self._compiled_response.shared_response,
                          file_path=ABS_FILE_PATH['PROFILE_PICKLE'])
         state = self._TRANSITION_STATES.get('RECOMMENDATION_STATE', self._END_STATE)

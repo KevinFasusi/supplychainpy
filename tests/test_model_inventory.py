@@ -118,7 +118,6 @@ class TestBuildModel(TestCase):
                                                          reorder_cost=Decimal(450),
                                                          z_value=Decimal(1.28))
         for row in d:
-            print(row)
             std = row.get('standard_deviation')
         self.assertEqual(Decimal(std), 25)
 

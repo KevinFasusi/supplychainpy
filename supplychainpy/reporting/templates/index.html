@@ -17,125 +17,123 @@
         </button>
     </div>
     <div class="  col-md-2">
-        <div id="currency-dropdown" class="dropdown">
+        <!--<div id="currency-dropdown" class="dropdown">
             <button id="currency-dropdown-btn" class="btn btn-sm btn-primary dropdown-toggle " id="menu1" type="button"
                     data-toggle="dropdown">
                 Currency
                 <span class="caret"></span></button>
             <ul id="currency-list" class="dropdown-menu scrollable-menu " role="menu" aria-labelledby="menu1">
                 <li></li>
-            </ul>
-            <div id="currency-code">
-                <strong>USD</strong>
-            </div>
-
+            </ul>-->
+        <div id="currency-code">
         </div>
+
     </div>
-    <div id="app"></div>
-    <div id="collapse-classification">
-        <div class="container-fluid">
-            <div class=" row">
-                <h2>Classification Breakdown</h2>
-                <div class=" slate col-md-3">
-                    <h1>Largest Shortage: </h1>
-                    <h1 id="lg-shortage-classification-class"></h1>
-                    <h1 id="lg-shortage-classification"></h1>
-                    <h1 id="lg-shortage-percentage"></h1>
-                    <h1></h1>
-                </div>
-                <div class=" slate col-md-3">
-                    <h1>Largest Excess: </h1>
-                    <h1 id="lg-excess-classification-class"></h1>
-                    <h1 id="lg-excess-classification"></h1>
-                    <h1 id="lg-excess-percentage"></h1>
-                    <h1></h1>
-                </div>
-                <div class=" slate col-md-3">
-                    <h1>Total Shortage: </h1>
-
-                    <h1 id="lg-total-shortage"></h1>
-                    <h1></h1>
-                    <h1></h1>
-                </div>
-                <div class=" slate col-md-3">
-                    <h1>Total Excess: </h1>
-
-                    <h1 id="lg-total-excess"></h1>
-                    <h1></h1>
-                    <h1></h1>
-                </div>
-            </div>
-        </div>
-        <div class=" slate-object row">
-            <div class=" pad-chart-col col-md-4">
-                <h3>Revenue</h3>
-                <div id="revenue-class-chart"></div>
-            </div>
-            <div class=" pad-chart-col col-md-4">
-                <h3>Shortage</h3>
-                <div id="shortage-class-chart"></div>
-            </div>
-            <div class=" pad-chart-col col-md-4">
-                <h3>Excess </h3>
-                <div id="excess-class-chart"></div>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class=" col-lg-11">
-                    <table id="classification-table" class="  ia table-responsive table ">
-                    </table>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div id="collapse-shortages">
-        <div class="container-fluid">
-            <div class=" row">
-                <h2> Top 10 Shortages</h2>
-                <div class=" slate col-md-3">
-                    <h1>Largest Shortage: </h1>
-                    <!--<div id="popup"></div>-->
-                    <h1 id="lg-shortage-sku"></h1>
-                    <h1 id="lg-shortage-cost"></h1>
-                    <h1 id="lg-shortage-units"></h1>
-                </div>
-                <div class=" slate col-md-3">
-                    <h1>Total Shortage: </h1>
-                    <h2 id="total-shortage"></h2>
-                </div>
-                <div class=" slate col-md-3">
-                    <h1>Percentage of Top 10 SKUs at Risk of Stock-Out </h1>
-                    <h1 class="slate-text-lg" id="shortage-percentage"></h1>
-                </div>
-                <div class="  slate col-md-3">
-                    <h1>Most Understocked SKU</h1>
-                    <h1 id="understocked-sku"></h1>
-                    <h1 id="understocked-qoh"></h1>
-                    <h1 id="understocked_rol"></h1>
-                </div>
-            </div>
-        </div>
-        <div class=" slate-object row">
-            <div class=" pad-chart-col col-md-6">
-                <h3>Top 10 Shortage Cost by SKU</h3>
-                <div id="shortage-chart"></div>
-            </div>
-            <div class=" pad-chart-col col-md-4">
-                <h3>Top 10 Shortage Cost by Classification</h3>
-                <div id="pie-shortage">
-                    <h3></h3>
-                </div>
-            </div>
-        </div>
-
+</div>
+<div id="app"></div>
+<div id="collapse-classification">
+    <div class="container-fluid">
         <div class=" row">
-            <div id="short-table" class=" col-lg-11">
-                <table id="shortage-table" class=" ia table-responsive table ">
+            <h2>Classification Breakdown</h2>
+            <div class=" slate col-md-3">
+                <h1>Largest Shortage: </h1>
+                <h1 id="lg-shortage-classification-class"></h1>
+                <h1 id="lg-shortage-classification"></h1>
+                <h1 id="lg-shortage-percentage"></h1>
+                <h1></h1>
+            </div>
+            <div class=" slate col-md-3">
+                <h1>Largest Excess: </h1>
+                <h1 id="lg-excess-classification-class"></h1>
+                <h1 id="lg-excess-classification"></h1>
+                <h1 id="lg-excess-percentage"></h1>
+                <h1></h1>
+            </div>
+            <div class=" slate col-md-3">
+                <h1>Total Shortage: </h1>
+
+                <h1 id="lg-total-shortage"></h1>
+                <h1></h1>
+                <h1></h1>
+            </div>
+            <div class=" slate col-md-3">
+                <h1>Total Excess: </h1>
+
+                <h1 id="lg-total-excess"></h1>
+                <h1></h1>
+                <h1></h1>
+            </div>
+        </div>
+    </div>
+    <div class=" slate-object row">
+        <div class=" pad-chart-col col-md-4">
+            <h3>Revenue</h3>
+            <div id="revenue-class-chart"></div>
+        </div>
+        <div class=" pad-chart-col col-md-4">
+            <h3>Shortage</h3>
+            <div id="shortage-class-chart"></div>
+        </div>
+        <div class=" pad-chart-col col-md-4">
+            <h3>Excess </h3>
+            <div id="excess-class-chart"></div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class=" col-lg-11">
+                <table id="classification-table" class="  ia table-responsive table ">
                 </table>
             </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="collapse-shortages">
+    <div class="container-fluid">
+        <div class=" row">
+            <h2> Top 10 Shortages</h2>
+            <div class=" slate col-md-3">
+                <h1>Largest Shortage: </h1>
+                <h1 id="lg-shortage-sku"></h1>
+                <h1 id="lg-shortage-cost"></h1>
+                <h1 id="lg-shortage-units"></h1>
+            </div>
+            <div class=" slate col-md-3">
+                <h1>Total Shortage: </h1>
+                <h2 id="total-shortage"></h2>
+            </div>
+            <div class=" slate col-md-3">
+                <h1>Percentage of Top 10 SKUs at Risk of Stock-Out </h1>
+                <h1 class="slate-text-lg" id="shortage-percentage"></h1>
+            </div>
+            <div class="  slate col-md-3">
+                <h1>Most Understocked SKU</h1>
+                <h1 id="understocked-sku"></h1>
+                <h1 id="understocked-qoh"></h1>
+                <h1 id="understocked_rol"></h1>
+            </div>
+        </div>
+    </div>
+    <div class=" slate-object row">
+        <div class=" pad-chart-col col-md-6">
+            <h3>Top 10 Shortage Cost by SKU</h3>
+            <div id="shortage-chart"></div>
+        </div>
+        <div class=" pad-chart-col col-md-4">
+            <h3>Top 10 Shortage Cost by Classification</h3>
+            <div id="pie-shortage">
+                <h3></h3>
+            </div>
+        </div>
+    </div>
+
+
+    <div class=" row">
+        <div id="short-table" class=" col-lg-11">
+            <table id="shortage-table" class=" ia table-responsive table ">
+            </table>
         </div>
     </div>
 </div>
@@ -167,25 +165,25 @@
             </div>
         </div>
     </div>
-        <div class=" slate-object row">
-            <div class=" pad-chart-col col-md-6">
-                <h3>Top 10 Excess Cost by SKU</h3>
-                <div id="excess-chart"></div>
-            </div>
-            <div class=" pad-chart-col col-md-4">
-                <h3>Top 10 Excess Cost by Classification</h3>
-                <div id="excess-pie">
-                    <h3></h3>
-                </div>
+    <div class=" slate-object row">
+        <div class=" pad-chart-col col-md-6">
+            <h3>Top 10 Excess Cost by SKU</h3>
+            <div id="excess-chart"></div>
+        </div>
+        <div class=" pad-chart-col col-md-4">
+            <h3>Top 10 Excess Cost by Classification</h3>
+            <div id="excess-pie">
+                <h3></h3>
             </div>
         </div>
-        <div class=" row">
-            <div id="excess" class=" col-lg-11">
-                <table id="excess-table" class=" ia table-responsive table ">
-                </table>
-            </div>
+    </div>
+    <div class=" row">
+        <div id="excess" class=" col-lg-11">
+            <table id="excess-table" class=" ia table-responsive table ">
+            </table>
         </div>
-
+    </div>
+</div>
 </div>
 
 

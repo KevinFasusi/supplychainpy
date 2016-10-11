@@ -116,13 +116,21 @@ class AbcXyz:
 
     def _cumulative_total(self) -> Decimal:
         cumulative_total = Decimal(0)
-        for sku in self.__orders:
-            cumulative_total += Decimal(sku.revenue)
+        try:
+            for sku in self.__orders:
+                cumulative_total += Decimal(sku.revenue)
+        except:
+            for sku in self.__orders:
+                cumulative_total += Decimal(sku.get('revenue'))
         return cumulative_total
 
     def percentage_revenue(self):
-        for sku in self.__orders:
-            sku.percentage_revenue = Decimal(sku.revenue) / Decimal(self.__cumulative_total_revenue)
+        try:
+            for sku in self.__orders:
+                sku.percentage_revenue = Decimal(sku.revenue) / Decimal(self.__cumulative_total_revenue)
+        except:
+            for sku in self.__orders:
+                sku['percentage_revenue'] = Decimal(sku.get('revenue'))/ Decimal(self.__cumulative_total_revenue)
 
     def cumulative_percentage_revenue(self):
         previous_total = Decimal(0)

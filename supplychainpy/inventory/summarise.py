@@ -24,8 +24,6 @@
 
 from decimal import Decimal
 from operator import attrgetter
-
-from supplychainpy import model_inventory
 from supplychainpy.inventory.abc_xyz import AbcXyz
 
 from supplychainpy.inventory.analyse_uncertain_demand import UncertainDemand
@@ -210,7 +208,6 @@ class Inventory:
                        Decimal(selection.quantity_on_hand) * Decimal(selection.unit_cost))),
                    'inventory_traffic_light': '{}'.format(self._quantity_on_hand_alert(selection)),
                    'unit_cost_rank': self._rank(sku_id=sku_id, attribute='unit_cost'),
-                   'currency_symbol':  ''
                    }
         # print(self._rank(sku_id=sku_id, attribute='shortage_cost'))
         return summary

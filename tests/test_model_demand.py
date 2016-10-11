@@ -6,7 +6,7 @@ from supplychainpy.model_demand import holts_trend_corrected_exponential_smoothi
 from supplychainpy.model_demand import holts_trend_corrected_exponential_smoothing_forecast_from_file
 from supplychainpy.model_demand import simple_exponential_smoothing_forecast_from_file
 from supplychainpy.sample_data.config import ABS_FILE_PATH
-#logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class TestModelDemand(TestCase):

@@ -566,11 +566,15 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
 
         optimal_ses_forecast = [i for i in forecast_demand.simple_exponential_smoothing(optimal_alpha[1])]
 
+
+
         ape = LinearRegression(optimal_ses_forecast)
         mape = forecast_demand.mean_aboslute_percentage_error_opt(optimal_ses_forecast)
         stats = ape.least_squared_error()
         simple_forecast = forecast_demand.simple_exponential_smoothing_forecast(forecast=optimal_ses_forecast,
                                                                                 forecast_length=forecast_length)
+        regression = {
+            'regression': [(stats.get('slope') * i) + stats.get('intercept') for i in range(0, 12)]}
 
         return {'forecast_breakdown': optimal_ses_forecast, 'mape': mape, 'statistics': stats,
-                'forecast': simple_forecast, 'optimal_alpha': optimal_alpha[1], 'standard_error': standard_error}
+                'forecast': simple_forecast, 'optimal_alpha': optimal_alpha[1], 'standard_error': standard_error, 'regression': [i for i in regression.get('regression')]}

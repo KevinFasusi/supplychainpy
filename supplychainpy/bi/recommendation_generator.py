@@ -24,12 +24,11 @@
 
 from decimal import Decimal
 from supplychainpy import model_inventory
-from supplychainpy._helpers._pickle_config import serialise_config, deserialise_config
-from supplychainpy.bi.recommendation_state_machine import RecommendationStateMachine, SkuMachine, ProfileMachine
+from supplychainpy._helpers._pickle_config import deserialise_config
+from supplychainpy.bi.recommendation_state_machine import SkuMachine, ProfileMachine
 from supplychainpy.bi.recommendations import SKUStates, ProfileStates
 from supplychainpy.inventory.analyse_uncertain_demand import UncertainDemand
-from supplychainpy.inventory.summarise import Inventory
-from supplychainpy.sample_data.config import ABS_FILE_PATH, FORECAST_PICKLE, RECOMMENDATION_PICKLE
+from supplychainpy.sample_data.config import ABS_FILE_PATH, FORECAST_PICKLE
 
 
 def run_sku_recommendation(analysed_orders:UncertainDemand, forecast: dict)->dict:
@@ -60,11 +59,22 @@ def run_sku_recommendation(analysed_orders:UncertainDemand, forecast: dict)->dic
 
 
 def run_profile_recommendation(analysed_orders: UncertainDemand, forecast: dict)->dict:
+    """ Runs Profile recommendation state machine and generates recommendations for each sku.
+
+    Args:
+        analysed_orders (UncertainDemand):
+        forecast (dict):
+
+    Returns:
+        dict:
+
+    """
     recommend = ProfileMachine()
     states = ProfileStates(analysed_orders=analysed_orders, forecast=forecast)
     recommend.add_state("start", states.initialise_machine)
     recommend.add_state("revenue", states.revenue)
     recommend.add_state("excess", states.excess)
+    recommend.add_state("shortage", states.shortage)
     recommend.add_state("classification", states.classification)
     recommend.add_state("inventory", states.inventory_turns)
     recommend.add_state("recommendation", recommend, end_state=1)

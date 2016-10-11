@@ -30,9 +30,9 @@ from decimal import Decimal
 
 from supplychainpy import model_inventory
 from supplychainpy._csv_management._csv_manager import _Orchestrate
-from supplychainpy.bi.recommendation_generator import run_sku_recommendation
+from supplychainpy.bi.recommendation_generator import run_sku_recommendation, run_profile_recommendation
 from supplychainpy.inventory.summarise import Inventory
-from supplychainpy.reporting.views import TransactionLog, Recommendations
+from supplychainpy.reporting.views import TransactionLog, Recommendations, ProfileRecommendation
 from supplychainpy.reporting.views import Forecast
 from supplychainpy.reporting.views import ForecastType
 from supplychainpy.reporting.views import ForecastStatistics
@@ -46,62 +46,16 @@ from supplychainpy.launch_reports import db, app
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
 
-#logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+
+# logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 def currency_codes():
-    codes = {"AED": "United Arab Emirates Dirham", "AFN": "Afghanistan Afghani", "ALL": "Albania Lek",
-             "AMD": "Armenia Dram", "ANG": "Netherlands Antilles Guilder", "AOA": "Angola Kwanza",
-             "ARS": "Argentina Peso", "AUD": "Australia Dollar", "AWG": "Aruba Guilder",
-             "AZN": "Azerbaijan New Manat", "BAM": "Bosnia and Herzegovina Convertible Marka",
-             "BBD": "Barbados Dollar", "BDT": "Bangladesh Taka", "BGN": "Bulgaria Lev", "BHD": "Bahrain Dinar",
-             "BIF": "Burundi Franc", "BMD": "Bermuda Dollar", "BND": "Brunei Darussalam Dollar",
-             "BOB": "Bolivia Bolíviano", "BRL": "Brazil Real", "BSD": "Bahamas Dollar",
-             "BTN": "Bhutan Ngultrum", "BWP": "Botswana Pula", "BYR": "Belarus Ruble", "BZD": "Belize Dollar",
-             "CAD": "Canada Dollar", "CDF": "Congo/Kinshasa Franc", "CHF": "Switzerland Franc",
-             "CLP": "Chile Peso", "CNY": "China Yuan Renminbi", "COP": "Colombia Peso",
-             "CRC": "Costa Rica Colon", "CUC": "Cuba Convertible Peso", "CUP": "Cuba Peso",
-             "CVE": "Cape Verde Escudo", "CZK": "Czech Republic Koruna", "DJF": "Djibouti Franc",
-             "DKK": "Denmark Krone", "DOP": "Dominican Republic Peso", "DZD": "Algeria Dinar",
-             "EGP": "Egypt Pound", "ERN": "Eritrea Nakfa", "ETB": "Ethiopia Birr",
-             "EUR": "Euro Member Countries", "FJD": "Fiji Dollar", "FKP": "Falkland Islands (Malvinas) Pound",
-             "GBP": "United Kingdom Pound", "GEL": "Georgia Lari", "GGP": "Guernsey Pound",
-             "GHS": "Ghana Cedi", "GIP": "Gibraltar Pound", "GMD": "Gambia Dalasi", "GNF": "Guinea Franc",
-             "GTQ": "Guatemala Quetzal", "GYD": "Guyana Dollar", "HKD": "Hong Kong Dollar",
-             "HNL": "Honduras Lempira", "HRK": "Croatia Kuna", "HTG": "Haiti Gourde", "HUF": "Hungary Forint",
-             "IDR": "Indonesia Rupiah", "ILS": "Israel Shekel", "IMP": "Isle of Man Pound",
-             "INR": "India Rupee", "IQD": "Iraq Dinar", "IRR": "Iran Rial", "ISK": "Iceland Krona",
-             "JEP": "Jersey Pound", "JMD": "Jamaica Dollar", "JOD": "Jordan Dinar", "JPY": "Japan Yen",
-             "KES": "Kenya Shilling", "KGS": "Kyrgyzstan Som", "KHR": "Cambodia Riel", "KMF": "Comoros Franc",
-             "KPW": "Korea (North) Won", "KRW": "Korea (South) Won", "KWD": "Kuwait Dinar",
-             "KYD": "Cayman Islands Dollar", "KZT": "Kazakhstan Tenge", "LAK:": "Laos Kip",
-             "LBP": "Lebanon Pound", "LKR": "Sri Lanka Rupee", "LRD": "Liberia Dollar", "LSL": "Lesotho Loti",
-             "LYD": "Libya Dinar", "MAD": "Morocco Dirham", "MDL": "Moldova Leu", "MGA": "Madagascar Ariary",
-             "MKD": "Macedonia Denar", "MMK": "Myanmar (Burma) Kyat", "MNT": "Mongolia Tughrik",
-             "MOP": "Macau Pataca", "MRO": "Mauritania Ouguiya", "MUR": "Mauritius Rupee",
-             "MVR": "Maldives (Maldive Islands) Rufiyaa", "MWK": "Malawi Kwacha", "MXN": "Mexico Peso",
-             "MYR": "Malaysia Ringgit", "MZN": "Mozambique Metical", "NAD": "Namibia Dollar",
-             "NGN": "Nigeria Naira", "NIO": "Nicaragua Cordoba", "NOK:": "Norway Krone", "NPR": "Nepal Rupee",
-             "NZD": "New Zealand Dollar", "OMR": "Oman Rial", "PAB": "Panama Balboa", "PEN": "Peru Sol",
-             "PGK": "Papua New Guinea Kina", "PHP": "Philippines Peso", "PKR": "Pakistan Rupee",
-             "PLN": "Poland Zloty", "PYG": "Paraguay Guarani", "QAR": "Qatar Riyal", "RON": "Romania New Leu",
-             "RSD": "Serbia Dinar", "RUB": "Russia Ruble", "RWF": "Rwanda Franc", "SAR": "Saudi Arabia Riyal",
-             "SBD": "Solomon Islands Dollar", "SCR": "Seychelles Rupee", "SDG": "Sudan Pound",
-             "SEK": "Sweden Krona", "SGD": "Singapore Dollar", "SHP": "Saint Helena Pound",
-             "SLL": "Sierra Leone Leone", "SOS": "Somalia Shilling", "SPL:": "Seborga Luigino",
-             "SR:D": "Suriname Dollar", "STD": "São Tomé and Príncipe Dobra", "SVC": "El Salvador Colon",
-             "SYP": "Syria Pound", "SZL": "Swaziland Lilangeni", "THB": "Thailand Baht",
-             "TJS": "Tajikistan Somoni", "TMT": "Turkmenistan Manat", "TND": "Tunisia Dinar",
-             "TOP": "Tonga Pa'anga", "TRY": "Turkey Lira", "TTD": "Trinidad and Tobago Dollar",
-             "TVD": "Tuvalu Dollar", "TWD": "Taiwan New Dollar", "TZS": "Tanzania Shilling",
-             "UAH": "Ukraine Hryvnia", "UGX": "Uganda Shilling", "USD": "United States Dollar",
-             "UYU": "Uruguay Peso", "UZS": "Uzbekistan Som", "VEF": "Venezuela Bolivar",
-             "VND": "Viet Nam Dong", "VUV": "Vanuatu Vatu", "WST": "Samoa Tala",
-             "XAF": "Communauté Financière Africaine (BEAC) CFA Franc BEAC", "XCD": "East Caribbean Dollar",
-             "XDR": "International Monetary Fund (IMF) Special Drawing Rights",
-             "XOF": "Communauté Financière Africaine (BCEAO) Franc",
-             "XPF": "Comptoirs Français du Pacifique (CFP) Franc", "YER": "Yemen Rial",
-             "ZAR": "South Africa Rand", "ZMW": "Zambia Kwacha", "ZWD": "Zimbabwe Dollar"}
+    codes = {"AED": ("United Arab Emirates Dirham", "&#92;&#117;&#48;&#54;&#50;&#102;&#46;"),
+             "EUR": ("Euro Member Countries", "&#8364;"),
+             "GBP": ("United Kingdom Pound", "&#163;"),
+             "USD": ("United States Dollar", "&#36;")
+             }
     return codes
 
 
@@ -121,7 +75,8 @@ def load(file_path: str, location: str = None):
     fx = currency_codes()
     for key, value in fx.items():
         codes = Currency()
-        codes.country = value
+        codes.country = value[0]
+        codes.symbol = value[1]
         codes.currency_code = key
         db.session.add(codes)
     db.session.commit()
@@ -130,15 +85,15 @@ def load(file_path: str, location: str = None):
     log.log(logging.DEBUG, 'Analysing file: {}...\n'.format(file_path))
     print('Analysing file: {}...'.format(file_path), end="")
     orders_analysis = model_inventory.analyse(file_path=file_path,
-                                                                      z_value=Decimal(1.28),
-                                                                      reorder_cost=Decimal(5000),
-                                                                      file_type="csv", length=12)
+                                              z_value=Decimal(1.28),
+                                              reorder_cost=Decimal(5000),
+                                              file_type="csv", length=12)
 
     # remove assumption file type is csv
 
     ia = [analysis.orders_summary() for analysis in
           model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
-                                                          reorder_cost=Decimal(5000), file_type="csv", length=12)]
+                                  reorder_cost=Decimal(5000), file_type="csv", length=12)]
     date_now = datetime.datetime.now()
     analysis_summary = Inventory(processed_orders=orders_analysis)
     print('[COMPLETED]\n')
@@ -147,13 +102,12 @@ def load(file_path: str, location: str = None):
     print('Calculating Forecasts...', end="")
     simple_forecast = {analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
                        model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
-                                                                       reorder_cost=Decimal(5000), file_type="csv",
-                                                                       length=12)}
+                                               reorder_cost=Decimal(5000), file_type="csv",
+                                               length=12)}
     holts_forecast = {analysis.sku_id: analysis.holts_trend_corrected_forecast for analysis in
                       model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
-                                                                      reorder_cost=Decimal(5000), file_type="csv",
-                                                                      length=12)}
-
+                                              reorder_cost=Decimal(5000), file_type="csv",
+                                              length=12)}
 
     transact = TransactionLog()
     transact.date = date_now
@@ -162,6 +116,10 @@ def load(file_path: str, location: str = None):
 
     transaction_sub = db.session.query(db.func.max(TransactionLog.date))
     transaction_id = db.session.query(TransactionLog).filter(TransactionLog.date == transaction_sub).first()
+
+    # loads inventory profile recommendations
+    load_profile_recommendations(analysed_order=orders_analysis, forecast=holts_forecast,
+                                 transaction_log_id=transaction_id)
 
     d = _Orchestrate()
     d.update_database(int(transaction_id.id))
@@ -220,6 +178,7 @@ def load(file_path: str, location: str = None):
         i_up.shortage_cost = skus_description[0]['shortage_cost']
         i_up.quantity_on_hand = item['quantity_on_hand']
         i_up.currency_id = denom.id
+        i_up.traffic_light = skus_description[0]['inventory_traffic_light']
         i_up.inventory_turns = skus_description[0]['inventory_turns']
         i_up.transaction_log_id = transaction_id.id
         db.session.add(i_up)
@@ -258,7 +217,7 @@ def load(file_path: str, location: str = None):
                     forecast_data.period = p + 1
                     forecast_data.create_date = date_now
                     db.session.add(forecast_data)
-                for sesf in simple_forecast.get(forecasted_demand)['forecast_breakdown']:
+                for q, sesf in enumerate(simple_forecast.get(forecasted_demand)['forecast_breakdown']):
                     forecast_breakdown = ForecastBreakdown()
                     forecast_breakdown.analysis_id = inva.id
                     forecast_breakdown.forecast_type_id = ses_id.id
@@ -271,6 +230,7 @@ def load(file_path: str, location: str = None):
                     forecast_breakdown.forecast_error = \
                         sesf['forecast_error']
                     forecast_breakdown.squared_error = sesf['squared_error']
+                    forecast_breakdown.regression = simple_forecast.get(forecasted_demand)['regression'][q]
                     db.session.add(forecast_breakdown)
                 break
         for i, holts_forecast_demand in enumerate(holts_forecast, 1):
@@ -300,7 +260,7 @@ def load(file_path: str, location: str = None):
                     forecast_data.period = p + 1
                     forecast_data.create_date = date_now
                     db.session.add(forecast_data)
-                for htcesf in holts_forecast.get(holts_forecast_demand)['forecast_breakdown']:
+                for i, htcesf in enumerate(holts_forecast.get(holts_forecast_demand)['forecast_breakdown']):
                     forecast_breakdown = ForecastBreakdown()
                     forecast_breakdown.analysis_id = inva.id
                     forecast_breakdown.forecast_type_id = htces_id.id
@@ -313,6 +273,7 @@ def load(file_path: str, location: str = None):
                     forecast_breakdown.forecast_error = \
                         htcesf['forecast_error']
                     forecast_breakdown.squared_error = htcesf['squared_error']
+                    forecast_breakdown.regression = holts_forecast.get(holts_forecast_demand)['regression'][i]
                     db.session.add(forecast_breakdown)
                 break
 
@@ -320,7 +281,7 @@ def load(file_path: str, location: str = None):
     print('[COMPLETED]\n')
     loading = 'Loading recommendations into database... '
     print(loading, end="")
-    load_recommendations(summary=ia, forecast=holts_forecast,analysed_order=orders_analysis)
+    load_recommendations(summary=ia, forecast=holts_forecast, analysed_order=orders_analysis)
     print('[COMPLETED]\n')
     log.log(logging.DEBUG, "Analysis ...\n")
     print("Analysis ... [COMPLETED]")
@@ -333,11 +294,22 @@ def load_recommendations(summary, forecast, analysed_order):
         mk = db.session.query(MasterSkuList.id).filter(MasterSkuList.sku_id == item['sku']).first()
         inva = db.session.query(InventoryAnalysis.id).filter(InventoryAnalysis.sku_id == mk.id).first()
         rec.analysis_id = inva.id
-        reco = 'There are no recommendation at this time.' if recommend.get(item['sku'], 'None') == '' else recommend.get(item['sku'], 'None')
+        reco = 'There are no recommendation at this time.' if recommend.get(item['sku'],
+                                                                            'There are no recommendation at this time.'
+                                                                            ) == '' else recommend.get(item['sku'],
+                                                                                                       'None')
         rec.statement = reco
         db.session.add(rec)
         db.session.commit()
 
+
+def load_profile_recommendations(analysed_order, forecast, transaction_log_id):
+    recommend = run_profile_recommendation(analysed_orders=analysed_order, forecast=forecast)
+    rec = ProfileRecommendation()
+    rec.transaction_id = int(transaction_log_id.id)
+    rec.statement = recommend.get('profile')
+    db.session.add(rec)
+    db.session.commit()
 
 
 if __name__ == '__main__':
