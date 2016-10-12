@@ -576,5 +576,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
         regression = {
             'regression': [(stats.get('slope') * i) + stats.get('intercept') for i in range(0, 12)]}
 
+        log.log(logging.WARNING,
+                "An OPTIMISED simple exponential smoothing forecast has been completed")
         return {'forecast_breakdown': optimal_ses_forecast, 'mape': mape, 'statistics': stats,
                 'forecast': simple_forecast, 'optimal_alpha': optimal_alpha[1], 'standard_error': standard_error, 'regression': [i for i in regression.get('regression')]}
