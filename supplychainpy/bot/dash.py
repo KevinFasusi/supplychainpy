@@ -1,4 +1,5 @@
-# Copyright (c) 2015-2016, Kevin Fasusi and Contributors
+# Copyright (c) 2015-2016, The Authors and Contributors
+# <see AUTHORS file>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
@@ -25,8 +26,8 @@ import os
 import random
 import re
 
-from supplychainpy.bot.controller import master_sku_list, database_connection_uri, excess_controller, \
-    shortage_controller, revenue_controller
+from supplychainpy._helpers._db_connection import database_connection_uri
+from supplychainpy.bot.controller import (master_sku_list, excess_controller, shortage_controller, revenue_controller)
 from supplychainpy._helpers._decorators import preprocess_text, strip_punctuation, pickle_response
 from textblob import TextBlob
 from textblob import Word
@@ -41,6 +42,8 @@ class ChatBot:
     ABS_FILE_PATH = os.path.abspath(os.path.join(APP_DIR, '..', REL_PATH))
     ABS_FILE_PATH_CONFIG = os.path.abspath(os.path.join(APP_DIR, '..', REL_PATH_CONFIG))
 
+    KEYWORDS = ('average', 'retail', 'economic')
+
     ANALYSIS_KEYWORDS = ("excess", "shortage", "revenue",)
 
     SALUTATION_KEYWORDS = ("hi", "hello", "wassup", "sup", "what's up", "ello", "how's tricks?")
@@ -52,8 +55,10 @@ class ChatBot:
     SEMANTIC_DICTIONARY = [
         ('question', ('biggest', 'smallest'), (('WP', 0), ('VBZ', 1), ('DT', 2), ('JJS', 3), ('NN', 4))),
         ('question', ('biggest', 'smallest'), (('WDT', 0), ('NN', 1), ('VBZ', 2), ('DT', 3), ('JJS', 4), ('NN', 5))),
-        ('question', ('shortage', 'revenue', 'excess'), (('WP', 0), ('VBZ', 1), ('DT', 2), ('NN', 3), ('IN', 4), ('NNP', 5))),
+        ('question', ('shortage', 'revenue', 'excess'),
+         (('WP', 0), ('VBZ', 1), ('DT', 2), ('NN', 3), ('IN', 4), ('NNP', 5))),
         ('question', ('biggest', 'smallest'), (('WDT', 0), ('NNP', 1), ('VBZ', 2), ('DT', 3), ('JJS', 4), ('NN', 5))),
+        ('question', ('average'), (('WP', 0), ('VBZ', 1), ('DT', 2), ('JJ', 3), ('NN', 4), ('IN', 5), ('NNP', 6))),
         ('direction', ('explain', 'describe'), (('NNP', 0), ('NNP', 1), ('NNP', 2))),
         ('direction', ('explain', 'describe'), (('NN', 0), ('NNP', 1))),
         ('direction', ('explain', 'describe'), (('VB', 0), ('NNP', 1))),
@@ -87,22 +92,11 @@ class ChatBot:
         "I think there is work to be done."
     ]
 
-    VERB_RESPONSES = [
-        "we can {verb} all day ",
-
-    ]
-
-    VERBS_WITH_ADJECTIVE = [
-        "Less {adjective} more forecasting! ",
-        "{adjective}ly speaking, we are off topic.",
-    ]
-
     NONE_RESPONSES = [
         "It's probably time for a coffee!",
         "It's probably time for some tea!",
         "Don't let the details get you down",
         "Keep fighting the good fight",
-
 
     ]
 
@@ -169,7 +163,7 @@ class ChatBot:
         return reply
 
     def deconstructed_response(self, pronoun, noun, verb, adjective):
-        """ Inspects the syntax and 
+        """ Inspects the syntax and
 
         Args:
             pronoun:
@@ -380,42 +374,40 @@ class ChatBot:
                 if word == set:
                     for keyword in self.ANALYSIS_KEYWORDS:
                         if keyword == end_word[0].lower() and keyword == 'excess':
-                            result = excess_controller(database_connection_uri(), direction='smallest')
+                            result = excess_controller(database_connection_uri(retrieve='retrieve'), direction='smallest')
                             return [
-                                "SKU {} has the smallest excess value at {} usd".format(str(result[1]), result[0][1])]
+                                "SKU {} has the smallest excess value at ${}".format(str(result[1]), result[0][1])]
                         elif keyword == end_word[0].lower() and keyword == 'shortage':
-                            result = shortage_controller(database_connection_uri(), direction='smallest')
+                            result = shortage_controller(database_connection_uri(retrieve='retrieve'), direction='smallest')
                             return [
-                                "SKU {} has the smallest shortage value at {} usd".format(str(result[1]), result[0][1])]
+                                "SKU {} has the smallest shortage value at ${}".format(str(result[1]), result[0][1])]
                         elif keyword == end_word[0].lower() and keyword == 'revenue':
-                            result = revenue_controller(database_connection_uri(), direction='smallest')
+                            result = revenue_controller(database_connection_uri(retrieve='retrieve'), direction='smallest')
                             return [
-                                "SKU {} has the lowest revenue value at {} usd".format(str(result[1]), result[0][1])]
+                                "SKU {} has the lowest revenue value at ${}".format(str(result[1]), result[0][1])]
 
         # print(sentence.tags[len_tags - 1][1])
         if sentence.tags[len_tags - 1][1] == 'NN':
             for word in self.ANALYSIS_KEYWORDS:
                 if word == end_word[0] and word == 'excess':
                     # max excess filters excess rank for lowest rank indicating biggest excess
-                    result = excess_controller(database_connection_uri(), direction='biggest')
-                    return ["SKU {} has the largest excess value at {} usd".format(str(result[1]), result[0][1])]
+                    result = excess_controller(database_connection_uri(retrieve='retrieve'), direction='biggest')
+                    return ["SKU {} has the largest excess value at ${}".format(str(result[1]), result[0][1])]
                 elif word == end_word[0].lower() and word == 'shortage':
-                    result = shortage_controller(database_connection_uri(), direction='biggest')
+                    result = shortage_controller(database_connection_uri(retrieve='retrieve'), direction='biggest')
                     return [
-                        "SKU {} has the largest shortage value at {} usd".format(str(result[1]), result[0][1])]
+                        "SKU {} has the largest shortage value at ${}".format(str(result[1]), result[0][1])]
                 elif word == end_word[0].lower() and word == 'revenue':
-                    result = revenue_controller(database_connection_uri(), direction='biggest')
+                    result = revenue_controller(database_connection_uri(retrieve='retrieve'), direction='biggest')
                     return [
-                        "SKU {} has the highest revenue value at {} usd".format(str(result[1]), result[0][1])]
-
-
+                        "SKU {} has the highest revenue value at ${}".format(str(result[1]), result[0][1])]
 
                     # print(max_word.synsets, min_word.synsets, 'jj: {} '.format(jj_word.synsets))
 
     def _get_msk(self):
         ""
 
-        msk = master_sku_list(database_connection_uri())
+        msk = master_sku_list(database_connection_uri(retrieve='retrieve'))
         return msk
 
     def unpack_pos(self, msg):
@@ -515,4 +507,4 @@ class ChatBot:
 if __name__ == '__main__':
     dude = ChatBot()
     # print(dude.unpack_sentence("I like chocolate"))
-    print(dude.chat("which SKU has the largest excess"))
+    print(dude.chat("which sku generates the highest revenue"))

@@ -1,4 +1,27 @@
-import os
+# Copyright (c) 2015-2016, The Authors and Contributors
+# <see AUTHORS file>
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+# following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the
+# following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+# following disclaimer in the documentation and/or other materials provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote
+# products derived from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+# INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+# DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+# SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
+# USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 import pickle
 import re
 import logging
@@ -6,11 +29,10 @@ import time
 
 from functools import wraps
 
-APP_DIR = os.path.dirname(__file__, )
-REL_PATH = 'dash.pickle'
-REL_PATH_CONFIG = 'config.pickle'
-ABS_FILE_PATH = os.path.abspath(os.path.join(APP_DIR, '..', REL_PATH))
-ABS_FILE_PATH_CONFIG = os.path.abspath(os.path.join(APP_DIR, '..', REL_PATH_CONFIG))
+from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_DASH
+
+
+UNKNOWN = 'UNKNOWN'
 
 
 def log_this(level, name=None, message=None):
@@ -45,6 +67,7 @@ def preprocess_text(func):
     Returns:
 
     """
+
     @wraps(func)
     def wrapper(*args):
         i_regex = re.compile('[iI][ ]')
@@ -74,16 +97,55 @@ def strip_punctuation(func):
         word = str(args[1])
         args = (args[0], word.strip('.'))
         return func(*args)
+
     return wrapper
 
 
 def pickle_response(func):
-        @wraps(func)
-        def wrapper(*args):
-            message = func(*args)
-            state_map = {'last_utterance': message}
-            with open(ABS_FILE_PATH , 'wb') as f:
-                    pickle.dump(state_map, f)
+    @wraps(func)
+    def wrapper(*args):
+        message = func(*args)
+        state_map = {'last_utterance': message}
+        with open(ABS_FILE_PATH_DASH, 'wb') as f:
+            pickle.dump(state_map, f)
 
-            return message
-        return wrapper
+        return message
+
+    return wrapper
+
+
+def keyword_sniffer(func):
+    @wraps(func)
+    def wrapper(**kwargs):
+        temp_kwargs = {}
+
+        temp_kwargs.update({'file_path': kwargs.get('file_path', UNKNOWN),
+                            'df': kwargs.get('df', UNKNOWN),
+                            'raw_data': kwargs.get('raw_data', UNKNOWN),
+                            'file_type': kwargs.get('file_type', UNKNOWN),
+                            'retail_price': kwargs.get('raw_data', UNKNOWN),
+                            'quantity_on_hand': kwargs.get('quantity_on_hand', UNKNOWN),
+                            'sku': kwargs.get('sku_id', UNKNOWN),
+                            'lead_time': kwargs.get('lead_time', UNKNOWN),
+                            'unit_cost': kwargs.get('unit_cost', UNKNOWN)
+                            })
+        return func(**temp_kwargs)
+
+    return wrapper
+
+
+def coroutine_decorator(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        coroutine = func(*args, **kwargs)
+        coroutine.next()
+        return coroutine
+
+    return wrapper
+
+
+def pickle_conifg(func):
+    @wraps(func)
+    def wrapper(**kwargs):
+        with open(kwargs['file_path'], 'wb') as f:
+            pickle.dump(kwargs['config'], f)

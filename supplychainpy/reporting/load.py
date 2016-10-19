@@ -1,4 +1,5 @@
-# Copyright (c) 2015-2016, Kevin Fasusi
+# Copyright (c) 2015-2016, The Authors and Contributors
+# <see AUTHORS file>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
@@ -28,7 +29,8 @@ import os
 from decimal import Decimal
 
 from supplychainpy import model_inventory
-from supplychainpy.inventory.summarise import OrdersAnalysis
+from supplychainpy._csv_management._csv_manager import _Orchestrate
+from supplychainpy.inventory.summarise import Inventory
 from supplychainpy.reporting.views import TransactionLog
 from supplychainpy.reporting.views import Forecast
 from supplychainpy.reporting.views import ForecastType
@@ -125,7 +127,7 @@ def load(file_path: str, location: str = None):
 
     log.log(logging.DEBUG, 'Analysing file: {}...\n'.format(file_path))
     print('Analysing file: {}...\n'.format(file_path))
-    orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=file_path,
+    orders_analysis = model_inventory.analyse(file_path=file_path,
                                                                       z_value=Decimal(1.28),
                                                                       reorder_cost=Decimal(5000),
                                                                       file_type="csv", length=12)
@@ -133,19 +135,19 @@ def load(file_path: str, location: str = None):
     # remove assumption file type is csv
 
     ia = [analysis.orders_summary() for analysis in
-          model_inventory.analyse_orders_abcxyz_from_file(file_path=file_path, z_value=Decimal(1.28),
+          model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
                                                           reorder_cost=Decimal(5000), file_type="csv", length=12)]
     date_now = datetime.datetime.now()
-    analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
+    analysis_summary = Inventory(processed_orders=orders_analysis)
 
     log.log(logging.DEBUG, 'Calculating Forecasts...\n')
     print('Calculating Forecasts...\n')
     simple_forecast = {analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
-                       model_inventory.analyse_orders_abcxyz_from_file(file_path=file_path, z_value=Decimal(1.28),
+                       model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
                                                                        reorder_cost=Decimal(5000), file_type="csv",
                                                                        length=12)}
     holts_forecast = {analysis.sku_id: analysis.holts_trend_corrected_forecast for analysis in
-                      model_inventory.analyse_orders_abcxyz_from_file(file_path=file_path, z_value=Decimal(1.28),
+                      model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
                                                                       reorder_cost=Decimal(5000), file_type="csv",
                                                                       length=12)}
 
@@ -156,6 +158,9 @@ def load(file_path: str, location: str = None):
 
     transaction_sub = db.session.query(db.func.max(TransactionLog.date))
     transaction_id = db.session.query(TransactionLog).filter(TransactionLog.date == transaction_sub).first()
+
+    d = _Orchestrate()
+    d.update_database(int(transaction_id.id))
 
     forecast_types = ('ses', 'htces')
 

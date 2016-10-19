@@ -1,4 +1,5 @@
-# Copyright (c) 2015-2016, Kevin Fasusi
+# Copyright (c) 2015-2016, The Authors and Contributors
+# <see AUTHORS file>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
@@ -32,7 +33,7 @@ class Forecast:
     __simple_exponential_smoothing_forecast = {}
 
     # make keyword args
-    def __init__(self, orders: list = None, average_orders: float = None):
+    def __init__(self, orders: list = None, average_orders: float = None, **kwargs):
         self.__weighted_moving_average = None
         self.__orders = orders
         self.__average_orders = sum([int(demand) for demand in self.__orders]) / len(self.__orders)

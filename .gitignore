@@ -27,3 +27,5 @@ reporting.db
 coverage
 _build/
 webpack.config*
+scratch.py
+_archive/*

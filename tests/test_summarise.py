@@ -3,7 +3,7 @@ from decimal import Decimal
 from unittest import TestCase
 
 from supplychainpy import model_inventory
-from supplychainpy.inventory.summarise import OrdersAnalysis
+from supplychainpy.inventory.summarise import Inventory
 from supplychainpy.sample_data.config import ABS_FILE_PATH
 
 
@@ -20,7 +20,7 @@ class TestSummariseAnalysis(TestCase):
 
         self.__categories = ['excess_stock', 'shortages', 'revenue']
         self.__abc_classification = ('AX', 'AY', 'AZ', 'BX', 'BY', 'BZ', 'CX', 'CY', 'CZ')
-        self.__analysis_summary = OrdersAnalysis(analysed_orders=self.__orders_analysis)
+        self.__analysis_summary = Inventory( processed_orders =self.__orders_analysis)
         self.__describe_sku = ['excess_cost', 'percentage_contribution_revenue', 'markup_percentage',
                                'shortage_rank', 'unit_cost', 'max_order', 'retail_price', 'classification',
                                'excess_rank', 'average_orders', 'revenue_rank', 'excess_units', 'safety_stock_units',

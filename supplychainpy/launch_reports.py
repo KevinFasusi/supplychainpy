@@ -1,4 +1,5 @@
-# Copyright (c) 2015-2016, Kevin Fasusi
+# Copyright (c) 2015-2016, The Authors and Contributors
+# <see AUTHORS file>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
@@ -25,6 +26,7 @@ import os
 import threading
 import webbrowser
 
+from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_APPLICATION_CONFIG
 from supplychainpy._helpers._pickle_config import deserialise_config, serialise_config
 from supplychainpy.reporting.views import db, app
 import tkinter as tk
@@ -42,9 +44,9 @@ class ReportsLauncher(threading.Thread):
         print(self.message)
 
     def run(self):
-        config = deserialise_config()
+        config = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
         config['port'] = self.port
-        serialise_config(config)
+        serialise_config(config, ABS_FILE_PATH_APPLICATION_CONFIG)
         # print(self.port)
         app.run(port=self.port)
 
@@ -73,6 +75,9 @@ class SupplychainpyReporting:
         rel_path = 'supplychainpy/reporting/static/logo.gif'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
         logo = tk.PhotoImage(file=abs_file_path)
+        self.style = ttk.Style()
+        self.style.configure('TCheckbutton', background='black')
+        self.style.configure('TLabel', background='black')
 
         # set supplychainpy logo for report launcher gui
         self.image = tk.Label(master, image=logo)
@@ -106,11 +111,12 @@ class SupplychainpyReporting:
         self.change_port = tk.BooleanVar()
         self.change_port.set(False)
         if os.name in ['posix', 'mac']:
-            self.change_port_checkbutton = tk.Checkbutton(master, variable=self.change_port, activebackground='black',
-                                                          activeforeground='white',
-                                                          bg='white', fg='white', relief='solid', selectcolor='blue',
-                                                          text='Change default port (default :5000)',
-                                                          command=lambda: self.show_port_entry())
+            # sort out the checkbutton in ttk not tk
+            s = ttk.Style()
+            s.configure('Mac.TCheckbutton',focus='#000000', background='#000000', foreground='#FFFFFF')
+            self.change_port_checkbutton = ttk.Checkbutton(master, variable=self.change_port, style='Mac.TCheckbutton',
+                                                           text='Change default port (default :5000)',
+                                                           command=lambda: self.show_port_entry())
 
         elif os.name == 'nt':
             print('nt')
@@ -127,7 +133,7 @@ class SupplychainpyReporting:
         self.hyperlink_text.config(background='black', foreground='lightblue', font=('courier', 11, 'underline'))
         self.hyperlink_text.bind("<Button-1>", lambda e, url=str(self.hyperlink): launch_browser(e, url))
 
-        self.launcher_button = tk.Button(master, fg='grey', bg='black', text='Launch Reporting',
+        self.launcher_button = ttk.Button(master, text='Launch Reporting',
                                          command=lambda: self.spawn_reports()).grid(
             row=6, column=1, pady=(5, 10),
             padx=(15, 5))
