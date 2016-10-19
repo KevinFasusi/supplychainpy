@@ -83,7 +83,9 @@
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reporting.html">Supplychainpy Reporting Suite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="suchpy_pandas_jupyter.html">Using Pandas With supplychainpy</a></li>
 </ul>
 
             
@@ -133,14 +135,142 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="supplychainpy-demand-evolutionary-algorithms-module">
-<h2>supplychainpy.demand.evolutionary_algorithms module<a class="headerlink" href="#supplychainpy-demand-evolutionary-algorithms-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-supplychainpy.demand.evolutionary_algorithms">
+<span id="supplychainpy-demand-evolutionary-algorithms-module"></span><h2>supplychainpy.demand.evolutionary_algorithms module<a class="headerlink" href="#module-supplychainpy.demand.evolutionary_algorithms" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="supplychainpy.demand.evolutionary_algorithms.DiversifyPopulation">
+<em class="property">class </em><code class="descclassname">supplychainpy.demand.evolutionary_algorithms.</code><code class="descname">DiversifyPopulation</code><span class="sig-paren">(</span><em>individuals: list</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.evolutionary_algorithms.DiversifyPopulation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#supplychainpy.demand.evolutionary_algorithms.Population" title="supplychainpy.demand.evolutionary_algorithms.Population"><code class="xref py py-class docutils literal"><span class="pre">supplychainpy.demand.evolutionary_algorithms.Population</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="supplychainpy.demand.evolutionary_algorithms.Individual">
+<em class="property">class </em><code class="descclassname">supplychainpy.demand.evolutionary_algorithms.</code><code class="descname">Individual</code><span class="sig-paren">(</span><em>name: str='offspring'</em>, <em>overide: bool=False</em>, <em>gene_count: int=12</em>, <em>forecast_type: str='ses'</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.evolutionary_algorithms.Individual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="supplychainpy.demand.evolutionary_algorithms.Individual.gene_count">
+<code class="descname">gene_count</code><a class="headerlink" href="#supplychainpy.demand.evolutionary_algorithms.Individual.gene_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.demand.evolutionary_algorithms.Individual.genome">
+<code class="descname">genome</code><a class="headerlink" href="#supplychainpy.demand.evolutionary_algorithms.Individual.genome" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.demand.evolutionary_algorithms.Individual.name">
+<code class="descname">name</code><a class="headerlink" href="#supplychainpy.demand.evolutionary_algorithms.Individual.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="supplychainpy.demand.evolutionary_algorithms.OptimiseSmoothingLevelGeneticAlgorithm">
+<em class="property">class </em><code class="descclassname">supplychainpy.demand.evolutionary_algorithms.</code><code class="descname">OptimiseSmoothingLevelGeneticAlgorithm</code><span class="sig-paren">(</span><em>orders: list</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.evolutionary_algorithms.OptimiseSmoothingLevelGeneticAlgorithm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="staticmethod">
+<dt id="supplychainpy.demand.evolutionary_algorithms.OptimiseSmoothingLevelGeneticAlgorithm.create_individuals">
+<em class="property">static </em><code class="descname">create_individuals</code><span class="sig-paren">(</span><em>new_population: list</em><span class="sig-paren">)</span> &rarr; list<a class="headerlink" href="#supplychainpy.demand.evolutionary_algorithms.OptimiseSmoothingLevelGeneticAlgorithm.create_individuals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create individuals using class from genomes striped during processing fitness.
+:param new_population: new population of individual genomes.
+:type new_population: list</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.demand.evolutionary_algorithms.OptimiseSmoothingLevelGeneticAlgorithm.express_smoothing_level_genome">
+<code class="descname">express_smoothing_level_genome</code><span class="sig-paren">(</span><em>individuals_genome: list</em>, <em>standard_error</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.evolutionary_algorithms.OptimiseSmoothingLevelGeneticAlgorithm.express_smoothing_level_genome" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.demand.evolutionary_algorithms.OptimiseSmoothingLevelGeneticAlgorithm.generate_smoothing_level_genome">
+<code class="descname">generate_smoothing_level_genome</code><span class="sig-paren">(</span><em>population: list</em>, <em>individual_type: str='ses'</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.evolutionary_algorithms.OptimiseSmoothingLevelGeneticAlgorithm.generate_smoothing_level_genome" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.demand.evolutionary_algorithms.OptimiseSmoothingLevelGeneticAlgorithm.initial_population">
+<code class="descname">initial_population</code><span class="sig-paren">(</span><em>individual_type: str='ses'</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.evolutionary_algorithms.OptimiseSmoothingLevelGeneticAlgorithm.initial_population" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialises population and initiates the optimisation of the standard error by searching for an optimum
+alpha value.
+Returns:</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.demand.evolutionary_algorithms.OptimiseSmoothingLevelGeneticAlgorithm.population_size">
+<code class="descname">population_size</code><a class="headerlink" href="#supplychainpy.demand.evolutionary_algorithms.OptimiseSmoothingLevelGeneticAlgorithm.population_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.demand.evolutionary_algorithms.OptimiseSmoothingLevelGeneticAlgorithm.simple_exponential_smoothing_evo">
+<code class="descname">simple_exponential_smoothing_evo</code><span class="sig-paren">(</span><em>smoothing_level_constant: float</em>, <em>initial_estimate_period: int</em>, <em>recombination_type: str='single_point'</em>, <em>population_size: int=10</em>, <em>forecast_length: int=5</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.demand.evolutionary_algorithms.OptimiseSmoothingLevelGeneticAlgorithm.simple_exponential_smoothing_evo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple exponential smoothing using evolutionary algorithm for optimising smoothing level constant (alpha value)</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Args:</dt>
+<dd>initial_estimate_period (int):      The number of previous data points required for initial level estimate.
+smoothing_level_constant (float):   Best guess at smoothing level constant appropriate for forecast.</dd>
+</dl>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict<p>Example:</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="supplychainpy.demand.evolutionary_algorithms.Population">
+<em class="property">class </em><code class="descclassname">supplychainpy.demand.evolutionary_algorithms.</code><code class="descname">Population</code><span class="sig-paren">(</span><em>individuals: list</em>, <em>mutation_probability: float=0.2</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.evolutionary_algorithms.Population" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Create a population of individuals to reproduce.</p>
+<dl class="attribute">
+<dt id="supplychainpy.demand.evolutionary_algorithms.Population.individuals">
+<code class="descname">individuals</code><a class="headerlink" href="#supplychainpy.demand.evolutionary_algorithms.Population.individuals" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.demand.evolutionary_algorithms.Population.mutation_probability">
+<code class="descname">mutation_probability</code><a class="headerlink" href="#supplychainpy.demand.evolutionary_algorithms.Population.mutation_probability" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.demand.evolutionary_algorithms.Population.reproduce">
+<code class="descname">reproduce</code><span class="sig-paren">(</span><em>recombination_type: str='single_point'</em><span class="sig-paren">)</span> &rarr; list<a class="headerlink" href="#supplychainpy.demand.evolutionary_algorithms.Population.reproduce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coordinates the reproduction of two individuals, using one of three recombination methods &#8216;single_point,
+two_point or uniform&#8217;.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>recombination_type</strong> &#8211; The method of recombination used to</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Yields:</th><td class="field-body"><em>(dict)</em> &#8211; The result of recombination and mutation.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="supplychainpy.demand.evolutionary_algorithms.Verbose">
+<em class="property">class </em><code class="descclassname">supplychainpy.demand.evolutionary_algorithms.</code><code class="descname">Verbose</code><span class="sig-paren">(</span><em>parents: list=None</em>, <em>standard_error: float=None</em>, <em>smoothing_level: float=None</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.evolutionary_algorithms.Verbose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-supplychainpy.demand.forecast_demand">
 <span id="supplychainpy-demand-forecast-demand-module"></span><h2>supplychainpy.demand.forecast_demand module<a class="headerlink" href="#module-supplychainpy.demand.forecast_demand" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="supplychainpy.demand.forecast_demand.Forecast">
-<em class="property">class </em><code class="descclassname">supplychainpy.demand.forecast_demand.</code><code class="descname">Forecast</code><span class="sig-paren">(</span><em>orders: list</em>, <em>average_orders: float=None</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">supplychainpy.demand.forecast_demand.</code><code class="descname">Forecast</code><span class="sig-paren">(</span><em>orders: list=None</em>, <em>average_orders: float=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="supplychainpy.demand.forecast_demand.Forecast.autoregressive">
@@ -166,26 +296,27 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="supplychainpy.demand.forecast_demand.Forecast.genetic_algorithm">
-<code class="descname">genetic_algorithm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.genetic_algorithm" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
+<dt id="supplychainpy.demand.forecast_demand.Forecast.holts_trend_corrected_exponential_smoothing">
+<code class="descname">holts_trend_corrected_exponential_smoothing</code><span class="sig-paren">(</span><em>alpha: float</em>, <em>gamma: float</em>, <em>intercept: float</em>, <em>slope: float</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.holts_trend_corrected_exponential_smoothing" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="supplychainpy.demand.forecast_demand.Forecast.holts_trend_corrected_forecast">
+<em class="property">static </em><code class="descname">holts_trend_corrected_forecast</code><span class="sig-paren">(</span><em>forecast: list</em>, <em>forecast_length: int</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.holts_trend_corrected_forecast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a forecast for as many periods.</p>
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>forecasts</strong> (<em>int</em>) &#8211; Number of periods to average.</li>
-<li><strong>base_forecast</strong> (<em>bool</em>) &#8211; A list of weights that sum up to one.</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>forecast</strong> &#8211; </li>
+<li><strong>forecast_length</strong> &#8211; </li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">np.array</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code></p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Returns:</p>
 </dd></dl>
 
 <dl class="method">
@@ -212,27 +343,9 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="supplychainpy.demand.forecast_demand.Forecast.mean_aboslute_percentage_error">
-<code class="descname">mean_aboslute_percentage_error</code><span class="sig-paren">(</span><em>**forecasts</em><span class="sig-paren">)</span> &rarr; list<a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.mean_aboslute_percentage_error" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>forecasts</strong> (<em>int</em>) &#8211; Number of periods to average.</li>
-<li><strong>base_forecast</strong> (<em>bool</em>) &#8211; A list of weights that sum up to one.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">np.array</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
+<dt id="supplychainpy.demand.forecast_demand.Forecast.mean_aboslute_percentage_error_opt">
+<code class="descname">mean_aboslute_percentage_error_opt</code><span class="sig-paren">(</span><em>forecast: list</em><span class="sig-paren">)</span> &rarr; list<a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.mean_aboslute_percentage_error_opt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="supplychainpy.demand.forecast_demand.Forecast.mean_absolute_deviation">
@@ -374,17 +487,61 @@ increase the start_position in the list.n</p>
 
 <dl class="method">
 <dt id="supplychainpy.demand.forecast_demand.Forecast.simple_exponential_smoothing">
-<code class="descname">simple_exponential_smoothing</code><span class="sig-paren">(</span><em>*alpha</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.simple_exponential_smoothing" title="Permalink to this definition">¶</a></dt>
+<code class="descname">simple_exponential_smoothing</code><span class="sig-paren">(</span><em>*alpha</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.simple_exponential_smoothing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates forecast using simple exponential smoothing (SES).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>alpha</strong> (<em>args</em>) &#8211; A list of smoothing level constants (alpha values)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>Forecast containing</dt>
+<dd>{&#8216;demand&#8217;: 165, &#8216;level_estimates&#8217;: 164.49748124123246, &#8216;alpha&#8217;: 0.7487406206162335,
+&#8216;one_step_forecast&#8217;: 163.0, &#8216;forecast_error&#8217;: 2.0, &#8216;squared_error&#8217;: 4.0, &#8216;t&#8217;: 1}</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict<dl class="docutils">
+<dt>Examples:</dt>
+<dd>forecast_demand = Forecast(orders)
+alpha_values = [0.2, 0.3, 0.4, 0.5, 0.6]
+ses_forecast = [forecast for forecast in forecast_demand.simple_exponential_smoothing(<a href="#id1"><span class="problematic" id="id2">*</span></a>alpha_values)]</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="supplychainpy.demand.forecast_demand.Forecast.simple_exponential_smoothing_forecast">
+<em class="property">static </em><code class="descname">simple_exponential_smoothing_forecast</code><span class="sig-paren">(</span><em>forecast: list</em>, <em>forecast_length: int</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.simple_exponential_smoothing_forecast" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="staticmethod">
 <dt id="supplychainpy.demand.forecast_demand.Forecast.standard_error">
-<em class="property">static </em><code class="descname">standard_error</code><span class="sig-paren">(</span><em>sse: dict</em>, <em>orders_count</em>, <em>smoothing_parameter: float</em><span class="sig-paren">)</span> &rarr; float<a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.standard_error" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">standard_error</code><span class="sig-paren">(</span><em>sse: dict</em>, <em>orders_count</em>, <em>smoothing_parameter</em>, <em>df: int=1</em><span class="sig-paren">)</span> &rarr; float<a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.standard_error" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="staticmethod">
 <dt id="supplychainpy.demand.forecast_demand.Forecast.sum_squared_errors">
 <em class="property">static </em><code class="descname">sum_squared_errors</code><span class="sig-paren">(</span><em>squared_error: list</em>, <em>smoothing_parameter: float</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.sum_squared_errors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="supplychainpy.demand.forecast_demand.Forecast.sum_squared_errors_indi">
+<em class="property">static </em><code class="descname">sum_squared_errors_indi</code><span class="sig-paren">(</span><em>squared_error: list</em>, <em>smoothing_parameter: float</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.sum_squared_errors_indi" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="supplychainpy.demand.forecast_demand.Forecast.sum_squared_errors_indi_htces">
+<em class="property">static </em><code class="descname">sum_squared_errors_indi_htces</code><span class="sig-paren">(</span><em>squared_error: list</em>, <em>alpha: float</em>, <em>gamma: float</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.sum_squared_errors_indi_htces" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.demand.forecast_demand.Forecast.total_orders">
+<code class="descname">total_orders</code><a class="headerlink" href="#supplychainpy.demand.forecast_demand.Forecast.total_orders" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -451,10 +608,52 @@ weights.&#8217;.format(sum(weights), len(weights)))</p>
 <dt id="supplychainpy.demand.regression.LinearRegression">
 <em class="property">class </em><code class="descclassname">supplychainpy.demand.regression.</code><code class="descname">LinearRegression</code><span class="sig-paren">(</span><em>orders: list</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.regression.LinearRegression" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="attribute">
-<dt id="supplychainpy.demand.regression.LinearRegression.SSE">
-<code class="descname">SSE</code><a class="headerlink" href="#supplychainpy.demand.regression.LinearRegression.SSE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="method">
+<dt id="supplychainpy.demand.regression.LinearRegression.least_squared_error">
+<code class="descname">least_squared_error</code><span class="sig-paren">(</span><em>slice_end: int=0</em>, <em>slice_start: int=0</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.regression.LinearRegression.least_squared_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate simple linear regression values and two_tail pvalue to determine linearity.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>slice_end</strong> &#8211; Start value for slicing the orders list. Default value is zero.</li>
+<li><strong>slice_start</strong> &#8211; End value for slicing the orders list. Default value is Zero. The length of the orders list
+as supplied to the constructor is then used as the length of the orders.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
+<dt>{&#8216;test_statistic&#8217;: 7.267765176382303,</dt>
+<dd><p class="first last">&#8216;intercept&#8217;: 143.63697478991594,
+&#8216;slope_standard_error&#8217;: 0.298274237297937,
+&#8216;slope&#8217;: 2.1677871148459382,
+&#8216;std_residuals&#8217;: 1064.839027153635,
+&#8216;pvalue&#8217;: 2.4466485335258775e-08}}</p>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>orders = [165, 171, 147, 143, 164, 160, 152, 150, 159, 169, 173, 203, 169, 166, 162, 147,
+188, 161, 162, 169, 185, 188, 200, 229, 189, 218, 185, 199, 210, 193, 211, 208, 216, 218,
+264, 304]
+total_orders = 0
+for order in orders[:12]:</p>
+<blockquote>
+<div>total_orders += order</div></blockquote>
+<p>avg_orders = total_orders / 12
+forecasting_demand = Forecast(orders, avg_orders)
+forecast = [i for i in forecasting_demand.simple_exponential_smoothing(0.5)]
+regression = LinearRegression(forecast)
+regression_statistics = regression.least_squared_error()</p>
+</dd></dl>
 
 </dd></dl>
 

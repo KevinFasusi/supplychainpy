@@ -237,3 +237,14 @@ def load_db(file: str, location: str = None):
         load.load(file, location)
     else:
         load.load(file)
+
+#def launch_report_server(location: str = None):
+#    if location is not None and os.name in ['posix', 'mac']:
+#        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/reporting.db'.format(location)
+#
+#    elif location is not None and os.name == 'nt':
+#        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}\\reporting.db'.format(location)
+#    db.create_all()
+#    app_launch = ReportsLauncher()
+#    app_launch.run()
+#

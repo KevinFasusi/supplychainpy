@@ -25,10 +25,14 @@
 import os
 import random
 import re
+from copy import deepcopy
+from typing import List
 
 from supplychainpy._helpers._db_connection import database_connection_uri
 from supplychainpy.bot.controller import (master_sku_list, excess_controller, shortage_controller, revenue_controller)
 from supplychainpy._helpers._decorators import preprocess_text, strip_punctuation, pickle_response
+from supplychainpy.bot.dash_engine import DashMachine
+from supplychainpy.bot.dash_states import DashStates
 from textblob import TextBlob
 from textblob import Word
 
@@ -59,6 +63,7 @@ class ChatBot:
          (('WP', 0), ('VBZ', 1), ('DT', 2), ('NN', 3), ('IN', 4), ('NNP', 5))),
         ('question', ('biggest', 'smallest'), (('WDT', 0), ('NNP', 1), ('VBZ', 2), ('DT', 3), ('JJS', 4), ('NN', 5))),
         ('question', ('average'), (('WP', 0), ('VBZ', 1), ('DT', 2), ('JJ', 3), ('NN', 4), ('IN', 5), ('NNP', 6))),
+        ('question', ('biggest', 'smallest'), ('NNP', 0), ('NN', 1), ('VBZ', 2), ('DT', 3), ('JJS', 4), ('NN', 5), ('NNS', 6)),
         ('direction', ('explain', 'describe'), (('NNP', 0), ('NNP', 1), ('NNP', 2))),
         ('direction', ('explain', 'describe'), (('NN', 0), ('NNP', 1))),
         ('direction', ('explain', 'describe'), (('VB', 0), ('NNP', 1))),
@@ -253,21 +258,7 @@ class ChatBot:
             que = [random.choice(self.UNKNOWN_UTTERANCE)]
         return que
 
-    def unpack_sentence(self, message):
-        """
 
-        Args:
-            message:
-
-        Returns:
-
-        """
-        u_wot_m8 = TextBlob(message)
-        print(u_wot_m8.tags)
-        for i in u_wot_m8.tags:
-            syn = Word(i[0])
-            print('word: {}\n lemmatize: {}\n lemma: {}\n synsets: {}\n'.format(i[0], syn.lemmatize, syn.lemma,
-                                                                                syn.synsets))
 
     def question_check(self, message):
         """
@@ -293,6 +284,7 @@ class ChatBot:
         """
         # deconstruct using tree and classifier then select path
         new_tags = tuple([(i[1], index) for index, i in enumerate(sentence.tags)])
+        print(new_tags)
         for i in self.SEMANTIC_DICTIONARY:
             if i[2] == new_tags:
                 if i[0] == 'question':
@@ -374,15 +366,18 @@ class ChatBot:
                 if word == set:
                     for keyword in self.ANALYSIS_KEYWORDS:
                         if keyword == end_word[0].lower() and keyword == 'excess':
-                            result = excess_controller(database_connection_uri(retrieve='retrieve'), direction='smallest')
+                            result = excess_controller(database_connection_uri(retrieve='retrieve'),
+                                                       direction='smallest')
                             return [
                                 "SKU {} has the smallest excess value at ${}".format(str(result[1]), result[0][1])]
                         elif keyword == end_word[0].lower() and keyword == 'shortage':
-                            result = shortage_controller(database_connection_uri(retrieve='retrieve'), direction='smallest')
+                            result = shortage_controller(database_connection_uri(retrieve='retrieve'),
+                                                         direction='smallest')
                             return [
                                 "SKU {} has the smallest shortage value at ${}".format(str(result[1]), result[0][1])]
                         elif keyword == end_word[0].lower() and keyword == 'revenue':
-                            result = revenue_controller(database_connection_uri(retrieve='retrieve'), direction='smallest')
+                            result = revenue_controller(database_connection_uri(retrieve='retrieve'),
+                                                        direction='smallest')
                             return [
                                 "SKU {} has the lowest revenue value at ${}".format(str(result[1]), result[0][1])]
 
@@ -503,8 +498,40 @@ class ChatBot:
 
             return response
 
+    def unpack_sentence(self, message):
+        """
+
+        Args:
+            message:
+
+        Returns:
+
+        """
+        u_wot_m8 = TextBlob(message)
+        print(u_wot_m8.tags)
+        for i in u_wot_m8.tags:
+            syn = Word(i[0])
+            print('word: {}\n lemmatize: {}\n lemma: {}\n synsets: {}\n'.format(i[0], syn.lemmatize, syn.lemma,
+                                                                                syn.synsets))
+
+    @staticmethod
+    def chat_machine(message: str) -> List[str]:
+        response = DashMachine()
+        states = DashStates()
+        response.add_state("start", states.initialise_chat)
+        response.add_state("pronoun", states.pronoun)
+        response.add_state("greeting", states.greeting)
+        response.add_state("deconstruction", states.deconstruction)
+        response.add_state("random_utterance", states.random_utterance)
+        response.add_state("response", response, end_state=1)
+        response.set_start("start")
+        response.run(message=message)
+        resp = deepcopy(list(states.compiled_response.shared_response.values()))
+        states.compiled_response.shared_response.clear()
+        return resp[0]
+
 
 if __name__ == '__main__':
     dude = ChatBot()
     # print(dude.unpack_sentence("I like chocolate"))
-    print(dude.chat("which sku generates the highest revenue"))
+    print(dude.chat_machine("Which SKU has the biggest average order?"))

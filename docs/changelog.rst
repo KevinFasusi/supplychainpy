@@ -11,26 +11,26 @@ Although this project is in the planning stages (pre pre-alpha), going forward d
 
 Application
 ^^^^^^^^^^^
--   [Bug Fix]
+
 -   [Update] Clarification of internal and public api using leading underscore notation.
 -   [Update] Excess, shortages added to the UncertainDemand order_summary.
--   [Update] UncertainDemand __repr__ defined.
 -   [Update] Moved abc_xyz.py, analyse_uncertain_demand.py, economic_order_quantity.py and eoq.pyx from "demand" to "inventory" package
 -   [Update] "demand" package now contains: evolutionary_algorithms.py, forecast_demand.py and regression.py
 -   [Update] retail_price added to model_inventory.analyse_orders.
 -   [Update] backlog added to data format for loading into analysis.
 -   [Update] Unit Tests.
 -   [Update] Docstrings
--   [New Faeture] Api supports Pandas data frames
+-   [New Feature] Analytic Hierarchy
+-   [New Feature] Api supports Pandas data frames
 -   [New Feature] Browser based reporting suite, with charts, data summaries and integrated chat bot.
--   [New Feature] Dash Bot, a basic chat bot assistant for the data in the reporting suite.
+-   [New Feature] Dash Bot, a basic chat bot assistant for the data in the reporting suite. Query data using natural language.
 -   [New Feature] Command line interface for processing .csv to database, launching reports and chat bot.
 -   [New Feature] "Model_Demand" module containing simple exponential smoothing and holts trend corrected exponential smoothing.
--   [New Feature] Summarise and Filter your analysis with
+-   [New Feature] Summarise and filter your analysis
 -   [New Feature] Holts Trend Corrected Exponential Smoothing Forecast and optimised variant (evolutionary algorithm for optimised alpha and gamma)
 -   [New Feature] Simple Exponential Smoothing
--   [New Feature] Evolutionary Algorithms for Smoothing Level Constants (converges on optimised smoothing levels using genetic algorithm)
-
+-   [New Feature] Evolutionary Algorithms for Smoothing Level Constants (converges on better smoothing levels using genetic algorithm)
+-   [New Feature] SKU and inventory profile recommendations generator.
 
 
 Documentation

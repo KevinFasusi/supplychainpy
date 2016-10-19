@@ -159,6 +159,13 @@ Use the `describe_sku` method a retrieve a summary for a specific skus:
 .. code::
 
     >>> from supplychainpy import model_inventory
+        >>> from supplychainpy.inventory.summarise import InventoryAnalysis
+        >>> analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
+        >>>
+        >>> for summarised in analysis_summary.describe_sku('KR202-217'):
+        >>>     print(summarised)
+
+    The output for a sku description is different to the
     >>> from supplychainpy.inventory.summarise import OrdersAnalysis
     >>> analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
     >>>
@@ -193,6 +200,17 @@ The describe_sku method can take multiple parameters:
 .. code::
 
     >>> from supplychainpy import model_inventory
+        >>> from supplychainpy.inventory.summarise import InventoryAnalysis
+        >>> analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
+        >>>
+        >>> skus = ['KR202-209', 'KR202-210', 'KR202-211']
+        >>>
+        >>> skus_description = [summarised for summarised in analysis_summary.describe_sku(*skus)]
+        >>> print(skus_description)
+
+    Or simply:
+
+
     >>> from supplychainpy.inventory.summarise import OrdersAnalysis
     >>> analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
     >>> 
@@ -206,6 +224,15 @@ Or simply:
 .. code::
 
     >>> from supplychainpy import model_inventory
+        >>> from supplychainpy.inventory.summarise import InventoryAnalysis
+        >>> analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
+        >>>
+        >>> for summarised in analysis_summary.describe_sku('KR202-209', 'KR202-210', 'KR202-211'):
+        >>>     print(summarised)
+
+    Output:
+
+
     >>> from supplychainpy.inventory.summarise import OrdersAnalysis
     >>> analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
     >>> 
@@ -240,6 +267,42 @@ The example below filters the results based on an attribute, in this case `short
 
 
 .. code:: python
+
+    >>> from supplychainpy.inventory.summarise import InventoryAnalysis
+    >>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
+    >>>
+    >>> orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path,
+    >>>                                                                             z_value=Decimal(1.28),
+    >>>                                                                             reorder_cost=Decimal(5000),
+    >>>                                                                             file_type="csv",
+    >>>                                                                             length=12)
+    >>>
+    >>> analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
+    >>>
+    >>> top_ten_shortages = [item for item in analysis_summary.sku_ranking_filter(attribute="shortages", count=10, reverse=True)]
+    >>>
+    >>> print(top_ten_shortages)
+
+
+The results for
+
+    >>> from supplychainpy.inventory.summarise import InventoryAnalysis
+    >>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
+    >>>
+    >>> orders_analysis = model_inventory.analyse_orders_abcxyz_from_file(file_path=abs_file_path,
+    >>>                                                                             z_value=Decimal(1.28),
+    >>>                                                                             reorder_cost=Decimal(5000),
+    >>>                                                                             file_type="csv",
+    >>>                                                                             length=12)
+    >>>
+    >>> analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)
+    >>>
+    >>> top_ten_shortages = [item for item in analysis_summary.sku_ranking_filter(attribute="shortages", count=10, reverse=True)]
+    >>>
+    >>> print(top_ten_shortages)
+
+
+The results for
 
     >>> from supplychainpy.inventory.summarise import OrdersAnalysis
     >>> from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file

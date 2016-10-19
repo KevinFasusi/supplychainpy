@@ -3,11 +3,13 @@ import os
 import tempfile
 import unittest
 
+from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_APPLICATION_CONFIG
+from supplychainpy._helpers._pickle_config import serialise_config
 from supplychainpy.launch_reports import load_db
 from supplychainpy.reporting.views import app
 from supplychainpy.sample_data.config import ABS_FILE_PATH
 
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.WARNING, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class TestFlaskReports(unittest.TestCase):
@@ -16,8 +18,13 @@ class TestFlaskReports(unittest.TestCase):
         self.db_rs, app.config['DATABASE'] = tempfile.mkstemp()
         app.config['TESTING'] = True
         self.app = app.test_client()
+        #app_settings = {
+        #    'database_path': ABS_FILE_PATH['COMPLETE_CSV_XSM'],
+#
+        #}
+        #serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
         with app.app_context():
-            load_db(file=ABS_FILE_PATH['COMPLETE_CSV_SM'])
+            load_db(file=ABS_FILE_PATH['COMPLETE_CSV_XSM'])
 
     def tearDown(self):
         """Close database link and delete sqlite database"""

@@ -107,7 +107,9 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reporting.html">Supplychainpy Reporting Suite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="suchpy_pandas_jupyter.html">Using Pandas With supplychainpy</a></li>
 </ul>
 
             
@@ -156,18 +158,41 @@
 <h1>Change Log<a class="headerlink" href="#change-log" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
 <h2>0.0.4<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Release 0.0.4 has breaking API changes. Namespaces have been changed in this release. All the modules previously in the
+&#8220;demand&#8221; package have been moved to the &#8220;inventory&#8221; package. If you have been using the &#8220;model_inventory&#8221; module then nothing has
+changed and there will not be any break in contracts.</p>
+<p>Although this project is in the planning stages (pre pre-alpha), going forward deprecation warnings will be used.</p>
 <div class="section" id="application">
 <h3>Application<a class="headerlink" href="#application" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Excess, shortages added to the UncertainDemand order_summary.</li>
-<li>UncertainDemand __repr__ defined.</li>
-<li></li>
+<li>[Bug Fix]</li>
+<li>[Update] Clarification of internal and public api using leading underscore notation.</li>
+<li>[Update] Excess, shortages added to the UncertainDemand order_summary.</li>
+<li>[Update] UncertainDemand __repr__ defined.</li>
+<li>[Update] Moved abc_xyz.py, analyse_uncertain_demand.py, economic_order_quantity.py and eoq.pyx from &#8220;demand&#8221; to &#8220;inventory&#8221; package</li>
+<li>[Update] &#8220;demand&#8221; package now contains: evolutionary_algorithms.py, forecast_demand.py and regression.py</li>
+<li>[Update] retail_price added to model_inventory.analyse_orders.</li>
+<li>[Update] backlog added to data format for loading into analysis.</li>
+<li>[Update] Unit Tests.</li>
+<li>[Update] Docstrings</li>
+<li>[New Faeture] Api supports Pandas data frames</li>
+<li>[New Feature] Browser based reporting suite, with charts, data summaries and integrated chat bot.</li>
+<li>[New Feature] Dash Bot, a basic chat bot assistant for the data in the reporting suite.</li>
+<li>[New Feature] Command line interface for processing .csv to database, launching reports and chat bot.</li>
+<li>[New Feature] &#8220;Model_Demand&#8221; module containing simple exponential smoothing and holts trend corrected exponential smoothing.</li>
+<li>[New Feature] Summarise and Filter your analysis with</li>
+<li>[New Feature] Holts Trend Corrected Exponential Smoothing Forecast and optimised variant (evolutionary algorithm for optimised alpha and gamma)</li>
+<li>[New Feature] Simple Exponential Smoothing</li>
+<li>[New Feature] Evolutionary Algorithms for Smoothing Level Constants (converges on optimised smoothing levels using genetic algorithm)</li>
 </ul>
 </div>
 <div class="section" id="documentation">
 <h3>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Update Quick Guide</li>
+<li>[New] Reporting Suite Walk Through &#8211;in progress make sure finished before release (windows, mac and linux)</li>
+<li>[Update] Tutorial     &#8211;in progress make sure finished before release</li>
+<li>[Update] Quick Guide  &#8211;in progress make sure finished before release (add forecasting, launching reports, redo original guide checking imports, summarising data using</li>
+<li>[New] Declare public api explicitly. describe and document each module and function, give an example also add to website tutorial as Jupyter notebook.</li>
 </ul>
 </div>
 </div>

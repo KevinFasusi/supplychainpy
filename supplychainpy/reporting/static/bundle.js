@@ -68,8 +68,14 @@
 
 	    (0, _jquery2.default)('div.nav-tab').hover(highlight);
 
-	    (0, _jquery2.default)('#classifications-btn').click(function () {
-	        toggle_reporting_view('collapse-classification');
+	    (0, _jquery2.default)('#search-btn').click(function () {
+	        (0, _jquery2.default)("#profile-rec").hide();
+	        (0, _jquery2.default)("#sku-rec > div").hide();
+	        search_recommendations();
+	    });
+
+	    (0, _jquery2.default)('#clear-btn').click(function () {
+	        show_recommendations();
 	    });
 
 	    (0, _jquery2.default)('#shortages-btn').click(function () {
@@ -82,6 +88,16 @@
 
 	    (0, _jquery2.default)('#chat-btn').click(function () {
 	        chat_to_bot();
+	    });
+
+	    (0, _jquery2.default)('#classifications-btn').click(function () {
+	        toggle_reporting_view('collapse-classification');
+	    });
+
+	    (0, _jquery2.default)('#search-input').keypress(function (event) {
+	        if (event.keyCode == 13) {
+	            (0, _jquery2.default)('#search-btn').click();
+	        }
 	    });
 
 	    (0, _jquery2.default)('#chat-input').keypress(function (event) {
@@ -106,6 +122,61 @@
 	        "direction": "desc",
 	        "limit": 10
 	    }, { "name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10 }];
+	    var az = [{
+	        "name": "abc_xyz_classification",
+	        "op": "eq",
+	        "val": "AZ",
+	        "direction": "desc",
+	        "limit": 10
+	    }, { "name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10 }];
+
+	    var bx = [{
+	        "name": "abc_xyz_classification",
+	        "op": "eq",
+	        "val": "BX",
+	        "direction": "desc",
+	        "limit": 10
+	    }, { "name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10 }];
+
+	    var by = [{
+	        "name": "abc_xyz_classification",
+	        "op": "eq",
+	        "val": "BY",
+	        "direction": "desc",
+	        "limit": 10
+	    }, { "name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10 }];
+
+	    var bz = [{
+	        "name": "abc_xyz_classification",
+	        "op": "eq",
+	        "val": "BZ",
+	        "direction": "desc",
+	        "limit": 10
+	    }, { "name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10 }];
+
+	    var cx = [{
+	        "name": "abc_xyz_classification",
+	        "op": "eq",
+	        "val": "CX",
+	        "direction": "desc",
+	        "limit": 10
+	    }, { "name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10 }];
+
+	    var cy = [{
+	        "name": "abc_xyz_classification",
+	        "op": "eq",
+	        "val": "CY",
+	        "direction": "desc",
+	        "limit": 10
+	    }, { "name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10 }];
+
+	    var cz = [{
+	        "name": "abc_xyz_classification",
+	        "op": "eq",
+	        "val": "cz",
+	        "direction": "desc",
+	        "limit": 10
+	    }, { "name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10 }];
 
 	    var filters = [{
 	        "name": "shortage_rank",
@@ -126,6 +197,8 @@
 	        data: { "q": JSON.stringify({ "filters": filters }) },
 	        success: function success(data) {
 	            //console.log(data.objects);
+	            var currency_code = data.objects[i].currency.currency_code;
+	            currency_fetch(currency_code);
 	            create_shortages_table(data);
 	            render_shortages_chart(data, '#shortage-chart');
 	        },
@@ -135,6 +208,14 @@
 	    //to identify what classification view has been triggered.
 	    var ay_val = (0, _jquery2.default)('#AY-node').length;
 	    var ax_val = (0, _jquery2.default)('#AX-node').length;
+	    var az_val = (0, _jquery2.default)('#AZ-node').length;
+	    var bx_val = (0, _jquery2.default)('#BX-node').length;
+	    var by_val = (0, _jquery2.default)('#BY-node').length;
+	    var bz_val = (0, _jquery2.default)('#BZ-node').length;
+	    var cx_val = (0, _jquery2.default)('#CX-node').length;
+	    var cy_val = (0, _jquery2.default)('#CY-node').length;
+	    var cz_val = (0, _jquery2.default)('#CZ-node').length;
+
 	    //console.log(ax_val);
 	    if (ay_val > 0) {
 	        _jquery2.default.ajax({
@@ -151,7 +232,8 @@
 	            },
 	            error: function error(result) {}
 	        });
-	    } else if (ax_val > 0) {
+	    }
+	    if (ax_val > 0) {
 	        _jquery2.default.ajax({
 	            type: "GET",
 	            contentType: "application/json; charset=utf-8",
@@ -169,7 +251,132 @@
 	            error: function error(result) {}
 	        });
 	    }
-
+	    if (az_val > 0) {
+	        _jquery2.default.ajax({
+	            type: "GET",
+	            contentType: "application/json; charset=utf-8",
+	            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+	            dataType: 'json',
+	            async: true,
+	            data: { "q": JSON.stringify({ "filters": az }) },
+	            success: function success(data) {
+	                //console.log(data.objects);
+	                if (data != null) {
+	                    var node_chart2 = new RenderForceChart(data, '#node-chart');
+	                    node_chart2.classification_force();
+	                }
+	            },
+	            error: function error(result) {}
+	        });
+	    }
+	    if (bx_val > 0) {
+	        _jquery2.default.ajax({
+	            type: "GET",
+	            contentType: "application/json; charset=utf-8",
+	            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+	            dataType: 'json',
+	            async: true,
+	            data: { "q": JSON.stringify({ "filters": bx }) },
+	            success: function success(data) {
+	                //console.log(data.objects);
+	                if (data != null) {
+	                    var node_chart2 = new RenderForceChart(data, '#node-chart');
+	                    node_chart2.classification_force();
+	                }
+	            },
+	            error: function error(result) {}
+	        });
+	    }
+	    if (by_val > 0) {
+	        _jquery2.default.ajax({
+	            type: "GET",
+	            contentType: "application/json; charset=utf-8",
+	            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+	            dataType: 'json',
+	            async: true,
+	            data: { "q": JSON.stringify({ "filters": by }) },
+	            success: function success(data) {
+	                //console.log(data.objects);
+	                if (data != null) {
+	                    var node_chart2 = new RenderForceChart(data, '#node-chart');
+	                    node_chart2.classification_force();
+	                }
+	            },
+	            error: function error(result) {}
+	        });
+	    }
+	    if (bz_val > 0) {
+	        _jquery2.default.ajax({
+	            type: "GET",
+	            contentType: "application/json; charset=utf-8",
+	            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+	            dataType: 'json',
+	            async: true,
+	            data: { "q": JSON.stringify({ "filters": bz }) },
+	            success: function success(data) {
+	                //console.log(data.objects);
+	                if (data != null) {
+	                    var node_chart2 = new RenderForceChart(data, '#node-chart');
+	                    node_chart2.classification_force();
+	                }
+	            },
+	            error: function error(result) {}
+	        });
+	    }
+	    if (cx_val > 0) {
+	        _jquery2.default.ajax({
+	            type: "GET",
+	            contentType: "application/json; charset=utf-8",
+	            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+	            dataType: 'json',
+	            async: true,
+	            data: { "q": JSON.stringify({ "filters": cx }) },
+	            success: function success(data) {
+	                //console.log(data.objects);
+	                if (data != null) {
+	                    var node_chart2 = new RenderForceChart(data, '#node-chart');
+	                    node_chart2.classification_force();
+	                }
+	            },
+	            error: function error(result) {}
+	        });
+	    }
+	    if (cy_val > 0) {
+	        _jquery2.default.ajax({
+	            type: "GET",
+	            contentType: "application/json; charset=utf-8",
+	            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+	            dataType: 'json',
+	            async: true,
+	            data: { "q": JSON.stringify({ "filters": cy }) },
+	            success: function success(data) {
+	                //console.log(data.objects);
+	                if (data != null) {
+	                    var node_chart2 = new RenderForceChart(data, '#node-chart');
+	                    node_chart2.classification_force();
+	                }
+	            },
+	            error: function error(result) {}
+	        });
+	    }
+	    if (cz_val > 0) {
+	        _jquery2.default.ajax({
+	            type: "GET",
+	            contentType: "application/json; charset=utf-8",
+	            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+	            dataType: 'json',
+	            async: true,
+	            data: { "q": JSON.stringify({ "filters": cz }) },
+	            success: function success(data) {
+	                //console.log(data.objects);
+	                if (data != null) {
+	                    var node_chart2 = new RenderForceChart(data, '#node-chart');
+	                    node_chart2.classification_force();
+	                }
+	            },
+	            error: function error(result) {}
+	        });
+	    }
 	    _jquery2.default.ajax({
 	        type: "GET",
 	        contentType: "application/json; charset=utf-8",
@@ -248,6 +455,24 @@
 	    line_chart_forecast();
 	});
 
+	/** Searches for sku on recommendation page (feed.html)
+	 *  @function search_recommendations */
+	function search_recommendations() {
+
+	    var message = (0, _jquery2.default)('#search-input').val();
+	    show_search(message);
+	}
+
+	function show_search(message) {
+	    (0, _jquery2.default)("#" + message.trim()).show();
+	}
+
+	function show_recommendations() {
+	    (0, _jquery2.default)('#search-input').val('');
+	    (0, _jquery2.default)("#profile-rec").show(500, "linear");
+	    (0, _jquery2.default)("#sku-rec > div").show().slideDown(600);
+	}
+
 	function chat_to_bot() {
 	    var user = 'You';
 	    var message = (0, _jquery2.default)('#chat-input').val();
@@ -284,10 +509,8 @@
 
 	            break;
 	        case 'Dash':
-
-	            console.log(message.json_list);
 	            for (i = 0; i < message.json_list.length; i++) {
-	                if (message.json_list[i] != null) {
+	                if (message.json_list[i] != null && message.json_list[i] != '') {
 	                    (0, _jquery2.default)('<p style=\"color:#a2e1f6;\">' + communicator + ': ' + message.json_list[i] + '</p><br><p></p>').hide().insertAfter('#response-panel p:last').delay(800).fadeIn(1000);
 	                }
 	            }
@@ -330,9 +553,21 @@
 	    var orders_data = document.getElementById("orders-data");
 	    var forecast_data = document.getElementById("forecast-data");
 	    var forecast_values = document.getElementById("forecast");
-	    //console.log(forecast_data.getElementsByClassName("forecast-raw-data"));
+	    var safety_stock = document.getElementById("safety-stock");
+	    var reorder_lvl = document.getElementById("reorder-lvl");
+
+	    //console.log(safety_stock.innerText);
 	    var forecast = [];
 	    var orders = [];
+	    var regression = [];
+	    var safety = [];
+	    var reorder = [];
+
+	    for (i = 0; i < forecast_data.getElementsByClassName("forecast-raw-data").length; i++) {
+
+	        safety.push([i + 1, parseInt(safety_stock.innerText)]);
+	        reorder.push([i + 1, parseInt(reorder_lvl.innerText)]);
+	    }
 
 	    for (i = 0; i < forecast_data.getElementsByClassName("forecast-raw-data").length; i++) {
 
@@ -344,15 +579,43 @@
 	        orders.push([i + 1, parseInt(orders_data.getElementsByClassName("orders-raw-data")[i].innerText)]);
 	    }
 
-	    for (i = 0; i < forecast_values.getElementsByClassName("forecast-values").length; i++) {
+	    //for (i = 0; i < forecast_values.getElementsByClassName("forecast-values").length; i++) {
+	    //
+	    //    forecast.push([forecast.length + i, parseInt(forecast_values.getElementsByClassName("forecast-values")[i].innerText)]);
+	    //
+	    //}
 
-	        forecast.push([forecast.length + i, parseInt(forecast_values.getElementsByClassName("forecast-values")[i].innerText)]);
+	    for (i = 0; i < forecast_data.getElementsByClassName("regression").length; i++) {
+
+	        regression.push([i + 1, parseInt(forecast_data.getElementsByClassName("regression")[i].innerText)]);
 	    }
 
-	    console.log(forecast);
+	    //console.log(forecast);
 	    //console.log(wins);
 
-	    Flotr.draw(document.getElementById("forecast-chart"), [{ data: orders, lines: { show: true } }, { data: forecast, lines: { show: true } }]);
+	    Flotr.draw(document.getElementById("forecast-chart"), [{
+	        data: orders,
+	        lines: { show: true },
+	        label: "orders"
+
+	    }, {
+	        data: forecast,
+	        lines: { show: true },
+	        label: "one-step forecast"
+	    }, {
+	        data: regression,
+	        lines: { show: true },
+	        label: "regression"
+	    }, {
+	        data: safety,
+	        lines: { show: true },
+	        label: "safety stock level",
+	        color: "#C61C6F"
+	    }, {
+	        data: reorder,
+	        lines: { show: true },
+	        label: "reorder level"
+	    }]);
 	}
 
 	function format_number(num) {
@@ -613,8 +876,9 @@
 	            //console.log(JSON.stringify({"filters": filters}));
 	            //console.log(data);
 	            var li = [].concat(_toConsumableArray(data.objects));
-	            //console.log(li[0].currency_code);
+	            console.log(li[0].currency_code);
 	            (0, _jquery2.default)('#currency-code').text(li[0].currency_code);
+	            return li[0].currency_code;
 	        },
 	        error: function error(result) {}
 	    });
@@ -956,7 +1220,7 @@
 	        total_shortage += data.objects[i].shortage_cost;
 	        var currency_code = currency_symbol_allocator(data.objects[i].currency.currency_code);
 
-	        (0, _jquery2.default)("<tr><td><a href=\"sku_detail/" + data.objects[i].sku_id + "\">" + data.objects[i].sku.sku_id + "</a></td>" + "<td>" + format_number(data.objects[i].quantity_on_hand) + "</td>" + "<td>" + format_number(Math.round(data.objects[i].average_orders)) + "</td>" + "<td>" + data.objects[i].shortages + "</td>" + "<td>" + currency_code + format_number(data.objects[i].shortage_cost) + "</td>" + "<td>" + data.objects[i].safety_stock + "</td>" + "<td>" + data.objects[i].reorder_level + "</td>" + "<td>" + Math.round(data.objects[i].percentage_contribution_revenue * 100) + "%</td>" + "<td>" + data.objects[i].revenue_rank + "</td>" + "<td><a href=\"abcxyz/" + data.objects[i].abc_xyz_classification + "\">" + data.objects[i].abc_xyz_classification + "</a></td></tr>").insertAfter("#shortage-table tr:last");
+	        (0, _jquery2.default)("<tr><td><a href=\"sku_detail/" + data.objects[i].sku_id + "\">" + data.objects[i].sku.sku_id + "</a></td>" + "<td>" + format_number(data.objects[i].quantity_on_hand) + "</td>" + "<td>" + format_number(Math.round(data.objects[i].average_orders)) + "</td>" + "<td>" + format_number(data.objects[i].shortages) + "</td>" + "<td>" + currency_code + format_number(data.objects[i].shortage_cost) + "</td>" + "<td>" + format_number(data.objects[i].safety_stock) + "</td>" + "<td>" + format_number(data.objects[i].reorder_level) + "</td>" + "<td>" + Math.round(data.objects[i].percentage_contribution_revenue * 100) + "%</td>" + "<td>" + data.objects[i].revenue_rank + "</td>" + "<td><a href=\"abcxyz/" + data.objects[i].abc_xyz_classification + "\">" + data.objects[i].abc_xyz_classification + "</a></td></tr>").insertAfter("#shortage-table tr:last");
 	        var shortage_sku_id;
 	        var shortage_units;
 	        var shortage_id;
@@ -1027,7 +1291,7 @@
 	        holding_cost += data.objects[i].quantity_on_hand * (data.objects[i].unit_cost * 0.25); //change later to be chosen by use
 	        var symbols = currency_symbol_allocator(data.objects[i].currency.currency_code);
 	        percentage_excess = Math.round(data.objects[i].excess_stock / data.objects[i].quantity_on_hand * 100);
-	        (0, _jquery2.default)("<tr><td><a href=\"sku_detail/" + data.objects[i].sku_id + "\">" + data.objects[i].sku.sku_id + "</td>" + "<td>" + data.objects[i].quantity_on_hand + "</td>" + "<td>" + data.objects[i].average_orders + "</td>" + "<td>" + data.objects[i].excess_stock + "</td>" + "<td>" + currency_symbol_allocator(data.objects[i].currency.currency_code) + format_number(data.objects[i].excess_cost) + "</td>" + "<td>" + percentage_excess + "%" + "</td>" + "<td>" + data.objects[i].safety_stock + "</td>" + "<td>" + data.objects[i].reorder_level + "</td>" + "<td><a href=\"abcxyz/" + data.objects[i].abc_xyz_classification + "\">" + data.objects[i].abc_xyz_classification + "</a></td></tr>").insertAfter("#excess-table tr:last");
+	        (0, _jquery2.default)("<tr><td><a href=\"sku_detail/" + data.objects[i].sku_id + "\">" + data.objects[i].sku.sku_id + "</td>" + "<td>" + format_number(data.objects[i].quantity_on_hand) + "</td>" + "<td>" + format_number(data.objects[i].average_orders) + "</td>" + "<td>" + format_number(data.objects[i].excess_stock) + "</td>" + "<td>" + currency_symbol_allocator(data.objects[i].currency.currency_code) + format_number(data.objects[i].excess_cost) + "</td>" + "<td>" + percentage_excess + "%" + "</td>" + "<td>" + format_number(data.objects[i].safety_stock) + "</td>" + "<td>" + format_number(data.objects[i].reorder_level) + "</td>" + "<td><a href=\"abcxyz/" + data.objects[i].abc_xyz_classification + "\">" + data.objects[i].abc_xyz_classification + "</a></td></tr>").insertAfter("#excess-table tr:last");
 
 	        if (parseInt(data.objects[i].excess_cost) > parseInt(largest)) {
 	            largest = data.objects[i].excess_cost;
@@ -1079,15 +1343,15 @@
 
 	    var abc_xyz_data = new unpack.abc_xyz(data, 'table');
 	    var currency_code;
+	    //console.log(abc_xyz_data);
 
 	    (0, _jquery2.default)("#classification-table").append().html("<tr id='classification-row'><th>Classification</th><th>Revenue</th><th>Shortages</th>" + "<th>Excess</th></tr>");
 	    //console.log(excess_data);
-	    var code = (0, _jquery2.default)('#currency-code').text().trim(" ");
-	    //console.log(code);
-	    var symbols = currency_symbol_allocator(code);
+
 	    var obj;
-	    //console.log(abc_xyz_data[0].currency_id);
-	    var d = currency_fetch(abc_xyz_data[0].currency_id);
+
+	    var symbols = currency_symbol_allocator(abc_xyz_data[0].currency_code);
+	    //console.log(symbols, abc_xyz_data[0].currency_code);
 	    for (obj in abc_xyz_data) {
 	        //console.log(abc_xyz_data[obj].abc_xyz_classification);
 	        (0, _jquery2.default)("<tr><td><a href=\"abcxyz/" + abc_xyz_data[obj].abc_xyz_classification + "\">" + abc_xyz_data[obj].abc_xyz_classification + "</a>" + "<td>" + symbols + format_number(abc_xyz_data[obj].total_revenue) + "</td>" + "<td>" + symbols + format_number(abc_xyz_data[obj].total_shortages) + "</td>" + "<td>" + symbols + format_number(abc_xyz_data[obj].total_excess) + "</td>" + "</td></tr>").insertAfter("#classification-table tr:last");

@@ -42,16 +42,41 @@ from supplychainpy._csv_management._model._db_setup import transaction_type, met
 from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_CSV_MANAGEMENT_CONFIG, \
     ABS_FILE_PATH_APPLICATION_CONFIG
 from supplychainpy._helpers._pickle_config import deserialise_config
+from supplychainpy.bi._analytical_heirachy_process import _PairwiseComparison
+from supplychainpy.demand.forecast_demand import Forecast
 from supplychainpy.model_demand import simple_exponential_smoothing_forecast, \
     holts_trend_corrected_exponential_smoothing_forecast_from_file
 from supplychainpy.model_inventory import analyse
 from supplychainpy.sample_data.config import ABS_FILE_PATH
+from supplychainpy.model_decision import analytical_hierarchy_process
 
 
 def main():
+    # pp = np.array([[1,2,7,9],[0.5,1,5.0,5.0],[0.1429,0.2,1.0,5.0],[0.1111, 0.2,  0.2, 1.0]])
+    # sq = pp*pp
+    # np.set_printoptions(precision=3, suppress=True)
+    # print(sq)
+    lorry_cost = {'scania': 55000, 'iveco': 79000, 'volvo': 59000, 'navistar': 66000}
+    criteria = ('style', 'reliability', 'comfort', 'fuel_economy')
+    criteria_scores = [(1 / 1, 2 / 1, 7 / 1, 9 / 1), (1 / 2, 1 / 1, 5 / 1, 5 / 1), (1 / 7, 1 / 5, 1 / 1, 5 / 1),
+                       (1 / 9, 1 / 5, 1 / 5, 1 / 1)]
+
+    options = ('scania', 'iveco', 'navistar', 'volvo' )
+    option_scores = {
+        'style': [(1 / 1, 1 / 3, 5 / 1, 1 / 5), (3 / 1, 1 / 1, 2 / 1, 3 / 1), (1 / 3, 1 / 5, 1 / 1, 1 / 5),
+                  (5 / 1, 1 / 3, 5 / 1, 1 / 1)],
+        'reliability': [(1 / 1, 1 / 3, 3 / 1, 1 / 7), (3 / 1, 1 / 1, 5 / 1, 1 / 5), (1 / 3, 1 / 5, 1 / 1, 1 / 5),
+                        (7 / 1, 5 / 1, 5 / 1, 1 / 1)],
+        'comfort': [(1 / 1, 5 / 1, 5 / 1, 1 / 7), (1 / 5, 1 / 1, 2 / 1, 1 / 7), (1 / 3, 1 / 5, 1 / 1, 1 / 5),
+                    (7 / 1, 7 / 1, 5 / 1, 1 / 1)],
+        'fuel_economy': (11, 9, 10, 12)}
+    lorry_decision = analytical_hierarchy_process(criteria=criteria, criteria_scores=criteria_scores, options=options,
+                                                  option_scores=option_scores, quantitative_criteria=('fuel_economy',),
+                                                  item_cost=lorry_cost)
+    print(lorry_decision)
     # metadata.create_all(engine)
-    print(deserialise_config(ABS_FILE_PATH_CSV_MANAGEMENT_CONFIG),'\n')
-    print(deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG))
+    ##print(deserialise_config(ABS_FILE_PATH_CSV_MANAGEMENT_CONFIG),'\n')
+    # print(deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG))
     # inventory_analysis = [i.orders_summary() for i in
     #                      model_inventory.analyse(file_path=ABS_FILE_PATH['COMPLETE_CSV_SM'],
     #                                                                      z_value=Decimal(1.28),
@@ -113,8 +138,8 @@ def main():
 # f = Forecast(orders)
 # alpha = [0.2, 0.3, 0.4, 0.5, 0.6]
 # s = [i for i in f.simple_exponential_smoothing(*alpha)]
-##p = [i for i in f.holts_trend_corrected_exponential_smoothing(0.5, 0.5, 155.88, 0.8369)]
-##print(p)
+#   p = [i for i in f.holts_trend_corrected_exponential_smoothing(0.5, 0.5, 155.88, 0.8369)]
+#   print(p)
 # holts_forecast = f.holts_trend_corrected_forecast(forecast=p, forecast_length=4)
 # print(holts_forecast)
 ##sas = holts_trend_corrected_exponential_smoothing_forecast(orders,0.5,0.5,forecast_length=4, initial_period=18,

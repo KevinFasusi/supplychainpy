@@ -45,7 +45,7 @@
             </a>
         </li>
         <li>
-            <a class="nav-tabs" href="/">
+            <a class="nav-tabs" href="{{url_for('feed')}}">
                 <div class=" row sub-row">
                     <div class="col-md-11"><img src="{{ url_for('static', filename='reporting.png') }}"></div>
                 </div>
@@ -59,15 +59,15 @@
                 </div>
             </a>
         </li>
-        <li>
+   <!--     <li>
             <a class="nav-tabs" href="{{url_for('settings')}}">
                 <div class=" row sub-row">
                     <div class="col-md-11"><img src="{{ url_for('static', filename='settings.png') }}"></div>
                 </div>
             </a>
         </li>
-        <li>
-            <a class="nav-tabs" href="/">
+        <li>-->
+            <a class="nav-tabs" href="{{url_for('about')}}">
                 <div class=" row sub-row">
                     <div class="col-md-11"><img src="{{ url_for('static', filename='information.png') }}"></div>
                 </div>

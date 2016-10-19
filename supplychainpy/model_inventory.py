@@ -34,6 +34,7 @@ from supplychainpy._helpers._decorators import keyword_sniffer
 from supplychainpy._helpers._enum_formats import FileFormats
 from supplychainpy._helpers._enum_formats import PeriodFormats
 from supplychainpy._helpers._data_cleansing import check_extension
+from supplychainpy.bi.recommendation_generator import run_sku_recommendation
 from supplychainpy.inventory import analyse_uncertain_demand
 from supplychainpy.inventory import economic_order_quantity
 from supplychainpy.inventory.abc_xyz import AbcXyz
@@ -228,7 +229,7 @@ def analyse_orders(data_set: dict, sku_id: str, lead_time: Decimal, unit_cost: D
         quantity_on_hand (Decimal): The quantity currently on hand as of analysis or retrieving data set.
 
     Returns:
-        dict:       The summary of the analysis, containing:
+        dict:       The summary of the analysis, containing
                     average_order,standard_deviation, safety_stock, demand_variability, reorder_level
                     reorder_quantity, revenue, economic_order_quantity, economic_order_variable_cost
                     and ABC_XYZ_Classification. For example:
@@ -506,6 +507,15 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: Decimal, reorder_co
     abc = AbcXyz(analysed_orders_collection)
 
     return analysed_orders_collection
+
+
+def recommendations(analysed_orders: dict, forecast: dict):
+    return run_sku_recommendation(analysed_orders=analysed_orders, forecast=forecast)
+
+def summarise(analysed_orders: UncertainDemand):
+    pass
+
+
 
 # the np method allows a numpy array to be used. This requires the specification of a period and length the data is
 # supposed to cover. This method also allows the use of lead time arrays for calculating average leadtimes. There

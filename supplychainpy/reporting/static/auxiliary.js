@@ -12,8 +12,14 @@ $(function () {
 
     $('div.nav-tab').hover(highlight);
 
-    $('#classifications-btn').click(function () {
-        toggle_reporting_view('collapse-classification');
+    $('#search-btn').click(function () {
+        $("#profile-rec").hide();
+        $("#sku-rec > div").hide();
+        search_recommendations();
+    });
+
+    $('#clear-btn').click(function () {
+        show_recommendations();
     });
 
     $('#shortages-btn').click(function () {
@@ -28,6 +34,15 @@ $(function () {
         chat_to_bot();
     });
 
+    $('#classifications-btn').click(function () {
+        toggle_reporting_view('collapse-classification');
+    });
+
+    $('#search-input').keypress(function (event) {
+        if (event.keyCode == 13) {
+            $('#search-btn').click();
+        }
+    });
 
     $('#chat-input').keypress(function (event) {
         if (event.keyCode == 13) {
@@ -51,6 +66,62 @@ $(function () {
         "direction": "desc",
         "limit": 10
     }, {"name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10}];
+    var az = [{
+        "name": "abc_xyz_classification",
+        "op": "eq",
+        "val": "AZ",
+        "direction": "desc",
+        "limit": 10
+    }, {"name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10}];
+
+    var bx = [{
+        "name": "abc_xyz_classification",
+        "op": "eq",
+        "val": "BX",
+        "direction": "desc",
+        "limit": 10
+    }, {"name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10}];
+
+    var by = [{
+        "name": "abc_xyz_classification",
+        "op": "eq",
+        "val": "BY",
+        "direction": "desc",
+        "limit": 10
+    }, {"name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10}];
+
+    var bz = [{
+        "name": "abc_xyz_classification",
+        "op": "eq",
+        "val": "BZ",
+        "direction": "desc",
+        "limit": 10
+    }, {"name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10}];
+
+    var cx = [{
+        "name": "abc_xyz_classification",
+        "op": "eq",
+        "val": "CX",
+        "direction": "desc",
+        "limit": 10
+    }, {"name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10}];
+
+    var cy = [{
+        "name": "abc_xyz_classification",
+        "op": "eq",
+        "val": "CY",
+        "direction": "desc",
+        "limit": 10
+    }, {"name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10}];
+
+    var cz = [{
+        "name": "abc_xyz_classification",
+        "op": "eq",
+        "val": "cz",
+        "direction": "desc",
+        "limit": 10
+    }, {"name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10}];
+
 
     var filters = [{
         "name": "shortage_rank",
@@ -71,6 +142,8 @@ $(function () {
         data: {"q": JSON.stringify({"filters": filters})},
         success: function (data) {
             //console.log(data.objects);
+            var currency_code = data.objects[i].currency.currency_code;
+            currency_fetch(currency_code);
             create_shortages_table(data);
             render_shortages_chart(data, '#shortage-chart');
         },
@@ -83,6 +156,14 @@ $(function () {
     //to identify what classification view has been triggered.
     var ay_val = $('#AY-node').length;
     var ax_val = $('#AX-node').length;
+    var az_val = $('#AZ-node').length;
+    var bx_val = $('#BX-node').length;
+    var by_val = $('#BY-node').length;
+    var bz_val = $('#BZ-node').length;
+    var cx_val = $('#CX-node').length;
+    var cy_val = $('#CY-node').length;
+    var cz_val = $('#CZ-node').length;
+
     //console.log(ax_val);
     if (ay_val > 0) {
         $.ajax({
@@ -102,7 +183,8 @@ $(function () {
 
             }
         });
-    } else if (ax_val > 0) {
+    }
+    if (ax_val > 0) {
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
@@ -124,8 +206,160 @@ $(function () {
             }
         });
     }
+    if (az_val > 0) {
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+            dataType: 'json',
+            async: true,
+            data: {"q": JSON.stringify({"filters": az})},
+            success: function (data) {
+                //console.log(data.objects);
+                if (data != null) {
+                    var node_chart2 = new RenderForceChart(data, '#node-chart');
+                    node_chart2.classification_force();
+                }
+
+            },
+            error: function (result) {
 
 
+            }
+        });
+    }
+    if (bx_val > 0) {
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+            dataType: 'json',
+            async: true,
+            data: {"q": JSON.stringify({"filters": bx})},
+            success: function (data) {
+                //console.log(data.objects);
+                if (data != null) {
+                    var node_chart2 = new RenderForceChart(data, '#node-chart');
+                    node_chart2.classification_force();
+                }
+
+            },
+            error: function (result) {
+
+
+            }
+        });
+    }
+        if (by_val > 0) {
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+            dataType: 'json',
+            async: true,
+            data: {"q": JSON.stringify({"filters": by})},
+            success: function (data) {
+                //console.log(data.objects);
+                if (data != null) {
+                    var node_chart2 = new RenderForceChart(data, '#node-chart');
+                    node_chart2.classification_force();
+                }
+
+            },
+            error: function (result) {
+
+
+            }
+        });
+    }
+        if (bz_val > 0) {
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+            dataType: 'json',
+            async: true,
+            data: {"q": JSON.stringify({"filters": bz})},
+            success: function (data) {
+                //console.log(data.objects);
+                if (data != null) {
+                    var node_chart2 = new RenderForceChart(data, '#node-chart');
+                    node_chart2.classification_force();
+                }
+
+            },
+            error: function (result) {
+
+
+            }
+        });
+    }
+        if (cx_val > 0) {
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+            dataType: 'json',
+            async: true,
+            data: {"q": JSON.stringify({"filters": cx})},
+            success: function (data) {
+                //console.log(data.objects);
+                if (data != null) {
+                    var node_chart2 = new RenderForceChart(data, '#node-chart');
+                    node_chart2.classification_force();
+                }
+
+            },
+            error: function (result) {
+
+
+            }
+        });
+    }
+        if (cy_val > 0) {
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+            dataType: 'json',
+            async: true,
+            data: {"q": JSON.stringify({"filters": cy})},
+            success: function (data) {
+                //console.log(data.objects);
+                if (data != null) {
+                    var node_chart2 = new RenderForceChart(data, '#node-chart');
+                    node_chart2.classification_force();
+                }
+
+            },
+            error: function (result) {
+
+
+            }
+        });
+    }
+        if (cz_val > 0) {
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+            dataType: 'json',
+            async: true,
+            data: {"q": JSON.stringify({"filters": cz})},
+            success: function (data) {
+                //console.log(data.objects);
+                if (data != null) {
+                    var node_chart2 = new RenderForceChart(data, '#node-chart');
+                    node_chart2.classification_force();
+                }
+
+            },
+            error: function (result) {
+
+
+            }
+        });
+    }
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
@@ -210,6 +444,27 @@ $(function () {
     line_chart_forecast();
 });
 
+/** Searches for sku on recommendation page (feed.html)
+ *  @function search_recommendations */
+function search_recommendations() {
+
+    var message = $('#search-input').val();
+    show_search(message);
+
+
+}
+
+function show_search(message) {
+    $("#" + message.trim()).show();
+}
+
+function show_recommendations() {
+    $('#search-input').val('');
+    $("#profile-rec").show(500, "linear");
+    $("#sku-rec > div").show().slideDown(600);
+}
+
+
 function chat_to_bot() {
     var user = 'You';
     var message = $('#chat-input').val();
@@ -219,7 +474,7 @@ function chat_to_bot() {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:' + location.port + '/chat/'+ message,
+        url: 'http://127.0.0.1:' + location.port + '/chat/' + message,
         dataType: 'json',
         async: true,
         data: "{}",
@@ -231,10 +486,9 @@ function chat_to_bot() {
         },
         error: function (result) {
 
-                console.log(result);// make 404.html page
+            console.log(result);// make 404.html page
         }
     });
-
 
 
     $('#chat-input').val('');
@@ -251,10 +505,8 @@ function render_bot_response(message, communicator) {
 
             break;
         case 'Dash':
-
-            console.log(message.json_list);
             for (i = 0; i < message.json_list.length; i++) {
-                if (message.json_list[i] != null) {
+                if (message.json_list[i] != null && message.json_list[i] != '') {
                     $('<p style=\"color:#a2e1f6;\">' + communicator + ': ' + message.json_list[i] + '</p><br><p></p>')
                         .hide()
                         .insertAfter('#response-panel p:last')
@@ -304,9 +556,22 @@ function line_chart_forecast() {
     var orders_data = document.getElementById("orders-data");
     var forecast_data = document.getElementById("forecast-data");
     var forecast_values = document.getElementById("forecast");
-    //console.log(forecast_data.getElementsByClassName("forecast-raw-data"));
+    var safety_stock = document.getElementById("safety-stock");
+    var reorder_lvl = document.getElementById("reorder-lvl");
+
+    //console.log(safety_stock.innerText);
     var forecast = [];
     var orders = [];
+    var regression = [];
+    var safety = [];
+    var reorder = [];
+
+    for (i = 0; i < forecast_data.getElementsByClassName("forecast-raw-data").length; i++) {
+
+        safety.push([i + 1, parseInt(safety_stock.innerText)]);
+        reorder.push([i + 1, parseInt(reorder_lvl.innerText)]);
+
+    }
 
     for (i = 0; i < forecast_data.getElementsByClassName("forecast-raw-data").length; i++) {
 
@@ -320,23 +585,56 @@ function line_chart_forecast() {
 
     }
 
-    for (i = 0; i < forecast_values.getElementsByClassName("forecast-values").length; i++) {
+    //for (i = 0; i < forecast_values.getElementsByClassName("forecast-values").length; i++) {
+//
+    //    forecast.push([forecast.length + i, parseInt(forecast_values.getElementsByClassName("forecast-values")[i].innerText)]);
+//
+    //}
 
-        forecast.push([forecast.length + i, parseInt(forecast_values.getElementsByClassName("forecast-values")[i].innerText)]);
+    for (i = 0; i < forecast_data.getElementsByClassName("regression").length; i++) {
+
+        regression.push([i + 1, parseInt(forecast_data.getElementsByClassName("regression")[i].innerText)]);
 
     }
 
-    console.log(forecast);
+    //console.log(forecast);
     //console.log(wins);
 
 
     Flotr.draw(
         document.getElementById("forecast-chart"),
         [
-            {data: orders, lines: {show: true}},
-            {data: forecast, lines: {show: true}}
+            {
+                data: orders,
+                lines: {show: true},
+                label: "orders",
+
+            },
+            {
+                data: forecast,
+                lines: {show: true},
+                label: "one-step forecast"
+            },
+            {
+                data: regression,
+                lines: {show: true},
+                label: "regression"
+            },
+            {
+                data: safety,
+                lines: {show: true},
+                label: "safety stock level",
+                color: "#C61C6F"
+            },
+            {
+                data: reorder,
+                lines: {show: true},
+                label: "reorder level"
+            },
+
         ]
     );
+
 }
 
 function format_number(num) {
@@ -665,8 +963,10 @@ function currency_fetch(id) {
             //console.log(JSON.stringify({"filters": filters}));
             //console.log(data);
             var li = [...data.objects];
-            //console.log(li[0].currency_code);
+            console.log(li[0].currency_code);
             $('#currency-code').text(li[0].currency_code);
+            return li[0].currency_code
+
 
         },
         error: function (result) {
@@ -674,6 +974,7 @@ function currency_fetch(id) {
 
         }
     });
+
 
 }
 
@@ -1117,10 +1418,10 @@ function create_shortages_table(data) {
         $("<tr><td><a href=\"sku_detail/" + data.objects[i].sku_id + "\">" + data.objects[i].sku.sku_id + "</a></td>" +
             "<td>" + format_number(data.objects[i].quantity_on_hand) + "</td>" +
             "<td>" + format_number(Math.round(data.objects[i].average_orders)) + "</td>" +
-            "<td>" + data.objects[i].shortages + "</td>" +
+            "<td>" + format_number(data.objects[i].shortages) + "</td>" +
             "<td>" + currency_code + format_number(data.objects[i].shortage_cost) + "</td>" +
-            "<td>" + data.objects[i].safety_stock + "</td>" +
-            "<td>" + data.objects[i].reorder_level + "</td>" +
+            "<td>" + format_number(data.objects[i].safety_stock) + "</td>" +
+            "<td>" + format_number(data.objects[i].reorder_level) + "</td>" +
             "<td>" + Math.round(data.objects[i].percentage_contribution_revenue * 100) + "%</td>" +
             "<td>" + data.objects[i].revenue_rank + "</td>" +
             "<td><a href=\"abcxyz/" + data.objects[i].abc_xyz_classification + "\">" + data.objects[i].abc_xyz_classification + "</a></td></tr>").insertAfter("#shortage-table tr:last");
@@ -1205,13 +1506,13 @@ function create_excess_table(data) {
         var symbols = currency_symbol_allocator(data.objects[i].currency.currency_code);
         percentage_excess = Math.round((data.objects[i].excess_stock / data.objects[i].quantity_on_hand) * 100);
         $("<tr><td><a href=\"sku_detail/" + data.objects[i].sku_id + "\">" + data.objects[i].sku.sku_id + "</td>" +
-            "<td>" + data.objects[i].quantity_on_hand + "</td>" +
-            "<td>" + data.objects[i].average_orders + "</td>" +
-            "<td>" + data.objects[i].excess_stock + "</td>" +
+            "<td>" + format_number(data.objects[i].quantity_on_hand) + "</td>" +
+            "<td>" + format_number(data.objects[i].average_orders) + "</td>" +
+            "<td>" + format_number(data.objects[i].excess_stock) + "</td>" +
             "<td>" + currency_symbol_allocator(data.objects[i].currency.currency_code) + format_number(data.objects[i].excess_cost) + "</td>" +
             "<td>" + percentage_excess + "%" + "</td>" +
-            "<td>" + data.objects[i].safety_stock + "</td>" +
-            "<td>" + data.objects[i].reorder_level + "</td>" +
+            "<td>" + format_number(data.objects[i].safety_stock) + "</td>" +
+            "<td>" + format_number(data.objects[i].reorder_level) + "</td>" +
             "<td><a href=\"abcxyz/" + data.objects[i].abc_xyz_classification + "\">" + data.objects[i].abc_xyz_classification + "</a></td></tr>").insertAfter("#excess-table tr:last");
 
 
@@ -1278,16 +1579,16 @@ function create_classification_table(data) {
 
     var abc_xyz_data = new unpack.abc_xyz(data, 'table');
     var currency_code;
-
+    //console.log(abc_xyz_data);
 
     $("#classification-table").append().html("<tr id='classification-row'><th>Classification</th><th>Revenue</th><th>Shortages</th>" + "<th>Excess</th></tr>");
     //console.log(excess_data);
-    var code = $('#currency-code').text().trim(" ");
-    //console.log(code);
-    var symbols = currency_symbol_allocator(code);
+
+
     var obj;
-    //console.log(abc_xyz_data[0].currency_id);
-    var d = currency_fetch(abc_xyz_data[0].currency_id);
+
+    var symbols = currency_symbol_allocator(abc_xyz_data[0].currency_code);
+    //console.log(symbols, abc_xyz_data[0].currency_code);
     for (obj in abc_xyz_data) {
         //console.log(abc_xyz_data[obj].abc_xyz_classification);
         $("<tr><td><a href=\"abcxyz/" + abc_xyz_data[obj].abc_xyz_classification + "\">" + abc_xyz_data[obj].abc_xyz_classification + "</a>"

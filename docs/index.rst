@@ -16,7 +16,7 @@ Contents:
    quickstart
    reporting
    calculations
-
+   suchpy_pandas_jupyter
 
 
 Indices and tables

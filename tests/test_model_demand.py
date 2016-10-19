@@ -6,8 +6,7 @@ from supplychainpy.model_demand import holts_trend_corrected_exponential_smoothi
 from supplychainpy.model_demand import holts_trend_corrected_exponential_smoothing_forecast_from_file
 from supplychainpy.model_demand import simple_exponential_smoothing_forecast_from_file
 from supplychainpy.sample_data.config import ABS_FILE_PATH
-
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.WARNING, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class TestModelDemand(TestCase):
@@ -18,7 +17,7 @@ class TestModelDemand(TestCase):
         self._orders = [165, 171, 147, 143, 164, 160, 152, 150, 159, 169, 173, 203, 169, 166, 162, 147, 188, 161, 162,
                         169, 185, 188, 200, 229, 189, 218, 185, 199, 210, 193, 211, 208, 216, 218, 264, 304]
 
-        with open(ABS_FILE_PATH['COMPLETE_CSV_SM'], 'r') as raw_data:
+        with open(ABS_FILE_PATH['COMPLETE_CSV_XSM'], 'r') as raw_data:
             self.item_list = _data_cleansing.clean_orders_data_row_csv(raw_data, length=12)
         self.sku_id = []
 
@@ -26,7 +25,7 @@ class TestModelDemand(TestCase):
             self.sku_id.append(sku.get("sku_id"))
 
         self.ses_forecast = [i for i in
-                             simple_exponential_smoothing_forecast_from_file(file_path=ABS_FILE_PATH['COMPLETE_CSV_SM'],
+                             simple_exponential_smoothing_forecast_from_file(file_path=ABS_FILE_PATH['COMPLETE_CSV_XSM'],
                                                                              file_type='csv',
                                                                              length=12,
                                                                              smoothing_level_constant=0.5,
@@ -36,7 +35,7 @@ class TestModelDemand(TestCase):
 
         self.htces_forecast = [i for i in
                                holts_trend_corrected_exponential_smoothing_forecast_from_file(
-                                   file_path=ABS_FILE_PATH['COMPLETE_CSV_SM'],
+                                   file_path=ABS_FILE_PATH['COMPLETE_CSV_XSM'],
                                    file_type='csv',
                                    length=12,
                                    alpha=0.5,

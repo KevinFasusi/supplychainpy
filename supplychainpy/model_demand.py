@@ -88,28 +88,28 @@ def simple_exponential_smoothing_forecast(demand: list = None, smoothing_level_c
 
             return ses_evo_forecast
         else:
-
             return _ses_forecast(smoothing_level_constant=smoothing_level_constant,
                                  forecast_demand=forecast_demand,
                                  forecast_length=forecast_length)
     else:
-
         return _ses_forecast(smoothing_level_constant=smoothing_level_constant,
                              forecast_demand=forecast_demand,
                              forecast_length=forecast_length)
 
 
 def _ses_forecast(smoothing_level_constant, forecast_demand, forecast_length):
-
     forecast_breakdown = [i for i in forecast_demand.simple_exponential_smoothing(smoothing_level_constant)]
     ape = LinearRegression(forecast_breakdown)
     mape = forecast_demand.mean_aboslute_percentage_error_opt(forecast_breakdown)
     stats = ape.least_squared_error()
     simple_forecast = forecast_demand.simple_exponential_smoothing_forecast(forecast=forecast_breakdown,
                                                                             forecast_length=forecast_length)
-
+    regression_line = regr_ln(stats=stats)
+    log.log(logging.WARNING,
+            "A STANDARD simple exponential smoothing forecast has been completed.")
     return {'forecast_breakdown': forecast_breakdown, 'mape': mape, 'statistics': stats,
-            'forecast': simple_forecast, 'alpha': smoothing_level_constant}
+            'forecast': simple_forecast, 'alpha': smoothing_level_constant,
+            'regression': [i for i in regression_line.get('regression')]}
 
 
 def simple_exponential_smoothing_forecast_from_file(file_path: str, file_type: str, length: int,
@@ -120,7 +120,7 @@ def simple_exponential_smoothing_forecast_from_file(file_path: str, file_type: s
     if check_extension(file_path=file_path, file_type=file_type):
         if file_type == FileFormats.text.name:
             with open(file_path, 'r') as raw_data:
-                item_list = (_data_cleansing.clean_orders_data_row(file=raw_data, length= length))
+                item_list = (_data_cleansing.clean_orders_data_row(file=raw_data, length=length))
         elif file_type == FileFormats.csv.name:
             with open(file_path) as raw_data:
                 item_list = _data_cleansing.clean_orders_data_row_csv(file=raw_data, length=length)
@@ -136,12 +136,16 @@ def simple_exponential_smoothing_forecast_from_file(file_path: str, file_type: s
         orders = [int(i) for i in sku.get("demand")]
 
         if kwargs['optimise']:
+            log.log(logging.WARNING,
+                    "An OPTIMISED simple exponential smoothing forecast has been completed for SKU {}.".format(sku_id))
             yield {sku_id: simple_exponential_smoothing_forecast(demand=orders,
                                                                  forecast_length=forecast_length,
                                                                  smoothing_level_constant=smoothing_level_constant,
                                                                  optimise=True)}
 
         else:
+            log.log(logging.WARNING,
+                    "A STANDARD simple exponential smoothing forecast has been completed for SKU {}.".format(sku_id))
             yield {sku_id: simple_exponential_smoothing_forecast(demand=orders,
                                                                  forecast_length=forecast_length,
                                                                  smoothing_level_constant=smoothing_level_constant)}
@@ -185,36 +189,38 @@ def holts_trend_corrected_exponential_smoothing_forecast(demand: list, alpha: fl
 
             optimal_alpha = evo_mod.initial_population(individual_type='htces')
 
-            log.log(logging.INFO, 'An optimal alpha {} and optimal gamma {} have been found.'.format(optimal_alpha[1][0],
-                                                                                                     optimal_alpha[1][1]))
+            log.log(logging.WARNING,
+                    'An optimal alpha {} and optimal gamma {} have been found.'.format(optimal_alpha[1][0],
+                                                                                       optimal_alpha[1][1]))
 
             htces_forecast = [i for i in
                               forecast_demand.holts_trend_corrected_exponential_smoothing(alpha=optimal_alpha[1][0],
                                                                                           gamma=optimal_alpha[1][1],
-                                                                                          intercept=log_stats.get('intercept'),
+                                                                                          intercept=log_stats.get(
+                                                                                              'intercept'),
                                                                                           slope=log_stats.get('slope'))]
 
             holts_forecast = forecast_demand.holts_trend_corrected_forecast(forecast=htces_forecast,
                                                                             forecast_length=forecast_length)
-            log.log(logging.INFO, 'An OPTIMAL holts trend exponential smoothing forecast has been generated')
+            log.log(logging.INFO, 'An OPTIMAL Holts trend exponential smoothing forecast has been generated.')
+            sum_squared_error_opt = forecast_demand.sum_squared_errors_indi_htces(squared_error=[htces_forecast],
+                                                                                  alpha=optimal_alpha[1][0],
+                                                                                  gamma=optimal_alpha[1][1])
 
-            sum_squared_error_opt = forecast_demand.sum_squared_errors_indi_htces(squared_error=[htces_forecast ],
-                                                                              alpha=optimal_alpha[1][0], gamma=optimal_alpha[1][1])
-
-
-            standard_error_opt = forecast_demand.standard_error(sum_squared_error_opt, len(demand), (optimal_alpha[1][0], optimal_alpha[1][1]), 2)
-
+            standard_error_opt = forecast_demand.standard_error(sum_squared_error_opt, len(demand),
+                                                                (optimal_alpha[1][0], optimal_alpha[1][1]), 2)
 
             ape = LinearRegression(htces_forecast)
             mape = forecast_demand.mean_aboslute_percentage_error_opt(htces_forecast)
             stats = ape.least_squared_error()
-
+            regression_line = regr_ln(stats=stats)
             return {'forecast_breakdown': htces_forecast, 'forecast': holts_forecast, 'mape': mape, 'statistics': stats,
                     'optimal_alpha': optimal_alpha[1][0],
                     'optimal_gamma': optimal_alpha[1][1],
                     'SSE': sum_squared_error_opt,
                     'standard_error': standard_error_opt,
-                    'original_standard_error': standard_error}
+                    'original_standard_error': standard_error,
+                    'regression': [i for i in regression_line.get('regression')]}
 
     else:
 
@@ -234,8 +240,7 @@ def holts_trend_corrected_exponential_smoothing_forecast(demand: list, alpha: fl
         holts_forecast = forecast_demand.holts_trend_corrected_forecast(forecast=htces_forecast,
                                                                         forecast_length=forecast_length)
 
-        log.log(logging.INFO, 'A STANDARD holts trend exponential smoothing forecast has been generated')
-
+        log.log(logging.INFO, 'A STANDARD Holts trend exponential smoothing forecast has been generated.')
 
         sum_squared_error = forecast_demand.sum_squared_errors_indi_htces(squared_error=[htces_forecast],
                                                                           alpha=alpha, gamma=gamma)
@@ -243,12 +248,14 @@ def holts_trend_corrected_exponential_smoothing_forecast(demand: list, alpha: fl
         ape = LinearRegression(htces_forecast)
         mape = forecast_demand.mean_aboslute_percentage_error_opt(htces_forecast)
         stats = ape.least_squared_error()
-
+        regression_line = regr_ln(stats=stats)
+        log.log(logging.WARNING, "A STANDARD Holts trend exponential smoothing forecast has been completed.")
         return {'forecast_breakdown': htces_forecast,
                 'forecast': holts_forecast,
                 'mape': mape,
                 'statistics': stats,
-                'sum_squared_errors': sum_squared_error}
+                'sum_squared_errors': sum_squared_error,
+                'regression': [i for i in regression_line.get('regression')]}
 
 
 def holts_trend_corrected_exponential_smoothing_forecast_from_file(file_path: str, file_type: str, length: int,
@@ -272,11 +279,21 @@ def holts_trend_corrected_exponential_smoothing_forecast_from_file(file_path: st
         orders = [int(i) for i in sku.get("demand")]
 
         if kwargs['optimise']:
+            log.log(logging.WARNING,
+                    "An OPTIMISED Holts trend exponential smoothing forecast has been completed for SKU {}.".format(sku_id))
             yield {sku_id: holts_trend_corrected_exponential_smoothing_forecast(demand=orders, alpha=alpha, gamma=gamma,
                                                                                 forecast_length=4, initial_period=18,
                                                                                 optimise=True)}
 
         else:
+            log.log(logging.WARNING,
+                    "A STANDARD Holts trend exponential smoothing forecast has been complete for SKU {}.".format(sku_id))
             yield {sku_id: holts_trend_corrected_exponential_smoothing_forecast(demand=orders, alpha=alpha, gamma=gamma,
                                                                                 forecast_length=4, initial_period=18,
-                                                                                optimise=True)}
+                                                                                optimise=False)}
+
+
+def regr_ln(stats: dict) -> dict:
+    regr = {
+        'regression': [(stats.get('slope') * i) + stats.get('intercept') for i in range(0, 12)]}
+    return regr

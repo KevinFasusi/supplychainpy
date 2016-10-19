@@ -1,4 +1,5 @@
-# Copyright (c) 2015-2016, Kevin Fasusi
+# Copyright (c) 2015-2016, The Authors and Contributors
+# <see AUTHORS file>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
@@ -66,6 +67,7 @@ class Currency(db.Model):
     fx = db.relationship("InventoryAnalysis", backref='currency', lazy='dynamic')
     currency_code = db.Column(db.String(3))
     country = db.Column(db.String(255))
+    symbol = db.Column(db.String(255))
 
 
 class TransactionLog(db.Model):
@@ -73,6 +75,7 @@ class TransactionLog(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     date = db.Column(db.DateTime())
     transaction = db.relationship("InventoryAnalysis", backref='log', lazy='dynamic')
+    profile_recommendation = db.relationship("ProfileRecommendation", backref='profile', lazy='dynamic')
 
 
 class InventoryAnalysis(db.Model):
@@ -113,6 +116,8 @@ class InventoryAnalysis(db.Model):
     forecast_id = db.relationship("Forecast", backref='forecasts', lazy='dynamic')
     forecast_breakdown_id = db.relationship("ForecastBreakdown", backref='estimates', lazy='dynamic')
     inventory_turns = db.Column(db.Float())
+    traffic_light = db.Column(db.String(6))
+    recommendation_id = db.relationship("Recommendations", backref='rec', lazy='dynamic')
 
     @property
     def serialize(self):
@@ -207,6 +212,21 @@ class ForecastBreakdown(db.Model):
     one_step_forecast = db.Column(db.Float())
     forecast_error = db.Column(db.Float())
     squared_error = db.Column(db.Float())
+    regression = db.Column(db.Float())
+
+
+class Recommendations(db.Model):
+    __table_args__ = {'sqlite_autoincrement': True}
+    id = db.Column(db.Integer(), primary_key=True)
+    analysis_id = db.Column(db.Integer, db.ForeignKey('inventory_analysis.id'))
+    statement = db.Column(db.Text())
+
+
+class ProfileRecommendation(db.Model):
+    __table_args__ = {'sqlite_autoincrement': True}
+    id = db.Column(db.Integer(), primary_key=True)
+    transaction_id = db.Column(db.Integer, db.ForeignKey('transaction_log.id'))
+    statement = db.Column(db.Text())
 
 
 manager = APIManager(app, flask_sqlalchemy_db=db)
@@ -218,6 +238,7 @@ manager.create_api(Forecast, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_f
 manager.create_api(ForecastStatistics, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
 manager.create_api(ForecastBreakdown, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
 manager.create_api(MasterSkuList, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
+manager.create_api(Recommendations, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
 
 
 @app.route('/')
@@ -231,39 +252,97 @@ def dashboard():
                                          InventoryAnalysis.shortages,
                                          InventoryAnalysis.average_orders,
                                          InventoryAnalysis.safety_stock,
-                                         InventoryAnalysis.reorder_level
+                                         InventoryAnalysis.reorder_level,
+                                         InventoryAnalysis.currency_id
                                          ).order_by(desc(InventoryAnalysis.shortage_cost)).limit(10)
+    currency = db.session.query(Currency).all()
 
-    return flask.render_template('index.html', shortages=top_ten_shortages)
+    return flask.render_template('index.html', shortages=top_ten_shortages, currency=currency)
 
 
 @app.route('/bot')
 def bot():
+    """the route for Dash the chat bot."""
     return flask.render_template('bot.html')
 
 
 @app.route('/lexicon')
 def lexicon():
+    """The route for displaying examples for interacting with the chat bot.
+
+    Returns:
+        html
+
+    """
     return flask.render_template('lexicon.html')
 
 
 @app.route('/chat/<string:message>', methods=['GET'])
 def chat(message: str = None):
+    """ Rest api for chat bot
+
+    Args:
+        message: User query to chat bot.
+
+    Returns:
+        json:   Response from chat bot.
+
+    """
     dash = ChatBot()
-    response = dash.chat(message=message)
+    response = dash.chat_machine(message=message)
 
     return flask.jsonify(json_list=response)
 
 
+@app.route('/recommended/<string:sku_id>', methods=['GET'])
+def recommended(sku_id: str = None):
+    """The route to the rest api for retrieving recommendations for a SKU.
+
+    Args:
+        sku_id:     The SKU ID for a product.
+    Returns:
+
+    """
+    """Rest api for sku level recommendations."""
+    sku = db.session.query(MasterSkuList).filter(MasterSkuList.id == sku_id).first()
+    inventory = db.session.query(InventoryAnalysis.id).filter(InventoryAnalysis.sku_id == sku.id).first()
+    recommend = db.session.query(Recommendations.statement).filter(Recommendations.analysis_id == inventory.id).all()
+    return flask.jsonify(json_list=recommend)
+
+
+@app.route('/about', methods=['GET'])
+def about():
+    return flask.render_template('about.html')
+
+
+@app.route('/feed', methods=['GET'])
+def feed():
+    recommend = db.session.query(Recommendations).all()
+    profile = db.session.query(ProfileRecommendation).all()
+    inventory = db.session.query(InventoryAnalysis).all()
+    return flask.render_template('feed.html', inventory=inventory, profile=profile, recommendations=recommend)
+
+
 @app.route('/data')
 def raw_data():
-    inventory = db.session.query(InventoryAnalysis).all()
+    """Route for the raw data from the analysis.
 
-    return flask.render_template('rawdata.html', inventory=inventory)
+    Returns:
+
+    """
+    inventory = db.session.query(InventoryAnalysis).all()
+    cur = db.session.query(Currency).all()
+
+    return flask.render_template('rawdata.html', inventory=inventory, currency=cur)
 
 
 @app.route('/upload/', methods=['POST', 'GET'])
 def upload_file():
+    """
+
+    Returns:
+
+    """
     target = UPLOAD_FOLDER
     form = DataForm()
     if request.method == 'POST':
@@ -275,6 +354,11 @@ def upload_file():
 
 @app.route('/settings', methods=['POST', 'GET'])
 def settings():
+    """Route to settings view.
+
+    Returns:
+
+    """
     form = SettingsForm()
     return flask.render_template('settings.html', form=form)
 
@@ -282,7 +366,14 @@ def settings():
 @app.route('/reporting/api/v1.0/sku_detail', methods=['GET'])
 @app.route('/reporting/api/v1.0/sku_detail/<string:sku_id>', methods=['GET'])
 def sku_detail(sku_id: str = None):
-    """route for restful sku detail, whole content limited by most recent date or individual sku"""
+    """Route for restful sku detail, whole content limited by most recent date or individual sku
+
+    Args:
+        sku_id:
+
+    Returns:
+
+    """
     if sku_id is not None:
         inventory = db.session.query(InventoryAnalysis).filter(InventoryAnalysis.sku_id == sku_id).all()
     else:
@@ -306,10 +397,13 @@ def sku(sku_id: str = None):
         forecast_breakdown = db.session.query(ForecastBreakdown).filter(ForecastBreakdown.analysis_id == inven.id)
         forecast = db.session.query(Forecast).filter(Forecast.analysis_id == inven.id).all()
         forecast_statistics = db.session.query(ForecastStatistics).filter(ForecastStatistics.analysis_id == inven.id)
-        # inventory = db.session.query(InventoryAnalysis).all()
+        recommend = db.session.query(Recommendations.statement).filter(
+            Recommendations.analysis_id == inven.id).all()
+        cur = db.session.query(Currency).all()
 
     return flask.render_template('sku.html', inventory=inventory, orders=orders, breakdown=forecast_breakdown,
-                                 forecast=forecast, statistics=forecast_statistics)
+                                 forecast=forecast, statistics=forecast_statistics, recommendations=recommend,
+                                 currency=cur)
 
 
 @app.route('/reporting/api/v1.0/abc_summary', methods=['GET'])
@@ -318,19 +412,23 @@ def get_classification_summary(classification: str = None):
     """route for restful summary of costs by abcxyz classifications"""
     if classification is not None:
         revenue_classification = db.session.query(InventoryAnalysis.abc_xyz_classification,
+                                                  InventoryAnalysis.currency_id,
+                                                  Currency.currency_code,
                                                   func.sum(InventoryAnalysis.revenue).label('total_revenue'),
                                                   func.sum(InventoryAnalysis.shortage_cost).label('total_shortages'),
                                                   func.sum(InventoryAnalysis.excess_cost).label('total_excess')
-                                                  ).filter(
+                                                  ).join(Currency).filter(
             InventoryAnalysis.abc_xyz_classification == classification).group_by(
             InventoryAnalysis.abc_xyz_classification).all()
     else:
         revenue_classification = db.session.query(InventoryAnalysis.abc_xyz_classification,
                                                   InventoryAnalysis.currency_id,
+                                                  Currency.currency_code,
                                                   func.sum(InventoryAnalysis.revenue).label('total_revenue'),
                                                   func.sum(InventoryAnalysis.shortage_cost).label('total_shortages'),
                                                   func.sum(InventoryAnalysis.excess_cost).label('total_excess')
-                                                  ).group_by(InventoryAnalysis.abc_xyz_classification).all()
+                                                  ).join(Currency).group_by(
+            InventoryAnalysis.abc_xyz_classification).all()
 
     return flask.jsonify(json_list=[i for i in revenue_classification])
 
@@ -342,8 +440,9 @@ def abxyz(classification: str = None):
         InventoryAnalysis.abc_xyz_classification == classification).all()
 
     msk = db.session.query(MasterSkuList).all()
+    cur = db.session.query(Currency).all()
 
-    return flask.render_template('abcxyz.html', inventory=abc, mks=msk)
+    return flask.render_template('abcxyz.html', inventory=abc, mks=msk, currency=cur)
 
 
 @app.route('/reporting/api/v1.0/top_shortages', methods=['GET'])
@@ -460,7 +559,6 @@ def currency():
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
-
 
 
 if __name__ == '__main__':

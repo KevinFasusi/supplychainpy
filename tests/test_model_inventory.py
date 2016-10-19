@@ -10,8 +10,6 @@ from pandas import DataFrame
 from supplychainpy import model_inventory
 from supplychainpy.model_inventory import analyse
 from supplychainpy.sample_data.config import ABS_FILE_PATH
-
-
 # logging.basicConfig(filename='suchpy_tests_log.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class TestBuildModel(TestCase):
@@ -120,7 +118,6 @@ class TestBuildModel(TestCase):
                                                          reorder_cost=Decimal(450),
                                                          z_value=Decimal(1.28))
         for row in d:
-            print(row)
             std = row.get('standard_deviation')
         self.assertEqual(Decimal(std), 25)
 

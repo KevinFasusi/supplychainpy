@@ -28,9 +28,9 @@ import uuid
 from shutil import copyfile
 
 from sqlalchemy import create_engine
-from supplychainpy._csv_management._controller.update_db import post_transaction
+from supplychainpy._csv_management._controller._update_db import post_transaction
 from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_APPLICATION_CONFIG, ABS_FILE_PATH_ARCHIVE, \
-    ABS_FILE_PATH_CSV_MANAGEMENT_CONFIG, REL_PATH_ARCHIVE
+    ABS_FILE_PATH_CSV_MANAGEMENT_CONFIG
 from supplychainpy._helpers._db_connection import database_connection_uri
 from supplychainpy._helpers._pickle_config import deserialise_config, serialise_config
 
@@ -56,7 +56,7 @@ class _Orchestrate:
         """
         config = deserialise_config(ABS_FILE_PATH_CSV_MANAGEMENT_CONFIG)
         f = list([i.name for i in os.scandir(ABS_FILE_PATH_ARCHIVE)])
-        print(f,'\n', config.get('database_name', 'UNKNOWN'))
+        #print(f,'\n', config.get('database_name', 'UNKNOWN'))
         if config.get('database_name', 'UNKNOWN') in f:
             return False
         else:
@@ -85,7 +85,6 @@ class _Orchestrate:
             except FileExistsError as e:
                 print('The source file is not in the same location as the analysis database. Please place the file in '
                       'the same location and restart the process.')
-
 
     @staticmethod
     def update_database(analysis_id) -> bool:

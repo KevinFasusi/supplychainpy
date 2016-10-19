@@ -31,7 +31,7 @@
 
   
     <link rel="top" title="supplychainpy 0.0.3 documentation" href="index.html"/>
-        <link rel="next" title="&lt;no title&gt;" href="reports.html"/>
+        <link rel="next" title="Supplychainpy Reporting Suite" href="reporting.html"/>
         <link rel="prev" title="Installation" href="Installation.html"/> 
 
   
@@ -90,7 +90,9 @@
 <li class="toctree-l2"><a class="reference internal" href="#monte-carlo-simulation">Monte Carlo simulation</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="reporting.html">Supplychainpy Reporting Suite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="suchpy_pandas_jupyter.html">Using Pandas With supplychainpy</a></li>
 </ul>
 
             
@@ -313,6 +315,13 @@ same analysis in <cite>dict</cite> based example. The example below generates th
 </div></blockquote>
 <p>Use the <cite>describe_sku</cite> method a retrieve a summary for a specific skus:</p>
 <div class="code highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="kn">import</span> <span class="n">model_inventory</span>
+<span class="go">    &gt;&gt;&gt; from supplychainpy.inventory.summarise import InventoryAnalysis</span>
+<span class="go">    &gt;&gt;&gt; analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)</span>
+<span class="go">    &gt;&gt;&gt;</span>
+<span class="go">    &gt;&gt;&gt; for summarised in analysis_summary.describe_sku(&#39;KR202-217&#39;):</span>
+<span class="go">    &gt;&gt;&gt;     print(summarised)</span>
+
+<span class="go">The output for a sku description is different to the</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.inventory.summarise</span> <span class="kn">import</span> <span class="n">OrdersAnalysis</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_summary</span> <span class="o">=</span> <span class="n">OrdersAnalysis</span><span class="p">(</span><span class="n">analysed_orders</span><span class="o">=</span><span class="n">orders_analysis</span><span class="p">)</span>
 <span class="go">&gt;&gt;&gt;</span>
@@ -342,6 +351,17 @@ same analysis in <cite>dict</cite> based example. The example below generates th
 </ul>
 <p>The describe_sku method can take multiple parameters:</p>
 <div class="code highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="kn">import</span> <span class="n">model_inventory</span>
+<span class="go">    &gt;&gt;&gt; from supplychainpy.inventory.summarise import InventoryAnalysis</span>
+<span class="go">    &gt;&gt;&gt; analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)</span>
+<span class="go">    &gt;&gt;&gt;</span>
+<span class="go">    &gt;&gt;&gt; skus = [&#39;KR202-209&#39;, &#39;KR202-210&#39;, &#39;KR202-211&#39;]</span>
+<span class="go">    &gt;&gt;&gt;</span>
+<span class="go">    &gt;&gt;&gt; skus_description = [summarised for summarised in analysis_summary.describe_sku(*skus)]</span>
+<span class="go">    &gt;&gt;&gt; print(skus_description)</span>
+
+<span class="go">Or simply:</span>
+
+
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.inventory.summarise</span> <span class="kn">import</span> <span class="n">OrdersAnalysis</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_summary</span> <span class="o">=</span> <span class="n">OrdersAnalysis</span><span class="p">(</span><span class="n">analysed_orders</span><span class="o">=</span><span class="n">orders_analysis</span><span class="p">)</span>
 <span class="go">&gt;&gt;&gt;</span>
@@ -353,6 +373,15 @@ same analysis in <cite>dict</cite> based example. The example below generates th
 </div>
 <p>Or simply:</p>
 <div class="code highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="kn">import</span> <span class="n">model_inventory</span>
+<span class="go">    &gt;&gt;&gt; from supplychainpy.inventory.summarise import InventoryAnalysis</span>
+<span class="go">    &gt;&gt;&gt; analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)</span>
+<span class="go">    &gt;&gt;&gt;</span>
+<span class="go">    &gt;&gt;&gt; for summarised in analysis_summary.describe_sku(&#39;KR202-209&#39;, &#39;KR202-210&#39;, &#39;KR202-211&#39;):</span>
+<span class="go">    &gt;&gt;&gt;     print(summarised)</span>
+
+<span class="go">Output:</span>
+
+
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.inventory.summarise</span> <span class="kn">import</span> <span class="n">OrdersAnalysis</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_summary</span> <span class="o">=</span> <span class="n">OrdersAnalysis</span><span class="p">(</span><span class="n">analysed_orders</span><span class="o">=</span><span class="n">orders_analysis</span><span class="p">)</span>
 <span class="go">&gt;&gt;&gt;</span>
@@ -381,7 +410,41 @@ same analysis in <cite>dict</cite> based example. The example below generates th
 </pre></div>
 </div>
 <p>The example below filters the results based on an attribute, in this case <cite>shortage cost</cite> using the attribute name shortages:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.inventory.summarise</span> <span class="kn">import</span> <span class="n">OrdersAnalysis</span>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.inventory.summarise</span> <span class="kn">import</span> <span class="n">InventoryAnalysis</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">orders_analysis</span> <span class="o">=</span> <span class="n">model_inventory</span><span class="o">.</span><span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">abs_file_path</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                                                                            <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>                                                                            <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>                                                                            <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                                                                            <span class="n">length</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_summary</span> <span class="o">=</span> <span class="n">OrdersAnalysis</span><span class="p">(</span><span class="n">analysed_orders</span><span class="o">=</span><span class="n">orders_analysis</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">top_ten_shortages</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">analysis_summary</span><span class="o">.</span><span class="n">sku_ranking_filter</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s2">&quot;shortages&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)]</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">top_ten_shortages</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The results for</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.inventory.summarise</span> <span class="kn">import</span> <span class="n">InventoryAnalysis</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">orders_analysis</span> <span class="o">=</span> <span class="n">model_inventory</span><span class="o">.</span><span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">abs_file_path</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                                                                            <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>                                                                            <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>                                                                            <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                                                                            <span class="n">length</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_summary</span> <span class="o">=</span> <span class="n">OrdersAnalysis</span><span class="p">(</span><span class="n">analysed_orders</span><span class="o">=</span><span class="n">orders_analysis</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">top_ten_shortages</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">analysis_summary</span><span class="o">.</span><span class="n">sku_ranking_filter</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s2">&quot;shortages&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)]</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">top_ten_shortages</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The results for</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.inventory.summarise</span> <span class="kn">import</span> <span class="n">OrdersAnalysis</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">orders_analysis</span> <span class="o">=</span> <span class="n">model_inventory</span><span class="o">.</span><span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">abs_file_path</span><span class="p">,</span>
@@ -688,7 +751,7 @@ for each release.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="reports.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="reporting.html" class="btn btn-neutral float-right" title="Supplychainpy Reporting Suite" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="Installation.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

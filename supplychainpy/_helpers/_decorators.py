@@ -31,7 +31,6 @@ from functools import wraps
 
 from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_DASH
 
-
 UNKNOWN = 'UNKNOWN'
 
 
@@ -108,7 +107,6 @@ def pickle_response(func):
         state_map = {'last_utterance': message}
         with open(ABS_FILE_PATH_DASH, 'wb') as f:
             pickle.dump(state_map, f)
-
         return message
 
     return wrapper
@@ -118,7 +116,6 @@ def keyword_sniffer(func):
     @wraps(func)
     def wrapper(**kwargs):
         temp_kwargs = {}
-
         temp_kwargs.update({'file_path': kwargs.get('file_path', UNKNOWN),
                             'df': kwargs.get('df', UNKNOWN),
                             'raw_data': kwargs.get('raw_data', UNKNOWN),

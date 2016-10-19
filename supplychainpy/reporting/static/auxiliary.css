@@ -255,15 +255,28 @@ nav ul li a {
     padding-left: 110px
 }
 
-#popup {
+.traffic-light {
     width: 20px;
     height: 20px;
     border-radius: 10px;
     float: left;
-
-    background-color: #00A000;
 }
 
+.green {
+    background-color: lawngreen;
+}
+
+.amber {
+    background-color: #BD3613;;
+}
+
+.red {
+    background-color: red;
+}
+
+.white{
+     background-color:white;
+}
 .highlight-event {
     background-color: #0A2933;
 
@@ -307,7 +320,7 @@ nav ul li a {
     overflow-x: hidden;
 }
 
-.scribble-panel {
+.scribble-panel, .recommendation-panel {
     background-color: #475B62;
     min-width: 500px;
     min-height: 200px;
@@ -320,6 +333,10 @@ nav ul li a {
     padding-left: 60px;
     color: white;
 
+}
+
+.scribble-panel {
+    min-width: 600px;
 }
 
 #response-panel {
@@ -455,4 +472,34 @@ nav ul li a {
 .keyword-table > tbody > tr > td,
 .keyword-table > tfoot > tr > td {
     text-align: left;
+}
+
+#sku-icon, #warehouse-icon, #search-btn, #clear-btn {
+    float: right;
+}
+
+#clear-btn, #search-btn {
+    margin-top: 10px;
+    margin-left: 10px;
+
+}
+
+.recommendation-panel {
+    overflow-x: hidden;
+}
+
+.rec-panel {
+    max-height: 240px;
+    background-color: #708284;
+}
+
+.recommendation-panel {
+    padding: 25px;
+    font-size: 1.3em;
+    line-height: 1.3em;
+
+}
+
+#rec-btns {
+    margin-right: 80px;
 }
