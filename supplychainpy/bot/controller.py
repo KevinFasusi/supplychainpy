@@ -132,3 +132,57 @@ def revenue_controller(uri: str, direction: str = None, sku_id: str = None) -> t
         result.append(i['sku_id'])
     rp.close()
     return tuple(result)
+
+def inventory_turns_controller(uri: str, direction: str = None):
+    meta = MetaData()
+    connection = engine(uri)
+    inventory_analysis = Table('inventory_analysis', meta, autoload=True, autoload_with=connection)
+    if direction == 'smallest':
+       skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.inventory_turns,
+                      func.min(inventory_analysis.columns.inventory_turns)])
+    else:
+       skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.inventory_turns,
+                      func.max(inventory_analysis.columns.inventory_turns)])
+
+    rp = connection.execute(skus)
+    result = []
+    sku_id = ""
+    for i in rp:
+        sku_id = str(i['sku_id'])
+        result.append((i['sku_id'], i['inventory_turns']))
+    rp.close()
+    # print(sku_id)
+    msk_table = Table('master_sku_list', meta, autoload=True, autoload_with=connection)
+    skus = select([msk_table.columns.id, msk_table.columns.sku_id]).where(msk_table.columns.id == sku_id)
+    rp = connection.execute(skus)
+    for i in rp:
+        result.append(i['sku_id'])
+    rp.close()
+    return tuple(result)
+
+def average_orders_controller(uri: str, direction: str = None):
+    meta = MetaData()
+    connection = engine(uri)
+    inventory_analysis = Table('inventory_analysis', meta, autoload=True, autoload_with=connection)
+    if direction == 'smallest':
+        skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.average_orders,
+                       func.min(inventory_analysis.columns.average_orders)])
+    else:
+        skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.average_orders,
+                       func.max(inventory_analysis.columns.average_orders)])
+
+    rp = connection.execute(skus)
+    result = []
+    sku_id = ""
+    for i in rp:
+        sku_id = str(i['sku_id'])
+        result.append((i['sku_id'], i['average_orders']))
+    rp.close()
+    # print(sku_id)
+    msk_table = Table('master_sku_list', meta, autoload=True, autoload_with=connection)
+    skus = select([msk_table.columns.id, msk_table.columns.sku_id]).where(msk_table.columns.id == sku_id)
+    rp = connection.execute(skus)
+    for i in rp:
+        result.append(i['sku_id'])
+    rp.close()
+    return tuple(result)

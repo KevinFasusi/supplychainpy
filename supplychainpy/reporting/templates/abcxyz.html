@@ -5,14 +5,44 @@
 <div id="node-chart">
     {% set classification_AY = "AY" %}
     {% set classification_AX = "AX" %}
+    {% set classification_AZ = "AZ" %}
+    {% set classification_BX = "BX" %}
+    {% set classification_BY = "BY" %}
+    {% set classification_BZ = "BZ" %}
+    {% set classification_CX = "CX" %}
+    {% set classification_CY = "CY" %}
+    {% set classification_CZ = "CZ" %}
+    <h3>Top Shortages</h3>
     {% for sku in inventory %}
+
     {% if (sku.abc_xyz_classification == classification_AY) and (loop.index == 1) %}
     <div id="AY-node"></div>
-    <h3>Top Shortages</h3>
+    {% endif %}
+    {% if (sku.abc_xyz_classification == classification_AX) and (loop.index == 1) %}
 
-    {% elif (sku.abc_xyz_classification == classification_AX) and (loop.index == 1) %}
     <div id="AX-node"></div>
-    {% else %}
+    {% endif %}
+    {% if (sku.abc_xyz_classification == classification_AZ) and (loop.index == 1) %}
+    <div id="AZ-node"></div>
+    {% endif %}
+    {% if (sku.abc_xyz_classification == classification_BX) and (loop.index == 1) %}
+    <div id="BX-node"></div>
+    {% endif %}
+    {% if (sku.abc_xyz_classification == classification_BY) and (loop.index == 1) %}
+    <div id="BY-node"></div>
+    {% endif %}
+    {% if (sku.abc_xyz_classification == classification_BZ) and (loop.index == 1) %}
+    <div id="BZ-node"></div>
+    {% endif %}
+
+    {% if (sku.abc_xyz_classification == classification_CX) and (loop.index == 1) %}
+    <div id="CX-node"></div>
+    {% endif %}
+    {% if (sku.abc_xyz_classification == classification_CY) and (loop.index == 1) %}
+    <div id="CY-node"></div>
+    {% endif %}
+    {% if (sku.abc_xyz_classification == classification_CZ) and (loop.index == 1) %}
+    <div id="CZ-node"></div>
     {% endif %}
     {% endfor %}
 </div>
@@ -51,21 +81,24 @@
             </tr>
             </thead>
             {% for sku in inventory %}
+            {% for cur in currency if (cur.id == sku.currency_id) %}
+            {% autoescape false %}
+            {% set sym = cur.symbol %}
             <tr>
                 <td><a href="/sku_detail/{{sku.sku_id}}">{{sku.sku.sku_id}}</a></td>
                 <td>{{sku.abc_xyz_classification}}</td>
-                <td>{{sku.safety_stock}}</td>
-                <td>{{sku.revenue}}</td>
-                <td>{{sku.reorder_level}}</td>
-                <td>{{sku.economic_order_quantity}}</td>
+                <td>{{"{:,.2f}".format(sku.safety_stock)}}</td>
+                <td>{{sym}}{{"{:,.2f}".format(sku.revenue)}}</td>
+                <td>{{"{:,.0f}".format(sku.reorder_level)}}</td>
+                <td>{{"{:,.0f}".format(sku.economic_order_quantity)}}</td>
                 <td>{{sku.standard_deviation}}</td>
                 <!--<td>{{sku.demand_variability}}</td>-->
-                <td>{{sku.average_orders}}</td>
-                <td>{{sku.shortages}}</td>
-                <td>{{sku.excess_stock}}</td>
-                <td>{{sku.reorder_quantity}}</td>
+                <td>{{"{:,.0f}".format(sku.average_orders)}}</td>
+                <td>{{"{:,.0f}".format(sku.shortages)}}</td>
+                <td>{{"{:,.0f}".format(sku.excess_stock)}}</td>
+                <td>{{"{:,.0f}".format(sku.reorder_quantity)}}</td>
                 <!--<td>{{sku.economic_order_variable_cost}}</td>-->
-                <td>{{sku.unit_cost}}</td>
+                <td>{{sym}}{{"{:,.2f}".format(sku.unit_cost)}}</td>
                 <!-- <td>{{sku.excess_cost}}</td>
                 <td>{{sku.percentage_contribution_revenue}}</td>
                 <td>{{sku.retail_price}}</td>
@@ -76,7 +109,10 @@
                 <td>{{sku.max_order}}</td>
                 <td>{{sku.shortage_cost}}</td>-->
             </tr>
+            {% endautoescape %}
             {% endfor %}
+            {% endfor %}
+
         </div>
     </div>
 </table>

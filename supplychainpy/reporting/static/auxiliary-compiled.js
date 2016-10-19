@@ -76,6 +76,61 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
         "direction": "desc",
         "limit": 10
     }, { "name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10 }];
+    var az = [{
+        "name": "abc_xyz_classification",
+        "op": "eq",
+        "val": "AZ",
+        "direction": "desc",
+        "limit": 10
+    }, { "name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10 }];
+
+    var bx = [{
+        "name": "abc_xyz_classification",
+        "op": "eq",
+        "val": "BX",
+        "direction": "desc",
+        "limit": 10
+    }, { "name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10 }];
+
+    var by = [{
+        "name": "abc_xyz_classification",
+        "op": "eq",
+        "val": "BY",
+        "direction": "desc",
+        "limit": 10
+    }, { "name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10 }];
+
+    var bz = [{
+        "name": "abc_xyz_classification",
+        "op": "eq",
+        "val": "BZ",
+        "direction": "desc",
+        "limit": 10
+    }, { "name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10 }];
+
+    var cx = [{
+        "name": "abc_xyz_classification",
+        "op": "eq",
+        "val": "CX",
+        "direction": "desc",
+        "limit": 10
+    }, { "name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10 }];
+
+    var cy = [{
+        "name": "abc_xyz_classification",
+        "op": "eq",
+        "val": "CY",
+        "direction": "desc",
+        "limit": 10
+    }, { "name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10 }];
+
+    var cz = [{
+        "name": "abc_xyz_classification",
+        "op": "eq",
+        "val": "cz",
+        "direction": "desc",
+        "limit": 10
+    }, { "name": "shortage_rank", "op": "le", "val": 100, "direction": "desc", "limit": 10, "results_per_page": 10 }];
 
     var filters = [{
         "name": "shortage_rank",
@@ -107,6 +162,14 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     //to identify what classification view has been triggered.
     var ay_val = (0, _jquery2.default)('#AY-node').length;
     var ax_val = (0, _jquery2.default)('#AX-node').length;
+    var az_val = (0, _jquery2.default)('#AZ-node').length;
+    var bx_val = (0, _jquery2.default)('#BX-node').length;
+    var by_val = (0, _jquery2.default)('#BY-node').length;
+    var bz_val = (0, _jquery2.default)('#BZ-node').length;
+    var cx_val = (0, _jquery2.default)('#CX-node').length;
+    var cy_val = (0, _jquery2.default)('#CY-node').length;
+    var cz_val = (0, _jquery2.default)('#CZ-node').length;
+
     //console.log(ax_val);
     if (ay_val > 0) {
         _jquery2.default.ajax({
@@ -123,7 +186,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
             },
             error: function error(result) {}
         });
-    } else if (ax_val > 0) {
+    }
+    if (ax_val > 0) {
         _jquery2.default.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
@@ -141,7 +205,132 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
             error: function error(result) {}
         });
     }
-
+    if (az_val > 0) {
+        _jquery2.default.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+            dataType: 'json',
+            async: true,
+            data: { "q": JSON.stringify({ "filters": az }) },
+            success: function success(data) {
+                //console.log(data.objects);
+                if (data != null) {
+                    var node_chart2 = new RenderForceChart(data, '#node-chart');
+                    node_chart2.classification_force();
+                }
+            },
+            error: function error(result) {}
+        });
+    }
+    if (bx_val > 0) {
+        _jquery2.default.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+            dataType: 'json',
+            async: true,
+            data: { "q": JSON.stringify({ "filters": bx }) },
+            success: function success(data) {
+                //console.log(data.objects);
+                if (data != null) {
+                    var node_chart2 = new RenderForceChart(data, '#node-chart');
+                    node_chart2.classification_force();
+                }
+            },
+            error: function error(result) {}
+        });
+    }
+    if (by_val > 0) {
+        _jquery2.default.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+            dataType: 'json',
+            async: true,
+            data: { "q": JSON.stringify({ "filters": by }) },
+            success: function success(data) {
+                //console.log(data.objects);
+                if (data != null) {
+                    var node_chart2 = new RenderForceChart(data, '#node-chart');
+                    node_chart2.classification_force();
+                }
+            },
+            error: function error(result) {}
+        });
+    }
+    if (bz_val > 0) {
+        _jquery2.default.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+            dataType: 'json',
+            async: true,
+            data: { "q": JSON.stringify({ "filters": bz }) },
+            success: function success(data) {
+                //console.log(data.objects);
+                if (data != null) {
+                    var node_chart2 = new RenderForceChart(data, '#node-chart');
+                    node_chart2.classification_force();
+                }
+            },
+            error: function error(result) {}
+        });
+    }
+    if (cx_val > 0) {
+        _jquery2.default.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+            dataType: 'json',
+            async: true,
+            data: { "q": JSON.stringify({ "filters": cx }) },
+            success: function success(data) {
+                //console.log(data.objects);
+                if (data != null) {
+                    var node_chart2 = new RenderForceChart(data, '#node-chart');
+                    node_chart2.classification_force();
+                }
+            },
+            error: function error(result) {}
+        });
+    }
+    if (cy_val > 0) {
+        _jquery2.default.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+            dataType: 'json',
+            async: true,
+            data: { "q": JSON.stringify({ "filters": cy }) },
+            success: function success(data) {
+                //console.log(data.objects);
+                if (data != null) {
+                    var node_chart2 = new RenderForceChart(data, '#node-chart');
+                    node_chart2.classification_force();
+                }
+            },
+            error: function error(result) {}
+        });
+    }
+    if (cz_val > 0) {
+        _jquery2.default.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+            dataType: 'json',
+            async: true,
+            data: { "q": JSON.stringify({ "filters": cz }) },
+            success: function success(data) {
+                //console.log(data.objects);
+                if (data != null) {
+                    var node_chart2 = new RenderForceChart(data, '#node-chart');
+                    node_chart2.classification_force();
+                }
+            },
+            error: function error(result) {}
+        });
+    }
     _jquery2.default.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
@@ -274,10 +463,8 @@ function render_bot_response(message, communicator) {
 
             break;
         case 'Dash':
-
-            console.log(message.json_list);
             for (i = 0; i < message.json_list.length; i++) {
-                if (message.json_list[i] != null) {
+                if (message.json_list[i] != null && message.json_list[i] != '') {
                     (0, _jquery2.default)('<p style=\"color:#a2e1f6;\">' + communicator + ': ' + message.json_list[i] + '</p><br><p></p>').hide().insertAfter('#response-panel p:last').delay(800).fadeIn(1000);
                 }
             }

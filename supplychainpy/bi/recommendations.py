@@ -499,8 +499,6 @@ class ProfileStates(SKUStates):
                                  self.summarised_inventory.describe_sku(*excess_skus)])
         sku_inventory_turns = {excess_skus[index]: description.get('inventory_turns') for index, description in
                                enumerate(self.summarised_inventory.describe_sku(*excess_skus))}
-        KR202_223 = [description for description in
-                     self.summarised_inventory.describe_sku('KR202-223')]
 
         response = 'Focus on reducing the excess for the following {sku}. These SKU account for {cost} of excess cost. '.format(
             **{'sku': ", ".join(excess_skus)}, **{'cost': total_excess_cost})

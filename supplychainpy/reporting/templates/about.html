@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block body%}
+<h2>Contribute</h2>
+<p>
+    <strong class="dash-notes">Contribute to the code base at</strong>
+    <a href="https://github.com/KevinFasusi/supplychainpy">
+        <img src="{{ url_for('static', filename='GitHub-Mark-32px.png') }}">
+    </a>
+</p>
+
+<h2>Connect</h2>
+<p><strong class="dash-notes">Connect with us in our Google groups
+    <a href="https://groups.google.com/forum/#!forum/supplychainpy">
+        community forum
+    </a></strong>
+</p>
+
+<h2>Follow</h2>
+
+<a href="https://twitter.com/supplychainpy" class="twitter-follow-button" data-show-count="false"
+   data-show-screen-name="false">Follow @supplychainpy</a>
+<script>!function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+    if (!d.getElementById(id)) {
+        js = d.createElement(s);
+        js.id = id;
+        js.src = p + '://platform.twitter.com/widgets.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }
+}(document, 'script', 'twitter-wjs');</script>
+{% endblock %}
+

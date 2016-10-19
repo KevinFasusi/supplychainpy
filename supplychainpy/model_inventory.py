@@ -512,6 +512,11 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: Decimal, reorder_co
 def recommendations(analysed_orders: dict, forecast: dict):
     return run_sku_recommendation(analysed_orders=analysed_orders, forecast=forecast)
 
+def summarise(analysed_orders: UncertainDemand):
+    pass
+
+
+
 # the np method allows a numpy array to be used. This requires the specification of a period and length the data is
 # supposed to cover. This method also allows the use of lead time arrays for calculating average leadtimes. There
 # also be an analyse_orders_from_file_np. using the analyse_orders_np method to process each row.

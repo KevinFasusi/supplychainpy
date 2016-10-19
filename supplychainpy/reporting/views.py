@@ -257,7 +257,7 @@ def dashboard():
                                          ).order_by(desc(InventoryAnalysis.shortage_cost)).limit(10)
     currency = db.session.query(Currency).all()
 
-    return flask.render_template('index.html', shortages=top_ten_shortages, currency= currency )
+    return flask.render_template('index.html', shortages=top_ten_shortages, currency=currency)
 
 
 @app.route('/bot')
@@ -289,7 +289,7 @@ def chat(message: str = None):
 
     """
     dash = ChatBot()
-    response = dash.chat(message=message)
+    response = dash.chat_machine(message=message)
 
     return flask.jsonify(json_list=response)
 
@@ -309,12 +309,18 @@ def recommended(sku_id: str = None):
     recommend = db.session.query(Recommendations.statement).filter(Recommendations.analysis_id == inventory.id).all()
     return flask.jsonify(json_list=recommend)
 
+
+@app.route('/about', methods=['GET'])
+def about():
+    return flask.render_template('about.html')
+
+
 @app.route('/feed', methods=['GET'])
 def feed():
     recommend = db.session.query(Recommendations).all()
     profile = db.session.query(ProfileRecommendation).all()
     inventory = db.session.query(InventoryAnalysis).all()
-    return flask.render_template('feed.html', inventory=inventory, profile= profile ,recommendations=recommend)
+    return flask.render_template('feed.html', inventory=inventory, profile=profile, recommendations=recommend)
 
 
 @app.route('/data')
@@ -396,7 +402,8 @@ def sku(sku_id: str = None):
         cur = db.session.query(Currency).all()
 
     return flask.render_template('sku.html', inventory=inventory, orders=orders, breakdown=forecast_breakdown,
-                                 forecast=forecast, statistics=forecast_statistics, recommendations=recommend, currency = cur)
+                                 forecast=forecast, statistics=forecast_statistics, recommendations=recommend,
+                                 currency=cur)
 
 
 @app.route('/reporting/api/v1.0/abc_summary', methods=['GET'])
@@ -420,7 +427,8 @@ def get_classification_summary(classification: str = None):
                                                   func.sum(InventoryAnalysis.revenue).label('total_revenue'),
                                                   func.sum(InventoryAnalysis.shortage_cost).label('total_shortages'),
                                                   func.sum(InventoryAnalysis.excess_cost).label('total_excess')
-                                                  ).join(Currency).group_by(InventoryAnalysis.abc_xyz_classification).all()
+                                                  ).join(Currency).group_by(
+            InventoryAnalysis.abc_xyz_classification).all()
 
     return flask.jsonify(json_list=[i for i in revenue_classification])
 
@@ -432,8 +440,9 @@ def abxyz(classification: str = None):
         InventoryAnalysis.abc_xyz_classification == classification).all()
 
     msk = db.session.query(MasterSkuList).all()
+    cur = db.session.query(Currency).all()
 
-    return flask.render_template('abcxyz.html', inventory=abc, mks=msk)
+    return flask.render_template('abcxyz.html', inventory=abc, mks=msk, currency=cur)
 
 
 @app.route('/reporting/api/v1.0/top_shortages', methods=['GET'])

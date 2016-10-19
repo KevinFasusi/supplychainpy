@@ -23,6 +23,7 @@
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 from copy import deepcopy
+from typing import List
 
 import numpy as np
 
@@ -53,7 +54,7 @@ class _PairwiseComparison:
         return self._importance
 
     @importance.setter
-    def importance(self, importance: list):
+    def importance(self, importance: List[int]):
         self._importance = importance
 
     @property
@@ -107,13 +108,17 @@ class _PairwiseComparison:
         Returns:
             dict:   Scores for each alternative based on the relative importance of each category.
         """
+        np.set_printoptions(precision=3, suppress=True)
         criteria_eigenvector_rank = self.compute_criteria_eingenvector()
         alternative_matrix_subjective = {val: self._square_matrix(np.array(self.alternative_scores.get(val))) for val in
                                          self.alternative_scores.keys() if val not in self.quantitative_criteria}
+
         alternative_matrix_eigenvectors = self._alternative_eigenvector(alternative_matrix_subjective)
         alternative_matrix_quantitative = self._normalise_quantitative_rank()
+
         recompile_main_hierarchy_matrix = self._recompile_main_hierarchy_matrix(alternative_matrix_eigenvectors,
                                                                                 alternative_matrix_quantitative)
+
         ahp_solution = self._compile_ahp_solution(recompiled_main_hierarchy=recompile_main_hierarchy_matrix,
                                                   criteria_eigenvector=criteria_eigenvector_rank)
         return ahp_solution
@@ -171,6 +176,7 @@ class _PairwiseComparison:
         Returns:
 
         """
+        np.set_printoptions(precision=3, suppress=True)
         eigenvectors_for_alternatives = []
         for x in alternative_matrix.keys():
             eigenvectors_for_alternatives.append({x: self._calculate_eigenvector(alternative_matrix.get(x))})

@@ -52,14 +52,28 @@ from supplychainpy.model_decision import analytical_hierarchy_process
 
 
 def main():
+    # pp = np.array([[1,2,7,9],[0.5,1,5.0,5.0],[0.1429,0.2,1.0,5.0],[0.1111, 0.2,  0.2, 1.0]])
+    # sq = pp*pp
+    # np.set_printoptions(precision=3, suppress=True)
+    # print(sq)
+    lorry_cost = {'scania': 55000, 'iveco': 79000, 'volvo': 59000, 'navistar': 66000}
+    criteria = ('style', 'reliability', 'comfort', 'fuel_economy')
+    criteria_scores = [(1 / 1, 2 / 1, 7 / 1, 9 / 1), (1 / 2, 1 / 1, 5 / 1, 5 / 1), (1 / 7, 1 / 5, 1 / 1, 5 / 1),
+                       (1 / 9, 1 / 5, 1 / 5, 1 / 1)]
 
-    lorry_cost = {'scania': 55000,'iveco': 79000,'volvo': 59000,'navistar': 66000}
-    criteria = ('style', 'reliability', 'fuel_economy')
-    criteria_scores = [(1, 1 / 2, 3), (0, 1, 4), (0, 0, 1)]
-    options = ('scania', 'iveco', 'volvo', 'navistar')
-    option_scores ={'reliability': [(1, 2, 5, 1), (1 / 2, 1, 3, 2), (1 / 5, 1 / 3, 1, 1 / 4), (1, 1 / 2, 4, 1)],'style': [(1, 1 / 4, 4, 1 / 6), (4, 1, 4, 1 / 4),(1 / 4, 1 / 4, 1, 1 / 5), (6, 4, 5, 1)],'fuel_economy': (34, 27, 24, 28)}
-    lorry_decision = _PairwiseComparison(criteria= criteria, criteria_scores=criteria_scores, options= options, option_scores=option_scores, quantitative_criteria=('fuel_economy',))
-    print(lorry_decision.summary())
+    options = ('scania', 'iveco', 'navistar', 'volvo' )
+    option_scores = {
+        'style': [(1 / 1, 1 / 3, 5 / 1, 1 / 5), (3 / 1, 1 / 1, 2 / 1, 3 / 1), (1 / 3, 1 / 5, 1 / 1, 1 / 5),
+                  (5 / 1, 1 / 3, 5 / 1, 1 / 1)],
+        'reliability': [(1 / 1, 1 / 3, 3 / 1, 1 / 7), (3 / 1, 1 / 1, 5 / 1, 1 / 5), (1 / 3, 1 / 5, 1 / 1, 1 / 5),
+                        (7 / 1, 5 / 1, 5 / 1, 1 / 1)],
+        'comfort': [(1 / 1, 5 / 1, 5 / 1, 1 / 7), (1 / 5, 1 / 1, 2 / 1, 1 / 7), (1 / 3, 1 / 5, 1 / 1, 1 / 5),
+                    (7 / 1, 7 / 1, 5 / 1, 1 / 1)],
+        'fuel_economy': (11, 9, 10, 12)}
+    lorry_decision = analytical_hierarchy_process(criteria=criteria, criteria_scores=criteria_scores, options=options,
+                                                  option_scores=option_scores, quantitative_criteria=('fuel_economy',),
+                                                  item_cost=lorry_cost)
+    print(lorry_decision)
     # metadata.create_all(engine)
     ##print(deserialise_config(ABS_FILE_PATH_CSV_MANAGEMENT_CONFIG),'\n')
     # print(deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG))
