@@ -113,7 +113,7 @@ class SupplychainpyReporting:
         if os.name in ['posix', 'mac']:
             # sort out the checkbutton in ttk not tk
             s = ttk.Style()
-            s.configure('Mac.TCheckbutton',focus='#000000', background='#000000', foreground='#FFFFFF')
+            s.configure('Mac.TCheckbutton', focus='#000000', background='#000000', foreground='#FFFFFF')
             self.change_port_checkbutton = ttk.Checkbutton(master, variable=self.change_port, style='Mac.TCheckbutton',
                                                            text='Change default port (default :5000)',
                                                            command=lambda: self.show_port_entry())
@@ -134,7 +134,7 @@ class SupplychainpyReporting:
         self.hyperlink_text.bind("<Button-1>", lambda e, url=str(self.hyperlink): launch_browser(e, url))
 
         self.launcher_button = ttk.Button(master, text='Launch Reporting',
-                                         command=lambda: self.spawn_reports()).grid(
+                                          command=lambda: self.spawn_reports()).grid(
             row=6, column=1, pady=(5, 10),
             padx=(15, 5))
 
@@ -238,13 +238,13 @@ def load_db(file: str, location: str = None):
     else:
         load.load(file)
 
-#def launch_report_server(location: str = None):
-#    if location is not None and os.name in ['posix', 'mac']:
-#        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/reporting.db'.format(location)
-#
-#    elif location is not None and os.name == 'nt':
-#        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}\\reporting.db'.format(location)
-#    db.create_all()
-#    app_launch = ReportsLauncher()
-#    app_launch.run()
-#
+
+def launch_report_server(location: str = None, port: int = 5000):
+    if location is not None and os.name in ['posix', 'mac']:
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/reporting.db'.format(location)
+    elif location is not None and os.name == 'nt':
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}\\reporting.db'.format(location)
+    db.create_all()
+    app_launch = ReportsLauncher()
+    app_launch.port = port
+    app_launch.run()

@@ -124,7 +124,8 @@ def keyword_sniffer(func):
                             'quantity_on_hand': kwargs.get('quantity_on_hand', UNKNOWN),
                             'sku': kwargs.get('sku_id', UNKNOWN),
                             'lead_time': kwargs.get('lead_time', UNKNOWN),
-                            'unit_cost': kwargs.get('unit_cost', UNKNOWN)
+                            'unit_cost': kwargs.get('unit_cost', UNKNOWN),
+                            'currency': kwargs.get('currency', UNKNOWN)
                             })
         return func(**temp_kwargs)
 

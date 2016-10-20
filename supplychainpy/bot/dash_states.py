@@ -30,7 +30,7 @@ from supplychainpy._helpers._db_connection import database_connection_uri
 from supplychainpy._helpers._decorators import strip_punctuation
 from supplychainpy.bi.recommendations import ResponseSingleton
 from supplychainpy.bot.controller import master_sku_list, excess_controller, shortage_controller, revenue_controller, \
-    inventory_turns_controller, average_orders_controller
+    inventory_turns_controller, average_orders_controller, currency_symbol_controller
 from supplychainpy.bot._helpers import get_master_sku_list, _unpack_pos, _find_pronoun, filter_pos, filter_pos_type
 
 from textblob import TextBlob
@@ -120,6 +120,11 @@ class DashStates:
     def __init__(self):
         self._master_sku_list = get_master_sku_list()
         self.compiled_response = ResponseSingleton()
+        self.currency_symbol = currency_symbol_controller(database_connection_uri(retrieve='retrieve'))
+
+    @property
+    def currency(self):
+        return self.currency_symbol
 
     @property
     def communication_id(self):
@@ -268,7 +273,6 @@ class DashStates:
                             response = ["SKU {} has the lowest average order at {}".format(str(result[1]), result[0][1])]
                             return response
 
-
         # print(sentence.tags[len_tags - 1][1])
         if sentence.tags[len_tags - 1][1] in ('NN') or max.lower() in self._MAX:
             for word in self.ANALYSIS_KEYWORDS:
@@ -357,7 +361,6 @@ class DashStates:
         noun = filter_pos_type(sentence=msg, pos_type='noun')
         adjective = filter_pos_type(sentence=msg, pos_type='adjective')
         verb = filter_pos_type(sentence=msg, pos_type='verb')
-
         # print("pronoun: {}, noun: {}, adjective: {}, verb {},".format(pronoun, noun, adjective, verb))
         return {'pronoun': pronoun, 'noun': noun, 'adjective': adjective, 'verb': verb}
 
@@ -404,7 +407,6 @@ class DashStates:
     def deconstruction(self, message: dict):
         msg = []
         response = []
-
         new_state = new_state = self._TRANSITION_STATES.get('RANDOM_STATE', self._END_STATE)
         for x in message.keys():
             msg.append(x)
