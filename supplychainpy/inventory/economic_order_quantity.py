@@ -28,7 +28,7 @@ import pyximport
 
 from supplychainpy.inventory import analyse_uncertain_demand
 
-pyximport.install()
+#pyximport.install()
 from supplychainpy.inventory.eoq import minimum_variable_cost
 from supplychainpy.inventory.eoq import economic_order_quantity
 

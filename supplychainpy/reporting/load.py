@@ -30,6 +30,8 @@ from decimal import Decimal
 
 from supplychainpy import model_inventory
 from supplychainpy._csv_management._csv_manager import _Orchestrate
+from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_APPLICATION_CONFIG
+from supplychainpy._helpers._pickle_config import deserialise_config
 from supplychainpy.bi.recommendation_generator import run_sku_recommendation, run_profile_recommendation
 from supplychainpy.inventory.summarise import Inventory
 from supplychainpy.reporting.views import TransactionLog, Recommendations, ProfileRecommendation
@@ -71,7 +73,6 @@ def load(file_path: str, location: str = None):
     db.create_all()
 
     log.log(logging.DEBUG, 'loading currency symbols...\n')
-    print('loading currency symbols...', end="")
     fx = currency_codes()
     for key, value in fx.items():
         codes = Currency()
@@ -81,33 +82,34 @@ def load(file_path: str, location: str = None):
         db.session.add(codes)
     db.session.commit()
     print('[COMPLETED]\n')
+    config = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
+    currency = config.get('currency')
 
     log.log(logging.DEBUG, 'Analysing file: {}...\n'.format(file_path))
     print('Analysing file: {}...'.format(file_path), end="")
     orders_analysis = model_inventory.analyse(file_path=file_path,
                                               z_value=Decimal(1.28),
                                               reorder_cost=Decimal(5000),
-                                              file_type="csv", length=12)
+                                              file_type="csv", length=12,currency=currency)
 
     # remove assumption file type is csv
 
     ia = [analysis.orders_summary() for analysis in
           model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
-                                  reorder_cost=Decimal(5000), file_type="csv", length=12)]
+                                  reorder_cost=Decimal(5000), file_type="csv", length=12, currency=currency)]
+    print('[COMPLETED]\n')
+    print('Calculating Forecasts...', end="")
     date_now = datetime.datetime.now()
     analysis_summary = Inventory(processed_orders=orders_analysis)
-    print('[COMPLETED]\n')
-
     log.log(logging.DEBUG, 'Calculating Forecasts...\n')
-    print('Calculating Forecasts...', end="")
     simple_forecast = {analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
                        model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
                                                reorder_cost=Decimal(5000), file_type="csv",
-                                               length=12)}
+                                               length=12, currency=currency)}
     holts_forecast = {analysis.sku_id: analysis.holts_trend_corrected_forecast for analysis in
                       model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
                                               reorder_cost=Decimal(5000), file_type="csv",
-                                              length=12)}
+                                              length=12,currency=currency)}
 
     transact = TransactionLog()
     transact.date = date_now

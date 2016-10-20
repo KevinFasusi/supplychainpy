@@ -49,10 +49,11 @@ UNKNOWN = 'UNKNOWN'
 
 
 @keyword_sniffer
-def analyse(z_value: Decimal = 1.28, currency: str = 'USD', reorder_cost: Decimal = 10, interval_length: int = 12,
+def analyse(currency:str, z_value: Decimal = 1.28, reorder_cost: Decimal = 10, interval_length: int = 12,
             interval_type: str = 'month', **kwargs):
     analysed_orders = UncertainDemand
     analysed_orders_collection = []
+    print('anlysis currency {}'.format(currency))
     try:
         if kwargs is not None:
             if kwargs.get('file_path') == UNKNOWN:

@@ -12,11 +12,11 @@ Although this project is in the planning stages (pre pre-alpha), going forward d
 Application
 ^^^^^^^^^^^
 
--   [Update] Clarification of internal and public api using leading underscore notation.
+-   [Update] Explicit internal and public api.
 -   [Update] Excess, shortages added to the UncertainDemand order_summary.
 -   [Update] Moved abc_xyz.py, analyse_uncertain_demand.py, economic_order_quantity.py and eoq.pyx from "demand" to "inventory" package
 -   [Update] "demand" package now contains: evolutionary_algorithms.py, forecast_demand.py and regression.py
--   [Update] retail_price added to model_inventory.analyse_orders.
+-   [Update] retail_price added to `model_inventory.analyse_orders`.
 -   [Update] backlog added to data format for loading into analysis.
 -   [Update] Unit Tests.
 -   [Update] Docstrings

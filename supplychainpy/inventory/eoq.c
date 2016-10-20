@@ -240,8 +240,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__supplychainpy__supplychainpy__demand__eoq
-#define __PYX_HAVE_API__supplychainpy__supplychainpy__demand__eoq
+#define __PYX_HAVE__supplychainpy__inventory__eoq
+#define __PYX_HAVE_API__supplychainpy__inventory__eoq
 #ifdef _OPENMP
 #include <omp.h>
 #endif /* _OPENMP */
@@ -450,7 +450,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "supplychainpy\\supplychainpy\\demand\\eoq.pyx",
+  "supplychainpy/inventory/eoq.pyx",
 };
 
 /*--- Type declarations ---*/
@@ -597,13 +597,13 @@ static int __Pyx_check_binary_version(void);
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 
-/* Module declarations from 'supplychainpy.supplychainpy.demand.eoq' */
-static double __pyx_f_13supplychainpy_13supplychainpy_6demand_3eoq_variable_cost(double, double, double, double, double); /*proto*/
-static double __pyx_f_13supplychainpy_13supplychainpy_6demand_3eoq_order_size(double, double, double, double); /*proto*/
-#define __Pyx_MODULE_NAME "supplychainpy.supplychainpy.demand.eoq"
-int __pyx_module_is_main_supplychainpy__supplychainpy__demand__eoq = 0;
+/* Module declarations from 'supplychainpy.inventory.eoq' */
+static double __pyx_f_13supplychainpy_9inventory_3eoq_variable_cost(double, double, double, double, double); /*proto*/
+static double __pyx_f_13supplychainpy_9inventory_3eoq_order_size(double, double, double, double); /*proto*/
+#define __Pyx_MODULE_NAME "supplychainpy.inventory.eoq"
+int __pyx_module_is_main_supplychainpy__inventory__eoq = 0;
 
-/* Implementation of 'supplychainpy.supplychainpy.demand.eoq' */
+/* Implementation of 'supplychainpy.inventory.eoq' */
 static char __pyx_k_vc[] = "vc";
 static char __pyx_k_STEP[] = "STEP";
 static char __pyx_k_main[] = "__main__";
@@ -623,10 +623,10 @@ static char __pyx_k_eoq_variable_cost[] = "eoq_variable_cost";
 static char __pyx_k_minimum_variable_cost[] = "minimum_variable_cost";
 static char __pyx_k_economic_order_quantity[] = "economic_order_quantity";
 static char __pyx_k_previous_eoq_variable_cost[] = "previous_eoq_variable_cost";
-static char __pyx_k_C_Users_Kevin_Documents_supplych[] = "C:\\Users\\Kevin\\Documents\\supplychainpy\\supplychainpy\\supplychainpy\\demand\\eoq.pyx";
-static char __pyx_k_supplychainpy_supplychainpy_dema[] = "supplychainpy.supplychainpy.demand.eoq";
-static PyObject *__pyx_kp_s_C_Users_Kevin_Documents_supplych;
+static char __pyx_k_supplychainpy_inventory_eoq[] = "supplychainpy.inventory.eoq";
+static char __pyx_k_Users_Fasusi_Projects_supplycha[] = "/Users/Fasusi/Projects/supplychainlibraries/python/supplychainpy/supplychainpy/inventory/eoq.pyx";
 static PyObject *__pyx_n_s_STEP;
+static PyObject *__pyx_kp_s_Users_Fasusi_Projects_supplycha;
 static PyObject *__pyx_n_s_counter;
 static PyObject *__pyx_n_s_economic_order_quantity;
 static PyObject *__pyx_n_s_eoq_variable_cost;
@@ -641,20 +641,20 @@ static PyObject *__pyx_n_s_previous_eoq_variable_cost;
 static PyObject *__pyx_n_s_reorder_cost;
 static PyObject *__pyx_n_s_reorder_quantity;
 static PyObject *__pyx_n_s_sqrt;
-static PyObject *__pyx_n_s_supplychainpy_supplychainpy_dema;
+static PyObject *__pyx_n_s_supplychainpy_inventory_eoq;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_total_orders;
 static PyObject *__pyx_n_s_unit_cost;
 static PyObject *__pyx_n_s_vc;
-static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_minimum_variable_cost(CYTHON_UNUSED PyObject *__pyx_self, double __pyx_v_total_orders, double __pyx_v_reorder_cost, double __pyx_v_unit_cost, double __pyx_v_holding_cost); /* proto */
-static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic_order_quantity(CYTHON_UNUSED PyObject *__pyx_self, double __pyx_v_total_orders, double __pyx_v_reorder_cost, double __pyx_v_unit_cost, double __pyx_v_holding_cost, CYTHON_UNUSED int __pyx_v_reorder_quantity); /* proto */
+static PyObject *__pyx_pf_13supplychainpy_9inventory_3eoq_minimum_variable_cost(CYTHON_UNUSED PyObject *__pyx_self, double __pyx_v_total_orders, double __pyx_v_reorder_cost, double __pyx_v_unit_cost, double __pyx_v_holding_cost); /* proto */
+static PyObject *__pyx_pf_13supplychainpy_9inventory_3eoq_2economic_order_quantity(CYTHON_UNUSED PyObject *__pyx_self, double __pyx_v_total_orders, double __pyx_v_reorder_cost, double __pyx_v_unit_cost, double __pyx_v_holding_cost, CYTHON_UNUSED int __pyx_v_reorder_quantity); /* proto */
 static PyObject *__pyx_float_0_4;
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__3;
 static PyObject *__pyx_codeobj__2;
 static PyObject *__pyx_codeobj__4;
 
-/* "supplychainpy\supplychainpy\demand\eoq.pyx":4
+/* "supplychainpy/inventory/eoq.pyx":28
  * 
  * # return a tuple for variable cost and order quantity without sending
  * def minimum_variable_cost(double total_orders, double  reorder_cost, double unit_cost, double  holding_cost):             # <<<<<<<<<<<<<<
@@ -663,9 +663,9 @@ static PyObject *__pyx_codeobj__4;
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_13supplychainpy_13supplychainpy_6demand_3eoq_1minimum_variable_cost(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_13supplychainpy_13supplychainpy_6demand_3eoq_1minimum_variable_cost = {"minimum_variable_cost", (PyCFunction)__pyx_pw_13supplychainpy_13supplychainpy_6demand_3eoq_1minimum_variable_cost, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_13supplychainpy_13supplychainpy_6demand_3eoq_1minimum_variable_cost(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_13supplychainpy_9inventory_3eoq_1minimum_variable_cost(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_13supplychainpy_9inventory_3eoq_1minimum_variable_cost = {"minimum_variable_cost", (PyCFunction)__pyx_pw_13supplychainpy_9inventory_3eoq_1minimum_variable_cost, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_13supplychainpy_9inventory_3eoq_1minimum_variable_cost(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   double __pyx_v_total_orders;
   double __pyx_v_reorder_cost;
   double __pyx_v_unit_cost;
@@ -698,21 +698,21 @@ static PyObject *__pyx_pw_13supplychainpy_13supplychainpy_6demand_3eoq_1minimum_
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_reorder_cost)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("minimum_variable_cost", 1, 4, 4, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("minimum_variable_cost", 1, 4, 4, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_unit_cost)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("minimum_variable_cost", 1, 4, 4, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("minimum_variable_cost", 1, 4, 4, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_holding_cost)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("minimum_variable_cost", 1, 4, 4, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("minimum_variable_cost", 1, 4, 4, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "minimum_variable_cost") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "minimum_variable_cost") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
@@ -722,27 +722,27 @@ static PyObject *__pyx_pw_13supplychainpy_13supplychainpy_6demand_3eoq_1minimum_
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
       values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
     }
-    __pyx_v_total_orders = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_total_orders == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_reorder_cost = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_reorder_cost == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_unit_cost = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_unit_cost == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_holding_cost = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_holding_cost == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_total_orders = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_total_orders == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_reorder_cost = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_reorder_cost == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_unit_cost = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_unit_cost == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_holding_cost = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_holding_cost == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("minimum_variable_cost", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("minimum_variable_cost", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("supplychainpy.supplychainpy.demand.eoq.minimum_variable_cost", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("supplychainpy.inventory.eoq.minimum_variable_cost", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_minimum_variable_cost(__pyx_self, __pyx_v_total_orders, __pyx_v_reorder_cost, __pyx_v_unit_cost, __pyx_v_holding_cost);
+  __pyx_r = __pyx_pf_13supplychainpy_9inventory_3eoq_minimum_variable_cost(__pyx_self, __pyx_v_total_orders, __pyx_v_reorder_cost, __pyx_v_unit_cost, __pyx_v_holding_cost);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_minimum_variable_cost(CYTHON_UNUSED PyObject *__pyx_self, double __pyx_v_total_orders, double __pyx_v_reorder_cost, double __pyx_v_unit_cost, double __pyx_v_holding_cost) {
+static PyObject *__pyx_pf_13supplychainpy_9inventory_3eoq_minimum_variable_cost(CYTHON_UNUSED PyObject *__pyx_self, double __pyx_v_total_orders, double __pyx_v_reorder_cost, double __pyx_v_unit_cost, double __pyx_v_holding_cost) {
   double __pyx_v_STEP;
   double __pyx_v_previous_eoq_variable_cost;
   double __pyx_v_vc;
@@ -757,7 +757,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_minimum_v
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("minimum_variable_cost", 0);
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":7
+  /* "supplychainpy/inventory/eoq.pyx":31
  * 
  *     cdef double STEP
  *     STEP = 0.2             # <<<<<<<<<<<<<<
@@ -766,7 +766,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_minimum_v
  */
   __pyx_v_STEP = 0.2;
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":11
+  /* "supplychainpy/inventory/eoq.pyx":35
  * 
  *     cdef double vc
  *     cdef int counter = 0             # <<<<<<<<<<<<<<
@@ -775,7 +775,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_minimum_v
  */
   __pyx_v_counter = 0;
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":14
+  /* "supplychainpy/inventory/eoq.pyx":38
  *     cdef double order_qty
  * 
  *     previous_eoq_variable_cost = 0.0             # <<<<<<<<<<<<<<
@@ -784,7 +784,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_minimum_v
  */
   __pyx_v_previous_eoq_variable_cost = 0.0;
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":15
+  /* "supplychainpy/inventory/eoq.pyx":39
  * 
  *     previous_eoq_variable_cost = 0.0
  *     vc = 0.0             # <<<<<<<<<<<<<<
@@ -793,7 +793,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_minimum_v
  */
   __pyx_v_vc = 0.0;
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":16
+  /* "supplychainpy/inventory/eoq.pyx":40
  *     previous_eoq_variable_cost = 0.0
  *     vc = 0.0
  *     while previous_eoq_variable_cost >= vc:             # <<<<<<<<<<<<<<
@@ -804,7 +804,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_minimum_v
     __pyx_t_1 = ((__pyx_v_previous_eoq_variable_cost >= __pyx_v_vc) != 0);
     if (!__pyx_t_1) break;
 
-    /* "supplychainpy\supplychainpy\demand\eoq.pyx":18
+    /* "supplychainpy/inventory/eoq.pyx":42
  *     while previous_eoq_variable_cost >= vc:
  * 
  *         previous_eoq_variable_cost = vc             # <<<<<<<<<<<<<<
@@ -813,7 +813,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_minimum_v
  */
     __pyx_v_previous_eoq_variable_cost = __pyx_v_vc;
 
-    /* "supplychainpy\supplychainpy\demand\eoq.pyx":20
+    /* "supplychainpy/inventory/eoq.pyx":44
  *         previous_eoq_variable_cost = vc
  *         # reorder cost * average demand all divided by order size + (demand size * holding cost)
  *         if counter < 1:             # <<<<<<<<<<<<<<
@@ -823,16 +823,16 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_minimum_v
     __pyx_t_1 = ((__pyx_v_counter < 1) != 0);
     if (__pyx_t_1) {
 
-      /* "supplychainpy\supplychainpy\demand\eoq.pyx":21
+      /* "supplychainpy/inventory/eoq.pyx":45
  *         # reorder cost * average demand all divided by order size + (demand size * holding cost)
  *         if counter < 1:
  *             order_qty = order_size(total_orders, reorder_cost, unit_cost, holding_cost)             # <<<<<<<<<<<<<<
  * 
  *         vc = variable_cost(total_orders, reorder_cost, order_qty, unit_cost, holding_cost)
  */
-      __pyx_v_order_qty = __pyx_f_13supplychainpy_13supplychainpy_6demand_3eoq_order_size(__pyx_v_total_orders, __pyx_v_reorder_cost, __pyx_v_unit_cost, __pyx_v_holding_cost);
+      __pyx_v_order_qty = __pyx_f_13supplychainpy_9inventory_3eoq_order_size(__pyx_v_total_orders, __pyx_v_reorder_cost, __pyx_v_unit_cost, __pyx_v_holding_cost);
 
-      /* "supplychainpy\supplychainpy\demand\eoq.pyx":20
+      /* "supplychainpy/inventory/eoq.pyx":44
  *         previous_eoq_variable_cost = vc
  *         # reorder cost * average demand all divided by order size + (demand size * holding cost)
  *         if counter < 1:             # <<<<<<<<<<<<<<
@@ -841,16 +841,16 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_minimum_v
  */
     }
 
-    /* "supplychainpy\supplychainpy\demand\eoq.pyx":23
+    /* "supplychainpy/inventory/eoq.pyx":47
  *             order_qty = order_size(total_orders, reorder_cost, unit_cost, holding_cost)
  * 
  *         vc = variable_cost(total_orders, reorder_cost, order_qty, unit_cost, holding_cost)             # <<<<<<<<<<<<<<
  * 
  *         order_qty += order_qty * STEP
  */
-    __pyx_v_vc = __pyx_f_13supplychainpy_13supplychainpy_6demand_3eoq_variable_cost(__pyx_v_total_orders, __pyx_v_reorder_cost, __pyx_v_order_qty, __pyx_v_unit_cost, __pyx_v_holding_cost);
+    __pyx_v_vc = __pyx_f_13supplychainpy_9inventory_3eoq_variable_cost(__pyx_v_total_orders, __pyx_v_reorder_cost, __pyx_v_order_qty, __pyx_v_unit_cost, __pyx_v_holding_cost);
 
-    /* "supplychainpy\supplychainpy\demand\eoq.pyx":25
+    /* "supplychainpy/inventory/eoq.pyx":49
  *         vc = variable_cost(total_orders, reorder_cost, order_qty, unit_cost, holding_cost)
  * 
  *         order_qty += order_qty * STEP             # <<<<<<<<<<<<<<
@@ -859,7 +859,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_minimum_v
  */
     __pyx_v_order_qty = (__pyx_v_order_qty + (__pyx_v_order_qty * __pyx_v_STEP));
 
-    /* "supplychainpy\supplychainpy\demand\eoq.pyx":27
+    /* "supplychainpy/inventory/eoq.pyx":51
  *         order_qty += order_qty * STEP
  * 
  *         if counter < 1:             # <<<<<<<<<<<<<<
@@ -869,7 +869,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_minimum_v
     __pyx_t_1 = ((__pyx_v_counter < 1) != 0);
     if (__pyx_t_1) {
 
-      /* "supplychainpy\supplychainpy\demand\eoq.pyx":28
+      /* "supplychainpy/inventory/eoq.pyx":52
  * 
  *         if counter < 1:
  *             previous_eoq_variable_cost = vc             # <<<<<<<<<<<<<<
@@ -878,7 +878,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_minimum_v
  */
       __pyx_v_previous_eoq_variable_cost = __pyx_v_vc;
 
-      /* "supplychainpy\supplychainpy\demand\eoq.pyx":27
+      /* "supplychainpy/inventory/eoq.pyx":51
  *         order_qty += order_qty * STEP
  * 
  *         if counter < 1:             # <<<<<<<<<<<<<<
@@ -887,7 +887,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_minimum_v
  */
     }
 
-    /* "supplychainpy\supplychainpy\demand\eoq.pyx":30
+    /* "supplychainpy/inventory/eoq.pyx":54
  *             previous_eoq_variable_cost = vc
  * 
  *         while counter == 0:             # <<<<<<<<<<<<<<
@@ -898,7 +898,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_minimum_v
       __pyx_t_1 = ((__pyx_v_counter == 0) != 0);
       if (!__pyx_t_1) break;
 
-      /* "supplychainpy\supplychainpy\demand\eoq.pyx":31
+      /* "supplychainpy/inventory/eoq.pyx":55
  * 
  *         while counter == 0:
  *             counter += 1             # <<<<<<<<<<<<<<
@@ -909,7 +909,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_minimum_v
     }
   }
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":33
+  /* "supplychainpy/inventory/eoq.pyx":57
  *             counter += 1
  * 
  *     return previous_eoq_variable_cost             # <<<<<<<<<<<<<<
@@ -917,13 +917,13 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_minimum_v
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_previous_eoq_variable_cost); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_previous_eoq_variable_cost); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 57; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":4
+  /* "supplychainpy/inventory/eoq.pyx":28
  * 
  * # return a tuple for variable cost and order quantity without sending
  * def minimum_variable_cost(double total_orders, double  reorder_cost, double unit_cost, double  holding_cost):             # <<<<<<<<<<<<<<
@@ -934,7 +934,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_minimum_v
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("supplychainpy.supplychainpy.demand.eoq.minimum_variable_cost", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("supplychainpy.inventory.eoq.minimum_variable_cost", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -942,7 +942,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_minimum_v
   return __pyx_r;
 }
 
-/* "supplychainpy\supplychainpy\demand\eoq.pyx":36
+/* "supplychainpy/inventory/eoq.pyx":60
  * 
  * 
  * def economic_order_quantity(double total_orders, double reorder_cost, double unit_cost, double holding_cost,             # <<<<<<<<<<<<<<
@@ -951,9 +951,9 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_minimum_v
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_13supplychainpy_13supplychainpy_6demand_3eoq_3economic_order_quantity(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_13supplychainpy_13supplychainpy_6demand_3eoq_3economic_order_quantity = {"economic_order_quantity", (PyCFunction)__pyx_pw_13supplychainpy_13supplychainpy_6demand_3eoq_3economic_order_quantity, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_13supplychainpy_13supplychainpy_6demand_3eoq_3economic_order_quantity(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_13supplychainpy_9inventory_3eoq_3economic_order_quantity(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_13supplychainpy_9inventory_3eoq_3economic_order_quantity = {"economic_order_quantity", (PyCFunction)__pyx_pw_13supplychainpy_9inventory_3eoq_3economic_order_quantity, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_13supplychainpy_9inventory_3eoq_3economic_order_quantity(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   double __pyx_v_total_orders;
   double __pyx_v_reorder_cost;
   double __pyx_v_unit_cost;
@@ -988,26 +988,26 @@ static PyObject *__pyx_pw_13supplychainpy_13supplychainpy_6demand_3eoq_3economic
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_reorder_cost)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("economic_order_quantity", 1, 5, 5, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("economic_order_quantity", 1, 5, 5, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_unit_cost)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("economic_order_quantity", 1, 5, 5, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("economic_order_quantity", 1, 5, 5, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_holding_cost)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("economic_order_quantity", 1, 5, 5, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("economic_order_quantity", 1, 5, 5, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_reorder_quantity)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("economic_order_quantity", 1, 5, 5, 4); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("economic_order_quantity", 1, 5, 5, 4); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "economic_order_quantity") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "economic_order_quantity") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 5) {
       goto __pyx_L5_argtuple_error;
@@ -1018,28 +1018,28 @@ static PyObject *__pyx_pw_13supplychainpy_13supplychainpy_6demand_3eoq_3economic
       values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
       values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
     }
-    __pyx_v_total_orders = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_total_orders == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_reorder_cost = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_reorder_cost == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_unit_cost = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_unit_cost == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_holding_cost = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_holding_cost == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_reorder_quantity = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_reorder_quantity == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_total_orders = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_total_orders == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_reorder_cost = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_reorder_cost == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_unit_cost = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_unit_cost == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_holding_cost = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_holding_cost == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_reorder_quantity = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_reorder_quantity == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("economic_order_quantity", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("economic_order_quantity", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("supplychainpy.supplychainpy.demand.eoq.economic_order_quantity", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("supplychainpy.inventory.eoq.economic_order_quantity", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic_order_quantity(__pyx_self, __pyx_v_total_orders, __pyx_v_reorder_cost, __pyx_v_unit_cost, __pyx_v_holding_cost, __pyx_v_reorder_quantity);
+  __pyx_r = __pyx_pf_13supplychainpy_9inventory_3eoq_2economic_order_quantity(__pyx_self, __pyx_v_total_orders, __pyx_v_reorder_cost, __pyx_v_unit_cost, __pyx_v_holding_cost, __pyx_v_reorder_quantity);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic_order_quantity(CYTHON_UNUSED PyObject *__pyx_self, double __pyx_v_total_orders, double __pyx_v_reorder_cost, double __pyx_v_unit_cost, double __pyx_v_holding_cost, CYTHON_UNUSED int __pyx_v_reorder_quantity) {
+static PyObject *__pyx_pf_13supplychainpy_9inventory_3eoq_2economic_order_quantity(CYTHON_UNUSED PyObject *__pyx_self, double __pyx_v_total_orders, double __pyx_v_reorder_cost, double __pyx_v_unit_cost, double __pyx_v_holding_cost, CYTHON_UNUSED int __pyx_v_reorder_quantity) {
   double __pyx_v_STEP;
   double __pyx_v_previous_eoq_variable_cost;
   CYTHON_UNUSED double __pyx_v_eoq_variable_cost;
@@ -1055,7 +1055,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("economic_order_quantity", 0);
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":40
+  /* "supplychainpy/inventory/eoq.pyx":64
  * 
  *         cdef double STEP
  *         STEP= 0.2             # <<<<<<<<<<<<<<
@@ -1064,7 +1064,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic
  */
   __pyx_v_STEP = 0.2;
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":46
+  /* "supplychainpy/inventory/eoq.pyx":70
  *         cdef double eoq_variable_cost
  * 
  *         cdef int counter = 0             # <<<<<<<<<<<<<<
@@ -1073,7 +1073,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic
  */
   __pyx_v_counter = 0;
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":49
+  /* "supplychainpy/inventory/eoq.pyx":73
  *         cdef double order_qty
  * 
  *         eoq_variable_cost = 0.0             # <<<<<<<<<<<<<<
@@ -1082,7 +1082,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic
  */
   __pyx_v_eoq_variable_cost = 0.0;
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":50
+  /* "supplychainpy/inventory/eoq.pyx":74
  * 
  *         eoq_variable_cost = 0.0
  *         previous_eoq_variable_cost = 0.0             # <<<<<<<<<<<<<<
@@ -1091,7 +1091,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic
  */
   __pyx_v_previous_eoq_variable_cost = 0.0;
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":52
+  /* "supplychainpy/inventory/eoq.pyx":76
  *         previous_eoq_variable_cost = 0.0
  * 
  *         while previous_eoq_variable_cost >= vc:             # <<<<<<<<<<<<<<
@@ -1102,7 +1102,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic
     __pyx_t_1 = ((__pyx_v_previous_eoq_variable_cost >= __pyx_v_vc) != 0);
     if (!__pyx_t_1) break;
 
-    /* "supplychainpy\supplychainpy\demand\eoq.pyx":54
+    /* "supplychainpy/inventory/eoq.pyx":78
  *         while previous_eoq_variable_cost >= vc:
  * 
  *             previous_eoq_variable_cost = vc             # <<<<<<<<<<<<<<
@@ -1111,7 +1111,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic
  */
     __pyx_v_previous_eoq_variable_cost = __pyx_v_vc;
 
-    /* "supplychainpy\supplychainpy\demand\eoq.pyx":56
+    /* "supplychainpy/inventory/eoq.pyx":80
  *             previous_eoq_variable_cost = vc
  * 
  *             if counter < 1:             # <<<<<<<<<<<<<<
@@ -1121,16 +1121,16 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic
     __pyx_t_1 = ((__pyx_v_counter < 1) != 0);
     if (__pyx_t_1) {
 
-      /* "supplychainpy\supplychainpy\demand\eoq.pyx":57
+      /* "supplychainpy/inventory/eoq.pyx":81
  * 
  *             if counter < 1:
  *                 order_qty = order_size(total_orders, reorder_cost, unit_cost, holding_cost)             # <<<<<<<<<<<<<<
  *                 # print('1st order quantity {}'.format(order_qty))
  *             vc = variable_cost(total_orders, reorder_cost, order_qty, unit_cost, holding_cost)
  */
-      __pyx_v_order_qty = __pyx_f_13supplychainpy_13supplychainpy_6demand_3eoq_order_size(__pyx_v_total_orders, __pyx_v_reorder_cost, __pyx_v_unit_cost, __pyx_v_holding_cost);
+      __pyx_v_order_qty = __pyx_f_13supplychainpy_9inventory_3eoq_order_size(__pyx_v_total_orders, __pyx_v_reorder_cost, __pyx_v_unit_cost, __pyx_v_holding_cost);
 
-      /* "supplychainpy\supplychainpy\demand\eoq.pyx":56
+      /* "supplychainpy/inventory/eoq.pyx":80
  *             previous_eoq_variable_cost = vc
  * 
  *             if counter < 1:             # <<<<<<<<<<<<<<
@@ -1139,16 +1139,16 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic
  */
     }
 
-    /* "supplychainpy\supplychainpy\demand\eoq.pyx":59
+    /* "supplychainpy/inventory/eoq.pyx":83
  *                 order_qty = order_size(total_orders, reorder_cost, unit_cost, holding_cost)
  *                 # print('1st order quantity {}'.format(order_qty))
  *             vc = variable_cost(total_orders, reorder_cost, order_qty, unit_cost, holding_cost)             # <<<<<<<<<<<<<<
  * 
  *             if counter >=1 :
  */
-    __pyx_v_vc = __pyx_f_13supplychainpy_13supplychainpy_6demand_3eoq_variable_cost(__pyx_v_total_orders, __pyx_v_reorder_cost, __pyx_v_order_qty, __pyx_v_unit_cost, __pyx_v_holding_cost);
+    __pyx_v_vc = __pyx_f_13supplychainpy_9inventory_3eoq_variable_cost(__pyx_v_total_orders, __pyx_v_reorder_cost, __pyx_v_order_qty, __pyx_v_unit_cost, __pyx_v_holding_cost);
 
-    /* "supplychainpy\supplychainpy\demand\eoq.pyx":61
+    /* "supplychainpy/inventory/eoq.pyx":85
  *             vc = variable_cost(total_orders, reorder_cost, order_qty, unit_cost, holding_cost)
  * 
  *             if counter >=1 :             # <<<<<<<<<<<<<<
@@ -1158,7 +1158,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic
     __pyx_t_1 = ((__pyx_v_counter >= 1) != 0);
     if (__pyx_t_1) {
 
-      /* "supplychainpy\supplychainpy\demand\eoq.pyx":62
+      /* "supplychainpy/inventory/eoq.pyx":86
  * 
  *             if counter >=1 :
  *                 order_qty += order_qty * STEP             # <<<<<<<<<<<<<<
@@ -1167,7 +1167,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic
  */
       __pyx_v_order_qty = (__pyx_v_order_qty + (__pyx_v_order_qty * __pyx_v_STEP));
 
-      /* "supplychainpy\supplychainpy\demand\eoq.pyx":61
+      /* "supplychainpy/inventory/eoq.pyx":85
  *             vc = variable_cost(total_orders, reorder_cost, order_qty, unit_cost, holding_cost)
  * 
  *             if counter >=1 :             # <<<<<<<<<<<<<<
@@ -1176,7 +1176,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic
  */
     }
 
-    /* "supplychainpy\supplychainpy\demand\eoq.pyx":64
+    /* "supplychainpy/inventory/eoq.pyx":88
  *                 order_qty += order_qty * STEP
  * 
  *             if counter < 1:             # <<<<<<<<<<<<<<
@@ -1186,7 +1186,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic
     __pyx_t_1 = ((__pyx_v_counter < 1) != 0);
     if (__pyx_t_1) {
 
-      /* "supplychainpy\supplychainpy\demand\eoq.pyx":65
+      /* "supplychainpy/inventory/eoq.pyx":89
  * 
  *             if counter < 1:
  *                 previous_eoq_variable_cost = vc             # <<<<<<<<<<<<<<
@@ -1195,7 +1195,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic
  */
       __pyx_v_previous_eoq_variable_cost = __pyx_v_vc;
 
-      /* "supplychainpy\supplychainpy\demand\eoq.pyx":64
+      /* "supplychainpy/inventory/eoq.pyx":88
  *                 order_qty += order_qty * STEP
  * 
  *             if counter < 1:             # <<<<<<<<<<<<<<
@@ -1204,7 +1204,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic
  */
     }
 
-    /* "supplychainpy\supplychainpy\demand\eoq.pyx":67
+    /* "supplychainpy/inventory/eoq.pyx":91
  *                 previous_eoq_variable_cost = vc
  * 
  *             while counter == 0:             # <<<<<<<<<<<<<<
@@ -1215,7 +1215,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic
       __pyx_t_1 = ((__pyx_v_counter == 0) != 0);
       if (!__pyx_t_1) break;
 
-      /* "supplychainpy\supplychainpy\demand\eoq.pyx":68
+      /* "supplychainpy/inventory/eoq.pyx":92
  * 
  *             while counter == 0:
  *                 counter += 1             # <<<<<<<<<<<<<<
@@ -1226,7 +1226,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic
     }
   }
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":70
+  /* "supplychainpy/inventory/eoq.pyx":94
  *                 counter += 1
  * 
  *         return order_qty             # <<<<<<<<<<<<<<
@@ -1234,13 +1234,13 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic
  * cdef double variable_cost(double total_orders, double reorder_cost, double order_size, double  unit_cost,
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_order_qty); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 70; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_order_qty); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 94; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":36
+  /* "supplychainpy/inventory/eoq.pyx":60
  * 
  * 
  * def economic_order_quantity(double total_orders, double reorder_cost, double unit_cost, double holding_cost,             # <<<<<<<<<<<<<<
@@ -1251,7 +1251,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("supplychainpy.supplychainpy.demand.eoq.economic_order_quantity", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("supplychainpy.inventory.eoq.economic_order_quantity", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1259,7 +1259,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic
   return __pyx_r;
 }
 
-/* "supplychainpy\supplychainpy\demand\eoq.pyx":72
+/* "supplychainpy/inventory/eoq.pyx":96
  *         return order_qty
  * 
  * cdef double variable_cost(double total_orders, double reorder_cost, double order_size, double  unit_cost,             # <<<<<<<<<<<<<<
@@ -1267,7 +1267,7 @@ static PyObject *__pyx_pf_13supplychainpy_13supplychainpy_6demand_3eoq_2economic
  * 
  */
 
-static double __pyx_f_13supplychainpy_13supplychainpy_6demand_3eoq_variable_cost(double __pyx_v_total_orders, double __pyx_v_reorder_cost, double __pyx_v_order_size, double __pyx_v_unit_cost, double __pyx_v_holding_cost) {
+static double __pyx_f_13supplychainpy_9inventory_3eoq_variable_cost(double __pyx_v_total_orders, double __pyx_v_reorder_cost, double __pyx_v_order_size, double __pyx_v_unit_cost, double __pyx_v_holding_cost) {
   double __pyx_v_rc;
   double __pyx_v_hc;
   double __pyx_v_tvc;
@@ -1279,7 +1279,7 @@ static double __pyx_f_13supplychainpy_13supplychainpy_6demand_3eoq_variable_cost
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("variable_cost", 0);
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":79
+  /* "supplychainpy/inventory/eoq.pyx":103
  *     cdef double tvc
  * 
  *     rc = (total_orders * reorder_cost) / order_size             # <<<<<<<<<<<<<<
@@ -1289,11 +1289,11 @@ static double __pyx_f_13supplychainpy_13supplychainpy_6demand_3eoq_variable_cost
   __pyx_t_1 = (__pyx_v_total_orders * __pyx_v_reorder_cost);
   if (unlikely(__pyx_v_order_size == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 79; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_v_rc = (__pyx_t_1 / __pyx_v_order_size);
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":80
+  /* "supplychainpy/inventory/eoq.pyx":104
  * 
  *     rc = (total_orders * reorder_cost) / order_size
  *     hc = order_size * unit_cost * holding_cost             # <<<<<<<<<<<<<<
@@ -1302,7 +1302,7 @@ static double __pyx_f_13supplychainpy_13supplychainpy_6demand_3eoq_variable_cost
  */
   __pyx_v_hc = ((__pyx_v_order_size * __pyx_v_unit_cost) * __pyx_v_holding_cost);
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":81
+  /* "supplychainpy/inventory/eoq.pyx":105
  *     rc = (total_orders * reorder_cost) / order_size
  *     hc = order_size * unit_cost * holding_cost
  *     tvc = rc + hc             # <<<<<<<<<<<<<<
@@ -1311,7 +1311,7 @@ static double __pyx_f_13supplychainpy_13supplychainpy_6demand_3eoq_variable_cost
  */
   __pyx_v_tvc = (__pyx_v_rc + __pyx_v_hc);
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":85
+  /* "supplychainpy/inventory/eoq.pyx":109
  *     # print('holding cost {}'.format(hc))
  *     # print('total variable cost {}'.format(tvc))
  *     return tvc             # <<<<<<<<<<<<<<
@@ -1321,7 +1321,7 @@ static double __pyx_f_13supplychainpy_13supplychainpy_6demand_3eoq_variable_cost
   __pyx_r = __pyx_v_tvc;
   goto __pyx_L0;
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":72
+  /* "supplychainpy/inventory/eoq.pyx":96
  *         return order_qty
  * 
  * cdef double variable_cost(double total_orders, double reorder_cost, double order_size, double  unit_cost,             # <<<<<<<<<<<<<<
@@ -1331,14 +1331,14 @@ static double __pyx_f_13supplychainpy_13supplychainpy_6demand_3eoq_variable_cost
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_WriteUnraisable("supplychainpy.supplychainpy.demand.eoq.variable_cost", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
+  __Pyx_WriteUnraisable("supplychainpy.inventory.eoq.variable_cost", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "supplychainpy\supplychainpy\demand\eoq.pyx":87
+/* "supplychainpy/inventory/eoq.pyx":111
  *     return tvc
  * 
  * cdef double order_size(double total_orders, double  reorder_cost, double  unit_cost, double  holding_cost):             # <<<<<<<<<<<<<<
@@ -1346,7 +1346,7 @@ static double __pyx_f_13supplychainpy_13supplychainpy_6demand_3eoq_variable_cost
  *     cdef double order_qty
  */
 
-static double __pyx_f_13supplychainpy_13supplychainpy_6demand_3eoq_order_size(double __pyx_v_total_orders, double __pyx_v_reorder_cost, double __pyx_v_unit_cost, double __pyx_v_holding_cost) {
+static double __pyx_f_13supplychainpy_9inventory_3eoq_order_size(double __pyx_v_total_orders, double __pyx_v_reorder_cost, double __pyx_v_unit_cost, double __pyx_v_holding_cost) {
   double __pyx_v_order_qty;
   double __pyx_r;
   __Pyx_RefNannyDeclarations
@@ -1362,22 +1362,22 @@ static double __pyx_f_13supplychainpy_13supplychainpy_6demand_3eoq_order_size(do
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("order_size", 0);
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":91
+  /* "supplychainpy/inventory/eoq.pyx":115
  *     cdef double order_qty
  * 
  *     order_qty = sqrt(((total_orders * reorder_cost * 2.0) / (unit_cost * holding_cost) ))* 0.4             # <<<<<<<<<<<<<<
  *     # print('order qty {}'.format(unit_cost * holding_cost))
  * 
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_sqrt); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 91; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_sqrt); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = ((__pyx_v_total_orders * __pyx_v_reorder_cost) * 2.0);
   __pyx_t_4 = (__pyx_v_unit_cost * __pyx_v_holding_cost);
   if (unlikely(__pyx_t_4 == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 91; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
-  __pyx_t_5 = PyFloat_FromDouble((__pyx_t_3 / __pyx_t_4)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 91; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = PyFloat_FromDouble((__pyx_t_3 / __pyx_t_4)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_6 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_2))) {
@@ -1390,29 +1390,29 @@ static double __pyx_f_13supplychainpy_13supplychainpy_6demand_3eoq_order_size(do
     }
   }
   if (!__pyx_t_6) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_5); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 91; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_5); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 91; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
     __Pyx_GIVEREF(__pyx_t_5);
     PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_5);
     __pyx_t_5 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 91; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyNumber_Multiply(__pyx_t_1, __pyx_float_0_4); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 91; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyNumber_Multiply(__pyx_t_1, __pyx_float_0_4); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 91; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_order_qty = __pyx_t_4;
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":94
+  /* "supplychainpy/inventory/eoq.pyx":118
  *     # print('order qty {}'.format(unit_cost * holding_cost))
  * 
  *     return order_qty             # <<<<<<<<<<<<<<
@@ -1421,7 +1421,7 @@ static double __pyx_f_13supplychainpy_13supplychainpy_6demand_3eoq_order_size(do
   __pyx_r = __pyx_v_order_qty;
   goto __pyx_L0;
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":87
+  /* "supplychainpy/inventory/eoq.pyx":111
  *     return tvc
  * 
  * cdef double order_size(double total_orders, double  reorder_cost, double  unit_cost, double  holding_cost):             # <<<<<<<<<<<<<<
@@ -1436,7 +1436,7 @@ static double __pyx_f_13supplychainpy_13supplychainpy_6demand_3eoq_order_size(do
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_WriteUnraisable("supplychainpy.supplychainpy.demand.eoq.order_size", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
+  __Pyx_WriteUnraisable("supplychainpy.inventory.eoq.order_size", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -1466,8 +1466,8 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
-  {&__pyx_kp_s_C_Users_Kevin_Documents_supplych, __pyx_k_C_Users_Kevin_Documents_supplych, sizeof(__pyx_k_C_Users_Kevin_Documents_supplych), 0, 0, 1, 0},
   {&__pyx_n_s_STEP, __pyx_k_STEP, sizeof(__pyx_k_STEP), 0, 0, 1, 1},
+  {&__pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_k_Users_Fasusi_Projects_supplycha, sizeof(__pyx_k_Users_Fasusi_Projects_supplycha), 0, 0, 1, 0},
   {&__pyx_n_s_counter, __pyx_k_counter, sizeof(__pyx_k_counter), 0, 0, 1, 1},
   {&__pyx_n_s_economic_order_quantity, __pyx_k_economic_order_quantity, sizeof(__pyx_k_economic_order_quantity), 0, 0, 1, 1},
   {&__pyx_n_s_eoq_variable_cost, __pyx_k_eoq_variable_cost, sizeof(__pyx_k_eoq_variable_cost), 0, 0, 1, 1},
@@ -1482,7 +1482,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_reorder_cost, __pyx_k_reorder_cost, sizeof(__pyx_k_reorder_cost), 0, 0, 1, 1},
   {&__pyx_n_s_reorder_quantity, __pyx_k_reorder_quantity, sizeof(__pyx_k_reorder_quantity), 0, 0, 1, 1},
   {&__pyx_n_s_sqrt, __pyx_k_sqrt, sizeof(__pyx_k_sqrt), 0, 0, 1, 1},
-  {&__pyx_n_s_supplychainpy_supplychainpy_dema, __pyx_k_supplychainpy_supplychainpy_dema, sizeof(__pyx_k_supplychainpy_supplychainpy_dema), 0, 0, 1, 1},
+  {&__pyx_n_s_supplychainpy_inventory_eoq, __pyx_k_supplychainpy_inventory_eoq, sizeof(__pyx_k_supplychainpy_inventory_eoq), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_n_s_total_orders, __pyx_k_total_orders, sizeof(__pyx_k_total_orders), 0, 0, 1, 1},
   {&__pyx_n_s_unit_cost, __pyx_k_unit_cost, sizeof(__pyx_k_unit_cost), 0, 0, 1, 1},
@@ -1497,29 +1497,29 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":4
+  /* "supplychainpy/inventory/eoq.pyx":28
  * 
  * # return a tuple for variable cost and order quantity without sending
  * def minimum_variable_cost(double total_orders, double  reorder_cost, double unit_cost, double  holding_cost):             # <<<<<<<<<<<<<<
  * 
  *     cdef double STEP
  */
-  __pyx_tuple_ = PyTuple_Pack(9, __pyx_n_s_total_orders, __pyx_n_s_reorder_cost, __pyx_n_s_unit_cost, __pyx_n_s_holding_cost, __pyx_n_s_STEP, __pyx_n_s_previous_eoq_variable_cost, __pyx_n_s_vc, __pyx_n_s_counter, __pyx_n_s_order_qty); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple_ = PyTuple_Pack(9, __pyx_n_s_total_orders, __pyx_n_s_reorder_cost, __pyx_n_s_unit_cost, __pyx_n_s_holding_cost, __pyx_n_s_STEP, __pyx_n_s_previous_eoq_variable_cost, __pyx_n_s_vc, __pyx_n_s_counter, __pyx_n_s_order_qty); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
-  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(4, 0, 9, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_C_Users_Kevin_Documents_supplych, __pyx_n_s_minimum_variable_cost, 4, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(4, 0, 9, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_minimum_variable_cost, 28, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":36
+  /* "supplychainpy/inventory/eoq.pyx":60
  * 
  * 
  * def economic_order_quantity(double total_orders, double reorder_cost, double unit_cost, double holding_cost,             # <<<<<<<<<<<<<<
  *                             int reorder_quantity):
  * 
  */
-  __pyx_tuple__3 = PyTuple_Pack(12, __pyx_n_s_total_orders, __pyx_n_s_reorder_cost, __pyx_n_s_unit_cost, __pyx_n_s_holding_cost, __pyx_n_s_reorder_quantity, __pyx_n_s_STEP, __pyx_n_s_previous_eoq_variable_cost, __pyx_n_s_order_factor, __pyx_n_s_eoq_variable_cost, __pyx_n_s_counter, __pyx_n_s_order_qty, __pyx_n_s_vc); if (unlikely(!__pyx_tuple__3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__3 = PyTuple_Pack(12, __pyx_n_s_total_orders, __pyx_n_s_reorder_cost, __pyx_n_s_unit_cost, __pyx_n_s_holding_cost, __pyx_n_s_reorder_quantity, __pyx_n_s_STEP, __pyx_n_s_previous_eoq_variable_cost, __pyx_n_s_order_factor, __pyx_n_s_eoq_variable_cost, __pyx_n_s_counter, __pyx_n_s_order_qty, __pyx_n_s_vc); if (unlikely(!__pyx_tuple__3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
-  __pyx_codeobj__4 = (PyObject*)__Pyx_PyCode_New(5, 0, 12, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_C_Users_Kevin_Documents_supplych, __pyx_n_s_economic_order_quantity, 36, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__4 = (PyObject*)__Pyx_PyCode_New(5, 0, 12, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_economic_order_quantity, 60, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -1603,14 +1603,14 @@ PyMODINIT_FUNC PyInit_eoq(void)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
-  if (__pyx_module_is_main_supplychainpy__supplychainpy__demand__eoq) {
+  if (__pyx_module_is_main_supplychainpy__inventory__eoq) {
     if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    if (!PyDict_GetItemString(modules, "supplychainpy.supplychainpy.demand.eoq")) {
-      if (unlikely(PyDict_SetItemString(modules, "supplychainpy.supplychainpy.demand.eoq", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!PyDict_GetItemString(modules, "supplychainpy.inventory.eoq")) {
+      if (unlikely(PyDict_SetItemString(modules, "supplychainpy.inventory.eoq", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
   }
   #endif
@@ -1630,53 +1630,55 @@ PyMODINIT_FUNC PyInit_eoq(void)
   if (__Pyx_patch_abc() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":1
+  /* "supplychainpy/inventory/eoq.pyx":25
+ * # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * 
  * from math import sqrt             # <<<<<<<<<<<<<<
  * 
  * # return a tuple for variable cost and order quantity without sending
  */
-  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_sqrt);
   __Pyx_GIVEREF(__pyx_n_s_sqrt);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_sqrt);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_math, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_math, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_sqrt); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_sqrt); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_sqrt, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_sqrt, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":4
+  /* "supplychainpy/inventory/eoq.pyx":28
  * 
  * # return a tuple for variable cost and order quantity without sending
  * def minimum_variable_cost(double total_orders, double  reorder_cost, double unit_cost, double  holding_cost):             # <<<<<<<<<<<<<<
  * 
  *     cdef double STEP
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_13supplychainpy_13supplychainpy_6demand_3eoq_1minimum_variable_cost, NULL, __pyx_n_s_supplychainpy_supplychainpy_dema); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_13supplychainpy_9inventory_3eoq_1minimum_variable_cost, NULL, __pyx_n_s_supplychainpy_inventory_eoq); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_minimum_variable_cost, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_minimum_variable_cost, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":36
+  /* "supplychainpy/inventory/eoq.pyx":60
  * 
  * 
  * def economic_order_quantity(double total_orders, double reorder_cost, double unit_cost, double holding_cost,             # <<<<<<<<<<<<<<
  *                             int reorder_quantity):
  * 
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_13supplychainpy_13supplychainpy_6demand_3eoq_3economic_order_quantity, NULL, __pyx_n_s_supplychainpy_supplychainpy_dema); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_13supplychainpy_9inventory_3eoq_3economic_order_quantity, NULL, __pyx_n_s_supplychainpy_inventory_eoq); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_economic_order_quantity, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_economic_order_quantity, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "supplychainpy\supplychainpy\demand\eoq.pyx":1
- * from math import sqrt             # <<<<<<<<<<<<<<
- * 
- * # return a tuple for variable cost and order quantity without sending
+  /* "supplychainpy/inventory/eoq.pyx":1
+ * # Copyright (c) 2015-2016, The Authors and Contributors             # <<<<<<<<<<<<<<
+ * # <see AUTHORS file>
+ * # All rights reserved.
  */
   __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -1691,11 +1693,11 @@ PyMODINIT_FUNC PyInit_eoq(void)
   __Pyx_XDECREF(__pyx_t_2);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init supplychainpy.supplychainpy.demand.eoq", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init supplychainpy.inventory.eoq", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init supplychainpy.supplychainpy.demand.eoq");
+    PyErr_SetString(PyExc_ImportError, "init supplychainpy.inventory.eoq");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

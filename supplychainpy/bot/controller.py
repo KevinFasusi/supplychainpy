@@ -161,28 +161,37 @@ def inventory_turns_controller(uri: str, direction: str = None):
     return tuple(result)
 
 def average_orders_controller(uri: str, direction: str = None):
+    rp = None
+    try:
+        meta = MetaData()
+        connection = engine(uri)
+        inventory_analysis = Table('inventory_analysis', meta, autoload=True, autoload_with=connection)
+        if direction == 'smallest':
+            skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.average_orders,
+                           func.min(inventory_analysis.columns.average_orders)])
+        else:
+            skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.average_orders,
+                           func.max(inventory_analysis.columns.average_orders)])
+
+        rp = connection.execute(skus)
+        result = []
+        sku_id = ""
+        for i in rp:
+            sku_id = str(i['sku_id'])
+            result.append((i['sku_id'], i['average_orders']))
+        rp.close()
+        # print(sku_id)
+        msk_table = Table('master_sku_list', meta, autoload=True, autoload_with=connection)
+        skus = select([msk_table.columns.id, msk_table.columns.sku_id]).where(msk_table.columns.id == sku_id)
+        rp = connection.execute(skus)
+        for i in rp:
+            result.append(i['sku_id'])
+
+        return tuple(result)
+    finally:
+        rp.close()
+
+def currency_symbol_controller(uri: str):
     meta = MetaData()
     connection = engine(uri)
-    inventory_analysis = Table('inventory_analysis', meta, autoload=True, autoload_with=connection)
-    if direction == 'smallest':
-        skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.average_orders,
-                       func.min(inventory_analysis.columns.average_orders)])
-    else:
-        skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.average_orders,
-                       func.max(inventory_analysis.columns.average_orders)])
-
-    rp = connection.execute(skus)
-    result = []
-    sku_id = ""
-    for i in rp:
-        sku_id = str(i['sku_id'])
-        result.append((i['sku_id'], i['average_orders']))
-    rp.close()
-    # print(sku_id)
-    msk_table = Table('master_sku_list', meta, autoload=True, autoload_with=connection)
-    skus = select([msk_table.columns.id, msk_table.columns.sku_id]).where(msk_table.columns.id == sku_id)
-    rp = connection.execute(skus)
-    for i in rp:
-        result.append(i['sku_id'])
-    rp.close()
-    return tuple(result)
+    # if using html currency symbols think about how to deal with ascii when iteracting with dash on the command line etc
