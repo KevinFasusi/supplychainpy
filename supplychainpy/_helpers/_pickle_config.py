@@ -25,18 +25,10 @@
 
 import pickle
 
-from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_APPLICATION_CONFIG
-
 
 def serialise_config(configuration: dict, file_path: str):
-    t = None
-    try:
-        t = open(file_path, 'w+')
-        pickle.dump(configuration, t)
-    except OSError:
-        return 0
-    finally:
-        t.close()
+    with open(file_path, 'wb') as f:
+        pickle.dump(configuration, f)
 
 
 def deserialise_config(file_path: str):
@@ -45,6 +37,5 @@ def deserialise_config(file_path: str):
             db_config = pickle.load(f)
         return db_config
     except OSError:
-        serialise_config(configuration={},file_path=ABS_FILE_PATH_APPLICATION_CONFIG)
         return {}
 

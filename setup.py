@@ -25,5 +25,5 @@ setup(name='supplychainpy',
           ]
       },
       package_data={
-          'supplychainpy':['reporting/static/*', 'reporting/templates/*', 'sample_data/*']
+          'supplychainpy':['reporting/static/*', 'reporting/templates/*', 'sample_data/*', '_pickled/*']
       })
