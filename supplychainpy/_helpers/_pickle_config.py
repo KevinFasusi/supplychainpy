@@ -29,7 +29,7 @@ from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_APPLICATION_
 
 
 def serialise_config(configuration: dict, file_path: str):
-    with open(file_path, 'wb') as f:
+    with open(file_path, 'w+') as f:
         pickle.dump(configuration, f)
 
 
