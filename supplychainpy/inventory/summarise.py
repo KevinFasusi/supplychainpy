@@ -29,10 +29,6 @@ from supplychainpy.inventory.abc_xyz import AbcXyz
 from supplychainpy.inventory.analyse_uncertain_demand import UncertainDemand
 
 
-# summaries and analysis must always be able to be placed in a cell.
-from supplychainpy.sample_data.config import ABS_FILE_PATH
-
-
 class Inventory:
     def __init__(self, processed_orders):
         self.__analysed_orders = processed_orders
