@@ -49,7 +49,6 @@ class TestModelDemand(TestCase):
     def test_simple_exponential_smoothing_forecast(self):
         """ Tests every sku listed in file, is processed for forecast """
         for key in self.sku_id:
-            print(key)
             self.assertIn(key, self.unpack_keys)
 
     def test_simple_exponential_smoothing_forecast_trend(self):

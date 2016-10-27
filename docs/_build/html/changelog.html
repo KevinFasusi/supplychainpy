@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Change Log &mdash; supplychainpy 0.0.3 documentation</title>
+  <title>Change Log &mdash; supplychainpy 0.0.4 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
   
 
   
-    <link rel="top" title="supplychainpy 0.0.3 documentation" href="index.html"/>
-        <link rel="next" title="Installation" href="Installation.html"/>
+    <link rel="top" title="supplychainpy 0.0.4 documentation" href="index.html"/>
+        <link rel="next" title="Installation" href="installation.html"/>
         <link rel="prev" title="Welcome to supplychainpy’s documentation!" href="index.html"/> 
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.0.3
+                0.0.4
               </div>
             
           
@@ -105,11 +105,12 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reporting.html">Supplychainpy Reporting Suite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inventory_modeling_and_analysis_with_supplychainpy.html">Inventory Modeling and Analysis Made Easy with Supplychainpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_supplychainpy_with_pandas_jupyter_and_matplotlib.html">Using supplychainpy with Pandas, Jupyter and Matplotlib</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="suchpy_pandas_jupyter.html">Using Pandas With supplychainpy</a></li>
 </ul>
 
             
@@ -165,25 +166,25 @@ changed and there will not be any break in contracts.</p>
 <div class="section" id="application">
 <h3>Application<a class="headerlink" href="#application" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>[Bug Fix]</li>
-<li>[Update] Clarification of internal and public api using leading underscore notation.</li>
+<li>[Update] Explicit internal and public api.</li>
 <li>[Update] Excess, shortages added to the UncertainDemand order_summary.</li>
-<li>[Update] UncertainDemand __repr__ defined.</li>
 <li>[Update] Moved abc_xyz.py, analyse_uncertain_demand.py, economic_order_quantity.py and eoq.pyx from &#8220;demand&#8221; to &#8220;inventory&#8221; package</li>
 <li>[Update] &#8220;demand&#8221; package now contains: evolutionary_algorithms.py, forecast_demand.py and regression.py</li>
-<li>[Update] retail_price added to model_inventory.analyse_orders.</li>
+<li>[Update] retail_price added to <cite>model_inventory.analyse_orders</cite>.</li>
 <li>[Update] backlog added to data format for loading into analysis.</li>
 <li>[Update] Unit Tests.</li>
 <li>[Update] Docstrings</li>
-<li>[New Faeture] Api supports Pandas data frames</li>
+<li>[New Feature] Analytic Hierarchy</li>
+<li>[New Feature] Api supports Pandas data frames</li>
 <li>[New Feature] Browser based reporting suite, with charts, data summaries and integrated chat bot.</li>
-<li>[New Feature] Dash Bot, a basic chat bot assistant for the data in the reporting suite.</li>
+<li>[New Feature] Dash Bot, a basic chat bot assistant for the data in the reporting suite. Query data using natural language.</li>
 <li>[New Feature] Command line interface for processing .csv to database, launching reports and chat bot.</li>
 <li>[New Feature] &#8220;Model_Demand&#8221; module containing simple exponential smoothing and holts trend corrected exponential smoothing.</li>
-<li>[New Feature] Summarise and Filter your analysis with</li>
+<li>[New Feature] Summarise and filter your analysis</li>
 <li>[New Feature] Holts Trend Corrected Exponential Smoothing Forecast and optimised variant (evolutionary algorithm for optimised alpha and gamma)</li>
 <li>[New Feature] Simple Exponential Smoothing</li>
-<li>[New Feature] Evolutionary Algorithms for Smoothing Level Constants (converges on optimised smoothing levels using genetic algorithm)</li>
+<li>[New Feature] Evolutionary Algorithms for Smoothing Level Constants (converges on better smoothing levels using genetic algorithm)</li>
+<li>[New Feature] SKU and inventory profile recommendations generator.</li>
 </ul>
 </div>
 <div class="section" id="documentation">
@@ -266,7 +267,7 @@ demand variability and safety stock.</li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="Installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral" title="Welcome to supplychainpy’s documentation!" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -300,7 +301,7 @@ demand variability and safety stock.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.3',
+            VERSION:'0.0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -25,11 +25,6 @@
 import logging
 
 from scipy import stats
-from scipy.stats.stats import ttest_ind
-
-import numpy as np
-
-import pandas as pd
 
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())

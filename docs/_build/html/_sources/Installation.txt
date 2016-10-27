@@ -16,14 +16,17 @@ Dependencies
 ------------
 
 - Numpy
+- Flask
+- Flask-SqlAlchemy
+- SqlAlchemy
+- Flask-Restless
+- TextBlob
+- Pandas
 
 Optional Dependencies
 ---------------------
 
-- Pandas
 - matplotlib
-- Ipython
-- Jupyters
 - openpyxl
 - xlwings
 

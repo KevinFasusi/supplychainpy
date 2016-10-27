@@ -192,6 +192,48 @@ def average_orders_controller(uri: str, direction: str = None):
         rp.close()
 
 def currency_symbol_controller(uri: str):
+    """ Retrieves currency code from analysis database.
+
+    Args:
+        uri:
+
+    Returns:
+
+    """
     meta = MetaData()
     connection = engine(uri)
+    inventory_analysis = Table('inventory_analysis', meta, autoload=True, autoload_with=connection)
+    transaction_log = Table('transaction_log', meta, autoload=True, autoload_with=connection)
+    most_recent_transaction = select([transaction_log.columns.id, func.max(transaction_log.columns.date)]).limit(1)
+    rp = connection.execute(most_recent_transaction)
+    transaction_id = 0
+    for i in rp:
+        transaction_id = i['id']
+    symbol_id = select([inventory_analysis.columns.currency_id]).where(inventory_analysis.columns.transaction_log_id == transaction_id).limit(1)
+    rp.close()
+    rp = connection.execute(symbol_id)
+    currency_symbol_id = 0
+    for i in rp:
+        currency_symbol_id = i['currency_id']
+    rp.close()
+    currency = Table('currency', meta, autoload=True, autoload_with=connection)
+    currency_symbol = select([currency.columns.currency_code]).where(currency.columns.id == currency_symbol_id)
+    rp = connection.execute(currency_symbol)
+    currency_code = 0
+    for i in rp:
+        currency_code = i['currency_code']
+    rp.close()
+    return currency_code
+
+
+def classification_controller(uri: str, sku_id: str = None):
+    meta = MetaData()
+    connection = engine(uri)
+    inventory_analysis = Table('inventory_analysis',meta, autoload=True, autoload_with=connection)
+    msk = Table('master_sku_list', meta, autoload=True, autoload_with=connection)
+    sku_classification = select([inventory_analysis.columns.abc_xyz_classification, msk.columns.sku_id]).join(msk).where( msk.columns.sku_id ==sku_id)
+    rp = connection.execute(sku_classification)
+    for i in rp:
+        print()
+
     # if using html currency symbols think about how to deal with ascii when iteracting with dash on the command line etc

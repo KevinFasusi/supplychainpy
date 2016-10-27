@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>supplychainpy.inventory package &mdash; supplychainpy 0.0.3 documentation</title>
+  <title>supplychainpy.inventory package &mdash; supplychainpy 0.0.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="supplychainpy 0.0.3 documentation" href="index.html"/> 
+    <link rel="top" title="supplychainpy 0.0.4 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.0.3
+                0.0.4
               </div>
             
           
@@ -81,11 +81,12 @@
             
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reporting.html">Supplychainpy Reporting Suite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inventory_modeling_and_analysis_with_supplychainpy.html">Inventory Modeling and Analysis Made Easy with Supplychainpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_supplychainpy_with_pandas_jupyter_and_matplotlib.html">Using supplychainpy with Pandas, Jupyter and Matplotlib</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="suchpy_pandas_jupyter.html">Using Pandas With supplychainpy</a></li>
 </ul>
 
             
@@ -428,6 +429,16 @@ ABCXYZ classification</p>
 </div>
 <div class="section" id="module-supplychainpy.inventory.eoq">
 <span id="supplychainpy-inventory-eoq-module"></span><h2>supplychainpy.inventory.eoq module<a class="headerlink" href="#module-supplychainpy.inventory.eoq" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="supplychainpy.inventory.eoq.economic_order_quantity">
+<code class="descclassname">supplychainpy.inventory.eoq.</code><code class="descname">economic_order_quantity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.inventory.eoq.economic_order_quantity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.inventory.eoq.minimum_variable_cost">
+<code class="descclassname">supplychainpy.inventory.eoq.</code><code class="descname">minimum_variable_cost</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.inventory.eoq.minimum_variable_cost" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 <div class="section" id="module-supplychainpy.inventory.summarise">
 <span id="supplychainpy-inventory-summarise-module"></span><h2>supplychainpy.inventory.summarise module<a class="headerlink" href="#module-supplychainpy.inventory.summarise" title="Permalink to this headline">¶</a></h2>
@@ -443,23 +454,71 @@ ABCXYZ classification</p>
 <dl class="method">
 <dt id="supplychainpy.inventory.summarise.Inventory.abc_xyz_summary">
 <code class="descname">abc_xyz_summary</code><span class="sig-paren">(</span><em>classification: tuple=('AX'</em>, <em>'AY'</em>, <em>'AZ'</em>, <em>'BX'</em>, <em>'BY'</em>, <em>'BZ'</em>, <em>'CX'</em>, <em>'CY'</em>, <em>'CZ')</em>, <em>category: tuple=('excess_stock'</em>, <em>'shortages'</em>, <em>'revenue')</em>, <em>value: str='currency'</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.inventory.summarise.Inventory.abc_xyz_summary" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve currency value or units for key metrics by classification</p>
+<dd><p>Retrieve currency value or units for key metrics by classification. Defaults to currency unless units stated.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>classification</strong> (<em>tuple</em>) &#8211; ABCXYZ inventory classification of sku.</li>
+<li><strong>category</strong> (<em>tuple</em>) &#8211; Category with which to aggregate the SKU classification.</li>
+<li><strong>value</strong> (<em>str</em>) &#8211; Defaults to aggregating classification on currency unless units are specified.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Aggregated summary for classification based on category in
+currency value or units.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="supplychainpy.inventory.summarise.Inventory.describe_sku">
-<code class="descname">describe_sku</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.inventory.summarise.Inventory.describe_sku" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">describe_sku</code><span class="sig-paren">(</span><em>*args: str</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.inventory.summarise.Inventory.describe_sku" title="Permalink to this definition">¶</a></dt>
+<dd><p>Summarise SKU using descriptive statistics, key performance indicators, financial fundamentals and rankings</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>*args</strong> (<em>str</em>) &#8211; SKU unique identification</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Summary of SKU.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="supplychainpy.inventory.summarise.Inventory.rank_summary">
 <code class="descname">rank_summary</code><span class="sig-paren">(</span><em>attribute: str</em>, <em>count: int=0</em>, <em>reverse: bool=True</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.inventory.summarise.Inventory.rank_summary" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="supplychainpy.inventory.summarise.Inventory.traffic_lights_system">
-<code class="descname">traffic_lights_system</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.inventory.summarise.Inventory.traffic_lights_system" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Ranks any SKU in the profile by an attribute from the UncertainDemand objects orders_summary method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>attribute</strong> (<em>str</em>) &#8211; SKU attribute from analysed orders in UncertainDemand object</li>
+<li><strong>count</strong> (<em>int</em>) &#8211; The running count required e.g. 10 for top 10.</li>
+<li><strong>reverse</strong> (<em>bool</em>) &#8211; Reverse the rank order e.g. top 10 or bottom 10</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Ranked summary for attribute specified.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
@@ -559,7 +618,7 @@ ABCXYZ classification</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.3',
+            VERSION:'0.0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

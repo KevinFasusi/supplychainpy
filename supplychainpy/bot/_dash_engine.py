@@ -22,8 +22,29 @@
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import smtplib as smtp
+
+from typing import Tuple
+
+from supplychainpy.bi._recommendation_state_machine import RecommendationStateMachine
 
 
-def launch_smtp():
-    pass
+class DashMachine(RecommendationStateMachine):
+    def __init__(self):
+        super(DashMachine, self).__init__()
+
+    def run(self, message: str) -> Tuple[str]:
+        new_state = ''
+        try:
+            handler = self.handlers[self.start_state]
+        except:
+            raise OSError("call .set_start() first before .run()")
+        if not self.end_states:
+            raise OSError("must have at least one end_state")
+
+        while True:
+            (new_state, message) = handler(message)
+            if new_state.upper() in self.end_states:
+                break
+            else:
+                handler = self.handlers[new_state.upper()]
+        return new_state, message

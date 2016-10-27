@@ -71,6 +71,9 @@ class TestBuildModel(TestCase):
                                     retail_price=Decimal(455),
                                     file_type='csv')
 
+        analysed_orders = [demand.orders_summary() for demand in d]
+        print(analysed_orders)
+
         self.assertEqual(len(d), 39)
 
     def test_file_path_extension_row(self):
@@ -168,7 +171,7 @@ class TestBuildModel(TestCase):
                 self.assertEqual(item['ABC_XYZ_Classification'], 'BY')
 
 
-    def test_dataa_frame(self):
+    def test_data_frame(self):
         raw_df = pd.read_csv(ABS_FILE_PATH['COMPLETE_CSV_SM'])
         analysis_df = analyse(df=raw_df, start=1, interval_length=12, interval_type='months')
         self.assertIsInstance(analysis_df[['sku', 'quantity_on_hand', 'excess_stock', 'shortages', 'ABC_XYZ_Classification']], DataFrame)

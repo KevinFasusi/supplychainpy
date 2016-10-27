@@ -3,82 +3,97 @@
 [![Coverage Status](https://coveralls.io/repos/github/KevinFasusi/supplychainpy/badge.svg?branch=master)](https://coveralls.io/github/KevinFasusi/supplychainpy?branch=master)
 [![PyPI version](https://badge.fury.io/py/supplychainpy.svg)](https://badge.fury.io/py/supplychainpy)
 
-#Supplychainpy
+![Supplychainpy logo](https://github.com/KevinFasusi/supplychainpy/blob/master/supplychainpy/reporting/static/PY_logo.jpg)
 
-Supplychainpy is a Python library for supply chain analysis, modeling and simulation. Use in conjunction with popular
-data analysis libraries and excel tools such as xlwings or openpyxl (for Excel spreadsheet applications).
+# Supplychainpy
 
-The library is currently in early stages of development, so not ready for use in production. However some fun can be had
-by passing a csv or text file in the correct format. For quick exploration, the `analyse_orders_abcxyz_from_file`
-will output the following inventory analysis:
-- economic order quantities
-- safety stock
-- abc xyz classification
-- demand variability
-- ...
+Supplychainpy is a Python library for supply chain analysis, modeling and simulation. The library is currently in early stages of development, so not ready for use in production. For quick exploration, please see the **Quick Guide** below.
 
-##Quick Install
+## Quick Install
 
 The easiest way to install supplychainpy is via pip: `pip install supplychainpy`.
 
 An alternative is to clone the repository and run `python setup.py install`
 
-##Dependencies
+## Dependencies
 
-- NumPy
+- Numpy
+- Flask
+- Flask-SqlAlchemy
+- SqlAlchemy
+- Flask-Restless
+- TextBlob
+- Pandas
 
-##Optional Dependencies
+## Optional Dependencies
 
-- pandas
 - matplotlib
 - xlwings
 - openpyxl
 
 
-##Python Version
+## Python Version
 
 - python 3.5
 
-##Quick Guide
-1. Fire up the python interpreter or `ipython notebook` from the command line.
+## Quick Guide
 
-2. Format the `.csv` or `.txt`.e.g `sku id`, `order1`, `order2`,... `orders12`, `unit cost`, `lead time`,
-
-At the moment the lead-time must match the orders time bucket i.e both should be in days, weeks or months. This will
-change promptly.
+Below is a quick example using a [sample data file](https://github.com/KevinFasusi/supplychainpy/blob/master/supplychainpy/sample_data/complete_dataset_small.csv). 
 
 ```python
-	from xlwings import Workbook, Range
-    from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
-    wb = Workbook(r'~/Desktop/test.xlsx'), Range
-    abc = analyse_orders_abcxyz_from_file(file_path="data.csv", z_value= 1.28, reorder_cost=5000, file_type="csv")
+    from supplychainpy.model_inventory import analyse
+    from supplychainpy.sample_data.config import ABS_FILE_PATH
+    from decimal import Decimal
+    analysed_data = analyse(file_path=ABS_FILE_PATH['COMPLETE_CSV_SM'],
+                            z_value=Decimal(1.28),
+                            reorder_cost=Decimal(400),
+                            retail_price=Decimal(455),
+                            file_type='csv',
+                            currency='USD')
+    analysis = [demand.orders_summary() for demand in analysed_data]
+    
+```
 
-	for index ,sku in enumerate(abc.orders, 1):
-        Range('A'+ str(index)).value = sku.sku_id
-        Range('B' + str(index)).value = float(sku.economic_order_qty)
-        Range('C' + str(index)).value = float(sku.revenue)
-        Range('D' + str(index)).value = sku.abcxyz_classification
+output:
+
+```
+{'reorder_level': '4069', 'orders': {'demand': ('1509', '1855', '2665', '1841', '1231', '2598', '1988', '1988', '2927', '2707', '731', '2598')}, 'total_orders': '24638', 'economic_order_quantity': '44', 'sku': 'KR202-209', 'unit_cost': '1001', 'revenue': '123190000', 'quantity_on_hand': '1003', 'shortages': '5969', 'excess_stock': '0', 'average_orders': '2053.1667', 'standard_deviation': '644', 'reorder_quantity': '13', 'safety_stock': '1165', 'demand_variability': '0.314', 'ABC_XYZ_Classification': 'BY', 'economic_order_variable_cost': '15708.41', 'currency': 'USD'} ...
+```
+
+
+Alternatively using a Pandas `DataFrame`:
+
+```python
+    from supplychainpy.model_inventory import analyse
+    from supplychainpy.sample_data.config import ABS_FILE_PATH
+    from decimal import Decimal
+    import pandas as pd
+    raw_df = pd.read_csv(ABS_FILE_PATH['COMPLETE_CSV_SM'])
+    analyse_kv = dict(
+        df=raw_df,
+        start=1,
+        interval_length=12,
+        interval_type='months',
+        z_value=Decimal(1.28),
+        reorder_cost=Decimal(400),
+        retail_price=Decimal(455),
+        file_type='csv',
+        currency='USD'
+    )
+    analysis_df = analyse(**analyse_kv)
+
 
 ```
 
-or get the whole analysis using:
+Further examples please refer to the jupyter notebooks [here](https://github.com/KevinFasusi/supplychainpy_notebooks).
+For more detailed coverage of the api please see the [documentation](http://supplychainpy.readthedocs.org/).
 
-```python
-	from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
-    abc = analyse_orders_abcxyz_from_file(file_path="data.csv", z_value=Decimal(1.28),
-                                     reorder_cost=Decimal(5000), file_type="csv")
-	for sku in abc.orders:
-	    print(sku.orders_summary())
-```
+Important Links:
 
-Further examples and explanations will be available in the documentation. Please find below.
-
-Documentation: [supplychainpy.readthdocs](http://supplychainpy.readthedocs.org/)
-
-Website: [supplychainpy.org](http://www.supplychainpy.org/)
-
-Forum: [google groups](https://groups.google.com/forum/#!forum/supplychainpy)
-
+- Jupyter Notebooks: [supplychainpy_notebooks](https://github.com/KevinFasusi/supplychainpy_notebooks)
+- Documentation: [supplychainpy.readthdocs](http://supplychainpy.readthedocs.org/)
+- Website: [supplychainpy.org](http://www.supplychainpy.org/)
+- Forum: [google groups](https://groups.google.com/forum/#!forum/supplychainpy)
 
 
 

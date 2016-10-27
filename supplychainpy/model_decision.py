@@ -39,8 +39,7 @@ def analytical_hierarchy_process(criteria: tuple, criteria_scores: list, options
         quantitative_criteria (tuple):   List the quantitative criteria e.g. 'fuel economy', that use representative
                                          values and not scores
         **kwargs:
-            item_cost (dict):   A dict of alternatives and their corresponding costs. Only necessary if seeking to use
-                                cost benefit ratios for further discretion.
+            item_cost (dict):   A dict of alternatives and their corresponding costs. Only necessary if seeking to use cost benefit ratios for further discretion.
 
     Returns:
         dict:   Summary of analytical hierarchy and cost benefit analysis if kwargs 'item_cost' used.

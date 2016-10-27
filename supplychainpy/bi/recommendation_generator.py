@@ -25,8 +25,8 @@
 from decimal import Decimal
 from supplychainpy import model_inventory
 from supplychainpy._helpers._pickle_config import deserialise_config
-from supplychainpy.bi.recommendation_state_machine import SkuMachine, ProfileMachine
-from supplychainpy.bi.recommendations import SKUStates, ProfileStates
+from supplychainpy.bi._recommendation_state_machine import SkuMachine, ProfileMachine
+from supplychainpy.bi._recommendations import SKUStates, ProfileStates
 from supplychainpy.inventory.analyse_uncertain_demand import UncertainDemand
 from supplychainpy.sample_data.config import ABS_FILE_PATH, FORECAST_PICKLE
 

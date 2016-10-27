@@ -434,7 +434,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
         for individual in population:
             procreation_probability = sum(individual.values()) / len(individual.values())
             if individual_type == 'ses':
-                if procreation_probability >= 0.7:
+                if procreation_probability >= 0.5:
                     yield individual
             else:
                 if procreation_probability >= 0.3:
