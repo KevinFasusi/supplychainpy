@@ -16,7 +16,7 @@ setup(name='supplychainpy',
       license='BSD 3',
       packages=find_packages(exclude=['docs', 'tests', 'scratch.py']),
       test_suite='supplychainpy/tests',
-      install_requires=['NumPy', 'cython', 'flask'],
+      install_requires=['NumPy', 'cython', 'flask', 'scipy',],
       keywords=['supply chain', 'operations research', 'operations management', 'simulation'],
       ext_modules=cythonize(extensions),
       entry_points={
@@ -25,5 +25,5 @@ setup(name='supplychainpy',
           ]
       },
       package_data={
-          'supplychainpy':['reporting/static/*', 'reporting/templates/*']
+          'supplychainpy':['reporting/static/*', 'reporting/templates/*', 'sample_data/*']
       })
