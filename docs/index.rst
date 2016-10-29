@@ -17,6 +17,7 @@ Contents:
    reporting
    inventory_modeling_and_analysis_with_supplychainpy
    using_supplychainpy_with_pandas_jupyter_and_matplotlib
+   supplychainpy_with_docker
    calculations
 
 Indices and tables

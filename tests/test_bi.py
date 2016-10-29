@@ -4,8 +4,8 @@ from decimal import Decimal
 from supplychainpy import model_inventory
 from supplychainpy._helpers._pickle_config import deserialise_config
 
-from supplychainpy.bi.recommendation_state_machine import SkuMachine
-from supplychainpy.bi.recommendations import SKUStates
+from supplychainpy.bi._recommendation_state_machine import SkuMachine
+from supplychainpy.bi._recommendations import SKUStates
 from supplychainpy.sample_data.config import ABS_FILE_PATH
 
 

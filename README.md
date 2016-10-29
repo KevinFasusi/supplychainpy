@@ -18,12 +18,19 @@ An alternative is to clone the repository and run `python setup.py install`
 ## Dependencies
 
 - Numpy
-- Flask
-- Flask-SqlAlchemy
-- SqlAlchemy
-- Flask-Restless
-- TextBlob
 - Pandas
+- Flask
+- Flask-Restful
+- Flask-Restless
+- Flask-Script
+- Flask-SqlAlchemy
+- Flask-Uploads
+- Flask-WTF
+- Flask-SqlAlchemy
+- Scipy
+- SqlAlchemy
+- TextBlob
+
 
 ## Optional Dependencies
 
@@ -85,10 +92,49 @@ Alternatively using a Pandas `DataFrame`:
 
 ```
 
+
 Further examples please refer to the jupyter notebooks [here](https://github.com/KevinFasusi/supplychainpy_notebooks).
 For more detailed coverage of the api please see the [documentation](http://supplychainpy.readthedocs.org/).
 
-Important Links:
+## New Reporting Feature
+
+The reports include a dashboard, raw analysis, a recommendations feed and SKU level analysis with forecast:
+
+![reports](https://github.com/supplybi/supplybi.github.io/blob/master/images/reports.gif)
+
+
+Launch reports can be achieved from the command line by:
+
+```
+    supplychainpy data.csv -a -loc absolute/path/to/current/directory -l
+```
+
+Other optional arguments include the host (--host default: 127.0.0.1 ) and port (-p default: 5000) arguments. Setting the host and ports allows the `-l` arguments can be replaced by the `-lx`. The `-l` arguments launch a small intermediary GUI for setting the port before launching the reports in a web browser. The `-lx` argument start the reporting process but do not launch a GUI or a browser window and instead expects the user to open the browser and navigate to the address hosting the reports as specified in the CLI. Another important flag is the currency flag (-cur) if unspecified, the currency is set to USD.
+
+### ChatBot
+
+The reporting suite also features a chatbot for querying the analysis in natural language. This feature is still under development, but a version is available in 0.0.4 (not yet released).
+
+![chatbot](https://github.com/supplybi/supplybi.github.io/blob/master/images/dash.gif)
+
+For a more detailed breakdown of the reporting features, please navigate to the [documentation](http://supplychainpy.readthedocs.org/) 
+
+## Docker Image
+
+```
+    docker run -ti -v directory/on/client:directory/in/container --name fruit-smoothie -p5000:5000 supplychainpy/suchpy bash
+    
+```
+
+The port, container name and directories can be changed as needed. Use a shared volume (as shown above) to present a CSV to the container for generating the report.
+
+Make sure you specify the host as "0.0.0.0" for the reporting instance running in the container.
+```
+    supplychainpy data.csv -a -loc / -lx --host 0.0.0.0
+
+```
+
+## Important Links:
 
 - Jupyter Notebooks: [supplychainpy_notebooks](https://github.com/KevinFasusi/supplychainpy_notebooks)
 - Documentation: [supplychainpy.readthdocs](http://supplychainpy.readthedocs.org/)
