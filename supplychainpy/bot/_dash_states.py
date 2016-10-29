@@ -252,7 +252,7 @@ class DashStates:
                             response = [
                                 "SKU {} has the lowest average order at {}{:,.2f}".format(str(result[1]), self.currency_symbol,
                                                                                          result[0][1])]
-                            return response
+                            return 0
 
     def check_min_max_semantic(self, dependency, jjs: str, sentence):
         """

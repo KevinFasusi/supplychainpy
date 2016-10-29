@@ -336,20 +336,20 @@ def raw_data():
     return flask.render_template('rawdata.html', inventory=inventory, currency=cur)
 
 
-@app.route('/upload/', methods=['POST', 'GET'])
-def upload_file():
-    """
-
-    Returns:
-
-    """
-    target = UPLOAD_FOLDER
-    form = DataForm()
-    if request.method == 'POST':
-        upload(request=request)
-        return "{}".format(request)
-
-    return flask.render_template('upload.html', form=form)
+#@app.route('/upload/', methods=['POST', 'GET'])
+#def upload_file():
+#    """
+#
+#    Returns:
+#
+#    """
+#    target = UPLOAD_FOLDER
+#    form = DataForm()
+#    if request.method == 'POST':
+#        upload(request=request)
+#        return "{}".format(request)
+#
+#    return flask.render_template('upload.html', form=form)
 
 
 @app.route('/settings', methods=['POST', 'GET'])
