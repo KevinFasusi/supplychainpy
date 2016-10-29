@@ -114,6 +114,7 @@ def main():
         app_settings = {
             'database_path': args.location,
             'host': args.host,
+            'currency': args.currency
         }
 
         serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
@@ -147,6 +148,7 @@ def main():
         app_settings = {
             'database_path': args.location,
             'host': args.host,
+            'currency': args.currency
         }
         serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
         launch_report_server(location=args.location,port=args.port, host=args.host)

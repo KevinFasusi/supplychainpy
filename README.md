@@ -121,6 +121,8 @@ For a more detailed breakdown of the reporting features, please navigate to the 
 
 ## Docker Image
 
+The docker image for supplychainpy is built from the `continuumio/anaconda3` image, with a pre-installed version of supplychainpy and all the dependencies (see the [dockerfile](https://github.com/KevinFasusi/supplychainpy/blob/master/Dockerfile) for more).
+
 ```
     docker run -ti -v directory/on/host:directory/in/container --name fruit-smoothie -p5000:5000 supplychainpy/suchpy bash
     
