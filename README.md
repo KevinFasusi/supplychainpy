@@ -122,7 +122,7 @@ For a more detailed breakdown of the reporting features, please navigate to the 
 ## Docker Image
 
 ```
-    docker run -ti -v directory/on/client:directory/in/container --name fruit-smoothie -p5000:5000 supplychainpy/suchpy bash
+    docker run -ti -v directory/on/host:directory/in/container --name fruit-smoothie -p5000:5000 supplychainpy/suchpy bash
     
 ```
 
