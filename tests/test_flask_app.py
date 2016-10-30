@@ -27,14 +27,14 @@ class TestFlaskReports(unittest.TestCase):
         with app.app_context():
             load_db(file=ABS_FILE_PATH['COMPLETE_CSV_XSM'])
 
-    def tearDown(self):
-        """Close database link and delete sqlite database"""
-        os.close(self.db_rs)
-        os.unlink(app.config['DATABASE'])
-        app_dir = os.path.dirname(__file__, )
-        rel_path = 'reporting.db'
-        abs_file_path = os.path.abspath(os.path.join(app_dir, rel_path))
-        os.remove(abs_file_path)
+    #def tearDown(self):
+    #    """Close database link and delete sqlite database"""
+    #    os.close(self.db_rs)
+    #    os.unlink(app.config['DATABASE'])
+    #    app_dir = os.path.dirname(__file__, )
+    #    rel_path = 'reporting.db'
+    #    abs_file_path = os.path.abspath(os.path.join(app_dir, rel_path))
+    #    os.remove(abs_file_path)
 
     def test_loaded_db(self):
         index_page = self.app.get('/')
