@@ -9,13 +9,10 @@ Subpackages
     supplychainpy.bi
     supplychainpy.bot
     supplychainpy.demand
-    supplychainpy.distribution
-    supplychainpy.financials
     supplychainpy.inventory
-    supplychainpy.production
     supplychainpy.reporting
     supplychainpy.simulations
-    supplychainpy.warehouse
+
 
 Submodules
 ----------

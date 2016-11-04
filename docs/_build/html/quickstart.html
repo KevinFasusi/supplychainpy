@@ -86,12 +86,18 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Quick Guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#inventory-analysis">Inventory Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#up-and-running">Up and Running</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#summarising-the-analysis">Summarising the Analysis</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="reporting.html">Supplychainpy Reporting Suite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inventory_modeling_and_analysis_with_supplychainpy.html">Inventory Modeling and Analysis Made Easy with Supplychainpy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="using_supplychainpy_with_pandas_jupyter_and_matplotlib.html">Using supplychainpy with Pandas, Jupyter and Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ahp.html">Analytic Hierarchy Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo_simulation.html">Monte Carlo simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Supplychainpy with Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
 </ul>
 
@@ -144,56 +150,21 @@
 <p class="last">The library is currently under development and in planning stages. The library should not be used in
 production at this time.</p>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>All profiling has been carried using ipython <cite>%% timeit</cite> function and carried out on the following systems:</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="13%" />
-<col width="39%" />
-<col width="20%" />
-<col width="28%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">system</th>
-<th class="head">CPU</th>
-<th class="head">Ram</th>
-<th class="head">OS</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>PC</td>
-<td>Xeon 1650v3 (15M Cache, 3.50 GHz)</td>
-<td>32gb ddr4 2133</td>
-<td>linux (xubuntu, windows)</td>
-</tr>
-<tr class="row-odd"><td>Macbook Air</td>
-<td>i7-4650U</td>
-<td>8gb ddr3 1600</td>
-<td>OS X (yosemite)</td>
-</tr>
-</tbody>
-</table>
-<p class="last">Timings are provided as simple benchmarks and will vary based on system and current load.
-The computations here are mainly cpu bound, io may be a factor when reading from file (csv, txt).</p>
-</div>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>Supplychainpy is a Python library for supply chain analysis, modeling and simulation. The library was created to assist
-a workflow that is reliant on Excel and VBA. Below we go through the use cases and implementations particular to the
-domain (supply chain, operations and manufacturing).</p>
-<p>This quick guide is skewed towards analysts with the requisite domain knowledge, who predominantly use Excel. Some
+<p>Supplychainpy is a Python library for supply chain analysis, modelling and simulation. The library assists a workflow that is reliant on Excel and VBA.</p>
+<p>This quick guide assumes analysts have the requisite domain knowledge, and predominantly use Excel. Some
 knowledge of Python or programming is assumed, although those new to data analysis or using Python will likely be able to
 follow with assistance from other material.</p>
 <p>The following guide assumes that the supplychainpy library has already been installed. If not, please use the
-instructions for <span class="xref std std-ref">installation</span>.</p>
+instructions for <a class="reference internal" href="installation.html#installation"><span>Installation</span></a>.</p>
 </div>
-<div class="section" id="inventory-analysis">
-<h2>Inventory Analysis<a class="headerlink" href="#inventory-analysis" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="up-and-running">
+<h2>Up and Running<a class="headerlink" href="#up-and-running" title="Permalink to this headline">¶</a></h2>
 <p>Typically, inventory analysis using Excel requires several formulas, manual processes, possibly some pivot tables and in
 some cases VBA. Using the supplychainpy library can reduce the time taken and effort made for the same analysis.</p>
 <p>A simple analysis for an individual SKU can be carried out by using:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="kn">import</span> <span class="n">model_inventory</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="kn">import</span> <span class="n">model_inventory</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">yearly_demand</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;jan&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;feb&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;mar&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;apr&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span>                <span class="s1">&#39;may&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;jun&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;jul&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span><span class="s1">&#39;aug&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span>                <span class="s1">&#39;sep&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;oct&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;nov&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">}</span>
@@ -227,7 +198,7 @@ some cases VBA. Using the supplychainpy library can reduce the time taken and ef
 </div>
 <p>The same analysis can be made by supplying a pre-formatted <cite>.csv</cite>, <cite>.txt</cite> or Pandas <cite>DataFrame</cite> containing several SKU or entire inventory profile.
 An example using file:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.sample_data.config</span> <span class="kn">import</span> <span class="n">ABS_FILE_PATH</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">decimal</span> <span class="kn">import</span> <span class="n">Decimal</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">analysed_data</span> <span class="o">=</span> <span class="n">analyse</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">ABS_FILE_PATH</span><span class="p">[</span><span class="s1">&#39;COMPLETE_CSV_SM&#39;</span><span class="p">],</span>
@@ -259,9 +230,9 @@ An example using file:</p>
  <span class="s1">&#39;total_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;24638&#39;</span><span class="p">},</span>
 </pre></div>
 </div>
-<p>An example using a <cite>DataFrame</cite>:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">raw_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ABS_FILE_PATH</span><span class="p">[</span><span class="s1">&#39;COMPLETE_CSV_SM&#39;</span><span class="p">])</span>
+<p>The library also supports Pandas using a ` DataFrame`. The following example shows how to use the library to perform an inventory analysis if a <cite>DataFrame</cite> is the preference:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ABS_FILE_PATH</span><span class="p">[</span><span class="s1">&#39;COMPLETE_CSV_SM&#39;</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">analyse_kv</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">df</span><span class="o">=</span><span class="n">raw_df</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -270,17 +241,25 @@ An example using file:</p>
 <span class="gp">... </span>    <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">400</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">retail_price</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">455</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="n">file_type</span><span class="o">=</span><span class="s1">&#39;csv&#39;</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">currency</span><span class="o">=</span><span class="s1">&#39;USD&#39;</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_df</span> <span class="o">=</span> <span class="n">analyse</span><span class="p">(</span><span class="o">**</span><span class="n">analyse_kv</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>A file named <cite>data.csv</cite>, supplied with this distribution (release 0.0.2 onwards) can be used to generate the
-same analysis in <cite>dict</cite> based example. The example below generates the result for 32 stock keeping units (sku).</p>
+<div class="section" id="summarising-the-analysis">
+<h3>Summarising the Analysis<a class="headerlink" href="#summarising-the-analysis" title="Permalink to this headline">¶</a></h3>
 <p>Use the <cite>describe_sku</cite> method a retrieve a summary for a specific skus:</p>
-<div class="code highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.inventory.summarise</span> <span class="kn">import</span> <span class="n">Inventory</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">filtered_summary</span> <span class="o">=</span> <span class="n">Inventory</span><span class="p">(</span><span class="n">analysed_inventory_profile</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.inventory.summarise</span> <span class="kn">import</span> <span class="n">Inventory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.sample_data.config</span> <span class="kn">import</span> <span class="n">ABS_FILE_PATH</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">decimal</span> <span class="kn">import</span> <span class="n">Decimal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysed_data</span> <span class="o">=</span> <span class="n">analyse</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">ABS_FILE_PATH</span><span class="p">[</span><span class="s1">&#39;COMPLETE_CSV_SM&#39;</span><span class="p">],</span>
+<span class="gp">... </span>                        <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
+<span class="gp">... </span>                        <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">400</span><span class="p">),</span>
+<span class="gp">... </span>                        <span class="n">retail_price</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">455</span><span class="p">),</span>
+<span class="gp">... </span>                        <span class="n">file_type</span><span class="o">=</span><span class="s1">&#39;csv&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                        <span class="n">currency</span><span class="o">=</span><span class="s1">&#39;USD&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filtered_summary</span> <span class="o">=</span> <span class="n">Inventory</span><span class="p">(</span><span class="n">processed_orders</span><span class="o">=</span><span class="n">analysed_orders</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sku_summary</span> <span class="o">=</span> <span class="p">[</span><span class="n">summary</span> <span class="k">for</span> <span class="n">summary</span> <span class="ow">in</span> <span class="n">filtered_summary</span><span class="o">.</span><span class="n">describe_sku</span><span class="p">(</span><span class="s1">&#39;KR202-209&#39;</span><span class="p">)]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">sku_summary</span><span class="p">)</span>
 </pre></div>
@@ -306,7 +285,8 @@ same analysis in <cite>dict</cite> based example. The example below generates th
 </pre></div>
 </div>
 <p>For more coverage of the library please take a look at the Jupyter notebooks is available from <a class="reference external" href="https://github.com/KevinFasusi/supplychainpy_notebooks">here</a> .
-The content of notebooks can be found in <span class="xref std std-ref">inventory modeling and analysis made easy with supplychainpy</span> and <span class="xref std std-ref">demand</span>.</p>
+The content of notebooks can be found in <a class="reference internal" href="inventory_modeling_and_analysis_with_supplychainpy.html#inventory"><span>Inventory Modeling and Analysis Made Easy with Supplychainpy</span></a> and <a class="reference internal" href="using_supplychainpy_with_pandas_jupyter_and_matplotlib.html#demand"><span>Using supplychainpy with Pandas, Jupyter and Matplotlib</span></a>.</p>
+</div>
 </div>
 </div>
 

@@ -110,6 +110,9 @@
 <li class="toctree-l1"><a class="reference internal" href="reporting.html">Supplychainpy Reporting Suite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inventory_modeling_and_analysis_with_supplychainpy.html">Inventory Modeling and Analysis Made Easy with Supplychainpy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="using_supplychainpy_with_pandas_jupyter_and_matplotlib.html">Using supplychainpy with Pandas, Jupyter and Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ahp.html">Analytic Hierarchy Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo_simulation.html">Monte Carlo simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Supplychainpy with Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
 </ul>
 
@@ -159,23 +162,23 @@
 <h1>Change Log<a class="headerlink" href="#change-log" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
 <h2>0.0.4<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>Release 0.0.4 has breaking API changes. Namespaces have been changed in this release. All the modules previously in the
-&#8220;demand&#8221; package have been moved to the &#8220;inventory&#8221; package. If you have been using the &#8220;model_inventory&#8221; module then nothing has
-changed and there will not be any break in contracts.</p>
-<p>Although this project is in the planning stages (pre pre-alpha), going forward deprecation warnings will be used.</p>
+<p>Release 0.0.4 has breaking API changes. Namespaces have changed in this release. All the modules previously in the
+&#8220;demand&#8221; package are now inside the &#8220;inventory&#8221; package. If you have been using the &#8220;model_inventory&#8221; module, then nothing has
+changed, and there will not be any break in contracts.</p>
+<p>Although this project is in the planning stages (pre-pre-alpha), going forward deprecation warnings will be used.</p>
 <div class="section" id="application">
 <h3>Application<a class="headerlink" href="#application" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>[Update] Explicit internal and public api.</li>
+<li>[Update] Explicit internal and public API.</li>
 <li>[Update] Excess, shortages added to the UncertainDemand order_summary.</li>
 <li>[Update] Moved abc_xyz.py, analyse_uncertain_demand.py, economic_order_quantity.py and eoq.pyx from &#8220;demand&#8221; to &#8220;inventory&#8221; package</li>
 <li>[Update] &#8220;demand&#8221; package now contains: evolutionary_algorithms.py, forecast_demand.py and regression.py</li>
 <li>[Update] retail_price added to <cite>model_inventory.analyse_orders</cite>.</li>
-<li>[Update] backlog added to data format for loading into analysis.</li>
+<li>[Update] backlog added to the data format for loading into the analysis.</li>
 <li>[Update] Unit Tests.</li>
 <li>[Update] Docstrings</li>
-<li>[New Feature] Analytic Hierarchy</li>
-<li>[New Feature] Api supports Pandas data frames</li>
+<li>[New Feature] Analytic Hierarchy Process</li>
+<li>[New Feature] API supports Pandas data frames</li>
 <li>[New Feature] Browser based reporting suite, with charts, data summaries and integrated chat bot.</li>
 <li>[New Feature] Dash Bot, a basic chat bot assistant for the data in the reporting suite. Query data using natural language.</li>
 <li>[New Feature] Command line interface for processing .csv to database, launching reports and chat bot.</li>
@@ -190,10 +193,14 @@ changed and there will not be any break in contracts.</p>
 <div class="section" id="documentation">
 <h3>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>[New] Reporting Suite Walk Through &#8211;in progress make sure finished before release (windows, mac and linux)</li>
-<li>[Update] Tutorial     &#8211;in progress make sure finished before release</li>
-<li>[Update] Quick Guide  &#8211;in progress make sure finished before release (add forecasting, launching reports, redo original guide checking imports, summarising data using</li>
-<li>[New] Declare public api explicitly. describe and document each module and function, give an example also add to website tutorial as Jupyter notebook.</li>
+<li>[New] Reporting Suite Walk Through</li>
+<li>[Update] Tutorial</li>
+<li>[Update] Quick Guide</li>
+<li>[New] Declare public API explicitly. describe and document each module and function, give an example also add to website tutorial as Jupyter notebook.</li>
+<li>[New] Docker for supplychainpy quick guide.</li>
+<li>[New] Analytic Hierarchy Process quick guide.</li>
+<li>[New] Inventory Modeling</li>
+<li>[New] Demand Planning with Pandas</li>
 </ul>
 </div>
 </div>

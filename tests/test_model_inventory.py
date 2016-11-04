@@ -8,7 +8,7 @@ from unittest import TestCase
 import pandas as pd
 from pandas import DataFrame
 from supplychainpy import model_inventory
-from supplychainpy.model_inventory import analyse
+from supplychainpy.model_inventory import analyse, recommendations
 from supplychainpy.sample_data.config import ABS_FILE_PATH
 # logging.basicConfig(filename='suchpy_tests_log.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -176,6 +176,22 @@ class TestBuildModel(TestCase):
         analysis_df = analyse(df=raw_df, start=1, interval_length=12, interval_type='months')
         self.assertIsInstance(analysis_df[['sku', 'quantity_on_hand', 'excess_stock', 'shortages', 'ABC_XYZ_Classification']], DataFrame)
 
+    def test_recommendation_per_sku(self):
+
+        analysed_order = analyse(file_path=ABS_FILE_PATH['COMPLETE_CSV_XSM'],z_value = Decimal(1.28),
+                                 reorder_cost = Decimal(5000), file_type = "csv", length = 12, currency = 'USD')
+        skus = [sku.orders_summary().get('sku') for sku in analysed_order]
+        holts_forecast = {analysis.sku_id: analysis.holts_trend_corrected_forecast for analysis in
+                          analyse(file_path=ABS_FILE_PATH['COMPLETE_CSV_XSM'],
+                                  z_value=Decimal(1.28),
+                                  reorder_cost = Decimal(5000),
+                                  file_type = "csv",
+                                  length = 12,
+                                  currency = 'USD')}
+        recommend = recommendations(analysed_orders=analysed_order, forecast=holts_forecast)
+
+        for i in recommend.get('sku_recommendations'):
+            self.assertIn(i, skus)
 
 if __name__ == '__main__':
     unittest.main()

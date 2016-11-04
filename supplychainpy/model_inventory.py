@@ -34,7 +34,7 @@ from supplychainpy._helpers._decorators import keyword_sniffer
 from supplychainpy._helpers._enum_formats import FileFormats
 from supplychainpy._helpers._enum_formats import PeriodFormats
 from supplychainpy._helpers._data_cleansing import check_extension
-from supplychainpy.bi.recommendation_generator import run_sku_recommendation
+from supplychainpy.bi.recommendation_generator import run_sku_recommendation, run_profile_recommendation
 from supplychainpy.inventory import analyse_uncertain_demand
 from supplychainpy.inventory import economic_order_quantity
 from supplychainpy.inventory.abc_xyz import AbcXyz
@@ -254,7 +254,7 @@ def _convert_to_pandas_df(analysis: list) -> DataFrame:
 
 def _analyse_orders(orders: dict, sku_id: str, lead_time: Decimal, unit_cost: Decimal, reorder_cost: Decimal,
                     z_value: Decimal, retail_price: Decimal, quantity_on_hand: Decimal, currency: str,
-                    total_orders: float)->UncertainDemand:
+                    total_orders: float) -> UncertainDemand:
     """ Performs several types of common inventory analysis on the raw demand data. Including safety stock, reorder
     levels.
 
@@ -419,7 +419,7 @@ def analyse_orders_from_file_col(file_path, sku_id: str, lead_time: Decimal, uni
     """
     orders = {}
     file_type_processed = ''
-    warnings.warn('Analyse orders function has been deprecated. Please use the analyse function', DeprecationWarning)
+    # warnings.warn('Analyse orders function has been deprecated. Please use the analyse function', DeprecationWarning)
     if check_extension(file_path=file_path, file_type=file_type):
         if file_type == FileFormats.text.name:
             with open(file_path, 'r') as raw_data:
@@ -445,9 +445,6 @@ def analyse_orders_from_file_row(file_path: str, z_value: Decimal, reorder_cost:
                                  period: str = "month", length: int = 12, currency: str = 'USD') -> list:
     """ Analyse multiple SKUs from a file with data arranged by row.
 
-    Analyses orders data for a single sku, using the values from a file arranged in columns.The data should be arranged
-    in two columns, 1 for the period and the other for the corresponding data-point.
-
     Args:
         file_path (file):       The path to the file containing two columns of data, 1 period and 1 data-point for 1 sku.
         reorder_cost (Decimal): The cost to place a reorder. This is usually the cost of the operation divided by number
@@ -455,25 +452,26 @@ def analyse_orders_from_file_row(file_path: str, z_value: Decimal, reorder_cost:
         z_value (Decimal):      The service level required to calculate the safety stock
         file_type (str):        Type of 'file csv' or 'text'
         period (str):           The period of time the data points are bucketed into.
-        length (int):
+        length (int):           The length of the period.
 
     Returns:
-        list:       A list of summaries containing:
-                    average_order,standard_deviation, safety_stock, demand_variability, reorder_level
-                    reorder_quantity, revenue, economic_order_quantity, economic_order_variable_cost
-                    and ABC_XYZ_Classification. For example:
+        list:       A list of summaries containint
 
-                    [{'ABC_XYZ_Classification': 'AX', 'reorder_quantity': '258', 'revenue': '2090910.44',
-                    'average_order': '539', 'reorder_level': '813', 'economic_order_quantity': '277', 'sku': 'RR381-33',
-                    'demand_variability': '0.052', 'economic_order_variable_cost': '29557.61',
-                    'standard_deviation': '28', 'safety_stock': '51'}, {'ABC_XYZ_Classification': 'AX',
-                    'reorder_quantity': '258', 'revenue': '2090910.44', 'average_order': '539',
-                    'reorder_level': '813', 'economic_order_quantity': '277', 'sku': 'RR481-33',
-                    'demand_variability': '0.052', 'economic_order_variable_cost': '29557.61',
-                    'standard_deviation': '28', 'safety_stock': '51'}]
     Raises:
         Exception:  Incorrect file type specified. Please specify 'csv' or 'text' for the file_type parameter.
         Exception:  Unspecified file type, Please specify 'csv' or 'text' for file_type parameter.
+
+    Examples:
+    >>> from supplychainpy.model_inventory import analyse_orders_from_file_row
+    >>> from supplychainpy.sample_data.config import ABS_FILE_PATH
+    >>> analysed_data = analyse_orders_from_file_row(file_path=ABS_FILE_PATH['COMPLETE_CSV_SM'],
+    ...                                                     reorder_cost=Decimal(45),
+    ...                                                     z_value=Decimal(1.28),
+    ...                                                     file_type="csv",
+    ...                                                     retail_price=Decimal(30),
+    ...                                                     currency='USD')
+
+
 
 
     """
@@ -621,8 +619,40 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: Decimal, reorder_co
     return analysed_orders_collection
 
 
-def recommendations(analysed_orders: dict, forecast: dict):
-    return run_sku_recommendation(analysed_orders=analysed_orders, forecast=forecast)
+def recommendations(analysed_orders: UncertainDemand, forecast: dict) -> dict:
+    """ Generate Recommendations for each SKU and the inventory Profile.
+
+    Args:
+        analysed_orders (UncertainDemand):  UncertainDemand object of analysed orders.
+        forecast (dict):                    Output from a Forecast.
+
+    Returns:
+        dict:   Returns recommendations for each sku and for the inventory profile.
+
+    Examples:
+    >>> from decimal import Decimal
+    >>> from supplychainpy.sample_data.config import ABS_FILE_PATH
+    >>> from supplychainpy.model_inventory import analyse
+    >>> from supplychainpy.model_inventory import recommendations
+    ...
+    >>> analysed_order = analyse(file_path=ABS_FILE_PATH['COMPLETE_CSV_SM'],
+    ...                                        z_value=Decimal(1.28),
+    ...                                          reorder_cost=Decimal(5000),
+    ...                                          file_type="csv", length=12,currency='USD')
+    ...
+    >>> holts_forecast = {analysis.sku_id: analysis.holts_trend_corrected_forecast for analysis in
+    ...                     analyse(file_path=ABS_FILE_PATH['COMPLETE_CSV_SM'], z_value=Decimal(1.28),
+    ...                                          reorder_cost=Decimal(5000), file_type="csv",
+    ...                                          length=12,currency='USD')}
+    ...
+    >>> recommend = recommendations(analysed_orders=analysed_order, forecast=holts_forecast)
+    """
+
+    recommend = {'sku_recommendations': run_sku_recommendation(analysed_orders=analysed_orders, forecast=forecast),
+                 'profile_recommendations': run_profile_recommendation(analysed_orders=analysed_orders, forecast=forecast),
+                 }
+
+    return recommend
 
 
 def summarise(analysed_orders: UncertainDemand):
