@@ -25,7 +25,7 @@
 
 from typing import Tuple
 
-from supplychainpy.bi.recommendation_state_machine import RecommendationStateMachine
+from supplychainpy.bi._recommendation_state_machine import RecommendationStateMachine
 
 
 class DashMachine(RecommendationStateMachine):

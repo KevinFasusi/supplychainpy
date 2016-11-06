@@ -107,7 +107,7 @@ def _os_specific_uri(action_case: str, my_os: list, type_case: str) -> str:
 
     if action_case == case['RETRIEVAL'] and type_case == case['REPORTING']:
         if os.name in unix:
-            db_uri = 'sqlite:///{}reporting.db'.format(app_config['database_path'])
+            db_uri = 'sqlite:///{}/reporting.db'.format(app_config['database_path'])
         elif os.name in windows:
             db_uri = 'sqlite:///{}\\reporting.db'.format(app_config['database_path'])
         return db_uri

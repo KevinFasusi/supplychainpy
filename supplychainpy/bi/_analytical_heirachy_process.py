@@ -23,7 +23,6 @@
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 from copy import deepcopy
-from typing import List
 
 import numpy as np
 
@@ -54,7 +53,7 @@ class _PairwiseComparison:
         return self._importance
 
     @importance.setter
-    def importance(self, importance: List[int]):
+    def importance(self, importance: list):
         self._importance = importance
 
     @property

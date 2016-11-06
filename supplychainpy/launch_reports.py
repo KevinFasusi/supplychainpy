@@ -39,6 +39,7 @@ class ReportsLauncher(threading.Thread):
         self.message = "launching reports"
         self.name = "reports"
         self.port = 5000
+        self.host = '127.0.0.1'
 
     def print_message(self):
         print(self.message)
@@ -46,9 +47,10 @@ class ReportsLauncher(threading.Thread):
     def run(self):
         config = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
         config['port'] = self.port
+        config['host'] = self.host
         serialise_config(config, ABS_FILE_PATH_APPLICATION_CONFIG)
         # print(self.port)
-        app.run(port=self.port)
+        app.run(host= self.host,port=self.port)
 
 
 def exit_report():
@@ -152,7 +154,7 @@ class SupplychainpyReporting:
         try:
 
             if self.port_text.get() is not '' and isinstance(int(self.port_text.get()), int) and self.hyperlink == '':
-                self.hyperlink = 'http://127.0.0.1:{}'.format(self.port_text.get())
+                self.hyperlink = 'http://{}:{}'.format(self.spawn.host,self.port_text.get())
                 self.validation_label.grid_forget()
                 self.hyperlink_text.config(text=self.hyperlink)
                 self.hyperlink_text.bind("<Button-1>", lambda e, url=str(self.hyperlink): launch_browser(e, url))
@@ -163,7 +165,7 @@ class SupplychainpyReporting:
                 self.spawn.start()
             elif self.port_text.get() is '':
                 self.validation_label.grid_forget()
-                self.hyperlink = 'http://127.0.0.1:5000'
+                self.hyperlink = 'http://{}:{}'.format(self.spawn.host,self.spawn.port)
                 self.hyperlink_text.config(text=self.hyperlink)
                 self.hyperlink_text.bind("<Button-1>", lambda e, url=str(self.hyperlink): launch_browser(e, url))
                 self.hyperlink_text.grid(row=4, column=1, columnspan=2)
@@ -209,7 +211,7 @@ def launch_load_report(file: str, location: str = None):
     launcher.mainloop()
 
 
-def launch_report(location: str = None):
+def launch_report(location: str = None, port: int = 5000, host:str ='127.0.0.1'):
     if location is not None and os.name in ['posix', 'mac']:
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/reporting.db'.format(location)
 
@@ -219,6 +221,9 @@ def launch_report(location: str = None):
     db.create_all()
     launcher = tk.Tk()
     app_launch = SupplychainpyReporting(launcher)
+    app_launch.spawn.host = host
+    app_launch.spawn.port = port
+
     app_launch.parent.configure(background='black')
     launcher.mainloop()
 
@@ -239,7 +244,7 @@ def load_db(file: str, location: str = None):
         load.load(file)
 
 
-def launch_report_server(location: str = None, port: int = 5000):
+def launch_report_server(location: str = None, port: int = 5000, host:str ='127.0.0.1'):
     if location is not None and os.name in ['posix', 'mac']:
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/reporting.db'.format(location)
     elif location is not None and os.name == 'nt':
@@ -247,4 +252,5 @@ def launch_report_server(location: str = None, port: int = 5000):
     db.create_all()
     app_launch = ReportsLauncher()
     app_launch.port = port
+    app_launch.host = host
     app_launch.run()

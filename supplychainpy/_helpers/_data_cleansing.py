@@ -40,6 +40,14 @@ TABLE_HEADINGS = {
 # TODO-feature format pandas frame
 # TODO-feature allow data munger to accept any delimiter as a parameter
 def clean_orders_data_col_txt(file) -> dict:
+    """
+
+    Args:
+        file:
+
+    Returns:
+        dict:
+    """
     item_list = {}
     split_line = []
     for line in file:
@@ -171,7 +179,7 @@ def check_extension(file_path, file_type: str) -> bool:
         file_path (file):   The path to the file containing two columns of data, 1 period and 1 data-point for 1 sku.
         file_type (str):    specifying 'csv' or 'text'
     Returns:
-        bool:
+        bool:   Extension present or not.
 
     """
     try:

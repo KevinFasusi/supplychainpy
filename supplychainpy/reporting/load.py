@@ -73,6 +73,7 @@ def load(file_path: str, location: str = None):
     db.create_all()
 
     log.log(logging.DEBUG, 'loading currency symbols...\n')
+    print('loading currency symbols...', end="")
     fx = currency_codes()
     for key, value in fx.items():
         codes = Currency()
@@ -97,11 +98,12 @@ def load(file_path: str, location: str = None):
     ia = [analysis.orders_summary() for analysis in
           model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
                                   reorder_cost=Decimal(5000), file_type="csv", length=12, currency=currency)]
-    print('[COMPLETED]\n')
-    print('Calculating Forecasts...', end="")
     date_now = datetime.datetime.now()
     analysis_summary = Inventory(processed_orders=orders_analysis)
+    print('[COMPLETED]\n')
+
     log.log(logging.DEBUG, 'Calculating Forecasts...\n')
+    print('Calculating Forecasts...', end="")
     simple_forecast = {analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
                        model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
                                                reorder_cost=Decimal(5000), file_type="csv",
@@ -123,8 +125,8 @@ def load(file_path: str, location: str = None):
     load_profile_recommendations(analysed_order=orders_analysis, forecast=holts_forecast,
                                  transaction_log_id=transaction_id)
 
-    d = _Orchestrate()
-    d.update_database(int(transaction_id.id))
+    #d = _Orchestrate()
+    #d.update_database(int(transaction_id.id))
 
     forecast_types = ('ses', 'htces')
 

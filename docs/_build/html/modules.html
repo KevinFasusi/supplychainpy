@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>supplychainpy &mdash; supplychainpy 0.0.3 documentation</title>
+  <title>supplychainpy &mdash; supplychainpy 0.0.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="supplychainpy 0.0.3 documentation" href="index.html"/> 
+    <link rel="top" title="supplychainpy 0.0.4 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.0.3
+                0.0.4
               </div>
             
           
@@ -81,11 +81,15 @@
             
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reporting.html">Supplychainpy Reporting Suite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inventory_modeling_and_analysis_with_supplychainpy.html">Inventory Modeling and Analysis Made Easy with Supplychainpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_supplychainpy_with_pandas_jupyter_and_matplotlib.html">Using supplychainpy with Pandas, Jupyter and Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ahp.html">Analytic Hierarchy Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo_simulation.html">Monte Carlo simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Supplychainpy with Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="suchpy_pandas_jupyter.html">Using Pandas With supplychainpy</a></li>
 </ul>
 
             
@@ -136,12 +140,15 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="supplychainpy.html">supplychainpy package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="supplychainpy.bi.html">supplychainpy.bi package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="supplychainpy.bi.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="supplychainpy.bi.html#module-supplychainpy.bi.recommendation_generator">supplychainpy.bi.recommendation_generator module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="supplychainpy.bi.html#module-supplychainpy.bi">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="supplychainpy.bot.html">supplychainpy.bot package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="supplychainpy.bot.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="supplychainpy.bot.html#module-supplychainpy.bot.controller">supplychainpy.bot.controller module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="supplychainpy.bot.html#module-supplychainpy.bot.dash">supplychainpy.bot.dash module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="supplychainpy.bot.html#module-supplychainpy.bot.mail">supplychainpy.bot.mail module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="supplychainpy.bot.html#module-supplychainpy.bot.model">supplychainpy.bot.model module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="supplychainpy.bot.html#module-supplychainpy.bot">Module contents</a></li>
 </ul>
 </li>
@@ -170,7 +177,7 @@
 <li class="toctree-l4"><a class="reference internal" href="supplychainpy.reporting.html#module-supplychainpy.reporting.config">supplychainpy.reporting.config module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="supplychainpy.reporting.html#module-supplychainpy.reporting.extensions">supplychainpy.reporting.extensions module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="supplychainpy.reporting.html#module-supplychainpy.reporting.forms">supplychainpy.reporting.forms module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="supplychainpy.reporting.html#supplychainpy-reporting-load-module">supplychainpy.reporting.load module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="supplychainpy.reporting.html#module-supplychainpy.reporting.load">supplychainpy.reporting.load module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="supplychainpy.reporting.html#supplychainpy-reporting-manage-module">supplychainpy.reporting.manage module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="supplychainpy.reporting.html#supplychainpy-reporting-migrate-module">supplychainpy.reporting.migrate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="supplychainpy.reporting.html#module-supplychainpy.reporting.views">supplychainpy.reporting.views module</a></li>
@@ -193,6 +200,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.html#module-supplychainpy.launch_reports">supplychainpy.launch_reports module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supplychainpy.html#module-supplychainpy.model_decision">supplychainpy.model_decision module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.html#module-supplychainpy.model_demand">supplychainpy.model_demand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.html#module-supplychainpy.model_distribution">supplychainpy.model_distribution module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.html#module-supplychainpy.model_inventory">supplychainpy.model_inventory module</a></li>
@@ -200,7 +208,7 @@
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.html#module-supplychainpy.model_warehouse">supplychainpy.model_warehouse module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.html#module-supplychainpy.scratch">supplychainpy.scratch module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.html#module-supplychainpy.simulate">supplychainpy.simulate module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="supplychainpy.html#supplychainpy-supplychain-module">supplychainpy.supplychain module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supplychainpy.html#module-supplychainpy.supplychain">supplychainpy.supplychain module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.html#module-supplychainpy">Module contents</a></li>
 </ul>
 </li>
@@ -240,7 +248,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.3',
+            VERSION:'0.0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

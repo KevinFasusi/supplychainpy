@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>supplychainpy.simulations package &mdash; supplychainpy 0.0.3 documentation</title>
+  <title>supplychainpy.simulations package &mdash; supplychainpy 0.0.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="supplychainpy 0.0.3 documentation" href="index.html"/> 
+    <link rel="top" title="supplychainpy 0.0.4 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.0.3
+                0.0.4
               </div>
             
           
@@ -81,11 +81,15 @@
             
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reporting.html">Supplychainpy Reporting Suite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inventory_modeling_and_analysis_with_supplychainpy.html">Inventory Modeling and Analysis Made Easy with Supplychainpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_supplychainpy_with_pandas_jupyter_and_matplotlib.html">Using supplychainpy with Pandas, Jupyter and Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ahp.html">Analytic Hierarchy Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo_simulation.html">Monte Carlo simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Supplychainpy with Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="suchpy_pandas_jupyter.html">Using Pandas With supplychainpy</a></li>
 </ul>
 
             
@@ -230,6 +234,93 @@ len(random_normal_demand[0][sku.sku_id]))</p>
 </div>
 <div class="section" id="module-supplychainpy.simulations.sim_summary">
 <span id="supplychainpy-simulations-sim-summary-module"></span><h2>supplychainpy.simulations.sim_summary module<a class="headerlink" href="#module-supplychainpy.simulations.sim_summary" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="supplychainpy.simulations.sim_summary.average_items">
+<code class="descclassname">supplychainpy.simulations.sim_summary.</code><code class="descname">average_items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.simulations.sim_summary.average_items" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.simulations.sim_summary.closing_stockout_percentage">
+<code class="descclassname">supplychainpy.simulations.sim_summary.</code><code class="descname">closing_stockout_percentage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.simulations.sim_summary.closing_stockout_percentage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.simulations.sim_summary.frame">
+<code class="descclassname">supplychainpy.simulations.sim_summary.</code><code class="descname">frame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.simulations.sim_summary.frame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.simulations.sim_summary.optimise_service_level">
+<code class="descclassname">supplychainpy.simulations.sim_summary.</code><code class="descname">optimise_service_level</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.simulations.sim_summary.optimise_service_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optimises the safety stock for declared service level.</p>
+<p>Identifies which skus under performed (experiencing a service level lower than expected) after simulating
+transactions over a specific period. The safety stock for these items are increased and the analysis is monte carlo
+is run again.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>frame_summary</strong> (<em>list</em>) &#8211; window summary for each period multiplied by the number of runs.</li>
+<li><strong>orders_analysis</strong> (<em>list</em>) &#8211; prior analysis of orders data.</li>
+<li><strong>service_level</strong> (<em>double</em>) &#8211; required service level as a percentage.</li>
+<li><strong>runs</strong> (<em>int</em>) &#8211; number of runs from previous</li>
+<li><strong>percentage_increase</strong> (<em>double</em>) &#8211; the percentage increase required</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
+<dt>Updated orders analysis with new saftey stock values based optimised from the simulation. The initial values</dt>
+<dd><p class="first last">from the analytical model.</p>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.simulations.sim_summary.optimise_sim">
+<code class="descclassname">supplychainpy.simulations.sim_summary.</code><code class="descname">optimise_sim</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.simulations.sim_summary.optimise_sim" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.simulations.sim_summary.optimum_std">
+<code class="descclassname">supplychainpy.simulations.sim_summary.</code><code class="descname">optimum_std</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.simulations.sim_summary.optimum_std" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.simulations.sim_summary.summarize_monte_carlo">
+<code class="descclassname">supplychainpy.simulations.sim_summary.</code><code class="descname">summarize_monte_carlo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.simulations.sim_summary.summarize_monte_carlo" title="Permalink to this definition">¶</a></dt>
+<dd><p>summarises the monte carlo transaction summary</p>
+<p>Generates random distribution for demand over period specified and creates a simulation window for opening_stock,
+demand, closing_stock, delivery and backlog for each sku in the data set. Creates a transaction summary window
+for inventory movements.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>simulation_frame</strong> (<em>list</em>) &#8211; The path to the file containing two columns of data, 1 period and 1 data-point per sku.</li>
+<li><strong>period_length</strong> (<em>int</em>) &#8211; The number of periods define the simulation window e.g. 12 weeks, months etc.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A list containing the transaction summary for each period.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 <div class="section" id="module-supplychainpy.simulations.simulation_frame_summary">
 <span id="supplychainpy-simulations-simulation-frame-summary-module"></span><h2>supplychainpy.simulations.simulation_frame_summary module<a class="headerlink" href="#module-supplychainpy.simulations.simulation_frame_summary" title="Permalink to this headline">¶</a></h2>
@@ -802,7 +893,7 @@ used for validation: <cite>isinstance(value, kwargs[&#8216;baseclass&#8217;])</c
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.3',
+            VERSION:'0.0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

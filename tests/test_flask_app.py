@@ -18,22 +18,22 @@ class TestFlaskReports(unittest.TestCase):
         self.db_rs, app.config['DATABASE'] = tempfile.mkstemp()
         app.config['TESTING'] = True
         self.app = app.test_client()
-        #app_settings = {
-        #    'database_path': ABS_FILE_PATH['COMPLETE_CSV_XSM'],
-#
-        #}
-        #serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
+        app_settings = {
+            'file': ABS_FILE_PATH['COMPLETE_CSV_XSM'],
+            'currency': 'USD'
+        }
+        serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
         with app.app_context():
             load_db(file=ABS_FILE_PATH['COMPLETE_CSV_XSM'])
 
-    def tearDown(self):
-        """Close database link and delete sqlite database"""
-        os.close(self.db_rs)
-        os.unlink(app.config['DATABASE'])
-        app_dir = os.path.dirname(__file__, )
-        rel_path = 'reporting.db'
-        abs_file_path = os.path.abspath(os.path.join(app_dir, rel_path))
-        os.remove(abs_file_path)
+    #def tearDown(self):
+    #    """Close database link and delete sqlite database"""
+    #    os.close(self.db_rs)
+    #    os.unlink(app.config['DATABASE'])
+    #    app_dir = os.path.dirname(__file__, )
+    #    rel_path = 'reporting.db'
+    #    abs_file_path = os.path.abspath(os.path.join(app_dir, rel_path))
+    #    os.remove(abs_file_path)
 
     def test_loaded_db(self):
         index_page = self.app.get('/')

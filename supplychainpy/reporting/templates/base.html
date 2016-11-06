@@ -51,22 +51,21 @@
                 </div>
             </a>
         </li>
-
-      <!--  <li>
-            <a class="nav-tabs" href="{{url_for('bot')}}">
-                <div class=" row sub-row">
-                    <div class="col-md-11"><img src="{{ url_for('static', filename='bot_icon.png') }}"></div>
-                </div>
-            </a>
-        </li> -->
-   <!--     <li>
-            <a class="nav-tabs" href="{{url_for('settings')}}">
-                <div class=" row sub-row">
-                    <div class="col-md-11"><img src="{{ url_for('static', filename='settings.png') }}"></div>
-                </div>
-            </a>
-        </li>
-        <li>-->
+        <li>
+              <a class="nav-tabs" href="{{url_for('bot')}}">
+                  <div class=" row sub-row">
+                      <div class="col-md-11"><img src="{{ url_for('static', filename='bot_icon.png') }}"></div>
+                  </div>
+              </a>
+          </li>
+       <!-- <li>
+             <a class="nav-tabs" href="{{url_for('settings')}}">
+                 <div class=" row sub-row">
+                     <div class="col-md-11"><img src="{{ url_for('static', filename='settings.png') }}"></div>
+                 </div>
+             </a>
+           </li>-->
+        <li>
             <a class="nav-tabs" href="{{url_for('about')}}">
                 <div class=" row sub-row">
                     <div class="col-md-11"><img src="{{ url_for('static', filename='information.png') }}"></div>
@@ -76,7 +75,6 @@
     </ul>
 </nav>
 <script>
-
     (function toggle_nav() {
         var bodyElement = $('body'),
                 navToggleBtn = bodyElement.find('.nav-toggle-btn');
@@ -89,13 +87,6 @@
 </script>
 <div class="content container-fluid">
     {% block body%}
-    {% endblock %}
-
-</div>
-
-
+    {% endblock %}</div>
 </body>
-
 </html>
-
-

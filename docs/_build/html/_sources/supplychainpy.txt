@@ -6,11 +6,13 @@ Subpackages
 
 .. toctree::
 
+    supplychainpy.bi
     supplychainpy.bot
     supplychainpy.demand
     supplychainpy.inventory
     supplychainpy.reporting
     supplychainpy.simulations
+
 
 Submodules
 ----------
@@ -19,6 +21,14 @@ supplychainpy.launch_reports module
 -----------------------------------
 
 .. automodule:: supplychainpy.launch_reports
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+supplychainpy.model_decision module
+-----------------------------------
+
+.. automodule:: supplychainpy.model_decision
     :members:
     :undoc-members:
     :show-inheritance:

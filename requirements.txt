@@ -1,12 +1,8 @@
 alabaster==0.7.7
 alembic==0.8.6
-amqp==1.4.9
-anaconda-client==1.2.2
 aniso8601==1.1.0
 anyjson==0.3.3
-billiard==3.3.0.23
 Cython==0.23.4
-docutils==0.12
 Flask==0.10.1
 Flask-Migrate==1.8.0
 Flask-RESTful==0.3.5
@@ -24,7 +20,6 @@ Mako==1.0.4
 MarkupSafe==0.23
 marshmallow==2.7.3
 marshmallow-jsonapi==0.7.1
-matplotlib==1.5.1
 mimerender==0.6.0
 nltk==3.2.1
 numpy==1.10.4
@@ -49,8 +44,4 @@ snowballstemmer==1.2.1
 SQLAlchemy==1.0.13
 term==2.1
 textblob==0.11.1
-twine==1.6.5
-vmprof==0.3.3
-Werkzeug==0.11.9
-wheel==0.29.0
 WTForms==2.1

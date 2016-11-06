@@ -3,7 +3,7 @@ import re
 
 from supplychainpy._helpers._db_connection import database_connection_uri
 from supplychainpy._helpers._decorators import strip_punctuation
-from supplychainpy.bot.controller import master_sku_list
+from supplychainpy.bot._controller import master_sku_list
 from textblob import TextBlob
 from textblob import Word
 

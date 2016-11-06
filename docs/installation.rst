@@ -1,3 +1,5 @@
+.. _installation:
+
 Installation
 ============
 The easiest way to install supplychainpy is via pip:
@@ -16,14 +18,23 @@ Dependencies
 ------------
 
 - Numpy
+- Pandas
+- Flask
+- Flask-Restful
+- Flask-Restless
+- Flask-Script
+- Flask-SqlAlchemy
+- Flask-Uploads
+- Flask-WTF
+- Scipy
+- SqlAlchemy
+- TextBlob
+
 
 Optional Dependencies
 ---------------------
 
-- Pandas
 - matplotlib
-- Ipython
-- Jupyters
 - openpyxl
 - xlwings
 

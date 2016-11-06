@@ -27,8 +27,8 @@ import logging
 from supplychainpy._helpers import _data_cleansing
 from supplychainpy._helpers._enum_formats import FileFormats
 from supplychainpy._helpers._data_cleansing import check_extension
-from supplychainpy.demand.evolutionary_algorithms import OptimiseSmoothingLevelGeneticAlgorithm
-from supplychainpy.demand.forecast_demand import Forecast
+from supplychainpy.demand._evolutionary_algorithms import OptimiseSmoothingLevelGeneticAlgorithm
+from supplychainpy.demand._forecast_demand import Forecast
 from supplychainpy.demand.regression import LinearRegression
 
 log = logging.getLogger(__name__)
@@ -39,16 +39,26 @@ UNKNOWN = "UNKNOWN"
 
 def simple_exponential_smoothing_forecast(demand: list = None, smoothing_level_constant: float = 0.5,
                                           forecast_length: int = 5, initial_estimate_period: int = 6, **kwargs) -> dict:
-    """
+    """ Performs a simple exoponential smoothing forecast on
 
     Args:
-        forecast_length:
-        demand:
-        smoothing_level_constant:
-        initial_estimate_period:
-        **kwargs:
+        forecast_length (int):              Number of periods to extend the forecast.
+        demand (list):                      Original historical demand.
+        smoothing_level_constant (float):   Alpha value
+        initial_estimate_period (int):      Number of period to use to derive an average for the initial estimate.
+        **ds (pd.DataFrame):                Data frame with raw data.
+        **optimise (bool)                   Optimisation flag for exponential smoothing forecast.
 
     Returns:
+        dict:       Simple exponential forecast
+
+    Examples:
+
+    >>> from supplychainpy.model_demand import simple_exponential_smoothing_forecast
+    >>> orders = [165, 171, 147, 143, 164, 160, 152, 150, 159, 169, 173, 203, 169, 166, 162, 147, 188, 161, 162,
+    ...           169, 185, 188, 200, 229, 189, 218, 185, 199, 210, 193, 211, 208, 216, 218, 264, 304]
+    >>> ses = simple_exponential_smoothing_forecast(demand=orders, alpha=0.5, forecast_length=6, initial_period=18)
+
 
     """
     ds = kwargs.get('ds', 'UNKNOWN')
@@ -98,6 +108,16 @@ def simple_exponential_smoothing_forecast(demand: list = None, smoothing_level_c
 
 
 def _ses_forecast(smoothing_level_constant, forecast_demand, forecast_length):
+    """
+
+    Args:
+        smoothing_level_constant:
+        forecast_demand:
+        forecast_length:
+
+    Returns:
+
+    """
     forecast_breakdown = [i for i in forecast_demand.simple_exponential_smoothing(smoothing_level_constant)]
     ape = LinearRegression(forecast_breakdown)
     mape = forecast_demand.mean_aboslute_percentage_error_opt(forecast_breakdown)
@@ -115,6 +135,21 @@ def _ses_forecast(smoothing_level_constant, forecast_demand, forecast_length):
 def simple_exponential_smoothing_forecast_from_file(file_path: str, file_type: str, length: int,
                                                     smoothing_level_constant: float, forecast_length=5,
                                                     **kwargs) -> dict:
+    """
+
+    Args:
+        file_path (str):
+        file_type (str):
+        length (int):
+        smoothing_level_constant (int):
+        forecast_length (int):
+        **optimise (bool)                   Optimisation flag for exponential smoothing forecast.
+
+
+
+    Returns:
+
+    """
     item_list = {}
 
     if check_extension(file_path=file_path, file_type=file_type):

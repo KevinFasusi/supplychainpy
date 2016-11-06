@@ -30,6 +30,9 @@ log.addHandler(logging.NullHandler())
 
 
 class Forecast:
+    """
+
+    """
     __simple_exponential_smoothing_forecast = {}
 
     # make keyword args
@@ -439,6 +442,7 @@ class Forecast:
         sse = 0
 
         for sq_e in squared_error:
+            #sse += sum([i["squared_error"] for i in sq_e if i['alpha'] == smoothing_parameter])
             for i in sq_e:
                 if i['alpha'] == smoothing_parameter:
                     sse += i["squared_error"]

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quick Guide &mdash; supplychainpy 0.0.3 documentation</title>
+  <title>Quick Guide &mdash; supplychainpy 0.0.4 documentation</title>
   
 
   
@@ -30,9 +30,9 @@
   
 
   
-    <link rel="top" title="supplychainpy 0.0.3 documentation" href="index.html"/>
+    <link rel="top" title="supplychainpy 0.0.4 documentation" href="index.html"/>
         <link rel="next" title="Supplychainpy Reporting Suite" href="reporting.html"/>
-        <link rel="prev" title="Installation" href="Installation.html"/> 
+        <link rel="prev" title="Installation" href="installation.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.0.3
+                0.0.4
               </div>
             
           
@@ -83,16 +83,22 @@
             
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Quick Guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#inventory-analysis">Inventory Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#monte-carlo-simulation">Monte Carlo simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#up-and-running">Up and Running</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#summarising-the-analysis">Summarising the Analysis</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="reporting.html">Supplychainpy Reporting Suite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inventory_modeling_and_analysis_with_supplychainpy.html">Inventory Modeling and Analysis Made Easy with Supplychainpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_supplychainpy_with_pandas_jupyter_and_matplotlib.html">Using supplychainpy with Pandas, Jupyter and Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ahp.html">Analytic Hierarchy Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo_simulation.html">Monte Carlo simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Supplychainpy with Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="suchpy_pandas_jupyter.html">Using Pandas With supplychainpy</a></li>
 </ul>
 
             
@@ -144,58 +150,21 @@
 <p class="last">The library is currently under development and in planning stages. The library should not be used in
 production at this time.</p>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>All profiling has been carried out on the following systems:</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="13%" />
-<col width="39%" />
-<col width="20%" />
-<col width="28%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">system</th>
-<th class="head">CPU</th>
-<th class="head">Ram</th>
-<th class="head">OS</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>PC</td>
-<td>Xeon 1650v3 (15M Cache, 3.50 GHz)</td>
-<td>32gb ddr4 2133</td>
-<td>linux (xubuntu, windows)</td>
-</tr>
-<tr class="row-odd"><td>Macbook Air</td>
-<td>i7-4650U</td>
-<td>8gb ddr3 1600</td>
-<td>OS X (yosemite)</td>
-</tr>
-</tbody>
-</table>
-<p class="last">Timings are provided as simple benchmarks and will vary based on system and current load.
-The computations here are mainly cpu bound, io may be a factor when reading from file (csv txt).</p>
-</div>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>Supplychainpy is a Python library for supply chain analysis, modeling and simulation. Using supplychainpy
-with modern data analysis libraries and tools such as Xlwings or Data Nitro (for Excel spreadsheet applications),
-Pandas, NumPy, Matplotlib, Ipython and Jupyter makes for a powerful supply chain data analysis toolchain.</p>
-<p>The library was created to assist a workflow that is reliant on Excel, Excel formulas and VBA. Below we go through the use cases and implementations particular to the
-domain (supply chain, operations and manufacturing).</p>
-<p>This quick guide is skewed towards analysts with the requisite domain knowledge, who predominantly use Excel. Some
+<p>Supplychainpy is a Python library for supply chain analysis, modelling and simulation. The library assists a workflow that is reliant on Excel and VBA.</p>
+<p>This quick guide assumes analysts have the requisite domain knowledge, and predominantly use Excel. Some
 knowledge of Python or programming is assumed, although those new to data analysis or using Python will likely be able to
 follow with assistance from other material.</p>
 <p>The following guide assumes that the supplychainpy library has already been installed. If not, please use the
-instructions for <span class="xref std std-ref">installation</span>.</p>
+instructions for <a class="reference internal" href="installation.html#installation"><span>Installation</span></a>.</p>
 </div>
-<div class="section" id="inventory-analysis">
-<h2>Inventory Analysis<a class="headerlink" href="#inventory-analysis" title="Permalink to this headline">¶</a></h2>
-<p>A quick example of a typical inventory analysis takes several formulas, manual processes or pivot tables and in
-some cases VBA to achieve. Using the supplychainpy library can reduce the time taken and effort made for the same analysis.
-In the example below supplying a dictionary of &#8220;Orders&#8221; data-points can generate a summary.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="kn">import</span> <span class="n">model_inventory</span>
+<div class="section" id="up-and-running">
+<h2>Up and Running<a class="headerlink" href="#up-and-running" title="Permalink to this headline">¶</a></h2>
+<p>Typically, inventory analysis using Excel requires several formulas, manual processes, possibly some pivot tables and in
+some cases VBA. Using the supplychainpy library can reduce the time taken and effort made for the same analysis.</p>
+<p>A simple analysis for an individual SKU can be carried out by using:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="kn">import</span> <span class="n">model_inventory</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">yearly_demand</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;jan&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;feb&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;mar&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;apr&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span>                <span class="s1">&#39;may&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;jun&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;jul&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span><span class="s1">&#39;aug&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span>                <span class="s1">&#39;sep&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;oct&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;nov&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">}</span>
@@ -205,542 +174,119 @@ In the example below supplying a dictionary of &#8220;Orders&#8221; data-points 
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Excess and shortages are now available.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s1">&#39;standard_deviation&#39;</span><span class="p">:</span> <span class="s1">&#39;25&#39;</span><span class="p">,</span>
-<span class="s1">&#39;safety_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;55&#39;</span><span class="p">,</span>
-<span class="s1">&#39;excess_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;161&#39;</span><span class="p">,</span>
-<span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;360000.00&#39;</span><span class="p">,</span>
-<span class="s1">&#39;reorder_level&#39;</span><span class="p">:</span> <span class="s1">&#39;142&#39;</span><span class="p">,</span>
-<span class="s1">&#39;demand_variability&#39;</span><span class="p">:</span> <span class="s1">&#39;0.500&#39;</span><span class="p">,</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;360000&#39;</span><span class="p">,</span>
+<span class="s1">&#39;total_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;600&#39;</span><span class="p">,</span>
+<span class="s1">&#39;orders&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;feb&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;jan&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;jun&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;may&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;mar&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">&#39;aug&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;sep&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;jul&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;oct&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;nov&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;apr&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">},</span>
 <span class="s1">&#39;shortages&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
-<span class="s1">&#39;reorder_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;56&#39;</span><span class="p">,</span>
+<span class="s1">&#39;reorder_level&#39;</span><span class="p">:</span> <span class="s1">&#39;142&#39;</span><span class="p">,</span>
+<span class="s1">&#39;safety_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;55&#39;</span><span class="p">,</span>
+<span class="s1">&#39;average_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;50&#39;</span><span class="p">,</span>
+<span class="s1">&#39;standard_deviation&#39;</span><span class="p">:</span> <span class="s1">&#39;25&#39;</span><span class="p">,</span>
+<span class="s1">&#39;excess_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;161&#39;</span><span class="p">,</span>
 <span class="s1">&#39;sku&#39;</span><span class="p">:</span> <span class="s1">&#39;RX983-90&#39;</span><span class="p">,</span>
-<span class="s1">&#39;average_order&#39;</span><span class="p">:</span> <span class="s1">&#39;50&#39;</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>Currently the <cite>lead_time</cite> and the <cite>yearly_demand</cite> parameters, must be in the same units (the user must make the correct conversion).
-This will be changing soon.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The required format has changed moving from release-0.0.3 to release-0.0.4. <strong>Retail price</strong> and <strong>quantity on hand</strong> have are required.</p>
-</div>
-<p>The same analysis can be made by supplying a pre-formatted <cite>.csv</cite> or <cite>.txt</cite>:</p>
-<div class="highlight-python"><div class="highlight"><pre>Sku,jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec,unit cost,lead-time,retail_price,quantity_on_hand
-KR202-20,1509,312,88,1261,1231,2598,968,427,2927,2707,731,2598,400,2,900,1003
-KR202-210,1006,206,2588,670,2768,2809,1475,1537,919,2525,440,2691,394,2,1300,3224
-KR202-211,1840,2284,850,983,2737,1264,2002,1980,235,1489,218,525,434,4,1200,390
-KR202-212,104,2262,350,528,2570,1216,1101,2755,2856,2381,1867,274983,6,474,3,10,390
-KR202-213,489,954,1112,199,919,330,561,2372,921,1587,1532,1512,514,1,2000,2095
-KR202-214,2416,2010,2527,1409,1059,890,2837,276,987,2228,1095,1396,554,2,1800,55
-KR202-215,403,1737,753,1982,2775,380,1561,1230,1262,2249,824,743,594,1,2500,4308
-</pre></div>
-</div>
-<p>Getting the file into this format from a database source may require an ETL tool such as SSIS (for windows SQL server) or a stored procedure or SQL script.
-A blog post will be dedicated to the ETL process asap.</p>
-<p>A file named <cite>data.csv</cite>, supplied with this distribution (release 0.0.2 onwards) can be used to generate the
-same analysis in <cite>dict</cite> based example. The example below generates the result for 32 stock keeping units (sku).</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">abc</span> <span class="o">=</span> <span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
-<span class="gp">&gt;&gt;&gt; </span>                                       <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">abcxyz_summary</span><span class="p">)</span>
+<span class="s1">&#39;ABC_XYZ_Classification&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+<span class="s1">&#39;demand_variability&#39;</span><span class="p">:</span> <span class="s1">&#39;0.500&#39;</span><span class="p">,</span>
+<span class="s1">&#39;reorder_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;56&#39;</span><span class="p">,</span>
+<span class="s1">&#39;quantity_on_hand&#39;</span><span class="p">:</span> <span class="s1">&#39;390&#39;</span><span class="p">,</span>
+<span class="s1">&#39;currency&#39;</span><span class="p">:</span> <span class="s1">&#39;USD&#39;</span><span class="p">,</span>
+<span class="s1">&#39;unit_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;50.99&#39;</span><span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">simplified ABC XYZ (pareto) summary.</p>
+<p class="last">The signature for the <cite>analysed_orders</cite> function has changed. Moving from release-0.0.3 to release-0.0.4, <strong>Retail price</strong> and <strong>quantity on hand</strong> are required arguments.</p>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s1">&#39;AX&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;AY&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span> <span class="s1">&#39;AZ&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;BX&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;BY&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;BZ&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;CX&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;CY&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;CZ&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+<p>The same analysis can be made by supplying a pre-formatted <cite>.csv</cite>, <cite>.txt</cite> or Pandas <cite>DataFrame</cite> containing several SKU or entire inventory profile.
+An example using file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.sample_data.config</span> <span class="kn">import</span> <span class="n">ABS_FILE_PATH</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">decimal</span> <span class="kn">import</span> <span class="n">Decimal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysed_data</span> <span class="o">=</span> <span class="n">analyse</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">ABS_FILE_PATH</span><span class="p">[</span><span class="s1">&#39;COMPLETE_CSV_SM&#39;</span><span class="p">],</span>
+<span class="gp">... </span>                        <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
+<span class="gp">... </span>                        <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">400</span><span class="p">),</span>
+<span class="gp">... </span>                        <span class="n">retail_price</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">455</span><span class="p">),</span>
+<span class="gp">... </span>                        <span class="n">file_type</span><span class="o">=</span><span class="s1">&#39;csv&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                        <span class="n">currency</span><span class="o">=</span><span class="s1">&#39;USD&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis</span> <span class="o">=</span> <span class="p">[</span><span class="n">demand</span><span class="o">.</span><span class="n">orders_summary</span><span class="p">()</span> <span class="k">for</span> <span class="n">demand</span> <span class="ow">in</span> <span class="n">analysed_data</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>This analysis completed in:</p>
-<blockquote>
-<div><table border="1" class="docutils">
-<colgroup>
-<col width="24%" />
-<col width="76%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">system</th>
-<th class="head">time (seconds)</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>PC</td>
-<td>0.015653133392333984</td>
-</tr>
-<tr class="row-odd"><td>Mac</td>
-<td>0.02649521827697754</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
-<p>The orders analysis can be retrieved by using:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">orders_analysis</span> <span class="o">=</span> <span class="p">[</span><span class="n">analysis</span><span class="o">.</span><span class="n">orders_summary</span><span class="p">()</span> <span class="k">for</span> <span class="n">analysis</span> <span class="ow">in</span>
-<span class="gp">&gt;&gt;&gt; </span>                  <span class="n">model_inventory</span><span class="o">.</span><span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data2.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
-<span class="gp">&gt;&gt;&gt; </span>                                                                  <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>                                                                  <span class="n">length</span><span class="o">=</span><span class="mi">12</span><span class="p">)]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">orders_analysis</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s1">&#39;quantity_on_hand&#39;</span><span class="p">:</span> <span class="s1">&#39;1003&#39;</span><span class="p">,</span>
+<span class="s1">&#39;currency&#39;</span><span class="p">:</span> <span class="s1">&#39;USD&#39;</span><span class="p">,</span>
+<span class="s1">&#39;orders&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;1509&#39;</span><span class="p">,</span> <span class="s1">&#39;1855&#39;</span><span class="p">,</span> <span class="s1">&#39;2665&#39;</span><span class="p">,</span> <span class="s1">&#39;1841&#39;</span><span class="p">,</span> <span class="s1">&#39;1231&#39;</span><span class="p">,</span> <span class="s1">&#39;2598&#39;</span><span class="p">,</span> <span class="s1">&#39;1988&#39;</span><span class="p">,</span> <span class="s1">&#39;1988&#39;</span><span class="p">,</span> <span class="s1">&#39;2927&#39;</span><span class="p">,</span> <span class="s1">&#39;2707&#39;</span><span class="p">,</span> <span class="s1">&#39;731&#39;</span><span class="p">,</span> <span class="s1">&#39;2598&#39;</span><span class="p">)},</span>
+<span class="s1">&#39;economic_order_variable_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;15708.41&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;ABC_XYZ_Classification&#39;</span><span class="p">:</span> <span class="s1">&#39;BY&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;reorder_level&#39;</span><span class="p">:</span> <span class="s1">&#39;4069&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;safety_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;1165&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;shortages&#39;</span><span class="p">:</span> <span class="s1">&#39;5969&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;demand_variability&#39;</span><span class="p">:</span> <span class="s1">&#39;0.314&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;excess_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;standard_deviation&#39;</span><span class="p">:</span> <span class="s1">&#39;644&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;average_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;2053.1667&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;unit_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;1001&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;economic_order_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;44&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;reorder_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;13&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;123190000&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;sku&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;total_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;24638&#39;</span><span class="p">},</span>
 </pre></div>
 </div>
-<p>output:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s1">&#39;unit_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;400&#39;</span><span class="p">,</span> <span class="s1">&#39;standard_deviation&#39;</span><span class="p">:</span> <span class="s1">&#39;976&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;1311&#39;</span><span class="p">,</span> <span class="s1">&#39;ABC_XYZ_Classification&#39;</span><span class="p">:</span> <span class="s1">&#39;CZ&#39;</span><span class="p">,</span>
-<span class="s1">&#39;safety_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;1767&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_level&#39;</span><span class="p">:</span> <span class="s1">&#39;3812&#39;</span><span class="p">,</span> <span class="s1">&#39;demand_variability&#39;</span><span class="p">:</span> <span class="s1">&#39;0.675&#39;</span><span class="p">,</span> <span class="s1">&#39;shortages&#39;</span><span class="p">:</span> <span class="s1">&#39;4855&#39;</span><span class="p">,</span> <span class="s1">&#39;excess_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
-<span class="s1">&#39;reorder_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;380&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;15621300&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_variable_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;186365.16&#39;</span><span class="p">,</span> <span class="s1">&#39;sku&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span>
-<span class="s1">&#39;average_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;1446.4167&#39;</span><span class="p">},</span>
+<p>The library also supports Pandas using a ` DataFrame`. The following example shows how to use the library to perform an inventory analysis if a <cite>DataFrame</cite> is the preference:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ABS_FILE_PATH</span><span class="p">[</span><span class="s1">&#39;COMPLETE_CSV_SM&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analyse_kv</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">df</span><span class="o">=</span><span class="n">raw_df</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">interval_length</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">interval_type</span><span class="o">=</span><span class="s1">&#39;months&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">400</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">retail_price</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">455</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">currency</span><span class="o">=</span><span class="s1">&#39;USD&#39;</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_df</span> <span class="o">=</span> <span class="n">analyse</span><span class="p">(</span><span class="o">**</span><span class="n">analyse_kv</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>This analysis completed in:</p>
-<blockquote>
-<div><table border="1" class="docutils">
-<colgroup>
-<col width="24%" />
-<col width="76%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">system</th>
-<th class="head">time (seconds)</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>PC</td>
-<td>0.0178067684173584</td>
-</tr>
-<tr class="row-odd"><td>Mac</td>
-<td>0.024185895919799805</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
+<div class="section" id="summarising-the-analysis">
+<h3>Summarising the Analysis<a class="headerlink" href="#summarising-the-analysis" title="Permalink to this headline">¶</a></h3>
 <p>Use the <cite>describe_sku</cite> method a retrieve a summary for a specific skus:</p>
-<div class="code highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="kn">import</span> <span class="n">model_inventory</span>
-<span class="go">    &gt;&gt;&gt; from supplychainpy.inventory.summarise import InventoryAnalysis</span>
-<span class="go">    &gt;&gt;&gt; analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)</span>
-<span class="go">    &gt;&gt;&gt;</span>
-<span class="go">    &gt;&gt;&gt; for summarised in analysis_summary.describe_sku(&#39;KR202-217&#39;):</span>
-<span class="go">    &gt;&gt;&gt;     print(summarised)</span>
-
-<span class="go">The output for a sku description is different to the</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.inventory.summarise</span> <span class="kn">import</span> <span class="n">OrdersAnalysis</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_summary</span> <span class="o">=</span> <span class="n">OrdersAnalysis</span><span class="p">(</span><span class="n">analysed_orders</span><span class="o">=</span><span class="n">orders_analysis</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">summarised</span> <span class="ow">in</span> <span class="n">analysis_summary</span><span class="o">.</span><span class="n">describe_sku</span><span class="p">(</span><span class="s1">&#39;KR202-217&#39;</span><span class="p">):</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="k">print</span><span class="p">(</span><span class="n">summarised</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.inventory.summarise</span> <span class="kn">import</span> <span class="n">Inventory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.sample_data.config</span> <span class="kn">import</span> <span class="n">ABS_FILE_PATH</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">decimal</span> <span class="kn">import</span> <span class="n">Decimal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysed_data</span> <span class="o">=</span> <span class="n">analyse</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">ABS_FILE_PATH</span><span class="p">[</span><span class="s1">&#39;COMPLETE_CSV_SM&#39;</span><span class="p">],</span>
+<span class="gp">... </span>                        <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
+<span class="gp">... </span>                        <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">400</span><span class="p">),</span>
+<span class="gp">... </span>                        <span class="n">retail_price</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">455</span><span class="p">),</span>
+<span class="gp">... </span>                        <span class="n">file_type</span><span class="o">=</span><span class="s1">&#39;csv&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                        <span class="n">currency</span><span class="o">=</span><span class="s1">&#39;USD&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filtered_summary</span> <span class="o">=</span> <span class="n">Inventory</span><span class="p">(</span><span class="n">processed_orders</span><span class="o">=</span><span class="n">analysed_orders</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sku_summary</span> <span class="o">=</span> <span class="p">[</span><span class="n">summary</span> <span class="k">for</span> <span class="n">summary</span> <span class="ow">in</span> <span class="n">filtered_summary</span><span class="o">.</span><span class="n">describe_sku</span><span class="p">(</span><span class="s1">&#39;KR202-209&#39;</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">sku_summary</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The output for a sku description is different to the <cite>oreders_summary</cite> method for the whole analysis:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s1">&#39;shortage_units&#39;</span><span class="p">:</span> <span class="s1">&#39;7245&#39;</span><span class="p">,</span> <span class="s1">&#39;retail_price&#39;</span><span class="p">:</span> <span class="s1">&#39;5433&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_rank&#39;</span><span class="p">:</span> <span class="s1">&#39;12&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock_units&#39;</span><span class="p">:</span> <span class="s1">&#39;1871&#39;</span><span class="p">,</span>
-<span class="s1">&#39;average_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;1664&#39;</span><span class="p">,</span> <span class="s1">&#39;min_order&#39;</span><span class="p">:</span> <span class="s1">&#39;224&#39;</span><span class="p">,</span> <span class="s1">&#39;excess_units&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;percentage_contribution_revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;0.021250938&#39;</span><span class="p">,</span>
-<span class="s1">&#39;gross_profit_margin&#39;</span><span class="p">:</span> <span class="s1">&#39;4759&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;1261211.3&#39;</span><span class="p">,</span> <span class="s1">&#39;sku_id&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-217&#39;</span><span class="p">,</span> <span class="s1">&#39;classification&#39;</span><span class="p">:</span> <span class="s1">&#39;AY&#39;</span><span class="p">,</span>
-<span class="s1">&#39;excess_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock_rank&#39;</span><span class="p">:</span> <span class="s1">&#39;20&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue_rank&#39;</span><span class="p">:</span> <span class="s1">&#39;12&#39;</span><span class="p">,</span> <span class="s1">&#39;unit_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;674&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;108480711&#39;</span><span class="p">,</span>
-<span class="s1">&#39;excess_rank&#39;</span><span class="p">:</span> <span class="s1">&#39;13&#39;</span><span class="p">,</span> <span class="s1">&#39;markup_percentage&#39;</span><span class="p">:</span> <span class="s1">&#39;7.0608309&#39;</span><span class="p">,</span> <span class="s1">&#39;max_order&#39;</span><span class="p">:</span> <span class="s1">&#39;2987&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;4883130&#39;</span><span class="p">}</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s1">&#39;economic_order_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;44&#39;</span><span class="p">,</span>
+<span class="s1">&#39;ABC_XYZ_Classification&#39;</span><span class="p">:</span> <span class="s1">&#39;BY&#39;</span><span class="p">,</span>
+<span class="s1">&#39;sku&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span>
+<span class="s1">&#39;shortages&#39;</span><span class="p">:</span> <span class="s1">&#39;5969&#39;</span><span class="p">,</span>
+<span class="s1">&#39;demand_variability&#39;</span><span class="p">:</span> <span class="s1">&#39;0.314&#39;</span><span class="p">,</span>
+<span class="s1">&#39;reorder_level&#39;</span><span class="p">:</span> <span class="s1">&#39;4069&#39;</span><span class="p">,</span>
+<span class="s1">&#39;reorder_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;13&#39;</span><span class="p">,</span>
+<span class="s1">&#39;unit_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;1001&#39;</span><span class="p">,</span>
+<span class="s1">&#39;currency&#39;</span><span class="p">:</span> <span class="s1">&#39;UNKNOWN&#39;</span><span class="p">,</span>
+<span class="s1">&#39;standard_deviation&#39;</span><span class="p">:</span> <span class="s1">&#39;644&#39;</span><span class="p">,</span>
+<span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;123190000&#39;</span><span class="p">,</span>
+<span class="s1">&#39;average_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;2053.1667&#39;</span><span class="p">,</span>
+<span class="s1">&#39;safety_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;1165&#39;</span><span class="p">,</span>
+<span class="s1">&#39;quantity_on_hand&#39;</span><span class="p">:</span> <span class="s1">&#39;1003&#39;</span><span class="p">,</span>
+<span class="s1">&#39;orders&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;1509&#39;</span><span class="p">,</span> <span class="s1">&#39;1855&#39;</span><span class="p">,</span> <span class="s1">&#39;2665&#39;</span><span class="p">,</span> <span class="s1">&#39;1841&#39;</span><span class="p">,</span> <span class="s1">&#39;1231&#39;</span><span class="p">,</span> <span class="s1">&#39;2598&#39;</span><span class="p">,</span> <span class="s1">&#39;1988&#39;</span><span class="p">,</span> <span class="s1">&#39;1988&#39;</span><span class="p">,</span> <span class="s1">&#39;2927&#39;</span><span class="p">,</span> <span class="s1">&#39;2707&#39;</span><span class="p">,</span> <span class="s1">&#39;731&#39;</span><span class="p">,</span> <span class="s1">&#39;2598&#39;</span><span class="p">)},</span>
+<span class="s1">&#39;excess_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
+<span class="s1">&#39;economic_order_variable_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;15708.41&#39;</span><span class="p">,</span>
+<span class="s1">&#39;total_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;24638&#39;</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>The descriptive summary includes:</p>
-<ul class="simple">
-<li>shortage_rank</li>
-<li>min/max orders</li>
-<li>excess_units</li>
-<li>revenue_rank</li>
-<li>excess_rank</li>
-<li>average_orders</li>
-<li>gross_profit_margin</li>
-<li>markup_percentage</li>
-<li>max_order</li>
-</ul>
-<p>The describe_sku method can take multiple parameters:</p>
-<div class="code highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="kn">import</span> <span class="n">model_inventory</span>
-<span class="go">    &gt;&gt;&gt; from supplychainpy.inventory.summarise import InventoryAnalysis</span>
-<span class="go">    &gt;&gt;&gt; analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)</span>
-<span class="go">    &gt;&gt;&gt;</span>
-<span class="go">    &gt;&gt;&gt; skus = [&#39;KR202-209&#39;, &#39;KR202-210&#39;, &#39;KR202-211&#39;]</span>
-<span class="go">    &gt;&gt;&gt;</span>
-<span class="go">    &gt;&gt;&gt; skus_description = [summarised for summarised in analysis_summary.describe_sku(*skus)]</span>
-<span class="go">    &gt;&gt;&gt; print(skus_description)</span>
-
-<span class="go">Or simply:</span>
-
-
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.inventory.summarise</span> <span class="kn">import</span> <span class="n">OrdersAnalysis</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_summary</span> <span class="o">=</span> <span class="n">OrdersAnalysis</span><span class="p">(</span><span class="n">analysed_orders</span><span class="o">=</span><span class="n">orders_analysis</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">skus</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span> <span class="s1">&#39;KR202-210&#39;</span><span class="p">,</span> <span class="s1">&#39;KR202-211&#39;</span><span class="p">]</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">skus_description</span> <span class="o">=</span> <span class="p">[</span><span class="n">summarised</span> <span class="k">for</span> <span class="n">summarised</span> <span class="ow">in</span> <span class="n">analysis_summary</span><span class="o">.</span><span class="n">describe_sku</span><span class="p">(</span><span class="o">*</span><span class="n">skus</span><span class="p">)]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">skus_description</span><span class="p">)</span>
-</pre></div>
+<p>For more coverage of the library please take a look at the Jupyter notebooks is available from <a class="reference external" href="https://github.com/KevinFasusi/supplychainpy_notebooks">here</a> .
+The content of notebooks can be found in <a class="reference internal" href="inventory_modeling_and_analysis_with_supplychainpy.html#inventory"><span>Inventory Modeling and Analysis Made Easy with Supplychainpy</span></a> and <a class="reference internal" href="using_supplychainpy_with_pandas_jupyter_and_matplotlib.html#demand"><span>Using supplychainpy with Pandas, Jupyter and Matplotlib</span></a>.</p>
 </div>
-<p>Or simply:</p>
-<div class="code highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="kn">import</span> <span class="n">model_inventory</span>
-<span class="go">    &gt;&gt;&gt; from supplychainpy.inventory.summarise import InventoryAnalysis</span>
-<span class="go">    &gt;&gt;&gt; analysis_summary = OrdersAnalysis(analysed_orders=orders_analysis)</span>
-<span class="go">    &gt;&gt;&gt;</span>
-<span class="go">    &gt;&gt;&gt; for summarised in analysis_summary.describe_sku(&#39;KR202-209&#39;, &#39;KR202-210&#39;, &#39;KR202-211&#39;):</span>
-<span class="go">    &gt;&gt;&gt;     print(summarised)</span>
-
-<span class="go">Output:</span>
-
-
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.inventory.summarise</span> <span class="kn">import</span> <span class="n">OrdersAnalysis</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_summary</span> <span class="o">=</span> <span class="n">OrdersAnalysis</span><span class="p">(</span><span class="n">analysed_orders</span><span class="o">=</span><span class="n">orders_analysis</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">summarised</span> <span class="ow">in</span> <span class="n">analysis_summary</span><span class="o">.</span><span class="n">describe_sku</span><span class="p">(</span><span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span> <span class="s1">&#39;KR202-210&#39;</span><span class="p">,</span> <span class="s1">&#39;KR202-211&#39;</span><span class="p">):</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="k">print</span><span class="p">(</span><span class="n">summarised</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Output:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">[{</span><span class="s1">&#39;markup_percentage&#39;</span><span class="p">:</span> <span class="s1">&#39;1.25&#39;</span><span class="p">,</span> <span class="s1">&#39;retail_price&#39;</span><span class="p">:</span> <span class="s1">&#39;900&#39;</span><span class="p">,</span> <span class="s1">&#39;excess_units&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;classification&#39;</span><span class="p">:</span> <span class="s1">&#39;CZ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;excess_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;706680.47&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock_rank&#39;</span><span class="p">:</span> <span class="s1">&#39;29&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue_rank&#39;</span><span class="p">:</span> <span class="s1">&#39;31&#39;</span><span class="p">,</span>
- <span class="s1">&#39;sku_id&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span> <span class="s1">&#39;excess_rank&#39;</span><span class="p">:</span> <span class="s1">&#39;6&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock_units&#39;</span><span class="p">:</span> <span class="s1">&#39;1767&#39;</span><span class="p">,</span> <span class="s1">&#39;gross_profit_margin&#39;</span><span class="p">:</span> <span class="s1">&#39;500&#39;</span><span class="p">,</span>
- <span class="s1">&#39;shortage_rank&#39;</span><span class="p">:</span> <span class="s1">&#39;18&#39;</span><span class="p">,</span> <span class="s1">&#39;percentage_contribution_revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;0.0030601503&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;15621300&#39;</span><span class="p">,</span>
- <span class="s1">&#39;average_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;1446&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_units&#39;</span><span class="p">:</span> <span class="s1">&#39;4855&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;1942000&#39;</span><span class="p">,</span> <span class="s1">&#39;unit_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;400&#39;</span><span class="p">,</span>
- <span class="s1">&#39;max_order&#39;</span><span class="p">:</span> <span class="s1">&#39;2927&#39;</span><span class="p">,</span> <span class="s1">&#39;min_order&#39;</span><span class="p">:</span> <span class="s1">&#39;88&#39;</span><span class="p">},</span>
- <span class="p">{</span><span class="s1">&#39;markup_percentage&#39;</span><span class="p">:</span> <span class="s1">&#39;2.2994924&#39;</span><span class="p">,</span> <span class="s1">&#39;retail_price&#39;</span><span class="p">:</span> <span class="s1">&#39;1300&#39;</span><span class="p">,</span> <span class="s1">&#39;excess_units&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;classification&#39;</span><span class="p">:</span> <span class="s1">&#39;CY&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;excess_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;677310.89&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock_rank&#39;</span><span class="p">:</span> <span class="s1">&#39;30&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue_rank&#39;</span><span class="p">:</span> <span class="s1">&#39;28&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;sku_id&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-210&#39;</span><span class="p">,</span> <span class="s1">&#39;excess_rank&#39;</span><span class="p">:</span> <span class="s1">&#39;7&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;safety_stock_units&#39;</span><span class="p">:</span> <span class="s1">&#39;1719&#39;</span><span class="p">,</span> <span class="s1">&#39;gross_profit_margin&#39;</span><span class="p">:</span> <span class="s1">&#39;906&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_rank&#39;</span><span class="p">:</span> <span class="s1">&#39;19&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;percentage_contribution_revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;0.0050000889&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;25524200&#39;</span><span class="p">,</span> <span class="s1">&#39;average_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;1636&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;shortage_units&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;unit_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;394&#39;</span><span class="p">,</span> <span class="s1">&#39;max_order&#39;</span><span class="p">:</span> <span class="s1">&#39;2809&#39;</span><span class="p">,</span> <span class="s1">&#39;min_order&#39;</span><span class="p">:</span> <span class="s1">&#39;206&#39;</span><span class="p">},</span>
- <span class="p">{</span><span class="s1">&#39;markup_percentage&#39;</span><span class="p">:</span> <span class="s1">&#39;1.7649770&#39;</span><span class="p">,</span> <span class="s1">&#39;retail_price&#39;</span><span class="p">:</span> <span class="s1">&#39;1200&#39;</span><span class="p">,</span> <span class="s1">&#39;excess_units&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;classification&#39;</span><span class="p">:</span> <span class="s1">&#39;CY&#39;</span><span class="p">,</span> <span class="s1">&#39;excess_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;safety_stock_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;876674.29&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock_rank&#39;</span><span class="p">:</span> <span class="s1">&#39;27&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue_rank&#39;</span><span class="p">:</span> <span class="s1">&#39;30&#39;</span><span class="p">,</span> <span class="s1">&#39;sku_id&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-211&#39;</span><span class="p">,</span> <span class="s1">&#39;excess_rank&#39;</span><span class="p">:</span> <span class="s1">&#39;8&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;safety_stock_units&#39;</span><span class="p">:</span> <span class="s1">&#39;2020&#39;</span><span class="p">,</span> <span class="s1">&#39;gross_profit_margin&#39;</span><span class="p">:</span> <span class="s1">&#39;766&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_rank&#39;</span><span class="p">:</span> <span class="s1">&#39;17&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;percentage_contribution_revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;0.0038568790&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;19688400&#39;</span><span class="p">,</span> <span class="s1">&#39;average_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;1367&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_units&#39;</span><span class="p">:</span> <span class="s1">&#39;7099&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;shortage_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;3080966&#39;</span><span class="p">,</span> <span class="s1">&#39;unit_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;434&#39;</span><span class="p">,</span> <span class="s1">&#39;max_order&#39;</span><span class="p">:</span> <span class="s1">&#39;2737&#39;</span><span class="p">,</span> <span class="s1">&#39;min_order&#39;</span><span class="p">:</span> <span class="s1">&#39;218&#39;</span><span class="p">}]</span>
-</pre></div>
-</div>
-<p>The example below filters the results based on an attribute, in this case <cite>shortage cost</cite> using the attribute name shortages:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.inventory.summarise</span> <span class="kn">import</span> <span class="n">InventoryAnalysis</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">orders_analysis</span> <span class="o">=</span> <span class="n">model_inventory</span><span class="o">.</span><span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">abs_file_path</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>                                                                            <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
-<span class="gp">&gt;&gt;&gt; </span>                                                                            <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span>
-<span class="gp">&gt;&gt;&gt; </span>                                                                            <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>                                                                            <span class="n">length</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_summary</span> <span class="o">=</span> <span class="n">OrdersAnalysis</span><span class="p">(</span><span class="n">analysed_orders</span><span class="o">=</span><span class="n">orders_analysis</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">top_ten_shortages</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">analysis_summary</span><span class="o">.</span><span class="n">sku_ranking_filter</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s2">&quot;shortages&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)]</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">top_ten_shortages</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The results for</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.inventory.summarise</span> <span class="kn">import</span> <span class="n">InventoryAnalysis</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">orders_analysis</span> <span class="o">=</span> <span class="n">model_inventory</span><span class="o">.</span><span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">abs_file_path</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>                                                                            <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
-<span class="gp">&gt;&gt;&gt; </span>                                                                            <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span>
-<span class="gp">&gt;&gt;&gt; </span>                                                                            <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>                                                                            <span class="n">length</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_summary</span> <span class="o">=</span> <span class="n">OrdersAnalysis</span><span class="p">(</span><span class="n">analysed_orders</span><span class="o">=</span><span class="n">orders_analysis</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">top_ten_shortages</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">analysis_summary</span><span class="o">.</span><span class="n">sku_ranking_filter</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s2">&quot;shortages&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)]</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">top_ten_shortages</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The results for</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.inventory.summarise</span> <span class="kn">import</span> <span class="n">OrdersAnalysis</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">orders_analysis</span> <span class="o">=</span> <span class="n">model_inventory</span><span class="o">.</span><span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">abs_file_path</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>                                                                            <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
-<span class="gp">&gt;&gt;&gt; </span>                                                                            <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span>
-<span class="gp">&gt;&gt;&gt; </span>                                                                            <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>                                                                            <span class="n">length</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_summary</span> <span class="o">=</span> <span class="n">OrdersAnalysis</span><span class="p">(</span><span class="n">analysed_orders</span><span class="o">=</span><span class="n">orders_analysis</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">top_ten_shortages</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">analysis_summary</span><span class="o">.</span><span class="n">sku_ranking_filter</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s2">&quot;shortages&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)]</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">top_ten_shortages</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The results for <cite>top_ten_shortages</cite>:</p>
-<div class="highlight-python"><div class="highlight"><pre>{&#39;demand_variability&#39;: &#39;0.409&#39;, &#39;unit_cost&#39;: &#39;994&#39;, &#39;sku&#39;: &#39;KR202-225&#39;, &#39;revenue&#39;: &#39;195934200&#39;, &#39;average_orders&#39;: &#39;1925&#39;,
-&#39;standard_deviation&#39;: &#39;787&#39;, &#39;ABC_XYZ_Classification&#39;: &#39;AY&#39;, &#39;reorder_level&#39;: &#39;7181&#39;, &#39;economic_order_quantity&#39;: &#39;960&#39;,
-&#39;shortages&#39;: &#39;11474&#39;, &#39;reorder_quantity&#39;: &#39;278&#39;, &#39;excess_stock&#39;: &#39;0&#39;, &#39;safety_stock&#39;: &#39;2466&#39;, &#39;economic_order_variable_cost&#39;: &#39;338919.52&#39;},
-{&#39;demand_variability&#39;: &#39;0.565&#39;, &#39;unit_cost&#39;: &#39;474&#39;, &#39;sku&#39;: &#39;KR202-212&#39;, &#39;revenue&#39;: &#39;207330&#39;, &#39;average_orders&#39;: &#39;1727.75&#39;,
-&#39;standard_deviation&#39;: &#39;976&#39;, &#39;ABC_XYZ_Classification&#39;: &#39;CY&#39;, &#39;reorder_level&#39;: &#39;5156&#39;, &#39;economic_order_quantity&#39;: &#39;1317&#39;,
-&#39;shortages&#39;: &#39;7759&#39;, &#39;reorder_quantity&#39;: &#39;382&#39;, &#39;excess_stock&#39;: &#39;0&#39;, &#39;safety_stock&#39;: &#39;2164&#39;, &#39;economic_order_variable_cost&#39;: &#39;221726.52&#39;},
-{&#39;demand_variability&#39;: &#39;0.613&#39;, &#39;unit_cost&#39;: &#39;1074&#39;, &#39;sku&#39;: &#39;KR202-227&#39;, &#39;revenue&#39;: &#39;98847720&#39;, &#39;average_orders&#39;: &#39;1674.25&#39;,
-&#39;standard_deviation&#39;: &#39;1027&#39;, &#39;ABC_XYZ_Classification&#39;: &#39;BZ&#39;, &#39;reorder_level&#39;: &#39;5177&#39;, &#39;economic_order_quantity&#39;: &#39;861&#39;,
-&#39;shortages&#39;: &#39;7587&#39;, &#39;reorder_quantity&#39;: &#39;250&#39;, &#39;excess_stock&#39;: &#39;0&#39;, &#39;safety_stock&#39;: &#39;2277&#39;, &#39;economic_order_variable_cost&#39;: &#39;328549.13&#39;},
-{&#39;demand_variability&#39;: &#39;0.360&#39;, &#39;unit_cost&#39;: &#39;1394&#39;, &#39;sku&#39;: &#39;KR202-235&#39;, &#39;revenue&#39;: &#39;1372010500&#39;, &#39;average_orders&#39;: &#39;1921.5833&#39;,
-&#39;standard_deviation&#39;: &#39;691&#39;, &#39;ABC_XYZ_Classification&#39;: &#39;AY&#39;, &#39;reorder_level&#39;: &#39;4861&#39;, &#39;economic_order_quantity&#39;: &#39;810&#39;,
-&#39;shortages&#39;: &#39;7339&#39;, &#39;reorder_quantity&#39;: &#39;235&#39;, &#39;excess_stock&#39;: &#39;0&#39;, &#39;safety_stock&#39;: &#39;1532&#39;, &#39;economic_order_variable_cost&#39;: &#39;401004.30&#39;},
-{&#39;demand_variability&#39;: &#39;0.507&#39;, &#39;unit_cost&#39;: &#39;674&#39;, &#39;sku&#39;: &#39;KR202-217&#39;, &#39;revenue&#39;: &#39;108480711&#39;, &#39;average_orders&#39;: &#39;1663.9167&#39;,
-&#39;standard_deviation&#39;: &#39;844&#39;, &#39;ABC_XYZ_Classification&#39;: &#39;AY&#39;, &#39;reorder_level&#39;: &#39;4753&#39;, &#39;economic_order_quantity&#39;: &#39;1083&#39;,
-&#39;shortages&#39;: &#39;7245&#39;, &#39;reorder_quantity&#39;: &#39;314&#39;, &#39;excess_stock&#39;: &#39;0&#39;, &#39;safety_stock&#39;: &#39;1871&#39;, &#39;economic_order_variable_cost&#39;: &#39;259467.97&#39;},
-{&#39;demand_variability&#39;: &#39;0.577&#39;, &#39;unit_cost&#39;: &#39;434&#39;, &#39;sku&#39;: &#39;KR202-211&#39;, &#39;revenue&#39;: &#39;19688400&#39;, &#39;average_orders&#39;: &#39;1367.25&#39;,
-&#39;standard_deviation&#39;: &#39;789&#39;, &#39;ABC_XYZ_Classification&#39;: &#39;CY&#39;, &#39;reorder_level&#39;: &#39;4754&#39;, &#39;economic_order_quantity&#39;: &#39;1224&#39;,
-&#39;shortages&#39;: &#39;7099&#39;, &#39;reorder_quantity&#39;: &#39;355&#39;, &#39;excess_stock&#39;: &#39;0&#39;, &#39;safety_stock&#39;: &#39;2020&#39;, &#39;economic_order_variable_cost&#39;: &#39;188736.92&#39;},
-{&#39;demand_variability&#39;: &#39;0.618&#39;, &#39;unit_cost&#39;: &#39;1594&#39;, &#39;sku&#39;: &#39;KR202-240&#39;, &#39;revenue&#39;: &#39;73256997&#39;, &#39;average_orders&#39;: &#39;1548.25&#39;,
-&#39;standard_deviation&#39;: &#39;956&#39;, &#39;ABC_XYZ_Classification&#39;: &#39;CZ&#39;, &#39;reorder_level&#39;: &#39;4802&#39;, &#39;economic_order_quantity&#39;: &#39;680&#39;,
-&#39;shortages&#39;: &#39;7094&#39;, &#39;reorder_quantity&#39;: &#39;197&#39;, &#39;excess_stock&#39;: &#39;0&#39;, &#39;safety_stock&#39;: &#39;2120&#39;, &#39;economic_order_variable_cost&#39;: &#39;384904.27&#39;},
-{&#39;demand_variability&#39;: &#39;0.579&#39;, &#39;unit_cost&#39;: &#39;634&#39;, &#39;sku&#39;: &#39;KR202-216&#39;, &#39;revenue&#39;: &#39;53917641&#39;, &#39;average_orders&#39;: &#39;1481.4167&#39;,
-&#39;standard_deviation&#39;: &#39;858&#39;, &#39;ABC_XYZ_Classification&#39;: &#39;CY&#39;, &#39;reorder_level&#39;: &#39;4467&#39;, &#39;economic_order_quantity&#39;: &#39;1054&#39;,
-&#39;shortages&#39;: &#39;6999&#39;, &#39;reorder_quantity&#39;: &#39;306&#39;, &#39;excess_stock&#39;: &#39;0&#39;, &#39;safety_stock&#39;: &#39;1901&#39;, &#39;economic_order_variable_cost&#39;: &#39;237449.51&#39;} ...
-</pre></div>
-</div>
-<p>Available attributes:</p>
-<ul class="simple">
-<li>demand_variability</li>
-<li>economic_order_quantity</li>
-<li>average_order</li>
-<li>safety_stock</li>
-<li>standard_deviation</li>
-<li>reorder_level</li>
-<li>reorder_quantity</li>
-<li>revenue</li>
-<li>economic_order_quantity</li>
-<li>economic_order_variable_cost</li>
-<li>ABC_XYZ_Classification</li>
-<li>excess_stock</li>
-<li>shortages</li>
-</ul>
-<p>Although <cite>quantity_on_hand</cite> is not a mandatory field, omitting will cause shortages to reflect the <cite>reorder_level + the lead_time_demand</cite></p>
-<p>Using openpyxl or xlwings this analysis can be placed in a worksheet or used in further calculations. Below is an
-xlwings example:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">xlwings</span> <span class="kn">import</span> <span class="n">Workbook</span><span class="p">,</span> <span class="n">Range</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">(</span><span class="s1">r&#39;~/Desktop/test.xlsx&#39;</span><span class="p">),</span> <span class="n">Range</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">abc</span> <span class="o">=</span> <span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span> <span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span> <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">sku</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">orders</span><span class="p">):</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">Range</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">sku</span><span class="o">.</span><span class="n">sku_id</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">Range</span><span class="p">(</span><span class="s1">&#39;B&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sku</span><span class="o">.</span><span class="n">economic_order_qty</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">Range</span><span class="p">(</span><span class="s1">&#39;C&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sku</span><span class="o">.</span><span class="n">revenue</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">Range</span><span class="p">(</span><span class="s1">&#39;D&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">sku</span><span class="o">.</span><span class="n">abcxyz_classification</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="monte-carlo-simulation">
-<h2>Monte Carlo simulation<a class="headerlink" href="#monte-carlo-simulation" title="Permalink to this headline">¶</a></h2>
-<p>After analysing the orders, the results for safety stock may not adequately calculate
-the service level required. The complexity of the supply chain operation may include randomness an analytical model
-does not capture. A simulation is useful for giving a dynamic view of a complex operation. The simulation replicates
-some of the complexity of the system over time.</p>
-<p>The code below returns a transaction report covering the number of periods specified, multiplied by the number of runs
-requested. The higher the number of runs the more accurately the simulation captures the dynamics of the system,
-when summarised later. The simulation is limited by the assumptions inherent in the simulations design (detailed in the
-<span class="xref std std-ref">calculations</span>).</p>
-<p>To start we need to analyse the orders again like we did in the inventory analysis above:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">orders_analysis</span> <span class="o">=</span> <span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
-<span class="gp">&gt;&gt;&gt; </span>                                       <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The orders are then passed as a parameter to the monte carlo simulation:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="kn">import</span> <span class="n">simulate</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">orders_analysis</span> <span class="o">=</span> <span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
-<span class="gp">&gt;&gt;&gt; </span>                                       <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sim</span> <span class="o">=</span> <span class="n">simulate</span><span class="o">.</span><span class="n">run_monte_carlo</span><span class="p">(</span><span class="n">orders_analysis</span><span class="o">=</span><span class="n">orders_analysis</span><span class="o">.</span><span class="n">orders</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span> <span class="n">runs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>                              <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">4000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span> <span class="n">period_length</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">transaction</span> <span class="ow">in</span> <span class="n">sim</span><span class="p">:</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="k">print</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The monte carlo simulation generates normally distributed random demand, based on the historic data.
-The demand for each sku is then used in each period to model a probable transaction history. The
-output below are the transactions for 1 sku over 12 periods for 100 runs (1 run is shown).</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">[{</span><span class="s1">&#39;delivery&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_sold&#39;</span><span class="p">:</span> <span class="s1">&#39;1354&#39;</span><span class="p">,</span> <span class="s1">&#39;po_received&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;po_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;3630&#39;</span><span class="p">,</span> <span class="s1">&#39;opening_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;1446&#39;</span><span class="p">,</span>
-<span class="s1">&#39;shortage_units&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;closing_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;1355&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;541946&#39;</span><span class="p">,</span> <span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="s1">&#39;92&#39;</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;po_raised&#39;</span><span class="p">:</span>
-<span class="s1">&#39;PO 31&#39;</span><span class="p">,</span> <span class="s1">&#39;period&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;backlog&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;sku_id&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">}]</span>
-<span class="p">[{</span><span class="s1">&#39;delivery&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_sold&#39;</span><span class="p">:</span> <span class="s1">&#39;1354&#39;</span><span class="p">,</span> <span class="s1">&#39;po_received&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;po_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;6268&#39;</span><span class="p">,</span> <span class="s1">&#39;opening_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;1355&#39;</span><span class="p">,</span>
-<span class="s1">&#39;shortage_units&#39;</span><span class="p">:</span> <span class="s1">&#39;1283&#39;</span><span class="p">,</span> <span class="s1">&#39;closing_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;541946&#39;</span><span class="p">,</span> <span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="s1">&#39;2638&#39;</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;po_raised&#39;</span><span class="p">:</span>
-<span class="s1">&#39;PO 41&#39;</span><span class="p">,</span> <span class="s1">&#39;period&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;backlog&#39;</span><span class="p">:</span> <span class="s1">&#39;1283&#39;</span><span class="p">,</span> <span class="s1">&#39;sku_id&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;154032&#39;</span><span class="p">}]</span>
-<span class="p">[{</span><span class="s1">&#39;delivery&#39;</span><span class="p">:</span> <span class="s1">&#39;3630&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_sold&#39;</span><span class="p">:</span> <span class="s1">&#39;1520&#39;</span><span class="p">,</span> <span class="s1">&#39;po_received&#39;</span><span class="p">:</span> <span class="s1">&#39;PO 31&#39;</span><span class="p">,</span> <span class="s1">&#39;po_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;3464&#39;</span><span class="p">,</span> <span class="s1">&#39;opening_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
-<span class="s1">&#39;shortage_units&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;closing_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;2805&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;608381&#39;</span><span class="p">,</span> <span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="s1">&#39;826&#39;</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;po_raised&#39;</span><span class="p">:</span>
-<span class="s1">&#39;PO 51&#39;</span><span class="p">,</span> <span class="s1">&#39;period&#39;</span><span class="p">:</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;backlog&#39;</span><span class="p">:</span> <span class="s1">&#39;1283&#39;</span><span class="p">,</span> <span class="s1">&#39;sku_id&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">}]</span>
-<span class="p">[{</span><span class="s1">&#39;delivery&#39;</span><span class="p">:</span> <span class="s1">&#39;6269&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_sold&#39;</span><span class="p">:</span> <span class="s1">&#39;7753&#39;</span><span class="p">,</span> <span class="s1">&#39;po_received&#39;</span><span class="p">:</span> <span class="s1">&#39;PO 41&#39;</span><span class="p">,</span> <span class="s1">&#39;po_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;opening_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;2805&#39;</span><span class="p">,</span>
-<span class="s1">&#39;shortage_units&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;closing_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;7754&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;3101401&#39;</span><span class="p">,</span> <span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="s1">&#39;1320&#39;</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
-<span class="s1">&#39;po_raised&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;period&#39;</span><span class="p">:</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="s1">&#39;backlog&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;sku_id&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">}]</span>
-<span class="p">[{</span><span class="s1">&#39;delivery&#39;</span><span class="p">:</span> <span class="s1">&#39;3464&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_sold&#39;</span><span class="p">:</span> <span class="s1">&#39;10203&#39;</span><span class="p">,</span> <span class="s1">&#39;po_received&#39;</span><span class="p">:</span> <span class="s1">&#39;PO 51&#39;</span><span class="p">,</span> <span class="s1">&#39;po_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;opening_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;7754&#39;</span><span class="p">,</span>
-<span class="s1">&#39;shortage_units&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;closing_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;10204&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;4081460&#39;</span><span class="p">,</span> <span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="s1">&#39;1014&#39;</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
-<span class="s1">&#39;po_raised&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;period&#39;</span><span class="p">:</span> <span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="s1">&#39;backlog&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;sku_id&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">}]</span>
-<span class="p">[{</span><span class="s1">&#39;delivery&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_sold&#39;</span><span class="p">:</span> <span class="s1">&#39;8926&#39;</span><span class="p">,</span> <span class="s1">&#39;po_received&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;po_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;opening_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;10204&#39;</span><span class="p">,</span>
-<span class="s1">&#39;shortage_units&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;closing_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;8927&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;3570654&#39;</span><span class="p">,</span> <span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="s1">&#39;1277&#39;</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
-<span class="s1">&#39;po_raised&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;period&#39;</span><span class="p">:</span> <span class="s1">&#39;6&#39;</span><span class="p">,</span> <span class="s1">&#39;backlog&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;sku_id&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">}]</span>
-<span class="p">[{</span><span class="s1">&#39;delivery&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_sold&#39;</span><span class="p">:</span> <span class="s1">&#39;7284&#39;</span><span class="p">,</span> <span class="s1">&#39;po_received&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;po_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;opening_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;8927&#39;</span><span class="p">,</span>
-<span class="s1">&#39;shortage_units&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;closing_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;7285&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;2913927&#39;</span><span class="p">,</span> <span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="s1">&#39;1642&#39;</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
-<span class="s1">&#39;po_raised&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;period&#39;</span><span class="p">:</span> <span class="s1">&#39;7&#39;</span><span class="p">,</span> <span class="s1">&#39;backlog&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;sku_id&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">}]</span>
-<span class="p">[{</span><span class="s1">&#39;delivery&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_sold&#39;</span><span class="p">:</span> <span class="s1">&#39;6387&#39;</span><span class="p">,</span> <span class="s1">&#39;po_received&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;po_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;opening_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;7285&#39;</span><span class="p">,</span>
-<span class="s1">&#39;shortage_units&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;closing_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;6387&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;2554819&#39;</span><span class="p">,</span> <span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="s1">&#39;898&#39;</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
-<span class="s1">&#39;po_raised&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;period&#39;</span><span class="p">:</span> <span class="s1">&#39;8&#39;</span><span class="p">,</span> <span class="s1">&#39;backlog&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;sku_id&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">}]</span>
-<span class="p">[{</span><span class="s1">&#39;delivery&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_sold&#39;</span><span class="p">:</span> <span class="s1">&#39;4708&#39;</span><span class="p">,</span> <span class="s1">&#39;po_received&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;po_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;276&#39;</span><span class="p">,</span> <span class="s1">&#39;opening_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;6387&#39;</span><span class="p">,</span>
-<span class="s1">&#39;shortage_units&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;closing_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;4709&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;1883461&#39;</span><span class="p">,</span> <span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="s1">&#39;1678&#39;</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;po_raised&#39;</span><span class="p">:</span>
-<span class="s1">&#39;PO 111&#39;</span><span class="p">,</span> <span class="s1">&#39;period&#39;</span><span class="p">:</span> <span class="s1">&#39;9&#39;</span><span class="p">,</span> <span class="s1">&#39;backlog&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;sku_id&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">}]</span>
-<span class="p">[{</span><span class="s1">&#39;delivery&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_sold&#39;</span><span class="p">:</span> <span class="s1">&#39;2954&#39;</span><span class="p">,</span> <span class="s1">&#39;po_received&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;po_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;2030&#39;</span><span class="p">,</span> <span class="s1">&#39;opening_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;4709&#39;</span><span class="p">,</span>
-<span class="s1">&#39;shortage_units&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;closing_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;2955&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;1181806&#39;</span><span class="p">,</span> <span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="s1">&#39;1754&#39;</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;po_raised&#39;</span><span class="p">:</span>
-<span class="s1">&#39;PO 121&#39;</span><span class="p">,</span> <span class="s1">&#39;period&#39;</span><span class="p">:</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="s1">&#39;backlog&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;sku_id&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">}]</span>
-<span class="p">[{</span><span class="s1">&#39;delivery&#39;</span><span class="p">:</span> <span class="s1">&#39;276&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_sold&#39;</span><span class="p">:</span> <span class="s1">&#39;674&#39;</span><span class="p">,</span> <span class="s1">&#39;po_received&#39;</span><span class="p">:</span> <span class="s1">&#39;PO 111&#39;</span><span class="p">,</span> <span class="s1">&#39;po_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;4310&#39;</span><span class="p">,</span>
-<span class="s1">&#39;opening_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;2955&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_units&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;closing_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;674&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;269654&#39;</span><span class="p">,</span> <span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="s1">&#39;2557&#39;</span><span class="p">,</span>
-<span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;po_raised&#39;</span><span class="p">:</span> <span class="s1">&#39;PO 131&#39;</span><span class="p">,</span> <span class="s1">&#39;period&#39;</span><span class="p">:</span> <span class="s1">&#39;11&#39;</span><span class="p">,</span> <span class="s1">&#39;backlog&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;sku_id&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">}]</span>
-<span class="p">[{</span><span class="s1">&#39;delivery&#39;</span><span class="p">:</span> <span class="s1">&#39;2031&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_sold&#39;</span><span class="p">:</span> <span class="s1">&#39;947&#39;</span><span class="p">,</span> <span class="s1">&#39;po_received&#39;</span><span class="p">:</span> <span class="s1">&#39;PO 121&#39;</span><span class="p">,</span> <span class="s1">&#39;po_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;4037&#39;</span><span class="p">,</span>
-<span class="s1">&#39;opening_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;674&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_units&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;closing_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;947&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;378903&#39;</span><span class="p">,</span> <span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="s1">&#39;1757&#39;</span><span class="p">,</span>
-<span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;po_raised&#39;</span><span class="p">:</span> <span class="s1">&#39;PO 141&#39;</span><span class="p">,</span> <span class="s1">&#39;period&#39;</span><span class="p">:</span> <span class="s1">&#39;12&#39;</span><span class="p">,</span> <span class="s1">&#39;backlog&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;sku_id&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">}]</span>
-</pre></div>
-</div>
-<p>This analysis completed in:</p>
-<blockquote>
-<div><table border="1" class="docutils">
-<colgroup>
-<col width="24%" />
-<col width="76%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">system</th>
-<th class="head">time (seconds)</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>PC</td>
-<td>6.883291244506836</td>
-</tr>
-<tr class="row-odd"><td>Mac</td>
-<td>11.78481912612915</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
-<p>After running the monte carlo simulation, the results can be passed as a parameter for summary:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="kn">import</span> <span class="n">simulate</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">orders_analysis</span> <span class="o">=</span> <span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
-<span class="gp">&gt;&gt;&gt; </span>                                       <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sim</span> <span class="o">=</span> <span class="n">simulate</span><span class="o">.</span><span class="n">run_monte_carlo</span><span class="p">(</span><span class="n">orders_analysis</span><span class="o">=</span><span class="n">orders_analysis</span><span class="o">.</span><span class="n">orders</span><span class="p">,</span> <span class="n">runs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">period_length</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sim_window</span> <span class="o">=</span> <span class="n">simulate</span><span class="o">.</span><span class="n">summarize_window</span><span class="p">(</span><span class="n">simulation_frame</span><span class="o">=</span><span class="n">sim</span><span class="p">,</span> <span class="n">period_length</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
-<span class="gp">&gt;&gt;&gt; </span>        <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The result is a transactions summary for each SKU, over every run (100) requested. It is important to note that each
-run will have a different randomly generated demand. Due to the randomised demand, the transaction summary for the same
-SKU will differ over successive runs. The spread of data captures the statistically probable distribution of demand the
-SKU can expect. However the more runs (thousands, tens of thousands), the more useful the result.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s1">&#39;standard_deviation_backlog&#39;</span><span class="p">:</span> <span class="mf">250.43961347997646</span><span class="p">,</span> <span class="s1">&#39;variance_quantity_sold&#39;</span><span class="p">:</span> <span class="mf">4045303.0763888955</span><span class="p">,</span>
-<span class="s1">&#39;total_shortage_units&#39;</span><span class="p">:</span> <span class="mf">672.0</span><span class="p">,</span> <span class="s1">&#39;average_closing_stock&#39;</span><span class="p">:</span> <span class="mf">3028.416748046875</span><span class="p">,</span> <span class="s1">&#39;maximum_opening_stock&#39;</span><span class="p">:</span> <span class="mf">6279.0</span><span class="p">,</span>
-<span class="s1">&#39;minimum_closing_stock&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;maximum_shortage_units&#39;</span><span class="p">:</span> <span class="mf">672.0</span><span class="p">,</span> <span class="s1">&#39;variance_backlog&#39;</span><span class="p">:</span> <span class="mf">62720.0</span><span class="p">,</span>
-<span class="s1">&#39;average_quantity_sold&#39;</span><span class="p">:</span> <span class="mf">3091.583251953125</span><span class="p">,</span> <span class="s1">&#39;minimum_backlog&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;maximum_backlog&#39;</span><span class="p">:</span> <span class="mf">672.0</span><span class="p">,</span>
-<span class="s1">&#39;minimum_opening_stock&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;standard_deviation_opening_stock&#39;</span><span class="p">:</span> <span class="mf">2082.4554600412375</span><span class="p">,</span> <span class="s1">&#39;sku_id&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-230&#39;</span><span class="p">,</span>
-<span class="s1">&#39;standard_deviation_revenue&#39;</span><span class="p">:</span> <span class="mf">2011.2938811593137</span><span class="p">,</span> <span class="s1">&#39;maximum_quantity_sold&#39;</span><span class="p">:</span> <span class="mf">6278.0</span><span class="p">,</span>
-<span class="s1">&#39;average_opening_stock&#39;</span><span class="p">:</span> <span class="mf">2994.916748046875</span><span class="p">,</span> <span class="s1">&#39;minimum_quantity_sold&#39;</span><span class="p">:</span> <span class="mf">537.0</span><span class="p">,</span> <span class="s1">&#39;maximum_closing_stock&#39;</span><span class="p">:</span> <span class="mf">6279.0</span><span class="p">,</span>
-<span class="s1">&#39;stockout_percentage&#39;</span><span class="p">:</span> <span class="mf">0.0833333358168602</span><span class="p">,</span> <span class="s1">&#39;variance_opening_stock&#39;</span><span class="p">:</span> <span class="mf">4336620.7430555625</span><span class="p">,</span>
-<span class="s1">&#39;variance_shortage_units&#39;</span><span class="p">:</span> <span class="mf">34496.0</span><span class="p">,</span> <span class="s1">&#39;standard_deviation_closing_stock&#39;</span><span class="p">:</span> <span class="mf">2096.713160255569</span><span class="p">,</span>
-<span class="s1">&#39;average_backlog&#39;</span><span class="p">:</span> <span class="mf">112.0</span><span class="p">,</span> <span class="s1">&#39;variance_closing_stock&#39;</span><span class="p">:</span> <span class="mf">4396206.0763888955</span><span class="p">,</span>
-<span class="s1">&#39;standard_deviation_shortage_cost&#39;</span><span class="p">:</span> <span class="mf">185.7309882599024</span><span class="p">,</span> <span class="s1">&#39;minimum_shortage_units&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;22&#39;</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>This analysis completed in:</p>
-<blockquote>
-<div><table border="1" class="docutils">
-<colgroup>
-<col width="24%" />
-<col width="76%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">system</th>
-<th class="head">time (seconds)</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>PC</td>
-<td>372.97969007492065</td>
-</tr>
-<tr class="row-odd"><td>Mac</td>
-<td>506.49058294296265</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
-<p>The <cite>summarize_window</cite> returns max, min, averages and standard deviations for key values from the transaction summary.</p>
-<p>The last method summarizes the runs into one transaction summary for each sku. Similar in content to the previous
-summary however this summary aggregates the simulation runs.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="kn">import</span> <span class="n">simulate</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">orders_analysis</span> <span class="o">=</span> <span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
-<span class="gp">&gt;&gt;&gt; </span>                                       <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sim</span> <span class="o">=</span> <span class="n">simulate</span><span class="o">.</span><span class="n">run_monte_carlo</span><span class="p">(</span><span class="n">orders_analysis</span><span class="o">=</span><span class="n">orders_analysis</span><span class="o">.</span><span class="n">orders</span><span class="p">,</span> <span class="n">runs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">period_length</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sim_window</span> <span class="o">=</span> <span class="n">simulate</span><span class="o">.</span><span class="n">summarize_window</span><span class="p">(</span><span class="n">simulation_frame</span><span class="o">=</span><span class="n">sim</span><span class="p">,</span> <span class="n">period_length</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sim_frame</span><span class="o">=</span> <span class="n">simulate</span><span class="o">.</span><span class="n">summarise_frame</span><span class="p">(</span><span class="n">sim_window</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">transaction_summary</span> <span class="ow">in</span> <span class="n">sim_frame</span><span class="p">:</span>
-<span class="gp">&gt;&gt;&gt; </span>        <span class="k">print</span><span class="p">(</span><span class="n">transaction_summary</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Below is 1 of 32 result for 32 skus ran 100 times.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s1">&#39;standard_deviation_quantity_sold&#39;</span><span class="p">:</span> <span class="s1">&#39;2228&#39;</span><span class="p">,</span> <span class="s1">&#39;average_backlog&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;standard_deviation_closing_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;2228&#39;</span><span class="p">,</span>
-<span class="s1">&#39;maximum_quantity_sold&#39;</span><span class="p">:</span> <span class="mf">7901.0</span><span class="p">,</span> <span class="s1">&#39;sku_id&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span> <span class="s1">&#39;minimum_quantity_sold&#39;</span><span class="p">:</span> <span class="mf">407.0</span><span class="p">,</span> <span class="s1">&#39;minimum_backlog&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
-<span class="s1">&#39;average_closing_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;3592&#39;</span><span class="p">,</span> <span class="s1">&#39;average_shortage_units&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;variance_opening_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;2287&#39;</span><span class="p">,</span>
-<span class="s1">&#39;minimum_opening_stock&#39;</span><span class="p">:</span> <span class="mi">407</span><span class="p">,</span> <span class="s1">&#39;maximum_opening_stock&#39;</span><span class="p">:</span> <span class="mi">7901</span><span class="p">,</span> <span class="s1">&#39;minimum_closing_stock&#39;</span><span class="p">:</span> <span class="mi">407</span><span class="p">,</span> <span class="s1">&#39;service_level&#39;</span><span class="p">:</span> <span class="s1">&#39;100.00&#39;</span><span class="p">,</span>
-<span class="s1">&#39;maximum_closing_stock&#39;</span><span class="p">:</span> <span class="mi">7901</span><span class="p">,</span> <span class="s1">&#39;average_quantity_sold&#39;</span><span class="p">:</span> <span class="s1">&#39;3592&#39;</span><span class="p">,</span> <span class="s1">&#39;standard_deviation_backlog&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
-<span class="s1">&#39;maximum_backlog&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>The analysis completed in:</p>
-<blockquote>
-<div><table border="1" class="docutils">
-<colgroup>
-<col width="24%" />
-<col width="76%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">system</th>
-<th class="head">time (seconds)</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>PC</td>
-<td>388.324289560318</td>
-</tr>
-<tr class="row-odd"><td>Mac</td>
-<td>562.0152740478516</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
-<p>An optimisation option exists, if after running the Monte Carlo analysis, the behaviour in
-the transaction summary is not favourable. If most SKUs are not achieving their desired service level or have large
-quantities of backlog etc., then you can use:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="kn">import</span> <span class="n">simulate</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">orders_analysis</span> <span class="o">=</span> <span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
-<span class="gp">&gt;&gt;&gt; </span>                                       <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sim</span> <span class="o">=</span> <span class="n">simulate</span><span class="o">.</span><span class="n">run_monte_carlo</span><span class="p">(</span><span class="n">orders_analysis</span><span class="o">=</span><span class="n">orders_analysis</span><span class="o">.</span><span class="n">orders</span><span class="p">,</span> <span class="n">runs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">period_length</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sim_window</span> <span class="o">=</span> <span class="n">simulate</span><span class="o">.</span><span class="n">summarize_window</span><span class="p">(</span><span class="n">simulation_frame</span><span class="o">=</span><span class="n">sim</span><span class="p">,</span> <span class="n">period_length</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sim_frame</span><span class="o">=</span> <span class="n">simulate</span><span class="o">.</span><span class="n">summarise_frame</span><span class="p">(</span><span class="n">sim_window</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">optimised_orders</span> <span class="o">=</span> <span class="n">simulate</span><span class="o">.</span><span class="n">optimise_service_level</span><span class="p">(</span><span class="n">service_level</span><span class="o">=</span><span class="mf">95.0</span><span class="p">,</span> <span class="n">frame_summary</span><span class="o">=</span><span class="n">sim_frame</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>                                           <span class="n">orders_analysis</span><span class="o">=</span><span class="n">orders_analysis</span><span class="o">.</span><span class="n">orders</span><span class="p">,</span> <span class="n">runs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">percentage_increase</span><span class="o">=</span><span class="mf">1.30</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The <cite>optimise_service_level</cite> methods take a value for the desired service level, the transaction summary of the
-Monte Carlo simulation and the original orders analysis. The service level achieved in the Monte Carlo analysis is
-reviewed and compared with the desired service level. If below a threshold, then the safety stock is increased and the
-whole Monte Carlo simulation is run again. The supplied variable percentage_increase specifies the growth in safety stock.</p>
-<p>This optimisation step will take as long, if not longer, than the initial Monte Carlo simulation because the optimisation
-step runs the simulation again to simulate transactions based on the new safety stock values. Please take this into
-consideration and adjust your expectation for this optimisation step.
-This feature is in development as is the whole library but this feature will change in the next release.</p>
-<p>For further details on the implementation, please view the <a class="reference external" href="http://www.supplychainpy.org/blog/">deep-dive blog posts</a>
-for each release.</p>
 </div>
 </div>
 
@@ -754,7 +300,7 @@ for each release.</p>
         <a href="reporting.html" class="btn btn-neutral float-right" title="Supplychainpy Reporting Suite" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Installation.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -785,7 +331,7 @@ for each release.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.3',
+            VERSION:'0.0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

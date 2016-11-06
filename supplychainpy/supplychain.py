@@ -64,6 +64,9 @@ def main():
                              'raw data. IMPORTANT: Currency conversion does not occur by setting this flag. '
                              'The default currency is US Dollars (USD). ', default='USD')
 
+    parser.add_argument('--host', dest='host', action='store',
+                        help='Sets the host for the server (defaults 127.0.0.1) ', default='127.0.0.1')
+
     parser.add_argument('-loc', dest='location', action='store',
                         help='database path e.g. ')
 
@@ -105,16 +108,18 @@ def main():
         #    create_management_db()
         launch_load_report(args.filenames, args.location)
 
-    elif args.launch and args.location is not None:
+    elif args.launch and args.location is not None and args.host:
         print(3)
 
         app_settings = {
             'database_path': args.location,
+            'host': args.host,
+            'currency': args.currency
         }
 
         serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
 
-        launch_report(location=args.location)
+        launch_report(location=args.location, host=args.host, port=args.port)
 
     elif args.analyse_file and args.location is not None and args.filenames is not None and args.launch_console is None:
         print(4)
@@ -136,15 +141,17 @@ def main():
         #if db_present:
         #    create_management_db()
         load_db(file=args.filenames, location=args.location)
-        launch_report_server(location=args.location,port=args.port)
+        launch_report_server(location=args.location,port=args.port, host=args.host)
 
-    elif args.location and args.launch_console and args.port:
+    elif args.location and args.launch_console and args.port and args.host:
         print(6)
         app_settings = {
             'database_path': args.location,
+            'host': args.host,
+            'currency': args.currency
         }
         serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
-        launch_report_server(location=args.location,port=args.port)
+        launch_report_server(location=args.location,port=args.port, host=args.host)
 
     #elif args.filenames is None and False == args.analyse_file and False == args.launch and args.outfile is None:
     #    filename = input('Make sure you are in the directory where the reporting database will be created. Please supply the path path to "CSV" or "text" file... ')

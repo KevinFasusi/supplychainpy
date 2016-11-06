@@ -1,9 +1,8 @@
 import unittest
 from unittest import TestCase
 
-from supplychainpy.demand import forecast_demand
-from supplychainpy.demand.evolutionary_algorithms import OptimiseSmoothingLevelGeneticAlgorithm
-from supplychainpy.demand.forecast_demand import Forecast
+from supplychainpy.demand._evolutionary_algorithms import OptimiseSmoothingLevelGeneticAlgorithm
+from supplychainpy.demand._forecast_demand import Forecast
 
 
 class TestForecast(TestCase):
@@ -17,24 +16,24 @@ class TestForecast(TestCase):
 
     def test_moving_average_value_err(self):
         with self.assertRaises(expected_exception=ValueError):
-            d = forecast_demand.Forecast(self.__orders)
+            d = Forecast(self.__orders)
             d.moving_average_forecast(forecast_length=6, base_forecast=True, start_position=1)
 
     def test_weighted_moving_average_value_err(self):
         with self.assertRaises(expected_exception=ValueError):
-            forecast = forecast_demand.Forecast(self.__orders)
+            forecast = Forecast(self.__orders)
             forecast.weighted_moving_average_forecast(weights=self.__weights, average_period=2, forecast_length=3)
 
     def test_weighted_moving_average_list_err(self):
         with self.assertRaises(expected_exception=ValueError):
-            forecast = forecast_demand.Forecast(self.__orders)
+            forecast = Forecast(self.__orders)
             forecast.weighted_moving_average_forecast(weights=self.__weights[:2], average_period=2, forecast_length=3)
 
     def test_mean_absolute_deviation(self):
-        forecast = forecast_demand.Forecast(self.__orders)
+        forecast = Forecast(self.__orders)
         forecast.weighted_moving_average_forecast(weights=self.__weights, average_period=3, forecast_length=9,
                                                   base_forecast=True, start_position=3)
-        k = forecast_demand.Forecast(self.__orders)
+        k = Forecast(self.__orders)
         k.moving_average_forecast(forecast_length=9, base_forecast=True, start_position=3, average_period=3)
         result_array = k.mean_absolute_deviation(forecast.weighted_moving_average)
         result_array2 = forecast.mean_absolute_deviation(k.moving_average)
@@ -44,12 +43,12 @@ class TestForecast(TestCase):
         orders1 = [1, 3, 5, 67, 4, 65, 44, 50, 48, 24, 34, 20]
         orders2 = [1, 3, 5, 67, 4, 65, 44, 50, 48, 24, 34, 20]
         weights = [.5, .3, .2]
-        forecast = forecast_demand.Forecast(orders1)
+        forecast = Forecast(orders1)
         forecast.weighted_moving_average_forecast(weights=weights, average_period=3, forecast_length=9,
                                                   start_position=3)
         # d.moving_average(forecast_length=3, base_forecast=True, start_position=3)
         # print(d.moving_average_forecast)
-        k = forecast_demand.Forecast(orders2)
+        k = Forecast(orders2)
         k.moving_average_forecast(forecast_length=9, start_position=3, average_period=3)
         result_array = k.mean_absolute_deviation(forecast.weighted_moving_average)
         result_array2 = forecast.mean_absolute_deviation(k.moving_average)

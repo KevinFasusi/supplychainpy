@@ -25,8 +25,8 @@
 from decimal import Decimal
 from supplychainpy import model_inventory
 from supplychainpy._helpers._pickle_config import deserialise_config
-from supplychainpy.bi.recommendation_state_machine import SkuMachine, ProfileMachine
-from supplychainpy.bi.recommendations import SKUStates, ProfileStates
+from supplychainpy.bi._recommendation_state_machine import SkuMachine, ProfileMachine
+from supplychainpy.bi._recommendations import SKUStates, ProfileStates
 from supplychainpy.inventory.analyse_uncertain_demand import UncertainDemand
 from supplychainpy.sample_data.config import ABS_FILE_PATH, FORECAST_PICKLE
 
@@ -59,14 +59,14 @@ def run_sku_recommendation(analysed_orders:UncertainDemand, forecast: dict)->dic
 
 
 def run_profile_recommendation(analysed_orders: UncertainDemand, forecast: dict)->dict:
-    """ Runs Profile recommendation state machine and generates recommendations for each sku.
+    """ Runs profile recommendation state machine and generates recommendations for entire inventory profile.
 
     Args:
-        analysed_orders (UncertainDemand):
-        forecast (dict):
+        analysed_orders (UncertainDemand):  Analysed orders as UncertainDemand object
+        forecast (dict):                    Forecast results for same data set.
 
     Returns:
-        dict:
+        dict:    Recommendations for entire inventory profile
 
     """
     recommend = ProfileMachine()

@@ -12,12 +12,15 @@ Contents:
    :maxdepth: 2
 
    changelog
-   Installation
+   installation
    quickstart
    reporting
+   inventory_modeling_and_analysis_with_supplychainpy
+   using_supplychainpy_with_pandas_jupyter_and_matplotlib
+   ahp
+   monte_carlo_simulation
+   docker
    calculations
-   suchpy_pandas_jupyter
-
 
 Indices and tables
 ==================
