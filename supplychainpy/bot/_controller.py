@@ -29,8 +29,16 @@ from sqlalchemy import select
 from supplychainpy._helpers._db_connection import engine
 
 
-def master_sku_list(uri: str):
-    """Uses connection and reflects database object from table to execute query for all skus in master_sku table"""
+def master_sku_list(uri: str)->list:
+    """ Connects to database to retrieve master sku list.
+
+    Args:
+        uri (str): Database connection string.
+
+    Returns:
+        list:   All unique SKU identification.
+
+    """
     meta = MetaData()
     connection = engine(uri)
     msk_table = Table('master_sku_list', meta, autoload=True, autoload_with=connection)
@@ -45,6 +53,17 @@ def master_sku_list(uri: str):
 
 
 def excess_controller(uri: str, direction: str = None, sku_id: str = None) -> tuple:
+    """ Retrieves the excess SKUs in the inventory analysis table.
+
+    Args:
+        uri (str):          Database connection string.
+        direction (str):    Indication of sort direction.
+        sku_id (str):       SKU unique id.
+
+    Returns:
+        tuple:              Result.
+
+    """
     meta = MetaData()
     connection = engine(uri)
     inventory_analysis = Table('inventory_analysis', meta, autoload=True, autoload_with=connection)
@@ -76,6 +95,18 @@ def excess_controller(uri: str, direction: str = None, sku_id: str = None) -> tu
 
 
 def shortage_controller(uri: str, direction: str = None, sku_id: str = None) -> tuple:
+    """ Retrieves SKUs with shortages.
+
+    Args:
+        uri (str):          Database connection string.
+        direction (str):    Indication of sort direction.
+        sku_id (str):       SKU unique id.
+
+    Returns:
+        tuple:              Result.
+
+
+    """
     meta = MetaData()
     connection = engine(uri)
     inventory_analysis = Table('inventory_analysis', meta, autoload=True, autoload_with=connection)
@@ -105,6 +136,18 @@ def shortage_controller(uri: str, direction: str = None, sku_id: str = None) -> 
 
 
 def revenue_controller(uri: str, direction: str = None, sku_id: str = None) -> tuple:
+    """ Retrieves SKUs which generate revenue.
+
+    Args:
+        uri (str):          Database connection string.
+        direction (str):    Indication of sort direction.
+        sku_id (str):       SKU unique id.
+
+    Returns:
+        tuple:              Result.
+
+
+    """
     meta = MetaData()
     connection = engine(uri)
     inventory_analysis = Table('inventory_analysis', meta, autoload=True, autoload_with=connection)
@@ -133,7 +176,18 @@ def revenue_controller(uri: str, direction: str = None, sku_id: str = None) -> t
     rp.close()
     return tuple(result)
 
-def inventory_turns_controller(uri: str, direction: str = None):
+def inventory_turns_controller(uri: str, direction: str = None, sku_id: str = None)->tuple:
+    """ Retrieves SKU's Inventory Turns.
+
+    Args:
+        uri (str):          Database connection string.
+        direction (str):    Indication of sort direction.
+        sku_id (str):       SKU unique id.
+
+    Returns:
+        tuple:              Result.
+
+    """
     meta = MetaData()
     connection = engine(uri)
     inventory_analysis = Table('inventory_analysis', meta, autoload=True, autoload_with=connection)
@@ -160,7 +214,18 @@ def inventory_turns_controller(uri: str, direction: str = None):
     rp.close()
     return tuple(result)
 
-def average_orders_controller(uri: str, direction: str = None):
+def average_orders_controller(uri: str, direction: str = None, sku_id: str = None)->tuple:
+    """ Retrieves SKU's average orders.
+
+    Args:
+        uri (str):          Database connection string.
+        direction (str):    Indication of sort direction.
+        sku_id (str):       SKU unique id.
+
+    Returns:
+        tuple:              Result.
+
+    """
     rp = None
     try:
         meta = MetaData()
@@ -195,9 +260,10 @@ def currency_symbol_controller(uri: str):
     """ Retrieves currency code from analysis database.
 
     Args:
-        uri:
+        uri (str):          Database connection string.
 
     Returns:
+        tuple:              Result.
 
     """
     meta = MetaData()
@@ -226,7 +292,16 @@ def currency_symbol_controller(uri: str):
     return currency_code
 
 
-def classification_controller(uri: str, sku_id: str = None):
+def classification_controller(uri: str, sku_id: str = None)->tuple:
+    """
+
+    Args:
+        uri (str):
+        sku_id (str):
+
+    Returns:
+
+    """
     meta = MetaData()
     connection = engine(uri)
     inventory_analysis = Table('inventory_analysis',meta, autoload=True, autoload_with=connection)

@@ -19,9 +19,8 @@ class TestFlaskReports(unittest.TestCase):
         app.config['TESTING'] = True
         self.app = app.test_client()
         app_settings = {
-            'database_path': ABS_FILE_PATH['COMPLETE_CSV_XSM'],
+            'file': ABS_FILE_PATH['COMPLETE_CSV_XSM'],
             'currency': 'USD'
-
         }
         serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
         with app.app_context():

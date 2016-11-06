@@ -30,6 +30,9 @@ log.addHandler(logging.NullHandler())
 
 
 class Forecast:
+    """
+
+    """
     __simple_exponential_smoothing_forecast = {}
 
     # make keyword args

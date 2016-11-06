@@ -59,14 +59,14 @@ def run_sku_recommendation(analysed_orders:UncertainDemand, forecast: dict)->dic
 
 
 def run_profile_recommendation(analysed_orders: UncertainDemand, forecast: dict)->dict:
-    """ Runs Profile recommendation state machine and generates recommendations for each sku.
+    """ Runs profile recommendation state machine and generates recommendations for entire inventory profile.
 
     Args:
-        analysed_orders (UncertainDemand):
-        forecast (dict):
+        analysed_orders (UncertainDemand):  Analysed orders as UncertainDemand object
+        forecast (dict):                    Forecast results for same data set.
 
     Returns:
-        dict:
+        dict:    Recommendations for entire inventory profile
 
     """
     recommend = ProfileMachine()

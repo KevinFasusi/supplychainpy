@@ -1,26 +1,29 @@
-from behave import *
+from behave import given, when, then
 from supplychainpy.bot._dash_states import DashStates
 from supplychainpy.bot.dash import ChatBot
 
-@when("I chat with bot")
-def step_impl(context):
-    """
-    Args:
-        context (behave.runner.Context):
-    """
-    dash = DashStates()
-    expected = dash.salutations
-    bot = ChatBot()
-    reponse = bot.chat_machine(message='Hello')
-    pass
 
-@given("I have a greeting")
+@given("I initiate chat with bot with a greeting")
 def step_impl(context):
     """
     Args:
         context (behave.runner.Context):
     """
-    pass
+    bot = ChatBot()
+    assert isinstance(bot, ChatBot)
+
+
+@when("I say hello to the bot")
+def step_impl(context):
+    """
+    Args:
+        context (behave.runner.Context):
+    """
+
+
+    bot = ChatBot()
+    context.response = bot.chat_machine(message='Hello')
+    assert context.response
 
 
 @then("It should respond")
@@ -29,6 +32,7 @@ def step_impl(context):
     Args:
         context (behave.runner.Context):
     """
-    pass
+    dash = DashStates()
+    assert context.response[0][0] in dash.salutations
 
 

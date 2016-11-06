@@ -27,7 +27,7 @@ import logging
 # logging.basicConfig(filename='suchpy_log.txt', level=logging.DEBUG,
 #  format='%(asctime)s - %(levelname)s - %(message)s')
 
-from supplychainpy.demand.forecast_demand import Forecast
+from supplychainpy.demand._forecast_demand import Forecast
 from supplychainpy.demand.regression import LinearRegression
 
 log = logging.getLogger(__name__)

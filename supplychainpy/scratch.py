@@ -43,7 +43,7 @@ from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_CSV_MANAGEME
     ABS_FILE_PATH_APPLICATION_CONFIG
 from supplychainpy._helpers._pickle_config import deserialise_config
 from supplychainpy.bi._analytical_heirachy_process import _PairwiseComparison
-from supplychainpy.demand.forecast_demand import Forecast
+from supplychainpy.demand._forecast_demand import Forecast
 from supplychainpy.model_demand import simple_exponential_smoothing_forecast, \
     holts_trend_corrected_exponential_smoothing_forecast_from_file
 from supplychainpy.model_inventory import analyse, analyse_orders

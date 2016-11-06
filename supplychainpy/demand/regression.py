@@ -43,26 +43,21 @@ class LinearRegression:
                             as supplied to the constructor is then used as the length of the orders.
 
         Returns:
-            dict:           {'test_statistic': 7.267765176382303,
-                            'intercept': 143.63697478991594,
-                            'slope_standard_error': 0.298274237297937,
-                            'slope': 2.1677871148459382,
-                            'std_residuals': 1064.839027153635,
-                            'pvalue': 2.4466485335258775e-08}}
+            dict:           Regression results.
 
         Examples:
-                            orders = [165, 171, 147, 143, 164, 160, 152, 150, 159, 169, 173, 203, 169, 166, 162, 147,
-                            188, 161, 162, 169, 185, 188, 200, 229, 189, 218, 185, 199, 210, 193, 211, 208, 216, 218,
-                            264, 304]
-                            total_orders = 0
-                            for order in orders[:12]:
-                                total_orders += order
-                            avg_orders = total_orders / 12
-                            forecasting_demand = Forecast(orders, avg_orders)
-                            forecast = [i for i in forecasting_demand.simple_exponential_smoothing(0.5)]
-                            regression = LinearRegression(forecast)
-                            regression_statistics = regression.least_squared_error()
-
+        >>> from supplychainpy.demand._forecast_demand import Forecast
+        >>> orders = [165, 171, 147, 143, 164, 160, 152, 150, 159, 169, 173, 203, 169, 166, 162, 147,
+        ...           188, 161, 162, 169, 185, 188, 200, 229, 189, 218, 185, 199, 210, 193, 211, 208, 216, 218,
+        ...           264, 304]
+        >>> total_orders = 0
+        >>> for order in orders[:12]:
+        >>>     total_orders += order
+        >>> avg_orders = total_orders / 12
+        >>> forecasting_demand = Forecast(orders, avg_orders)
+        >>> forecast = [i for i in forecasting_demand.simple_exponential_smoothing(0.5)]
+        >>> regression = LinearRegression(forecast)
+        >>> regression_statistics = regression.least_squared_error()
         """
 
         pvalue = 0.00

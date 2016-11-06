@@ -27,8 +27,8 @@ import logging
 from supplychainpy._helpers import _data_cleansing
 from supplychainpy._helpers._enum_formats import FileFormats
 from supplychainpy._helpers._data_cleansing import check_extension
-from supplychainpy.demand.evolutionary_algorithms import OptimiseSmoothingLevelGeneticAlgorithm
-from supplychainpy.demand.forecast_demand import Forecast
+from supplychainpy.demand._evolutionary_algorithms import OptimiseSmoothingLevelGeneticAlgorithm
+from supplychainpy.demand._forecast_demand import Forecast
 from supplychainpy.demand.regression import LinearRegression
 
 log = logging.getLogger(__name__)
