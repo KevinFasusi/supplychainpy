@@ -38,7 +38,7 @@ setup(name='supplychainpy',
           ]
       },
       package_data={
-          'supplychainpy': ['reporting/static/*', 'reporting/templates/*', 'sample_data/*.csv', '_pickled/*']
+          'supplychainpy': ['reporting/static/*', 'reporting/templates/*', 'sample_data/*.csv', 'sample_data/*.py','_pickled/*']
       })
 
 #run_setup()
