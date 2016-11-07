@@ -1,3 +1,5 @@
+from distutils.core import run_setup
+
 from Cython.Build import cythonize
 from setuptools import setup, find_packages, Extension
 
@@ -38,3 +40,5 @@ setup(name='supplychainpy',
       package_data={
           'supplychainpy': ['reporting/static/*', 'reporting/templates/*', 'sample_data/*', '_pickled/*']
       })
+
+#run_setup()

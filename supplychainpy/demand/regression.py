@@ -31,6 +31,8 @@ log.addHandler(logging.NullHandler())
 
 
 class LinearRegression:
+    """ Linear Regression Statistics
+    """
     def __init__(self, orders: list):
         self.orders = orders
 

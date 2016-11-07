@@ -44,7 +44,6 @@ class TestFlaskReports(unittest.TestCase):
     def test_inventory_analysis_api(self):
         inventory_analysis = self.app.get('/api/inventory_analysis')
         headings = [b'abc_xyz_classification', b'average_orders',  b'currency']
-        print(inventory_analysis.data)
         for heading in headings:
             assert heading in inventory_analysis.data
 
