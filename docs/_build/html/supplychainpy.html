@@ -154,8 +154,6 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="supplychainpy.demand.html">supplychainpy.demand package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.demand.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="supplychainpy.demand.html#module-supplychainpy.demand.evolutionary_algorithms">supplychainpy.demand.evolutionary_algorithms module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="supplychainpy.demand.html#module-supplychainpy.demand.forecast_demand">supplychainpy.demand.forecast_demand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.demand.html#module-supplychainpy.demand.regression">supplychainpy.demand.regression module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supplychainpy.demand.html#module-supplychainpy.demand">Module contents</a></li>
 </ul>
@@ -345,16 +343,52 @@ values and not scores</li>
 <dl class="function">
 <dt id="supplychainpy.model_demand.simple_exponential_smoothing_forecast">
 <code class="descclassname">supplychainpy.model_demand.</code><code class="descname">simple_exponential_smoothing_forecast</code><span class="sig-paren">(</span><em>demand: list=None</em>, <em>smoothing_level_constant: float=0.5</em>, <em>forecast_length: int=5</em>, <em>initial_estimate_period: int=6</em>, <em>**kwargs</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.model_demand.simple_exponential_smoothing_forecast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a simple exoponential smoothing forecast on</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>forecast_length</strong> (<em>int</em>) &#8211; Number of periods to extend the forecast.</li>
+<li><strong>demand</strong> (<em>list</em>) &#8211; Original historical demand.</li>
+<li><strong>smoothing_level_constant</strong> (<em>float</em>) &#8211; Alpha value</li>
+<li><strong>initial_estimate_period</strong> (<em>int</em>) &#8211; Number of period to use to derive an average for the initial estimate.</li>
+<li><strong>**ds</strong> (<em>pd.DataFrame</em>) &#8211; Data frame with raw data.</li>
+<li><strong>**optimise</strong> (<em>bool</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Simple exponential forecast</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Examples:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_demand</span> <span class="kn">import</span> <span class="n">simple_exponential_smoothing_forecast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">orders</span> <span class="o">=</span> <span class="p">[</span><span class="mi">165</span><span class="p">,</span> <span class="mi">171</span><span class="p">,</span> <span class="mi">147</span><span class="p">,</span> <span class="mi">143</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">152</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">159</span><span class="p">,</span> <span class="mi">169</span><span class="p">,</span> <span class="mi">173</span><span class="p">,</span> <span class="mi">203</span><span class="p">,</span> <span class="mi">169</span><span class="p">,</span> <span class="mi">166</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">147</span><span class="p">,</span> <span class="mi">188</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span>
+<span class="gp">... </span>          <span class="mi">169</span><span class="p">,</span> <span class="mi">185</span><span class="p">,</span> <span class="mi">188</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">229</span><span class="p">,</span> <span class="mi">189</span><span class="p">,</span> <span class="mi">218</span><span class="p">,</span> <span class="mi">185</span><span class="p">,</span> <span class="mi">199</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">193</span><span class="p">,</span> <span class="mi">211</span><span class="p">,</span> <span class="mi">208</span><span class="p">,</span> <span class="mi">216</span><span class="p">,</span> <span class="mi">218</span><span class="p">,</span> <span class="mi">264</span><span class="p">,</span> <span class="mi">304</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ses</span> <span class="o">=</span> <span class="n">simple_exponential_smoothing_forecast</span><span class="p">(</span><span class="n">demand</span><span class="o">=</span><span class="n">orders</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">forecast_length</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">initial_period</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.model_demand.simple_exponential_smoothing_forecast_from_file">
+<code class="descclassname">supplychainpy.model_demand.</code><code class="descname">simple_exponential_smoothing_forecast_from_file</code><span class="sig-paren">(</span><em>file_path: str</em>, <em>file_type: str</em>, <em>length: int</em>, <em>smoothing_level_constant: float</em>, <em>forecast_length=5</em>, <em>**kwargs</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.model_demand.simple_exponential_smoothing_forecast_from_file" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>forecast_length</strong> &#8211; </li>
-<li><strong>demand</strong> &#8211; </li>
-<li><strong>smoothing_level_constant</strong> &#8211; </li>
-<li><strong>initial_estimate_period</strong> &#8211; </li>
-<li><strong>**kwargs</strong> &#8211; </li>
+<li><strong>file_path</strong> (<em>str</em>) &#8211; </li>
+<li><strong>file_type</strong> (<em>str</em>) &#8211; </li>
+<li><strong>length</strong> (<em>int</em>) &#8211; </li>
+<li><strong>smoothing_level_constant</strong> (<em>int</em>) &#8211; </li>
+<li><strong>forecast_length</strong> (<em>int</em>) &#8211; </li>
+<li><strong>**optimise</strong> (<em>bool</em>) &#8211; </li>
 </ul>
 </td>
 </tr>
@@ -362,11 +396,6 @@ values and not scores</li>
 </table>
 <p>Returns:</p>
 </dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.model_demand.simple_exponential_smoothing_forecast_from_file">
-<code class="descclassname">supplychainpy.model_demand.</code><code class="descname">simple_exponential_smoothing_forecast_from_file</code><span class="sig-paren">(</span><em>file_path: str</em>, <em>file_type: str</em>, <em>length: int</em>, <em>smoothing_level_constant: float</em>, <em>forecast_length=5</em>, <em>**kwargs</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.model_demand.simple_exponential_smoothing_forecast_from_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </div>
 <div class="section" id="module-supplychainpy.model_distribution">
@@ -716,14 +745,6 @@ of purchase orders placed in the previous period.</li>
 </div>
 <div class="section" id="module-supplychainpy.model_warehouse">
 <span id="supplychainpy-model-warehouse-module"></span><h2>supplychainpy.model_warehouse module<a class="headerlink" href="#module-supplychainpy.model_warehouse" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-supplychainpy.scratch">
-<span id="supplychainpy-scratch-module"></span><h2>supplychainpy.scratch module<a class="headerlink" href="#module-supplychainpy.scratch" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="supplychainpy.scratch.main">
-<code class="descclassname">supplychainpy.scratch.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.scratch.main" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </div>
 <div class="section" id="module-supplychainpy.simulate">
 <span id="supplychainpy-simulate-module"></span><h2>supplychainpy.simulate module<a class="headerlink" href="#module-supplychainpy.simulate" title="Permalink to this headline">¶</a></h2>

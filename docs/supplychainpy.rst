@@ -73,14 +73,6 @@ supplychainpy.model_warehouse module
     :undoc-members:
     :show-inheritance:
 
-supplychainpy.scratch module
-----------------------------
-
-.. automodule:: supplychainpy.scratch
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 supplychainpy.simulate module
 -----------------------------
 

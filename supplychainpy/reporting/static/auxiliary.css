@@ -490,7 +490,7 @@ nav ul li a {
 
 .rec-panel {
     max-height: 240px;
-    background-color: #708284;
+    background-color: #092029;
 }
 
 .recommendation-panel {
@@ -502,4 +502,14 @@ nav ul li a {
 
 #rec-btns {
     margin-right: 80px;
+}
+
+.contact{
+    padding: 20px;
+    height: 150px;
+    width: 300px;
+    margin-left: 20px;
+    margin-top: 20px;
+    float: left;
+    box-shadow: 10px 5px 5px black;
 }

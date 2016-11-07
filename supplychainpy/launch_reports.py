@@ -135,7 +135,7 @@ class SupplychainpyReporting:
         self.hyperlink_text.config(background='black', foreground='lightblue', font=('courier', 11, 'underline'))
         self.hyperlink_text.bind("<Button-1>", lambda e, url=str(self.hyperlink): launch_browser(e, url))
 
-        self.launcher_button = ttk.Button(master, text='Launch Reporting',
+        self.launcher_button = tk.Button(master, bg='black', fg='grey', text='Launch Reporting',
                                           command=lambda: self.spawn_reports()).grid(
             row=6, column=1, pady=(5, 10),
             padx=(15, 5))
