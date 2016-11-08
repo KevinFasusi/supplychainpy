@@ -33,14 +33,10 @@ python-editor==1.0
 python-mimeparse==1.5.2
 pytz==2015.7
 PyYAML==3.11
-requests==2.9.1
-requests-toolbelt==0.6.0
 scikit-learn==0.17.1
 scipy==0.17.1
 simplejson==3.8.2
-six==1.10.0
 snowballstemmer==1.2.1
 SQLAlchemy==1.0.13
-term==2.1
 textblob==0.11.1
 WTForms==2.1
