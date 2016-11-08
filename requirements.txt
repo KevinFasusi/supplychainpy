@@ -35,7 +35,6 @@ pytz==2015.7
 PyYAML==3.11
 requests==2.9.1
 requests-toolbelt==0.6.0
-rl==2.4
 scikit-learn==0.17.1
 scipy==0.17.1
 simplejson==3.8.2
