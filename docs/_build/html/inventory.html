@@ -1,0 +1,505 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Inventory Modeling and Analysis Made Easy with Supplychainpy &mdash; supplychainpy 0.0.4 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="supplychainpy 0.0.4 documentation" href="index.html"/>
+        <link rel="next" title="Using supplychainpy with Pandas, Jupyter and Matplotlib" href="pandas.html"/>
+        <link rel="prev" title="Supplychainpy Reporting Suite" href="reporting.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> supplychainpy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reporting.html">Supplychainpy Reporting Suite</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Inventory Modeling and Analysis Made Easy with Supplychainpy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#exploring-the-results">Exploring the results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pandas.html">Using supplychainpy with Pandas, Jupyter and Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ahp.html">Analytic Hierarchy Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo_simulation.html">Monte Carlo simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Supplychainpy with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">supplychainpy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Inventory Modeling and Analysis Made Easy with Supplychainpy</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/inventory.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="inventory-modeling-and-analysis-made-easy-with-supplychainpy">
+<span id="inventory"></span><h1>Inventory Modeling and Analysis Made Easy with Supplychainpy<a class="headerlink" href="#inventory-modeling-and-analysis-made-easy-with-supplychainpy" title="Permalink to this headline">¶</a></h1>
+<p>The following is taken from the jupyter notebook title &#8216;0.0.4-Inventory-Modeling-v1&#8217; found <a class="reference external" href="https://github.com/KevinFasusi/supplychainpy_notebooks">here</a> .
+For a more interactive experience please retrieve this notebook and run with jupyter.</p>
+<p>This workbook assumes some familiarity and proficiency in programming
+with Python. Understanding list comprehensions, conditional logic, loops
+and functions are a basic prequisite for continuing with this workbook.</p>
+<p>Typically, inventory analysis using Excel requires several formulas,
+manual processes, possibly some pivot tables and in some cases VBA to
+achieve. Using the supplychainpy library can reduce the time taken and
+effort made for the same analysis.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse</span>
+<span class="kn">from</span> <span class="nn">decimal</span> <span class="kn">import</span> <span class="n">Decimal</span>
+<span class="kn">from</span> <span class="nn">supplychainpy.sample_data.config</span> <span class="kn">import</span> <span class="n">ABS_FILE_PATH</span>
+</pre></div>
+</div>
+<p>The first two imports are manditory, the second import is for using the
+sample data in the <code class="docutils literal"><span class="pre">supplychainpy</span></code> library. When working with a
+different file, supply the file path to the <code class="docutils literal"><span class="pre">file_path</span></code> parameter. The
+data supplied for analysis can be from a <code class="docutils literal"><span class="pre">csv</span></code> or a database ETL
+process.</p>
+<p>The sample data is a <code class="docutils literal"><span class="pre">csv</span></code> formatted file:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ABS_FILE_PATH</span><span class="p">[</span><span class="s1">&#39;COMPLETE_CSV_SM&#39;</span><span class="p">],</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">raw_data</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">raw_data</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>Sku,jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec,unit cost,lead-time,retail_price,quantity_on_hand,backlog
+
+KR202-209,1509,1855,2665,1841,1231,2598,1988,1988,2927,2707,731,2598,1001,2,5000,1003,10
+
+KR202-210,1006,206,2588,670,2768,2809,1475,1537,919,2525,440,2691,394,2,1300,3224,10
+
+KR202-211,1840,2284,850,983,2737,1264,2002,1980,235,1489,218,525,434,4,1200,390,10
+
+KR202-212,104,2262,350,528,2570,1216,1101,2755,2856,2381,1867,2743,474,3,10,390,10
+
+KR202-213,489,954,1112,199,919,330,561,2372,921,1587,1532,1512,514,1,2000,2095,10
+
+KR202-214,2416,2010,2527,1409,1059,890,2837,276,987,2228,1095,1396,554,2,1800,55,10
+
+KR202-215,403,1737,753,1982,2775,380,1561,1230,1262,2249,824,743,594,1,2500,4308,10
+
+KR202-216,2908,929,684,2618,1477,1508,765,43,2550,2157,937,1201,634,3,3033,34,10
+
+KR202-217,2799,2197,1647,2263,224,2987,2366,588,1140,869,1707,1180,674,3,5433,390,10
+
+KR202-218,1333,402,804,318,1408,830,1028,534,1871,2730,2022,94,714,2,3034,3535,10
+
+KR202-219,813,969,745,1001,2732,1987,717,599,2722,171,639,2108,754,3,5000,334,10
+
+KR202-220,1481,905,1067,2513,861,1670,650,2630,1245,997,1936,2780,794,3,7500,3434,10
+
+KR202-221,771,2941,1360,2714,1801,1744,1428,1660,436,578,1956,1101,834,2,4938,4433,10
+
+KR202-222,2349,4,345,524,340,2698,2137,1164,498,1583,1241,2965,874,2,4922,3435,10
+
+KR202-223,2045,2055,552,81,2780,176,2316,1475,2566,1678,1553,2745,914,1,4894,34533,10
+
+KR202-224,2482,1887,1911,1446,2939,1241,1281,692,119,627,1941,1383,954,2,2942,33,10
+
+KR202-225,2744,2770,2697,1726,1776,2264,332,2420,2722,1161,1986,2587,994,6,8999,2000,10
+
+KR202-226,2509,914,903,877,1859,2263,383,593,236,189,920,1686,1034,3,4342,4344,10
+
+KR202-227,368,2502,2955,2994,1270,2884,2208,699,854,877,2320,160,1074,3,4920,489,10
+
+KR202-228,1468,1109,2464,2799,948,589,2858,1140,501,2691,93,1060,1114,2,15000,9439,10
+
+KR202-229,2114,198,1479,1249,1475,744,407,2280,226,2285,796,1948,1154,2,13000,8939,10
+
+KR202-230,1023,1150,1672,2026,1590,441,2484,2300,2928,1082,2064,2412,1194,2,10000,349,10
+
+KR202-231,482,546,299,2304,2953,1029,1863,2809,454,927,2488,2341,1234,4,9999,3434,10
+
+KR202-232,614,2138,962,2017,2398,2963,2189,1804,414,2016,1350,2464,1274,2,7500,234,10
+
+KR202-233,2395,2521,2157,728,1028,43,138,826,570,2825,181,787,1314,4,6000,349,10
+
+KR202-234,1336,1478,865,533,1562,422,2287,1302,1230,1059,1153,399,1354,2,20000,324,10
+
+KR202-235,2565,2762,2721,1431,845,2163,2413,2227,1753,740,1139,2300,1394,3,59500,850,10
+
+KR202-236,1912,1726,1569,316,71,2082,108,174,1974,609,2896,566,1434,3,2300,4930,10
+
+KR202-237,2153,1112,16,130,590,2619,2576,2390,2567,1531,842,242,1474,2,4500,9483,10
+
+KR202-238,1417,2044,1981,1936,2377,780,1544,1521,51,1056,1876,1356,1514,3,8000,839,10
+
+KR202-239,2717,2186,2300,677,2157,2328,1917,2519,561,281,1162,1146,1554,2,39000,433,10
+
+KR202-240,1015,741,2754,2925,2302,695,2869,440,406,1083,2334,1015,1594,3,3943,390,10
+
+KR202-241,3050,1507,3637,1112,1963,1675,898,1986,2262,3895,1229,2904,769,5,8007,2125,10
+
+KR202-242,1875,2368,830,823,868,1409,1845,3095,3247,1894,2558,3048,1819,1,13225,1253,10
+
+KR202-243,1717,593,3006,2935,3139,2753,3247,3845,1720,3413,3399,2799,1120,3,14682,1128,10
+
+KR202-244,2383,2046,2487,3827,1674,3118,2849,2233,3888,2566,2216,3817,1067,5,11997,1191,10
+
+KR202-245,1115,2694,3038,3366,1058,2724,2863,1930,1787,838,3087,1565,1623,2,12876,611,10
+
+KR202-246,3108,1197,2472,1264,3179,3638,1268,1581,3456,1630,1788,2288,608,2,6548,2192,10
+
+KR202-247,3439,1854,652,1827,1645,2257,2733,1337,2034,2106,877,2409,1578,2,10463,1017,10
+</pre></div>
+</div>
+<p>It is probable that getting the data to this format will require
+&#8216;extracting&#8217; from a database and &#8216;transforming&#8217; data before &#8216;loading&#8217;
+into the <code class="docutils literal"><span class="pre">analyse</span></code> function. This can be achieved with an orm like
+slqalchemy or using the driver for the database in question.
+Supplychainpy works with Pandas so performing the transformations using
+Pandas may be an idea. The <code class="docutils literal"><span class="pre">DataFrame</span></code> or file passed as an argument
+must be identical to the format above (future versions of supplychainpy
+will be more lenient and attempt to identify if a minimum requirement
+has been met).</p>
+<p>The ETL process is not covered in this workbook but on the &#8216;roadmap&#8217; for
+<code class="docutils literal"><span class="pre">supplychainpy</span></code> is the automation of this process.</p>
+<p>So now that we have the data in the correct format we can proceed with
+the anlysis.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c1">#%%timeit</span>
+<span class="n">analysed_inventory_profile</span><span class="o">=</span> <span class="n">analyse</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">ABS_FILE_PATH</span><span class="p">[</span><span class="s1">&#39;COMPLETE_CSV_SM&#39;</span><span class="p">],</span>
+                                                             <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
+                                                             <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">400</span><span class="p">),</span>
+                                                             <span class="n">file_type</span><span class="o">=</span><span class="s1">&#39;csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The variable <code class="docutils literal"><span class="pre">analysed_inventory_profile</span></code> now contains a collection
+(list) of <code class="docutils literal"><span class="pre">UncertainDemand</span></code> objects (one per SKU). Each object
+contains the analysis for each SKU. The analysis include the following:</p>
+<ul class="simple">
+<li>safety stock</li>
+<li>total_orders</li>
+<li>standard_deviation</li>
+<li>quantity_on_hand&#8217;: &#8216;1003</li>
+<li>economic_order_variable_cost</li>
+<li>sku</li>
+<li>economic_order_quantity</li>
+<li>unit_cost</li>
+<li>demand_variability</li>
+<li>average_orders</li>
+<li>excess_stock</li>
+<li>currency</li>
+<li>ABC_XYZ_Classification</li>
+<li>shortages</li>
+<li>reorder_level</li>
+<li>revenue</li>
+<li>reorder_quantity</li>
+<li>safety_stock</li>
+<li>orders</li>
+</ul>
+<p>The listed summary items can be retrieved by calling the method
+<code class="docutils literal"><span class="pre">orders_summary()</span></code> on each object. The quickest way to do this is with
+a list comprehension.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">analysis_summary</span> <span class="o">=</span> <span class="p">[</span><span class="n">demand</span><span class="o">.</span><span class="n">orders_summary</span><span class="p">()</span> <span class="k">for</span> <span class="n">demand</span> <span class="ow">in</span> <span class="n">analysed_inventory_profile</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>For the intrepid reader who did not heed the warning about the
+prerequisites and is now scratching their head wondering &#8220;what manner of
+black magic is this,&#8221; here is a quick overview on list comprehensions.
+In short, the above code is similar to the code below:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">analysis_summary</span> <span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">demand</span> <span class="ow">in</span> <span class="n">analysed_inventory_profile</span><span class="p">:</span>
+    <span class="n">analysis_summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">demand</span><span class="o">.</span><span class="n">orders_summary</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>The former is much more readable and in truth quite addictive (hence the
+warning, the love for list comprehensions runs deep).</p>
+<div class="section" id="exploring-the-results">
+<h2>Exploring the results<a class="headerlink" href="#exploring-the-results" title="Permalink to this headline">¶</a></h2>
+<p>To make sense of the results we can filter our analysis using standard
+python scripting techniques. For example to retrieve the whole
+<code class="docutils literal"><span class="pre">summary</span></code> for the SKU <code class="docutils literal"><span class="pre">KR202-209</span></code> we can do something like this:</p>
+<div class="code python highlight-python"><div class="highlight"><pre>%%timeit
+sku_summary = [demand.orders_summary() for demand in analysed_inventory_profile if demand.orders_summary().get(&#39;sku&#39;)== &#39;KR202-209&#39;]
+#print(sku_summary)
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>1000 loops, best of 3: 885 µs per loop
+</pre></div>
+</div>
+<p>The inventory classification ABC XYZ denotes the SKUs contribution to
+revenue and demand volatility. <code class="docutils literal"><span class="pre">AX</span></code> SKUs typically exhibit steady
+demand and contribute 80% of the revenue value for the period being
+analysed. Further explanation on <code class="docutils literal"><span class="pre">ABC</span> <span class="pre">XYZ</span></code> analysis can be found here.</p>
+<p>As a more traditional way of grouping SKUs by behaviour, it is also
+likely to be used for generating inventory policies and for further
+exploration of the inventory profile. To retrive all the summaries for a
+particular classification, we could do something like this:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">ay_classification_summary</span> <span class="o">=</span> <span class="p">[</span><span class="n">demand</span><span class="o">.</span><span class="n">orders_summary</span><span class="p">()</span> <span class="k">for</span> <span class="n">demand</span> <span class="ow">in</span> <span class="n">analysed_inventory_profile</span> <span class="k">if</span> <span class="n">demand</span><span class="o">.</span><span class="n">orders_summary</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ABC_XYZ_Classification&#39;</span><span class="p">)</span><span class="o">==</span> <span class="s1">&#39;AY&#39;</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">ay_classification_summary</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[{</span><span class="s1">&#39;total_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;25185&#39;</span><span class="p">,</span> <span class="s1">&#39;standard_deviation&#39;</span><span class="p">:</span> <span class="s1">&#39;721&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_on_hand&#39;</span><span class="p">:</span> <span class="s1">&#39;2000&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_variable_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;15826.20&#39;</span><span class="p">,</span> <span class="s1">&#39;sku&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-225&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;45&#39;</span><span class="p">,</span> <span class="s1">&#39;unit_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;994&#39;</span><span class="p">,</span> <span class="s1">&#39;demand_variability&#39;</span><span class="p">:</span> <span class="s1">&#39;0.344&#39;</span><span class="p">,</span> <span class="s1">&#39;average_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;2098.75&#39;</span><span class="p">,</span> <span class="s1">&#39;excess_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;currency&#39;</span><span class="p">:</span> <span class="s1">&#39;UNKNOWN&#39;</span><span class="p">,</span> <span class="s1">&#39;ABC_XYZ_Classification&#39;</span><span class="p">:</span> <span class="s1">&#39;AY&#39;</span><span class="p">,</span> <span class="s1">&#39;shortages&#39;</span><span class="p">:</span> <span class="s1">&#39;10542&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_level&#39;</span><span class="p">:</span> <span class="s1">&#39;7402&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;226639815&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;13&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;2261&#39;</span><span class="p">,</span> <span class="s1">&#39;orders&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;2744&#39;</span><span class="p">,</span> <span class="s1">&#39;2770&#39;</span><span class="p">,</span> <span class="s1">&#39;2697&#39;</span><span class="p">,</span> <span class="s1">&#39;1726&#39;</span><span class="p">,</span> <span class="s1">&#39;1776&#39;</span><span class="p">,</span> <span class="s1">&#39;2264&#39;</span><span class="p">,</span> <span class="s1">&#39;332&#39;</span><span class="p">,</span> <span class="s1">&#39;2420&#39;</span><span class="p">,</span> <span class="s1">&#39;2722&#39;</span><span class="p">,</span> <span class="s1">&#39;1161&#39;</span><span class="p">,</span> <span class="s1">&#39;1986&#39;</span><span class="p">,</span> <span class="s1">&#39;2587&#39;</span><span class="p">)}},</span> <span class="p">{</span><span class="s1">&#39;total_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;15201&#39;</span><span class="p">,</span> <span class="s1">&#39;standard_deviation&#39;</span><span class="p">:</span> <span class="s1">&#39;752&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_on_hand&#39;</span><span class="p">:</span> <span class="s1">&#39;8939&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_variable_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;13248.03&#39;</span><span class="p">,</span> <span class="s1">&#39;sku&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-229&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;32&#39;</span><span class="p">,</span> <span class="s1">&#39;unit_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;1154&#39;</span><span class="p">,</span> <span class="s1">&#39;demand_variability&#39;</span><span class="p">:</span> <span class="s1">&#39;0.594&#39;</span><span class="p">,</span> <span class="s1">&#39;average_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;1266.75&#39;</span><span class="p">,</span> <span class="s1">&#39;excess_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;3994&#39;</span><span class="p">,</span> <span class="s1">&#39;currency&#39;</span><span class="p">:</span> <span class="s1">&#39;UNKNOWN&#39;</span><span class="p">,</span> <span class="s1">&#39;ABC_XYZ_Classification&#39;</span><span class="p">:</span> <span class="s1">&#39;AY&#39;</span><span class="p">,</span> <span class="s1">&#39;shortages&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_level&#39;</span><span class="p">:</span> <span class="s1">&#39;3153&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;197613000&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;9&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;1362&#39;</span><span class="p">,</span> <span class="s1">&#39;orders&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;2114&#39;</span><span class="p">,</span> <span class="s1">&#39;198&#39;</span><span class="p">,</span> <span class="s1">&#39;1479&#39;</span><span class="p">,</span> <span class="s1">&#39;1249&#39;</span><span class="p">,</span> <span class="s1">&#39;1475&#39;</span><span class="p">,</span> <span class="s1">&#39;744&#39;</span><span class="p">,</span> <span class="s1">&#39;407&#39;</span><span class="p">,</span> <span class="s1">&#39;2280&#39;</span><span class="p">,</span> <span class="s1">&#39;226&#39;</span><span class="p">,</span> <span class="s1">&#39;2285&#39;</span><span class="p">,</span> <span class="s1">&#39;796&#39;</span><span class="p">,</span> <span class="s1">&#39;1948&#39;</span><span class="p">)}},</span> <span class="p">{</span><span class="s1">&#39;total_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;21172&#39;</span><span class="p">,</span> <span class="s1">&#39;standard_deviation&#39;</span><span class="p">:</span> <span class="s1">&#39;702&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_on_hand&#39;</span><span class="p">:</span> <span class="s1">&#39;349&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_variable_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;15903.60&#39;</span><span class="p">,</span> <span class="s1">&#39;sku&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-230&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;37&#39;</span><span class="p">,</span> <span class="s1">&#39;unit_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;1194&#39;</span><span class="p">,</span> <span class="s1">&#39;demand_variability&#39;</span><span class="p">:</span> <span class="s1">&#39;0.398&#39;</span><span class="p">,</span> <span class="s1">&#39;average_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;1764.3333&#39;</span><span class="p">,</span> <span class="s1">&#39;excess_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;currency&#39;</span><span class="p">:</span> <span class="s1">&#39;UNKNOWN&#39;</span><span class="p">,</span> <span class="s1">&#39;ABC_XYZ_Classification&#39;</span><span class="p">:</span> <span class="s1">&#39;AY&#39;</span><span class="p">,</span> <span class="s1">&#39;shortages&#39;</span><span class="p">:</span> <span class="s1">&#39;5913&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_level&#39;</span><span class="p">:</span> <span class="s1">&#39;3767&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;211720000&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;11&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;1271&#39;</span><span class="p">,</span> <span class="s1">&#39;orders&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;1023&#39;</span><span class="p">,</span> <span class="s1">&#39;1150&#39;</span><span class="p">,</span> <span class="s1">&#39;1672&#39;</span><span class="p">,</span> <span class="s1">&#39;2026&#39;</span><span class="p">,</span> <span class="s1">&#39;1590&#39;</span><span class="p">,</span> <span class="s1">&#39;441&#39;</span><span class="p">,</span> <span class="s1">&#39;2484&#39;</span><span class="p">,</span> <span class="s1">&#39;2300&#39;</span><span class="p">,</span> <span class="s1">&#39;2928&#39;</span><span class="p">,</span> <span class="s1">&#39;1082&#39;</span><span class="p">,</span> <span class="s1">&#39;2064&#39;</span><span class="p">,</span> <span class="s1">&#39;2412&#39;</span><span class="p">)}},</span> <span class="p">{</span><span class="s1">&#39;total_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;21329&#39;</span><span class="p">,</span> <span class="s1">&#39;standard_deviation&#39;</span><span class="p">:</span> <span class="s1">&#39;749&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_on_hand&#39;</span><span class="p">:</span> <span class="s1">&#39;234&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_variable_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;16488.55&#39;</span><span class="p">,</span> <span class="s1">&#39;sku&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-232&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;36&#39;</span><span class="p">,</span> <span class="s1">&#39;unit_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;1274&#39;</span><span class="p">,</span> <span class="s1">&#39;demand_variability&#39;</span><span class="p">:</span> <span class="s1">&#39;0.422&#39;</span><span class="p">,</span> <span class="s1">&#39;average_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;1777.4167&#39;</span><span class="p">,</span> <span class="s1">&#39;excess_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;currency&#39;</span><span class="p">:</span> <span class="s1">&#39;UNKNOWN&#39;</span><span class="p">,</span> <span class="s1">&#39;ABC_XYZ_Classification&#39;</span><span class="p">:</span> <span class="s1">&#39;AY&#39;</span><span class="p">,</span> <span class="s1">&#39;shortages&#39;</span><span class="p">:</span> <span class="s1">&#39;6150&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_level&#39;</span><span class="p">:</span> <span class="s1">&#39;3870&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;159967500&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;11&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;1356&#39;</span><span class="p">,</span> <span class="s1">&#39;orders&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;614&#39;</span><span class="p">,</span> <span class="s1">&#39;2138&#39;</span><span class="p">,</span> <span class="s1">&#39;962&#39;</span><span class="p">,</span> <span class="s1">&#39;2017&#39;</span><span class="p">,</span> <span class="s1">&#39;2398&#39;</span><span class="p">,</span> <span class="s1">&#39;2963&#39;</span><span class="p">,</span> <span class="s1">&#39;2189&#39;</span><span class="p">,</span> <span class="s1">&#39;1804&#39;</span><span class="p">,</span> <span class="s1">&#39;414&#39;</span><span class="p">,</span> <span class="s1">&#39;2016&#39;</span><span class="p">,</span> <span class="s1">&#39;1350&#39;</span><span class="p">,</span> <span class="s1">&#39;2464&#39;</span><span class="p">)}},</span> <span class="p">{</span><span class="s1">&#39;total_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;13626&#39;</span><span class="p">,</span> <span class="s1">&#39;standard_deviation&#39;</span><span class="p">:</span> <span class="s1">&#39;516&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_on_hand&#39;</span><span class="p">:</span> <span class="s1">&#39;324&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_variable_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;13586.45&#39;</span><span class="p">,</span> <span class="s1">&#39;sku&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-234&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;28&#39;</span><span class="p">,</span> <span class="s1">&#39;unit_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;1354&#39;</span><span class="p">,</span> <span class="s1">&#39;demand_variability&#39;</span><span class="p">:</span> <span class="s1">&#39;0.454&#39;</span><span class="p">,</span> <span class="s1">&#39;average_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;1135.5&#39;</span><span class="p">,</span> <span class="s1">&#39;excess_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;currency&#39;</span><span class="p">:</span> <span class="s1">&#39;UNKNOWN&#39;</span><span class="p">,</span> <span class="s1">&#39;ABC_XYZ_Classification&#39;</span><span class="p">:</span> <span class="s1">&#39;AY&#39;</span><span class="p">,</span> <span class="s1">&#39;shortages&#39;</span><span class="p">:</span> <span class="s1">&#39;3822&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_level&#39;</span><span class="p">:</span> <span class="s1">&#39;2540&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;272520000&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;8&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;934&#39;</span><span class="p">,</span> <span class="s1">&#39;orders&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;1336&#39;</span><span class="p">,</span> <span class="s1">&#39;1478&#39;</span><span class="p">,</span> <span class="s1">&#39;865&#39;</span><span class="p">,</span> <span class="s1">&#39;533&#39;</span><span class="p">,</span> <span class="s1">&#39;1562&#39;</span><span class="p">,</span> <span class="s1">&#39;422&#39;</span><span class="p">,</span> <span class="s1">&#39;2287&#39;</span><span class="p">,</span> <span class="s1">&#39;1302&#39;</span><span class="p">,</span> <span class="s1">&#39;1230&#39;</span><span class="p">,</span> <span class="s1">&#39;1059&#39;</span><span class="p">,</span> <span class="s1">&#39;1153&#39;</span><span class="p">,</span> <span class="s1">&#39;399&#39;</span><span class="p">)}},</span> <span class="p">{</span><span class="s1">&#39;total_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;23059&#39;</span><span class="p">,</span> <span class="s1">&#39;standard_deviation&#39;</span><span class="p">:</span> <span class="s1">&#39;691&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_on_hand&#39;</span><span class="p">:</span> <span class="s1">&#39;850&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_variable_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;17933.46&#39;</span><span class="p">,</span> <span class="s1">&#39;sku&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-235&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;36&#39;</span><span class="p">,</span> <span class="s1">&#39;unit_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;1394&#39;</span><span class="p">,</span> <span class="s1">&#39;demand_variability&#39;</span><span class="p">:</span> <span class="s1">&#39;0.360&#39;</span><span class="p">,</span> <span class="s1">&#39;average_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;1921.5833&#39;</span><span class="p">,</span> <span class="s1">&#39;excess_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;currency&#39;</span><span class="p">:</span> <span class="s1">&#39;UNKNOWN&#39;</span><span class="p">,</span> <span class="s1">&#39;ABC_XYZ_Classification&#39;</span><span class="p">:</span> <span class="s1">&#39;AY&#39;</span><span class="p">,</span> <span class="s1">&#39;shortages&#39;</span><span class="p">:</span> <span class="s1">&#39;7339&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_level&#39;</span><span class="p">:</span> <span class="s1">&#39;4861&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;1372010500&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;11&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;1532&#39;</span><span class="p">,</span> <span class="s1">&#39;orders&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;2565&#39;</span><span class="p">,</span> <span class="s1">&#39;2762&#39;</span><span class="p">,</span> <span class="s1">&#39;2721&#39;</span><span class="p">,</span> <span class="s1">&#39;1431&#39;</span><span class="p">,</span> <span class="s1">&#39;845&#39;</span><span class="p">,</span> <span class="s1">&#39;2163&#39;</span><span class="p">,</span> <span class="s1">&#39;2413&#39;</span><span class="p">,</span> <span class="s1">&#39;2227&#39;</span><span class="p">,</span> <span class="s1">&#39;1753&#39;</span><span class="p">,</span> <span class="s1">&#39;740&#39;</span><span class="p">,</span> <span class="s1">&#39;1139&#39;</span><span class="p">,</span> <span class="s1">&#39;2300&#39;</span><span class="p">)}},</span> <span class="p">{</span><span class="s1">&#39;total_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;19951&#39;</span><span class="p">,</span> <span class="s1">&#39;standard_deviation&#39;</span><span class="p">:</span> <span class="s1">&#39;811&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_on_hand&#39;</span><span class="p">:</span> <span class="s1">&#39;433&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_variable_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;17612.47&#39;</span><span class="p">,</span> <span class="s1">&#39;sku&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-239&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;32&#39;</span><span class="p">,</span> <span class="s1">&#39;unit_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;1554&#39;</span><span class="p">,</span> <span class="s1">&#39;demand_variability&#39;</span><span class="p">:</span> <span class="s1">&#39;0.488&#39;</span><span class="p">,</span> <span class="s1">&#39;average_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;1662.5833&#39;</span><span class="p">,</span> <span class="s1">&#39;excess_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;currency&#39;</span><span class="p">:</span> <span class="s1">&#39;UNKNOWN&#39;</span><span class="p">,</span> <span class="s1">&#39;ABC_XYZ_Classification&#39;</span><span class="p">:</span> <span class="s1">&#39;AY&#39;</span><span class="p">,</span> <span class="s1">&#39;shortages&#39;</span><span class="p">:</span> <span class="s1">&#39;5737&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_level&#39;</span><span class="p">:</span> <span class="s1">&#39;3819&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;778089000&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;9&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;1468&#39;</span><span class="p">,</span> <span class="s1">&#39;orders&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;2717&#39;</span><span class="p">,</span> <span class="s1">&#39;2186&#39;</span><span class="p">,</span> <span class="s1">&#39;2300&#39;</span><span class="p">,</span> <span class="s1">&#39;677&#39;</span><span class="p">,</span> <span class="s1">&#39;2157&#39;</span><span class="p">,</span> <span class="s1">&#39;2328&#39;</span><span class="p">,</span> <span class="s1">&#39;1917&#39;</span><span class="p">,</span> <span class="s1">&#39;2519&#39;</span><span class="p">,</span> <span class="s1">&#39;561&#39;</span><span class="p">,</span> <span class="s1">&#39;281&#39;</span><span class="p">,</span> <span class="s1">&#39;1162&#39;</span><span class="p">,</span> <span class="s1">&#39;1146&#39;</span><span class="p">)}},</span> <span class="p">{</span><span class="s1">&#39;total_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;26118&#39;</span><span class="p">,</span> <span class="s1">&#39;standard_deviation&#39;</span><span class="p">:</span> <span class="s1">&#39;950&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_on_hand&#39;</span><span class="p">:</span> <span class="s1">&#39;2125&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_variable_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;14175.73&#39;</span><span class="p">,</span> <span class="s1">&#39;sku&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-241&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;52&#39;</span><span class="p">,</span> <span class="s1">&#39;unit_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;769&#39;</span><span class="p">,</span> <span class="s1">&#39;demand_variability&#39;</span><span class="p">:</span> <span class="s1">&#39;0.437&#39;</span><span class="p">,</span> <span class="s1">&#39;average_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;2176.5&#39;</span><span class="p">,</span> <span class="s1">&#39;excess_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;currency&#39;</span><span class="p">:</span> <span class="s1">&#39;UNKNOWN&#39;</span><span class="p">,</span> <span class="s1">&#39;ABC_XYZ_Classification&#39;</span><span class="p">:</span> <span class="s1">&#39;AY&#39;</span><span class="p">,</span> <span class="s1">&#39;shortages&#39;</span><span class="p">:</span> <span class="s1">&#39;10328&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_level&#39;</span><span class="p">:</span> <span class="s1">&#39;7586&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;209126826&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;15&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;2719&#39;</span><span class="p">,</span> <span class="s1">&#39;orders&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;3050&#39;</span><span class="p">,</span> <span class="s1">&#39;1507&#39;</span><span class="p">,</span> <span class="s1">&#39;3637&#39;</span><span class="p">,</span> <span class="s1">&#39;1112&#39;</span><span class="p">,</span> <span class="s1">&#39;1963&#39;</span><span class="p">,</span> <span class="s1">&#39;1675&#39;</span><span class="p">,</span> <span class="s1">&#39;898&#39;</span><span class="p">,</span> <span class="s1">&#39;1986&#39;</span><span class="p">,</span> <span class="s1">&#39;2262&#39;</span><span class="p">,</span> <span class="s1">&#39;3895&#39;</span><span class="p">,</span> <span class="s1">&#39;1229&#39;</span><span class="p">,</span> <span class="s1">&#39;2904&#39;</span><span class="p">)}},</span> <span class="p">{</span><span class="s1">&#39;total_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;23860&#39;</span><span class="p">,</span> <span class="s1">&#39;standard_deviation&#39;</span><span class="p">:</span> <span class="s1">&#39;853&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_on_hand&#39;</span><span class="p">:</span> <span class="s1">&#39;1253&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_variable_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;20838.38&#39;</span><span class="p">,</span> <span class="s1">&#39;sku&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-242&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;32&#39;</span><span class="p">,</span> <span class="s1">&#39;unit_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;1819&#39;</span><span class="p">,</span> <span class="s1">&#39;demand_variability&#39;</span><span class="p">:</span> <span class="s1">&#39;0.429&#39;</span><span class="p">,</span> <span class="s1">&#39;average_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;1988.3333&#39;</span><span class="p">,</span> <span class="s1">&#39;excess_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;currency&#39;</span><span class="p">:</span> <span class="s1">&#39;UNKNOWN&#39;</span><span class="p">,</span> <span class="s1">&#39;ABC_XYZ_Classification&#39;</span><span class="p">:</span> <span class="s1">&#39;AY&#39;</span><span class="p">,</span> <span class="s1">&#39;shortages&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_level&#39;</span><span class="p">:</span> <span class="s1">&#39;3080&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;315548500&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;9&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;1092&#39;</span><span class="p">,</span> <span class="s1">&#39;orders&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;1875&#39;</span><span class="p">,</span> <span class="s1">&#39;2368&#39;</span><span class="p">,</span> <span class="s1">&#39;830&#39;</span><span class="p">,</span> <span class="s1">&#39;823&#39;</span><span class="p">,</span> <span class="s1">&#39;868&#39;</span><span class="p">,</span> <span class="s1">&#39;1409&#39;</span><span class="p">,</span> <span class="s1">&#39;1845&#39;</span><span class="p">,</span> <span class="s1">&#39;3095&#39;</span><span class="p">,</span> <span class="s1">&#39;3247&#39;</span><span class="p">,</span> <span class="s1">&#39;1894&#39;</span><span class="p">,</span> <span class="s1">&#39;2558&#39;</span><span class="p">,</span> <span class="s1">&#39;3048&#39;</span><span class="p">)}},</span> <span class="p">{</span><span class="s1">&#39;total_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;32566&#39;</span><span class="p">,</span> <span class="s1">&#39;standard_deviation&#39;</span><span class="p">:</span> <span class="s1">&#39;882&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_on_hand&#39;</span><span class="p">:</span> <span class="s1">&#39;1128&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_variable_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;19103.09&#39;</span><span class="p">,</span> <span class="s1">&#39;sku&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-243&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;48&#39;</span><span class="p">,</span> <span class="s1">&#39;unit_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;1120&#39;</span><span class="p">,</span> <span class="s1">&#39;demand_variability&#39;</span><span class="p">:</span> <span class="s1">&#39;0.325&#39;</span><span class="p">,</span> <span class="s1">&#39;average_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;2713.8333&#39;</span><span class="p">,</span> <span class="s1">&#39;excess_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;currency&#39;</span><span class="p">:</span> <span class="s1">&#39;UNKNOWN&#39;</span><span class="p">,</span> <span class="s1">&#39;ABC_XYZ_Classification&#39;</span><span class="p">:</span> <span class="s1">&#39;AY&#39;</span><span class="p">,</span> <span class="s1">&#39;shortages&#39;</span><span class="p">:</span> <span class="s1">&#39;10227&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_level&#39;</span><span class="p">:</span> <span class="s1">&#39;6655&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;478134012&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;14&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;1954&#39;</span><span class="p">,</span> <span class="s1">&#39;orders&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;1717&#39;</span><span class="p">,</span> <span class="s1">&#39;593&#39;</span><span class="p">,</span> <span class="s1">&#39;3006&#39;</span><span class="p">,</span> <span class="s1">&#39;2935&#39;</span><span class="p">,</span> <span class="s1">&#39;3139&#39;</span><span class="p">,</span> <span class="s1">&#39;2753&#39;</span><span class="p">,</span> <span class="s1">&#39;3247&#39;</span><span class="p">,</span> <span class="s1">&#39;3845&#39;</span><span class="p">,</span> <span class="s1">&#39;1720&#39;</span><span class="p">,</span> <span class="s1">&#39;3413&#39;</span><span class="p">,</span> <span class="s1">&#39;3399&#39;</span><span class="p">,</span> <span class="s1">&#39;2799&#39;</span><span class="p">)}},</span> <span class="p">{</span><span class="s1">&#39;total_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;33104&#39;</span><span class="p">,</span> <span class="s1">&#39;standard_deviation&#39;</span><span class="p">:</span> <span class="s1">&#39;718&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_on_hand&#39;</span><span class="p">:</span> <span class="s1">&#39;1191&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_variable_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;18799.00&#39;</span><span class="p">,</span> <span class="s1">&#39;sku&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-244&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;50&#39;</span><span class="p">,</span> <span class="s1">&#39;unit_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;1067&#39;</span><span class="p">,</span> <span class="s1">&#39;demand_variability&#39;</span><span class="p">:</span> <span class="s1">&#39;0.260&#39;</span><span class="p">,</span> <span class="s1">&#39;average_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;2758.6667&#39;</span><span class="p">,</span> <span class="s1">&#39;excess_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;currency&#39;</span><span class="p">:</span> <span class="s1">&#39;UNKNOWN&#39;</span><span class="p">,</span> <span class="s1">&#39;ABC_XYZ_Classification&#39;</span><span class="p">:</span> <span class="s1">&#39;AY&#39;</span><span class="p">,</span> <span class="s1">&#39;shortages&#39;</span><span class="p">:</span> <span class="s1">&#39;13200&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_level&#39;</span><span class="p">:</span> <span class="s1">&#39;8223&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;397148688&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;14&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;2054&#39;</span><span class="p">,</span> <span class="s1">&#39;orders&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;2383&#39;</span><span class="p">,</span> <span class="s1">&#39;2046&#39;</span><span class="p">,</span> <span class="s1">&#39;2487&#39;</span><span class="p">,</span> <span class="s1">&#39;3827&#39;</span><span class="p">,</span> <span class="s1">&#39;1674&#39;</span><span class="p">,</span> <span class="s1">&#39;3118&#39;</span><span class="p">,</span> <span class="s1">&#39;2849&#39;</span><span class="p">,</span> <span class="s1">&#39;2233&#39;</span><span class="p">,</span> <span class="s1">&#39;3888&#39;</span><span class="p">,</span> <span class="s1">&#39;2566&#39;</span><span class="p">,</span> <span class="s1">&#39;2216&#39;</span><span class="p">,</span> <span class="s1">&#39;3817&#39;</span><span class="p">)}},</span> <span class="p">{</span><span class="s1">&#39;total_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;26065&#39;</span><span class="p">,</span> <span class="s1">&#39;standard_deviation&#39;</span><span class="p">:</span> <span class="s1">&#39;855&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_on_hand&#39;</span><span class="p">:</span> <span class="s1">&#39;611&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_variable_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;20573.14&#39;</span><span class="p">,</span> <span class="s1">&#39;sku&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-245&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;36&#39;</span><span class="p">,</span> <span class="s1">&#39;unit_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;1623&#39;</span><span class="p">,</span> <span class="s1">&#39;demand_variability&#39;</span><span class="p">:</span> <span class="s1">&#39;0.394&#39;</span><span class="p">,</span> <span class="s1">&#39;average_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;2172.0833&#39;</span><span class="p">,</span> <span class="s1">&#39;excess_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;currency&#39;</span><span class="p">:</span> <span class="s1">&#39;UNKNOWN&#39;</span><span class="p">,</span> <span class="s1">&#39;ABC_XYZ_Classification&#39;</span><span class="p">:</span> <span class="s1">&#39;AY&#39;</span><span class="p">,</span> <span class="s1">&#39;shortages&#39;</span><span class="p">:</span> <span class="s1">&#39;7081&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_level&#39;</span><span class="p">:</span> <span class="s1">&#39;4620&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;335612940&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;1548&#39;</span><span class="p">,</span> <span class="s1">&#39;orders&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;1115&#39;</span><span class="p">,</span> <span class="s1">&#39;2694&#39;</span><span class="p">,</span> <span class="s1">&#39;3038&#39;</span><span class="p">,</span> <span class="s1">&#39;3366&#39;</span><span class="p">,</span> <span class="s1">&#39;1058&#39;</span><span class="p">,</span> <span class="s1">&#39;2724&#39;</span><span class="p">,</span> <span class="s1">&#39;2863&#39;</span><span class="p">,</span> <span class="s1">&#39;1930&#39;</span><span class="p">,</span> <span class="s1">&#39;1787&#39;</span><span class="p">,</span> <span class="s1">&#39;838&#39;</span><span class="p">,</span> <span class="s1">&#39;3087&#39;</span><span class="p">,</span> <span class="s1">&#39;1565&#39;</span><span class="p">)}},</span> <span class="p">{</span><span class="s1">&#39;total_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;26869&#39;</span><span class="p">,</span> <span class="s1">&#39;standard_deviation&#39;</span><span class="p">:</span> <span class="s1">&#39;872&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_on_hand&#39;</span><span class="p">:</span> <span class="s1">&#39;2192&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_variable_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;12784.68&#39;</span><span class="p">,</span> <span class="s1">&#39;sku&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-246&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;59&#39;</span><span class="p">,</span> <span class="s1">&#39;unit_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;608&#39;</span><span class="p">,</span> <span class="s1">&#39;demand_variability&#39;</span><span class="p">:</span> <span class="s1">&#39;0.389&#39;</span><span class="p">,</span> <span class="s1">&#39;average_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;2239.0833&#39;</span><span class="p">,</span> <span class="s1">&#39;excess_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;currency&#39;</span><span class="p">:</span> <span class="s1">&#39;UNKNOWN&#39;</span><span class="p">,</span> <span class="s1">&#39;ABC_XYZ_Classification&#39;</span><span class="p">:</span> <span class="s1">&#39;AY&#39;</span><span class="p">,</span> <span class="s1">&#39;shortages&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_level&#39;</span><span class="p">:</span> <span class="s1">&#39;4745&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;175938212&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;17&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;1578&#39;</span><span class="p">,</span> <span class="s1">&#39;orders&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;3108&#39;</span><span class="p">,</span> <span class="s1">&#39;1197&#39;</span><span class="p">,</span> <span class="s1">&#39;2472&#39;</span><span class="p">,</span> <span class="s1">&#39;1264&#39;</span><span class="p">,</span> <span class="s1">&#39;3179&#39;</span><span class="p">,</span> <span class="s1">&#39;3638&#39;</span><span class="p">,</span> <span class="s1">&#39;1268&#39;</span><span class="p">,</span> <span class="s1">&#39;1581&#39;</span><span class="p">,</span> <span class="s1">&#39;3456&#39;</span><span class="p">,</span> <span class="s1">&#39;1630&#39;</span><span class="p">,</span> <span class="s1">&#39;1788&#39;</span><span class="p">,</span> <span class="s1">&#39;2288&#39;</span><span class="p">)}},</span> <span class="p">{</span><span class="s1">&#39;total_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;23170&#39;</span><span class="p">,</span> <span class="s1">&#39;standard_deviation&#39;</span><span class="p">:</span> <span class="s1">&#39;735&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_on_hand&#39;</span><span class="p">:</span> <span class="s1">&#39;1017&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_variable_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;19126.21&#39;</span><span class="p">,</span> <span class="s1">&#39;sku&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-247&#39;</span><span class="p">,</span> <span class="s1">&#39;economic_order_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;34&#39;</span><span class="p">,</span> <span class="s1">&#39;unit_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;1578&#39;</span><span class="p">,</span> <span class="s1">&#39;demand_variability&#39;</span><span class="p">:</span> <span class="s1">&#39;0.381&#39;</span><span class="p">,</span> <span class="s1">&#39;average_orders&#39;</span><span class="p">:</span> <span class="s1">&#39;1930.8333&#39;</span><span class="p">,</span> <span class="s1">&#39;excess_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;currency&#39;</span><span class="p">:</span> <span class="s1">&#39;UNKNOWN&#39;</span><span class="p">,</span> <span class="s1">&#39;ABC_XYZ_Classification&#39;</span><span class="p">:</span> <span class="s1">&#39;AY&#39;</span><span class="p">,</span> <span class="s1">&#39;shortages&#39;</span><span class="p">:</span> <span class="s1">&#39;5776&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_level&#39;</span><span class="p">:</span> <span class="s1">&#39;4062&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;242427710&#39;</span><span class="p">,</span> <span class="s1">&#39;reorder_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="s1">&#39;safety_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;1331&#39;</span><span class="p">,</span> <span class="s1">&#39;orders&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;3439&#39;</span><span class="p">,</span> <span class="s1">&#39;1854&#39;</span><span class="p">,</span> <span class="s1">&#39;652&#39;</span><span class="p">,</span> <span class="s1">&#39;1827&#39;</span><span class="p">,</span> <span class="s1">&#39;1645&#39;</span><span class="p">,</span> <span class="s1">&#39;2257&#39;</span><span class="p">,</span> <span class="s1">&#39;2733&#39;</span><span class="p">,</span> <span class="s1">&#39;1337&#39;</span><span class="p">,</span> <span class="s1">&#39;2034&#39;</span><span class="p">,</span> <span class="s1">&#39;2106&#39;</span><span class="p">,</span> <span class="s1">&#39;877&#39;</span><span class="p">,</span> <span class="s1">&#39;2409&#39;</span><span class="p">)}}]</span>
+</pre></div>
+</div>
+<p>Using a built-in feature of the library provides a quicker way to filter
+the results. For example a quciker way to filter for SKU <code class="docutils literal"><span class="pre">KR202-209</span></code>,
+is through the use of <code class="docutils literal"><span class="pre">Inventory</span></code> class in the <code class="docutils literal"><span class="pre">summarise</span></code> module.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">supplychainpy.inventory.summarise</span> <span class="kn">import</span> <span class="n">Inventory</span>
+<span class="n">filtered_summary</span> <span class="o">=</span> <span class="n">Inventory</span><span class="p">(</span><span class="n">analysed_inventory_profile</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre>%%timeit
+sku_summary = [summary for summary in filtered_summary.describe_sku(&#39;KR202-209&#39;)]
+#print(sku_summary)
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>10000 loops, best of 3: 190 µs per loop
+</pre></div>
+</div>
+<p>Using the import Inventory specifically built to filter the analysis is
+faster and syntactically cleaner for eaier to read and understand code.
+The <code class="docutils literal"><span class="pre">Inventory</span></code> summary class also provides a more detailed summary of
+the SKU with additional KPIs and metric in context of the whole
+inventory profile. The summary ranks and performs some comparative
+analysis for more insight.</p>
+<p>The descriptive summary includes:</p>
+<ul class="simple">
+<li>shortage_rank</li>
+<li>min_orders</li>
+<li>excess_units</li>
+<li>revenue_rank</li>
+<li>excess_rank</li>
+<li>average_orders</li>
+<li>gross_profit_margin</li>
+<li>markup_percentage</li>
+<li>max_order</li>
+<li>shortage_cost</li>
+<li>quantity_on_hand</li>
+<li>inventory_turns</li>
+<li>sku_id</li>
+<li>retail_price</li>
+<li>revenue_rank</li>
+<li>shortage_units</li>
+<li>unit_cost</li>
+<li>classification</li>
+<li>safety_stock_cost</li>
+<li>safety_stock_units</li>
+<li>safety_stock_rank</li>
+<li>percentage_contribution_revenue</li>
+<li>gross_profit_margin</li>
+<li>shortage_rank</li>
+<li>inventory_traffic_light</li>
+<li>unit_cost_rank</li>
+<li>excess_cost</li>
+<li>excess_units</li>
+<li>markup_percentage</li>
+<li>revenue</li>
+</ul>
+<p>This is a pretty comprehensive list of descriptors to use for further
+analysis.</p>
+<p>Further summaries can be retrieved, for instance summaries at the
+inventory classification level of detail can be quite useful when
+exploring inventory policies:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">classification_summary</span> <span class="o">=</span>  <span class="p">[</span><span class="n">summary</span> <span class="k">for</span> <span class="n">summary</span> <span class="ow">in</span> <span class="n">filtered_summary</span><span class="o">.</span><span class="n">abc_xyz_summary</span><span class="p">(</span><span class="n">classification</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;AY&#39;</span><span class="p">,),</span> <span class="n">category</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;revenue&#39;</span><span class="p">,))]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">classification_summary</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[{</span><span class="s1">&#39;AY&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="mf">5372496600.0</span><span class="p">}}]</span>
+</pre></div>
+</div>
+<p>Now we know the total revenue generated by the <code class="docutils literal"><span class="pre">AY</span></code> SKU class. There
+is another, slightly more fun way to arrive at this number using
+<code class="docutils literal"><span class="pre">Dash</span></code> but more on that latter.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">top_10_safety_stock_skus</span> <span class="o">=</span>  <span class="p">[</span><span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sku&#39;</span><span class="p">)</span><span class="k">for</span> <span class="n">summary</span> <span class="ow">in</span> <span class="n">filtered_summary</span><span class="o">.</span><span class="n">rank_summary</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;safety_stock&#39;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">10</span><span class="p">)]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">top_10_safety_stock_skus</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="s1">&#39;KR202-241&#39;</span><span class="p">,</span> <span class="s1">&#39;KR202-231&#39;</span><span class="p">,</span> <span class="s1">&#39;KR202-233&#39;</span><span class="p">,</span> <span class="s1">&#39;KR202-227&#39;</span><span class="p">,</span> <span class="s1">&#39;KR202-225&#39;</span><span class="p">,</span> <span class="s1">&#39;KR202-212&#39;</span><span class="p">,</span> <span class="s1">&#39;KR202-240&#39;</span><span class="p">,</span> <span class="s1">&#39;KR202-244&#39;</span><span class="p">,</span> <span class="s1">&#39;KR202-236&#39;</span><span class="p">,</span> <span class="s1">&#39;KR202-211&#39;</span><span class="p">,</span> <span class="s1">&#39;KR202-243&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Lets add the safety_stock and create a tuple to see that the results
+explicitly.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">top_10_safety_stock_values</span> <span class="o">=</span>  <span class="p">[(</span><span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sku&#39;</span><span class="p">),</span> <span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;safety_stock&#39;</span><span class="p">))</span><span class="k">for</span> <span class="n">summary</span> <span class="ow">in</span> <span class="n">filtered_summary</span><span class="o">.</span><span class="n">rank_summary</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;safety_stock&#39;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">10</span><span class="p">)]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">top_10_safety_stock_values</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[(</span><span class="s1">&#39;KR202-241&#39;</span><span class="p">,</span> <span class="s1">&#39;2719&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;KR202-231&#39;</span><span class="p">,</span> <span class="s1">&#39;2484&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;KR202-233&#39;</span><span class="p">,</span> <span class="s1">&#39;2472&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;KR202-227&#39;</span><span class="p">,</span> <span class="s1">&#39;2277&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;KR202-225&#39;</span><span class="p">,</span> <span class="s1">&#39;2261&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;KR202-212&#39;</span><span class="p">,</span> <span class="s1">&#39;2164&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;KR202-240&#39;</span><span class="p">,</span> <span class="s1">&#39;2120&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;KR202-244&#39;</span><span class="p">,</span> <span class="s1">&#39;2054&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;KR202-236&#39;</span><span class="p">,</span> <span class="s1">&#39;2045&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;KR202-211&#39;</span><span class="p">,</span> <span class="s1">&#39;2020&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;KR202-243&#39;</span><span class="p">,</span> <span class="s1">&#39;1954&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>We can then pass back the list of <code class="docutils literal"><span class="pre">top_10_safety_stock_skus</span></code> back into
+the inventory filter and get their breakdown.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">top_10_safety_stock_summary</span> <span class="o">=</span> <span class="p">[</span><span class="n">summary</span> <span class="k">for</span> <span class="n">summary</span> <span class="ow">in</span> <span class="n">filtered_summary</span><span class="o">.</span><span class="n">describe_sku</span><span class="p">(</span><span class="o">*</span><span class="n">top_10_safety_stock_skus</span><span class="p">)]</span>
+<span class="c1">#print(top_10_safety_stock_summary)</span>
+</pre></div>
+</div>
+<p>We have only covered a few use cases but we have already achieved a
+significant amount of analysis with relativley few line of code. The
+equivalent in Excel would require much more work and many more formulas.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pandas.html" class="btn btn-neutral float-right" title="Using supplychainpy with Pandas, Jupyter and Matplotlib" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="reporting.html" class="btn btn-neutral" title="Supplychainpy Reporting Suite" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Kevin Fasusi.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.4',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
