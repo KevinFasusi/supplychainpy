@@ -40,10 +40,42 @@ supplychainpy.model_demand module
     :undoc-members:
     :show-inheritance:
 
+supplychainpy.model_distribution module
+---------------------------------------
+
+.. automodule:: supplychainpy.model_distribution
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 supplychainpy.model_inventory module
 ------------------------------------
 
 .. automodule:: supplychainpy.model_inventory
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+supplychainpy.model_production module
+-------------------------------------
+
+.. automodule:: supplychainpy.model_production
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+supplychainpy.model_warehouse module
+------------------------------------
+
+.. automodule:: supplychainpy.model_warehouse
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+supplychainpy.scratch module
+----------------------------
+
+.. automodule:: supplychainpy.scratch
     :members:
     :undoc-members:
     :show-inheritance:
