@@ -25,6 +25,7 @@
 from sqlalchemy import MetaData
 from sqlalchemy import Table
 from sqlalchemy import func
+from sqlalchemy import join
 from sqlalchemy import select
 from supplychainpy._helpers._db_connection import engine
 
@@ -256,7 +257,7 @@ def average_orders_controller(uri: str, direction: str = None, sku_id: str = Non
     finally:
         rp.close()
 
-def currency_symbol_controller(uri: str):
+def currency_symbol_controller(uri: str)->str:
     """ Retrieves currency code from analysis database.
 
     Args:
@@ -306,9 +307,13 @@ def classification_controller(uri: str, sku_id: str = None)->tuple:
     connection = engine(uri)
     inventory_analysis = Table('inventory_analysis',meta, autoload=True, autoload_with=connection)
     msk = Table('master_sku_list', meta, autoload=True, autoload_with=connection)
-    sku_classification = select([inventory_analysis.columns.abc_xyz_classification, msk.columns.sku_id]).join(msk).where( msk.columns.sku_id ==sku_id)
+    j = join(inventory_analysis, msk, msk.columns.id ==inventory_analysis.columns.sku_id)
+    sku_classification = select([inventory_analysis.columns.abc_xyz_classification]).select_from(j).where(msk.columns.sku_id ==sku_id)
     rp = connection.execute(sku_classification)
+    classification = ''
     for i in rp:
-        print()
+        classification = i['abc_xyz_classification']
+
+    return classification
 
     # if using html currency symbols think about how to deal with ascii when iteracting with dash on the command line etc

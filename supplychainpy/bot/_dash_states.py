@@ -58,7 +58,7 @@ class DashStates:
 
     KEYWORDS = ('average', 'retail', 'economic')
 
-    ANALYSIS_KEYWORDS = ("excess", "shortage", "revenue", "inventory turns", "average order", "classificationi")
+    ANALYSIS_KEYWORDS = ("excess", "shortage", "revenue", "inventory turns", "average order", "classification")
 
     SALUTATION_KEYWORDS = ("hi", "hello", "wassup", "sup", "what's up", "ello", "how's tricks?")
 
@@ -70,15 +70,22 @@ class DashStates:
         ('question', ('biggest', 'smallest'), (('WP', 0), ('VBZ', 1), ('DT', 2), ('JJS', 3), ('NN', 4))),
         ('question', ('biggest', 'smallest'), (('WDT', 0), ('NN', 1), ('VBZ', 2), ('DT', 3), ('JJS', 4), ('NN', 5))),
         ('question', ('biggest', 'smallest'), (('WDT', 0), ('NNP', 1), ('VBZ', 2), ('DT', 3), ('JJS', 4), ('NNS', 5))),
-        ('question', ('shortage', 'revenue', 'excess', 'classification'), (('WP', 0), ('VBZ', 1), ('DT', 2), ('NN', 3), ('IN', 4), ('NNP', 5))),
-        ('question', ('equal','is'), (('WP',0), ('VBZ',1), ('DT',2), ('NN', 3), ('IN', 4), ('NNP', 5))),
+        ('question', ('shortage', 'revenue', 'excess', 'classification'),
+         (('WP', 0), ('VBZ', 1), ('DT', 2), ('NN', 3), ('IN', 4), ('NNP', 5))),
+        ('question', ('equal', 'is'), (('WP', 0), ('VBZ', 1), ('DT', 2), ('NN', 3), ('IN', 4), ('NNP', 5))),
         ('question', ('biggest', 'smallest'), (('WDT', 0), ('NNP', 1), ('VBZ', 2), ('DT', 3), ('JJS', 4), ('NN', 5))),
-        ('question', ('most', 'fewest'), (('NNP', 0), ('NN', 1), ('VBZ', 2), ('DT', 3), ('JJS', 4), ('NN', 5), ('NNS', 6))),
-        ('question', ('most', 'fewest'), (('NNP', 0), ('NN', 1), ('VBZ', 2), ('DT', 3), ('JJS', 4), ('JJ', 5), ('NNS', 6))),
-        ('question', ('biggest', 'smallest'), (('NNP', 0), ('NNP', 1), ('VBZ', 2), ('DT', 3), ('JJS', 4), ('JJ', 5), ('NN', 6))),
-        ('question', ('biggest', 'smallest'), (('NNP', 0), ('NN', 1), ('VBZ', 2), ('DT', 3), ('JJS', 4), ('JJ', 5), ('NNS', 6))),
-        ('question', ('most', 'fewest'), (('NNP', 0), ('NNP', 1), ('VBZ', 2), ('DT', 3), ('JJS', 4), ('NN', 5), ('NNS', 6))),
-        ('question', ('most', 'fewest'), (('NNP', 0), ('NNP', 1), ('VBZ', 2), ('DT', 3), ('RBS', 4), ('JJ', 5), ('NNS', 6))),
+        ('question', ('most', 'fewest'),
+         (('NNP', 0), ('NN', 1), ('VBZ', 2), ('DT', 3), ('JJS', 4), ('NN', 5), ('NNS', 6))),
+        ('question', ('most', 'fewest'),
+         (('NNP', 0), ('NN', 1), ('VBZ', 2), ('DT', 3), ('JJS', 4), ('JJ', 5), ('NNS', 6))),
+        ('question', ('biggest', 'smallest'),
+         (('NNP', 0), ('NNP', 1), ('VBZ', 2), ('DT', 3), ('JJS', 4), ('JJ', 5), ('NN', 6))),
+        ('question', ('biggest', 'smallest'),
+         (('NNP', 0), ('NN', 1), ('VBZ', 2), ('DT', 3), ('JJS', 4), ('JJ', 5), ('NNS', 6))),
+        ('question', ('most', 'fewest'),
+         (('NNP', 0), ('NNP', 1), ('VBZ', 2), ('DT', 3), ('JJS', 4), ('NN', 5), ('NNS', 6))),
+        ('question', ('most', 'fewest'),
+         (('NNP', 0), ('NNP', 1), ('VBZ', 2), ('DT', 3), ('RBS', 4), ('JJ', 5), ('NNS', 6))),
         ('question', ('average'), (('WP', 0), ('VBZ', 1), ('DT', 2), ('JJ', 3), ('NN', 4), ('IN', 5), ('NNP', 6))),
         ('direction', ('explain', 'describe'), (('NNP', 0), ('NNP', 1), ('NNP', 2))),
         ('direction', ('explain', 'describe'), (('NN', 0), ('NNP', 1))),
@@ -148,7 +155,6 @@ class DashStates:
         self._currency_code = self.currency
         cur = Currency(self._currency_code)
         self._currency_symbol = cur.retrieve_symbol()
-
 
     @strip_punctuation
     def _check_for_greeting(self, sentence: str):
@@ -237,22 +243,20 @@ class DashStates:
             if tag[1].lower() == 'nn':
                 return self.check_keyword_sku_combo(dependency, tag[0], sentence)
 
-    def check_keyword_sku_combo(self, dependency, nn:str, sentence):
+    def check_keyword_sku_combo(self, dependency, nn: str, sentence):
 
         len_tags = len(sentence.tags)
         new_tags = sentence.tags
-        penultimate_word = new_tags[len_tags - 2]
+        antepenultimate_word = new_tags[len_tags - 3]
         end_word = new_tags[len_tags - 1]
-
-        if sentence.tags[len_tags - 1][1] in ('NNP') and sentence.tags[len_tags - 1][1] in self._master_sku_list:
+        skus = [sku[1] for sku in  self._master_sku_list]
+        if sentence.tags[len_tags - 1][1] in ('NNP') and end_word[0] in skus:
             for word in self.ANALYSIS_KEYWORDS:
-                if word == '{} {}'.format(penultimate_word[0].lower(),
-                                                           end_word[0].lower()) and word == 'classification':
-                            result = classification_controller(database_connection_uri(retrieve='retrieve'))
-                            response = [
-                                "SKU {} has the lowest average order at {}{:,.2f}".format(str(result[1]), self.currency_symbol,
-                                                                                         result[0][1])]
-                            return 0
+                if word == 'classification':
+                    result = classification_controller(database_connection_uri(retrieve='retrieve'),sku_id=end_word[0])
+                    response = [
+                        'SKU {} has the classification {}'.format(str(end_word[0]), result)]
+                    return response
 
     def check_min_max_semantic(self, dependency, jjs: str, sentence):
         """
@@ -284,21 +288,27 @@ class DashStates:
                             result = excess_controller(database_connection_uri(retrieve='retrieve'),
                                                        direction='smallest')
                             response = [
-                                "SKU {} has the smallest excess value at {}{:,.2f}".format(str(result[1]),self.currency_symbol, result[0][1])]
+                                'SKU {} has the smallest excess value at {}{:,.2f}'.format(str(result[1]),
+                                                                                           self.currency_symbol,
+                                                                                           result[0][1])]
                             return response
 
                         elif keyword == end_word[0].lower() and keyword in ('shortage', 'shortages'):
                             result = shortage_controller(database_connection_uri(retrieve='retrieve'),
                                                          direction='smallest')
                             response = [
-                                "SKU {} has the smallest shortage value at {}{:,.2f}".format(str(result[1]),self.currency_symbol,result[0][1])]
+                                'SKU {} has the smallest shortage value at {}{:,.2f}'.format(str(result[1]),
+                                                                                             self.currency_symbol,
+                                                                                             result[0][1])]
                             return response
 
                         elif keyword == end_word[0].lower() and keyword == 'revenue':
                             result = revenue_controller(database_connection_uri(retrieve='retrieve'),
                                                         direction='smallest')
                             response = [
-                                "SKU {} has the lowest revenue value at {}{:,.2f}".format(str(result[1]),self.currency_symbol, result[0][1])]
+                                "SKU {} has the lowest revenue value at {}{:,.2f}".format(str(result[1]),
+                                                                                          self.currency_symbol,
+                                                                                          result[0][1])]
                             return response
                         elif keyword == '{} {}'.format(penultimate_word[0].lower(),
                                                        end_word[0].lower()) and keyword == 'inventory turns':
@@ -312,9 +322,10 @@ class DashStates:
                             result = average_orders_controller(database_connection_uri(retrieve='retrieve'),
                                                                direction='smallest')
                             response = [
-                                "SKU {} has the lowest average order at {}{:,.2f}".format(str(result[1]),self.currency_symbol, result[0][1])]
+                                "SKU {} has the lowest average order at {}{:,.2f}".format(str(result[1]),
+                                                                                          self.currency_symbol,
+                                                                                          result[0][1])]
                             return response
-
 
         # print(sentence.tags[len_tags - 1][1])
         if sentence.tags[len_tags - 1][1] in ('NN') or max.lower() in self._MAX:
@@ -322,13 +333,19 @@ class DashStates:
                 if word == end_word[0] and word == 'excess':
                     # max excess filters excess rank for lowest rank indicating biggest excess
                     result = excess_controller(database_connection_uri(retrieve='retrieve'), direction='biggest')
-                    return ["SKU {} has the largest excess value at {}{:,.2f}".format(str(result[1]), self.currency_symbol, result[0][1])]
+                    return [
+                        "SKU {} has the largest excess value at {}{:,.2f}".format(str(result[1]), self.currency_symbol,
+                                                                                  result[0][1])]
                 elif word == end_word[0].lower() and word == 'shortage':
                     result = shortage_controller(database_connection_uri(retrieve='retrieve'), direction='biggest')
-                    return ["SKU {} has the largest shortage value at {}{:,.2f}".format(str(result[1]), self.currency_symbol, result[0][1])]
+                    return ["SKU {} has the largest shortage value at {}{:,.2f}".format(str(result[1]),
+                                                                                        self.currency_symbol,
+                                                                                        result[0][1])]
                 elif word == end_word[0].lower() and word == 'revenue':
                     result = revenue_controller(database_connection_uri(retrieve='retrieve'), direction='biggest')
-                    return ["SKU {} has the highest revenue value at {}{:,.2f}".format(str(result[1]), self.currency_symbol, result[0][1])]
+                    return [
+                        "SKU {} has the highest revenue value at {}{:,.2f}".format(str(result[1]), self.currency_symbol,
+                                                                                   result[0][1])]
                 elif word == '{} {}'.format(penultimate_word[0].lower(),
                                             end_word[0].lower()) and word == 'inventory turns':
                     result = inventory_turns_controller(database_connection_uri(retrieve='retrieve'),

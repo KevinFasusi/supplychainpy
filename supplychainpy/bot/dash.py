@@ -63,4 +63,4 @@ class ChatBot:
 if __name__ == '__main__':
     dude = ChatBot()
     # print(dude.unpack_sentence("I like chocolate"))
-    print(dude.chat_machine("what is the classification of KR202-209"))
+    print(dude.chat_machine("What's the classification for KR202-220"))
