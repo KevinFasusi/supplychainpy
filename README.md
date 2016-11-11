@@ -7,7 +7,21 @@
 
 # Supplychainpy
 
-Supplychainpy is a Python library for supply chain analysis, modeling and simulation. The library is currently in early stages of development, so not ready for use in production. For quick exploration, please see the **Quick Guide** below.
+Supplychainpy is a Python library for supply chain analysis, modelling and simulation. The library assists a workflow that is reliant on Excel and VBA.
+Quite often Demand Planners, Buyers, Supply Chain Analysts and BI Analysts have to create their tools in Microsoft Excel for one reason or another. 
+In a perfect world, the ERP/MRP system would be sufficient, but this is not always the case. Some issues include:
+
+- Building reports and performing demand forecasts or planning inventory can become repetitive. 
+- Visualisation tools are often platform dependent. 
+
+It is the aim of this library to:
+
+- Alleviate the reliance on Excel.
+- Free up the analysts from some of the most mundane tasks of building tools.
+- Provide a space for innovation and implementing advancements in the domain.
+- leverage the robust and extensible Python ecosystem.
+
+The library is currently in early stages of development, so not ready for use in production. For quick exploration, please see the **Quick Guide** below.
 
 ## Quick Install
 
