@@ -19,7 +19,7 @@ It is the aim of this library to:
 - Alleviate the reliance on Excel.
 - Free up the analysts from some of the most mundane tasks of building tools.
 - Provide a space for innovation and implementing advancements in the domain.
-- leverage the robust and extensible Python ecosystem.
+- Leverage the robust and extensible Python ecosystem.
 
 The library is currently in early stages of development, so not ready for use in production. For quick exploration, please see the **Quick Guide** below.
 
