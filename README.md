@@ -157,5 +157,5 @@ Make sure you specify the host as "0.0.0.0" for the reporting instance running i
 
 ## License
 
-BSD-3-Clause License
+BSD-3-Clause
 
