@@ -1,3 +1,6 @@
+import os
+from os import read
+
 from Cython.Build import cythonize
 from setuptools import setup, find_packages, Extension
 
@@ -5,6 +8,11 @@ extensions = [Extension('supplychainpy.simulations.sim_summary', ['supplychainpy
               Extension('supplychainpy.inventory.eoq', ['supplychainpy/inventory/eoq.pyx'])
               ]
 
+here = os.path.dirname(os.path.abspath(__file__))
+f = open(os.path.join(here,'LOG.txt'))
+long_description = f.read().strip()
+
+f.close()
 setup(name='supplychainpy',
       version='0.0.4',
       description='A library for supply chain, operations and manufacturing, analysis, modeling and simulation.',
@@ -15,12 +23,12 @@ setup(name='supplychainpy',
       license='BSD 3',
       packages=find_packages(exclude=['docs', 'tests', 'scratch.py']),
       test_suite='supplychainpy/tests',
-      install_requires=['NumPy',
+      install_requires=['numpy',
                         'cython',
                         'flask',
                         'scipy',
                         'pandas',
-                        'sqlalchemy',
+                        'SqlAlchemy',
                         'flask-restful',
                         'flask-restless',
                         'flask-script',
@@ -35,6 +43,12 @@ setup(name='supplychainpy',
               'supplychainpy = supplychainpy.supplychain:main'
           ]
       },
+      long_description=long_description,
+      classifiers=[
+        "Development Status :: 1 - Planning",
+        "License :: OSI Approved :: BSD License",
+        "Programming Language :: Python :: 3.5",
+    ],
       package_data={
           'supplychainpy': ['reporting/static/*', 'reporting/templates/*', 'sample_data/*', '_pickled/*']
       })
