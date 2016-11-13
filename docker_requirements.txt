@@ -4,8 +4,8 @@ Flask-RESTful==0.3.5
 Flask-Restless==0.17.0
 Flask-Script==2.0.5
 Flask-SQLAlchemy==2.1
-Flask-Uploads==0.2.0
-Flask-WTF==0.12
+Flask-Uploads==0.2.1
+Flask-WTF==0.13.1
 nbconvert==4.2.0
 nltk==3.2.1
 numpy==1.11.2
