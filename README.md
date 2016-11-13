@@ -148,13 +148,14 @@ Make sure you specify the host as "0.0.0.0" for the reporting instance running i
     supplychainpy data.csv -a -loc / -lx --host 0.0.0.0
 ```
 
-## Important Links:
+## Important Links
 
 - Jupyter Notebooks: [supplychainpy_notebooks](https://github.com/KevinFasusi/supplychainpy_notebooks)
 - Documentation: [supplychainpy.readthdocs](http://supplychainpy.readthedocs.org/)
 - Website: [supplychainpy.org](http://www.supplychainpy.org/)
 - Forum: [google groups](https://groups.google.com/forum/#!forum/supplychainpy)
 
+## License
 
-
+BSD-3-Clause License
 

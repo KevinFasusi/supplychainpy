@@ -30,7 +30,7 @@ from sqlalchemy import select
 from supplychainpy._helpers._db_connection import engine
 
 
-def master_sku_list(uri: str)->list:
+def master_sku_list(uri: str) -> list:
     """ Connects to database to retrieve master sku list.
 
     Args:
@@ -113,11 +113,11 @@ def shortage_controller(uri: str, direction: str = None, sku_id: str = None) -> 
     inventory_analysis = Table('inventory_analysis', meta, autoload=True, autoload_with=connection)
 
     if direction == 'biggest':
-       skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.shortage_cost,
-                      func.min(inventory_analysis.columns.shortage_rank)])
+        skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.shortage_cost,
+                       func.min(inventory_analysis.columns.shortage_rank)])
     else:
-       skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.shortage_cost,
-                      func.max(inventory_analysis.columns.shortage_rank)])
+        skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.shortage_cost,
+                       func.max(inventory_analysis.columns.shortage_rank)])
 
     rp = connection.execute(skus)
     result = []
@@ -154,12 +154,11 @@ def revenue_controller(uri: str, direction: str = None, sku_id: str = None) -> t
     inventory_analysis = Table('inventory_analysis', meta, autoload=True, autoload_with=connection)
 
     if direction == 'smallest':
-       skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.revenue,
-                      func.min(inventory_analysis.columns.revenue)])
+        skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.revenue,
+                       func.min(inventory_analysis.columns.revenue)])
     else:
-       skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.revenue,
-                      func.max(inventory_analysis.columns.revenue)])
-
+        skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.revenue,
+                       func.max(inventory_analysis.columns.revenue)])
 
     rp = connection.execute(skus)
     result = []
@@ -177,7 +176,8 @@ def revenue_controller(uri: str, direction: str = None, sku_id: str = None) -> t
     rp.close()
     return tuple(result)
 
-def inventory_turns_controller(uri: str, direction: str = None, sku_id: str = None)->tuple:
+
+def inventory_turns_controller(uri: str, direction: str = None, sku_id: str = None) -> tuple:
     """ Retrieves SKU's Inventory Turns.
 
     Args:
@@ -193,11 +193,11 @@ def inventory_turns_controller(uri: str, direction: str = None, sku_id: str = No
     connection = engine(uri)
     inventory_analysis = Table('inventory_analysis', meta, autoload=True, autoload_with=connection)
     if direction == 'smallest':
-       skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.inventory_turns,
-                      func.min(inventory_analysis.columns.inventory_turns)])
+        skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.inventory_turns,
+                       func.min(inventory_analysis.columns.inventory_turns)])
     else:
-       skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.inventory_turns,
-                      func.max(inventory_analysis.columns.inventory_turns)])
+        skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.inventory_turns,
+                       func.max(inventory_analysis.columns.inventory_turns)])
 
     rp = connection.execute(skus)
     result = []
@@ -215,7 +215,8 @@ def inventory_turns_controller(uri: str, direction: str = None, sku_id: str = No
     rp.close()
     return tuple(result)
 
-def average_orders_controller(uri: str, direction: str = None, sku_id: str = None)->tuple:
+
+def average_orders_controller(uri: str, direction: str = None, sku_id: str = None) -> tuple:
     """ Retrieves SKU's average orders.
 
     Args:
@@ -257,7 +258,8 @@ def average_orders_controller(uri: str, direction: str = None, sku_id: str = Non
     finally:
         rp.close()
 
-def currency_symbol_controller(uri: str)->str:
+
+def currency_symbol_controller(uri: str) -> str:
     """ Retrieves currency code from analysis database.
 
     Args:
@@ -276,7 +278,8 @@ def currency_symbol_controller(uri: str)->str:
     transaction_id = 0
     for i in rp:
         transaction_id = i['id']
-    symbol_id = select([inventory_analysis.columns.currency_id]).where(inventory_analysis.columns.transaction_log_id == transaction_id).limit(1)
+    symbol_id = select([inventory_analysis.columns.currency_id]).where(
+        inventory_analysis.columns.transaction_log_id == transaction_id).limit(1)
     rp.close()
     rp = connection.execute(symbol_id)
     currency_symbol_id = 0
@@ -293,22 +296,24 @@ def currency_symbol_controller(uri: str)->str:
     return currency_code
 
 
-def classification_controller(uri: str, sku_id: str = None)->tuple:
-    """
+def classification_controller(uri: str, sku_id: str = None) -> tuple:
+    """ Retrieves inventory classification for SKU.
 
     Args:
-        uri (str):
-        sku_id (str):
+        uri (str):      Database connection string.
+        sku_id (str):   SKU unique identification.
 
     Returns:
+        tuple:  Result.
 
     """
     meta = MetaData()
     connection = engine(uri)
-    inventory_analysis = Table('inventory_analysis',meta, autoload=True, autoload_with=connection)
+    inventory_analysis = Table('inventory_analysis', meta, autoload=True, autoload_with=connection)
     msk = Table('master_sku_list', meta, autoload=True, autoload_with=connection)
-    j = join(inventory_analysis, msk, msk.columns.id ==inventory_analysis.columns.sku_id)
-    sku_classification = select([inventory_analysis.columns.abc_xyz_classification]).select_from(j).where(msk.columns.sku_id ==sku_id)
+    j = join(inventory_analysis, msk, msk.columns.id == inventory_analysis.columns.sku_id)
+    sku_classification = select([inventory_analysis.columns.abc_xyz_classification]).select_from(j).where(
+        msk.columns.sku_id == sku_id)
     rp = connection.execute(sku_classification)
     classification = ''
     for i in rp:
@@ -317,3 +322,74 @@ def classification_controller(uri: str, sku_id: str = None)->tuple:
     return classification
 
     # if using html currency symbols think about how to deal with ascii when iteracting with dash on the command line etc
+
+
+def safety_stock_controller(uri: str, sku_id: str = None, direction: str = None):
+    """ Retrieves safety stock.
+
+    Args:
+        uri (str):          Database connection string.
+        sku_id (str):       SKU unique identification.
+        direction (str):    Indication of sort direction.
+
+    Returns:
+
+    """
+
+    meta = MetaData()
+    connection = engine(uri)
+    inventory_analysis = Table('inventory_analysis', meta, autoload=True, autoload_with=connection)
+    msk = Table('master_sku_list', meta, autoload=True, autoload_with=connection)
+    j = join(inventory_analysis, msk, msk.columns.id == inventory_analysis.columns.sku_id)
+
+    if direction == 'smallest':
+        sku_classification = select([func.min(inventory_analysis.columns.safety_stock),
+                                     msk.columns.sku_id]).select_from(j)
+        rp = connection.execute(sku_classification)
+    else:
+        sku_classification = select([func.max(inventory_analysis.columns.safety_stock),
+                                     msk.columns.sku_id]).select_from(j)
+
+        rp = connection.execute(sku_classification)
+
+    safety_stock = ''
+    for i in rp:
+        safety_stock = i[0]
+        sku_identification = i[1]
+
+    return safety_stock, sku_identification
+
+
+def reorder_level_controller(uri: str, sku_id: str = None, direction: str = None):
+    """ Retrieves reorder level.
+
+    Args:
+        uri:
+        sku_id:
+        direction:
+
+    Returns:
+
+    """
+    meta = MetaData()
+    connection = engine(uri)
+    inventory_analysis = Table('inventory_analysis', meta, autoload=True, autoload_with=connection)
+    msk = Table('master_sku_list', meta, autoload=True, autoload_with=connection)
+    j = join(inventory_analysis, msk, msk.columns.id == inventory_analysis.columns.sku_id)
+
+    if direction == 'smallest':
+        sku_classification = select([func.min(inventory_analysis.columns.reorder_level),
+                                     msk.columns.sku_id]).select_from(j)
+        rp = connection.execute(sku_classification)
+    else:
+        sku_classification = select([func.max(inventory_analysis.columns.reorder_level),
+                                     msk.columns.sku_id]).select_from(j)
+        rp = connection.execute(sku_classification)
+
+    reorder_level = ''
+    sku_identification = ''
+    for i in rp:
+        reorder_level = i[0]
+        sku_identification = i[1]
+
+    return reorder_level, sku_identification
