@@ -430,7 +430,7 @@ function show_recommendations() {
 function chat_to_bot() {
     var user = 'You';
     var message = (0, _jquery2.default)('#chat-input').val();
-    console.log(message);
+    //console.log(message);
     render_bot_response(message, user);
 
     _jquery2.default.ajax({
@@ -443,11 +443,11 @@ function chat_to_bot() {
         success: function success(data) {
             var communicator = 'Dash';
             render_bot_response(data, communicator);
-            console.log(data);
+            //console.log(data);
         },
         error: function error(result) {
 
-            console.log(result); // make 404.html page
+            //console.log(result);// make 404.html page
         }
     });
 
@@ -466,6 +466,7 @@ function render_bot_response(message, communicator) {
             for (i = 0; i < message.json_list.length; i++) {
                 if (message.json_list[i] != null && message.json_list[i] != '') {
                     (0, _jquery2.default)('<p style=\"color:#a2e1f6;\">' + communicator + ': ' + message.json_list[i] + '</p><br><p></p>').hide().insertAfter('#response-panel p:last').delay(800).fadeIn(1000);
+                    (0, _jquery2.default)("#response-panel").animate({ scrollTop: (0, _jquery2.default)('#response-panel').prop("scrollHeight") }, 500);;
                 }
             }
 
@@ -830,7 +831,7 @@ function currency_fetch(id) {
             //console.log(JSON.stringify({"filters": filters}));
             //console.log(data);
             var li = [].concat(_toConsumableArray(data.objects));
-            console.log(li[0].currency_code);
+            //console.log(li[0].currency_code);
             (0, _jquery2.default)('#currency-code').text(li[0].currency_code);
             return li[0].currency_code;
         },

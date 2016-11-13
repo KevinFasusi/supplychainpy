@@ -112,11 +112,11 @@ def analyse(currency: str, z_value: Decimal = 1.28, reorder_cost: Decimal = 10, 
                         quantity_on_hand = 0.0
                     for order in orders['demand']:
                         total_orders += int(order)
-                        analysed_orders = _analyse_orders(orders=orders, sku_id=sku_id, lead_time=lead_time,
-                                                          unit_cost=unit_cost, reorder_cost=reorder_cost,
-                                                          z_value=z_value, retail_price=retail_price,
-                                                          quantity_on_hand=quantity_on_hand, currency=currency,
-                                                          total_orders=total_orders)
+                    analysed_orders = _analyse_orders(orders=orders, sku_id=sku_id, lead_time=lead_time,
+                                                      unit_cost=unit_cost, reorder_cost=reorder_cost,
+                                                      z_value=z_value, retail_price=retail_price,
+                                                      quantity_on_hand=quantity_on_hand, currency=currency,
+                                                      total_orders=total_orders)
                     analysed_orders_collection.append(analysed_orders)
                 AbcXyz(analysed_orders_collection)
                 analysis_df = _convert_to_pandas_df(analysed_orders_collection)
@@ -137,11 +137,11 @@ def analyse(currency: str, z_value: Decimal = 1.28, reorder_cost: Decimal = 10, 
                         quantity_on_hand = 0.0
                     for order in orders['demand']:
                         total_orders += int(order)
-                        analysed_orders = _analyse_orders(orders=orders, sku_id=sku_id, lead_time=lead_time,
-                                                          unit_cost=unit_cost, reorder_cost=reorder_cost,
-                                                          z_value=z_value, retail_price=retail_price,
-                                                          quantity_on_hand=quantity_on_hand, currency=currency,
-                                                          total_orders=total_orders)
+                    analysed_orders = _analyse_orders(orders=orders, sku_id=sku_id, lead_time=lead_time,
+                                                      unit_cost=unit_cost, reorder_cost=reorder_cost,
+                                                      z_value=z_value, retail_price=retail_price,
+                                                      quantity_on_hand=quantity_on_hand, currency=currency,
+                                                      total_orders=total_orders)
                     analysed_orders_collection.append(analysed_orders)
                 AbcXyz(analysed_orders_collection)
                 # analysis = [i.orders_summary() for i in analysed_orders_collection]

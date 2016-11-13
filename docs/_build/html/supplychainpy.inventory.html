@@ -1,0 +1,652 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supplychainpy.inventory package &mdash; supplychainpy 0.0.4 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="supplychainpy 0.0.4 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> supplychainpy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reporting.html">Supplychainpy Reporting Suite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory Modeling and Analysis Made Easy with Supplychainpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pandas.html">Using supplychainpy with Pandas, Jupyter and Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ahp.html">Analytic Hierarchy Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo_simulation.html">Monte Carlo simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Supplychainpy with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">supplychainpy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>supplychainpy.inventory package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/supplychainpy.inventory.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="supplychainpy-inventory-package">
+<h1>supplychainpy.inventory package<a class="headerlink" href="#supplychainpy-inventory-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-supplychainpy.inventory.abc_xyz">
+<span id="supplychainpy-inventory-abc-xyz-module"></span><h2>supplychainpy.inventory.abc_xyz module<a class="headerlink" href="#module-supplychainpy.inventory.abc_xyz" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="supplychainpy.inventory.abc_xyz.AbcXyz">
+<em class="property">class </em><code class="descclassname">supplychainpy.inventory.abc_xyz.</code><code class="descname">AbcXyz</code><span class="sig-paren">(</span><em>orders_collection: list</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.inventory.abc_xyz.AbcXyz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Applies abc xyz analysis on a collection of demand passed into the</p>
+<dl class="method">
+<dt id="supplychainpy.inventory.abc_xyz.AbcXyz.abc_classification">
+<code class="descname">abc_classification</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.inventory.abc_xyz.AbcXyz.abc_classification" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.abc_xyz.AbcXyz.abcxyz_summary">
+<code class="descname">abcxyz_summary</code><a class="headerlink" href="#supplychainpy.inventory.abc_xyz.AbcXyz.abcxyz_summary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.abc_xyz.AbcXyz.ax">
+<code class="descname">ax</code><a class="headerlink" href="#supplychainpy.inventory.abc_xyz.AbcXyz.ax" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.abc_xyz.AbcXyz.ay">
+<code class="descname">ay</code><a class="headerlink" href="#supplychainpy.inventory.abc_xyz.AbcXyz.ay" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.abc_xyz.AbcXyz.az">
+<code class="descname">az</code><a class="headerlink" href="#supplychainpy.inventory.abc_xyz.AbcXyz.az" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.abc_xyz.AbcXyz.bx">
+<code class="descname">bx</code><a class="headerlink" href="#supplychainpy.inventory.abc_xyz.AbcXyz.bx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.abc_xyz.AbcXyz.by">
+<code class="descname">by</code><a class="headerlink" href="#supplychainpy.inventory.abc_xyz.AbcXyz.by" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.abc_xyz.AbcXyz.bz">
+<code class="descname">bz</code><a class="headerlink" href="#supplychainpy.inventory.abc_xyz.AbcXyz.bz" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.inventory.abc_xyz.AbcXyz.classification_summary">
+<code class="descname">classification_summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.inventory.abc_xyz.AbcXyz.classification_summary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.inventory.abc_xyz.AbcXyz.cumulative_percentage_revenue">
+<code class="descname">cumulative_percentage_revenue</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.inventory.abc_xyz.AbcXyz.cumulative_percentage_revenue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.abc_xyz.AbcXyz.cx">
+<code class="descname">cx</code><a class="headerlink" href="#supplychainpy.inventory.abc_xyz.AbcXyz.cx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.abc_xyz.AbcXyz.cy">
+<code class="descname">cy</code><a class="headerlink" href="#supplychainpy.inventory.abc_xyz.AbcXyz.cy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.abc_xyz.AbcXyz.cz">
+<code class="descname">cz</code><a class="headerlink" href="#supplychainpy.inventory.abc_xyz.AbcXyz.cz" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.inventory.abc_xyz.AbcXyz.percentage_revenue">
+<code class="descname">percentage_revenue</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.inventory.abc_xyz.AbcXyz.percentage_revenue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.inventory.abc_xyz.AbcXyz.xyz_classification">
+<code class="descname">xyz_classification</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.inventory.abc_xyz.AbcXyz.xyz_classification" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-supplychainpy.inventory.analyse_uncertain_demand">
+<span id="supplychainpy-inventory-analyse-uncertain-demand-module"></span><h2>supplychainpy.inventory.analyse_uncertain_demand module<a class="headerlink" href="#module-supplychainpy.inventory.analyse_uncertain_demand" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand">
+<em class="property">class </em><code class="descclassname">supplychainpy.inventory.analyse_uncertain_demand.</code><code class="descname">UncertainDemand</code><span class="sig-paren">(</span><em>orders: dict</em>, <em>sku: str</em>, <em>currency: str</em>, <em>lead_time: decimal.Decimal</em>, <em>unit_cost: decimal.Decimal</em>, <em>reorder_cost: decimal.Decimal</em>, <em>z_value: decimal.Decimal=Decimal('1.2800000000000000266453525910037569701671600341796875')</em>, <em>holding_cost: decimal.Decimal=0.0</em>, <em>retail_price: decimal.Decimal=0.0</em>, <em>period: str='months'</em>, <em>quantity_on_hand: decimal.Decimal=0.0</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Models inventory profile calculating economic order quantity, variable cost, reorder quantity and
+ABCXYZ classification</p>
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.abc_classification">
+<code class="descname">abc_classification</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.abc_classification" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.abcxyz_classification">
+<code class="descname">abcxyz_classification</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.abcxyz_classification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets ABCXYZ classification as a concatenated string</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.average_order">
+<code class="descname">average_order</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.average_order" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.average_order_row">
+<code class="descname">average_order_row</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; decimal.Decimal<a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.average_order_row" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.average_orders">
+<code class="descname">average_orders</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.average_orders" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.cumulative_percentage">
+<code class="descname">cumulative_percentage</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.cumulative_percentage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.currency">
+<code class="descname">currency</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.currency" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.demand_variability">
+<code class="descname">demand_variability</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.demand_variability" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.economic_order_qty">
+<code class="descname">economic_order_qty</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.economic_order_qty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.economic_order_variable_cost">
+<code class="descname">economic_order_variable_cost</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.economic_order_variable_cost" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.excess_stock">
+<code class="descname">excess_stock</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.excess_stock" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.excess_stock_cost">
+<code class="descname">excess_stock_cost</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.excess_stock_cost" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.fixed_order_quantity">
+<code class="descname">fixed_order_quantity</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.fixed_order_quantity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.holts_trend_corrected_forecast">
+<code class="descname">holts_trend_corrected_forecast</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.holts_trend_corrected_forecast" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.lead_time">
+<code class="descname">lead_time</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.lead_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.order">
+<code class="descname">order</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.order" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.order_count">
+<code class="descname">order_count</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.order_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.orders">
+<code class="descname">orders</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.orders" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.orders_summary">
+<code class="descname">orders_summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.orders_summary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.orders_summary_simple">
+<code class="descname">orders_summary_simple</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.orders_summary_simple" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.percentage_revenue">
+<code class="descname">percentage_revenue</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.percentage_revenue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.quantity_on_hand">
+<code class="descname">quantity_on_hand</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.quantity_on_hand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.reorder_level">
+<code class="descname">reorder_level</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.reorder_level" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.retail_price">
+<code class="descname">retail_price</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.retail_price" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.revenue">
+<code class="descname">revenue</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.revenue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.safety_stock">
+<code class="descname">safety_stock</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.safety_stock" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.safety_stock_cost">
+<code class="descname">safety_stock_cost</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.safety_stock_cost" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.shortage_cost">
+<code class="descname">shortage_cost</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.shortage_cost" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.shortages">
+<code class="descname">shortages</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.shortages" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.simple_exponential_smoothing_forecast">
+<code class="descname">simple_exponential_smoothing_forecast</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.simple_exponential_smoothing_forecast" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.sku_id">
+<code class="descname">sku_id</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.sku_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.standard_deviation">
+<code class="descname">standard_deviation</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.standard_deviation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.total_orders">
+<code class="descname">total_orders</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.total_orders" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.unit_cost">
+<code class="descname">unit_cost</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.unit_cost" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.xyz_classification">
+<code class="descname">xyz_classification</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.xyz_classification" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-supplychainpy.inventory.economic_order_quantity">
+<span id="supplychainpy-inventory-economic-order-quantity-module"></span><h2>supplychainpy.inventory.economic_order_quantity module<a class="headerlink" href="#module-supplychainpy.inventory.economic_order_quantity" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="supplychainpy.inventory.economic_order_quantity.EconomicOrderQuantity">
+<em class="property">class </em><code class="descclassname">supplychainpy.inventory.economic_order_quantity.</code><code class="descname">EconomicOrderQuantity</code><span class="sig-paren">(</span><em>reorder_quantity: float</em>, <em>holding_cost: float</em>, <em>reorder_cost: float</em>, <em>average_orders: float</em>, <em>unit_cost: float</em>, <em>total_orders: float</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.inventory.economic_order_quantity.EconomicOrderQuantity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="supplychainpy.inventory.economic_order_quantity.EconomicOrderQuantity.economic_order_quantity">
+<code class="descname">economic_order_quantity</code><a class="headerlink" href="#supplychainpy.inventory.economic_order_quantity.EconomicOrderQuantity.economic_order_quantity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.economic_order_quantity.EconomicOrderQuantity.minimum_variable_cost">
+<code class="descname">minimum_variable_cost</code><a class="headerlink" href="#supplychainpy.inventory.economic_order_quantity.EconomicOrderQuantity.minimum_variable_cost" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-supplychainpy.inventory.eoq">
+<span id="supplychainpy-inventory-eoq-module"></span><h2>supplychainpy.inventory.eoq module<a class="headerlink" href="#module-supplychainpy.inventory.eoq" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="supplychainpy.inventory.eoq.economic_order_quantity">
+<code class="descclassname">supplychainpy.inventory.eoq.</code><code class="descname">economic_order_quantity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.inventory.eoq.economic_order_quantity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.inventory.eoq.minimum_variable_cost">
+<code class="descclassname">supplychainpy.inventory.eoq.</code><code class="descname">minimum_variable_cost</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.inventory.eoq.minimum_variable_cost" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-supplychainpy.inventory.summarise">
+<span id="supplychainpy-inventory-summarise-module"></span><h2>supplychainpy.inventory.summarise module<a class="headerlink" href="#module-supplychainpy.inventory.summarise" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="supplychainpy.inventory.summarise.Inventory">
+<em class="property">class </em><code class="descclassname">supplychainpy.inventory.summarise.</code><code class="descname">Inventory</code><span class="sig-paren">(</span><em>processed_orders</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.inventory.summarise.Inventory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="supplychainpy.inventory.summarise.Inventory.abc_xyz_raw">
+<code class="descname">abc_xyz_raw</code><a class="headerlink" href="#supplychainpy.inventory.summarise.Inventory.abc_xyz_raw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.inventory.summarise.Inventory.abc_xyz_summary">
+<code class="descname">abc_xyz_summary</code><span class="sig-paren">(</span><em>classification: tuple=('AX'</em>, <em>'AY'</em>, <em>'AZ'</em>, <em>'BX'</em>, <em>'BY'</em>, <em>'BZ'</em>, <em>'CX'</em>, <em>'CY'</em>, <em>'CZ')</em>, <em>category: tuple=('excess_stock'</em>, <em>'shortages'</em>, <em>'revenue')</em>, <em>value: str='currency'</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.inventory.summarise.Inventory.abc_xyz_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve currency value or units for key metrics by classification. Defaults to currency unless units stated.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>classification</strong> (<em>tuple</em>) &#8211; ABCXYZ inventory classification of sku.</li>
+<li><strong>category</strong> (<em>tuple</em>) &#8211; Category with which to aggregate the SKU classification.</li>
+<li><strong>value</strong> (<em>str</em>) &#8211; Defaults to aggregating classification on currency unless units are specified.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Aggregated summary for classification based on category in
+currency value or units.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.inventory.summarise.Inventory.describe_sku">
+<code class="descname">describe_sku</code><span class="sig-paren">(</span><em>*args: str</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.inventory.summarise.Inventory.describe_sku" title="Permalink to this definition">¶</a></dt>
+<dd><p>Summarise SKU using descriptive statistics, key performance indicators, financial fundamentals and rankings</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>*args</strong> (<em>str</em>) &#8211; SKU unique identification</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Summary of SKU.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.inventory.summarise.Inventory.rank_summary">
+<code class="descname">rank_summary</code><span class="sig-paren">(</span><em>attribute: str</em>, <em>count: int=0</em>, <em>reverse: bool=True</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.inventory.summarise.Inventory.rank_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ranks any SKU in the profile by an attribute from the UncertainDemand objects orders_summary method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>attribute</strong> (<em>str</em>) &#8211; SKU attribute from analysed orders in UncertainDemand object</li>
+<li><strong>count</strong> (<em>int</em>) &#8211; The running count required e.g. 10 for top 10.</li>
+<li><strong>reverse</strong> (<em>bool</em>) &#8211; Reverse the rank order e.g. top 10 or bottom 10</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Ranked summary for attribute specified.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-supplychainpy.inventory.units">
+<span id="supplychainpy-inventory-units-module"></span><h2>supplychainpy.inventory.units module<a class="headerlink" href="#module-supplychainpy.inventory.units" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="supplychainpy.inventory.units.Package">
+<em class="property">class </em><code class="descclassname">supplychainpy.inventory.units.</code><code class="descname">Package</code><a class="headerlink" href="#supplychainpy.inventory.units.Package" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#supplychainpy.inventory.units.SKU" title="supplychainpy.inventory.units.SKU"><code class="xref py py-class docutils literal"><span class="pre">supplychainpy.inventory.units.SKU</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="supplychainpy.inventory.units.PackageDirector">
+<em class="property">class </em><code class="descclassname">supplychainpy.inventory.units.</code><code class="descname">PackageDirector</code><span class="sig-paren">(</span><em>pallet_builder: supplychainpy.inventory.units.PalletBuilder</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.inventory.units.PackageDirector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="supplychainpy.inventory.units.PackageDirector.Package">
+<code class="descname">Package</code><a class="headerlink" href="#supplychainpy.inventory.units.PackageDirector.Package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.inventory.units.PackageDirector.add_package">
+<code class="descname">add_package</code><span class="sig-paren">(</span><em>package: supplychainpy.inventory.units.Package</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.inventory.units.PackageDirector.add_package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.inventory.units.PackageDirector.construct_package">
+<code class="descname">construct_package</code><span class="sig-paren">(</span><em>length: float</em>, <em>width: float</em>, <em>height: float</em>, <em>weight: float</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.inventory.units.PackageDirector.construct_package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supplychainpy.inventory.units.PackageDirector.recalculate_dimensions">
+<code class="descname">recalculate_dimensions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.inventory.units.PackageDirector.recalculate_dimensions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="supplychainpy.inventory.units.PalletBuilder">
+<em class="property">class </em><code class="descclassname">supplychainpy.inventory.units.</code><code class="descname">PalletBuilder</code><a class="headerlink" href="#supplychainpy.inventory.units.PalletBuilder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="supplychainpy.inventory.units.PalletBuilder.make_new_pallet">
+<code class="descname">make_new_pallet</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.inventory.units.PalletBuilder.make_new_pallet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="supplychainpy.inventory.units.SKU">
+<em class="property">class </em><code class="descclassname">supplychainpy.inventory.units.</code><code class="descname">SKU</code><a class="headerlink" href="#supplychainpy.inventory.units.SKU" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="supplychainpy.inventory.units.ShippingContainer">
+<em class="property">class </em><code class="descclassname">supplychainpy.inventory.units.</code><code class="descname">ShippingContainer</code><a class="headerlink" href="#supplychainpy.inventory.units.ShippingContainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#supplychainpy.inventory.units.Package" title="supplychainpy.inventory.units.Package"><code class="xref py py-class docutils literal"><span class="pre">supplychainpy.inventory.units.Package</span></code></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-supplychainpy.inventory">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-supplychainpy.inventory" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Kevin Fasusi.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.4',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

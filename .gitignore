@@ -18,14 +18,12 @@ __pycache__/
 .babelrc
 karma.conf*
 package.json
-docs/
 npm*
 *suchpy_tests_log.txt
 *suchpy_log.txt
 reporting.db
 /uploads
 coverage
-_build/
 webpack.config*
 scratch.py
 _archive/*

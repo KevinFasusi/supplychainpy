@@ -177,22 +177,22 @@ class TestBuildModel(TestCase):
         analysis_df = analyse(df=raw_df, start=1, interval_length=12, interval_type='months')
         self.assertIsInstance(analysis_df[['sku', 'quantity_on_hand', 'excess_stock', 'shortages', 'ABC_XYZ_Classification']], DataFrame)
 
-    def test_recommendation_per_sku(self):
-        app_config = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
-        analysed_order = analyse(file_path=app_config['file'],z_value=Decimal(1.28),
-                                 reorder_cost=Decimal(5000), file_type="csv", length=12, currency='USD')
-        skus = [sku.orders_summary().get('sku') for sku in analysed_order]
-        holts_forecast = {analysis.sku_id: analysis.holts_trend_corrected_forecast for analysis in
-                          analyse(file_path=app_config['file'],
-                                  z_value=Decimal(1.28),
-                                  reorder_cost=Decimal(5000),
-                                  file_type="csv",
-                                  length=12,
-                                  currency='USD')}
-        recommend = recommendations(analysed_orders=analysed_order, forecast=holts_forecast)
-
-        for i in recommend.get('sku_recommendations'):
-            self.assertIn(i, skus)
+    #def test_recommendation_per_sku(self):
+    #    app_config = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
+    #    analysed_order = analyse(file_path=app_config['file'],z_value=Decimal(1.28),
+    #                             reorder_cost=Decimal(5000), file_type="csv", length=12, currency='USD')
+    #    skus = [sku.orders_summary().get('sku') for sku in analysed_order]
+    #    holts_forecast = {analysis.sku_id: analysis.holts_trend_corrected_forecast for analysis in
+    #                      analyse(file_path=app_config['file'],
+    #                              z_value=Decimal(1.28),
+    #                              reorder_cost=Decimal(5000),
+    #                              file_type="csv",
+    #                              length=12,
+    #                              currency='USD')}
+    #    recommend = recommendations(analysed_orders=analysed_order, forecast=holts_forecast)
+#
+    #    for i in recommend.get('sku_recommendations'):
+    #        self.assertIn(i, skus)
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,0 +1,332 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Supplychainpy Reporting Suite &mdash; supplychainpy 0.0.4 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="supplychainpy 0.0.4 documentation" href="index.html"/>
+        <link rel="next" title="Inventory Modeling and Analysis Made Easy with Supplychainpy" href="inventory.html"/>
+        <link rel="prev" title="Quick Guide" href="quickstart.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> supplychainpy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Supplychainpy Reporting Suite</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#launch-from-cli">Launch from Cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reporting-suite-walk-through">Reporting Suite Walk Through</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#navigation">Navigation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-head-up-display-hud">The Head up Display (HUD)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#classification-breakdown">Classification Breakdown</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#top-10-shortages">Top 10 Shortages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#top-10-excess">Top 10 Excess</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#analysis-cube">Analysis Cube</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dash-the-bot">Dash the Bot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#recommendations-feed">Recommendations Feed</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory Modeling and Analysis Made Easy with Supplychainpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pandas.html">Using supplychainpy with Pandas, Jupyter and Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ahp.html">Analytic Hierarchy Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo_simulation.html">Monte Carlo simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Supplychainpy with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">supplychainpy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Supplychainpy Reporting Suite</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/reporting.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="supplychainpy-reporting-suite">
+<h1>Supplychainpy Reporting Suite<a class="headerlink" href="#supplychainpy-reporting-suite" title="Permalink to this headline">¶</a></h1>
+<p>To further indicate the merit of the library in a more direct way and showcase the possibilities offered, release 0.0.4 debuts a reporting feature.
+The supplychainpy reporting feature allows analysts to get a quick overview of their analysis and provides a tool for communicating their insights very quickly.
+The reports bring some of the data analysis capabilities of the library to life with a complimentary suite of
+charts, tables, KPIs and an interactive Bot.</p>
+<p>The reports aim to:</p>
+<ol class="arabic simple">
+<li>provide the ability to visualise data and spot trends, allowing analysts to get a &#8220;feel&#8221; for their data.</li>
+<li>provide a set of generic default reports, to showcase some general uses cases and highlight the capabilities of the library.</li>
+<li>identify areas of interest for further exploration.</li>
+</ol>
+<div class="section" id="launch-from-cli">
+<h2>Launch from Cli<a class="headerlink" href="#launch-from-cli" title="Permalink to this headline">¶</a></h2>
+<p>The command line arguments can be viewed using the <cite>&#8211;help</cite> flag. There are several options for launching the reports. Using the the reporting function generates a sqlite database called <cite>reporting</cite>.
+To process a CSV file and initiate the reporting suite directly after, navigate to a directory suitable for storing the CSV and resulting database. Use the following commands:</p>
+<p><strong>Linux and Mac</strong></p>
+<div class="code bash highlight-python"><div class="highlight"><pre>supplychainpy filename.csv -a -loc ~/absolute/path/to/current/directory -l -cur EUR
+</pre></div>
+</div>
+<p><strong>Windows</strong></p>
+<div class="code bash highlight-python"><div class="highlight"><pre>supplychainpy filename.csv -a -loc drive:\absolute\path\to\current\directory -l -cur EUR
+</pre></div>
+</div>
+<p>Importantly the the currency flag (-cur) if unspecified will default to USD. Other optional arguments include the host (&#8211;host default: 127.0.0.1 ) and port (-p default: 5000) arguments. Setting the host and ports allows the <cite>-l</cite> arguments can be replaced by the <cite>-lx</cite>. The <cite>-l</cite> arguments launch a small intermediary GUI for setting the port before launching the reports in a web browser. The <cite>-lx</cite> argument start the reporting process but does not launch a GUI or a browser window and instead expects the user to open the browser and navigate to the address hosting the reports as specified in the CLI.</p>
+</div>
+<div class="section" id="reporting-suite-walk-through">
+<h2>Reporting Suite Walk Through<a class="headerlink" href="#reporting-suite-walk-through" title="Permalink to this headline">¶</a></h2>
+<p>The reporting suite launches on the &#8216;Dashboard&#8217; page. The Dashboard is split into three section: Classification Breakdown, Top 10 Shortages and Top 10 Excess.
+The Dashboard hosts three toggle switches at the top of the screen for toggling each section in and out of view.</p>
+<div class="section" id="navigation">
+<h3>Navigation<a class="headerlink" href="#navigation" title="Permalink to this headline">¶</a></h3>
+<p>The Navigation panel is hidden to the left of the browser and can be toggled into view by clicking on the &#8216;supplychainpy&#8217; logo icon.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="31%" />
+<col width="69%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Icon</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><img alt="_images/analysis_icon.png" class="first last" src="_images/analysis_icon.png" />
+</td>
+<td>The analysis icon navigates to the pages hosting the raw analysis data in
+tabular form.</td>
+</tr>
+<tr class="row-odd"><td><img alt="_images/dash_icon.png" class="first last" src="_images/dash_icon.png" />
+</td>
+<td>The dashboard icon navigates to the pages hosting the top level summary
+of the inventory profile.</td>
+</tr>
+<tr class="row-even"><td><img alt="_images/recommend_icon.png" class="first last" src="_images/recommend_icon.png" />
+</td>
+<td>The news feed icon navigates to the pages hosting the recommendations feed.</td>
+</tr>
+<tr class="row-odd"><td><img alt="_images/bot_icon.png" class="first last" src="_images/bot_icon.png" />
+</td>
+<td>The bot icon navigates to the pages hosting the chat bot, for
+interrogating the data using natural language.</td>
+</tr>
+<tr class="row-even"><td><img alt="_images/contact_icon.png" class="first last" src="_images/contact_icon.png" />
+</td>
+<td>The contact icon navigates to a page containing the projects contact details.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="the-head-up-display-hud">
+<h3>The Head up Display (HUD)<a class="headerlink" href="#the-head-up-display-hud" title="Permalink to this headline">¶</a></h3>
+<p>The reports use what we like to refer to as a &#8220;Heads up Display&#8221; (HUD) to highlight key values and KPIs.
+As seen below, the HUD is a row of boxes (Slates), that sits on top of the main charts, analysis and tabular breakdowns.</p>
+<img alt="_images/hud.png" src="_images/hud.png" />
+</div>
+<div class="section" id="classification-breakdown">
+<h3>Classification Breakdown<a class="headerlink" href="#classification-breakdown" title="Permalink to this headline">¶</a></h3>
+<p>The classification breakdown summarises the Inventory Profile using Pareto and variance analysis, to indicate the
+contribution the SKU makes to revenue and the variability in demand respectively. This section shows which classification has the largest excess and shortage as well as breaking down revenue, shortages and excess by category.</p>
+<img alt="_images/classification.jpg" src="_images/classification.jpg" />
+</div>
+<div class="section" id="top-10-shortages">
+<h3>Top 10 Shortages<a class="headerlink" href="#top-10-shortages" title="Permalink to this headline">¶</a></h3>
+<p>This section indicates which 10 SKUs are responsible for the most shortages.</p>
+<img alt="_images/shortage.png" src="_images/shortage.png" />
+</div>
+<div class="section" id="top-10-excess">
+<h3>Top 10 Excess<a class="headerlink" href="#top-10-excess" title="Permalink to this headline">¶</a></h3>
+<p>This section indicates which 10 SKUs are responsible for the most excess stock based on their unit cost.</p>
+<img alt="_images/excess.jpg" src="_images/excess.jpg" />
+</div>
+<div class="section" id="analysis-cube">
+<h3>Analysis Cube<a class="headerlink" href="#analysis-cube" title="Permalink to this headline">¶</a></h3>
+<p>The analysis cube page hosts the tabulated data for all data points within the analysis.</p>
+<img alt="_images/cube.jpg" src="_images/cube.jpg" />
+</div>
+<div class="section" id="dash-the-bot">
+<h3>Dash the Bot<a class="headerlink" href="#dash-the-bot" title="Permalink to this headline">¶</a></h3>
+<p>The Chat Bot provides a simply method of querying the analysis using natural language.</p>
+<img alt="_images/dash.gif" src="_images/dash.gif" />
+</div>
+<div class="section" id="recommendations-feed">
+<h3>Recommendations Feed<a class="headerlink" href="#recommendations-feed" title="Permalink to this headline">¶</a></h3>
+<p>The recommendation feed for all the auto-generated recommendation for each SKU.</p>
+<img alt="_images/rec_feed.gif" src="_images/rec_feed.gif" />
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="inventory.html" class="btn btn-neutral float-right" title="Inventory Modeling and Analysis Made Easy with Supplychainpy" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="quickstart.html" class="btn btn-neutral" title="Quick Guide" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Kevin Fasusi.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.4',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

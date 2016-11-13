@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700|Roboto+Slab);
 
+
 a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
     margin: 0;
     padding: 0;
@@ -137,6 +138,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h2 {
     font-size: 5em;
+    font-family: 'Roboto Slab';
 
 }
 
@@ -490,7 +492,7 @@ nav ul li a {
 
 .rec-panel {
     max-height: 240px;
-    background-color: #708284;
+    background-color: #092029;
 }
 
 .recommendation-panel {
@@ -502,4 +504,14 @@ nav ul li a {
 
 #rec-btns {
     margin-right: 80px;
+}
+
+.contact{
+    padding: 20px;
+    height: 150px;
+    width: 300px;
+    margin-left: 20px;
+    margin-top: 20px;
+    float: left;
+    box-shadow: 10px 5px 5px black;
 }

@@ -2,12 +2,26 @@
 [![Documentation Status](https://readthedocs.org/projects/supplychainpy/badge/?version=latest)](http://supplychainpy.readthedocs.org/en/latest/?badge=latest)
 [![Coverage Status](https://coveralls.io/repos/github/KevinFasusi/supplychainpy/badge.svg?branch=master)](https://coveralls.io/github/KevinFasusi/supplychainpy?branch=master)
 [![PyPI version](https://badge.fury.io/py/supplychainpy.svg)](https://badge.fury.io/py/supplychainpy)
-
+[![Requirements Status](https://requires.io/github/KevinFasusi/supplychainpy/requirements.svg?branch=master)](https://requires.io/github/KevinFasusi/supplychainpy/requirements/?branch=master)
 ![Supplychainpy logo](https://github.com/KevinFasusi/supplychainpy/blob/master/supplychainpy/reporting/static/PY_logo.jpg)
 
 # Supplychainpy
 
-Supplychainpy is a Python library for supply chain analysis, modeling and simulation. The library is currently in early stages of development, so not ready for use in production. For quick exploration, please see the **Quick Guide** below.
+Supplychainpy is a Python library for supply chain analysis, modelling and simulation. The library assists a workflow that is reliant on Excel and VBA.
+Quite often Demand Planners, Buyers, Supply Chain Analysts and BI Analysts have to create their tools in Microsoft Excel for one reason or another. 
+In a perfect world, the ERP/MRP system would be sufficient, but this is not always the case. Some issues include:
+
+- Building reports and performing demand forecasts or planning inventory can become repetitive. 
+- Visualisation tools are often platform dependent. 
+
+It is the aim of this library to:
+
+- Alleviate the reliance on Excel.
+- Free up the analysts from some of the most mundane tasks of building tools.
+- Provide a space for innovation and implementing advancements in the domain.
+- Leverage the robust and extensible Python ecosystem.
+
+The library is currently in early stages of development, so not ready for use in production. For quick exploration, please see the **Quick Guide** below.
 
 ## Quick Install
 
@@ -134,13 +148,14 @@ Make sure you specify the host as "0.0.0.0" for the reporting instance running i
     supplychainpy data.csv -a -loc / -lx --host 0.0.0.0
 ```
 
-## Important Links:
+## Important Links
 
 - Jupyter Notebooks: [supplychainpy_notebooks](https://github.com/KevinFasusi/supplychainpy_notebooks)
 - Documentation: [supplychainpy.readthdocs](http://supplychainpy.readthedocs.org/)
 - Website: [supplychainpy.org](http://www.supplychainpy.org/)
 - Forum: [google groups](https://groups.google.com/forum/#!forum/supplychainpy)
 
+## License
 
-
+BSD-3-Clause
 

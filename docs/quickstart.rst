@@ -59,7 +59,7 @@ A simple analysis for an individual SKU can be carried out by using:
 
 .. note::  The signature for the `analysed_orders` function has changed. Moving from release-0.0.3 to release-0.0.4, **Retail price** and **quantity on hand** are required arguments.
 
-The same analysis can be made by supplying a pre-formatted `.csv`, `.txt` or Pandas `DataFrame` containing several SKU or entire inventory profile.
+The same analysis can be made by supplying a pre-formatted `.csv`, `.txt` or Pandas `DataFrame` containing several SKU or entire inventory profile. The format for the file can be found ` here <https://github.com/KevinFasusi/supplychainpy/blob/master/supplychainpy/sample_data/complete_dataset_small.csv>`_
 An example using file:
 
 .. code:: python

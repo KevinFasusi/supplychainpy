@@ -27,6 +27,7 @@ from typing import List
 
 from supplychainpy.bot._dash_engine import DashMachine
 from supplychainpy.bot._dash_states import DashStates
+from supplychainpy.bot._helpers import unpack_sentence
 
 
 class ChatBot:
@@ -62,5 +63,5 @@ class ChatBot:
 
 if __name__ == '__main__':
     dude = ChatBot()
-    # print(dude.unpack_sentence("I like chocolate"))
-    print(dude.chat_machine("what is the classification of KR202-209"))
+    print(dude.chat_machine("Which SKU has the highest reorder level?"))
+    #print(unpack_sentence("Which SKU has the smallest reorder level?"))

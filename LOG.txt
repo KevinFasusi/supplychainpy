@@ -23,7 +23,6 @@ Release 0.0.4 has breaking API changes. Namespaces have changed in this release.
 "demand" package are now inside the "inventory" package. If you have been using the "model_inventory" module, then nothing has
 changed, and there will not be any break in contracts.
 
-Although this project is in the planning stages (pre-pre-alpha), going forward deprecation warnings will be used.
 
 **Application**
 
@@ -34,29 +33,29 @@ Although this project is in the planning stages (pre-pre-alpha), going forward d
 -   [Update] retail_price added to `model_inventory.analyse_orders`.
 -   [Update] backlog added to the data format for loading into the analysis.
 -   [Update] Unit Tests.
--   [Update] Docstrings
--   [New Feature] Analytic Hierarchy Process
--   [New Feature] API supports Pandas data frames
+-   [Update] Docstrings.
+-   [New Feature] Analytic Hierarchy Process.
+-   [New Feature] API supports Pandas `DataFrame`.
 -   [New Feature] Browser based reporting suite, with charts, data summaries and integrated chat bot.
 -   [New Feature] Dash Bot, a basic chat bot assistant for the data in the reporting suite. Query data using natural language.
 -   [New Feature] Command line interface for processing .csv to database, launching reports and chat bot.
 -   [New Feature] "Model_Demand" module containing simple exponential smoothing and holts trend corrected exponential smoothing.
--   [New Feature] Summarise and filter your analysis
+-   [New Feature] Summarise and filter your analysis.
 -   [New Feature] Holts Trend Corrected Exponential Smoothing Forecast and optimised variant (evolutionary algorithm for optimised alpha and gamma)
--   [New Feature] Simple Exponential Smoothing
+-   [New Feature] Simple Exponential Smoothing (evolutionary algorithm for optimised alpha).
 -   [New Feature] Evolutionary Algorithms for Smoothing Level Constants (converges on better smoothing levels using genetic algorithm)
 -   [New Feature] SKU and inventory profile recommendations generator.
 
 **Documentation**
 
--   [New] Reporting Suite Walk Through
--   [Update] Tutorial
--   [Update] Quick Guide
+-   [New] Reporting Suite Walk Through.
+-   [Update] Tutorial.
+-   [Update] Quick Guide.
 -   [New] Declare public API explicitly. describe and document each module and function, give an example also add to website tutorial as Jupyter notebook.
 -   [New] Docker for supplychainpy quick guide.
 -   [New] Analytic Hierarchy Process quick guide.
--   [New] Inventory Modeling
--   [New] Demand Planning with Pandas
+-   [New] Inventory Modeling.
+-   [New] Demand Planning with Pandas.
 
 0.0.3
 ^^^^^
@@ -79,9 +78,9 @@ Although this project is in the planning stages (pre-pre-alpha), going forward d
 -   Added monte carlo simulation and simulation summary using Cython optimisation.
 -   Added orders analysis optimisation, based on results of the monte carlo simulation.
 -   Added simulate module to api.
--   Added weighted moving average forecast
--   Added moving average forecast
--   Added mean absolute deviation
+-   Added weighted moving average forecast.
+-   Added moving average forecast.
+-   Added mean absolute deviation.
 -   Updated economic order quantity using Cython optimisation.
 -   Updated unit tests.
 
@@ -91,7 +90,7 @@ Although this project is in the planning stages (pre-pre-alpha), going forward d
 -   Updated Tutorial.
 -   Updated README.md
 -   Added Formulas and Equations.
--   Updated data.csv
+-   Updated data.csv.
 
 0.0.1
 ^^^^^

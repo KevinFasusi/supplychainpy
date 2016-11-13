@@ -468,7 +468,7 @@ function show_recommendations() {
 function chat_to_bot() {
     var user = 'You';
     var message = $('#chat-input').val();
-    console.log(message);
+    //console.log(message);
     render_bot_response(message, user);
 
     $.ajax({
@@ -481,18 +481,19 @@ function chat_to_bot() {
         success: function (data) {
             var communicator = 'Dash';
             render_bot_response(data, communicator);
-            console.log(data);
+            //console.log(data);
 
         },
         error: function (result) {
 
-            console.log(result);// make 404.html page
+            //console.log(result);// make 404.html page
         }
     });
 
 
     $('#chat-input').val('');
 }
+
 
 function render_bot_response(message, communicator) {
 
@@ -512,6 +513,7 @@ function render_bot_response(message, communicator) {
                         .insertAfter('#response-panel p:last')
                         .delay(800)
                         .fadeIn(1000);
+                    $("#response-panel").animate({ scrollTop: $('#response-panel').prop("scrollHeight")}, 500);;
                 }
 
             }
@@ -521,6 +523,7 @@ function render_bot_response(message, communicator) {
     }
 
 }
+
 
 function bar_chart_sku() {
     var orders_data = document.getElementById("orders-data");
@@ -963,7 +966,7 @@ function currency_fetch(id) {
             //console.log(JSON.stringify({"filters": filters}));
             //console.log(data);
             var li = [...data.objects];
-            console.log(li[0].currency_code);
+            //console.log(li[0].currency_code);
             $('#currency-code').text(li[0].currency_code);
             return li[0].currency_code
 

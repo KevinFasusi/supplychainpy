@@ -6,6 +6,7 @@ The easiest way to install supplychainpy is via pip:
 ::
 
     pip install supplychainpy
+    python -m textblob.dowload_copora
 
 The option also exists to install from source. Clone the package from `Github <https://github.com/supplybi/supplychainpy.git>`_.
 

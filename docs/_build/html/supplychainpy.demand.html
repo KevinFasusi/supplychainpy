@@ -1,0 +1,255 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supplychainpy.demand package &mdash; supplychainpy 0.0.4 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="supplychainpy 0.0.4 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> supplychainpy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reporting.html">Supplychainpy Reporting Suite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory Modeling and Analysis Made Easy with Supplychainpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pandas.html">Using supplychainpy with Pandas, Jupyter and Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ahp.html">Analytic Hierarchy Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo_simulation.html">Monte Carlo simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Supplychainpy with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">supplychainpy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>supplychainpy.demand package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/supplychainpy.demand.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="supplychainpy-demand-package">
+<h1>supplychainpy.demand package<a class="headerlink" href="#supplychainpy-demand-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-supplychainpy.demand.regression">
+<span id="supplychainpy-demand-regression-module"></span><h2>supplychainpy.demand.regression module<a class="headerlink" href="#module-supplychainpy.demand.regression" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="supplychainpy.demand.regression.LinearRegression">
+<em class="property">class </em><code class="descclassname">supplychainpy.demand.regression.</code><code class="descname">LinearRegression</code><span class="sig-paren">(</span><em>orders: list</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.regression.LinearRegression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Linear Regression Statistics</p>
+<dl class="method">
+<dt id="supplychainpy.demand.regression.LinearRegression.least_squared_error">
+<code class="descname">least_squared_error</code><span class="sig-paren">(</span><em>slice_end: int=0</em>, <em>slice_start: int=0</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.regression.LinearRegression.least_squared_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate simple linear regression values and two_tail pvalue to determine linearity.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>slice_end</strong> &#8211; Start value for slicing the orders list. Default value is zero.</li>
+<li><strong>slice_start</strong> &#8211; End value for slicing the orders list. Default value is Zero. The length of the orders list
+as supplied to the constructor is then used as the length of the orders.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Regression results.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Examples:
+&gt;&gt;&gt; from supplychainpy.demand._forecast_demand import Forecast
+&gt;&gt;&gt; orders = [165, 171, 147, 143, 164, 160, 152, 150, 159, 169, 173, 203, 169, 166, 162, 147,
+...           188, 161, 162, 169, 185, 188, 200, 229, 189, 218, 185, 199, 210, 193, 211, 208, 216, 218,
+...           264, 304]
+&gt;&gt;&gt; total_orders = 0
+&gt;&gt;&gt; for order in orders[:12]:
+&gt;&gt;&gt;     total_orders += order
+&gt;&gt;&gt; avg_orders = total_orders / 12
+&gt;&gt;&gt; forecasting_demand = Forecast(orders, avg_orders)
+&gt;&gt;&gt; forecast = [i for i in forecasting_demand.simple_exponential_smoothing(0.5)]
+&gt;&gt;&gt; regression = LinearRegression(forecast)
+&gt;&gt;&gt; regression_statistics = regression.least_squared_error()</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-supplychainpy.demand">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-supplychainpy.demand" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Kevin Fasusi.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.4',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

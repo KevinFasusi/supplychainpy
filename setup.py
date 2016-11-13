@@ -1,6 +1,4 @@
 import os
-from os import read
-
 from Cython.Build import cythonize
 from setuptools import setup, find_packages, Extension
 
@@ -50,5 +48,5 @@ setup(name='supplychainpy',
         "Programming Language :: Python :: 3.5",
     ],
       package_data={
-          'supplychainpy': ['reporting/static/*', 'reporting/templates/*', 'sample_data/*', '_pickled/*']
+          'supplychainpy': ['reporting/static/*', 'reporting/templates/*', 'sample_data/*.csv', 'sample_data/*.py','_pickled/*']
       })
