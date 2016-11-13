@@ -25,15 +25,13 @@
 import os
 
 import flask
-import flask.ext.restless
-import flask.ext.restless
-from flask import Flask, request, send_from_directory
-from flask.ext.restless import APIManager
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask import Flask, send_from_directory
+from flask_restless import APIManager
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func, desc, asc
 from supplychainpy.bot.dash import ChatBot
 from supplychainpy.reporting.config import DevConfig
-from supplychainpy.reporting.forms import DataForm, upload, SettingsForm
+
 
 app_dir = os.path.dirname(__file__, )
 rel_path = '../uploads'
@@ -352,15 +350,15 @@ def raw_data():
 #    return flask.render_template('upload.html', form=form)
 
 
-@app.route('/settings', methods=['POST', 'GET'])
-def settings():
-    """Route to settings view.
-
-    Returns:
-
-    """
-    form = SettingsForm()
-    return flask.render_template('settings.html', form=form)
+#@app.route('/settings', methods=['POST', 'GET'])
+#def settings():
+#    """Route to settings view.
+#
+#    Returns:
+#
+#    """
+#    form = SettingsForm()
+#    return flask.render_template('settings.html', form=form)
 
 
 @app.route('/reporting/api/v1.0/sku_detail', methods=['GET'])
