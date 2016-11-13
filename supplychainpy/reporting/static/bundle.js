@@ -476,7 +476,7 @@
 	function chat_to_bot() {
 	    var user = 'You';
 	    var message = (0, _jquery2.default)('#chat-input').val();
-	    console.log(message);
+	    //console.log(message);
 	    render_bot_response(message, user);
 
 	    _jquery2.default.ajax({
@@ -489,11 +489,11 @@
 	        success: function success(data) {
 	            var communicator = 'Dash';
 	            render_bot_response(data, communicator);
-	            console.log(data);
+	            //console.log(data);
 	        },
 	        error: function error(result) {
 
-	            console.log(result); // make 404.html page
+	            //console.log(result);// make 404.html page
 	        }
 	    });
 
@@ -877,7 +877,7 @@
 	            //console.log(JSON.stringify({"filters": filters}));
 	            //console.log(data);
 	            var li = [].concat(_toConsumableArray(data.objects));
-	            console.log(li[0].currency_code);
+	            //console.log(li[0].currency_code);
 	            (0, _jquery2.default)('#currency-code').text(li[0].currency_code);
 	            return li[0].currency_code;
 	        },

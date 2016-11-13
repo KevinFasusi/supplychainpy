@@ -468,7 +468,7 @@ function show_recommendations() {
 function chat_to_bot() {
     var user = 'You';
     var message = $('#chat-input').val();
-    console.log(message);
+    //console.log(message);
     render_bot_response(message, user);
 
     $.ajax({
@@ -481,12 +481,12 @@ function chat_to_bot() {
         success: function (data) {
             var communicator = 'Dash';
             render_bot_response(data, communicator);
-            console.log(data);
+            //console.log(data);
 
         },
         error: function (result) {
 
-            console.log(result);// make 404.html page
+            //console.log(result);// make 404.html page
         }
     });
 
@@ -966,7 +966,7 @@ function currency_fetch(id) {
             //console.log(JSON.stringify({"filters": filters}));
             //console.log(data);
             var li = [...data.objects];
-            console.log(li[0].currency_code);
+            //console.log(li[0].currency_code);
             $('#currency-code').text(li[0].currency_code);
             return li[0].currency_code
 
