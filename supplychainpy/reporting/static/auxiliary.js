@@ -494,6 +494,7 @@ function chat_to_bot() {
     $('#chat-input').val('');
 }
 
+
 function render_bot_response(message, communicator) {
 
     switch (communicator) {
@@ -512,6 +513,7 @@ function render_bot_response(message, communicator) {
                         .insertAfter('#response-panel p:last')
                         .delay(800)
                         .fadeIn(1000);
+                    $("#response-panel").animate({ scrollTop: $('#response-panel').prop("scrollHeight")}, 500);;
                 }
 
             }
@@ -521,6 +523,7 @@ function render_bot_response(message, communicator) {
     }
 
 }
+
 
 function bar_chart_sku() {
     var orders_data = document.getElementById("orders-data");

@@ -512,6 +512,7 @@
 	            for (i = 0; i < message.json_list.length; i++) {
 	                if (message.json_list[i] != null && message.json_list[i] != '') {
 	                    (0, _jquery2.default)('<p style=\"color:#a2e1f6;\">' + communicator + ': ' + message.json_list[i] + '</p><br><p></p>').hide().insertAfter('#response-panel p:last').delay(800).fadeIn(1000);
+	                    (0, _jquery2.default)("#response-panel").animate({ scrollTop: (0, _jquery2.default)('#response-panel').prop("scrollHeight") }, 500);;
 	                }
 	            }
 
