@@ -250,7 +250,7 @@ $(function () {
             }
         });
     }
-        if (by_val > 0) {
+    if (by_val > 0) {
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
@@ -272,7 +272,7 @@ $(function () {
             }
         });
     }
-        if (bz_val > 0) {
+    if (bz_val > 0) {
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
@@ -294,7 +294,7 @@ $(function () {
             }
         });
     }
-        if (cx_val > 0) {
+    if (cx_val > 0) {
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
@@ -316,7 +316,7 @@ $(function () {
             }
         });
     }
-        if (cy_val > 0) {
+    if (cy_val > 0) {
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
@@ -338,7 +338,7 @@ $(function () {
             }
         });
     }
-        if (cz_val > 0) {
+    if (cz_val > 0) {
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
@@ -513,7 +513,8 @@ function render_bot_response(message, communicator) {
                         .insertAfter('#response-panel p:last')
                         .delay(800)
                         .fadeIn(1000);
-                    $("#response-panel").animate({ scrollTop: $('#response-panel').prop("scrollHeight")}, 500);;
+                    $("#response-panel").animate({scrollTop: $('#response-panel').prop("scrollHeight")}, 500);
+                    ;
                 }
 
             }
@@ -983,8 +984,8 @@ function currency_fetch(id) {
 
 function currency_symbol_allocator(currency_symbol) {
     var currency_symbols = {
-        "AED": "د.إ", "AFN": "&#1547;", "ALL": "Albania Lek",
-        "AMD": "Armenia Dram", "ANG": "Netherlands Antilles Guilder", "AOA": "Angola Kwanza",
+        "AED": "&#92;&#117;&#48;&#54;&#50;&#102;&#46;", "AFN": "&#1547;", "ALL": "Albania Lek",
+        "AMD": "&#1423;", "ANG":"&#402;", "AOA": "Angola Kwanza",
         "ARS": "Argentina Peso", "AUD": "Australia Dollar", "AWG": "Aruba Guilder",
         "AZN": "Azerbaijan New Manat", "BAM": "Bosnia and Herzegovina Convertible Marka",
         "BBD": "Barbados Dollar", "BDT": "Bangladesh Taka", "BGN": "Bulgaria Lev", "BHD": "Bahrain Dinar",

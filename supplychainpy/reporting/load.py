@@ -54,9 +54,10 @@ log.addHandler(logging.NullHandler())
 
 def currency_codes():
     codes = {"AED": ("United Arab Emirates Dirham", "&#92;&#117;&#48;&#54;&#50;&#102;&#46;"),
+             "ANG": ("Netherlands Antilles Guilder","&#402"),
              "EUR": ("Euro Member Countries", "&#8364;"),
              "GBP": ("United Kingdom Pound", "&#163;"),
-             "USD": ("United States Dollar", "&#36;")
+             "USD": ("United States Dollar", "&#36;"),
              }
     return codes
 

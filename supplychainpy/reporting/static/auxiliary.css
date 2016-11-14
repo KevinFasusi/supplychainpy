@@ -444,6 +444,10 @@ nav ul li a {
     margin-top: 30px;
 }
 
+#chat-input{
+    color: white;
+}
+
 #quick-guide {
     margin-top: 40px;
     color: white;

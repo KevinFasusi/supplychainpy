@@ -466,7 +466,8 @@ function render_bot_response(message, communicator) {
             for (i = 0; i < message.json_list.length; i++) {
                 if (message.json_list[i] != null && message.json_list[i] != '') {
                     (0, _jquery2.default)('<p style=\"color:#a2e1f6;\">' + communicator + ': ' + message.json_list[i] + '</p><br><p></p>').hide().insertAfter('#response-panel p:last').delay(800).fadeIn(1000);
-                    (0, _jquery2.default)("#response-panel").animate({ scrollTop: (0, _jquery2.default)('#response-panel').prop("scrollHeight") }, 500);;
+                    (0, _jquery2.default)("#response-panel").animate({ scrollTop: (0, _jquery2.default)('#response-panel').prop("scrollHeight") }, 500);
+                    ;
                 }
             }
 
@@ -841,8 +842,8 @@ function currency_fetch(id) {
 
 function currency_symbol_allocator(currency_symbol) {
     var currency_symbols = {
-        "AED": "د.إ", "AFN": "&#1547;", "ALL": "Albania Lek",
-        "AMD": "Armenia Dram", "ANG": "Netherlands Antilles Guilder", "AOA": "Angola Kwanza",
+        "AED": "&#92;&#117;&#48;&#54;&#50;&#102;&#46;", "AFN": "&#1547;", "ALL": "Albania Lek",
+        "AMD": "&#1423;", "ANG": "&#402;", "AOA": "Angola Kwanza",
         "ARS": "Argentina Peso", "AUD": "Australia Dollar", "AWG": "Aruba Guilder",
         "AZN": "Azerbaijan New Manat", "BAM": "Bosnia and Herzegovina Convertible Marka",
         "BBD": "Barbados Dollar", "BDT": "Bangladesh Taka", "BGN": "Bulgaria Lev", "BHD": "Bahrain Dinar",

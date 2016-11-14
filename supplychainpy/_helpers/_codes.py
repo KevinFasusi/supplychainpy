@@ -15,7 +15,7 @@ class Currency:
     @staticmethod
     def _currency_codes(code: str = None):
         codes = {"AED": u"\u062f"+ u"\u002e" + u"\u0625", "AFN": u"\u060B", "ALL": u"\u004C" + u"\u0065" + u"\u006B",
-                 "AMD": "Armenia Dram", "ANG": "Netherlands Antilles Guilder", "AOA": "Angola Kwanza",
+                 "AMD": u"\u058F", "ANG": "Netherlands Antilles Guilder", "AOA": "Angola Kwanza",
                  "ARS": "Argentina Peso", "AUD": "Australia Dollar", "AWG": "Aruba Guilder",
                  "AZN": "Azerbaijan New Manat", "BAM": "Bosnia and Herzegovina Convertible Marka",
                  "BBD": "Barbados Dollar", "BDT": "Bangladesh Taka", "BGN": "Bulgaria Lev", "BHD": "Bahrain Dinar",
