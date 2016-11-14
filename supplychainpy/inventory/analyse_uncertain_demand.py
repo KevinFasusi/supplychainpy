@@ -111,10 +111,10 @@ class UncertainDemand:
         self.__excess_stock = self._excess_qty()
         self.__shortage_qty = self._shortage_qty()
         self.__total_orders = self._sum_orders()
-        self.__backlog = backlog
+        self.__backlog = Decimal(backlog)
 
     @property
-    def backlog(self)->Decimal:
+    def backlog(self) -> Decimal:
         return self.__backlog
 
     @property
@@ -394,7 +394,8 @@ class UncertainDemand:
     def _shortage_qty(self):
         if self.__quantity_on_hand < self.__safety_stock:
             return round(
-                abs(((self.__reorder_level - self.__safety_stock) + self.__reorder_level) - self.__quantity_on_hand))
+                abs(((self.__reorder_level + (
+                    self.__reorder_level - self.__safety_stock)) - self.__quantity_on_hand) + self.__backlog))
         else:
             return 0
 
