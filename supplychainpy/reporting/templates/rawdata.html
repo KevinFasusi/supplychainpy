@@ -21,6 +21,7 @@
                     <th>Shortage Units (qty)</th>
                     <th>Excess Stock (qty)</th>
                     <th>Shortage Cost</th>
+                    <th>Backlog</th>
                 </tr>
                 </thead>
                 {% for sku in inventory %}
@@ -38,6 +39,7 @@
                     <td>{{"{:,.0f}".format(sku.shortages)}}</td>
                     <td>{{"{:,.0f}".format(sku.excess_stock)}}</td>
                     <td>{{sym}}{{"{:,.2f}".format(sku.shortage_cost)}}</td>
+                    <td>{{"{:,.0f}".format(sku.backlog)}}</td>
                         {% endautoescape %}
                     {% endfor %}
                 </tr>

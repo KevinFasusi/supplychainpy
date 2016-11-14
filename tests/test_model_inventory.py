@@ -74,7 +74,7 @@ class TestBuildModel(TestCase):
                                     file_type='csv')
 
         analysed_orders = [demand.orders_summary() for demand in d]
-        print(analysed_orders)
+        print(d)
 
         self.assertEqual(len(d), 39)
 
@@ -103,7 +103,8 @@ class TestBuildModel(TestCase):
                                                          z_value=Decimal(1.28),
                                                          file_type="text",
                                                          retail_price=Decimal(30))
-        self.assertEqual(len(d), 18)
+        print(d)
+        self.assertEqual(len(d), 19)
 
     def test_standard_deviation_col_count_csv(self):
         d = model_inventory.analyse_orders_from_file_col(ABS_FILE_PATH['PARTIAL_COL_CSV_SM'], 'RX9304-43',
@@ -113,7 +114,7 @@ class TestBuildModel(TestCase):
                                                          z_value=Decimal(1.28),
                                                          file_type="csv",
                                                          retail_price=Decimal(30))
-        self.assertEqual(len(d), 18)
+        self.assertEqual(len(d), 19)
 
     def test_standard_deviation_row_value(self):
         """Test Standard deviation value of row data, from text file."""

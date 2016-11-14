@@ -156,6 +156,7 @@ def load(file_path: str, location: str = None):
         # print(tuple_orders)
         i_up.abc_xyz_classification = item['ABC_XYZ_Classification']
         i_up.standard_deviation = item['standard_deviation']
+        i_up.backlog = item['backlog']
         i_up.safety_stock = item['safety_stock']
         i_up.reorder_level = item['reorder_level']
         i_up.economic_order_quantity = item['economic_order_quantity']

@@ -116,7 +116,7 @@ def analyse(currency: str, z_value: Decimal = 1.28, reorder_cost: Decimal = 10, 
                                                       unit_cost=unit_cost, reorder_cost=reorder_cost,
                                                       z_value=z_value, retail_price=retail_price,
                                                       quantity_on_hand=quantity_on_hand, currency=currency,
-                                                      total_orders=total_orders)
+                                                      total_orders=total_orders, backlog=backlog)
                     analysed_orders_collection.append(analysed_orders)
                 AbcXyz(analysed_orders_collection)
                 analysis_df = _convert_to_pandas_df(analysed_orders_collection)
@@ -127,10 +127,12 @@ def analyse(currency: str, z_value: Decimal = 1.28, reorder_cost: Decimal = 10, 
                                         interval_length=interval_length)
                 for sku in item_list:
                     orders = {}
-                    sku_id, unit_cost, lead_time, retail_price, quantity_on_hand = sku.get("sku_id",
-                                                                                           "UNKNOWN_SKU"), sku.get(
-                        "unit_cost"), sku.get(
-                        "lead_time"), sku.get("retail_price"), sku.get("quantity_on_hand")
+                    sku_id, unit_cost, lead_time, retail_price, quantity_on_hand, backlog = sku.get("sku_id","UNKNOWN_SKU"), \
+                                                                                   sku.get("unit_cost"), \
+                                                                                   sku.get("lead_time"), \
+                                                                                   sku.get("retail_price"), \
+                                                                                   sku.get("quantity_on_hand"), \
+                                                                                   sku.get("backlog")
                     orders['demand'] = sku.get("demand")
                     total_orders = 0
                     if quantity_on_hand is None:
@@ -141,7 +143,7 @@ def analyse(currency: str, z_value: Decimal = 1.28, reorder_cost: Decimal = 10, 
                                                       unit_cost=unit_cost, reorder_cost=reorder_cost,
                                                       z_value=z_value, retail_price=retail_price,
                                                       quantity_on_hand=quantity_on_hand, currency=currency,
-                                                      total_orders=total_orders)
+                                                      total_orders=total_orders, backlog=backlog)
                     analysed_orders_collection.append(analysed_orders)
                 AbcXyz(analysed_orders_collection)
                 # analysis = [i.orders_summary() for i in analysed_orders_collection]
@@ -254,7 +256,7 @@ def _convert_to_pandas_df(analysis: list) -> DataFrame:
 
 def _analyse_orders(orders: dict, sku_id: str, lead_time: Decimal, unit_cost: Decimal, reorder_cost: Decimal,
                     z_value: Decimal, retail_price: Decimal, quantity_on_hand: Decimal, currency: str,
-                    total_orders: float) -> UncertainDemand:
+                    total_orders: float, backlog: Decimal) -> UncertainDemand:
     """ Performs several types of common inventory analysis on the raw demand data. Including safety stock, reorder
     levels.
 
@@ -282,7 +284,8 @@ def _analyse_orders(orders: dict, sku_id: str, lead_time: Decimal, unit_cost: De
                                                                z_value=Decimal(z_value),
                                                                retail_price=retail_price,
                                                                quantity_on_hand=quantity_on_hand,
-                                                               currency=currency)
+                                                               currency=currency,
+                                                               backlog=backlog)
     average_orders = analysed_orders.average_orders
     reorder_quantity = analysed_orders.fixed_order_quantity
     eoq = economic_order_quantity.EconomicOrderQuantity(total_orders=float(total_orders),

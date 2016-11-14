@@ -116,6 +116,7 @@ class InventoryAnalysis(db.Model):
     inventory_turns = db.Column(db.Float())
     traffic_light = db.Column(db.String(6))
     recommendation_id = db.relationship("Recommendations", backref='rec', lazy='dynamic')
+    backlog = db.Column(db.Integer())
 
     @property
     def serialize(self):

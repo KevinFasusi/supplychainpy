@@ -77,13 +77,13 @@ class UncertainDemand:
     _summary_keywords = ['sku', 'standard_deviation', 'safety_stock', 'demand_variability', 'reorder_level',
                          'reorder_quantity', 'revenue', 'economic_order_quantity', 'economic_order_variable_cost',
                          'ABC_XYZ_Classification', 'excess_stock', 'shortages', 'average_orders', 'unit_cost',
-                         'quantity_on_hand', 'currency', 'orders', 'total_orders']
+                         'quantity_on_hand', 'currency', 'orders', 'total_orders', 'backlog']
     __rank = 0
 
     def __init__(self, orders: dict, sku: str, currency: str, lead_time: Decimal, unit_cost: Decimal,
                  reorder_cost: Decimal,
                  z_value: Decimal = Decimal(1.28), holding_cost: Decimal = 0.00, retail_price: Decimal = 0.00,
-                 period: str = PeriodFormats.months.name, quantity_on_hand: Decimal = 0.00):
+                 period: str = PeriodFormats.months.name, quantity_on_hand: Decimal = 0.00, backlog: Decimal = 0.00):
         self.__currency = currency
         self.__orders = orders
         self.__sku_id = sku
@@ -111,6 +111,11 @@ class UncertainDemand:
         self.__excess_stock = self._excess_qty()
         self.__shortage_qty = self._shortage_qty()
         self.__total_orders = self._sum_orders()
+        self.__backlog = backlog
+
+    @property
+    def backlog(self)->Decimal:
+        return self.__backlog
 
     @property
     def simple_exponential_smoothing_forecast(self):
@@ -441,7 +446,8 @@ class UncertainDemand:
                      'quantity_on_hand': '{}'.format(self.__quantity_on_hand),
                      'currency': '{}'.format(self.__currency),
                      'orders': self.__orders,
-                     'total_orders': '{}'.format(self.__total_orders)}
+                     'total_orders': '{}'.format(self.__total_orders),
+                     'backlog': '{}'.format(self.__backlog)}
         summary = {}
         for key in keywords:
             summary.update({key: pre_build.get(key)})
@@ -458,7 +464,7 @@ class UncertainDemand:
         representation = "(sku_id: {}, average_order: {:.0f}, standard_deviation: {:.0f}, safety_stock: {:0f}, \n" \
                          "demand_variability: {:.3f}, reorder_level: {:.0f}, reorder_quantity: {:.0f}, " \
                          "revenue: {:.2f}, excess_stock: {}, shortages: {}, unit_cost: {}, quantity_on_hand: {}, " \
-                         "currency_code: {}, total_orders: {})"
+                         "currency_code: {}, total_orders: {}, backlog: {})"
         return representation.format(self.__sku_id,
                                      self.__average_order,
                                      self.__orders_standard_deviation,
@@ -472,7 +478,8 @@ class UncertainDemand:
                                      self.__unit_cost,
                                      self.__quantity_on_hand,
                                      self.__currency,
-                                     self.__total_orders)
+                                     self.__total_orders,
+                                     self.__backlog)
 
     def __iter__(self):
         for original_order in self.__orders.get("demand"):
