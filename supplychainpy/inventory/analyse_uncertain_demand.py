@@ -109,9 +109,10 @@ class UncertainDemand:
         self.__fixed_reorder_quantity = Decimal(self._fixed_order_quantity())
         self.__period = period
         self.__excess_stock = self._excess_qty()
+        self.__backlog = Decimal(backlog)
         self.__shortage_qty = self._shortage_qty()
         self.__total_orders = self._sum_orders()
-        self.__backlog = Decimal(backlog)
+
 
     @property
     def backlog(self) -> Decimal:
