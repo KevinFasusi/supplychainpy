@@ -37,5 +37,5 @@ class Shortages:
     def optimal_order_size(self):
         pass
 
-    def optimal_backorder(self):
+    def optimal_back_order(self):
         pass

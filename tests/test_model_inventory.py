@@ -74,7 +74,6 @@ class TestBuildModel(TestCase):
                                     file_type='csv')
 
         analysed_orders = [demand.orders_summary() for demand in d]
-        print(d)
 
         self.assertEqual(len(d), 39)
 

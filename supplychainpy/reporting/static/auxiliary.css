@@ -108,6 +108,7 @@ th {
 .ia {
     margin-left: 20px;
     margin-top: 20px;
+    margin-bottom:20px;
     float: left;
     box-shadow: 10px 5px 5px black;
 }
@@ -429,7 +430,7 @@ nav ul li a {
     border-left-style: groove;
 }
 
-#forecast-chart {
+#forecast-chart, #ses-chart {
     width: auto;
     height: 400px;
     box-shadow: 10px 5px 10px black;
@@ -518,4 +519,8 @@ nav ul li a {
     margin-top: 20px;
     float: left;
     box-shadow: 10px 5px 5px black;
+}
+
+.forecast-btn{
+    margin: 20px;
 }

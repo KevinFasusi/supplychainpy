@@ -36,7 +36,6 @@ class TestModelDemand(TestCase):
                                  optimise=True)]
         self.keys = [list(i.keys()) for i in self.ses_forecast]
         self.unpack_keys = [i[0] for i in self.keys]
-
         self.htces_forecast = [i for i in
                                holts_trend_corrected_exponential_smoothing_forecast_from_file(
                                    file_path=ABS_FILE_PATH['COMPLETE_CSV_XSM'],

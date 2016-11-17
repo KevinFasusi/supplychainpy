@@ -23,6 +23,7 @@
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import logging
+from copy import deepcopy
 
 from supplychainpy._helpers import _data_cleansing
 from supplychainpy._helpers._enum_formats import FileFormats
@@ -248,7 +249,7 @@ def holts_trend_corrected_exponential_smoothing_forecast(demand: list, alpha: fl
             ape = LinearRegression(htces_forecast)
             mape = forecast_demand.mean_aboslute_percentage_error_opt(htces_forecast)
             stats = ape.least_squared_error()
-            regression_line = regr_ln(stats=stats)
+            regression_line = deepcopy(regr_ln(stats=stats))
             return {'forecast_breakdown': htces_forecast, 'forecast': holts_forecast, 'mape': mape, 'statistics': stats,
                     'optimal_alpha': optimal_alpha[1][0],
                     'optimal_gamma': optimal_alpha[1][1],
@@ -262,9 +263,7 @@ def holts_trend_corrected_exponential_smoothing_forecast(demand: list, alpha: fl
         forecast_demand = Forecast(demand)
         processed_demand = [{'t': index, 'demand': order} for index, order in enumerate(demand, 1)]
         stats = LinearRegression(processed_demand)
-
         log_stats = stats.least_squared_error(slice_end=6)
-
         htces_forecast = [i for i in
                           forecast_demand.holts_trend_corrected_exponential_smoothing(alpha=alpha, gamma=gamma,
                                                                                       intercept=log_stats.get(
@@ -291,7 +290,6 @@ def holts_trend_corrected_exponential_smoothing_forecast(demand: list, alpha: fl
                 'statistics': stats,
                 'sum_squared_errors': sum_squared_error,
                 'regression': [i for i in regression_line.get('regression')]}
-
 
 def holts_trend_corrected_exponential_smoothing_forecast_from_file(file_path: str, file_type: str, length: int,
                                                                    alpha: float, gamma: float, **kwargs):
@@ -327,8 +325,6 @@ def holts_trend_corrected_exponential_smoothing_forecast_from_file(file_path: st
                                                                                 forecast_length=4, initial_period=18,
                                                                                 optimise=False)}
 
-
 def regr_ln(stats: dict) -> dict:
-    regr = {
-        'regression': [(stats.get('slope') * i) + stats.get('intercept') for i in range(0, 12)]}
+    regr = {'regression': [(stats.get('slope') * i) + stats.get('intercept') for i in range(0, 12)]}
     return regr

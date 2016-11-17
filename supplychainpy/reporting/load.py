@@ -44,6 +44,7 @@ from supplychainpy.reporting.views import MasterSkuList
 from supplychainpy.reporting.views import Currency
 from supplychainpy.reporting.views import Orders
 from supplychainpy.launch_reports import db, app
+from supplychainpy.sample_data.config import ABS_FILE_PATH
 
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
@@ -319,7 +320,4 @@ def load_profile_recommendations(analysed_order, forecast, transaction_log_id):
 
 
 if __name__ == '__main__':
-    rel_path = 'data2.csv'
-    app_dir = os.path.dirname(__file__, )
-    abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
-    load(abs_file_path)
+    load(ABS_FILE_PATH['COMPLETE_CSV_XSM'])

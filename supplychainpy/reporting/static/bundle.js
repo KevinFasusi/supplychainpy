@@ -86,6 +86,14 @@
 	        toggle_reporting_view('collapse-excess');
 	    });
 
+	    (0, _jquery2.default)('#ses-btn').click(function () {
+	        toggle_reporting_view('ses-tg');
+	    });
+
+	    (0, _jquery2.default)('#htces-btn').click(function () {
+	        toggle_reporting_view('htces');
+	    });
+
 	    (0, _jquery2.default)('#chat-btn').click(function () {
 	        chat_to_bot();
 	    });
@@ -453,6 +461,7 @@
 
 	    bar_chart_sku();
 	    line_chart_forecast();
+	    line_chart_forecast_ses();
 	});
 
 	/** Searches for sku on recommendation page (feed.html)
@@ -596,6 +605,70 @@
 	    //console.log(wins);
 
 	    Flotr.draw(document.getElementById("forecast-chart"), [{
+	        data: orders,
+	        lines: { show: true },
+	        label: "orders"
+
+	    }, {
+	        data: forecast,
+	        lines: { show: true },
+	        label: "one-step forecast"
+	    }, {
+	        data: regression,
+	        lines: { show: true },
+	        label: "regression"
+	    }, {
+	        data: safety,
+	        lines: { show: true },
+	        label: "safety stock level",
+	        color: "#C61C6F"
+	    }, {
+	        data: reorder,
+	        lines: { show: true },
+	        label: "reorder level"
+	    }]);
+	}
+
+	function line_chart_forecast_ses() {
+	    var orders_data = document.getElementById("orders-data");
+	    console.log(orders_data);
+	    var forecast_data = document.getElementById("ses-data");
+	    var forecast_values = document.getElementById("ses");
+	    var safety_stock = document.getElementById("safety-stock");
+	    var reorder_lvl = document.getElementById("reorder-lvl");
+
+	    //console.log(safety_stock.innerText);
+	    var forecast = [];
+	    var orders = [];
+	    var regression = [];
+	    var safety = [];
+	    var reorder = [];
+
+	    for (i = 0; i < forecast_data.getElementsByClassName("forecast-raw-data-ses").length; i++) {
+
+	        safety.push([i + 1, parseInt(safety_stock.innerText)]);
+	        reorder.push([i + 1, parseInt(reorder_lvl.innerText)]);
+	    }
+
+	    for (i = 0; i < forecast_data.getElementsByClassName("forecast-raw-data-ses").length; i++) {
+
+	        forecast.push([i + 1, parseInt(forecast_data.getElementsByClassName("forecast-raw-data-ses")[i].innerText)]);
+	    }
+
+	    for (i = 0; i < orders_data.getElementsByClassName("orders-raw-data").length; i++) {
+
+	        orders.push([i + 1, parseInt(orders_data.getElementsByClassName("orders-raw-data")[i].innerText)]);
+	    }
+
+	    for (i = 0; i < forecast_data.getElementsByClassName("regression-ses").length; i++) {
+
+	        regression.push([i + 1, parseInt(forecast_data.getElementsByClassName("regression-ses")[i].innerText)]);
+	    }
+
+	    //console.log(forecast);
+	    //console.log(wins);
+
+	    Flotr.draw(document.getElementById("ses-chart"), [{
 	        data: orders,
 	        lines: { show: true },
 	        label: "orders"
