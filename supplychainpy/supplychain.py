@@ -114,7 +114,8 @@ def main():
         app_settings = {
             'database_path': args.location,
             'host': args.host,
-            'currency': args.currency
+            'currency': args.currency,
+            'port': args.port
         }
 
         serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)

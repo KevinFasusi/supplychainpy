@@ -1,4 +1,6 @@
-from flask.ext.restful import Api
+from flask_sqlalchemy import SQLAlchemy
+from flask_debugtoolbar import DebugToolbarExtension
 
-rest_api = Api()
 
+debug_toolbar = DebugToolbarExtension()
+db = SQLAlchemy()

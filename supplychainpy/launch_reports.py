@@ -24,22 +24,25 @@
 
 import os
 import threading
+import tkinter as tk
 import webbrowser
+from tkinter import ttk
 
 from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_APPLICATION_CONFIG
 from supplychainpy._helpers._pickle_config import deserialise_config, serialise_config
-from supplychainpy.reporting.views import db, app
-import tkinter as tk
-from tkinter import ttk
+from supplychainpy.reporting.app import create_app
+from supplychainpy.reporting.blueprints.dashboard.views import db
 
 
 class ReportsLauncher(threading.Thread):
+
     def __init__(self):
         threading.Thread.__init__(self)
         self.message = "launching reports"
         self.name = "reports"
         self.port = 5000
         self.host = '127.0.0.1'
+        self.app = create_app()
 
     def print_message(self):
         print(self.message)
@@ -50,7 +53,7 @@ class ReportsLauncher(threading.Thread):
         config['host'] = self.host
         serialise_config(config, ABS_FILE_PATH_APPLICATION_CONFIG)
         # print(self.port)
-        app.run(host= self.host,port=self.port)
+        self.app.run(host=self.host, port=int(self.port))
 
 
 def exit_report():
@@ -70,11 +73,12 @@ class SupplychainpyReporting:
         master.title('Supplychainpy')
         master.resizable(False, False)
 
+
         self.spawn = ReportsLauncher()
         self.parent = master
         self.hyperlink = ''
         app_dir = os.path.dirname(__file__, )
-        rel_path = 'supplychainpy/reporting/static/logo.gif'
+        rel_path = 'supplychainpy/reporting/static/images/logo.gif'
         abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
         logo = tk.PhotoImage(file=abs_file_path)
         self.style = ttk.Style()
@@ -136,7 +140,7 @@ class SupplychainpyReporting:
         self.hyperlink_text.bind("<Button-1>", lambda e, url=str(self.hyperlink): launch_browser(e, url))
 
         self.launcher_button = tk.Button(master, bg='black', fg='grey', text='Launch Reporting',
-                                          command=lambda: self.spawn_reports()).grid(
+                                         command=lambda: self.spawn_reports()).grid(
             row=6, column=1, pady=(5, 10),
             padx=(15, 5))
 
@@ -154,7 +158,7 @@ class SupplychainpyReporting:
         try:
 
             if self.port_text.get() is not '' and isinstance(int(self.port_text.get()), int) and self.hyperlink == '':
-                self.hyperlink = 'http://{}:{}'.format(self.spawn.host,self.port_text.get())
+                self.hyperlink = 'http://{}:{}'.format(self.spawn.host, self.port_text.get())
                 self.validation_label.grid_forget()
                 self.hyperlink_text.config(text=self.hyperlink)
                 self.hyperlink_text.bind("<Button-1>", lambda e, url=str(self.hyperlink): launch_browser(e, url))
@@ -165,7 +169,7 @@ class SupplychainpyReporting:
                 self.spawn.start()
             elif self.port_text.get() is '':
                 self.validation_label.grid_forget()
-                self.hyperlink = 'http://{}:{}'.format(self.spawn.host,self.spawn.port)
+                self.hyperlink = 'http://{}:{}'.format(self.spawn.host, self.spawn.port)
                 self.hyperlink_text.config(text=self.hyperlink)
                 self.hyperlink_text.bind("<Button-1>", lambda e, url=str(self.hyperlink): launch_browser(e, url))
                 self.hyperlink_text.grid(row=4, column=1, columnspan=2)
@@ -192,45 +196,31 @@ class SupplychainpyReporting:
 
 def launch_load_report(file: str, location: str = None):
     from supplychainpy.reporting import load
-
-    if location is not None and os.name in ['posix', 'mac']:
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/reporting.db'.format(location)
-
-    elif location is not None and os.name == 'nt':
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}\\reporting.db'.format(location)
-
-    db.create_all()
+    launcher = tk.Tk()
+    app_launch = SupplychainpyReporting(launcher)
     if location is not None:
         load.load(file, location)
     else:
         load.load(file)
-
-    launcher = tk.Tk()
-    app_launch = SupplychainpyReporting(launcher)
     app_launch.parent.configure(background='black')
     launcher.mainloop()
 
 
-def launch_report(location: str = None, port: int = 5000, host:str ='127.0.0.1'):
-    if location is not None and os.name in ['posix', 'mac']:
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/reporting.db'.format(location)
-
-    elif location is not None and os.name == 'nt':
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}\\reporting.db'.format(location)
-
-    db.create_all()
+def launch_report(location: str = None, port: int = 5000, host: str = '127.0.0.1'):
     launcher = tk.Tk()
+
+    #pass settings to create_app(settings=)
     app_launch = SupplychainpyReporting(launcher)
     app_launch.spawn.host = host
     app_launch.spawn.port = port
-
     app_launch.parent.configure(background='black')
     launcher.mainloop()
-
 
 def load_db(file: str, location: str = None):
     from supplychainpy.reporting import load
 
+    app = create_app()
+
     if location is not None and os.name in ['posix', 'mac']:
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/reporting.db'.format(location)
 
@@ -244,7 +234,8 @@ def load_db(file: str, location: str = None):
         load.load(file)
 
 
-def launch_report_server(location: str = None, port: int = 5000, host:str ='127.0.0.1'):
+def launch_report_server(location: str = None, port: int = 5000, host: str = '127.0.0.1'):
+    app = create_app()
     if location is not None and os.name in ['posix', 'mac']:
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/reporting.db'.format(location)
     elif location is not None and os.name == 'nt':
@@ -253,4 +244,4 @@ def launch_report_server(location: str = None, port: int = 5000, host:str ='127.
     app_launch = ReportsLauncher()
     app_launch.port = port
     app_launch.host = host
-    app_launch.run()
+
