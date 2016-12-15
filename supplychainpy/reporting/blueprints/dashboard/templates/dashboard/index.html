@@ -96,23 +96,70 @@
             <h2> Top 10 Shortages</h2>
             <div class=" slate col-md-3">
                 <h1>Largest Shortage: </h1>
-                <h1 id="lg-shortage-sku"></h1>
-                <h1 id="lg-shortage-cost"></h1>
-                <h1 id="lg-shortage-units"></h1>
+                {% for sku in shortages %}
+                {% for cur in currency if (cur.id == sku.currency_id) and (loop.index == 1) %}
+                {% set sym = cur.symbol %}
+                {% autoescape false %}
+                <h1 id="lg-shortage-sku"><a href="sku_detail/{{sku.id}}">{{largest.sku.sku_id}}</a></h1>
+                <h1 id="lg-shortage-cost">{{sym}}{{largest.shortage_cost}}</h1>
+                {% endautoescape %}
+                {% endfor %}
+                {% endfor %}
+                <h1 id="lg-shortage-units">{{largest.shortages}} units</h1>
             </div>
             <div class=" slate col-md-3">
                 <h1>Total Shortage: </h1>
-                <h2 id="total-shortage"></h2>
+                {% set total = 0 %}
+                {% for sku in shortages %}
+                {% for cur in currency if (cur.id == sku.currency_id) and (loop.index == 1) %}
+                {% set sym = cur.symbol %}
+                {% autoescape false %}
+                <h1 class="slate-text-sm"><strong class="slate-values" id="total-shortage">{{sym}}
+                    {% endautoescape %}
+                    {% endfor %}
+
+                    {% set total = total + sku.shortage_cost %}
+                    {% if loop.last %}
+
+                    {{"{:,.2f}".format(total)}}</strong></h1>
+
+                {% else%}
+                {% endif %}
+
+                {% endfor %}
+
             </div>
             <div class=" slate col-md-3">
                 <h1>Percentage of Top 10 SKUs at Risk of Stock-Out </h1>
-                <h1 class="slate-text-lg" id="shortage-percentage"></h1>
+                <h1 class="slate-text-lg" id="shortage-percentage">
+                    {% set risk = 0 %}
+                    {% for sku in shortages %}
+                    {% if sku.traffic_light == 'white' %}
+                    {% set risk = risk + 1 %}
+                    {% if loop.last %}
+                    {{(risk/10) * 100}} %
+                    {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                </h1>
             </div>
             <div class="  slate col-md-3">
                 <h1>Most Understocked SKU</h1>
-                <h1 id="understocked-sku"></h1>
-                <h1 id="understocked-qoh"></h1>
-                <h1 id="understocked_rol"></h1>
+                {% set net_stock = 0 %}
+                {% set understocked_qty = 0 %}
+                {% for sku in shortages %}
+                {% set net_stock = sku.quantity_on_hand - sku.reorder_level %}
+                {% if ((net_stock |abs) > understocked_qty) %}
+                {% set understocked_sku = sku.sku.sku_id %}
+                {% set understocked_rol = sku.reorder_level %}
+                {% set understocked_qoh = sku.quantity_on_hand %}
+                {% endif %}
+                {% if (loop.last) %}
+                <h1 id="understocked-sku"><a href="sku_detail/{{sku.id}}">{{understocked_sku}}</a></h1>
+                <h1 id="understocked-qoh"><strong>qty on hand: {{understocked_qoh}} units</strong></h1>
+                <h1 id="understocked_rol"><strong>reorder level: {{understocked_rol}} units</strong></h1>
+                {% endif %}
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -133,6 +180,42 @@
     <div class=" row">
         <div id="short-table" class=" col-lg-11">
             <table id="shortage-table" class=" ia table-responsive table ">
+                <thead>
+                <tr id='first'>
+                    <th>SKU</th>
+                    <th>Quantity on Hand</th>
+                    <th>Average Orders</th>
+                    <th>Shortage</th>
+                    <th>Shortage Cost</th>
+                    <th>Safety Stock</th>
+                    <th>Reorder Level</th>
+                    <th>Percentage Contribution</th>
+                    <th>Revenue Rank</th>
+                    <th>Classification</th>
+                </tr>
+                </thead>
+                {% for sku in shortages %}
+                {% for cur in currency if (cur.id == sku.currency_id) %}
+                {% autoescape false %}
+                {% set sym = cur.symbol %}
+                <tbody>
+                <tr>
+                    <td><a href="sku_detail/{{sku.sku_id}}"> {{sku.sku.sku_id}}</a></td>
+                    <td>{{"{:,}".format(sku.quantity_on_hand)}}</td>
+                    <td>{{"{:,}".format(sku.average_orders)}}</td>
+                    <td>{{"{:,}".format(sku.shortages)}}</td>
+                    <td>{{sym}}{{"{:,.2f}".format(sku.shortage_cost)}}</td>
+                    <td>{{"{:,}".format(sku.safety_stock)}}</td>
+                    <td>{{"{:,}".format(sku.reorder_level)}}</td>
+                    <td>{{"{:,.2f}".format(sku.percentage_contribution_revenue)}}</td>
+                    <td>{{"{:,}".format(sku.revenue_rank)}}</td>
+                    <td><a href="abcxyz/{{sku.abc_xyz_classification}}">{{sku.abc_xyz_classification}}</a></td>
+                </tr>
+                {% endautoescape %}
+                {% endfor %}
+                {% endfor %}
+                </tbody>
+
             </table>
         </div>
     </div>

@@ -65,21 +65,14 @@ manager.create_api(Recommendations, methods=['GET', 'POST', 'DELETE', 'PATCH'], 
 
 @dashboard_blueprint.route('/')
 def dashboard():
-    top_ten_shortages = db.session.query(InventoryAnalysis.abc_xyz_classification,
-                                         InventoryAnalysis.id,
-                                         InventoryAnalysis.shortage_cost,
-                                         InventoryAnalysis.quantity_on_hand,
-                                         InventoryAnalysis.percentage_contribution_revenue,
-                                         InventoryAnalysis.revenue_rank,
-                                         InventoryAnalysis.shortages,
-                                         InventoryAnalysis.average_orders,
-                                         InventoryAnalysis.safety_stock,
-                                         InventoryAnalysis.reorder_level,
-                                         InventoryAnalysis.currency_id
-                                         ).order_by(desc(InventoryAnalysis.shortage_cost)).limit(10)
+    top_ten_shortages = db.session.query(InventoryAnalysis).order_by(desc(InventoryAnalysis.shortage_cost)).limit(10)
+    largest_shortage = db.session.query(InventoryAnalysis).order_by(asc(InventoryAnalysis.shortage_rank)).first()
+    total_shortages = db.session.query(InventoryAnalysis).order_by(desc(InventoryAnalysis.shortage_cost)).limit(10)
+    total_shortages = total_shortages.with_entities(func.sum(InventoryAnalysis.shortage_cost)).scalar
     currency = db.session.query(Currency).all()
 
-    return flask.render_template('dashboard/index.html', shortages=top_ten_shortages, currency=currency)
+    return flask.render_template('dashboard/index.html', shortages=top_ten_shortages, currency=currency,
+                                 largest= largest_shortage, shortage= total_shortages)
 
 
 #@app.route('/upload/', methods=['POST', 'GET'])

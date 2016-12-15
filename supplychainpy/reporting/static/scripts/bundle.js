@@ -204,10 +204,10 @@
 	        async: true,
 	        data: { "q": JSON.stringify({ "filters": filters }) },
 	        success: function success(data) {
-	            //console.log(data.objects);
-	            var currency_code = data.objects[i].currency.currency_code;
-	            currency_fetch(currency_code);
-	            create_shortages_table(data);
+	            console.log(data.json_list);
+	            //var currency_code = data.objects[i].currency.currency_code;
+	            //currency_fetch(currency_code);
+	            //create_shortages_table(data);
 	            render_shortages_chart(data, '#shortage-chart');
 	        },
 	        error: function error(result) {
@@ -1292,49 +1292,45 @@
 	    var understocked_sku;
 	    var understocked_rol;
 	    var understocked_id;
-	    for (var i = 0; i < data.objects.length; i++) {
-	        console.log(data.objects[i].shortage_cost);
-	        var symbols = currency_symbol_allocator(data.objects[i].currency.currency_code);
-	        total_shortage += data.objects[i].shortage_cost;
-	        var currency_code = currency_symbol_allocator(data.objects[i].currency.currency_code);
-
-	        (0, _jquery2.default)("<tr><td><a href=\"sku_detail/" + data.objects[i].sku_id + "\">" + data.objects[i].sku.sku_id + "</a></td>" + "<td>" + format_number(data.objects[i].quantity_on_hand) + "</td>" + "<td>" + format_number(Math.round(data.objects[i].average_orders)) + "</td>" + "<td>" + format_number(data.objects[i].shortages) + "</td>" + "<td>" + currency_code + format_number(data.objects[i].shortage_cost) + "</td>" + "<td>" + format_number(data.objects[i].safety_stock) + "</td>" + "<td>" + format_number(data.objects[i].reorder_level) + "</td>" + "<td>" + Math.round(data.objects[i].percentage_contribution_revenue * 100) + "%</td>" + "<td>" + data.objects[i].revenue_rank + "</td>" + "<td><a href=\"abcxyz/" + data.objects[i].abc_xyz_classification + "\">" + data.objects[i].abc_xyz_classification + "</a></td></tr>").insertAfter("#shortage-table tr:last");
+	    for (var i = 0; i < data.json_list.length; i++) {
+	        console.log(data.json_list[i].shortage_cost);
+	        total_shortage += data.json_list[i].shortage_cost;
 	        var shortage_sku_id;
 	        var shortage_units;
 	        var shortage_id;
-	        if (parseInt(data.objects[i].shortage_cost) > parseInt(largest)) {
-	            largest = data.objects[i].shortage_cost;
+	        if (parseInt(data.json_list[i].shortage_cost) > parseInt(largest)) {
+	            largest = data.json_list[i].shortage_cost;
 	            //console.log(parseInt(largest));
-	            shortage_id = data.objects[i].sku.id;
-	            shortage_sku_id = data.objects[i].sku.sku_id;
-	            shortage_units = data.objects[i].shortages;
+	            shortage_id = data.json_list[i].sku.id;
+	            shortage_sku_id = data.json_list[i].sku.sku_id;
+	            shortage_units = data.json_list[i].shortages;
 	        }
 
-	        if (parseInt(data.objects[i].quantity_on_hand) < parseInt(data.objects[i].safety_stock) / 2) {
+	        if (parseInt(data.json_list[i].quantity_on_hand) < parseInt(data.json_list[i].safety_stock) / 2) {
 	            percentage_stockoout += 1;
 	        }
-	        var temp_net_stock = data.objects[i].quantity_on_hand - data.objects[i].reorder_level;
+	        var temp_net_stock = data.json_list[i].quantity_on_hand - data.json_list[i].reorder_level;
 	        if (Math.abs(temp_net_stock) > understocked_qoh) {
-	            understocked_qoh = data.objects[i].quantity_on_hand;
-	            understocked_sku = data.objects[i].sku.sku_id;
-	            understocked_rol = data.objects[i].reorder_level;
-	            understocked_id = data.objects[i].sku.id;
+	            understocked_qoh = data.json_list[i].quantity_on_hand;
+	            understocked_sku = data.json_list[i].sku.sku_id;
+	            understocked_rol = data.json_list[i].reorder_level;
+	            understocked_id = data.json_list[i].sku.id;
 	        }
 	    }
 
 	    // Percentage of top 10 SKU likely to face a stock-out situation. SKU is at risk below 50% of the safety stock.
 	    //This should be moved into the main library.
-	    percentage_stockoout = parseInt(percentage_stockoout) / data.objects.length * 100;
+	    percentage_stockoout = parseInt(percentage_stockoout) / data.json_list.length * 100;
 
 	    //Total Shortage of the to ten.
 	    //console.log(percentage_stockoout);
-	    (0, _jquery2.default)("#total-shortage").append().html("<h1><strong>" + symbols + format_number(total_shortage) + "</strong></h1>").find("> h1").css("color", "white");
+	    (0, _jquery2.default)("#total-shortage").append().html("<h1><strong>" + format_number(total_shortage) + "</strong></h1>").find("> h1").css("color", "white");
 
 	    // top shortage SKU id
 	    (0, _jquery2.default)("#lg-shortage-sku").append().html("<a href=\"sku_detail/" + shortage_id + "\">" + "<strong>" + shortage_sku_id + "</strong></a>").find("> h1").css("color", "#2176C7");
 
 	    //largest shortage cost
-	    (0, _jquery2.default)("#lg-shortage-cost").append().html("<h1 class='slate-text-lg'><strong>" + symbols + format_number(largest) + "</strong></h1>").find("> h1").css("color", "white");
+	    (0, _jquery2.default)("#lg-shortage-cost").append().html("<h1 class='slate-text-lg'><strong>" + format_number(largest) + "</strong></h1>").find("> h1").css("color", "white");
 
 	    //units for largest shortage cost.
 	    (0, _jquery2.default)("#lg-shortage-units").append().html("<h1><strong>" + format_number(shortage_units) + " units" + "</strong></h1>").find("> h1").css("color", "#819090");
