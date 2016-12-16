@@ -69,10 +69,15 @@ def dashboard():
     largest_shortage = db.session.query(InventoryAnalysis).order_by(asc(InventoryAnalysis.shortage_rank)).first()
     total_shortages = db.session.query(InventoryAnalysis).order_by(desc(InventoryAnalysis.shortage_cost)).limit(10)
     total_shortages = total_shortages.with_entities(func.sum(InventoryAnalysis.shortage_cost)).scalar
+    top_ten_excess = db.session.query(InventoryAnalysis).order_by(desc(InventoryAnalysis.excess_cost)).limit(10)
+    largest_excess = db.session.query(InventoryAnalysis).order_by(asc(InventoryAnalysis.excess_rank)).first()
+    total_excess = db.session.query(InventoryAnalysis).order_by(desc(InventoryAnalysis.excess_cost)).limit(10)
+    total_excess = total_excess.with_entities(func.sum(InventoryAnalysis.excess_cost)).scalar
     currency = db.session.query(Currency).all()
 
     return flask.render_template('dashboard/index.html', shortages=top_ten_shortages, currency=currency,
-                                 largest= largest_shortage, shortage= total_shortages)
+                                 largest= largest_shortage, shortage= total_shortages, excess=top_ten_excess,
+                                 largest_excess=largest_excess, total_excess=total_excess)
 
 
 #@app.route('/upload/', methods=['POST', 'GET'])
