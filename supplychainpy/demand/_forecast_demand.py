@@ -24,9 +24,13 @@
 
 import numpy as np
 import logging
+import pyximport
 
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
+
+# pyximport.install()
+from supplychainpy.demand._squared_error import sum_squared_errors_i1, sum_squared_errors_i2, sum_squared_errors_i0
 
 
 class Forecast:
@@ -337,7 +341,7 @@ class Forecast:
 
     def holts_trend_corrected_exponential_smoothing(self, alpha: float, gamma: float, intercept: float, slope: float):
         forecast = {}
-        #log.debug('holts ')
+        # log.debug('holts ')
         current_level_estimate = intercept
         forecast.update({'alpha': alpha,
                          'gamma': gamma,
@@ -353,18 +357,18 @@ class Forecast:
         previous_trend = slope
         previous_level_estimate = current_level_estimate
         for index, demand in enumerate(tuple(self.__orders), 1):
-            #log.debug('demand: {}'.format(demand))
+            # log.debug('demand: {}'.format(demand))
             one_step = previous_level_estimate + previous_trend
-            #log.debug('one_step: {}'.format(one_step))
+            # log.debug('one_step: {}'.format(one_step))
             forecast_error = self._forecast_error(demand, one_step)
-            #log.debug('forecast_error: {}'.format(forecast_error))
+            # log.debug('forecast_error: {}'.format(forecast_error))
             current_trend = self._holts_trend(previous_trend, gamma, alpha, forecast_error)
-            #log.debug('trend: {}'.format(current_trend))
+            # log.debug('trend: {}'.format(current_trend))
             current_level_estimate = self._level_estimate_holts_trend_corrected(previous_level_estimate,
                                                                                 alpha,
                                                                                 previous_trend,
                                                                                 forecast_error)
-            #log.debug('current_level: {}'.format(current_level_estimate))
+            # log.debug('current_level: {}'.format(current_level_estimate))
             squared_error = forecast_error ** 2
             yield {'alpha': alpha,
                    'gamma': gamma,
@@ -376,7 +380,7 @@ class Forecast:
                    'forecast_error': forecast_error,
                    'squared_error': squared_error
                    }
-            #log.debug('squared_error: {}'.format(squared_error))
+            # log.debug('squared_error: {}'.format(squared_error))
             previous_level_estimate = current_level_estimate
             previous_trend = current_trend
 
@@ -430,35 +434,15 @@ class Forecast:
 
     @staticmethod
     def sum_squared_errors(squared_error: list, smoothing_parameter: float) -> dict:
-        sse = 0
-        for sq_e in squared_error:
-            if sq_e['alpha'] == smoothing_parameter:
-                sse += sq_e["squared_error"]
-
-        return {smoothing_parameter: sse}
+        return sum_squared_errors_i0(squared_error, smoothing_parameter)
 
     @staticmethod
     def sum_squared_errors_indi(squared_error: list, smoothing_parameter: float) -> dict:
-        sse = 0
-
-        for sq_e in squared_error:
-            #sse += sum([i["squared_error"] for i in sq_e if i['alpha'] == smoothing_parameter])
-            for i in sq_e:
-                if i['alpha'] == smoothing_parameter:
-                    sse += i["squared_error"]
-
-        return {smoothing_parameter: sse}
+        return sum_squared_errors_i2(squared_error, smoothing_parameter)
 
     @staticmethod
     def sum_squared_errors_indi_htces(squared_error: list, alpha: float, gamma: float) -> dict:
-        sse = 0
-
-        for sq_e in squared_error:
-            for i in sq_e:
-                if i['alpha'] == alpha and i['gamma'] == gamma:
-                    sse += i["squared_error"]
-
-        return {(alpha, gamma): sse}
+        return sum_squared_errors_i1(squared_error, alpha, gamma)
 
     @staticmethod
     def standard_error(sse: dict, orders_count, smoothing_parameter, df: int = 1) -> float:
@@ -553,7 +537,7 @@ if __name__ == '__main__':
     s = [i for i in f.simple_exponential_smoothing(*alpha)]
 
     sum_squared_error = f.sum_squared_errors(s, 0.5)
-    #print(sum_squared_error)
+    # print(sum_squared_error)
 
     standard_error = f.standard_error(sum_squared_error, len(orders), smoothing_parameter=0.5)
-    #print(standard_error)
+    # print(standard_error)
