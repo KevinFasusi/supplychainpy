@@ -1,4 +1,4 @@
-Cython==0.25.1
+Cython==0.25.2
 Flask==0.11.1
 Flask-RESTful==0.3.5
 Flask-Restless==0.17.0
