@@ -29,7 +29,7 @@ import pyximport
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
 
-pyximport.install()
+#pyximport.install()
 from supplychainpy.demand._squared_error import sum_squared_errors_i1, sum_squared_errors_i2, sum_squared_errors_i0
 
 
