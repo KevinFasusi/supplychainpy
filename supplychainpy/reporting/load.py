@@ -106,10 +106,12 @@ def load(file_path: str, location: str = None):
 
         log.log(logging.DEBUG, 'Calculating Forecasts...\n')
         print('Calculating Forecasts...', end="")
+
         simple_forecast = {analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
                            model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
                                                    reorder_cost=Decimal(5000), file_type="csv",
                                                    length=12, currency=currency)}
+
         holts_forecast = {analysis.sku_id: analysis.holts_trend_corrected_forecast for analysis in
                           model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
                                                   reorder_cost=Decimal(5000), file_type="csv",

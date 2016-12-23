@@ -1551,7 +1551,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_14_squared_error_4sum_squared_
  *     for sq_e in squared_error:
  *         if sq_e['alpha'] == smoothing_parameter:             # <<<<<<<<<<<<<<
  *             sse += sq_e["squared_error"]
- * 
+ *     return {smoothing_parameter: sse}
  */
     __pyx_t_4 = PyObject_GetItem(__pyx_v_sq_e, __pyx_n_s_alpha); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 24, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
@@ -1565,7 +1565,6 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_14_squared_error_4sum_squared_
  *     for sq_e in squared_error:
  *         if sq_e['alpha'] == smoothing_parameter:
  *             sse += sq_e["squared_error"]             # <<<<<<<<<<<<<<
- * 
  *     return {smoothing_parameter: sse}
  */
       __pyx_t_5 = PyFloat_FromDouble(__pyx_v_sse); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 25, __pyx_L1_error)
@@ -1585,7 +1584,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_14_squared_error_4sum_squared_
  *     for sq_e in squared_error:
  *         if sq_e['alpha'] == smoothing_parameter:             # <<<<<<<<<<<<<<
  *             sse += sq_e["squared_error"]
- * 
+ *     return {smoothing_parameter: sse}
  */
     }
 
@@ -1599,17 +1598,17 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_14_squared_error_4sum_squared_
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "supplychainpy/demand/_squared_error.pyx":27
+  /* "supplychainpy/demand/_squared_error.pyx":26
+ *         if sq_e['alpha'] == smoothing_parameter:
  *             sse += sq_e["squared_error"]
- * 
  *     return {smoothing_parameter: sse}             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_7 = PyFloat_FromDouble(__pyx_v_sse); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __pyx_t_7 = PyFloat_FromDouble(__pyx_v_sse); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_v_smoothing_parameter, __pyx_t_7) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_v_smoothing_parameter, __pyx_t_7) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;

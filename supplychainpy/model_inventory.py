@@ -23,7 +23,9 @@
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import logging
+import multiprocessing
 from decimal import Decimal
+from functools import partial
 
 import numpy as np
 import pandas as pd
@@ -99,6 +101,8 @@ def analyse(currency: str, z_value: Decimal = 1.28, reorder_cost: Decimal = 10, 
 
     analysed_orders = UncertainDemand
     analysed_orders_collection = []
+    pool = multiprocessing.Pool(4)
+    collect_kwargs =[]
 
     try:
         if kwargs is not None:
@@ -139,12 +143,34 @@ def analyse(currency: str, z_value: Decimal = 1.28, reorder_cost: Decimal = 10, 
                         quantity_on_hand = 0.0
                     for order in orders['demand']:
                         total_orders += int(order)
-                    analysed_orders = _analyse_orders(orders=orders, sku_id=sku_id, lead_time=lead_time,
-                                                      unit_cost=unit_cost, reorder_cost=reorder_cost,
-                                                      z_value=z_value, retail_price=retail_price,
-                                                      quantity_on_hand=quantity_on_hand, currency=currency,
-                                                      total_orders=total_orders, backlog=backlog)
-                    analysed_orders_collection.append(analysed_orders)
+                    kwargs = {'orders':orders,
+                              'sku_id':sku_id,
+                              'lead_time':lead_time,
+                              'unit_cost':unit_cost,
+                              'reorder_cost':reorder_cost,
+                              'z_value':z_value,
+                              'retail_price':retail_price,
+                              'quantity_on_hand':quantity_on_hand,
+                              'currency':currency,
+                              'total_orders':total_orders,
+                              'backlog':backlog}
+
+                    collect_kwargs.append(kwargs)
+                analysed_orders = [pool.apply(_analyse_orders, args=(x['orders'],
+                                                                     x['sku_id'],
+                                                                     x['lead_time'],
+                                                                     x['unit_cost'],
+                                                                     x['reorder_cost'],
+                                                                     x['z_value'],
+                                                                     x['retail_price'],
+                                                                     x['quantity_on_hand'],
+                                                                     x['currency'],
+                                                                     x['total_orders'],
+                                                                     x['backlog'])) for x in collect_kwargs]
+                    #mapfunc = partial(_analyse_orders, **kwargs)
+                    #analysed_orders = pool.map(mapfunc, 0)
+                for x in analysed_orders:
+                    analysed_orders_collection.append(x)
                 AbcXyz(analysed_orders_collection)
                 # analysis = [i.orders_summary() for i in analysed_orders_collection]
                 return analysed_orders_collection

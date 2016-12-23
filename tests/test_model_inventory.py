@@ -163,7 +163,7 @@ class TestBuildModel(TestCase):
                                                                   file_type="csv")
 
     def test_abcxyz_classification(self):
-        abc = model_inventory.analyse_orders_abcxyz_from_file(file_path=ABS_FILE_PATH['COMPLETE_CSV_SM'],
+        abc = model_inventory.analyse(file_path=ABS_FILE_PATH['COMPLETE_CSV_SM'],
                                                               z_value=Decimal(1.28),
                                                               reorder_cost=Decimal(5000),
                                                               file_type="csv")

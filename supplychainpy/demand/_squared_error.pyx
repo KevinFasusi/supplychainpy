@@ -23,5 +23,4 @@ def sum_squared_errors_i0(squared_error: list, smoothing_parameter: float):
     for sq_e in squared_error:
         if sq_e['alpha'] == smoothing_parameter:
             sse += sq_e["squared_error"]
-
     return {smoothing_parameter: sse}
