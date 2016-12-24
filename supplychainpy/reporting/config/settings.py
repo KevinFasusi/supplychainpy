@@ -59,3 +59,11 @@ class DevConfig(Config):
     SESSION_PROTECTION = 'strong'
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = True
+
+class IntegrationConfig(Config):
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI =''
+    SECRET_KEY = '|~G\xde\xa7\x9b\x1aKaZ-\xabk8\x0b\x12\xee)\xe0\xe0\x8b\x0c\xd9\x1d'
+    SESSION_PROTECTION = 'strong'
+    SQLALCHEMY_ECHO = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
