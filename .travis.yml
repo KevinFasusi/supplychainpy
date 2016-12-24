@@ -9,7 +9,7 @@ install:
   - pip install coveralls
   - pip install cython
   - pip install -r requirements.txt
-  - python -m textblob.download_copora
+  - python -m textblob.download_corpora
   #- npm install mocha
   #- npm install chai
   #- npm install supervisor
