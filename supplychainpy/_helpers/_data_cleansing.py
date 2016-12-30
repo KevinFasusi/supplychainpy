@@ -104,6 +104,7 @@ def clean_orders_data_row(file, length: int) -> dict:
 
 # TODO-feature cleans a text or csv file and insert into numpy array
 # remember to specify in documentation that the orders data will assume 12 months unless otherwise stated
+
 def clean_orders_data_row_csv(file, length: int = 12) -> dict:
     # check length of list, check length of the length specified and validate the length and make sure it is long enough
     # to support the unit_cost, lead_time, asp, quantity_on_hand

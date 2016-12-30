@@ -63,5 +63,5 @@ class ChatBot:
 
 if __name__ == '__main__':
     dude = ChatBot()
-    print(dude.chat_machine("Which SKU has the highest reorder level?"))
+    print(dude.chat_machine("you are?"))
     #print(unpack_sentence("Which SKU has the smallest reorder level?"))

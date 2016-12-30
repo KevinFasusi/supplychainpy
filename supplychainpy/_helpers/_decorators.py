@@ -48,8 +48,8 @@ def log_this(level, name=None, message=None):
             start = time.perf_counter()
             result = func(*args, **kwargs)
             end = time.perf_counter()
-            log.log(level, 'Name of function called: {} Execution time for function: {} MESSAGE: {}'
-                    .format(func.__name__, end - start, log_msg))
+            log.log(level, 'FUNCTION: {} EXECUTION TIME: {} MESSAGE: {}'
+                    .format(logname, end - start, log_msg))
             return result
 
         return wrapper

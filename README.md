@@ -3,7 +3,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/KevinFasusi/supplychainpy/badge.svg?branch=master)](https://coveralls.io/github/KevinFasusi/supplychainpy?branch=master)
 [![PyPI version](https://badge.fury.io/py/supplychainpy.svg)](https://badge.fury.io/py/supplychainpy)
 [![Requirements Status](https://requires.io/github/KevinFasusi/supplychainpy/requirements.svg?branch=master)](https://requires.io/github/KevinFasusi/supplychainpy/requirements/?branch=master)
-![Supplychainpy logo](https://github.com/KevinFasusi/supplychainpy/blob/master/supplychainpy/reporting/static/PY_logo.jpg)
+![Supplychainpy logo](https://github.com/KevinFasusi/supplychainpy/blob/master/supplychainpy/reporting/static/images/PY_logo.jpg)
 
 # Supplychainpy
 

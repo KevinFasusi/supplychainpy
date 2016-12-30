@@ -32,7 +32,7 @@ import pandas as pd
 from pandas import DataFrame
 
 from supplychainpy._helpers import _data_cleansing
-from supplychainpy._helpers._decorators import keyword_sniffer
+from supplychainpy._helpers._decorators import keyword_sniffer, log_this
 from supplychainpy._helpers._enum_formats import FileFormats
 from supplychainpy._helpers._enum_formats import PeriodFormats
 from supplychainpy._helpers._data_cleansing import check_extension
@@ -51,6 +51,7 @@ UNKNOWN = 'UNKNOWN'
 
 
 @keyword_sniffer
+@log_this(logging.INFO, message='analysing data source.')
 def analyse(currency: str, z_value: Decimal = 1.28, reorder_cost: Decimal = 10, interval_length: int = 12,
             interval_type: str = 'month', **kwargs):
     """ Performs several types of common inventory analysis on the raw demand data. Including safety stock, reorder
@@ -191,7 +192,7 @@ def analyse(currency: str, z_value: Decimal = 1.28, reorder_cost: Decimal = 10, 
     except KeyError as e:
         print(e)
 
-
+@log_this(logging.INFO, message='Cleansing the data source.')
 def _clean_file(file_type: str, file_path: str, interval_length: int) -> dict:
     """ Cleans-up csv and txt files and validates the format.
 

@@ -407,7 +407,7 @@ class UncertainDemand:
         else:
             return 0
 
-    @log_this(logging.CRITICAL, message='Called to generate optimised SES forecast.')
+    @log_this(logging.INFO, message='Called to generate optimised SES forecast.')
     def _generate_optimised_ses_forecast(self):
         try:
             demand = (list(self.__orders.get("demand")))
@@ -421,7 +421,7 @@ class UncertainDemand:
         except TypeError as e:
             print('Exponential smoothing forecast (evolutionary model) failed. {}'.format(e))
 
-    @log_this(logging.CRITICAL, message='Called to generate optimised HTCES forecast.')
+    @log_this(logging.INFO, message='Called to generate optimised HTCES forecast.')
     def _generate_holts_es_forecast(self):
         demand = (list(self.__orders.get("demand")))
         orders = [int(i) for i in demand]

@@ -1,4 +1,3 @@
-import unittest
 from unittest import TestCase
 
 from supplychainpy.demand._evolutionary_algorithms import OptimiseSmoothingLevelGeneticAlgorithm

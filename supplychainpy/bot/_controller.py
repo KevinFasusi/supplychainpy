@@ -21,6 +21,7 @@
 # SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+import logging
 
 from sqlalchemy import MetaData
 from sqlalchemy import Table
@@ -28,8 +29,12 @@ from sqlalchemy import func
 from sqlalchemy import join
 from sqlalchemy import select
 from supplychainpy._helpers._db_connection import engine
+from supplychainpy._helpers._decorators import log_this
 
+log = logging.getLogger(__name__)
+log.addHandler(logging.NullHandler())
 
+@log_this(logging.INFO, message='Retrieving Master SKU list')
 def master_sku_list(uri: str) -> list:
     """ Connects to database to retrieve master sku list.
 
@@ -40,17 +45,24 @@ def master_sku_list(uri: str) -> list:
         list:   All unique SKU identification.
 
     """
+
     meta = MetaData()
     connection = engine(uri)
-    msk_table = Table('master_sku_list', meta, autoload=True, autoload_with=connection)
-    skus = select([msk_table.columns.id, msk_table.columns.sku_id])
-    rp = connection.execute(skus)
-    result = []
-    for i in rp:
-        result.append((i['id'], i['sku_id']))
-    rp.close()
 
-    return result
+    try:
+        log.log(logging.INFO,"Retrieving master sku list from database using uri connection string: \n {}.".format(uri))
+        msk_table = Table('master_sku_list', meta, autoload=True, autoload_with=connection)
+        skus = select([msk_table.columns.id, msk_table.columns.sku_id])
+        rp = connection.execute(skus)
+        result = []
+        for i in rp:
+            result.append((i['id'], i['sku_id']))
+        log.log(logging.INFO, "Retrieval SUCCESSFUL. Number of records retrieved: {} .".format(len(result)))
+    except OSError as e:
+        print("Master Sku List retrieval failed. {}".format(e))
+    else:
+        rp.close()
+        return result
 
 
 def excess_controller(uri: str, direction: str = None, sku_id: str = None) -> tuple:
@@ -67,32 +79,37 @@ def excess_controller(uri: str, direction: str = None, sku_id: str = None) -> tu
     """
     meta = MetaData()
     connection = engine(uri)
-    inventory_analysis = Table('inventory_analysis', meta, autoload=True, autoload_with=connection)
-    if direction == 'biggest':
-        skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.excess_cost,
-                       func.min(inventory_analysis.columns.excess_rank)])
+    try:
+
+        inventory_analysis = Table('inventory_analysis', meta, autoload=True, autoload_with=connection)
+        if direction == 'biggest':
+            skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.excess_cost,
+                           func.min(inventory_analysis.columns.excess_rank)])
+        else:
+            skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.excess_cost,
+                           func.max(inventory_analysis.columns.excess_rank)])
+
+        # for i in inventory_analysis.columns:
+        #    print(i)
+        rp = connection.execute(skus)
+        result = []
+        sku_id = ""
+        for i in rp:
+            sku_id = str(i['sku_id'])
+            result.append((i['sku_id'], i['excess_cost']))
+        rp.close()
+        # print(sku_id)
+        msk_table = Table('master_sku_list', meta, autoload=True, autoload_with=connection)
+        skus = select([msk_table.columns.id, msk_table.columns.sku_id]).where(msk_table.columns.id == sku_id)
+        rp = connection.execute(skus)
+
+        for i in rp:
+            result.append(i['sku_id'])
+    except OSError as e:
+        print("Retrieving {} excess failed. {}".format(direction, e))
     else:
-        skus = select([inventory_analysis.columns.sku_id, inventory_analysis.columns.excess_cost,
-                       func.max(inventory_analysis.columns.excess_rank)])
-
-    # for i in inventory_analysis.columns:
-    #    print(i)
-    rp = connection.execute(skus)
-    result = []
-    sku_id = ""
-    for i in rp:
-        sku_id = str(i['sku_id'])
-        result.append((i['sku_id'], i['excess_cost']))
-    rp.close()
-    # print(sku_id)
-    msk_table = Table('master_sku_list', meta, autoload=True, autoload_with=connection)
-    skus = select([msk_table.columns.id, msk_table.columns.sku_id]).where(msk_table.columns.id == sku_id)
-    rp = connection.execute(skus)
-    for i in rp:
-        result.append(i['sku_id'])
-    rp.close()
-
-    return tuple(result)
+        rp.close()
+        return tuple(result)
 
 
 def shortage_controller(uri: str, direction: str = None, sku_id: str = None) -> tuple:
