@@ -1,6 +1,11 @@
 import unittest
 from unittest import TestCase
+
+import logging
+
 from supplychainpy.production import create_install_base
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class TestCreateInstallBase(TestCase):

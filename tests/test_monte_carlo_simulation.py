@@ -2,6 +2,7 @@ import os
 from decimal import Decimal
 from unittest import TestCase
 
+import logging
 import numpy as np
 
 from supplychainpy import model_inventory
@@ -10,6 +11,8 @@ from supplychainpy.sample_data.config import ABS_FILE_PATH
 from supplychainpy.simulations import monte_carlo
 from supplychainpy import simulate
 from supplychainpy.simulations.simulation_frame_summary import MonteCarloFrameSummary
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class TestMonteCarlo(TestCase):

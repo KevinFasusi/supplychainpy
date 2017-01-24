@@ -24,8 +24,11 @@
 
 from copy import deepcopy
 
+import logging
 import numpy as np
 
+log = logging.getLogger(__name__)
+log.addHandler(logging.NullHandler())
 
 class _PairwiseComparison:
     __UNKNOWN = "unknown"
@@ -93,6 +96,7 @@ class _PairwiseComparison:
         Returns:
             np.array:           A matrix of scores indicating the relative importance of the criterion.
         """
+        log.log(logging.INFO, "mapping reciprocals to pairwise matrix")
         importance_score_matrix = np.array(importance_score)
         for index_one, score_one in enumerate(importance_score):
             for index_two, score_two in enumerate(importance_score):
@@ -243,7 +247,7 @@ class _PairwiseComparison:
             tuple:  Eigenvector.
 
         """
-
+        log.log(logging.INFO, "calculating eigenvector")
         sum_block = [sum(i) for i in squared_comparison_matrix]
         block_total = sum(sum_block)
         eigenvector = [i / block_total for i in sum_block]
@@ -271,6 +275,7 @@ class _PairwiseComparison:
             tuple: Eigenvector.
 
         """
+        log.log(logging.INFO, "Starting AHP")
         if self._criteria != self.__UNKNOWN and self._importance != self.__UNKNOWN:
             if isinstance(self._criteria, tuple):
                 comparison = self.pairwise_tp(score=self._importance)

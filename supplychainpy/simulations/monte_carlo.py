@@ -27,9 +27,9 @@ from decimal import ROUND_FLOOR
 from decimal import getcontext
 
 import numpy as np
+
 from supplychainpy._helpers._enum_formats import PeriodFormats
 from supplychainpy.simulations import simulation_window
-
 
 # assumptions: opening stock in first period is average stock adjusted to period used in monte carlo if different from
 # orders analysis. There are no deliveries in the first period (maybe add switch so there always is a delivery in first,

@@ -3,10 +3,14 @@ import re
 from unittest import TestCase
 from decimal import Decimal
 
+import logging
+
 from supplychainpy import simulate
 from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
 from supplychainpy.sample_data.config import ABS_FILE_PATH
+from supplychainpy.simulate import summarise_frame
 
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class TestSimulate(TestCase):
     """ Test for simulation logic"""
@@ -61,3 +65,11 @@ class TestSimulate(TestCase):
         for period in sim:
             if int(period[0].get("closing_stock")) == 0 and int(period[0].get("backlog")) > 0:
                 self.assertRegex(period[0].get("po_raised"), expected_regex=po_regex, msg='True')
+
+    def quick_test(self):
+        sim = simulate.run_monte_carlo(orders_analysis=self.__orders_analysis,
+                                       runs=1, period_length=12)
+        sim_window = simulate.summarize_window(simulation_frame=sim, period_length=12)
+
+        print(sim_window)
+        self.assertEqual(1,1)

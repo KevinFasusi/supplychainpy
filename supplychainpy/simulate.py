@@ -29,6 +29,7 @@ import pyximport
 
 pyximport.install()
 from supplychainpy.simulations.sim_summary import summarize_monte_carlo, frame
+from supplychainpy.simulations import monte_carlo_simulation
 
 
 # def run_monte_carlo_mt(file_path: str, z_value: Decimal, runs: int, reorder_cost: Decimal,
@@ -121,7 +122,7 @@ def run_monte_carlo(orders_analysis: list, runs: int, period_length: int = 12) -
     for k in range(0, runs):
         simulation = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis)
         random_demand = simulation.generate_normal_random_distribution(period_length=period_length)
-        for sim_window in simulation.build_window(random_normal_demand=random_demand, period_length=period_length):
+        for sim_window in monte_carlo_simulation.simulation_window(random_normal_demand=random_demand, period_length=period_length, analysed_orders=orders_analysis):
             sim_dict = {"index": "{}".format(sim_window.index), "period": "{}".format(sim_window.position),
                         "sku_id": sim_window.sku_id, "opening_stock": "{}".format(round(sim_window.opening_stock)),
                         "demand": "{}".format(round(sim_window.demand)),

@@ -7,13 +7,13 @@
 
         {% if (sku.excess_stock > sku.shortages) %}
         <p>
-        <h2> {{sku.sku.sku_id}}<img src="{{ url_for('static', filename='excess.png') }}"></h2></p>
+        <h2> {{sku.sku.sku_id}}<img src="{{ url_for('static', filename='images/excess.png') }}"></h2></p>
         {% elif (sku.excess_stock < sku.shortages) %}
         <p>
-        <h2> {{sku.sku.sku_id}}<img src="{{ url_for('static', filename='shortages.png') }}"></h2></p>
+        <h2> {{sku.sku.sku_id}}<img src="{{ url_for('static', filename='images/shortages.png') }}"></h2></p>
         {% else %}
         <p>
-        <h2> {{sku.sku.sku_id}}<img src="{{ url_for('static', filename='healthy.png') }}"></h2></p>
+        <h2> {{sku.sku.sku_id}}<img src="{{ url_for('static', filename='images/healthy.png') }}"></h2></p>
         {% endif %}
         {% endfor %}
     </div>
@@ -163,7 +163,7 @@
 
             </div>
             <div class=" col-xs-2">
-                <img id="oldchap" src="{{ url_for('static', filename='bot.png') }}">
+                <img id="oldchap" src="{{ url_for('static', filename='images/bot.png') }}">
             </div>
         </div>
         <div id="response-panel">

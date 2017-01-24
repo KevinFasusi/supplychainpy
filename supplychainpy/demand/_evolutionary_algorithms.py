@@ -106,7 +106,7 @@ class Population:
         self.individuals = individuals
         self.mutation_probability = mutation_probability
 
-    def reproduce(self, recombination_type: str = 'single_point') -> list:
+    def reproduce(self, recombination_type: str = 'single_point'):
         """ Coordinates the reproduction of two individuals, using one of three recombination methods 'single_point,
         two_point or uniform'.
 
@@ -117,16 +117,16 @@ class Population:
             (dict):     The result of recombination and mutation.
 
         """
-        log.debug('{} reproduction started'.format(recombination_type))
+        log.log(logging.INFO, '{} reproduction started'.format(recombination_type))
 
         if recombination_type == self._recombination_type[0]:
-            log.debug('started single point recombination')
+            log.log(logging.INFO,'started single point recombination')
             yield [i for i in self._single_point_crossover_recombination()][0]
         if recombination_type == self._recombination_type[1]:
-            log.debug('started two point recombination')
+            log.log(logging.INFO,'started two point recombination')
             yield [i for i in self._two_point_crossover_recombination()][0]
         if recombination_type == self._recombination_type[2]:
-            log.debug('started uniform recombination')
+            log.log(logging.INFO,'logging.INFO,started uniform recombination')
             yield [i for i in self._uniform_crossover_recombination()][0]
 
     def _single_point_crossover_recombination(self) -> object:
