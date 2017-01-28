@@ -24,13 +24,15 @@
 
 from multiprocessing.pool import ThreadPool
 from decimal import Decimal
+
+import multiprocessing
+
 from supplychainpy.simulations import monte_carlo
 import pyximport
 
 pyximport.install()
 from supplychainpy.simulations.sim_summary import summarize_monte_carlo, frame
 from supplychainpy.simulations import monte_carlo_simulation
-
 
 # def run_monte_carlo_mt(file_path: str, z_value: Decimal, runs: int, reorder_cost: Decimal,
 #                       file_type: str, period_length: int = 12) -> list:
@@ -52,6 +54,30 @@ from supplychainpy.simulations import monte_carlo_simulation
 #    return return_val
 
 
+
+def run_transactions(random_demand: list, period_length: int, orders_analysis: list) -> list:
+    transaction_report = []
+    for sim_window in monte_carlo_simulation.simulation_window(random_normal_demand=random_demand,
+                                                               period_length=period_length,
+                                                               analysed_orders=orders_analysis):
+        sim_dict = {"index": "{}".format(sim_window.index), "period": "{}".format(sim_window.position),
+                    "sku_id": sim_window.sku_id, "opening_stock": "{}".format(round(sim_window.opening_stock)),
+                    "demand": "{}".format(round(sim_window.demand)),
+                    "closing_stock": "{}".format(round(sim_window.closing_stock)),
+                    "delivery": "{}".format(round(sim_window.purchase_order_receipt_qty)),
+                    "backlog": "{:.0f}".format(sim_window.backlog),
+                    "po_raised": "{}".format(sim_window.po_number_raised),
+                    "po_received": "{}".format(sim_window.po_number_received),
+                    "po_quantity": "{:.0f}".format(int(sim_window.purchase_order_raised_qty)),
+                    "shortage_cost": "{:.0f}".format(Decimal(sim_window.shortage_cost)),
+                    "revenue": "{:.0f}".format(sim_window.revenue),
+                    "quantity_sold": "{:0.0f}".format(sim_window.sold),
+                    "shortage_units": "{:.0f}".format(sim_window.shortage_units),
+                    "previous_backlog": "{:.0f}".format(sim_window.previous_backlog)}
+        transaction_report.append([sim_dict])
+    return transaction_report
+
+pool = multiprocessing.Pool(4)
 def run_monte_carlo(orders_analysis: list, runs: int, period_length: int = 12) -> list:
     """Runs monte carlo simulation.
 
@@ -117,27 +143,14 @@ def run_monte_carlo(orders_analysis: list, runs: int, period_length: int = 12) -
 
     """
 
-    Transaction_report = []
+    transaction_report = []
     # add shortage cost,
     for k in range(0, runs):
+        #print('RUN: {}'.format(k))
         simulation = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis)
         random_demand = simulation.generate_normal_random_distribution(period_length=period_length)
-        for sim_window in monte_carlo_simulation.simulation_window(random_normal_demand=random_demand, period_length=period_length, analysed_orders=orders_analysis):
-            sim_dict = {"index": "{}".format(sim_window.index), "period": "{}".format(sim_window.position),
-                        "sku_id": sim_window.sku_id, "opening_stock": "{}".format(round(sim_window.opening_stock)),
-                        "demand": "{}".format(round(sim_window.demand)),
-                        "closing_stock": "{}".format(round(sim_window.closing_stock)),
-                        "delivery": "{}".format(round(sim_window.purchase_order_receipt_qty)),
-                        "backlog": "{:.0f}".format(sim_window.backlog),
-                        "po_raised": "{}".format(sim_window.po_number_raised),
-                        "po_received": "{}".format(sim_window.po_number_received),
-                        "po_quantity": "{:.0f}".format(int(sim_window.purchase_order_raised_qty)),
-                        "shortage_cost": "{:.0f}".format(Decimal(sim_window.shortage_cost)),
-                        "revenue": "{:.0f}".format(sim_window.revenue),
-                        "quantity_sold": "{:0.0f}".format(sim_window.sold),
-                        "shortage_units": "{:.0f}".format(sim_window.shortage_units)}
-            Transaction_report.append([sim_dict])
-    return Transaction_report
+        transaction_report.append(pool.apply(run_transactions, args=[random_demand, period_length, orders_analysis]))
+    return transaction_report[0]
 
 
 def summarize_window(simulation_frame: list, period_length: int = 12):
@@ -167,6 +180,7 @@ def summarize_window(simulation_frame: list, period_length: int = 12):
 
     summary = summarize_monte_carlo(simulation_frame, period_length)
 
+
     return summary
 
 
@@ -191,11 +205,11 @@ def summarise_frame(window_summary):
     frame_summary = frame(window_summary)
     return frame_summary
 
+
 # TODO-feature optimise based on minimising excess or minimising shortages or service level
 # TODO-optimisation move to cython or c++
 def optimise_service_level(frame_summary: list, orders_analysis: list, service_level: float, runs: int,
                            percentage_increase: float) -> list:
-
     """ Optimises the safety stock for declared service level.
 
     Identifies which skus under performed (experiencing a service level lower than expected) after simulating

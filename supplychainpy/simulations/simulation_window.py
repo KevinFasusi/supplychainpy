@@ -51,6 +51,15 @@ class MonteCarloWindow:
         self._po_number_received = ''
         self._revenue = 0.00
         self._sold = 0
+        self._previous_backlog = 0.0
+
+    @property
+    def previous_backlog(self):
+        return self._previous_backlog
+
+    @previous_backlog.setter
+    def previous_backlog(self, previous_backlog):
+        self._previous_backlog = previous_backlog
 
     @property
     def sold(self):

@@ -10,7 +10,7 @@ from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
 from supplychainpy.sample_data.config import ABS_FILE_PATH
 from supplychainpy.simulate import summarise_frame
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+#logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class TestSimulate(TestCase):
     """ Test for simulation logic"""
@@ -23,6 +23,7 @@ class TestSimulate(TestCase):
                                                                  reorder_cost=Decimal(5000),
                                                                  file_type="csv",
                                                                  length=12)
+        self.sim = simulate.run_monte_carlo(orders_analysis=self.__orders_analysis, runs=1, period_length=12)
 
     # if backlog is zero then shortage cost is zero as well
     def test_shortage_cost_zero(self):
@@ -30,7 +31,7 @@ class TestSimulate(TestCase):
         """ Ensures that there is 0 shortage cost when a backlog has not been recorded."""
 
         sim = simulate.run_monte_carlo(orders_analysis=self.__orders_analysis,
-                                       runs=1, period_length=12)
+                                       runs=10, period_length=12)
         for period in sim:
            # print(period)
             if int(period[0].get("backlog")) == 0:
@@ -66,9 +67,29 @@ class TestSimulate(TestCase):
             if int(period[0].get("closing_stock")) == 0 and int(period[0].get("backlog")) > 0:
                 self.assertRegex(period[0].get("po_raised"), expected_regex=po_regex, msg='True')
 
+
+    def test_avg_orders(self):
+        for period in self.sim:
+            print(period)
+
+        #sim_window = simulate.summarize_window(simulation_frame=self.sim, period_length=12)
+        #print(sim_window)
+
+
+    def test_backlog(self):
+        for period in self.sim:
+            if int(period[0].get("backlog")) < 0 and int(period[0].get("closing_stock")) == 0:
+                backlog =(int(period[0].get("opening_stock")) + int(period[0].get("delivery"))) - int(period[0].get("demand"))
+                self.assertAlmostEqual(int(period[0].get("backlog")),backlog,delta=1)
+
+    def test_opening_stock(self):
+        pass
+
+
     def quick_test(self):
         sim = simulate.run_monte_carlo(orders_analysis=self.__orders_analysis,
-                                       runs=1, period_length=12)
+                                       runs=1000, period_length=12)
+
         sim_window = simulate.summarize_window(simulation_frame=sim, period_length=12)
 
         print(sim_window)

@@ -1,4 +1,8 @@
+import logging
 from supplychainpy.simulations.simulation_window import MonteCarloWindow
+
+log = logging.getLogger(__name__)
+log.addHandler(logging.NullHandler())
 
 cdef revenue(double unit_cost, double units_sold):
     return unit_cost * units_sold
@@ -43,6 +47,12 @@ cdef po_qty(double eoq, double reorder_level, double backlog, double closing_sto
     else:
         return 0
 
+cdef opening_stock(double reorder_level, double safety_stock, int position, double previous_closing_stock):
+    if position == 1:
+        stock = reorder_level #calculated ltd until put into analyse orders
+    else:
+        stock = previous_closing_stock
+    return stock
 
 cdef units_sold(double backlog, double opening_stock, double delivery, double demand):
 
@@ -59,12 +69,17 @@ cdef units_sold(double backlog, double opening_stock, double delivery, double de
 
     return units_sold
 
+cdef previous_backlog(double backlog, double closing_stock, double previous_backlog):
+        if closing_stock == 0.00:
+            previous_backlog += backlog
+            return previous_backlog
+        else:
+            return 0
 
 def simulation_window(list random_normal_demand, int period_length, list analysed_orders,
                      double holding_cost_percentage = 0.48,
                      double shortage_cost_percentage = 0.3):
 
-    cdef double previous_backlog = 0.0
 
     for sku in analysed_orders:
         if period_length != len(random_normal_demand[0][sku.sku_id]):
@@ -87,41 +102,37 @@ def simulation_window(list random_normal_demand, int period_length, list analyse
         order_receipt_index = {}
         final_stock = 0
         sim_window_collection = {}
-        previous_backlog = 0.0
         order_receipt_index = {}
 
         # create the sim_window for each sku, suing the random normal demand generated
         for i in range(0, period_length):
 
             po_qty_raised = 0
-            print('Current purchase order quantity {}'.format(po_qty_raised))
+            log.log(logging.INFO,'Current purchase order quantity {}'.format(po_qty_raised))
 
             # instantiate sim_window
             sim_window = MonteCarloWindow()
 
             # add sku_id
             sim_window.sku_id = sku.sku_id
-            print('Current SKU: {}'.format(sim_window.sku_id))
+            log.log(logging.INFO,'Current SKU: {}'.format(sim_window.sku_id))
             # add closing stock
             previous_closing_stock = final_stock
 
             # mark sim_window.position or period in analysis
             sim_window.position = period
 
-            print('Current window position {}'.format(sim_window.position))
+            log.log(logging.INFO,('Current window position {}'.format(sim_window.position)))
 
             # add average orders to opening_stock if first period else add closing stock
-            if sim_window.position == 1:
-                sim_window.opening_stock = (sku.reorder_level - sku.safety_stock) + sku.safety_stock #calculated ltd until put into analyse orders
-            else:
-                sim_window.opening_stock = previous_closing_stock
+            sim_window.opening_stock = opening_stock(sku.reorder_level, sku.safety_stock, sim_window.position,previous_closing_stock ) #calculated ltd until put into analyse orders
 
             # add random demand
             demand = random_normal_demand[0][sku.sku_id][i][0]
             sim_window.demand = demand
-            print('Current window demand {}'.format(sim_window.demand))
+            log.log(logging.INFO,('Current window demand {}'.format(sim_window.demand)))
 
-            #
+
             if sim_window.position in order_receipt_index.keys():
                 sim_window.purchase_order_receipt_qty = order_receipt_index[sim_window.position]
                 sim_window.po_number_received = 'PO {:.0f}{}'.format(sim_window.position, sim_window.index)
@@ -134,7 +145,8 @@ def simulation_window(list random_normal_demand, int period_length, list analyse
 
             sim_window.backlog = backlog(opening_stock=sim_window.opening_stock,
                                          deliveries=sim_window.purchase_order_receipt_qty,
-                                         demand=demand) + previous_backlog
+                                         demand=demand) + sim_window.previous_backlog
+
             sim_window.closing_stock = closing_stock(opening_stock=sim_window.opening_stock,
                                                      orders=demand,
                                                      deliveries=sim_window.purchase_order_receipt_qty,
@@ -146,7 +158,7 @@ def simulation_window(list random_normal_demand, int period_length, list analyse
                                                   orders=demand,
                                                   deliveries=sim_window.purchase_order_receipt_qty)
 
-            sim_window.shortage_cost = shortage_cost(closing_stock=(sim_window.backlog - previous_backlog),
+            sim_window.shortage_cost = shortage_cost(closing_stock=(sim_window.backlog - sim_window.previous_backlog),
                                                      unit_cost=sku.unit_cost, shortage_cost_percentage=shortage_cost_percentage)
 
             sim_window.po_raised_flag = raise_po(reorder_level=sku.reorder_level, closing_stock=sim_window.closing_stock)
@@ -172,10 +184,7 @@ def simulation_window(list random_normal_demand, int period_length, list analyse
 
             final_stock = sim_window.closing_stock
 
-            if int(sim_window.closing_stock) == 0.00:
-                previous_backlog += sim_window.backlog
-            else:
-                previous_backlog = 0
+            sim_window.previous_backlog =  previous_backlog(sim_window.backlog,sim_window.closing_stock, sim_window.previous_backlog)
 
             sold = units_sold(sim_window.backlog, sim_window.opening_stock,
                                           sim_window.purchase_order_receipt_qty, sim_window.demand)
