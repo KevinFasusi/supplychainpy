@@ -89,7 +89,6 @@ def summarize_monte_carlo(list simulation_frame, int period_length):
 
 
     n = len(simulation_frame)
-    print(n)
     i = 1
 
     for x in range(i, n ):

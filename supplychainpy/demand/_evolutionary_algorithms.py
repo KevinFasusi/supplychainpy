@@ -21,11 +21,12 @@
 # SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
+from multiprocessing.pool import Pool
 from random import uniform
 import logging
 # logging.basicConfig(filename='suchpy_log.txt', level=logging.DEBUG,
 #  format='%(asctime)s - %(levelname)s - %(message)s')
+import multiprocessing
 
 from supplychainpy.demand._forecast_demand import Forecast
 from supplychainpy.demand.regression import LinearRegression
@@ -120,13 +121,13 @@ class Population:
         log.log(logging.INFO, '{} reproduction started'.format(recombination_type))
 
         if recombination_type == self._recombination_type[0]:
-            log.log(logging.INFO,'started single point recombination')
+            log.log(logging.INFO, 'started single point recombination')
             yield [i for i in self._single_point_crossover_recombination()][0]
         if recombination_type == self._recombination_type[1]:
-            log.log(logging.INFO,'started two point recombination')
+            log.log(logging.INFO, 'started two point recombination')
             yield [i for i in self._two_point_crossover_recombination()][0]
         if recombination_type == self._recombination_type[2]:
-            log.log(logging.INFO,'logging.INFO,started uniform recombination')
+            log.log(logging.INFO, 'logging.INFO,started uniform recombination')
             yield [i for i in self._uniform_crossover_recombination()][0]
 
     def _single_point_crossover_recombination(self) -> object:
@@ -183,10 +184,10 @@ class Population:
 
                         if genome_count == 24:
                             genome_count = 0
-                            #if new_individual != new_individual_two:
-                               # log.debug('single point crossover was successful')
-                           # else:
-                               # log.debug('single point crossover resulted in clone of parent')
+                            # if new_individual != new_individual_two:
+                            # log.debug('single point crossover was successful')
+                            # else:
+                            # log.debug('single point crossover resulted in clone of parent')
                             yield (new_individual)
                             yield (new_individual_two)
 
@@ -247,10 +248,10 @@ class Population:
 
                         if genome_count == 24:
                             genome_count = 0
-                            #if new_individual != new_individual_two:
-                               # log.debug('single point crossover was successful')
-                            #else:
-                                #log.debug('single point crossover resulted in clone of parent')
+                            # if new_individual != new_individual_two:
+                            # log.debug('single point crossover was successful')
+                            # else:
+                            # log.debug('single point crossover resulted in clone of parent')
                             yield (new_individual)
                             yield (new_individual_two)
 
@@ -347,8 +348,6 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
             log.debug('Population with genome {}'.format(populations_genome))
             populations_traits = [i for i in self.express_smoothing_level_genome(individuals_genome=populations_genome,
                                                                                  standard_error=self.__standard_error)]
-
-
 
             fit_population = [i for i in
                               self._population_fitness(population=populations_traits, individual_type=individual_type)]
@@ -458,6 +457,21 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
 
                 yield individuals_genome
 
+    @staticmethod
+    def htce_para(forecast, alpha, gamma, intercept, slope):
+        return [i for i in forecast.holts_trend_corrected_exponential_smoothing(alpha=alpha, gamma=gamma,
+                                                                                intercept=intercept,
+                                                                                slope=slope)]
+
+
+    def sum_squared_error_para(self, forecast, holts_trend_corrected_smoothing, alpha, gamma, smoothing_level):
+        appraised_individual = {}
+        sum_squared_error = forecast.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,
+                                                            alpha=alpha, gamma=gamma)
+        standard_error = forecast.standard_error(sum_squared_error, len(self.__orders), smoothing_level)
+        appraised_individual.update({smoothing_level: standard_error})
+        return appraised_individual
+
     def _run_holts_trend_corrected_exponential_smoothing(self, individual: tuple):
         f = Forecast(self.__orders, self.__average_order)
         holts_trend_corrected_smoothing = []
@@ -566,8 +580,6 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
 
         optimal_ses_forecast = [i for i in forecast_demand.simple_exponential_smoothing(optimal_alpha[1])]
 
-
-
         ape = LinearRegression(optimal_ses_forecast)
         mape = forecast_demand.mean_aboslute_percentage_error_opt(optimal_ses_forecast)
         stats = ape.least_squared_error()
@@ -579,4 +591,5 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
         log.log(logging.INFO,
                 "An OPTIMISED simple exponential smoothing forecast has been completed")
         return {'forecast_breakdown': optimal_ses_forecast, 'mape': mape, 'statistics': stats,
-                'forecast': simple_forecast, 'optimal_alpha': optimal_alpha[1], 'standard_error': standard_error, 'regression': [i for i in regression.get('regression')]}
+                'forecast': simple_forecast, 'optimal_alpha': optimal_alpha[1], 'standard_error': standard_error,
+                'regression': [i for i in regression.get('regression')]}
