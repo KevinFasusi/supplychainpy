@@ -51,6 +51,6 @@ class TestBot(TestCase):
         self.assertIn('SKU KR202-223', *self.__dude.chat_machine("what is the biggest excess?")[0])
         self.assertIn('SKU KR202-235', *self.__dude.chat_machine("what is the biggest revenue?")[0])
         self.assertIn('SKU KR202-212', *self.__dude.chat_machine("what is the smallest revenue?")[0])
-        self.assertIn('SKU KR202-247', *self.__dude.chat_machine("what is the smallest excess?")[0])
+        self.assertIn('SKU KR202-245', *self.__dude.chat_machine("what is the smallest excess?")[0])
         self.assertIn('SKU KR202-213', *self.__dude.chat_machine("Which SKU has the smallest average order?")[0])
         self.assertIn('SKU KR202-241', *self.__dude.chat_machine("Which SKU has the greatest safety stock?")[0])
