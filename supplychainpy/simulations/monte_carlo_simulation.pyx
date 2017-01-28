@@ -108,21 +108,21 @@ def simulation_window(list random_normal_demand, int period_length, list analyse
         for i in range(0, period_length):
 
             po_qty_raised = 0
-            log.log(logging.INFO,'Current purchase order quantity {}'.format(po_qty_raised))
+            #log.log(logging.INFO,'Current purchase order quantity {}'.format(po_qty_raised))
 
             # instantiate sim_window
             sim_window = MonteCarloWindow()
 
             # add sku_id
             sim_window.sku_id = sku.sku_id
-            log.log(logging.INFO,'Current SKU: {}'.format(sim_window.sku_id))
+            #log.log(logging.INFO,'Current SKU: {}'.format(sim_window.sku_id))
             # add closing stock
             previous_closing_stock = final_stock
 
             # mark sim_window.position or period in analysis
             sim_window.position = period
 
-            log.log(logging.INFO,('Current window position {}'.format(sim_window.position)))
+            #log.log(logging.INFO,('Current window position {}'.format(sim_window.position)))
 
             # add average orders to opening_stock if first period else add closing stock
             sim_window.opening_stock = opening_stock(sku.reorder_level, sku.safety_stock, sim_window.position,previous_closing_stock ) #calculated ltd until put into analyse orders
@@ -130,7 +130,7 @@ def simulation_window(list random_normal_demand, int period_length, list analyse
             # add random demand
             demand = random_normal_demand[0][sku.sku_id][i][0]
             sim_window.demand = demand
-            log.log(logging.INFO,('Current window demand {}'.format(sim_window.demand)))
+            #log.log(logging.INFO,('Current window demand {}'.format(sim_window.demand)))
 
 
             if sim_window.position in order_receipt_index.keys():
