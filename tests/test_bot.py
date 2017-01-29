@@ -21,25 +21,25 @@ class TestBot(TestCase):
         self.__dude = ChatBot()
         self.__SALUTATION_RESPONSES = ["hi", "hello", "how's tricks?"]
         app = Flask(__name__, instance_relative_config=True)
-        #PWD = os.path.abspath(os.curdir)
-        #i_c = IntegrationConfig
-        #i_c.SQLALCHEMY_DATABASE_URI = 'sqlite:///{}/reporting.db'.format(PWD)
-        #app.config.from_object(i_c)
+        PWD = os.path.abspath(os.curdir)
+        i_c = IntegrationConfig
+        i_c.SQLALCHEMY_DATABASE_URI = 'sqlite:///{}/reporting.db'.format(PWD)
+        app.config.from_object(i_c)
 
-        #app.config['DATABASE'] = PWD
-        #app.config['TESTING'] = True
-        #self.app = app.test_client()
+        app.config['DATABASE'] = PWD
+        app.config['TESTING'] = True
+        self.app = app.test_client()
 
-        #app_settings = {
-        #    'file': ABS_FILE_PATH['COMPLETE_CSV_SM'],
-        #    'currency': 'USD',
-        #    'database_path': PWD,
-        #}
-        #serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
-        #with app.app_context():
-        #    db.init_app(app)
-        #    db.create_all()
-        #    load_db(file=ABS_FILE_PATH['COMPLETE_CSV_SM'], location=PWD)
+        app_settings = {
+            'file': ABS_FILE_PATH['COMPLETE_CSV_SM'],
+            'currency': 'USD',
+            'database_path': PWD,
+        }
+        serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
+        with app.app_context():
+            db.init_app(app)
+            db.create_all()
+            load_db(file=ABS_FILE_PATH['COMPLETE_CSV_SM'], location=PWD)
 
     def test_chatbot(self):
         greeting1 = self.__dude.chat_machine("hello")[0]
