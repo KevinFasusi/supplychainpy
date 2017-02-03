@@ -11,7 +11,7 @@ from supplychainpy.bi._recommendation_state_machine import SkuMachine
 from supplychainpy.bi._recommendations import SKUStates
 from supplychainpy.sample_data.config import ABS_FILE_PATH
 
-logging.basicConfig(level=logging.CRITICAL, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class TestRecommendations(TestCase):
