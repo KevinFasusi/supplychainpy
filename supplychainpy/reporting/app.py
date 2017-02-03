@@ -9,6 +9,7 @@ from supplychainpy.reporting.blueprints.dashboard.views import dashboard_bluepri
 from supplychainpy.reporting.blueprints.bot.views import bot_blueprint
 from supplychainpy.reporting.blueprints.rawdata.views import rawdata_blueprint
 from supplychainpy.reporting.blueprints.recommendations.views import recommendations_blueprint
+from supplychainpy.reporting.blueprints.simulation.views import simulation_blueprint
 
 from supplychainpy.reporting.config.settings import ProdConfig
 from supplychainpy.reporting.extensions import debug_toolbar, db
@@ -33,6 +34,7 @@ def create_app(settings_override=None):
     app.register_blueprint(rawdata_blueprint)
     app.register_blueprint(recommendations_blueprint)
     app.register_blueprint(contact_blueprint)
+    app.register_blueprint(simulation_blueprint)
 
     extensions(app)
 

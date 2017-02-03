@@ -13,7 +13,7 @@ from supplychainpy.reporting.config.settings import ProdConfig, DevConfig, Integ
 from supplychainpy.reporting.extensions import db
 from supplychainpy.sample_data.config import ABS_FILE_PATH
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.CRITICAL, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class TestBot(TestCase):

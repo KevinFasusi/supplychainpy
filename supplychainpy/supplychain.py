@@ -31,7 +31,7 @@ import sys
 from supplychainpy._csv_management._csv_manager import _Orchestrate
 from supplychainpy._csv_management._model._db_setup import create_management_db
 from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_APPLICATION_CONFIG
-from supplychainpy._helpers._pickle_config import serialise_config
+from supplychainpy._helpers._pickle_config import serialise_config, deserialise_config
 from supplychainpy.launch_reports import launch_load_report, launch_report_server
 from supplychainpy.launch_reports import launch_report
 from supplychainpy.launch_reports import load_db
@@ -95,11 +95,11 @@ def main():
         else:
             currency = 'USD'
 
-        app_settings = {
-            'database_path': args.location,
-            'file': args.filenames,
-            'currency': currency
-        }
+        app_settings = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
+        app_settings['database_path'] = args.location
+        app_settings['file'] = args.filenames
+        app_settings['currency']= currency #only add new currency here if the currency has not already been set
+
         serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
         #d = _Orchestrate()
         #d.copy_file()
@@ -110,13 +110,10 @@ def main():
 
     elif args.launch and args.location is not None and args.host:
         print(3)
+        app_settings = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
 
-        app_settings = {
-            'database_path': args.location,
-            'host': args.host,
-            'currency': args.currency,
-            'port': args.port
-        }
+        app_settings['database_path'] = args.location
+        app_settings['port'] = args.port
 
         serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
 

@@ -21,32 +21,37 @@
 # SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+from _decimal import Decimal
 
-import os
+import flask
+from flask import Blueprint, render_template
 
-from supplychainpy._helpers._pickle_config import deserialise_config, serialise_config
+from supplychainpy import simulate
+from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_APPLICATION_CONFIG
+from supplychainpy._helpers._enum_formats import FileFormats
+from supplychainpy._helpers._pickle_config import deserialise_config
+from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
 
-APP_DIR = os.path.dirname(__file__, )
-REL_PATH_GENETIC_ALGORITHM = '../sample_data/population_genome.txt'
-REL_PATH_DASH = 'dash.pickle'
-REL_PATH_ARCHIVE = '../../_archive/'
-REL_PATH_CSV_MANAGEMENT_CONFIG = '../_pickled/csv_management_config.pickle'
-REL_PATH_APPLICATION_CONFIG = '../_pickled/application_config.pickle'
+simulation_blueprint = Blueprint('simulation', __name__, template_folder='templates')
 
+@simulation_blueprint.route('/simulation', methods=['GET','PUT'])
+@simulation_blueprint.route('/simulation/<int:runs>', methods=['GET','PUT'])
+def simulation(runs:int=None):
+    database_path = ''
+    file_name = ''
+    sim=''
+    sim_summary =''
+    if runs is not None:
+        config = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
+        database_path = config['database_path']
+        file_name = config['file']
+        file_path = database_path.replace(' ','') + (file_name.replace(' ',''))
+        analysed_orders = analyse_orders_abcxyz_from_file(file_path=str(file_path), z_value=Decimal(1.28), reorder_cost=Decimal(5000), file_type=FileFormats.csv.name, length=12, currency='USD')
+        sim = simulate.run_monte_carlo(orders_analysis=analysed_orders, runs=1, period_length=12)
+        sim_summary = simulate.summarize_window(simulation_frame=sim, period_length=12)
 
-ABS_FILE_PATH_DASH = os.path.abspath(os.path.join(APP_DIR, '../_pickled/', REL_PATH_DASH))
-ABS_FILE_PATH_APPLICATION_CONFIG = os.path.abspath(os.path.join(APP_DIR, '../_pickled/', REL_PATH_APPLICATION_CONFIG))
-ABS_FILE_PATH_CSV_MANAGEMENT_CONFIG = os.path.abspath(os.path.join(APP_DIR, REL_PATH_CSV_MANAGEMENT_CONFIG))
-ABS_FILE_PATH_ARCHIVE = os.path.abspath(os.path.join(APP_DIR, REL_PATH_ARCHIVE))
-ABS_FILE_GENETIC_ALGORITHM = os.path.abspath(os.path.join(APP_DIR, REL_PATH_ARCHIVE))
-
-def main():
-    pass
-    #config = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
-    #config['file']= 'data4.csv'
-    #serialise_config(config, ABS_FILE_PATH_APPLICATION_CONFIG)
-    #print(deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG))
+    return flask.render_template('simulation/simulation.html', db= database_path, file_name=file_name, sim=sim_summary)
 
 
 if __name__ == '__main__':
-    main()
+    simulation()

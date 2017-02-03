@@ -192,10 +192,11 @@ def check_extension(file_path, file_type: str) -> bool:
         elif file_path.endswith(".csv") and file_type.lower() == "csv":
             flag = True
         else:
+            print(file_path, file_type)
             flag = False
         return flag
-    except AttributeError as e:
-        print(e)
+    except OSError as e:
+        print(file_path, file_type ,e)
 
 
 # refocator length to column count
