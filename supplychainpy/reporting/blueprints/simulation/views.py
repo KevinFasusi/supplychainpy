@@ -47,7 +47,7 @@ def simulation(runs:int=None):
         file_name = config['file']
         file_path = database_path.replace(' ','') + (file_name.replace(' ',''))
         analysed_orders = analyse_orders_abcxyz_from_file(file_path=str(file_path), z_value=Decimal(1.28), reorder_cost=Decimal(5000), file_type=FileFormats.csv.name, length=12, currency='USD')
-        sim = simulate.run_monte_carlo(orders_analysis=analysed_orders, runs=1, period_length=12)
+        sim = simulate.run_monte_carlo(orders_analysis=analysed_orders, runs=runs, period_length=12)
         sim_summary = simulate.summarize_window(simulation_frame=sim, period_length=12)
 
     return flask.render_template('simulation/simulation.html', db= database_path, file_name=file_name, sim=sim_summary)

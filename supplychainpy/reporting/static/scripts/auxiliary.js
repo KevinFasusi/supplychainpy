@@ -18,6 +18,10 @@ $(function () {
         search_recommendations();
     });
 
+    $('#simulate-btn').click(function () {
+        run_simulation();
+    });
+
     $('#clear-btn').click(function () {
         show_recommendations();
     });
@@ -474,6 +478,11 @@ function show_recommendations() {
     $('#search-input').val('');
     $("#profile-rec").show(500, "linear");
     $("#sku-rec > div").show().slideDown(600);
+}
+
+function run_simulation() {
+       var runs =  $('#runs-input').val();
+       window.location = 'http://127.0.0.1:' + location.port + '/simulation/' + runs;
 }
 
 

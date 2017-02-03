@@ -28,6 +28,10 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
         search_recommendations();
     });
 
+    (0, _jquery2.default)('#simulate-btn').click(function () {
+        run_simulation();
+    });
+
     (0, _jquery2.default)('#clear-btn').click(function () {
         show_recommendations();
     });
@@ -437,6 +441,11 @@ function show_recommendations() {
     (0, _jquery2.default)('#search-input').val('');
     (0, _jquery2.default)("#profile-rec").show(500, "linear");
     (0, _jquery2.default)("#sku-rec > div").show().slideDown(600);
+}
+
+function run_simulation() {
+    var runs = (0, _jquery2.default)('#runs-input').val();
+    window.location = 'http://127.0.0.1:' + location.port + '/simulation/' + runs;
 }
 
 function chat_to_bot() {

@@ -11,7 +11,10 @@
                     <label id="runs-label" for="runs-input">Runs:</label>
                     <input class="form-control input-lg" id="runs-input" type="text">
                 </div>
-                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    <button id="simulate-btn" class=" btn btn-sm btn-primary"
+                            aria-pressed="false">Run Simulation
+                    </button></div>
                 <div class="col-md-3"></div>
                 <div class="col-md-3"></div>
             </div>
@@ -21,35 +24,21 @@
 
     <div class=" row">
         <div id="sim" class=" col-lg-11">
-            <table id="simulation-table" class=" ia table-responsive table ">
-                <thead>
-                <tr id='first'>
-                    <th>SKU</th>
-                    <th>Max qty sold</th>
-                    <th>std opening stock</th>
-                    <th>avg closing stock</th>
-                    <th>STD. Backlog</th>
-                    <th>Percentage Stock Out</th>
-                    <th>Min Closing Stock</th>
-                    <th>Avg. Opening Stock</th>
-                </tr>
-                </thead>
-                {% for item in sim %}
-                <tbody>
-                <tr>
-                    <td><a href="sku_detail/{{item.sku_id}}"> {{item.sku_id}}</a></td>
-                    <td>{{item.maximum_quantity_sold}}</td>
-                    <td>{{item.standard_deviation_opening_stock}}</td>
-                    <td>{{item.average_closing_stock}}</td>
-                    <td>{{item.standard_deviation_backlog}}</td>
-                    <td>{{item.stockout_percentage}}</td>
-                    <td>{{item.minimum_closing_stock}}</td>
-                    <td>{{item.average_opening_stock}}</td>
-                </tr>
-                {% endfor %}
-                </tbody>
+            {% for item in sim %}
+            <div class="row">
+                <div id="{{item.sku_id}}" class="recommendation-panel rec-panel">
+                    {{item.sku_id}}
+                    {{item.maximum_quantity_sold}}
+                    {{item.standard_deviation_opening_stock}}
+                    {{item.average_closing_stock}}
+                    {{item.standard_deviation_backlog}}
+                    {{item.stockout_percentage}}
+                    {{item.minimum_closing_stock}}
+                    {{item.average_opening_stock}}
 
-            </table>
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
 </div>
