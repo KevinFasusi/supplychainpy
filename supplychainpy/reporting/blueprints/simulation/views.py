@@ -50,7 +50,7 @@ def simulation(runs:int=None):
         sim = simulate.run_monte_carlo(orders_analysis=analysed_orders, runs=runs, period_length=12)
         sim_summary = simulate.summarize_window(simulation_frame=sim, period_length=12)
 
-    return flask.render_template('simulation/simulation.html', db= database_path, file_name=file_name, sim=sim_summary)
+    return flask.render_template('simulation/simulation.html', db= database_path, file_name=file_name, sim=sim_summary, runs=sim)
 
 
 if __name__ == '__main__':

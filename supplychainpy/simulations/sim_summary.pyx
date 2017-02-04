@@ -90,76 +90,76 @@ def summarize_monte_carlo(list simulation_frame, int period_length):
 
     n = len(simulation_frame)
     i = 1
+    for s in simulation_frame:
+        for x in range(i, n ):
+            for f in s:
+                if int(f[0]['index']) == x:
+                    closing_stock.append( int(f[0]['closing_stock']))
+                    shortage_units.append(float(f[0]['shortage_units']))
+                    quantity_sold.append(int(f[0]['quantity_sold']))
+                    opening_stock.append(int(f[0]['opening_stock']))
+                    backlog.append(int(f[0]['backlog']))
 
-    for x in range(i, n ):
-        for f in simulation_frame:
-            if int(f[0]['index']) == x:
-                closing_stock.append( int(f[0]['closing_stock']))
-                shortage_units.append(float(f[0]['shortage_units']))
-                quantity_sold.append(int(f[0]['quantity_sold']))
-                opening_stock.append(int(f[0]['opening_stock']))
-                backlog.append(int(f[0]['backlog']))
+                if len(closing_stock) == period_length and len(shortage_units) == period_length:
+                    cls = closing_stockout_percentage(closing_stock, period_length)
+                    avg_ops = average_items(opening_stock, period_length)
+                    min_ops = min(opening_stock)
+                    max_ops = max(opening_stock)
+                    std_ops = optimum_std(avg_ops, opening_stock)
+                    avg_backlog = average_items(backlog, period_length)
+                    min_backlog = min(backlog)
+                    max_backlog = max(backlog)
+                    std_backlog = optimum_std(avg_backlog, backlog)
+                    avg_cls = average_items(closing_stock, period_length)
+                    min_cls = min(closing_stock)
+                    max_cls = max(closing_stock)
+                    std_cls = optimum_std(avg_cls, closing_stock)
+                    shc = sum(shortage_units)
+                    min_shc = min(shortage_units)
+                    max_shc = max(shortage_units)
+                    avg_shc = average_items(shortage_units, period_length)
+                    std_shc = optimum_std(avg_shc, shortage_units)
+                    total_quantity_sold = sum(quantity_sold)
+                    avg_qty_sold = average_items(quantity_sold, period_length)
+                    min_quantity_sold = min(quantity_sold)
+                    max_quantity_sold = max(quantity_sold)
+                    std_quantity_sold = optimum_std(avg_qty_sold, quantity_sold)
 
-            if len(closing_stock) == period_length and len(shortage_units) == period_length:
-                cls = closing_stockout_percentage(closing_stock, period_length)
-                avg_ops = average_items(opening_stock, period_length)
-                min_ops = min(opening_stock)
-                max_ops = max(opening_stock)
-                std_ops = optimum_std(avg_ops, opening_stock)
-                avg_backlog = average_items(backlog, period_length)
-                min_backlog = min(backlog)
-                max_backlog = max(backlog)
-                std_backlog = optimum_std(avg_backlog, backlog)
-                avg_cls = average_items(closing_stock, period_length)
-                min_cls = min(closing_stock)
-                max_cls = max(closing_stock)
-                std_cls = optimum_std(avg_cls, closing_stock)
-                shc = sum(shortage_units)
-                min_shc = min(shortage_units)
-                max_shc = max(shortage_units)
-                avg_shc = average_items(shortage_units, period_length)
-                std_shc = optimum_std(avg_shc, shortage_units)
-                total_quantity_sold = sum(quantity_sold)
-                avg_qty_sold = average_items(quantity_sold, period_length)
-                min_quantity_sold = min(quantity_sold)
-                max_quantity_sold = max(quantity_sold)
-                std_quantity_sold = optimum_std(avg_qty_sold, quantity_sold)
+                    summary.append({'sku_id': f[0]['sku_id'],
+                                    'standard_deviation_opening_stock': std_ops['standard_deviation'],
+                                    'variance_opening_stock': std_ops['variance'],
+                                    'stockout_percentage': cls,
+                                    'average_closing_stock': avg_cls,
+                                    'minimum_closing_stock': min_cls,
+                                    'maximum_closing_stock': max_cls ,
+                                    'standard_deviation_closing_stock': std_cls['standard_deviation'],
+                                    'variance_closing_stock': std_cls['variance'],
+                                    'total_shortage_units': shc,
+                                    'standard_deviation_shortage_cost': std_shc['standard_deviation'],
+                                    'variance_shortage_units': std_shc['variance'],
+                                    'standard_deviation_revenue': std_quantity_sold['standard_deviation'],
+                                    'variance_quantity_sold': std_quantity_sold['variance'],
+                                    'minimum_shortage_units':min_shc,
+                                    'maximum_shortage_units': max_shc,
+                                    'average_opening_stock': avg_ops,
+                                    'minimum_opening_stock': min_ops,
+                                    'maximum_opening_stock': max_ops,
+                                    'average_quantity_sold': avg_qty_sold,
+                                    'minimum_quantity_sold': min_quantity_sold,
+                                    'maximum_quantity_sold': max_quantity_sold,
+                                    'average_backlog': avg_backlog,
+                                    'minimum_backlog': min_backlog,
+                                    'maximum_backlog': max_backlog,
+                                    'standard_deviation_backlog': std_backlog['standard_deviation'],
+                                    'variance_backlog': std_backlog['variance'],
+                                    'index': f[0]['index']}
+                                   )
 
-                summary.append({'sku_id': f[0]['sku_id'],
-                                'standard_deviation_opening_stock': std_ops['standard_deviation'],
-                                'variance_opening_stock': std_ops['variance'],
-                                'stockout_percentage': cls,
-                                'average_closing_stock': avg_cls,
-                                'minimum_closing_stock': min_cls,
-                                'maximum_closing_stock': max_cls ,
-                                'standard_deviation_closing_stock': std_cls['standard_deviation'],
-                                'variance_closing_stock': std_cls['variance'],
-                                'total_shortage_units': shc,
-                                'standard_deviation_shortage_cost': std_shc['standard_deviation'],
-                                'variance_shortage_units': std_shc['variance'],
-                                'standard_deviation_revenue': std_quantity_sold['standard_deviation'],
-                                'variance_quantity_sold': std_quantity_sold['variance'],
-                                'minimum_shortage_units':min_shc,
-                                'maximum_shortage_units': max_shc,
-                                'average_opening_stock': avg_ops,
-                                'minimum_opening_stock': min_ops,
-                                'maximum_opening_stock': max_ops,
-                                'average_quantity_sold': avg_qty_sold,
-                                'minimum_quantity_sold': min_quantity_sold,
-                                'maximum_quantity_sold': max_quantity_sold,
-                                'average_backlog': avg_backlog,
-                                'minimum_backlog': min_backlog,
-                                'maximum_backlog': max_backlog,
-                                'standard_deviation_backlog': std_backlog['standard_deviation'],
-                                'variance_backlog': std_backlog['variance'],
-                                'index': f[0]['index']}
-                               )
-
-                closing_stock.clear()
-                shortage_units.clear()
-                quantity_sold.clear()
-                opening_stock.clear()
-                backlog.clear()
+                    closing_stock.clear()
+                    shortage_units.clear()
+                    quantity_sold.clear()
+                    opening_stock.clear()
+                    backlog.clear()
 
 
     # allow interface to retrieve this level of analysis and then option to summarise the frame

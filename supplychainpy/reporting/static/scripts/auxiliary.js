@@ -480,6 +480,7 @@ function show_recommendations() {
     $("#sku-rec > div").show().slideDown(600);
 }
 
+
 function run_simulation() {
        var runs =  $('#runs-input').val();
        window.location = 'http://127.0.0.1:' + location.port + '/simulation/' + runs;

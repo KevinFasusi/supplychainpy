@@ -27,6 +27,8 @@ from decimal import Decimal
 
 import multiprocessing
 
+from copy import deepcopy
+
 from supplychainpy.simulations import monte_carlo
 import pyximport
 
@@ -74,7 +76,7 @@ def run_transactions(random_demand: list, period_length: int, orders_analysis: l
                     "quantity_sold": "{:0.0f}".format(sim_window.sold),
                     "shortage_units": "{:.0f}".format(sim_window.shortage_units),
                     "previous_backlog": "{:.0f}".format(sim_window.previous_backlog)}
-        transaction_report.append([sim_dict])
+        transaction_report.append(deepcopy([sim_dict]))
     return transaction_report
 
 pool = multiprocessing.Pool(4)
@@ -150,7 +152,7 @@ def run_monte_carlo(orders_analysis: list, runs: int, period_length: int = 12) -
         simulation = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis)
         random_demand = simulation.generate_normal_random_distribution(period_length=period_length)
         transaction_report.append(pool.apply(run_transactions, args=[random_demand, period_length, orders_analysis]))
-    return transaction_report[0]
+    return transaction_report
 
 
 def summarize_window(simulation_frame: list, period_length: int = 12):
