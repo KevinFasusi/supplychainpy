@@ -26,6 +26,11 @@ $(function () {
         show_recommendations();
     });
 
+    $('#sim-detail-btn').click(function () {
+        toggle_reporting_view('sim-detail');
+    });
+
+
     $('#shortages-btn').click(function () {
         toggle_reporting_view('collapse-shortages');
     });
@@ -482,8 +487,8 @@ function show_recommendations() {
 
 
 function run_simulation() {
-       var runs =  $('#runs-input').val();
-       window.location = 'http://127.0.0.1:' + location.port + '/simulation/' + runs;
+    var runs = $('#runs-input').val();
+    window.location = 'http://127.0.0.1:' + location.port + '/simulation/' + runs;
 }
 
 

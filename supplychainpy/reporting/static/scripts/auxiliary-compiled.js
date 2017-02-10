@@ -36,6 +36,10 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
         show_recommendations();
     });
 
+    (0, _jquery2.default)('#sim-detail-btn').click(function () {
+        toggle_reporting_view('sim-detail');
+    });
+
     (0, _jquery2.default)('#shortages-btn').click(function () {
         toggle_reporting_view('collapse-shortages');
     });

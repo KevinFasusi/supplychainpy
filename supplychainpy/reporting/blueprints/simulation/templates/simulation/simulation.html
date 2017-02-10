@@ -31,23 +31,49 @@
                     <div class=" row">
                         {{item.sku_id}}
                     </div>
-                    <p> Max. Quantity Sold: {{item.maximum_quantity_sold}},
-                        STD Opening Stock: {{item.standard_deviation_opening_stock}},
-                        Avg. Closing Stock: {{item.average_closing_stock}},
-                        STD. Backlog {{item.standard_deviation_backlog}},
-                        % Stockout {{item.stockout_percentage}},
-                        MIN Closing Stock {{item.minimum_closing_stock}},
-                        AVG Opening Stock {{item.average_opening_stock}}</p>
-                    {% for run in runs %}
-                    {% for r in run %}
-                    {% for m in r %}
-                    {% if (m.sku_id == item.sku_id) %}
-                    {{r}}
-                    {% else %}
-                    {% endif %}
-                    {% endfor %}
-                    {% endfor %}
-                    {% endfor %}
+                    <div id="sim-summary">
+                    <button id="sim-detail-btn" class=" btn btn-xs btn-primary"
+                            aria-pressed="false">Toggle Detail
+                    </button>
+                        <div class=" row">
+                            <p>Simulation Summary</p>
+                            <p>
+                            <div class="col-lg-2">
+                                Max. Quantity Sold: {{item.maximum_quantity_sold}},
+                            </div>
+                            <div class="col-lg-2">
+                                STD Opening Stock: {{item.standard_deviation_opening_stock}},
+                            </div>
+                            <div class="col-lg-2">
+                            Avg. Closing Stock: {{item.average_closing_stock}}
+                            </div>
+                            <div class="col-lg-2">
+                            STD. Backlog {{item.standard_deviation_backlog}}
+                            </div>
+                            <div class="col-lg-2">
+                            % Stockout {{item.stockout_percentage}}
+                            </div>
+                            <div class="col-lg-2">
+                            MIN Closing Stock {{item.minimum_closing_stock}}
+                            </div>
+                            <div class="col-lg-2">
+                            AVG Opening Stock {{item.average_opening_stock}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class ="sim-detail">
+                        {% for run in runs %}
+                        {% for r in run %}
+                        {% for m in r %}
+                        {% if (m.sku_id == item.sku_id) %}
+                        {{r}}
+                        {% else %}
+                        {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+
                 </div>
             </div>
             {% endfor %}

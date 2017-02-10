@@ -82,6 +82,10 @@
 	        show_recommendations();
 	    });
 
+	    (0, _jquery2.default)('#sim-detail-btn').click(function () {
+	        toggle_reporting_view('sim-detail');
+	    });
+
 	    (0, _jquery2.default)('#shortages-btn').click(function () {
 	        toggle_reporting_view('collapse-shortages');
 	    });

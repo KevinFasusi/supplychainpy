@@ -532,3 +532,7 @@ nav ul li a {
 .slate-hint{
     color: #819090;
 }
+
+#sim-summary{
+    font-size: 0.8em;
+}
