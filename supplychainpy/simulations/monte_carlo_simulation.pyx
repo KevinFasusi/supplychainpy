@@ -195,5 +195,4 @@ def simulation_window(list random_normal_demand, int period_length, list analyse
             del sim_window
 
             period += 1
-
         index_item += 1

@@ -62,8 +62,10 @@ def run_transactions(random_demand: list, period_length: int, orders_analysis: l
     for sim_window in monte_carlo_simulation.simulation_window(random_normal_demand=random_demand,
                                                                period_length=period_length,
                                                                analysed_orders=orders_analysis):
-        sim_dict = {"index": "{}".format(sim_window.index), "period": "{}".format(sim_window.position),
-                    "sku_id": sim_window.sku_id, "opening_stock": "{}".format(round(sim_window.opening_stock)),
+        sim_dict = {"index": "{}".format(sim_window.index),
+                    "period": "{}".format(sim_window.position),
+                    "sku_id": sim_window.sku_id,
+                    "opening_stock": "{}".format(round(sim_window.opening_stock)),
                     "demand": "{}".format(round(sim_window.demand)),
                     "closing_stock": "{}".format(round(sim_window.closing_stock)),
                     "delivery": "{}".format(round(sim_window.purchase_order_receipt_qty)),
@@ -151,7 +153,7 @@ def run_monte_carlo(orders_analysis: list, runs: int, period_length: int = 12) -
         #print('RUN: {}'.format(k))
         simulation = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis)
         random_demand = simulation.generate_normal_random_distribution(period_length=period_length)
-        transaction_report.append(pool.apply(run_transactions, args=[random_demand, period_length, orders_analysis]))
+        transaction_report.append(deepcopy(pool.apply(run_transactions, args=[random_demand, period_length, orders_analysis])))
     return transaction_report
 
 

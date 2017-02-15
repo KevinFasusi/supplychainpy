@@ -71,7 +71,7 @@ def clean_orders_data_col_csv(file) -> dict:
 
 
 # TODO-feature allow data munger to accept any delimiter as a parameter
-def clean_orders_data_row(file, length: int) -> dict:
+def clean_orders_data_row(file, length: int) -> list:
     collection = []
     try:
         sku_list = []

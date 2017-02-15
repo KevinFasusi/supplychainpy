@@ -27,7 +27,7 @@ $(function () {
     });
 
     $('#sim-detail-btn').click(function () {
-        toggle_reporting_view('sim-detail');
+        toggle_reporting_view_alt('[id$=sim-detail] > recommendation-panel');
     });
 
 
@@ -1059,6 +1059,11 @@ function highlight() {
 
 function toggle_reporting_view(id) {
     $('#' + id).toggle("slow");
+}
+
+
+function toggle_reporting_view_alt(id) {
+    $(id).toggle("slow");
 }
 
 function currency_fetch(id) {

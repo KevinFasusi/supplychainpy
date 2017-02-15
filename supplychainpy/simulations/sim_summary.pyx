@@ -87,11 +87,10 @@ def summarize_monte_carlo(list simulation_frame, int period_length):
 
     cdef dict std_ops ={}, std_backlog={}, std_cls={}, std_shc={}, std_quantity_sold={}
 
-
-    n = len(simulation_frame)
+    n = int(len(simulation_frame[0]))//int(period_length) + 1
     i = 1
     for s in simulation_frame:
-        for x in range(i, n ):
+        for x in range(i, n):
             for f in s:
                 if int(f[0]['index']) == x:
                     closing_stock.append( int(f[0]['closing_stock']))

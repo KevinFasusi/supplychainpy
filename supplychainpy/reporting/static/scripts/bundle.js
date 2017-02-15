@@ -83,7 +83,7 @@
 	    });
 
 	    (0, _jquery2.default)('#sim-detail-btn').click(function () {
-	        toggle_reporting_view('sim-detail');
+	        toggle_reporting_view_alt('[id$=sim-detail] > recommendation-panel');
 	    });
 
 	    (0, _jquery2.default)('#shortages-btn').click(function () {
@@ -950,6 +950,10 @@
 
 	function toggle_reporting_view(id) {
 	    (0, _jquery2.default)('#' + id).toggle("slow");
+	}
+
+	function toggle_reporting_view_alt(id) {
+	    (0, _jquery2.default)(id).toggle("slow");
 	}
 
 	function currency_fetch(id) {

@@ -312,7 +312,8 @@ def _analyse_orders(orders: dict, sku_id: str, lead_time: Decimal, unit_cost: De
                                                                retail_price=retail_price,
                                                                quantity_on_hand=quantity_on_hand,
                                                                currency=currency,
-                                                               backlog=backlog)
+                                                               backlog=backlog
+                                                               )
     average_orders = analysed_orders.average_orders
     reorder_quantity = analysed_orders.fixed_order_quantity
     eoq = economic_order_quantity.EconomicOrderQuantity(total_orders=float(total_orders),
