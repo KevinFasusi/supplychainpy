@@ -1,6 +1,7 @@
 import os
 import re
 from unittest import TestCase
+import unittest
 from decimal import Decimal
 
 import logging
@@ -88,8 +89,20 @@ class TestSimulate(TestCase):
 
     def quick_test(self):
         sim = simulate.run_monte_carlo(orders_analysis=self.__orders_analysis,
-                                       runs=10, period_length=12)
+                                       runs=1000, period_length=12)
 
         sim_window = simulate.summarize_window(simulation_frame=sim, period_length=12)
 
-        print(sim_window)
+        #for item in sim:
+        #    for s in item:
+        #        if s[0].get('sku_id')=='KR202-209':
+        #            print(s)
+        
+        frame_summary = simulate.summarise_frame(sim_window)
+
+        for item in frame_summary:
+            if item.get('sku_id')=='KR202-209':
+                print(item)
+
+if __name__ == "__main__":
+    unittest.main()

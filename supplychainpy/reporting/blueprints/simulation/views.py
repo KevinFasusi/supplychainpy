@@ -39,16 +39,18 @@ simulation_blueprint = Blueprint('simulation', __name__, template_folder='templa
 def simulation(runs:int=None):
     database_path = ''
     file_name = ''
-    sim=''
-    sim_summary =''
+    sim = ''
+    sim_summary = ''
     if runs is not None:
         config = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
         database_path = config['database_path']
         file_name = config['file']
         file_path = database_path.replace(' ','') + (file_name.replace(' ',''))
         analysed_orders = analyse_orders_abcxyz_from_file(file_path=str(file_path), z_value=Decimal(1.28), reorder_cost=Decimal(5000), file_type=FileFormats.csv.name, length=12, currency='USD')
+        # run the simulation, populate a database and then retrieve the most current values for the simulation page.
         sim = simulate.run_monte_carlo(orders_analysis=analysed_orders, runs=runs, period_length=12)
-        sim_summary = simulate.summarize_window(simulation_frame=sim, period_length=12)
+        sim_window = simulate.summarize_window(simulation_frame=sim, period_length=12)
+        sim_summary = simulate.summarise_frame(sim_window)
 
     return flask.render_template('simulation/simulation.html', db= database_path, file_name=file_name, sim=sim_summary, runs=sim)
 

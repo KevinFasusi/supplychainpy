@@ -21,11 +21,11 @@
             </div>
         </div>
     </div>
-
-
+    <h3>Simulation Summary</h3>
     <div class=" row">
-        <div id="sim" class=" col-lg-11">
 
+        <div id="sim" class=" col-lg-11">
+      
             {% for item in sim %}
 
             <div class="row">
@@ -38,34 +38,47 @@
                                 aria-pressed="false">Toggle Detail
                         </button> -->
                         <div class=" row">
-                            <p>Simulation Summary</p>
+                            
                             <div class=" row">
                                 <div class="col-lg-3">
-                                    <h3>Qty Sold (MAX): {{"{:,.0f}".format(item.maximum_quantity_sold)}}</h3>
+                                    <h3>Backlog (Min): {{"{:,.0f}".format(item.minimum_backlog)}}</h3>
                                 </div>
                                 <div class="col-lg-3">
-                                    <h3> Opening Stock (STDEV.):
-                                        {{"{:,.0f}".format(item.standard_deviation_opening_stock)}} </h3>
+                                    <h3>Opening Stock (VAR): {{"{:,.0f}".format(item.variance_opening_stock |int)}}</h3>
                                 </div>
                                 <div class="col-lg-3">
-                                    <h3> Closing Stock (STDEV.): {{"{:,.0f}".format(item.average_closing_stock)}}</h3>
+                                    <h3>Service Level: {{item.service_level}}</h3>
                                 </div>
                                 <div class="col-lg-3">
-                                    <h3> Backlog (STDEV.): {{"{:,.0f}".format(item.standard_deviation_backlog)}} </h3>
+                                    <h3> Quantity Sold (AVG) {{item.average_quantity_sold}}</h3>
                                 </div>
                             </div>
                             <div class=" row">
                                 <div class="col-lg-3">
-                                    <h3> Stockout (%): {{(item.stockout_percentage * 100)|round(0)|int}} </h3>
+                                    <h3>Quantity Sold (MIN) {{item.minimum_quantity_sold}}</h3>
                                 </div>
                                 <div class="col-lg-3">
-                                    <h3>MIN Closing Stock: {{"{:,.0f}".format(item.minimum_closing_stock)}}</h3>
+                                    <h3>Quantity Sold (MAX) {{item.maximum_quantity_sold}}</h3>
                                 </div>
                                 <div class="col-lg-3">
-                                    <h3> AVG Opening Stock: {{"{:,.0f}".format(item.average_opening_stock)}} </h3>
+                                    <h3>Quantity Sold (STDEV.) {{item.standard_deviation_quantity_sold}}</h3>
                                 </div>
                                 <div class="col-lg-3">
-                                    <h3> AVG Opening Stock: {{"{:,.0f}".format(item.average_backlog)}} </h3>
+                                    <h3>Quantity Sold (AVG) {{item.average_quantity_sold}}</h3>
+                                </div>
+                            </div>
+                            <div class=" row">
+                                <div class="col-lg-3">
+                                    <h3>Closing Stock (MIN) {{item.minimum_closing_stock}}</h3>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h3>Closing Stock (MAX) {{item.maximum_closing_stock}}</h3>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h3>Closing Stock (STDEV.) {{item.standard_deviation_closing_stock}}</h3>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h3>Shortage (AVG) {{item.average_shortage}}</h3>
                                 </div>
                             </div>
                         </div>
@@ -91,4 +104,3 @@
 </div>
 {% endblock %}
 
-'average_backlog': -277.5833435058594, 'minimum_quantity_sold': 0.0, 'maximum_shortage_units': 0.0, 'maximum_backlog': 0.0, 'maximum_closing_stock': 4141.0, 'average_opening_stock': 2639.416748046875, 'maximum_quantity_sold': 4141.0, 'standard_deviation_closing_stock': 1307.4506656297065, 'variance_shortage_units': 0.0, 'standard_deviation_opening_stock': 1329.368550498906, 'minimum_backlog': -3323.0, 'standard_deviation_shortage_cost': 0.0, 'stockout_percentage': 0.1666666716337204, 'total_shortage_units': 0.0, 'variance_closing_stock': 1709427.2430555623, 'standard_deviation_backlog': 918.2303140945749, 'minimum_closing_stock': 0.0, 'variance_quantity_sold': 1709427.2430555623, 'average_closing_stock': 2401.583251953125, 'average_quantity_sold': 2401.583251953125, 'standard_deviation_revenue': 1307.4506656297065, 'minimum_opening_stock': 0.0, 'sku_id': 'KR202-209', 'index': '1', 'minimum_shortage_units': 0.0, 'variance_backlog': 843146.9097222217, 'variance_opening_stock': 1767220.7430555623, 'maximum_opening_stock': 4141.0

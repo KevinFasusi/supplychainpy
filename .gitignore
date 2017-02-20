@@ -27,3 +27,4 @@ coverage
 webpack.config*
 scratch.py
 _archive/*
+.vscode/
