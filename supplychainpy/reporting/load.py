@@ -128,7 +128,12 @@ def load(file_path: str, location: str = None):
         #        print("simple started {}".format(num))
         #        simple_forecast.update(deepcopy(pool.apply(analysis_forecast_simple,args=(analysis,))))
         simple_forecast={}
-        with ProcessPoolExecutor(max_workers=9) as executor:
+        cores = int(multiprocessing.cpu_count())
+        print("original core count {}".format(cores))
+
+        cores -= 1
+        print("altered core count {}".format(cores))
+        with ProcessPoolExecutor(max_workers=cores) as executor:
             simple_forecast_futures = {analysis.sku_id: executor.submit(analysis_forecast_simple, analysis) for analysis in orders_analysis}
             simple_forecast_gen = {future: concurrent.futures.as_completed(simple_forecast_futures) for future in simple_forecast_futures}
         simple_forecast = { value : simple_forecast_futures[value].result() for value in simple_forecast_gen}
@@ -145,7 +150,7 @@ def load(file_path: str, location: str = None):
         #    for num, analysis in enumerate(analysis_model):
         #        print("holts started {}".format(num))
         #        holts_forecast.update(deepcopy(pool.apply(analysis_forecast_holt,args=(analysis,))))
-        with ProcessPoolExecutor(max_workers=9) as executor:
+        with ProcessPoolExecutor(max_workers=cores) as executor:
             holts_forecast_futures = { analysis.sku_id: executor.submit(analysis_forecast_holt, analysis) for analysis in orders_analysis}
             holts_forecast_gen =  { future: concurrent.futures.as_completed(holts_forecast_futures[future].result()) for future in holts_forecast_futures}
         holts_forecast = { value : holts_forecast_futures[value].result() for value in holts_forecast_gen}
