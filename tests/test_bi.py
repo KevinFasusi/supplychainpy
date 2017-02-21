@@ -3,6 +3,7 @@ from unittest import TestCase
 from decimal import Decimal
 
 import logging
+import unittest
 
 from supplychainpy import model_inventory
 from supplychainpy._helpers._pickle_config import deserialise_config
@@ -61,3 +62,5 @@ class TestRecommendations(TestCase):
             self.assertIn(i, sku_ids)
 
 
+if __name__ == "__main__":
+    unittest.main()

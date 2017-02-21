@@ -65,13 +65,15 @@ def currency_codes():
 
 
 def analysis_forecast_simple(analysis):
-    print("simple {} ".format(id(analysis)))
+    #print("simple {} ".format(id(analysis)))
     #print("{}".format({analysis.sku_id: analysis.simple_exponential_smoothing_forecast}))
-    return {analysis.sku_id: analysis.simple_exponential_smoothing_forecast}
+    return analysis.simple_exponential_smoothing_forecast
 
 def analysis_forecast_holt(analysis):
-    print("holts {} ".format(id(analysis)))
-    return {analysis.sku_id: analysis.holts_trend_corrected_forecast}
+    #print("holts {} ".format(id(analysis)))
+    #print("{}".format({analysis.sku_id: analysis.holts_trend_corrected_forecast}))
+    return analysis.holts_trend_corrected_forecast
+    
 
 def load(file_path: str, location: str = None):
     app = create_app()
@@ -126,7 +128,7 @@ def load(file_path: str, location: str = None):
         #        simple_forecast.update(deepcopy(pool.apply(analysis_forecast_simple,args=(analysis,))))
 
         with mp as pool:
-            simple_forecast = [pool.apply(analysis_forecast_simple, args=(analysis,)) for analysis in orders_analysis][0]
+            simple_forecast = {analysis.sku_id: pool.apply(analysis_forecast_simple, args=(analysis,)) for analysis in orders_analysis}
 
         #simple_forecast = {analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
         #                   model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
@@ -142,7 +144,8 @@ def load(file_path: str, location: str = None):
         #        holts_forecast.update(deepcopy(pool.apply(analysis_forecast_holt,args=(analysis,))))
         
         with mp as  pool:       
-            holts_forecast = [pool.apply(analysis_forecast_holt,args=(analysis,)) for analysis in orders_analysis][0]
+            holts_forecast = { analysis.sku_id: pool.apply(analysis_forecast_holt,args=(analysis,)) for analysis in orders_analysis}
+            
 
 
         #holts_forecast = {analysis.sku_id: analysis.holts_trend_corrected_forecast for analysis in
