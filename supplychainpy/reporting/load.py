@@ -21,13 +21,14 @@
 # SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
+import concurrent.futures
 import datetime
 import logging
 import multiprocessing
 import os
 from decimal import Decimal
 
+from concurrent.futures import ProcessPoolExecutor
 from supplychainpy import model_inventory
 from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_APPLICATION_CONFIG
 from supplychainpy._helpers._pickle_config import deserialise_config
@@ -65,12 +66,12 @@ def currency_codes():
 
 
 def analysis_forecast_simple(analysis):
-    #print("simple {} ".format(id(analysis)))
+    print("simple {} ".format(id(analysis)))
     #print("{}".format({analysis.sku_id: analysis.simple_exponential_smoothing_forecast}))
     return analysis.simple_exponential_smoothing_forecast
 
 def analysis_forecast_holt(analysis):
-    #print("holts {} ".format(id(analysis)))
+    print("holts {} ".format(id(analysis)))
     #print("{}".format({analysis.sku_id: analysis.holts_trend_corrected_forecast}))
     return analysis.holts_trend_corrected_forecast
     
@@ -119,34 +120,35 @@ def load(file_path: str, location: str = None):
         log.log(logging.DEBUG, 'Calculating Forecasts...\n')
         print('Calculating Forecasts...', end="")
 
-        mp = multiprocessing.Pool(4)
-        simple_forecast = {}
+        #mp = multiprocessing.pool.ThreadPool(processes=4)
+        simple_forecast_futures = {}
 
         #with mp as pool:                                          
         #    for num, analysis in enumerate(analysis_model):
         #        print("simple started {}".format(num))
         #        simple_forecast.update(deepcopy(pool.apply(analysis_forecast_simple,args=(analysis,))))
-
-        with mp as pool:
-            simple_forecast = {analysis.sku_id: pool.apply(analysis_forecast_simple, args=(analysis,)) for analysis in orders_analysis}
-
+        simple_forecast={}
+        with ProcessPoolExecutor(max_workers=9) as executor:
+            simple_forecast_futures = {analysis.sku_id: executor.submit(analysis_forecast_simple, analysis) for analysis in orders_analysis}
+            simple_forecast_gen = {future: concurrent.futures.as_completed(simple_forecast_futures) for future in simple_forecast_futures}
+        simple_forecast = { value : simple_forecast_futures[value].result() for value in simple_forecast_gen}
         #simple_forecast = {analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
         #                   model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
         #                                           reorder_cost=Decimal(5000), file_type="csv",
         #                                           length=12, currency=currency)}
-
+        #simple_forecast = {key: value.result() for key, value in simple_forecast.values()}
+        holts_forecast_futures = {}
         holts_forecast = {}
-        del mp
-        mp = multiprocessing.Pool(4)
+        #del mp
+        #mp = multiprocessing.pool.ThreadPool(processes=4)
         #with mp as  pool:
         #    for num, analysis in enumerate(analysis_model):
         #        print("holts started {}".format(num))
         #        holts_forecast.update(deepcopy(pool.apply(analysis_forecast_holt,args=(analysis,))))
-        
-        with mp as  pool:       
-            holts_forecast = { analysis.sku_id: pool.apply(analysis_forecast_holt,args=(analysis,)) for analysis in orders_analysis}
-            
-
+        with ProcessPoolExecutor(max_workers=9) as executor:
+            holts_forecast_futures = { analysis.sku_id: executor.submit(analysis_forecast_holt, analysis) for analysis in orders_analysis}
+            holts_forecast_gen =  { future: concurrent.futures.as_completed(holts_forecast_futures[future].result()) for future in holts_forecast_futures}
+        holts_forecast = { value : holts_forecast_futures[value].result() for value in holts_forecast_gen}
 
         #holts_forecast = {analysis.sku_id: analysis.holts_trend_corrected_forecast for analysis in
         #                  model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
