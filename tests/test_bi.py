@@ -3,6 +3,7 @@ from unittest import TestCase
 from decimal import Decimal
 
 import logging
+import unittest
 
 from supplychainpy import model_inventory
 from supplychainpy._helpers._pickle_config import deserialise_config
@@ -23,7 +24,8 @@ class TestRecommendations(TestCase):
                                                        z_value=Decimal(1.28),
                                                        reorder_cost=Decimal(5000),
                                                        file_type="csv",
-                                                       length=12)
+                                                       length=12,
+                                                       currency='GBP')
 
         self.forecast = deserialise_config(ABS_FILE_PATH['FORECAST_PICKLE'])
 
@@ -60,4 +62,5 @@ class TestRecommendations(TestCase):
         for i in completed_recommendations:
             self.assertIn(i, sku_ids)
 
-
+if __name__ == "__main__":
+    unittest.main()
