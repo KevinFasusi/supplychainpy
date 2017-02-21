@@ -24,6 +24,7 @@
 
 import datetime
 import logging
+import multiprocessing
 import os
 from decimal import Decimal
 
@@ -44,6 +45,7 @@ from supplychainpy.reporting.blueprints.dashboard.models import MasterSkuList
 from supplychainpy.reporting.blueprints.dashboard.models import Orders
 from supplychainpy.reporting.blueprints.dashboard.models import TransactionLog, Recommendations, ProfileRecommendation
 from supplychainpy.sample_data.config import ABS_FILE_PATH
+from copy import deepcopy
 
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
@@ -61,6 +63,15 @@ def currency_codes():
              }
     return codes
 
+
+def analysis_forecast_simple(analysis):
+    print("simple {} ".format(id(analysis)))
+    #print("{}".format({analysis.sku_id: analysis.simple_exponential_smoothing_forecast}))
+    return {analysis.sku_id: analysis.simple_exponential_smoothing_forecast}
+
+def analysis_forecast_holt(analysis):
+    print("holts {} ".format(id(analysis)))
+    return {analysis.sku_id: analysis.holts_trend_corrected_forecast}
 
 def load(file_path: str, location: str = None):
     app = create_app()
@@ -97,9 +108,8 @@ def load(file_path: str, location: str = None):
 
         # remove assumption file type is csv
 
-        ia = [analysis.orders_summary() for analysis in
-              model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
-                                      reorder_cost=Decimal(5000), file_type="csv", length=12, currency=currency)]
+        ia = [analysis.orders_summary() for analysis in orders_analysis]
+
         date_now = datetime.datetime.now()
         analysis_summary = Inventory(processed_orders=orders_analysis)
         print('[COMPLETED]\n')
@@ -107,15 +117,38 @@ def load(file_path: str, location: str = None):
         log.log(logging.DEBUG, 'Calculating Forecasts...\n')
         print('Calculating Forecasts...', end="")
 
-        simple_forecast = {analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
-                           model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
-                                                   reorder_cost=Decimal(5000), file_type="csv",
-                                                   length=12, currency=currency)}
+        mp = multiprocessing.Pool(4)
+        simple_forecast = {}
 
-        holts_forecast = {analysis.sku_id: analysis.holts_trend_corrected_forecast for analysis in
-                          model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
-                                                  reorder_cost=Decimal(5000), file_type="csv",
-                                                  length=12, currency=currency)}
+        #with mp as pool:                                          
+        #    for num, analysis in enumerate(analysis_model):
+        #        print("simple started {}".format(num))
+        #        simple_forecast.update(deepcopy(pool.apply(analysis_forecast_simple,args=(analysis,))))
+
+        with mp as pool:
+            simple_forecast = [pool.apply(analysis_forecast_simple, args=(analysis,)) for analysis in orders_analysis][0]
+
+        #simple_forecast = {analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
+        #                   model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
+        #                                           reorder_cost=Decimal(5000), file_type="csv",
+        #                                           length=12, currency=currency)}
+
+        holts_forecast = {}
+        del mp
+        mp = multiprocessing.Pool(4)
+        #with mp as  pool:
+        #    for num, analysis in enumerate(analysis_model):
+        #        print("holts started {}".format(num))
+        #        holts_forecast.update(deepcopy(pool.apply(analysis_forecast_holt,args=(analysis,))))
+        
+        with mp as  pool:       
+            holts_forecast = [pool.apply(analysis_forecast_holt,args=(analysis,)) for analysis in orders_analysis][0]
+
+
+        #holts_forecast = {analysis.sku_id: analysis.holts_trend_corrected_forecast for analysis in
+        #                  model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
+        #                                          reorder_cost=Decimal(5000), file_type="csv",
+        #                                          length=12, currency=currency)}
 
         transact = TransactionLog()
         transact.date = date_now
