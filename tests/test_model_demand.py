@@ -1,4 +1,5 @@
 import logging
+import unittest
 from unittest import TestCase
 
 from supplychainpy._helpers import _data_cleansing
@@ -87,3 +88,6 @@ class TestModelDemand(TestCase):
         for i in self.htces_forecast:
             for k in i.values():
                 self.assertGreater(k.get('original_standard_error'), k.get('standard_error'))
+                print("finish")
+if __name__ == "__main__":
+    unittest.main()

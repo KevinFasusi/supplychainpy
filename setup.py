@@ -4,7 +4,8 @@ from setuptools import setup, find_packages, Extension
 
 extensions = [Extension('supplychainpy.simulations.sim_summary', ['supplychainpy/simulations/sim_summary.pyx']),
               Extension('supplychainpy.inventory.eoq', ['supplychainpy/inventory/eoq.pyx']),
-              Extension('supplychainpy.demand._squared_error', ['supplychainpy/demand/_squared_error.pyx'])
+              Extension('supplychainpy.demand._squared_error', ['supplychainpy/demand/_squared_error.pyx']),
+              Extension('supplychainpy.demand._evo_algo', ['supplychainpy/demand/_evo_algo.pyx']),
               ]
 
 here = os.path.dirname(os.path.abspath(__file__))

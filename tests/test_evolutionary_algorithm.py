@@ -1,9 +1,10 @@
 from unittest import TestCase
-
+import unittest
 import logging
 
-from supplychainpy.demand._evolutionary_algorithms import OptimiseSmoothingLevelGeneticAlgorithm
+#from supplychainpy.demand._evolutionary_algorithms import OptimiseSmoothingLevelGeneticAlgorithm
 from supplychainpy.demand._forecast_demand import Forecast
+from supplychainpy.demand._evo_algo import OptimiseSmoothingLevelGeneticAlgorithm
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -40,5 +41,7 @@ class TestForecast(TestCase):
         ses_evo_forecast = evo_mod.simple_exponential_smoothing_evo(
             smoothing_level_constant=self.__smoothing_level_constant,
             initial_estimate_period=self.__initial_estimate_period)
-
         self.assertEqual(7, len(ses_evo_forecast))
+
+if __name__ == "__main__":
+    unittest.main()

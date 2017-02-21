@@ -1,58 +1,7 @@
-# Copyright (c) 2015-2016, The Authors and Contributors
-# <see AUTHORS file>
-# All rights reserved.
-#
-# Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
-# following conditions are met:
-#
-# 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the
-# following disclaimer.
-#
-# 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
-# following disclaimer in the documentation and/or other materials provided with the distribution.
-#
-# 3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote
-# products derived from this software without specific prior written permission.
-#
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
-# INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-# DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-# SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
-# USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-import multiprocessing
-from multiprocessing.pool import Pool
 from random import uniform
-import logging
-# logging.basicConfig(filename='suchpy_log.txt', level=logging.DEBUG,
-#  format='%(asctime)s - %(levelname)s - %(message)s')
-
 
 from supplychainpy.demand._forecast_demand import Forecast
 from supplychainpy.demand.regression import LinearRegression
-
-log = logging.getLogger(__name__)
-log.addHandler(logging.NullHandler())
-
-
-class Verbose:
-    def __init__(self, parents: list=None, standard_error: float=None, smoothing_level: float=None):
-        print('inside __init__')
-        self.arg1 = parents
-        self.arg2 = standard_error
-        self.arg3 = smoothing_level
-
-    def __call__(self, f):
-        print('Inside __call__')
-
-        def annotate(*args):
-            for i in args:
-                print('inside methods {}'.format(i))
-            f(*args)
-
-        return annotate()
-
 
 class Individual:
     _genome = 0
@@ -94,9 +43,9 @@ class Individual:
     def __genome_generator(self):
         genome = ()
         if self._forecast_type == 'ses':
-            genome = tuple([uniform(0, 1) for i in range(0, self._gene_count)])
+            genome = ([uniform(0, 1) for i in range(0, self._gene_count)])
         else:
-            genome = tuple([(uniform(0, 1), uniform(0, 1)) for i in range(0, self._gene_count)])
+            genome = ([(uniform(0, 1), uniform(0, 1)) for i in range(0, self._gene_count)])
 
         return genome
 
@@ -107,9 +56,10 @@ class Population:
     __slots__ = ['individuals', 'mutation_probability']
     _recombination_type = ('single_point', 'two_point', 'uniform')
 
-    def __init__(self, individuals: list, mutation_probability: float = 0.2):
+    def __init__(self, list individuals, double mutation_probability = 0.2):
         self.individuals = individuals
         self.mutation_probability = mutation_probability
+        print("initialising {}".format(id(self)))
 
     def reproduce(self, recombination_type: str = 'single_point'):
         """ Coordinates the reproduction of two individuals, using one of three recombination methods 'single_point,
@@ -122,16 +72,14 @@ class Population:
             (dict):     The result of recombination and mutation.
 
         """
-        log.log(logging.INFO, '{} reproduction started'.format(recombination_type))
+        
 
         if recombination_type == self._recombination_type[0]:
-            log.log(logging.INFO, 'started single point recombination')
+      
             yield [i for i in self._single_point_crossover_recombination()][0]
         if recombination_type == self._recombination_type[1]:
-            log.log(logging.INFO, 'started two point recombination')
             yield [i for i in self._two_point_crossover_recombination()][0]
         if recombination_type == self._recombination_type[2]:
-            log.log(logging.INFO, 'logging.INFO,started uniform recombination')
             yield [i for i in self._uniform_crossover_recombination()][0]
 
     def _single_point_crossover_recombination(self) -> object:
@@ -144,12 +92,12 @@ class Population:
                                         and c2-ooooooxxxxxx. Individual_two yields the second offspring (c2).
         """
 
-        genome_count = 0
-        new_individual = {}
-        new_individual_two = {}
+        cdef int genome_count = 0
+        cdef dict new_individual = {}
+        cdef dict new_individual_two = {}
 
-        mutation_count = 0
-        mutation_index = 0
+        cdef int mutation_count = 0
+        cdef int mutation_index = 0
 
         try:
 
@@ -211,12 +159,12 @@ class Population:
                                         and c2-oooxxxxxxooo. Individual_two yields the second offspring (c2).
         """
 
-        genome_count = 0
-        new_individual = {}
+        cdef int genome_count = 0
+        cdef dict new_individual = {}
 
-        mutation_count = 0
-        mutation_index = 0
-        new_individual_two = {}
+        cdef int mutation_count = 0
+        cdef int mutation_index = 0
+        cdef dict new_individual_two = {}
 
         try:
             if len(self.individuals) > 1:
@@ -287,24 +235,14 @@ class Population:
         def mutate():
 
             if original_gene[0][1] == 0:
-                log.debug(
-                    'A mutation occurred on gene {}. The result of the mutation is {}'.format({original_gene[0][0]: 0},
-                                                                                              {original_gene[0][0]: 1}))
                 return {original_gene[0][0]: 1}
             elif original_gene[0][1] == 1:
-                log.debug(
-                    'A mutation occurred on gene {}. The result of the mutation is {}'.format({original_gene[0][0]: 1},
-                                                                                              {original_gene[0][0]: 0}))
                 return {original_gene[0][0]: 0}
             else:
                 return {original_gene[0][0]: original_gene[0][0]}
 
         return mutate()
 
-
-class DiversifyPopulation(Population):
-    def __init__(self, individuals: list):
-        super().__init__(individuals)
 
 
 class OptimiseSmoothingLevelGeneticAlgorithm:
@@ -338,25 +276,22 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
         """ Starts the process for creating the population. The number of parents is specified during the
          initialisation of the class. """
 
-        parents = []
-        parents_population = []
+        cdef list parents = []
+        cdef list parents_population = []
 
         while len(parents_population) < self.__population_size:
             for i in range(0, self.__population_size):
                 parent = Individual(name='parent', forecast_type=individual_type)
-                log.debug('Initial parent created {}'.format(parent))
                 parents.append(parent)
 
             populations_genome = [i for i in self.generate_smoothing_level_genome(population=parents,
                                                                                   individual_type=individual_type)]
-            log.debug('Population with genome {}'.format(populations_genome))
             populations_traits = [i for i in self.express_smoothing_level_genome(individuals_genome=populations_genome,
                                                                                  standard_error=self.__standard_error)]
 
             fit_population = [i for i in
                               self._population_fitness(population=populations_traits, individual_type=individual_type)]
 
-            log.debug('Fit population {}'.format(fit_population))
 
             parents_population += fit_population
 
@@ -404,12 +339,12 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
         return minimum_smoothing_level
 
     @staticmethod
-    def create_individuals(new_population: list) -> list:
+    def create_individuals(list new_population):
         """Create individuals using class from genomes striped during processing fitness.
         Args:
             new_population (list):  new population of individual genomes.
         """
-        parent_offspring_population = []
+        cdef list parent_offspring_population = []
 
         for po in new_population:
             pke = po.keys()
@@ -469,7 +404,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
 
 
     def sum_squared_error_para(self, forecast, holts_trend_corrected_smoothing, alpha, gamma, smoothing_level):
-        appraised_individual = {}
+        cdef dict appraised_individual = {}
         sum_squared_error = forecast.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,
                                                             alpha=alpha, gamma=gamma)
         standard_error = forecast.standard_error(sum_squared_error, len(self.__orders), smoothing_level)
@@ -591,9 +526,6 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
                                                                                 forecast_length=forecast_length)
         regression = {
             'regression': [(stats.get('slope') * i) + stats.get('intercept') for i in range(0, 12)]}
-
-        log.log(logging.INFO,
-                "An OPTIMISED simple exponential smoothing forecast has been completed")
         return {'forecast_breakdown': optimal_ses_forecast, 'mape': mape, 'statistics': stats,
                 'forecast': simple_forecast, 'optimal_alpha': optimal_alpha[1], 'standard_error': standard_error,
                 'regression': [i for i in regression.get('regression')]}
