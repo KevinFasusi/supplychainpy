@@ -645,7 +645,7 @@ struct __pyx_obj_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_6_generat
 struct __pyx_obj_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_7_express_smoothing_level_genome;
 
 /* "supplychainpy/demand/_evo_algo.pyx":64
- *         print("initialising {}".format(id(self)))
+ *         #print("initialising {}".format(id(self)))
  * 
  *     def reproduce(self, recombination_type: str = 'single_point'):             # <<<<<<<<<<<<<<
  *         """ Coordinates the reproduction of two individuals, using one of three recombination methods 'single_point,
@@ -773,7 +773,7 @@ struct __pyx_obj_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_5__popula
   PyObject *__pyx_v_individual;
   PyObject *__pyx_v_individual_type;
   PyObject *__pyx_v_population;
-  PyObject *__pyx_v_procreation_probability;
+  double __pyx_v_procreation_probability;
   PyObject *__pyx_t_0;
   Py_ssize_t __pyx_t_1;
   PyObject *(*__pyx_t_2)(PyObject *);
@@ -1258,18 +1258,18 @@ static void __pyx_insert_code_object(int code_line, PyCodeObject* code_object);
 static void __Pyx_AddTraceback(const char *funcname, int c_line,
                                int py_line, const char *filename);
 
+/* CIntToPy.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
+
+/* CIntToPy.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
+
 /* Print.proto */
 static int __Pyx_Print(PyObject*, PyObject *, int);
 #if CYTHON_COMPILING_IN_PYPY || PY_MAJOR_VERSION >= 3
 static PyObject* __pyx_print = 0;
 static PyObject* __pyx_print_kwargs = 0;
 #endif
-
-/* CIntToPy.proto */
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
-
-/* CIntToPy.proto */
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
 
 /* PrintOne.proto */
 static int __Pyx_PrintOne(PyObject* stream, PyObject *o);
@@ -1357,7 +1357,6 @@ int __pyx_module_is_main_supplychainpy__demand___evo_algo = 0;
 static PyObject *__pyx_builtin_property;
 static PyObject *__pyx_builtin_staticmethod;
 static PyObject *__pyx_builtin_range;
-static PyObject *__pyx_builtin_id;
 static PyObject *__pyx_builtin_enumerate;
 static PyObject *__pyx_builtin_round;
 static PyObject *__pyx_builtin_ValueError;
@@ -1373,7 +1372,6 @@ static const char __pyx_k_k[] = "k";
 static const char __pyx_k_p[] = "p";
 static const char __pyx_k_t[] = "t";
 static const char __pyx_k_v[] = "v";
-static const char __pyx_k_id[] = "id";
 static const char __pyx_k_po[] = "po";
 static const char __pyx_k_ape[] = "ape";
 static const char __pyx_k_doc[] = "__doc__";
@@ -1464,7 +1462,6 @@ static const char __pyx_k_final_error[] = "final_error";
 static const char __pyx_k_individuals[] = "individuals";
 static const char __pyx_k_gene_count_2[] = "_gene_count";
 static const char __pyx_k_genome_count[] = "genome_count";
-static const char __pyx_k_initialising[] = "initialising {}";
 static const char __pyx_k_ses_forecast[] = "ses_forecast";
 static const char __pyx_k_single_point[] = "single_point";
 static const char __pyx_k_staticmethod[] = "staticmethod";
@@ -1671,7 +1668,6 @@ static PyObject *__pyx_n_s_holts_trend_corrected_exponentia;
 static PyObject *__pyx_n_s_holts_trend_corrected_smoothing;
 static PyObject *__pyx_n_s_htce_para;
 static PyObject *__pyx_n_s_i;
-static PyObject *__pyx_n_s_id;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_index;
 static PyObject *__pyx_n_s_individual;
@@ -1684,7 +1680,6 @@ static PyObject *__pyx_n_s_init;
 static PyObject *__pyx_n_s_initial_estimate_period;
 static PyObject *__pyx_n_s_initial_population;
 static PyObject *__pyx_n_s_initialise_smoothing_level_evol;
-static PyObject *__pyx_kp_s_initialising;
 static PyObject *__pyx_n_s_intercept;
 static PyObject *__pyx_n_s_items;
 static PyObject *__pyx_n_s_k;
@@ -1838,8 +1833,6 @@ static PyObject *__pyx_tp_new_13supplychainpy_6demand_9_evo_algo___pyx_scope_str
 static PyObject *__pyx_tp_new_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_5__population_fitness(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_6_generate_smoothing_level_genome(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_7_express_smoothing_level_genome(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_float_0_3;
-static PyObject *__pyx_float_0_5;
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
 static PyObject *__pyx_int_5;
@@ -3025,10 +3018,6 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Population___init
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
-  PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
   __Pyx_RefNannySetupContext("__init__", 0);
 
   /* "supplychainpy/demand/_evo_algo.pyx":60
@@ -3036,7 +3025,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Population___init
  *     def __init__(self, list individuals, double mutation_probability = 0.2):
  *         self.individuals = individuals             # <<<<<<<<<<<<<<
  *         self.mutation_probability = mutation_probability
- *         print("initialising {}".format(id(self)))
+ *         #print("initialising {}".format(id(self)))
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_individuals, __pyx_v_individuals) < 0) __PYX_ERR(0, 60, __pyx_L1_error)
 
@@ -3044,78 +3033,12 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Population___init
  *     def __init__(self, list individuals, double mutation_probability = 0.2):
  *         self.individuals = individuals
  *         self.mutation_probability = mutation_probability             # <<<<<<<<<<<<<<
- *         print("initialising {}".format(id(self)))
+ *         #print("initialising {}".format(id(self)))
  * 
  */
   __pyx_t_1 = PyFloat_FromDouble(__pyx_v_mutation_probability); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_mutation_probability, __pyx_t_1) < 0) __PYX_ERR(0, 61, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-  /* "supplychainpy/demand/_evo_algo.pyx":62
- *         self.individuals = individuals
- *         self.mutation_probability = mutation_probability
- *         print("initialising {}".format(id(self)))             # <<<<<<<<<<<<<<
- * 
- *     def reproduce(self, recombination_type: str = 'single_point'):
- */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_initialising, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 62, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 62, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_INCREF(__pyx_v_self);
-  __Pyx_GIVEREF(__pyx_v_self);
-  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_v_self);
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_id, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 62, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
-    if (likely(__pyx_t_3)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_3);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_2, function);
-    }
-  }
-  if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_GOTREF(__pyx_t_1);
-  } else {
-    #if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(__pyx_t_2)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_4};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    } else
-    #endif
-    #if CYTHON_FAST_PYCCALL
-    if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_4};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    } else
-    #endif
-    {
-      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 62, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_5);
-      __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_3); __pyx_t_3 = NULL;
-      __Pyx_GIVEREF(__pyx_t_4);
-      PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_4);
-      __pyx_t_4 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    }
-  }
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_PrintOne(0, __pyx_t_1) < 0) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "supplychainpy/demand/_evo_algo.pyx":59
@@ -3131,10 +3054,6 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Population___init
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
   __Pyx_AddTraceback("supplychainpy.demand._evo_algo.Population.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -3145,7 +3064,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Population___init
 static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_10Population_4generator(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
 /* "supplychainpy/demand/_evo_algo.pyx":64
- *         print("initialising {}".format(id(self)))
+ *         #print("initialising {}".format(id(self)))
  * 
  *     def reproduce(self, recombination_type: str = 'single_point'):             # <<<<<<<<<<<<<<
  *         """ Coordinates the reproduction of two individuals, using one of three recombination methods 'single_point,
@@ -3626,7 +3545,7 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_10Population_4gener
   CYTHON_MAYBE_UNUSED_VAR(__pyx_cur_scope);
 
   /* "supplychainpy/demand/_evo_algo.pyx":64
- *         print("initialising {}".format(id(self)))
+ *         #print("initialising {}".format(id(self)))
  * 
  *     def reproduce(self, recombination_type: str = 'single_point'):             # <<<<<<<<<<<<<<
  *         """ Coordinates the reproduction of two individuals, using one of three recombination methods 'single_point,
@@ -9148,7 +9067,8 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   PyObject *__pyx_t_6 = NULL;
   PyObject *__pyx_t_7 = NULL;
   Py_ssize_t __pyx_t_8;
-  int __pyx_t_9;
+  double __pyx_t_9;
+  int __pyx_t_10;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("None", 0);
   switch (__pyx_generator->resume_label) {
@@ -9164,7 +9084,7 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
 
   /* "supplychainpy/demand/_evo_algo.pyx":372
  *                                     exponential smoothing and 30% for holts trend correcting. """
- * 
+ *         cdef double procreation_probability
  *         for individual in population:             # <<<<<<<<<<<<<<
  *             procreation_probability = sum(individual.values()) / len(individual.values())
  *             if individual_type == 'ses':
@@ -9214,7 +9134,7 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __pyx_t_4 = 0;
 
     /* "supplychainpy/demand/_evo_algo.pyx":373
- * 
+ *         cdef double procreation_probability
  *         for individual in population:
  *             procreation_probability = sum(individual.values()) / len(individual.values())             # <<<<<<<<<<<<<<
  *             if individual_type == 'ses':
@@ -9276,10 +9196,9 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_procreation_probability);
-    __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_procreation_probability, __pyx_t_6);
-    __Pyx_GIVEREF(__pyx_t_6);
-    __pyx_t_6 = 0;
+    __pyx_t_9 = __pyx_PyFloat_AsDouble(__pyx_t_6); if (unlikely((__pyx_t_9 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 373, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __pyx_cur_scope->__pyx_v_procreation_probability = __pyx_t_9;
 
     /* "supplychainpy/demand/_evo_algo.pyx":374
  *         for individual in population:
@@ -9288,8 +9207,8 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
  *                 if procreation_probability >= 0.5:
  *                     yield individual
  */
-    __pyx_t_9 = (__Pyx_PyString_Equals(__pyx_cur_scope->__pyx_v_individual_type, __pyx_n_s_ses, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 374, __pyx_L1_error)
-    if (__pyx_t_9) {
+    __pyx_t_10 = (__Pyx_PyString_Equals(__pyx_cur_scope->__pyx_v_individual_type, __pyx_n_s_ses, Py_EQ)); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 374, __pyx_L1_error)
+    if (__pyx_t_10) {
 
       /* "supplychainpy/demand/_evo_algo.pyx":375
  *             procreation_probability = sum(individual.values()) / len(individual.values())
@@ -9298,10 +9217,8 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
  *                     yield individual
  *             else:
  */
-      __pyx_t_6 = PyObject_RichCompare(__pyx_cur_scope->__pyx_v_procreation_probability, __pyx_float_0_5, Py_GE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 375, __pyx_L1_error)
-      __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 375, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      if (__pyx_t_9) {
+      __pyx_t_10 = ((__pyx_cur_scope->__pyx_v_procreation_probability >= 0.5) != 0);
+      if (__pyx_t_10) {
 
         /* "supplychainpy/demand/_evo_algo.pyx":376
  *             if individual_type == 'ses':
@@ -9356,10 +9273,8 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
  * 
  */
     /*else*/ {
-      __pyx_t_6 = PyObject_RichCompare(__pyx_cur_scope->__pyx_v_procreation_probability, __pyx_float_0_3, Py_GE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 378, __pyx_L1_error)
-      __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 378, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      if (__pyx_t_9) {
+      __pyx_t_10 = ((__pyx_cur_scope->__pyx_v_procreation_probability >= 0.3) != 0);
+      if (__pyx_t_10) {
 
         /* "supplychainpy/demand/_evo_algo.pyx":379
  *             else:
@@ -9400,7 +9315,7 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
 
     /* "supplychainpy/demand/_evo_algo.pyx":372
  *                                     exponential smoothing and 30% for holts trend correcting. """
- * 
+ *         cdef double procreation_probability
  *         for individual in population:             # <<<<<<<<<<<<<<
  *             procreation_probability = sum(individual.values()) / len(individual.values())
  *             if individual_type == 'ses':
@@ -10157,7 +10072,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
  * 
  * 
  *     def sum_squared_error_para(self, forecast, holts_trend_corrected_smoothing, alpha, gamma, smoothing_level):             # <<<<<<<<<<<<<<
- *         cdef dict appraised_individual = {}
+ *         appraised_individual = {}
  *         sum_squared_error = forecast.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,
  */
 
@@ -10257,7 +10172,7 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
 }
 
 static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_21sum_squared_error_para(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_forecast, PyObject *__pyx_v_holts_trend_corrected_smoothing, PyObject *__pyx_v_alpha, PyObject *__pyx_v_gamma, PyObject *__pyx_v_smoothing_level) {
-  PyObject *__pyx_v_appraised_individual = 0;
+  PyObject *__pyx_v_appraised_individual = NULL;
   PyObject *__pyx_v_sum_squared_error = NULL;
   PyObject *__pyx_v_standard_error = NULL;
   PyObject *__pyx_r = NULL;
@@ -10274,7 +10189,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   /* "supplychainpy/demand/_evo_algo.pyx":407
  * 
  *     def sum_squared_error_para(self, forecast, holts_trend_corrected_smoothing, alpha, gamma, smoothing_level):
- *         cdef dict appraised_individual = {}             # <<<<<<<<<<<<<<
+ *         appraised_individual = {}             # <<<<<<<<<<<<<<
  *         sum_squared_error = forecast.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,
  *                                                             alpha=alpha, gamma=gamma)
  */
@@ -10285,7 +10200,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
 
   /* "supplychainpy/demand/_evo_algo.pyx":408
  *     def sum_squared_error_para(self, forecast, holts_trend_corrected_smoothing, alpha, gamma, smoothing_level):
- *         cdef dict appraised_individual = {}
+ *         appraised_individual = {}
  *         sum_squared_error = forecast.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,             # <<<<<<<<<<<<<<
  *                                                             alpha=alpha, gamma=gamma)
  *         standard_error = forecast.standard_error(sum_squared_error, len(self.__orders), smoothing_level)
@@ -10297,7 +10212,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_squared_error, __pyx_v_holts_trend_corrected_smoothing) < 0) __PYX_ERR(0, 408, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":409
- *         cdef dict appraised_individual = {}
+ *         appraised_individual = {}
  *         sum_squared_error = forecast.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,
  *                                                             alpha=alpha, gamma=gamma)             # <<<<<<<<<<<<<<
  *         standard_error = forecast.standard_error(sum_squared_error, len(self.__orders), smoothing_level)
@@ -10308,7 +10223,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
 
   /* "supplychainpy/demand/_evo_algo.pyx":408
  *     def sum_squared_error_para(self, forecast, holts_trend_corrected_smoothing, alpha, gamma, smoothing_level):
- *         cdef dict appraised_individual = {}
+ *         appraised_individual = {}
  *         sum_squared_error = forecast.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,             # <<<<<<<<<<<<<<
  *                                                             alpha=alpha, gamma=gamma)
  *         standard_error = forecast.standard_error(sum_squared_error, len(self.__orders), smoothing_level)
@@ -10464,7 +10379,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
  * 
  * 
  *     def sum_squared_error_para(self, forecast, holts_trend_corrected_smoothing, alpha, gamma, smoothing_level):             # <<<<<<<<<<<<<<
- *         cdef dict appraised_individual = {}
+ *         appraised_individual = {}
  *         sum_squared_error = forecast.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,
  */
 
@@ -14477,7 +14392,6 @@ static void __pyx_tp_dealloc_13supplychainpy_6demand_9_evo_algo___pyx_scope_stru
   Py_CLEAR(p->__pyx_v_individual);
   Py_CLEAR(p->__pyx_v_individual_type);
   Py_CLEAR(p->__pyx_v_population);
-  Py_CLEAR(p->__pyx_v_procreation_probability);
   Py_CLEAR(p->__pyx_t_0);
   if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_5__population_fitness < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_5__population_fitness)))) {
     __pyx_freelist_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_5__population_fitness[__pyx_freecount_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_5__population_fitness++] = ((struct __pyx_obj_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_5__population_fitness *)o);
@@ -14498,9 +14412,6 @@ static int __pyx_tp_traverse_13supplychainpy_6demand_9_evo_algo___pyx_scope_stru
   if (p->__pyx_v_population) {
     e = (*v)(p->__pyx_v_population, a); if (e) return e;
   }
-  if (p->__pyx_v_procreation_probability) {
-    e = (*v)(p->__pyx_v_procreation_probability, a); if (e) return e;
-  }
   if (p->__pyx_t_0) {
     e = (*v)(p->__pyx_t_0, a); if (e) return e;
   }
@@ -14518,9 +14429,6 @@ static int __pyx_tp_clear_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->__pyx_v_population);
   p->__pyx_v_population = Py_None; Py_INCREF(Py_None);
-  Py_XDECREF(tmp);
-  tmp = ((PyObject*)p->__pyx_v_procreation_probability);
-  p->__pyx_v_procreation_probability = Py_None; Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->__pyx_t_0);
   p->__pyx_t_0 = Py_None; Py_INCREF(Py_None);
@@ -14976,7 +14884,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_holts_trend_corrected_smoothing, __pyx_k_holts_trend_corrected_smoothing, sizeof(__pyx_k_holts_trend_corrected_smoothing), 0, 0, 1, 1},
   {&__pyx_n_s_htce_para, __pyx_k_htce_para, sizeof(__pyx_k_htce_para), 0, 0, 1, 1},
   {&__pyx_n_s_i, __pyx_k_i, sizeof(__pyx_k_i), 0, 0, 1, 1},
-  {&__pyx_n_s_id, __pyx_k_id, sizeof(__pyx_k_id), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_index, __pyx_k_index, sizeof(__pyx_k_index), 0, 0, 1, 1},
   {&__pyx_n_s_individual, __pyx_k_individual, sizeof(__pyx_k_individual), 0, 0, 1, 1},
@@ -14989,7 +14896,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_initial_estimate_period, __pyx_k_initial_estimate_period, sizeof(__pyx_k_initial_estimate_period), 0, 0, 1, 1},
   {&__pyx_n_s_initial_population, __pyx_k_initial_population, sizeof(__pyx_k_initial_population), 0, 0, 1, 1},
   {&__pyx_n_s_initialise_smoothing_level_evol, __pyx_k_initialise_smoothing_level_evol, sizeof(__pyx_k_initialise_smoothing_level_evol), 0, 0, 1, 1},
-  {&__pyx_kp_s_initialising, __pyx_k_initialising, sizeof(__pyx_k_initialising), 0, 0, 1, 0},
   {&__pyx_n_s_intercept, __pyx_k_intercept, sizeof(__pyx_k_intercept), 0, 0, 1, 1},
   {&__pyx_n_s_items, __pyx_k_items, sizeof(__pyx_k_items), 0, 0, 1, 1},
   {&__pyx_n_s_k, __pyx_k_k, sizeof(__pyx_k_k), 0, 0, 1, 1},
@@ -15110,7 +15016,6 @@ static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 23, __pyx_L1_error)
   __pyx_builtin_staticmethod = __Pyx_GetBuiltinName(__pyx_n_s_staticmethod); if (!__pyx_builtin_staticmethod) __PYX_ERR(0, 220, __pyx_L1_error)
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 46, __pyx_L1_error)
-  __pyx_builtin_id = __Pyx_GetBuiltinName(__pyx_n_s_id); if (!__pyx_builtin_id) __PYX_ERR(0, 62, __pyx_L1_error)
   __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(0, 105, __pyx_L1_error)
   __pyx_builtin_round = __Pyx_GetBuiltinName(__pyx_n_s_round); if (!__pyx_builtin_round) __PYX_ERR(0, 108, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 147, __pyx_L1_error)
@@ -15323,7 +15228,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_init, 59, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 59, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":64
- *         print("initialising {}".format(id(self)))
+ *         #print("initialising {}".format(id(self)))
  * 
  *     def reproduce(self, recombination_type: str = 'single_point'):             # <<<<<<<<<<<<<<
  *         """ Coordinates the reproduction of two individuals, using one of three recombination methods 'single_point,
@@ -15467,7 +15372,7 @@ static int __Pyx_InitCachedConstants(void) {
  *         """ Assess the population for fitness before crossover and creating next generation. Positive traits
  *         should be reflected by more than 70% of the genes in the genome.
  */
-  __pyx_tuple__55 = PyTuple_Pack(4, __pyx_n_s_population, __pyx_n_s_individual_type, __pyx_n_s_individual, __pyx_n_s_procreation_probability); if (unlikely(!__pyx_tuple__55)) __PYX_ERR(0, 359, __pyx_L1_error)
+  __pyx_tuple__55 = PyTuple_Pack(4, __pyx_n_s_population, __pyx_n_s_individual_type, __pyx_n_s_procreation_probability, __pyx_n_s_individual); if (unlikely(!__pyx_tuple__55)) __PYX_ERR(0, 359, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__55);
   __Pyx_GIVEREF(__pyx_tuple__55);
   __pyx_codeobj__56 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__55, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_population_fitness, 359, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__56)) __PYX_ERR(0, 359, __pyx_L1_error)
@@ -15506,7 +15411,7 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * 
  *     def sum_squared_error_para(self, forecast, holts_trend_corrected_smoothing, alpha, gamma, smoothing_level):             # <<<<<<<<<<<<<<
- *         cdef dict appraised_individual = {}
+ *         appraised_individual = {}
  *         sum_squared_error = forecast.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,
  */
   __pyx_tuple__63 = PyTuple_Pack(9, __pyx_n_s_self, __pyx_n_s_forecast, __pyx_n_s_holts_trend_corrected_smoothing, __pyx_n_s_alpha, __pyx_n_s_gamma, __pyx_n_s_smoothing_level, __pyx_n_s_appraised_individual, __pyx_n_s_sum_squared_error, __pyx_n_s_standard_error); if (unlikely(!__pyx_tuple__63)) __PYX_ERR(0, 406, __pyx_L1_error)
@@ -15597,8 +15502,6 @@ static int __Pyx_InitCachedConstants(void) {
 
 static int __Pyx_InitGlobals(void) {
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
-  __pyx_float_0_3 = PyFloat_FromDouble(0.3); if (unlikely(!__pyx_float_0_3)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_float_0_5 = PyFloat_FromDouble(0.5); if (unlikely(!__pyx_float_0_5)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_5 = PyInt_FromLong(5); if (unlikely(!__pyx_int_5)) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -16203,7 +16106,7 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "supplychainpy/demand/_evo_algo.pyx":64
- *         print("initialising {}".format(id(self)))
+ *         #print("initialising {}".format(id(self)))
  * 
  *     def reproduce(self, recombination_type: str = 'single_point'):             # <<<<<<<<<<<<<<
  *         """ Coordinates the reproduction of two individuals, using one of three recombination methods 'single_point,
@@ -16591,7 +16494,7 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
  * 
  * 
  *     def sum_squared_error_para(self, forecast, holts_trend_corrected_smoothing, alpha, gamma, smoothing_level):             # <<<<<<<<<<<<<<
- *         cdef dict appraised_individual = {}
+ *         appraised_individual = {}
  *         sum_squared_error = forecast.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,
  */
   __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_22sum_squared_error_para, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_11, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__64)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 406, __pyx_L1_error)
@@ -19115,6 +19018,68 @@ bad:
     Py_XDECREF(py_frame);
 }
 
+/* CIntToPy */
+              static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
+    const long neg_one = (long) -1, const_zero = (long) 0;
+    const int is_unsigned = neg_one > const_zero;
+    if (is_unsigned) {
+        if (sizeof(long) < sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(long) <= sizeof(unsigned long)) {
+            return PyLong_FromUnsignedLong((unsigned long) value);
+#ifdef HAVE_LONG_LONG
+        } else if (sizeof(long) <= sizeof(unsigned PY_LONG_LONG)) {
+            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
+#endif
+        }
+    } else {
+        if (sizeof(long) <= sizeof(long)) {
+            return PyInt_FromLong((long) value);
+#ifdef HAVE_LONG_LONG
+        } else if (sizeof(long) <= sizeof(PY_LONG_LONG)) {
+            return PyLong_FromLongLong((PY_LONG_LONG) value);
+#endif
+        }
+    }
+    {
+        int one = 1; int little = (int)*(unsigned char *)&one;
+        unsigned char *bytes = (unsigned char *)&value;
+        return _PyLong_FromByteArray(bytes, sizeof(long),
+                                     little, !is_unsigned);
+    }
+}
+
+/* CIntToPy */
+              static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
+    const int neg_one = (int) -1, const_zero = (int) 0;
+    const int is_unsigned = neg_one > const_zero;
+    if (is_unsigned) {
+        if (sizeof(int) < sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(int) <= sizeof(unsigned long)) {
+            return PyLong_FromUnsignedLong((unsigned long) value);
+#ifdef HAVE_LONG_LONG
+        } else if (sizeof(int) <= sizeof(unsigned PY_LONG_LONG)) {
+            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
+#endif
+        }
+    } else {
+        if (sizeof(int) <= sizeof(long)) {
+            return PyInt_FromLong((long) value);
+#ifdef HAVE_LONG_LONG
+        } else if (sizeof(int) <= sizeof(PY_LONG_LONG)) {
+            return PyLong_FromLongLong((PY_LONG_LONG) value);
+#endif
+        }
+    }
+    {
+        int one = 1; int little = (int)*(unsigned char *)&one;
+        unsigned char *bytes = (unsigned char *)&value;
+        return _PyLong_FromByteArray(bytes, sizeof(int),
+                                     little, !is_unsigned);
+    }
+}
+
 /* Print */
               #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
 static PyObject *__Pyx_GetStdout(void) {
@@ -19220,68 +19185,6 @@ bad:
     return -1;
 }
 #endif
-
-/* CIntToPy */
-              static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
-    const long neg_one = (long) -1, const_zero = (long) 0;
-    const int is_unsigned = neg_one > const_zero;
-    if (is_unsigned) {
-        if (sizeof(long) < sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(long) <= sizeof(unsigned long)) {
-            return PyLong_FromUnsignedLong((unsigned long) value);
-#ifdef HAVE_LONG_LONG
-        } else if (sizeof(long) <= sizeof(unsigned PY_LONG_LONG)) {
-            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
-#endif
-        }
-    } else {
-        if (sizeof(long) <= sizeof(long)) {
-            return PyInt_FromLong((long) value);
-#ifdef HAVE_LONG_LONG
-        } else if (sizeof(long) <= sizeof(PY_LONG_LONG)) {
-            return PyLong_FromLongLong((PY_LONG_LONG) value);
-#endif
-        }
-    }
-    {
-        int one = 1; int little = (int)*(unsigned char *)&one;
-        unsigned char *bytes = (unsigned char *)&value;
-        return _PyLong_FromByteArray(bytes, sizeof(long),
-                                     little, !is_unsigned);
-    }
-}
-
-/* CIntToPy */
-              static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
-    const int neg_one = (int) -1, const_zero = (int) 0;
-    const int is_unsigned = neg_one > const_zero;
-    if (is_unsigned) {
-        if (sizeof(int) < sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(int) <= sizeof(unsigned long)) {
-            return PyLong_FromUnsignedLong((unsigned long) value);
-#ifdef HAVE_LONG_LONG
-        } else if (sizeof(int) <= sizeof(unsigned PY_LONG_LONG)) {
-            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
-#endif
-        }
-    } else {
-        if (sizeof(int) <= sizeof(long)) {
-            return PyInt_FromLong((long) value);
-#ifdef HAVE_LONG_LONG
-        } else if (sizeof(int) <= sizeof(PY_LONG_LONG)) {
-            return PyLong_FromLongLong((PY_LONG_LONG) value);
-#endif
-        }
-    }
-    {
-        int one = 1; int little = (int)*(unsigned char *)&one;
-        unsigned char *bytes = (unsigned char *)&value;
-        return _PyLong_FromByteArray(bytes, sizeof(int),
-                                     little, !is_unsigned);
-    }
-}
 
 /* PrintOne */
               #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3

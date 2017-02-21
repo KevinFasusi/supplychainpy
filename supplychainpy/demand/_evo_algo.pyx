@@ -59,7 +59,7 @@ class Population:
     def __init__(self, list individuals, double mutation_probability = 0.2):
         self.individuals = individuals
         self.mutation_probability = mutation_probability
-        print("initialising {}".format(id(self)))
+        #print("initialising {}".format(id(self)))
 
     def reproduce(self, recombination_type: str = 'single_point'):
         """ Coordinates the reproduction of two individuals, using one of three recombination methods 'single_point,
@@ -368,7 +368,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
         Returns:
             fit_population (list):  A population of individuals with a probability of procreating above 70% for simple
                                     exponential smoothing and 30% for holts trend correcting. """
-
+        cdef double procreation_probability
         for individual in population:
             procreation_probability = sum(individual.values()) / len(individual.values())
             if individual_type == 'ses':
@@ -404,7 +404,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
 
 
     def sum_squared_error_para(self, forecast, holts_trend_corrected_smoothing, alpha, gamma, smoothing_level):
-        cdef dict appraised_individual = {}
+        appraised_individual = {}
         sum_squared_error = forecast.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,
                                                             alpha=alpha, gamma=gamma)
         standard_error = forecast.standard_error(sum_squared_error, len(self.__orders), smoothing_level)
