@@ -41,14 +41,19 @@ def main():
     parser = argparse.ArgumentParser(description='Supplychainpy commandline interface a')
 
     parser.add_argument(dest='filenames', metavar='filename', nargs='?')
+
     parser.add_argument('-l', '--launch', dest='launch', action='store_true',
-                        help='Launches supplychainpy reporting gui for setting port and launching the default browser.')
+                        help='Launches supplychainpy reporting gui for setting \
+                        port and launching the default browser.')
 
     parser.add_argument('-lx', '--launch-console', dest='launch_console', action='store_true',
-                        help='Launches supplychainpy reporting in the default browser, without gui interface. Uses default port (5000) unless another port is specified. ')
+                        help='Launches supplychainpy reporting in the default browser, \
+                        without gui interface. Uses default port (5000) unless another port \
+                        is specified. ')
 
     parser.add_argument('-a', '--analyse', dest='analyse_file', action='store_true',
-                        help='Processes the file supplied as the first argument and performs analysis')
+                        help='Processes the file supplied as the first argument \
+                        and performs analysis')
 
     parser.add_argument('-o', dest='outfile', action='store',
                         help='output file')
@@ -60,12 +65,14 @@ def main():
                         help='database engine uri e.g. ')
 
     parser.add_argument('-cur', dest='currency', action='store',
-                        help='Sets the currency for the analysis. The currency should match the currency of the '
-                             'raw data. IMPORTANT: Currency conversion does not occur by setting this flag. '
-                             'The default currency is US Dollars (USD). ', default='USD')
+                        help='Sets the currency for the analysis. The currency should \
+                        match the currency of the raw data. IMPORTANT: Currency \
+                        conversion does not occur by setting this flag. The default \
+                        currency is US Dollars (USD). ', default='USD')
 
     parser.add_argument('--host', dest='host', action='store',
-                        help='Sets the host for the server (defaults 127.0.0.1) ', default='127.0.0.1')
+                        help='Sets the host for the server \
+                        (defaults 127.0.0.1) ', default='127.0.0.1')
 
     parser.add_argument('-loc', dest='location', action='store',
                         help='database path e.g. ')
@@ -74,7 +81,8 @@ def main():
                         help='user name ')
 
     parser.add_argument('-p', '--port', dest='port', action='store',
-                        help='port to use for local server e.g. 8080 (default: 5000)', default='5000')
+                        help='port to use for local server e.g. 8080 \
+                        (default: 5000)', default='5000')
 
     args = parser.parse_args()
 
@@ -91,14 +99,14 @@ def main():
     elif args.launch and args.analyse_file and args.filenames is not None and args.location is not None:
         print(2)
         if args.currency is not None:
-            currency= args.currency
+            currency = args.currency
         else:
             currency = 'USD'
 
         app_settings = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
         app_settings['database_path'] = args.location
         app_settings['file'] = args.filenames
-        app_settings['currency']= currency #only add new currency here if the currency has not already been set
+        app_settings['currency'] = currency
 
         serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
         #d = _Orchestrate()
@@ -139,7 +147,7 @@ def main():
         #if db_present:
         #    create_management_db()
         load_db(file=args.filenames, location=args.location)
-        launch_report_server(location=args.location,port=args.port, host=args.host)
+        launch_report_server(location=args.location, port=args.port, host=args.host)
 
     elif args.location and args.launch_console and args.port and args.host:
         print(6)
@@ -149,11 +157,7 @@ def main():
             'currency': args.currency
         }
         serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
-        launch_report_server(location=args.location,port=args.port, host=args.host)
-
-    #elif args.filenames is None and False == args.analyse_file and False == args.launch and args.outfile is None:
-    #    filename = input('Make sure you are in the directory where the reporting database will be created. Please supply the path path to "CSV" or "text" file... ')
-    #    sys.stdout.flush()
+        launch_report_server(location=args.location, port=args.port, host=args.host)
 
 if __name__ == '__main__':
     main()

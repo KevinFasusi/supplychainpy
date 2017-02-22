@@ -22,15 +22,16 @@
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from multiprocessing.pool import ThreadPool
+import multiprocessing as mp
+import concurrent.futures as cf
+import pyximport
+
+from concurrent.futures import ProcessPoolExecutor
+from copy import deepcopy
 from decimal import Decimal
 
-import multiprocessing
-
-from copy import deepcopy
-
 from supplychainpy.simulations import monte_carlo
-import pyximport
+from supplychainpy._helpers._cpu_info import CoreCount
 
 pyximport.install()
 from supplychainpy.simulations.sim_summary import summarize_monte_carlo, frame
@@ -81,7 +82,12 @@ def run_transactions(random_demand: list, period_length: int, orders_analysis: l
         transaction_report.append(deepcopy([sim_dict]))
     return transaction_report
 
-pool = multiprocessing.Pool(4)
+def random_demand(orders_analysis=None, period_length=None)->list:
+    """"""
+    simulation = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis)
+    r_demand = simulation.generate_normal_random_distribution(period_length=period_length)
+    return r_demand
+
 def run_monte_carlo(orders_analysis: list, runs: int, period_length: int = 12) -> list:
     """Runs monte carlo simulation.
 
@@ -149,11 +155,15 @@ def run_monte_carlo(orders_analysis: list, runs: int, period_length: int = 12) -
 
     transaction_report = []
     # add shortage cost,
-    for k in range(0, runs):
-        #print('RUN: {}'.format(k))
-        simulation = monte_carlo.SetupMonteCarlo(analysed_orders=orders_analysis)
-        random_demand = simulation.generate_normal_random_distribution(period_length=period_length)
-        transaction_report.append(deepcopy(pool.apply(run_transactions, args=[random_demand, period_length, orders_analysis])))
+    cpu_cores = CoreCount()
+    cores = cpu_cores.core_count
+    demand = random_demand(orders_analysis= orders_analysis,  period_length= period_length)
+
+    with ProcessPoolExecutor(max_workers=cores) as executor:
+        transactions = {k: executor.submit(run_transactions, *(demand, period_length, orders_analysis)) for k in range(0, runs)}
+        transactions_gen = {item : cf.as_completed(transactions[item]) for item in transactions}
+        transaction_report = [transactions[item].result() for item in transactions_gen]
+            #transaction_report.append(deepcopy(pool.apply(run_transactions, args=[random_demand, period_length, orders_analysis])))
     return transaction_report
 
 

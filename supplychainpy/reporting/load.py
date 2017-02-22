@@ -171,13 +171,13 @@ def load(file_path: str, location: str=None):
         #        simple_forecast.update(deepcopy(pool.apply(analysis_forecast_simple,args=(analysis,))))
         simple_forecast={}
         cores = int(multiprocessing.cpu_count())
-        print("original core count {}".format(cores))
+        #print("original core count {}".format(cores))
 
         cores -= 1
-        print("altered core count {}".format(cores))
+        #print("altered core count {}".format(cores))
         with ProcessPoolExecutor(max_workers=cores) as executor:
             simple_forecast_futures = {analysis.sku_id: executor.submit(_analysis_forecast_simple, analysis) for analysis in orders_analysis}
-            simple_forecast_gen = {future: concurrent.futures.as_completed(simple_forecast_futures) for future in simple_forecast_futures}
+            simple_forecast_gen = {future: concurrent.futures.as_completed(simple_forecast_futures[future]) for future in simple_forecast_futures}
         simple_forecast = { value : simple_forecast_futures[value].result() for value in simple_forecast_gen}
         #simple_forecast = {analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
         #                   model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
@@ -194,7 +194,7 @@ def load(file_path: str, location: str=None):
         #        holts_forecast.update(deepcopy(pool.apply(analysis_forecast_holt,args=(analysis,))))
         with ProcessPoolExecutor(max_workers=cores) as executor:
             holts_forecast_futures = { analysis.sku_id: executor.submit(_analysis_forecast_holt, analysis) for analysis in orders_analysis}
-            holts_forecast_gen =  { future: concurrent.futures.as_completed(holts_forecast_futures[future].result()) for future in holts_forecast_futures}
+            holts_forecast_gen =  { future: concurrent.futures.as_completed(holts_forecast_futures[future]) for future in holts_forecast_futures}
         holts_forecast = { value : holts_forecast_futures[value].result() for value in holts_forecast_gen}
 
         #holts_forecast = {analysis.sku_id: analysis.holts_trend_corrected_forecast for analysis in
