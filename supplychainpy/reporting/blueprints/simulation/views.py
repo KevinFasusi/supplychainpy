@@ -34,6 +34,11 @@ from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
 
 simulation_blueprint = Blueprint('simulation', __name__, template_folder='templates')
 
+
+def run_simulation():
+    pass
+    
+
 @simulation_blueprint.route('/simulation', methods=['GET','PUT'])
 @simulation_blueprint.route('/simulation/<int:runs>', methods=['GET','PUT'])
 def simulation(runs:int=None):
