@@ -93,16 +93,16 @@ class TestSimulate(TestCase):
 
         sim_window = simulate.summarize_window(simulation_frame=sim, period_length=12)
 
-        #for item in sim:
-        #    for s in item:
-        #        if s[0].get('sku_id')=='KR202-209':
-        #            print(s)
+        for item in sim:
+            for s in item:
+                if s[0].get('sku_id')=='KR202-209':
+                    print(s)
         
         frame_summary = simulate.summarise_frame(sim_window)
 
-        for item in frame_summary:
-            if item.get('sku_id')=='KR202-209':
-                print(item)
+        #for item in frame_summary:
+        #    if item.get('sku_id')=='KR202-209':
+        #        print(item)
 
 if __name__ == "__main__":
     unittest.main()
