@@ -60,7 +60,7 @@
 
 
 	(0, _jquery2.default)(function () {
-
+	    (0, _jquery2.default)('#loader').hide();
 	    (0, _jquery2.default)('#currency-dropdown-btn >li').click(function () {
 	        var currency = (0, _jquery2.default)(".dropdown-menu > li > a").text();
 	        (0, _jquery2.default)('#currency-dropdown-btn').text(currency);
@@ -74,12 +74,23 @@
 	        search_recommendations();
 	    });
 
+	    (0, _jquery2.default)('#sim-search-btn').click(function () {
+	        (0, _jquery2.default)("#profile-rec").hide();
+	        (0, _jquery2.default)("#sim-sku-rec > div").hide();
+	        search_sim();
+	    });
+
 	    (0, _jquery2.default)('#simulate-btn').click(function () {
+	        (0, _jquery2.default)('<div id="loader">').show();
 	        run_simulation();
 	    });
 
 	    (0, _jquery2.default)('#clear-btn').click(function () {
 	        show_recommendations();
+	    });
+
+	    (0, _jquery2.default)('#sim-clear-btn').click(function () {
+	        show_sim();
 	    });
 
 	    (0, _jquery2.default)('#sim-detail-btn').click(function () {
@@ -483,6 +494,12 @@
 	    show_search(message);
 	}
 
+	function search_sim() {
+
+	    var message = (0, _jquery2.default)('#sim-search-input').val();
+	    show_search(message);
+	}
+
 	function show_search(message) {
 	    (0, _jquery2.default)("#" + message.trim()).show();
 	}
@@ -493,8 +510,16 @@
 	    (0, _jquery2.default)("#sku-rec > div").show().slideDown(600);
 	}
 
+	function show_sim() {
+
+	    (0, _jquery2.default)('#sim-search-input').val('');
+	    (0, _jquery2.default)("#sim-profile-rec").show(500, "linear");
+	    (0, _jquery2.default)("#sim-sku-rec > div").show().slideDown(600);
+	}
+
 	function run_simulation() {
 	    var runs = (0, _jquery2.default)('#runs-input').val();
+
 	    window.location = 'http://127.0.0.1:' + location.port + '/simulation/' + runs;
 	}
 

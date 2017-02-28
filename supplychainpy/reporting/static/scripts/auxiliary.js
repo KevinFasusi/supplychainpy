@@ -4,7 +4,7 @@
 import $ from 'jquery';
 
 $(function () {
-
+    $('#loader').hide();
     $('#currency-dropdown-btn >li').click(function () {
         var currency = $(".dropdown-menu > li > a").text();
         $('#currency-dropdown-btn').text(currency);
@@ -18,12 +18,23 @@ $(function () {
         search_recommendations();
     });
 
+    $('#sim-search-btn').click(function () {
+        $("#profile-rec").hide();
+        $("#sim-sku-rec > div").hide();
+        search_sim();
+    });
+
     $('#simulate-btn').click(function () {
+        $('<div id="loader">').show();
         run_simulation();
     });
 
     $('#clear-btn').click(function () {
         show_recommendations();
+    });
+
+    $('#sim-clear-btn').click(function () {
+        show_sim();
     });
 
     $('#sim-detail-btn').click(function () {
@@ -475,6 +486,14 @@ function search_recommendations() {
 
 }
 
+function search_sim() {
+
+    var message = $('#sim-search-input').val();
+    show_search(message);
+
+
+}
+
 function show_search(message) {
     $("#" + message.trim()).show();
 }
@@ -485,9 +504,17 @@ function show_recommendations() {
     $("#sku-rec > div").show().slideDown(600);
 }
 
+function show_sim() {
+
+    $('#sim-search-input').val('');
+    $("#sim-profile-rec").show(500, "linear");
+    $("#sim-sku-rec > div").show().slideDown(600);
+}
+
 
 function run_simulation() {
     var runs = $('#runs-input').val();
+
     window.location = 'http://127.0.0.1:' + location.port + '/simulation/' + runs;
 }
 
