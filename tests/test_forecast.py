@@ -137,7 +137,6 @@ class TestForecast(TestCase):
         self.assertEqual(round(holts_forecast[2]), 334)
         self.assertEqual(round(holts_forecast[3]), 361)
 
-
         # sum_squared_error = f.sum_squared_errors(p, 0.5)
         # print(sum_squared_error)
         # standard_error = f.standard_error(sum_squared_error, len(self.__orders_ex), 0.5, 2)

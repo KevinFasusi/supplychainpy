@@ -8,7 +8,7 @@ from supplychainpy import model_inventory
 from supplychainpy.inventory.summarise import Inventory
 from supplychainpy.sample_data.config import ABS_FILE_PATH
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+#logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class TestSummariseAnalysis(TestCase):
     def setUp(self):

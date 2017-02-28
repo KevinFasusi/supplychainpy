@@ -103,7 +103,6 @@ class TestBuildModel(TestCase):
                                                          z_value=Decimal(1.28),
                                                          file_type="text",
                                                          retail_price=Decimal(30))
-        print(d)
         self.assertEqual(len(d), 19)
 
     def test_standard_deviation_col_count_csv(self):

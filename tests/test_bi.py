@@ -16,15 +16,25 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 
 class TestRecommendations(TestCase):
+    """A class for testing the Recommendations generator for reporting"""
     def setUp(self):
-        self.STATES = ('EXCESS_RANK', 'SHORTAGE_RANK', 'TRAFFIC_LIGHT', 'CLASSIFICATION', 'FORECAST', 'RECOMMENDATION',
-                       'INVENTORY_TURNS', 'START')
+        self._states = (
+            'EXCESS_RANK',
+            'SHORTAGE_RANK',
+            'TRAFFIC_LIGHT',
+            'CLASSIFICATION',
+            'FORECAST',
+            'RECOMMENDATION',
+            'INVENTORY_TURNS',
+            'START'
+            )
 
         self.orders_analysis = model_inventory.analyse(file_path=ABS_FILE_PATH['COMPLETE_CSV_SM'],
                                                        z_value=Decimal(1.28),
                                                        reorder_cost=Decimal(5000),
-                                                       file_type="csv",
-                                                       length=12)
+                                                       file_type='csv',
+                                                       length=12,
+                                                       currency='USD')
 
         self.forecast = deserialise_config(ABS_FILE_PATH['FORECAST_PICKLE'])
 
@@ -41,20 +51,23 @@ class TestRecommendations(TestCase):
         self.recommend.set_start("start")
 
     def test_add_states(self):
+        """Checks length of loaded states"""
         self.assertEqual(8, len(self.recommend.handlers))
 
     def test_add_states_key(self):
         for state in self.recommend.handlers.keys():
-            self.assertIn(state, self.STATES)
+            self.assertIn(state, self._states)
 
     def test_recommendations(self):
-        completed_recommendations =[]
+        """Checks recommendations generated"""
+        completed_recommendations = []
         for sku in self.orders_analysis:
             completed_recommendations.append(self.recommend.run(sku.sku_id))
         self.assertEqual(len(completed_recommendations), len(self.orders_analysis))
 
     def test_recommendations_coverage(self):
-        completed_recommendations =[]
+        """Checks coverage of recommendations"""
+        completed_recommendations = []
         sku_ids = [i.sku_id for i in self.orders_analysis]
         for sku in self.orders_analysis:
             completed_recommendations.append(self.recommend.run(sku.sku_id)[1])

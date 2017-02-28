@@ -28,7 +28,7 @@ class TestMonteCarlo(TestCase):
                                                                  length=12)
 
         self.__sim = monte_carlo.SetupMonteCarlo(analysed_orders=self.__orders_analysis,
-                                                 period_length=1)
+                                                 period_length=10)
 
         # def test_normal_distribution_mean(self):
         #    """ Verifies mean and variance for random normal distribution.
@@ -55,11 +55,6 @@ class TestMonteCarlo(TestCase):
         z_value = (random_demand - float(average_orders)) / float(standard_deviation)
         # print(z_value)
 
-    def test_run_simulation(self):
-
-        simulation_windows = simulate.run_monte_carlo(orders_analysis=self.__orders_analysis, runs=1)
-
-        self.assertEqual(len(simulation_windows), 468)
 
     def test_summarize_simulation(self):
         orders_analysis = analyse_orders_abcxyz_from_file(file_path=ABS_FILE_PATH['COMPLETE_CSV_SM'], z_value=Decimal(1.28),
