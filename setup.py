@@ -5,6 +5,8 @@ from setuptools import setup, find_packages, Extension
 extensions = [
     Extension('supplychainpy.simulations.sim_summary',
               ['supplychainpy/simulations/sim_summary.pyx']),
+    Extension('supplychainpy.simulations.monte_carlo_simulation',
+              ['supplychainpy/simulations/monte_carlo_simulation.pyx']),
     Extension('supplychainpy.inventory.eoq', ['supplychainpy/inventory/eoq.pyx']),
     Extension('supplychainpy.demand._squared_error',
               ['supplychainpy/demand/_squared_error.pyx']),

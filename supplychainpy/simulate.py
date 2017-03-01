@@ -33,7 +33,7 @@ from decimal import Decimal
 from supplychainpy.simulations import monte_carlo
 from supplychainpy._helpers._cpu_info import CoreCount
 
-pyximport.install()
+#pyximport.install()
 from supplychainpy.simulations.sim_summary import summarize_monte_carlo, frame
 from supplychainpy.simulations import monte_carlo_simulation
 

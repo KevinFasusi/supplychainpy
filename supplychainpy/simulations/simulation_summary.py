@@ -26,8 +26,6 @@ from decimal import Decimal
 
 
 class MonteCarloSummary:
-    """
-    """
     _opening_stock_average = 0.0
     _opening_stock_min = 0.0
     _opening_stock_max = 0.0

@@ -76,7 +76,7 @@ class TestSimulate(TestCase):
 
     def quick_test(self):
         sim = simulate.run_monte_carlo(orders_analysis=self.__orders_analysis,
-                                       runs=10, period_length=12)
+                                       runs=100, period_length=12)
         print(sim)
         sim_window = simulate.summarize_window(simulation_frame=sim, period_length=12)
 
