@@ -32,7 +32,7 @@
         </div>
         <div id="profile-rec">
             <div class="recommendation-panel rec-panel">
-                <img id="warehouse-icon" src="/static/warehouse_icon.png">
+                <img id="warehouse-icon" src="{{ url_for('static', filename='images/warehouse_icon.png')}}">
                 <h3>Inventory Profile</h3>
                 {% for i in profile %}
                 {{i.statement}}
@@ -55,7 +55,7 @@
                     <div class="col-md-2"><h3><strong><a href="sku_detail/{{i.rec.sku_id}}">{{i.rec.sku.sku_id}}</a></strong></h3></div>
                     <div class="col-md-2"></div>
                     <div class="col-md-7">
-                        <img id="sku-icon" src="/static/sku_icon.png">
+                        <img id="sku-icon" src="{{ url_for('static', filename='images/sku_icon.png')}}">
                     </div>
                 </div>
                 <p>{{i.statement}}</p>
