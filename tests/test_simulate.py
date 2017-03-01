@@ -76,8 +76,7 @@ class TestSimulate(TestCase):
 
     def quick_test(self):
         sim = simulate.run_monte_carlo(orders_analysis=self.__orders_analysis,
-                                       runs=100, period_length=12)
-        print(sim)
+                                       runs=2, period_length=12)
         sim_window = simulate.summarize_window(simulation_frame=sim, period_length=12)
 
         #for item in sim:
@@ -86,7 +85,7 @@ class TestSimulate(TestCase):
         #            print(s)
         #print(sim_window)
         frame_summary = simulate.summarise_frame(sim_window)
-
+        print(frame_summary)
         #for item in frame_summary:
         #    if item.get('sku_id')=='KR202-209':
         #        print(item)

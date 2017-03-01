@@ -562,3 +562,8 @@ nav ul li a {
         transform: rotate(360deg);
     }
 }
+
+.summary-titles{
+
+    color: white;
+}

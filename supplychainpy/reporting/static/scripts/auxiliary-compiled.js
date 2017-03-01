@@ -87,6 +87,17 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
         }
     });
 
+    (0, _jquery2.default)('#runs-input').keypress(function (event) {
+        if (event.keyCode == 13) {
+            (0, _jquery2.default)('#simulate-btn').click();
+        }
+    });
+
+    (0, _jquery2.default)('#sim-search-input').keypress(function (event) {
+        if (event.keyCode == 13) {
+            (0, _jquery2.default)('#sim-search-btn').click();
+        }
+    });
     load_currency_codes();
     // ajax request for json containing sku related. Is used to: builds revenue chart (#chart).
     var ay = [{

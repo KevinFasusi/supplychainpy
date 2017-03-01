@@ -80,6 +80,17 @@ $(function () {
         }
     });
 
+    $('#runs-input').keypress(function (event) {
+        if (event.keyCode == 13) {
+            $('#simulate-btn').click();
+        }
+    });
+
+    $('#sim-search-input').keypress(function (event) {
+        if (event.keyCode == 13) {
+            $('#sim-search-btn').click();
+        }
+    });
     load_currency_codes();
     // ajax request for json containing sku related. Is used to: builds revenue chart (#chart).
     var ay = [{
