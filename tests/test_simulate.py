@@ -33,8 +33,7 @@ class TestSimulate(TestCase):
 
         sim = simulate.run_monte_carlo(orders_analysis=self.__orders_analysis,
                                        runs=10, period_length=12)
-        for period in sim:
-           # print(period)
+        for period in sim[0]:
             if int(period[0].get("backlog")) == 0:
                 self.assertEqual(int(period[0].get("shortage_cost")), 0)
 
@@ -43,7 +42,7 @@ class TestSimulate(TestCase):
         """ Test shortage cost when a backlog has been recorded. """
 
         sim = simulate.run_monte_carlo(orders_analysis=self.__orders_analysis, runs=1, period_length=12)
-        for period in sim:
+        for period in sim[0]:
             if int(period[0].get("shortage_cost")) > 0:
                 self.assertGreater(int(period[0].get("backlog")), 0)
 
@@ -52,7 +51,7 @@ class TestSimulate(TestCase):
         """Ensures a purchase order is raised if the closing stock is 0. """
 
         sim = simulate.run_monte_carlo(orders_analysis=self.__orders_analysis, runs=1, period_length=12)
-        for period in sim:
+        for period in sim[0]:
             if int(period[0].get("closing_stock")) == 0:
                # print(period[0].get("po_quantity"))
                 self.assertGreater(int(period[0].get("po_quantity")), 0)
@@ -64,45 +63,33 @@ class TestSimulate(TestCase):
         po_regex = re.compile('[P][O] \d+')
 
         sim = simulate.run_monte_carlo(orders_analysis=self.__orders_analysis, runs=1, period_length=12)
-        for period in sim:
+        for period in sim[0]:
             if int(period[0].get("closing_stock")) == 0 and int(period[0].get("backlog")) > 0:
                 self.assertRegex(period[0].get("po_raised"), expected_regex=po_regex, msg='True')
 
 
-    def test_avg_orders(self):
-        for period in self.sim:
-            print(period)
-
-        #sim_window = simulate.summarize_window(simulation_frame=self.sim, period_length=12)
-        #print(sim_window)
-
-
     def test_backlog(self):
-        for period in self.sim:
+        for period in self.sim[0]:
             if int(period[0].get("backlog")) < 0 and int(period[0].get("closing_stock")) == 0:
                 backlog =(int(period[0].get("opening_stock")) + int(period[0].get("delivery"))) - int(period[0].get("demand"))
                 self.assertAlmostEqual(int(period[0].get("backlog")),backlog,delta=1)
 
-    def test_opening_stock(self):
-        pass
-
-
     def quick_test(self):
         sim = simulate.run_monte_carlo(orders_analysis=self.__orders_analysis,
-                                       runs=1000, period_length=12)
-
+                                       runs=2, period_length=12)
         sim_window = simulate.summarize_window(simulation_frame=sim, period_length=12)
 
         #for item in sim:
         #    for s in item:
         #        if s[0].get('sku_id')=='KR202-209':
         #            print(s)
-        
+        #print(sim_window)
         frame_summary = simulate.summarise_frame(sim_window)
-
-        for item in frame_summary:
-            if item.get('sku_id')=='KR202-209':
-                print(item)
+        print(frame_summary)
+        #for item in frame_summary:
+        #    if item.get('sku_id')=='KR202-209':
+        #        print(item)
+        #print(frame_summary)
 
 if __name__ == "__main__":
     unittest.main()

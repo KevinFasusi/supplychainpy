@@ -7,8 +7,8 @@ class Individual:
     _genome = 0
 
     def __init__(
-            self, name: str='offspring', overide: bool=False, gene_count: int=12,
-            forecast_type: str='ses'
+            self, name ='offspring', overide=False, int gene_count =12,
+            forecast_type ='ses'
         ):
 
         self._name = name
@@ -21,11 +21,11 @@ class Individual:
         return '{}: {}'.format(self._name, self._genome)
 
     @property
-    def gene_count(self) -> int:
+    def gene_count(self):
         return self.gene_count
 
     @gene_count.setter
-    def gene_count(self, value: int):
+    def gene_count(self, int value):
         self._gene_count = value
 
     @property
@@ -33,7 +33,7 @@ class Individual:
         return self._genome
 
     @genome.setter
-    def genome(self, val: tuple):
+    def genome(self, tuple val):
         self._genome = val
 
     @property
@@ -61,7 +61,7 @@ class Population:
         self.mutation_probability = mutation_probability
         #print("initialising {}".format(id(self)))
 
-    def reproduce(self, recombination_type: str = 'single_point'):
+    def reproduce(self, recombination_type = 'single_point'):
         """ Coordinates the reproduction of two individuals, using one of three recombination methods 'single_point,
         two_point or uniform'.
 
@@ -82,7 +82,7 @@ class Population:
         if recombination_type == self._recombination_type[2]:
             yield [i for i in self._uniform_crossover_recombination()][0]
 
-    def _single_point_crossover_recombination(self) -> object:
+    def _single_point_crossover_recombination(self):
         """ Selects genes from the parent to crossover based on one point along the chromosome.
 
         Yields:
@@ -256,7 +256,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
             self.__standard_error = kwargs['standard_error']
             self.__recombination_type = kwargs['recombination_type']
 
-    def initial_population(self, individual_type: str = 'ses'):
+    def initial_population(self, individual_type = 'ses'):
         """Initialises population and initiates the optimisation of the standard error by searching for an optimum
         alpha value.
         Returns:
@@ -278,6 +278,8 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
 
         cdef list parents = []
         cdef list parents_population = []
+        cdef list populations_genome = []
+        cdef list populations_traits = []
 
         while len(parents_population) < self.__population_size:
             for i in range(0, self.__population_size):
@@ -297,14 +299,20 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
 
         create_offspring = Population(individuals=parents_population)
 
+        cdef list new_population = []
         # population reproduce
         new_population = [i for i in create_offspring.reproduce(recombination_type=self.__recombination_type)]
 
         if new_population is None:
             return 0
 
-        parent_offspring_population = []
-        new_individuals = []
+        cdef list parent_offspring_population = []
+        cdef list new_individuals = []
+        cdef list new_populations_traits = []
+        cdef list new_fit_population = []
+        cdef list final_error = []
+        cdef tuple minimum_smoothing_level
+
         while len(new_population) < self.__population_size * 10:
             for po in new_population:
                 pke = po.keys()
@@ -356,7 +364,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
             yield new_individual
 
     @staticmethod
-    def _population_fitness(population: list, individual_type: str = 'ses') -> list:
+    def _population_fitness(list population, individual_type='ses'):
         """ Assess the population for fitness before crossover and creating next generation. Positive traits
         should be reflected by more than 70% of the genes in the genome.
 
@@ -378,7 +386,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
                 if procreation_probability >= 0.3:
                     yield individual
 
-    def generate_smoothing_level_genome(self, population: list, individual_type: str = 'ses'):
+    def generate_smoothing_level_genome(self, list population, individual_type = 'ses'):
 
         # stack parents and offspring into a list for next steps
         if individual_type == 'ses':
@@ -441,7 +449,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
             individuals_traits = self._express_trait(standard_error, genome)
             yield individuals_traits
 
-    def _run_exponential_smoothing_forecast(self, individual: tuple) -> dict:
+    def _run_exponential_smoothing_forecast(self, individual ):
 
         f = Forecast(self.__orders, self.__average_order)
         simple_expo_smoothing = []
@@ -474,9 +482,9 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
     def _selection_population(self, individuals_fitness: dict, appraised_individual: list):
         pass
 
-    def simple_exponential_smoothing_evo(self, smoothing_level_constant: float, initial_estimate_period: int,
-                                         recombination_type: str = 'single_point', population_size: int = 10,
-                                         forecast_length: int = 5) -> dict:
+    def simple_exponential_smoothing_evo(self, smoothing_level_constant, initial_estimate_period,
+                                         recombination_type = 'single_point', int population_size = 10,
+                                         int forecast_length = 5):
         """ Simple exponential smoothing using evolutionary algorithm for optimising smoothing level constant (alpha value)
 
             Args:

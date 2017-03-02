@@ -1,6 +1,6 @@
 {% extends 'layouts/base.html' %}
 
-{% block body%}
+{% block body %}
 
 
 <div class=" row">
@@ -100,12 +100,13 @@
                 {% for cur in currency if (cur.id == sku.currency_id) and (loop.index == 1) %}
                 {% set sym = cur.symbol %}
                 {% autoescape false %}
-                <h1 id="lg-shortage-sku"><a href="sku_detail/{{sku.id}}">{{largest.sku.sku_id}}</a></h1>
-                <h1 class="slate-values" id="lg-shortage-cost">{{sym}}{{"{:,.2f}".format(largest.shortage_cost)}}</h1>
+                <h1 id="lg-shortage-sku"><a href="sku_detail/{{ sku.id }}">{{ largest.sku.sku_id }}</a></h1>
+                <h1 class="slate-values" id="lg-shortage-cost">
+                    {{ sym }}{{ "{:,.2f}".format(largest.shortage_cost) }}</h1>
                 {% endautoescape %}
                 {% endfor %}
                 {% endfor %}
-                <h1 class="slate-hint" id="lg-shortage-units">{{largest.shortages}} units</h1>
+                <h1 class="slate-hint" id="lg-shortage-units">{{ largest.shortages }} units</h1>
             </div>
             <div class=" slate col-md-3">
                 <h1>Total Shortage: </h1>
@@ -114,17 +115,17 @@
                 {% for cur in currency if (cur.id == sku.currency_id) and (loop.index == 1) %}
                 {% set sym = cur.symbol %}
                 {% autoescape false %}
-                <h1 class="slate-text-sm"><strong class="slate-values" id="total-shortage">{{sym}}
+                <h1 class="slate-text-sm"><strong class="slate-values" id="total-shortage">{{ sym }}
                     {% endautoescape %}
                     {% endfor %}
 
                     {% set total = total + sku.shortage_cost %}
                     {% if loop.last %}
 
-                    {{"{:,.2f}".format(total)}}</strong></h1>
+                        {{ "{:,.2f}".format(total) }}</strong></h1>
 
-                {% else%}
-                {% endif %}
+                    {% else %}
+                    {% endif %}
 
                 {% endfor %}
 
@@ -134,12 +135,12 @@
                 <h1 class="slate-text-lg" id="shortage-percentage">
                     {% set risk = 0 %}
                     {% for sku in shortages %}
-                    {% if sku.traffic_light == 'white' %}
-                    {% set risk = risk + 1 %}
-                    {% if loop.last %}
-                    {{(risk/10) * 100}} %
-                    {% endif %}
-                    {% endif %}
+                        {% if sku.traffic_light == 'white' %}
+                            {% set risk = risk + 1 %}
+                            {% if loop.last %}
+                                {{ (risk/10) * 100 }} %
+                            {% endif %}
+                        {% endif %}
                     {% endfor %}
                 </h1>
             </div>
@@ -148,20 +149,23 @@
                 {% set net_stock = 0 %}
                 {% set understocked_qty = 0 %}
                 {% for sku in shortages %}
-                {% set net_stock = sku.quantity_on_hand - sku.reorder_level %}
-                {% if ((net_stock |abs) > understocked_qty) %}
-                {% set understocked_sku = sku.sku.sku_id %}
-                {% set understocked_rol = sku.reorder_level %}
-                {% set understocked_qoh = sku.quantity_on_hand %}
-                {% endif %}
-                {% if (loop.last) %}
-                <h1 class="slate-hint" id="understocked-sku"><a href="sku_detail/{{sku.id}}">{{understocked_sku}}</a>
-                </h1>
-                <h1 class="slate-hint" id="understocked-qoh"><strong>qty on hand: {{understocked_qoh}} units</strong>
-                </h1>
-                <h1 class="slate-hint" id="understocked_rol"><strong>reorder level: {{understocked_rol}} units</strong>
-                </h1>
-                {% endif %}
+                    {% set net_stock = sku.quantity_on_hand - sku.reorder_level %}
+                    {% if ((net_stock |abs) > understocked_qty) %}
+                        {% set understocked_sku = sku.sku.sku_id %}
+                        {% set understocked_rol = sku.reorder_level %}
+                        {% set understocked_qoh = sku.quantity_on_hand %}
+                    {% endif %}
+                    {% if (loop.last) %}
+                        <h1 class="slate-hint" id="understocked-sku"><a
+                                href="sku_detail/{{ sku.id }}">{{ understocked_sku }}</a>
+                        </h1>
+                        <h1 class="slate-hint" id="understocked-qoh"><strong>qty on hand: {{ understocked_qoh }}
+                            units</strong>
+                        </h1>
+                        <h1 class="slate-hint" id="understocked_rol"><strong>reorder level: {{ understocked_rol }}
+                            units</strong>
+                        </h1>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
@@ -203,16 +207,16 @@
                 {% set sym = cur.symbol %}
                 <tbody>
                 <tr>
-                    <td><a href="sku_detail/{{sku.sku_id}}"> {{sku.sku.sku_id}}</a></td>
-                    <td>{{"{:,}".format(sku.quantity_on_hand)}}</td>
-                    <td>{{"{:,}".format(sku.average_orders)}}</td>
-                    <td>{{"{:,}".format(sku.shortages)}}</td>
-                    <td>{{sym}}{{"{:,.2f}".format(sku.shortage_cost)}}</td>
-                    <td>{{"{:,}".format(sku.safety_stock)}}</td>
-                    <td>{{"{:,}".format(sku.reorder_level)}}</td>
-                    <td>{{"{:,.2f}".format(sku.percentage_contribution_revenue)}}</td>
-                    <td>{{"{:,}".format(sku.revenue_rank)}}</td>
-                    <td><a href="abcxyz/{{sku.abc_xyz_classification}}">{{sku.abc_xyz_classification}}</a></td>
+                    <td><a href="sku_detail/{{ sku.sku_id }}"> {{ sku.sku.sku_id }}</a></td>
+                    <td>{{ "{:,}".format(sku.quantity_on_hand) }}</td>
+                    <td>{{ "{:,}".format(sku.average_orders) }}</td>
+                    <td>{{ "{:,}".format(sku.shortages) }}</td>
+                    <td>{{ sym }}{{ "{:,.2f}".format(sku.shortage_cost) }}</td>
+                    <td>{{ "{:,}".format(sku.safety_stock) }}</td>
+                    <td>{{ "{:,}".format(sku.reorder_level) }}</td>
+                    <td>{{ "{:,.2f}".format(sku.percentage_contribution_revenue) }}</td>
+                    <td>{{ "{:,}".format(sku.revenue_rank) }}</td>
+                    <td><a href="abcxyz/{{ sku.abc_xyz_classification }}">{{ sku.abc_xyz_classification }}</a></td>
                 </tr>
                 {% endautoescape %}
                 {% endfor %}
@@ -234,10 +238,10 @@
                     {% for cur in currency if (cur.id == sku.currency_id) and (loop.index == 1) %}
                     {% set sym = cur.symbol %}
                     {% autoescape false %}
-                    <h1 id="lg-excess-sku"><a href="sku_detail/{{sku.id}}">{{largest_excess.sku.sku_id}}</a></h1>
+                    <h1 id="lg-excess-sku"><a href="sku_detail/{{ sku.id }}">{{ largest_excess.sku.sku_id }}</a></h1>
                     <h1 class="slate-values" id="lg-excess-cost">
-                        {{sym}}{{"{:,.2f}".format(largest_excess.excess_cost)}}</h1>
-                    <h1 class="slate-hint" id="lg-excess-units">{{"{:,}".format(largest_excess.excess_stock)}}
+                        {{ sym }}{{ "{:,.2f}".format(largest_excess.excess_cost) }}</h1>
+                    <h1 class="slate-hint" id="lg-excess-units">{{ "{:,}".format(largest_excess.excess_stock) }}
                         units</h1>
                     {% endautoescape %}
                     {% endfor %}
@@ -250,17 +254,17 @@
                     {% for cur in currency if (cur.id == sku.currency_id) and (loop.index == 1) %}
                     {% set sym = cur.symbol %}
                     {% autoescape false %}
-                    <h1 class="slate-values"><strong class="slate-values" id="total-excess">{{sym}}
+                    <h1 class="slate-values"><strong class="slate-values" id="total-excess">{{ sym }}
                         {% endautoescape %}
                         {% endfor %}
 
                         {% set total = total + sku.excess_cost %}
                         {% if loop.last %}
 
-                        {{"{:,.2f}".format(total)}}</strong></h1>
+                            {{ "{:,.2f}".format(total) }}</strong></h1>
 
-                    {% else%}
-                    {% endif %}
+                        {% else %}
+                        {% endif %}
 
                     {% endfor %}
 
@@ -278,15 +282,15 @@
 
                         {% set total = total + sku.excess_cost %}
                         {% if sku.excess_rank == 1 %}
-                        {% set top_excess = sku.excess_cost %}
+                            {% set top_excess = sku.excess_cost %}
                         {% endif %}
 
                         {% if loop.last %}
 
-                        {{"{:,.2f}".format((top_excess/total) * 100)}}</strong></h1>
+                            {{ "{:,.2f}".format((top_excess/total) * 100) }}</strong></h1>
 
-                    {% else%}
-                    {% endif %}
+                        {% else %}
+                        {% endif %}
 
                     {% endfor %}
                 </div>
@@ -300,17 +304,18 @@
                     {% autoescape false %}
 
                     <h1 class="slate-values">
-                        {{sym}}
+                        {{ sym }}
                         {% endautoescape %}
                         {% endfor %}
                         {% set total_holding_cost = total_holding_cost + ((sku.quantity_on_hand |float) * ((sku.unit_cost |float) * 0.25)) %}
 
                         {% if loop.last %}
+                            <strong>
+                                {{ "{:,.2f}".format(total_holding_cost) }}
+                            </strong></h1>
 
-                        {{"{:,.2f}".format(total_holding_cost)}}</strong></h1>
-
-                    {% else%}
-                    {% endif %}
+                        {% else %}
+                        {% endif %}
 
                     {% endfor %}
 
@@ -353,16 +358,16 @@
                 {% set sym = cur.symbol %}
                 <tbody>
                 <tr>
-                    <td><a href="sku_detail/{{sku.sku_id}}"> {{sku.sku.sku_id}}</a></td>
-                    <td>{{"{:,}".format(sku.quantity_on_hand)}}</td>
-                    <td>{{"{:,}".format(sku.average_orders)}}</td>
-                    <td>{{"{:,}".format(sku.excess_stock)}}</td>
-                    <td>{{sym}}{{"{:,.2f}".format(sku.excess_cost)}}</td>
-                    <td>{{"{:,}".format(sku.safety_stock)}}</td>
-                    <td>{{"{:,}".format(sku.reorder_level)}}</td>
-                    <td>{{"{:,.2f}".format(sku.percentage_contribution_revenue)}}</td>
-                    <td>{{"{:,}".format(sku.revenue_rank)}}</td>
-                    <td><a href="abcxyz/{{sku.abc_xyz_classification}}">{{sku.abc_xyz_classification}}</a></td>
+                    <td><a href="sku_detail/{{ sku.sku_id }}"> {{ sku.sku.sku_id }}</a></td>
+                    <td>{{ "{:,}".format(sku.quantity_on_hand) }}</td>
+                    <td>{{ "{:,}".format(sku.average_orders) }}</td>
+                    <td>{{ "{:,}".format(sku.excess_stock) }}</td>
+                    <td>{{ sym }}{{ "{:,.2f}".format(sku.excess_cost) }}</td>
+                    <td>{{ "{:,}".format(sku.safety_stock) }}</td>
+                    <td>{{ "{:,}".format(sku.reorder_level) }}</td>
+                    <td>{{ "{:,.2f}".format(sku.percentage_contribution_revenue) }}</td>
+                    <td>{{ "{:,}".format(sku.revenue_rank) }}</td>
+                    <td><a href="abcxyz/{{ sku.abc_xyz_classification }}">{{ sku.abc_xyz_classification }}</a></td>
                 </tr>
                 {% endautoescape %}
                 {% endfor %}

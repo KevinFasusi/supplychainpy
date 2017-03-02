@@ -45,6 +45,7 @@ from supplychainpy.reporting.blueprints.dashboard.models import InventoryAnalysi
 from supplychainpy.reporting.blueprints.dashboard.models import MasterSkuList
 from supplychainpy.reporting.blueprints.dashboard.models import Orders
 from supplychainpy.reporting.blueprints.dashboard.models import TransactionLog, Recommendations, ProfileRecommendation
+from supplychainpy.inventory.analyse_uncertain_demand import UncertainDemand
 from supplychainpy.sample_data.config import ABS_FILE_PATH
 from copy import deepcopy
 
@@ -55,28 +56,74 @@ log.addHandler(logging.NullHandler())
 # logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
-def currency_codes():
+def currency_codes() -> dict:
+    """ Retrives HTML Entity (decimal) for currency symbol.
+
+    Returns:
+        dict: Currency Symbols.
+
+    """
     codes = {"AED": ("United Arab Emirates Dirham", "&#92;&#117;&#48;&#54;&#50;&#102;&#46;"),
              "ANG": ("Netherlands Antilles Guilder", "&#402"),
              "EUR": ("Euro Member Countries", "&#8364;"),
              "GBP": ("United Kingdom Pound", "&#163;"),
              "USD": ("United States Dollar", "&#36;"),
-             }
+            }
     return codes
 
 
-def analysis_forecast_simple(analysis):
-    print("simple {} ".format(id(analysis)))
+def _analysis_forecast_simple(analysis: UncertainDemand)-> dict:
+    """ Retrieves simple_exponentions_forecast from an instance of UncertainDemand.
+        Function only required for Concurrent.futures.
+
+    Args:
+        analysis (UncertainDemand): Instance of UncertainDemand
+
+    Returns:
+        dict:   Forecast breakdown.
+    """
+    print("Simple exponential smoothing forecast for SKU: {}\nObject id: {} ".format(
+        analysis.sku_id,
+        id(analysis))
+         )
     #print("{}".format({analysis.sku_id: analysis.simple_exponential_smoothing_forecast}))
     return analysis.simple_exponential_smoothing_forecast
 
-def analysis_forecast_holt(analysis):
-    print("holts {} ".format(id(analysis)))
+def _analysis_forecast_holt(analysis: UncertainDemand)->dict:
+    """ Retrieves simple_exponentions_forecast from an instance of UncertainDemand.
+        Function only required for Concurrent.futures.
+
+    Args:
+        analysis (UncertainDemand): Instance of UncertainDemand
+
+    Returns:
+        dict:   Forecast breakdown.
+    """
+    print("Holts tc exponential smoothing forecast for SKU: {}\nObject id: {} ".format(
+        analysis.sku_id,
+        id(analysis))
+         )
     #print("{}".format({analysis.sku_id: analysis.holts_trend_corrected_forecast}))
     return analysis.holts_trend_corrected_forecast
-    
 
-def load(file_path: str, location: str = None):
+def load_currency(currency_codes, db):
+    for key, value in currency_codes.items():
+        codes = Currency()
+        codes.country = value[0]
+        codes.symbol = value[1]
+        codes.currency_code = key
+        db.session.add(codes)
+    db.session.commit()
+
+
+def load(file_path: str, location: str=None):
+    """ Loads analysis and forecast into local database for reporting suite.
+
+    Args:
+        file_path (str):    File path to source file containing data for analysis.
+        location (str):     Location of database to populate.
+
+    """
     app = create_app()
     db.init_app(app)
     if location is not None and os.name in ['posix', 'mac']:
@@ -91,13 +138,8 @@ def load(file_path: str, location: str = None):
         log.log(logging.DEBUG, 'loading currency symbols...\n')
         print('loading currency symbols...', end="")
         fx = currency_codes()
-        for key, value in fx.items():
-            codes = Currency()
-            codes.country = value[0]
-            codes.symbol = value[1]
-            codes.currency_code = key
-            db.session.add(codes)
-        db.session.commit()
+        load_currency(fx, db)
+
         print('[COMPLETED]\n')
         config = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
         currency = config.get('currency')
@@ -128,9 +170,14 @@ def load(file_path: str, location: str = None):
         #        print("simple started {}".format(num))
         #        simple_forecast.update(deepcopy(pool.apply(analysis_forecast_simple,args=(analysis,))))
         simple_forecast={}
-        with ProcessPoolExecutor(max_workers=9) as executor:
-            simple_forecast_futures = {analysis.sku_id: executor.submit(analysis_forecast_simple, analysis) for analysis in orders_analysis}
-            simple_forecast_gen = {future: concurrent.futures.as_completed(simple_forecast_futures) for future in simple_forecast_futures}
+        cores = int(multiprocessing.cpu_count())
+        #print("original core count {}".format(cores))
+
+        cores -= 1
+        #print("altered core count {}".format(cores))
+        with ProcessPoolExecutor(max_workers=cores) as executor:
+            simple_forecast_futures = {analysis.sku_id: executor.submit(_analysis_forecast_simple, analysis) for analysis in orders_analysis}
+            simple_forecast_gen = {future: concurrent.futures.as_completed(simple_forecast_futures[future]) for future in simple_forecast_futures}
         simple_forecast = { value : simple_forecast_futures[value].result() for value in simple_forecast_gen}
         #simple_forecast = {analysis.sku_id: analysis.simple_exponential_smoothing_forecast for analysis in
         #                   model_inventory.analyse(file_path=file_path, z_value=Decimal(1.28),
@@ -145,9 +192,9 @@ def load(file_path: str, location: str = None):
         #    for num, analysis in enumerate(analysis_model):
         #        print("holts started {}".format(num))
         #        holts_forecast.update(deepcopy(pool.apply(analysis_forecast_holt,args=(analysis,))))
-        with ProcessPoolExecutor(max_workers=9) as executor:
-            holts_forecast_futures = { analysis.sku_id: executor.submit(analysis_forecast_holt, analysis) for analysis in orders_analysis}
-            holts_forecast_gen =  { future: concurrent.futures.as_completed(holts_forecast_futures[future].result()) for future in holts_forecast_futures}
+        with ProcessPoolExecutor(max_workers=cores) as executor:
+            holts_forecast_futures = { analysis.sku_id: executor.submit(_analysis_forecast_holt, analysis) for analysis in orders_analysis}
+            holts_forecast_gen =  { future: concurrent.futures.as_completed(holts_forecast_futures[future]) for future in holts_forecast_futures}
         holts_forecast = { value : holts_forecast_futures[value].result() for value in holts_forecast_gen}
 
         #holts_forecast = {analysis.sku_id: analysis.holts_trend_corrected_forecast for analysis in

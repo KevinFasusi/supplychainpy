@@ -22,6 +22,7 @@
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 from _decimal import Decimal
+from concurrent.futures import ThreadPoolExecutor
 
 import flask
 from flask import Blueprint, render_template
@@ -31,16 +32,24 @@ from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_APPLICATION_
 from supplychainpy._helpers._enum_formats import FileFormats
 from supplychainpy._helpers._pickle_config import deserialise_config
 from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
+from supplychainpy.reporting.blueprints.dashboard.models import MasterSkuList
+from supplychainpy.reporting.extensions import db
 
 simulation_blueprint = Blueprint('simulation', __name__, template_folder='templates')
+
+
+def run_simulation():
+    pass
+    
 
 @simulation_blueprint.route('/simulation', methods=['GET','PUT'])
 @simulation_blueprint.route('/simulation/<int:runs>', methods=['GET','PUT'])
 def simulation(runs:int=None):
     database_path = ''
     file_name = ''
-    sim = ''
-    sim_summary = ''
+    sim_results = []
+    sim_summary_results = []
+    inventory = []
     if runs is not None:
         config = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
         database_path = config['database_path']
@@ -48,11 +57,21 @@ def simulation(runs:int=None):
         file_path = database_path.replace(' ','') + (file_name.replace(' ',''))
         analysed_orders = analyse_orders_abcxyz_from_file(file_path=str(file_path), z_value=Decimal(1.28), reorder_cost=Decimal(5000), file_type=FileFormats.csv.name, length=12, currency='USD')
         # run the simulation, populate a database and then retrieve the most current values for the simulation page.
-        sim = simulate.run_monte_carlo(orders_analysis=analysed_orders, runs=runs, period_length=12)
-        sim_window = simulate.summarize_window(simulation_frame=sim, period_length=12)
-        sim_summary = simulate.summarise_frame(sim_window)
+        try:
+            with ThreadPoolExecutor(max_workers=1) as executor:
+                sim = executor.submit(simulate.run_monte_carlo, orders_analysis=analysed_orders, runs=runs, period_length=12)
+                sim_results = sim.result()
+                sim_window = executor.submit(simulate.summarize_window, simulation_frame=sim_results, period_length=12)
+                sim_window_result = sim_window.result()
+                sim_summary = executor.submit(simulate.summarise_frame, sim_window_result)
+                sim_summary_results = sim_summary.result()
 
-    return flask.render_template('simulation/simulation.html', db= database_path, file_name=file_name, sim=sim_summary, runs=sim)
+            inventory = db.session.query(MasterSkuList).all()
+
+        except OSError as e:
+            print(e)
+
+    return flask.render_template('simulation/simulation.html', db= database_path, file_name=file_name, sim=sim_summary_results, runs=sim_results, inventory=inventory)
 
 
 if __name__ == '__main__':

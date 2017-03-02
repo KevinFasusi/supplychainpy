@@ -4,7 +4,7 @@ import logging
 
 from supplychainpy.model_decision import analytical_hierarchy_process
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+#logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class TestAnalyticalHierarchy(TestCase):
     def setUp(self):
@@ -21,7 +21,6 @@ class TestAnalyticalHierarchy(TestCase):
                                                            options=self.options, option_scores=self.option_scores,
                                                            quantitative_criteria=('fuel_economy',),
                                                            item_cost=self.lorry_cost)
-        print(self.lorry_decision)
 
     def test_model_decision_ahp(self):
         best_choice = max(self.lorry_decision.get('analytical_hierarchy'),

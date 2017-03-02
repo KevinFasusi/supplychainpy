@@ -3,7 +3,7 @@ from unittest import TestCase
 
 import logging
 
-from supplychainpy.demand._evolutionary_algorithms import OptimiseSmoothingLevelGeneticAlgorithm
+from supplychainpy.demand._evo_algo import OptimiseSmoothingLevelGeneticAlgorithm
 from supplychainpy.demand._forecast_demand import Forecast
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -136,7 +136,6 @@ class TestForecast(TestCase):
         self.assertEqual(round(holts_forecast[1]), 307)
         self.assertEqual(round(holts_forecast[2]), 334)
         self.assertEqual(round(holts_forecast[3]), 361)
-
 
         # sum_squared_error = f.sum_squared_errors(p, 0.5)
         # print(sum_squared_error)

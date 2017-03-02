@@ -2,11 +2,11 @@ from unittest import TestCase
 import unittest
 import logging
 
-#from supplychainpy.demand._evolutionary_algorithms import OptimiseSmoothingLevelGeneticAlgorithm
+from supplychainpy.demand._evolutionary_algorithms import OptimiseSmoothingLevelGeneticAlgorithm
 from supplychainpy.demand._forecast_demand import Forecast
-from supplychainpy.demand._evo_algo import OptimiseSmoothingLevelGeneticAlgorithm
+#from supplychainpy.demand._evo_algo import OptimiseSmoothingLevelGeneticAlgorithm
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+#logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class TestForecast(TestCase):
     def setUp(self):

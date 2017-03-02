@@ -1,6 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700|Roboto+Slab);
 
-
 a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
     margin: 0;
     padding: 0;
@@ -108,7 +107,7 @@ th {
 .ia {
     margin-left: 20px;
     margin-top: 20px;
-    margin-bottom:20px;
+    margin-bottom: 20px;
     float: left;
     box-shadow: 10px 5px 5px black;
 }
@@ -277,9 +276,10 @@ nav ul li a {
     background-color: red;
 }
 
-.white{
-     background-color:white;
+.white {
+    background-color: white;
 }
+
 .highlight-event {
     background-color: #0A2933;
 
@@ -445,7 +445,7 @@ nav ul li a {
     margin-top: 30px;
 }
 
-#chat-input{
+#chat-input {
     color: white;
 }
 
@@ -511,7 +511,7 @@ nav ul li a {
     margin-right: 80px;
 }
 
-.contact{
+.contact {
     padding: 20px;
     height: 150px;
     width: 300px;
@@ -521,22 +521,49 @@ nav ul li a {
     box-shadow: 10px 5px 5px black;
 }
 
-.forecast-btn{
+.forecast-btn {
     margin: 20px;
 }
 
-.slate-values{
-    color:white;
+.slate-values {
+    color: white;
 }
 
-.slate-hint{
+.slate-hint {
     color: #819090;
 }
 
-#sim-summary{
+#sim-summary {
     font-size: 0.8em;
 }
 
-.summary-data{
 
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #819090;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.summary-titles{
+
+    color: white;
 }

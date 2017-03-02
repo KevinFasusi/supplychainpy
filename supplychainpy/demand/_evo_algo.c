@@ -647,7 +647,7 @@ struct __pyx_obj_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_7_express
 /* "supplychainpy/demand/_evo_algo.pyx":64
  *         #print("initialising {}".format(id(self)))
  * 
- *     def reproduce(self, recombination_type: str = 'single_point'):             # <<<<<<<<<<<<<<
+ *     def reproduce(self, recombination_type = 'single_point'):             # <<<<<<<<<<<<<<
  *         """ Coordinates the reproduction of two individuals, using one of three recombination methods 'single_point,
  *         two_point or uniform'.
  */
@@ -662,7 +662,7 @@ struct __pyx_obj_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct__reproduc
 /* "supplychainpy/demand/_evo_algo.pyx":85
  *             yield [i for i in self._uniform_crossover_recombination()][0]
  * 
- *     def _single_point_crossover_recombination(self) -> object:             # <<<<<<<<<<<<<<
+ *     def _single_point_crossover_recombination(self):             # <<<<<<<<<<<<<<
  *         """ Selects genes from the parent to crossover based on one point along the chromosome.
  * 
  */
@@ -741,7 +741,7 @@ struct __pyx_obj_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_3__mutati
 };
 
 
-/* "supplychainpy/demand/_evo_algo.pyx":342
+/* "supplychainpy/demand/_evo_algo.pyx":350
  * 
  *     @staticmethod
  *     def create_individuals(list new_population):             # <<<<<<<<<<<<<<
@@ -761,10 +761,10 @@ struct __pyx_obj_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_4_create_
 };
 
 
-/* "supplychainpy/demand/_evo_algo.pyx":359
+/* "supplychainpy/demand/_evo_algo.pyx":367
  * 
  *     @staticmethod
- *     def _population_fitness(population: list, individual_type: str = 'ses') -> list:             # <<<<<<<<<<<<<<
+ *     def _population_fitness(list population, individual_type='ses'):             # <<<<<<<<<<<<<<
  *         """ Assess the population for fitness before crossover and creating next generation. Positive traits
  *         should be reflected by more than 70% of the genes in the genome.
  */
@@ -776,14 +776,13 @@ struct __pyx_obj_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_5__popula
   double __pyx_v_procreation_probability;
   PyObject *__pyx_t_0;
   Py_ssize_t __pyx_t_1;
-  PyObject *(*__pyx_t_2)(PyObject *);
 };
 
 
-/* "supplychainpy/demand/_evo_algo.pyx":381
+/* "supplychainpy/demand/_evo_algo.pyx":389
  *                     yield individual
  * 
- *     def generate_smoothing_level_genome(self, population: list, individual_type: str = 'ses'):             # <<<<<<<<<<<<<<
+ *     def generate_smoothing_level_genome(self, list population, individual_type = 'ses'):             # <<<<<<<<<<<<<<
  * 
  *         # stack parents and offspring into a list for next steps
  */
@@ -796,11 +795,10 @@ struct __pyx_obj_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_6_generat
   PyObject *__pyx_v_self;
   PyObject *__pyx_t_0;
   Py_ssize_t __pyx_t_1;
-  PyObject *(*__pyx_t_2)(PyObject *);
 };
 
 
-/* "supplychainpy/demand/_evo_algo.pyx":437
+/* "supplychainpy/demand/_evo_algo.pyx":445
  *         return appraised_individual
  * 
  *     def express_smoothing_level_genome(self, individuals_genome: list, standard_error):             # <<<<<<<<<<<<<<
@@ -973,6 +971,10 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func);
 #define __Pyx_PyObject_CallNoArg(func) __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL)
 #endif
 
+/* ArgTypeTest.proto */
+static CYTHON_INLINE int __Pyx_ArgTypeTest(PyObject *obj, PyTypeObject *type, int none_allowed,
+    const char *name, int exact);
+
 /* IncludeStringH.proto */
 #include <string.h>
 
@@ -1008,10 +1010,6 @@ static CYTHON_INLINE int __Pyx_ListComp_Append(PyObject* list, PyObject* x) {
 
 /* GetModuleGlobalName.proto */
 static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name);
-
-/* ArgTypeTest.proto */
-static CYTHON_INLINE int __Pyx_ArgTypeTest(PyObject *obj, PyTypeObject *type, int none_allowed,
-    const char *name, int exact);
 
 /* GetItemInt.proto */
 #define __Pyx_GetItemInt(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
@@ -1259,10 +1257,10 @@ static void __Pyx_AddTraceback(const char *funcname, int c_line,
                                int py_line, const char *filename);
 
 /* CIntToPy.proto */
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
 
 /* CIntToPy.proto */
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 
 /* Print.proto */
 static int __Pyx_Print(PyObject*, PyObject *, int);
@@ -1271,14 +1269,14 @@ static PyObject* __pyx_print = 0;
 static PyObject* __pyx_print_kwargs = 0;
 #endif
 
+/* CIntFromPy.proto */
+static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
+
 /* PrintOne.proto */
 static int __Pyx_PrintOne(PyObject* stream, PyObject *o);
 
 /* CIntFromPy.proto */
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *);
-
-/* CIntFromPy.proto */
-static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
 /* SwapException.proto */
 #if CYTHON_FAST_THREAD_STATE
@@ -1422,7 +1420,6 @@ static const char __pyx_k_name_2[] = "_name";
 static const char __pyx_k_orders[] = "orders";
 static const char __pyx_k_parent[] = "parent";
 static const char __pyx_k_random[] = "random";
-static const char __pyx_k_return[] = "return";
 static const char __pyx_k_setter[] = "setter";
 static const char __pyx_k_sm_lvl[] = "sm_lvl";
 static const char __pyx_k_update[] = "update";
@@ -1743,7 +1740,6 @@ static PyObject *__pyx_n_s_recombination_type_2;
 static PyObject *__pyx_n_s_regression;
 static PyObject *__pyx_n_s_repr;
 static PyObject *__pyx_n_s_reproduce;
-static PyObject *__pyx_n_s_return;
 static PyObject *__pyx_n_s_round;
 static PyObject *__pyx_n_s_run_exponential_smoothing_forec;
 static PyObject *__pyx_n_s_run_holts_trend_corrected_expon;
@@ -1794,10 +1790,10 @@ static PyObject *__pyx_n_s_val;
 static PyObject *__pyx_n_s_value;
 static PyObject *__pyx_n_s_values;
 static PyObject *__pyx_n_s_zip;
-static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name, PyObject *__pyx_v_overide, PyObject *__pyx_v_gene_count, PyObject *__pyx_v_forecast_type); /* proto */
+static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name, PyObject *__pyx_v_overide, int __pyx_v_gene_count, PyObject *__pyx_v_forecast_type); /* proto */
 static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual_2__repr__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual_4gene_count(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual_6gene_count(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual_6gene_count(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, int __pyx_v_value); /* proto */
 static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual_8genome(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual_10genome(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_val); /* proto */
 static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual_12name(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
@@ -1824,7 +1820,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
 static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_28_run_exponential_smoothing_forecast(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_individual); /* proto */
 static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_30_express_trait(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_original_standard_error, PyObject *__pyx_v_appraised_individual); /* proto */
 static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_32_selection_population(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_individuals_fitness, CYTHON_UNUSED PyObject *__pyx_v_appraised_individual); /* proto */
-static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_34simple_exponential_smoothing_evo(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_smoothing_level_constant, PyObject *__pyx_v_initial_estimate_period, PyObject *__pyx_v_recombination_type, PyObject *__pyx_v_population_size, PyObject *__pyx_v_forecast_length); /* proto */
+static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_34simple_exponential_smoothing_evo(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_smoothing_level_constant, PyObject *__pyx_v_initial_estimate_period, PyObject *__pyx_v_recombination_type, int __pyx_v_population_size, int __pyx_v_forecast_length); /* proto */
 static PyObject *__pyx_tp_new_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct__reproduce(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_1__single_point_crossover_recombination(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_2__two_point_crossover_recombination(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -1835,7 +1831,6 @@ static PyObject *__pyx_tp_new_13supplychainpy_6demand_9_evo_algo___pyx_scope_str
 static PyObject *__pyx_tp_new_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_7_express_smoothing_level_genome(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
-static PyObject *__pyx_int_5;
 static PyObject *__pyx_int_6;
 static PyObject *__pyx_int_10;
 static PyObject *__pyx_int_12;
@@ -1849,79 +1844,77 @@ static PyObject *__pyx_tuple__9;
 static PyObject *__pyx_tuple__10;
 static PyObject *__pyx_tuple__11;
 static PyObject *__pyx_tuple__13;
-static PyObject *__pyx_tuple__14;
-static PyObject *__pyx_tuple__16;
-static PyObject *__pyx_tuple__18;
-static PyObject *__pyx_tuple__20;
-static PyObject *__pyx_tuple__22;
-static PyObject *__pyx_tuple__24;
-static PyObject *__pyx_tuple__26;
+static PyObject *__pyx_tuple__15;
+static PyObject *__pyx_tuple__17;
+static PyObject *__pyx_tuple__19;
+static PyObject *__pyx_tuple__21;
+static PyObject *__pyx_tuple__23;
+static PyObject *__pyx_tuple__25;
+static PyObject *__pyx_tuple__27;
 static PyObject *__pyx_tuple__28;
-static PyObject *__pyx_tuple__29;
-static PyObject *__pyx_tuple__31;
+static PyObject *__pyx_tuple__30;
+static PyObject *__pyx_tuple__32;
 static PyObject *__pyx_tuple__33;
-static PyObject *__pyx_tuple__34;
-static PyObject *__pyx_tuple__36;
-static PyObject *__pyx_tuple__38;
-static PyObject *__pyx_tuple__40;
-static PyObject *__pyx_tuple__42;
-static PyObject *__pyx_tuple__44;
+static PyObject *__pyx_tuple__35;
+static PyObject *__pyx_tuple__37;
+static PyObject *__pyx_tuple__39;
+static PyObject *__pyx_tuple__41;
+static PyObject *__pyx_tuple__43;
+static PyObject *__pyx_tuple__45;
 static PyObject *__pyx_tuple__46;
-static PyObject *__pyx_tuple__47;
-static PyObject *__pyx_tuple__49;
-static PyObject *__pyx_tuple__51;
-static PyObject *__pyx_tuple__53;
-static PyObject *__pyx_tuple__55;
+static PyObject *__pyx_tuple__48;
+static PyObject *__pyx_tuple__50;
+static PyObject *__pyx_tuple__52;
+static PyObject *__pyx_tuple__54;
+static PyObject *__pyx_tuple__56;
 static PyObject *__pyx_tuple__57;
-static PyObject *__pyx_tuple__58;
+static PyObject *__pyx_tuple__59;
 static PyObject *__pyx_tuple__60;
-static PyObject *__pyx_tuple__61;
-static PyObject *__pyx_tuple__63;
-static PyObject *__pyx_tuple__65;
-static PyObject *__pyx_tuple__67;
-static PyObject *__pyx_tuple__69;
-static PyObject *__pyx_tuple__71;
-static PyObject *__pyx_tuple__73;
-static PyObject *__pyx_tuple__75;
-static PyObject *__pyx_tuple__77;
+static PyObject *__pyx_tuple__62;
+static PyObject *__pyx_tuple__64;
+static PyObject *__pyx_tuple__66;
+static PyObject *__pyx_tuple__68;
+static PyObject *__pyx_tuple__70;
+static PyObject *__pyx_tuple__72;
+static PyObject *__pyx_tuple__74;
 static PyObject *__pyx_codeobj__5;
 static PyObject *__pyx_codeobj__12;
-static PyObject *__pyx_codeobj__15;
-static PyObject *__pyx_codeobj__17;
-static PyObject *__pyx_codeobj__19;
-static PyObject *__pyx_codeobj__21;
-static PyObject *__pyx_codeobj__23;
-static PyObject *__pyx_codeobj__25;
-static PyObject *__pyx_codeobj__27;
-static PyObject *__pyx_codeobj__30;
-static PyObject *__pyx_codeobj__32;
-static PyObject *__pyx_codeobj__35;
-static PyObject *__pyx_codeobj__37;
-static PyObject *__pyx_codeobj__39;
-static PyObject *__pyx_codeobj__41;
-static PyObject *__pyx_codeobj__43;
-static PyObject *__pyx_codeobj__45;
-static PyObject *__pyx_codeobj__48;
-static PyObject *__pyx_codeobj__50;
-static PyObject *__pyx_codeobj__52;
-static PyObject *__pyx_codeobj__54;
-static PyObject *__pyx_codeobj__56;
-static PyObject *__pyx_codeobj__59;
-static PyObject *__pyx_codeobj__62;
-static PyObject *__pyx_codeobj__64;
-static PyObject *__pyx_codeobj__66;
-static PyObject *__pyx_codeobj__68;
-static PyObject *__pyx_codeobj__70;
-static PyObject *__pyx_codeobj__72;
-static PyObject *__pyx_codeobj__74;
-static PyObject *__pyx_codeobj__76;
+static PyObject *__pyx_codeobj__14;
+static PyObject *__pyx_codeobj__16;
+static PyObject *__pyx_codeobj__18;
+static PyObject *__pyx_codeobj__20;
+static PyObject *__pyx_codeobj__22;
+static PyObject *__pyx_codeobj__24;
+static PyObject *__pyx_codeobj__26;
+static PyObject *__pyx_codeobj__29;
+static PyObject *__pyx_codeobj__31;
+static PyObject *__pyx_codeobj__34;
+static PyObject *__pyx_codeobj__36;
+static PyObject *__pyx_codeobj__38;
+static PyObject *__pyx_codeobj__40;
+static PyObject *__pyx_codeobj__42;
+static PyObject *__pyx_codeobj__44;
+static PyObject *__pyx_codeobj__47;
+static PyObject *__pyx_codeobj__49;
+static PyObject *__pyx_codeobj__51;
+static PyObject *__pyx_codeobj__53;
+static PyObject *__pyx_codeobj__55;
+static PyObject *__pyx_codeobj__58;
+static PyObject *__pyx_codeobj__61;
+static PyObject *__pyx_codeobj__63;
+static PyObject *__pyx_codeobj__65;
+static PyObject *__pyx_codeobj__67;
+static PyObject *__pyx_codeobj__69;
+static PyObject *__pyx_codeobj__71;
+static PyObject *__pyx_codeobj__73;
+static PyObject *__pyx_codeobj__75;
 
 /* "supplychainpy/demand/_evo_algo.pyx":9
  *     _genome = 0
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
- *             self, name: str='offspring', overide: bool=False, gene_count: int=12,
- *             forecast_type: str='ses'
+ *             self, name ='offspring', overide=False, int gene_count =12,
+ *             forecast_type ='ses'
  */
 
 /* Python wrapper */
@@ -1931,7 +1924,7 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_10Individual_1__ini
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_name = 0;
   PyObject *__pyx_v_overide = 0;
-  PyObject *__pyx_v_gene_count = 0;
+  int __pyx_v_gene_count;
   PyObject *__pyx_v_forecast_type = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -1944,12 +1937,11 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_10Individual_1__ini
     /* "supplychainpy/demand/_evo_algo.pyx":10
  * 
  *     def __init__(
- *             self, name: str='offspring', overide: bool=False, gene_count: int=12,             # <<<<<<<<<<<<<<
- *             forecast_type: str='ses'
+ *             self, name ='offspring', overide=False, int gene_count =12,             # <<<<<<<<<<<<<<
+ *             forecast_type ='ses'
  *         ):
  */
     values[2] = ((PyObject *)((PyObject *)Py_False));
-    values[3] = ((PyObject *)((PyObject *)__pyx_int_12));
     values[4] = ((PyObject *)((PyObject*)__pyx_n_s_ses));
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
@@ -2006,7 +1998,11 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_10Individual_1__ini
     __pyx_v_self = values[0];
     __pyx_v_name = values[1];
     __pyx_v_overide = values[2];
-    __pyx_v_gene_count = values[3];
+    if (values[3]) {
+      __pyx_v_gene_count = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_gene_count == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 10, __pyx_L3_error)
+    } else {
+      __pyx_v_gene_count = ((int)((int)12));
+    }
     __pyx_v_forecast_type = values[4];
   }
   goto __pyx_L4_argument_unpacking_done;
@@ -2023,8 +2019,8 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_10Individual_1__ini
  *     _genome = 0
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
- *             self, name: str='offspring', overide: bool=False, gene_count: int=12,
- *             forecast_type: str='ses'
+ *             self, name ='offspring', overide=False, int gene_count =12,
+ *             forecast_type ='ses'
  */
 
   /* function exit code */
@@ -2032,12 +2028,12 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_10Individual_1__ini
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name, PyObject *__pyx_v_overide, PyObject *__pyx_v_gene_count, PyObject *__pyx_v_forecast_type) {
+static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name, PyObject *__pyx_v_overide, int __pyx_v_gene_count, PyObject *__pyx_v_forecast_type) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  int __pyx_t_1;
+  PyObject *__pyx_t_1 = NULL;
   int __pyx_t_2;
-  PyObject *__pyx_t_3 = NULL;
+  int __pyx_t_3;
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
   __Pyx_RefNannySetupContext("__init__", 0);
@@ -2058,7 +2054,10 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual___init
  *         self._forecast_type = forecast_type
  *         if not overide:
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_gene_count_2, __pyx_v_gene_count) < 0) __PYX_ERR(0, 15, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_gene_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 15, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_gene_count_2, __pyx_t_1) < 0) __PYX_ERR(0, 15, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "supplychainpy/demand/_evo_algo.pyx":16
  *         self._name = name
@@ -2076,9 +2075,9 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual___init
  *             self._genome = self.__genome_generator()
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_overide); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 17, __pyx_L1_error)
-  __pyx_t_2 = ((!__pyx_t_1) != 0);
-  if (__pyx_t_2) {
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_overide); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_t_3 = ((!__pyx_t_2) != 0);
+  if (__pyx_t_3) {
 
     /* "supplychainpy/demand/_evo_algo.pyx":18
  *         self._forecast_type = forecast_type
@@ -2100,15 +2099,15 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual___init
       }
     }
     if (__pyx_t_5) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 18, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 18, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     } else {
-      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 18, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 18, __pyx_L1_error)
     }
-    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_genome, __pyx_t_3) < 0) __PYX_ERR(0, 18, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_genome, __pyx_t_1) < 0) __PYX_ERR(0, 18, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
     /* "supplychainpy/demand/_evo_algo.pyx":17
  *         self._gene_count = gene_count
@@ -2123,15 +2122,15 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual___init
  *     _genome = 0
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
- *             self, name: str='offspring', overide: bool=False, gene_count: int=12,
- *             forecast_type: str='ses'
+ *             self, name ='offspring', overide=False, int gene_count =12,
+ *             forecast_type ='ses'
  */
 
   /* function exit code */
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_AddTraceback("supplychainpy.demand._evo_algo.Individual.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
@@ -2270,7 +2269,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual_2__rep
 /* "supplychainpy/demand/_evo_algo.pyx":24
  * 
  *     @property
- *     def gene_count(self) -> int:             # <<<<<<<<<<<<<<
+ *     def gene_count(self):             # <<<<<<<<<<<<<<
  *         return self.gene_count
  * 
  */
@@ -2297,7 +2296,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual_4gene_
 
   /* "supplychainpy/demand/_evo_algo.pyx":25
  *     @property
- *     def gene_count(self) -> int:
+ *     def gene_count(self):
  *         return self.gene_count             # <<<<<<<<<<<<<<
  * 
  *     @gene_count.setter
@@ -2312,7 +2311,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual_4gene_
   /* "supplychainpy/demand/_evo_algo.pyx":24
  * 
  *     @property
- *     def gene_count(self) -> int:             # <<<<<<<<<<<<<<
+ *     def gene_count(self):             # <<<<<<<<<<<<<<
  *         return self.gene_count
  * 
  */
@@ -2331,7 +2330,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual_4gene_
 /* "supplychainpy/demand/_evo_algo.pyx":28
  * 
  *     @gene_count.setter
- *     def gene_count(self, value: int):             # <<<<<<<<<<<<<<
+ *     def gene_count(self, int value):             # <<<<<<<<<<<<<<
  *         self._gene_count = value
  * 
  */
@@ -2341,7 +2340,7 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_10Individual_7gene_
 static PyMethodDef __pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Individual_7gene_count = {"gene_count", (PyCFunction)__pyx_pw_13supplychainpy_6demand_9_evo_algo_10Individual_7gene_count, METH_VARARGS|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_10Individual_7gene_count(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
-  PyObject *__pyx_v_value = 0;
+  int __pyx_v_value;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("gene_count (wrapper)", 0);
@@ -2378,7 +2377,7 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_10Individual_7gene_
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
     __pyx_v_self = values[0];
-    __pyx_v_value = values[1];
+    __pyx_v_value = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_value == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 28, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
@@ -2395,24 +2394,28 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_10Individual_7gene_
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual_6gene_count(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual_6gene_count(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, int __pyx_v_value) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("gene_count", 0);
 
   /* "supplychainpy/demand/_evo_algo.pyx":29
  *     @gene_count.setter
- *     def gene_count(self, value: int):
+ *     def gene_count(self, int value):
  *         self._gene_count = value             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_gene_count_2, __pyx_v_value) < 0) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_value); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_gene_count_2, __pyx_t_1) < 0) __PYX_ERR(0, 29, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "supplychainpy/demand/_evo_algo.pyx":28
  * 
  *     @gene_count.setter
- *     def gene_count(self, value: int):             # <<<<<<<<<<<<<<
+ *     def gene_count(self, int value):             # <<<<<<<<<<<<<<
  *         self._gene_count = value
  * 
  */
@@ -2421,6 +2424,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual_6gene_
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
   __Pyx_AddTraceback("supplychainpy.demand._evo_algo.Individual.gene_count", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -2493,7 +2497,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual_8genom
 /* "supplychainpy/demand/_evo_algo.pyx":36
  * 
  *     @genome.setter
- *     def genome(self, val: tuple):             # <<<<<<<<<<<<<<
+ *     def genome(self, tuple val):             # <<<<<<<<<<<<<<
  *         self._genome = val
  * 
  */
@@ -2540,7 +2544,7 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_10Individual_11geno
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
     __pyx_v_self = values[0];
-    __pyx_v_val = values[1];
+    __pyx_v_val = ((PyObject*)values[1]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
@@ -2550,9 +2554,14 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_10Individual_11geno
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_val), (&PyTuple_Type), 1, "val", 1))) __PYX_ERR(0, 36, __pyx_L1_error)
   __pyx_r = __pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual_10genome(__pyx_self, __pyx_v_self, __pyx_v_val);
 
   /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -2564,7 +2573,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual_10geno
 
   /* "supplychainpy/demand/_evo_algo.pyx":37
  *     @genome.setter
- *     def genome(self, val: tuple):
+ *     def genome(self, tuple val):
  *         self._genome = val             # <<<<<<<<<<<<<<
  * 
  *     @property
@@ -2574,7 +2583,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_10Individual_10geno
   /* "supplychainpy/demand/_evo_algo.pyx":36
  * 
  *     @genome.setter
- *     def genome(self, val: tuple):             # <<<<<<<<<<<<<<
+ *     def genome(self, tuple val):             # <<<<<<<<<<<<<<
  *         self._genome = val
  * 
  */
@@ -3066,7 +3075,7 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_10Population_4gener
 /* "supplychainpy/demand/_evo_algo.pyx":64
  *         #print("initialising {}".format(id(self)))
  * 
- *     def reproduce(self, recombination_type: str = 'single_point'):             # <<<<<<<<<<<<<<
+ *     def reproduce(self, recombination_type = 'single_point'):             # <<<<<<<<<<<<<<
  *         """ Coordinates the reproduction of two individuals, using one of three recombination methods 'single_point,
  *         two_point or uniform'.
  */
@@ -3450,7 +3459,7 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_10Population_4gener
  *         if recombination_type == self._recombination_type[2]:
  *             yield [i for i in self._uniform_crossover_recombination()][0]             # <<<<<<<<<<<<<<
  * 
- *     def _single_point_crossover_recombination(self) -> object:
+ *     def _single_point_crossover_recombination(self):
  */
     __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 83, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
@@ -3547,7 +3556,7 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_10Population_4gener
   /* "supplychainpy/demand/_evo_algo.pyx":64
  *         #print("initialising {}".format(id(self)))
  * 
- *     def reproduce(self, recombination_type: str = 'single_point'):             # <<<<<<<<<<<<<<
+ *     def reproduce(self, recombination_type = 'single_point'):             # <<<<<<<<<<<<<<
  *         """ Coordinates the reproduction of two individuals, using one of three recombination methods 'single_point,
  *         two_point or uniform'.
  */
@@ -3573,7 +3582,7 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_10Population_7gener
 /* "supplychainpy/demand/_evo_algo.pyx":85
  *             yield [i for i in self._uniform_crossover_recombination()][0]
  * 
- *     def _single_point_crossover_recombination(self) -> object:             # <<<<<<<<<<<<<<
+ *     def _single_point_crossover_recombination(self):             # <<<<<<<<<<<<<<
  *         """ Selects genes from the parent to crossover based on one point along the chromosome.
  * 
  */
@@ -4879,7 +4888,7 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_10Population_7gener
   /* "supplychainpy/demand/_evo_algo.pyx":85
  *             yield [i for i in self._uniform_crossover_recombination()][0]
  * 
- *     def _single_point_crossover_recombination(self) -> object:             # <<<<<<<<<<<<<<
+ *     def _single_point_crossover_recombination(self):             # <<<<<<<<<<<<<<
  *         """ Selects genes from the parent to crossover based on one point along the chromosome.
  * 
  */
@@ -6899,7 +6908,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
  *             self.__standard_error = kwargs['standard_error']
  *             self.__recombination_type = kwargs['recombination_type']             # <<<<<<<<<<<<<<
  * 
- *     def initial_population(self, individual_type: str = 'ses'):
+ *     def initial_population(self, individual_type = 'ses'):
  */
     __pyx_t_3 = __Pyx_PyDict_GetItem(__pyx_v_kwargs, __pyx_n_s_recombination_type); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 257, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
@@ -6939,7 +6948,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
 /* "supplychainpy/demand/_evo_algo.pyx":259
  *             self.__recombination_type = kwargs['recombination_type']
  * 
- *     def initial_population(self, individual_type: str = 'ses'):             # <<<<<<<<<<<<<<
+ *     def initial_population(self, individual_type = 'ses'):             # <<<<<<<<<<<<<<
  *         """Initialises population and initiates the optimisation of the standard error by searching for an optimum
  *         alpha value.
  */
@@ -7039,7 +7048,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   /* "supplychainpy/demand/_evo_algo.pyx":259
  *             self.__recombination_type = kwargs['recombination_type']
  * 
- *     def initial_population(self, individual_type: str = 'ses'):             # <<<<<<<<<<<<<<
+ *     def initial_population(self, individual_type = 'ses'):             # <<<<<<<<<<<<<<
  *         """Initialises population and initiates the optimisation of the standard error by searching for an optimum
  *         alpha value.
  */
@@ -7290,24 +7299,24 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
 static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_8_initialise_smoothing_level_evolutionary_algorithm_population(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_individual_type) {
   PyObject *__pyx_v_parents = 0;
   PyObject *__pyx_v_parents_population = 0;
+  PyObject *__pyx_v_populations_genome = 0;
+  PyObject *__pyx_v_populations_traits = 0;
   PyObject *__pyx_v_i = NULL;
   PyObject *__pyx_v_parent = NULL;
-  PyObject *__pyx_v_populations_genome = NULL;
-  PyObject *__pyx_v_populations_traits = NULL;
   PyObject *__pyx_v_fit_population = NULL;
   PyObject *__pyx_v_create_offspring = NULL;
-  PyObject *__pyx_v_new_population = NULL;
-  PyObject *__pyx_v_parent_offspring_population = NULL;
-  PyObject *__pyx_v_new_individuals = NULL;
+  PyObject *__pyx_v_new_population = 0;
+  PyObject *__pyx_v_parent_offspring_population = 0;
+  PyObject *__pyx_v_new_individuals = 0;
+  PyObject *__pyx_v_new_populations_traits = 0;
+  PyObject *__pyx_v_new_fit_population = 0;
+  PyObject *__pyx_v_final_error = 0;
+  PyObject *__pyx_v_minimum_smoothing_level = 0;
   PyObject *__pyx_v_po = NULL;
   PyObject *__pyx_v_pke = NULL;
   PyObject *__pyx_v_genome = NULL;
   PyObject *__pyx_v_new_individual = NULL;
   PyObject *__pyx_v_new_population_genome = NULL;
-  PyObject *__pyx_v_new_populations_traits = NULL;
-  PyObject *__pyx_v_new_fit_population = NULL;
-  PyObject *__pyx_v_final_error = NULL;
-  PyObject *__pyx_v_minimum_smoothing_level = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -7327,7 +7336,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
  * 
  *         cdef list parents = []             # <<<<<<<<<<<<<<
  *         cdef list parents_population = []
- * 
+ *         cdef list populations_genome = []
  */
   __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 279, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -7338,44 +7347,68 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
  * 
  *         cdef list parents = []
  *         cdef list parents_population = []             # <<<<<<<<<<<<<<
- * 
- *         while len(parents_population) < self.__population_size:
+ *         cdef list populations_genome = []
+ *         cdef list populations_traits = []
  */
   __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 280, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_parents_population = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
+  /* "supplychainpy/demand/_evo_algo.pyx":281
+ *         cdef list parents = []
+ *         cdef list parents_population = []
+ *         cdef list populations_genome = []             # <<<<<<<<<<<<<<
+ *         cdef list populations_traits = []
+ * 
+ */
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 281, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v_populations_genome = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
   /* "supplychainpy/demand/_evo_algo.pyx":282
  *         cdef list parents_population = []
+ *         cdef list populations_genome = []
+ *         cdef list populations_traits = []             # <<<<<<<<<<<<<<
+ * 
+ *         while len(parents_population) < self.__population_size:
+ */
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 282, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v_populations_traits = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "supplychainpy/demand/_evo_algo.pyx":284
+ *         cdef list populations_traits = []
  * 
  *         while len(parents_population) < self.__population_size:             # <<<<<<<<<<<<<<
  *             for i in range(0, self.__population_size):
  *                 parent = Individual(name='parent', forecast_type=individual_type)
  */
   while (1) {
-    __pyx_t_2 = PyList_GET_SIZE(__pyx_v_parents_population); if (unlikely(__pyx_t_2 == -1)) __PYX_ERR(0, 282, __pyx_L1_error)
-    __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 282, __pyx_L1_error)
+    __pyx_t_2 = PyList_GET_SIZE(__pyx_v_parents_population); if (unlikely(__pyx_t_2 == -1)) __PYX_ERR(0, 284, __pyx_L1_error)
+    __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 284, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 282, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 284, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = PyObject_RichCompare(__pyx_t_1, __pyx_t_3, Py_LT); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 282, __pyx_L1_error)
+    __pyx_t_4 = PyObject_RichCompare(__pyx_t_1, __pyx_t_3, Py_LT); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 284, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 282, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 284, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     if (!__pyx_t_5) break;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":283
+    /* "supplychainpy/demand/_evo_algo.pyx":285
  * 
  *         while len(parents_population) < self.__population_size:
  *             for i in range(0, self.__population_size):             # <<<<<<<<<<<<<<
  *                 parent = Individual(name='parent', forecast_type=individual_type)
  *                 parents.append(parent)
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 283, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 285, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 283, __pyx_L1_error)
+    __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 285, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_INCREF(__pyx_int_0);
     __Pyx_GIVEREF(__pyx_int_0);
@@ -7383,16 +7416,16 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __Pyx_GIVEREF(__pyx_t_4);
     PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_4);
     __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 283, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 285, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if (likely(PyList_CheckExact(__pyx_t_4)) || PyTuple_CheckExact(__pyx_t_4)) {
       __pyx_t_3 = __pyx_t_4; __Pyx_INCREF(__pyx_t_3); __pyx_t_2 = 0;
       __pyx_t_6 = NULL;
     } else {
-      __pyx_t_2 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 283, __pyx_L1_error)
+      __pyx_t_2 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 285, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_6 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 283, __pyx_L1_error)
+      __pyx_t_6 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 285, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     for (;;) {
@@ -7400,17 +7433,17 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         if (likely(PyList_CheckExact(__pyx_t_3))) {
           if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_3)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 283, __pyx_L1_error)
+          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 285, __pyx_L1_error)
           #else
-          __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 283, __pyx_L1_error)
+          __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 285, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           #endif
         } else {
           if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 283, __pyx_L1_error)
+          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 285, __pyx_L1_error)
           #else
-          __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 283, __pyx_L1_error)
+          __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 285, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           #endif
         }
@@ -7420,7 +7453,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 283, __pyx_L1_error)
+            else __PYX_ERR(0, 285, __pyx_L1_error)
           }
           break;
         }
@@ -7429,36 +7462,36 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "supplychainpy/demand/_evo_algo.pyx":284
+      /* "supplychainpy/demand/_evo_algo.pyx":286
  *         while len(parents_population) < self.__population_size:
  *             for i in range(0, self.__population_size):
  *                 parent = Individual(name='parent', forecast_type=individual_type)             # <<<<<<<<<<<<<<
  *                 parents.append(parent)
  * 
  */
-      __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_Individual); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 284, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_Individual); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 286, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 284, __pyx_L1_error)
+      __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 286, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_name, __pyx_n_s_parent) < 0) __PYX_ERR(0, 284, __pyx_L1_error)
-      if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_forecast_type, __pyx_v_individual_type) < 0) __PYX_ERR(0, 284, __pyx_L1_error)
-      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 284, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_name, __pyx_n_s_parent) < 0) __PYX_ERR(0, 286, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_forecast_type, __pyx_v_individual_type) < 0) __PYX_ERR(0, 286, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 286, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_XDECREF_SET(__pyx_v_parent, __pyx_t_7);
       __pyx_t_7 = 0;
 
-      /* "supplychainpy/demand/_evo_algo.pyx":285
+      /* "supplychainpy/demand/_evo_algo.pyx":287
  *             for i in range(0, self.__population_size):
  *                 parent = Individual(name='parent', forecast_type=individual_type)
  *                 parents.append(parent)             # <<<<<<<<<<<<<<
  * 
  *             populations_genome = [i for i in self.generate_smoothing_level_genome(population=parents,
  */
-      __pyx_t_8 = __Pyx_PyList_Append(__pyx_v_parents, __pyx_v_parent); if (unlikely(__pyx_t_8 == -1)) __PYX_ERR(0, 285, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyList_Append(__pyx_v_parents, __pyx_v_parent); if (unlikely(__pyx_t_8 == -1)) __PYX_ERR(0, 287, __pyx_L1_error)
 
-      /* "supplychainpy/demand/_evo_algo.pyx":283
+      /* "supplychainpy/demand/_evo_algo.pyx":285
  * 
  *         while len(parents_population) < self.__population_size:
  *             for i in range(0, self.__population_size):             # <<<<<<<<<<<<<<
@@ -7468,38 +7501,38 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":287
+    /* "supplychainpy/demand/_evo_algo.pyx":289
  *                 parents.append(parent)
  * 
  *             populations_genome = [i for i in self.generate_smoothing_level_genome(population=parents,             # <<<<<<<<<<<<<<
  *                                                                                   individual_type=individual_type)]
  *             populations_traits = [i for i in self.express_smoothing_level_genome(individuals_genome=populations_genome,
  */
-    __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 287, __pyx_L1_error)
+    __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 289, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_generate_smoothing_level_genome); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 287, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_generate_smoothing_level_genome); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 289, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 287, __pyx_L1_error)
+    __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 289, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_population, __pyx_v_parents) < 0) __PYX_ERR(0, 287, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_population, __pyx_v_parents) < 0) __PYX_ERR(0, 289, __pyx_L1_error)
 
-    /* "supplychainpy/demand/_evo_algo.pyx":288
+    /* "supplychainpy/demand/_evo_algo.pyx":290
  * 
  *             populations_genome = [i for i in self.generate_smoothing_level_genome(population=parents,
  *                                                                                   individual_type=individual_type)]             # <<<<<<<<<<<<<<
  *             populations_traits = [i for i in self.express_smoothing_level_genome(individuals_genome=populations_genome,
  *                                                                                  standard_error=self.__standard_error)]
  */
-    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_individual_type, __pyx_v_individual_type) < 0) __PYX_ERR(0, 287, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_individual_type, __pyx_v_individual_type) < 0) __PYX_ERR(0, 289, __pyx_L1_error)
 
-    /* "supplychainpy/demand/_evo_algo.pyx":287
+    /* "supplychainpy/demand/_evo_algo.pyx":289
  *                 parents.append(parent)
  * 
  *             populations_genome = [i for i in self.generate_smoothing_level_genome(population=parents,             # <<<<<<<<<<<<<<
  *                                                                                   individual_type=individual_type)]
  *             populations_traits = [i for i in self.express_smoothing_level_genome(individuals_genome=populations_genome,
  */
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 287, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 289, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -7507,9 +7540,9 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       __pyx_t_1 = __pyx_t_4; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
       __pyx_t_6 = NULL;
     } else {
-      __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 287, __pyx_L1_error)
+      __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 289, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_6 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 287, __pyx_L1_error)
+      __pyx_t_6 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 289, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     for (;;) {
@@ -7517,17 +7550,17 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         if (likely(PyList_CheckExact(__pyx_t_1))) {
           if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 287, __pyx_L1_error)
+          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 289, __pyx_L1_error)
           #else
-          __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 287, __pyx_L1_error)
+          __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 289, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           #endif
         } else {
           if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 287, __pyx_L1_error)
+          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 289, __pyx_L1_error)
           #else
-          __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 287, __pyx_L1_error)
+          __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 289, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           #endif
         }
@@ -7537,7 +7570,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 287, __pyx_L1_error)
+            else __PYX_ERR(0, 289, __pyx_L1_error)
           }
           break;
         }
@@ -7545,47 +7578,47 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       }
       __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_4);
       __pyx_t_4 = 0;
-      if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 287, __pyx_L1_error)
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 289, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_populations_genome, ((PyObject*)__pyx_t_3));
+    __Pyx_DECREF_SET(__pyx_v_populations_genome, ((PyObject*)__pyx_t_3));
     __pyx_t_3 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":289
+    /* "supplychainpy/demand/_evo_algo.pyx":291
  *             populations_genome = [i for i in self.generate_smoothing_level_genome(population=parents,
  *                                                                                   individual_type=individual_type)]
  *             populations_traits = [i for i in self.express_smoothing_level_genome(individuals_genome=populations_genome,             # <<<<<<<<<<<<<<
  *                                                                                  standard_error=self.__standard_error)]
  * 
  */
-    __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 289, __pyx_L1_error)
+    __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 291, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_express_smoothing_level_genome); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 289, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_express_smoothing_level_genome); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 291, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 289, __pyx_L1_error)
+    __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 291, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_individuals_genome, __pyx_v_populations_genome) < 0) __PYX_ERR(0, 289, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_individuals_genome, __pyx_v_populations_genome) < 0) __PYX_ERR(0, 291, __pyx_L1_error)
 
-    /* "supplychainpy/demand/_evo_algo.pyx":290
+    /* "supplychainpy/demand/_evo_algo.pyx":292
  *                                                                                   individual_type=individual_type)]
  *             populations_traits = [i for i in self.express_smoothing_level_genome(individuals_genome=populations_genome,
  *                                                                                  standard_error=self.__standard_error)]             # <<<<<<<<<<<<<<
  * 
  *             fit_population = [i for i in
  */
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 290, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 292, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_standard_error, __pyx_t_7) < 0) __PYX_ERR(0, 289, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_standard_error, __pyx_t_7) < 0) __PYX_ERR(0, 291, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":289
+    /* "supplychainpy/demand/_evo_algo.pyx":291
  *             populations_genome = [i for i in self.generate_smoothing_level_genome(population=parents,
  *                                                                                   individual_type=individual_type)]
  *             populations_traits = [i for i in self.express_smoothing_level_genome(individuals_genome=populations_genome,             # <<<<<<<<<<<<<<
  *                                                                                  standard_error=self.__standard_error)]
  * 
  */
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 289, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 291, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -7593,9 +7626,9 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       __pyx_t_4 = __pyx_t_7; __Pyx_INCREF(__pyx_t_4); __pyx_t_2 = 0;
       __pyx_t_6 = NULL;
     } else {
-      __pyx_t_2 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 289, __pyx_L1_error)
+      __pyx_t_2 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 291, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_6 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 289, __pyx_L1_error)
+      __pyx_t_6 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 291, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     for (;;) {
@@ -7603,17 +7636,17 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         if (likely(PyList_CheckExact(__pyx_t_4))) {
           if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_4)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_7 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_2); __Pyx_INCREF(__pyx_t_7); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 289, __pyx_L1_error)
+          __pyx_t_7 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_2); __Pyx_INCREF(__pyx_t_7); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 291, __pyx_L1_error)
           #else
-          __pyx_t_7 = PySequence_ITEM(__pyx_t_4, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 289, __pyx_L1_error)
+          __pyx_t_7 = PySequence_ITEM(__pyx_t_4, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 291, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
           #endif
         } else {
           if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_7 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_2); __Pyx_INCREF(__pyx_t_7); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 289, __pyx_L1_error)
+          __pyx_t_7 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_2); __Pyx_INCREF(__pyx_t_7); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 291, __pyx_L1_error)
           #else
-          __pyx_t_7 = PySequence_ITEM(__pyx_t_4, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 289, __pyx_L1_error)
+          __pyx_t_7 = PySequence_ITEM(__pyx_t_4, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 291, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
           #endif
         }
@@ -7623,7 +7656,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 289, __pyx_L1_error)
+            else __PYX_ERR(0, 291, __pyx_L1_error)
           }
           break;
         }
@@ -7631,36 +7664,36 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       }
       __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_7);
       __pyx_t_7 = 0;
-      if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 289, __pyx_L1_error)
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 291, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_populations_traits, ((PyObject*)__pyx_t_3));
+    __Pyx_DECREF_SET(__pyx_v_populations_traits, ((PyObject*)__pyx_t_3));
     __pyx_t_3 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":292
+    /* "supplychainpy/demand/_evo_algo.pyx":294
  *                                                                                  standard_error=self.__standard_error)]
  * 
  *             fit_population = [i for i in             # <<<<<<<<<<<<<<
  *                               self._population_fitness(population=populations_traits, individual_type=individual_type)]
  * 
  */
-    __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 292, __pyx_L1_error)
+    __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 294, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
 
-    /* "supplychainpy/demand/_evo_algo.pyx":293
+    /* "supplychainpy/demand/_evo_algo.pyx":295
  * 
  *             fit_population = [i for i in
  *                               self._population_fitness(population=populations_traits, individual_type=individual_type)]             # <<<<<<<<<<<<<<
  * 
  * 
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_population_fitness); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 293, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_population_fitness); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 295, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_7 = PyDict_New(); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 293, __pyx_L1_error)
+    __pyx_t_7 = PyDict_New(); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 295, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_population, __pyx_v_populations_traits) < 0) __PYX_ERR(0, 293, __pyx_L1_error)
-    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_individual_type, __pyx_v_individual_type) < 0) __PYX_ERR(0, 293, __pyx_L1_error)
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_empty_tuple, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 293, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_population, __pyx_v_populations_traits) < 0) __PYX_ERR(0, 295, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_individual_type, __pyx_v_individual_type) < 0) __PYX_ERR(0, 295, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_empty_tuple, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 295, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -7668,9 +7701,9 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       __pyx_t_7 = __pyx_t_1; __Pyx_INCREF(__pyx_t_7); __pyx_t_2 = 0;
       __pyx_t_6 = NULL;
     } else {
-      __pyx_t_2 = -1; __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 293, __pyx_L1_error)
+      __pyx_t_2 = -1; __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 295, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_6 = Py_TYPE(__pyx_t_7)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 293, __pyx_L1_error)
+      __pyx_t_6 = Py_TYPE(__pyx_t_7)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 295, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     for (;;) {
@@ -7678,17 +7711,17 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         if (likely(PyList_CheckExact(__pyx_t_7))) {
           if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_7)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_1 = PyList_GET_ITEM(__pyx_t_7, __pyx_t_2); __Pyx_INCREF(__pyx_t_1); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 293, __pyx_L1_error)
+          __pyx_t_1 = PyList_GET_ITEM(__pyx_t_7, __pyx_t_2); __Pyx_INCREF(__pyx_t_1); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 295, __pyx_L1_error)
           #else
-          __pyx_t_1 = PySequence_ITEM(__pyx_t_7, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 293, __pyx_L1_error)
+          __pyx_t_1 = PySequence_ITEM(__pyx_t_7, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 295, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           #endif
         } else {
           if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_7)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_7, __pyx_t_2); __Pyx_INCREF(__pyx_t_1); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 293, __pyx_L1_error)
+          __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_7, __pyx_t_2); __Pyx_INCREF(__pyx_t_1); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 295, __pyx_L1_error)
           #else
-          __pyx_t_1 = PySequence_ITEM(__pyx_t_7, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 293, __pyx_L1_error)
+          __pyx_t_1 = PySequence_ITEM(__pyx_t_7, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 295, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           #endif
         }
@@ -7698,7 +7731,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 293, __pyx_L1_error)
+            else __PYX_ERR(0, 295, __pyx_L1_error)
           }
           break;
         }
@@ -7707,69 +7740,81 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "supplychainpy/demand/_evo_algo.pyx":292
+      /* "supplychainpy/demand/_evo_algo.pyx":294
  *                                                                                  standard_error=self.__standard_error)]
  * 
  *             fit_population = [i for i in             # <<<<<<<<<<<<<<
  *                               self._population_fitness(population=populations_traits, individual_type=individual_type)]
  * 
  */
-      if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 292, __pyx_L1_error)
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 294, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_XDECREF_SET(__pyx_v_fit_population, ((PyObject*)__pyx_t_3));
     __pyx_t_3 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":296
+    /* "supplychainpy/demand/_evo_algo.pyx":298
  * 
  * 
  *             parents_population += fit_population             # <<<<<<<<<<<<<<
  * 
  *         create_offspring = Population(individuals=parents_population)
  */
-    __pyx_t_3 = PyNumber_InPlaceAdd(__pyx_v_parents_population, __pyx_v_fit_population); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 296, __pyx_L1_error)
+    __pyx_t_3 = PyNumber_InPlaceAdd(__pyx_v_parents_population, __pyx_v_fit_population); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 298, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF_SET(__pyx_v_parents_population, ((PyObject*)__pyx_t_3));
     __pyx_t_3 = 0;
   }
 
-  /* "supplychainpy/demand/_evo_algo.pyx":298
+  /* "supplychainpy/demand/_evo_algo.pyx":300
  *             parents_population += fit_population
  * 
  *         create_offspring = Population(individuals=parents_population)             # <<<<<<<<<<<<<<
  * 
- *         # population reproduce
+ *         cdef list new_population = []
  */
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_Population); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 298, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_Population); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 300, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_7 = PyDict_New(); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 298, __pyx_L1_error)
+  __pyx_t_7 = PyDict_New(); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 300, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_individuals, __pyx_v_parents_population) < 0) __PYX_ERR(0, 298, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_empty_tuple, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 298, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_individuals, __pyx_v_parents_population) < 0) __PYX_ERR(0, 300, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_empty_tuple, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 300, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_v_create_offspring = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":301
+  /* "supplychainpy/demand/_evo_algo.pyx":302
+ *         create_offspring = Population(individuals=parents_population)
  * 
+ *         cdef list new_population = []             # <<<<<<<<<<<<<<
+ *         # population reproduce
+ *         new_population = [i for i in create_offspring.reproduce(recombination_type=self.__recombination_type)]
+ */
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 302, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v_new_population = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "supplychainpy/demand/_evo_algo.pyx":304
+ *         cdef list new_population = []
  *         # population reproduce
  *         new_population = [i for i in create_offspring.reproduce(recombination_type=self.__recombination_type)]             # <<<<<<<<<<<<<<
  * 
  *         if new_population is None:
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 301, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_create_offspring, __pyx_n_s_reproduce); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 301, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_create_offspring, __pyx_n_s_reproduce); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 301, __pyx_L1_error)
+  __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 301, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_recombination_type, __pyx_t_4) < 0) __PYX_ERR(0, 301, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_recombination_type, __pyx_t_4) < 0) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_empty_tuple, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 301, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_empty_tuple, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -7777,9 +7822,9 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __pyx_t_3 = __pyx_t_4; __Pyx_INCREF(__pyx_t_3); __pyx_t_2 = 0;
     __pyx_t_6 = NULL;
   } else {
-    __pyx_t_2 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 301, __pyx_L1_error)
+    __pyx_t_2 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 304, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_6 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 301, __pyx_L1_error)
+    __pyx_t_6 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 304, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   for (;;) {
@@ -7787,17 +7832,17 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       if (likely(PyList_CheckExact(__pyx_t_3))) {
         if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 301, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 304, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 301, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 304, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 301, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 304, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 301, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 304, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -7807,7 +7852,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 301, __pyx_L1_error)
+          else __PYX_ERR(0, 304, __pyx_L1_error)
         }
         break;
       }
@@ -7815,13 +7860,13 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_4);
     __pyx_t_4 = 0;
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 301, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 304, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_v_new_population = ((PyObject*)__pyx_t_1);
+  __Pyx_DECREF_SET(__pyx_v_new_population, ((PyObject*)__pyx_t_1));
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":303
+  /* "supplychainpy/demand/_evo_algo.pyx":306
  *         new_population = [i for i in create_offspring.reproduce(recombination_type=self.__recombination_type)]
  * 
  *         if new_population is None:             # <<<<<<<<<<<<<<
@@ -7832,19 +7877,19 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __pyx_t_9 = (__pyx_t_5 != 0);
   if (__pyx_t_9) {
 
-    /* "supplychainpy/demand/_evo_algo.pyx":304
+    /* "supplychainpy/demand/_evo_algo.pyx":307
  * 
  *         if new_population is None:
  *             return 0             # <<<<<<<<<<<<<<
  * 
- *         parent_offspring_population = []
+ *         cdef list parent_offspring_population = []
  */
     __Pyx_XDECREF(__pyx_r);
     __Pyx_INCREF(__pyx_int_0);
     __pyx_r = __pyx_int_0;
     goto __pyx_L0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":303
+    /* "supplychainpy/demand/_evo_algo.pyx":306
  *         new_population = [i for i in create_offspring.reproduce(recombination_type=self.__recombination_type)]
  * 
  *         if new_population is None:             # <<<<<<<<<<<<<<
@@ -7853,55 +7898,91 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
  */
   }
 
-  /* "supplychainpy/demand/_evo_algo.pyx":306
+  /* "supplychainpy/demand/_evo_algo.pyx":309
  *             return 0
  * 
- *         parent_offspring_population = []             # <<<<<<<<<<<<<<
- *         new_individuals = []
- *         while len(new_population) < self.__population_size * 10:
+ *         cdef list parent_offspring_population = []             # <<<<<<<<<<<<<<
+ *         cdef list new_individuals = []
+ *         cdef list new_populations_traits = []
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 306, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 309, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_parent_offspring_population = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":307
+  /* "supplychainpy/demand/_evo_algo.pyx":310
  * 
- *         parent_offspring_population = []
- *         new_individuals = []             # <<<<<<<<<<<<<<
- *         while len(new_population) < self.__population_size * 10:
- *             for po in new_population:
+ *         cdef list parent_offspring_population = []
+ *         cdef list new_individuals = []             # <<<<<<<<<<<<<<
+ *         cdef list new_populations_traits = []
+ *         cdef list new_fit_population = []
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 307, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 310, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_new_individuals = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":308
- *         parent_offspring_population = []
- *         new_individuals = []
+  /* "supplychainpy/demand/_evo_algo.pyx":311
+ *         cdef list parent_offspring_population = []
+ *         cdef list new_individuals = []
+ *         cdef list new_populations_traits = []             # <<<<<<<<<<<<<<
+ *         cdef list new_fit_population = []
+ *         cdef list final_error = []
+ */
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 311, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v_new_populations_traits = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "supplychainpy/demand/_evo_algo.pyx":312
+ *         cdef list new_individuals = []
+ *         cdef list new_populations_traits = []
+ *         cdef list new_fit_population = []             # <<<<<<<<<<<<<<
+ *         cdef list final_error = []
+ *         cdef tuple minimum_smoothing_level
+ */
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 312, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v_new_fit_population = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "supplychainpy/demand/_evo_algo.pyx":313
+ *         cdef list new_populations_traits = []
+ *         cdef list new_fit_population = []
+ *         cdef list final_error = []             # <<<<<<<<<<<<<<
+ *         cdef tuple minimum_smoothing_level
+ * 
+ */
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 313, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v_final_error = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "supplychainpy/demand/_evo_algo.pyx":316
+ *         cdef tuple minimum_smoothing_level
+ * 
  *         while len(new_population) < self.__population_size * 10:             # <<<<<<<<<<<<<<
  *             for po in new_population:
  *                 pke = po.keys()
  */
   while (1) {
-    __pyx_t_2 = PyList_GET_SIZE(__pyx_v_new_population); if (unlikely(__pyx_t_2 == -1)) __PYX_ERR(0, 308, __pyx_L1_error)
-    __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 308, __pyx_L1_error)
+    __pyx_t_2 = PyList_GET_SIZE(__pyx_v_new_population); if (unlikely(__pyx_t_2 == -1)) __PYX_ERR(0, 316, __pyx_L1_error)
+    __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 316, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 308, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 316, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = PyNumber_Multiply(__pyx_t_3, __pyx_int_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 308, __pyx_L1_error)
+    __pyx_t_4 = PyNumber_Multiply(__pyx_t_3, __pyx_int_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 316, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = PyObject_RichCompare(__pyx_t_1, __pyx_t_4, Py_LT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 308, __pyx_L1_error)
+    __pyx_t_3 = PyObject_RichCompare(__pyx_t_1, __pyx_t_4, Py_LT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 316, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 308, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 316, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if (!__pyx_t_9) break;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":309
- *         new_individuals = []
+    /* "supplychainpy/demand/_evo_algo.pyx":317
+ * 
  *         while len(new_population) < self.__population_size * 10:
  *             for po in new_population:             # <<<<<<<<<<<<<<
  *                 pke = po.keys()
@@ -7911,22 +7992,22 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     for (;;) {
       if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_3)) break;
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-      __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 309, __pyx_L1_error)
+      __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 317, __pyx_L1_error)
       #else
-      __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 309, __pyx_L1_error)
+      __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 317, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       #endif
       __Pyx_XDECREF_SET(__pyx_v_po, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "supplychainpy/demand/_evo_algo.pyx":310
+      /* "supplychainpy/demand/_evo_algo.pyx":318
  *         while len(new_population) < self.__population_size * 10:
  *             for po in new_population:
  *                 pke = po.keys()             # <<<<<<<<<<<<<<
  *                 parent_offspring_population.append(tuple(pke))
  * 
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_po, __pyx_n_s_keys); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 310, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_po, __pyx_n_s_keys); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 318, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __pyx_t_7 = NULL;
       if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -7939,30 +8020,30 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         }
       }
       if (__pyx_t_7) {
-        __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 310, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 318, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       } else {
-        __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 310, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 318, __pyx_L1_error)
       }
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_XDECREF_SET(__pyx_v_pke, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "supplychainpy/demand/_evo_algo.pyx":311
+      /* "supplychainpy/demand/_evo_algo.pyx":319
  *             for po in new_population:
  *                 pke = po.keys()
  *                 parent_offspring_population.append(tuple(pke))             # <<<<<<<<<<<<<<
  * 
  *             for genome in parent_offspring_population:
  */
-      __pyx_t_4 = PySequence_Tuple(__pyx_v_pke); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 311, __pyx_L1_error)
+      __pyx_t_4 = PySequence_Tuple(__pyx_v_pke); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 319, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_8 = __Pyx_PyList_Append(__pyx_v_parent_offspring_population, __pyx_t_4); if (unlikely(__pyx_t_8 == -1)) __PYX_ERR(0, 311, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyList_Append(__pyx_v_parent_offspring_population, __pyx_t_4); if (unlikely(__pyx_t_8 == -1)) __PYX_ERR(0, 319, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "supplychainpy/demand/_evo_algo.pyx":309
- *         new_individuals = []
+      /* "supplychainpy/demand/_evo_algo.pyx":317
+ * 
  *         while len(new_population) < self.__population_size * 10:
  *             for po in new_population:             # <<<<<<<<<<<<<<
  *                 pke = po.keys()
@@ -7971,7 +8052,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":313
+    /* "supplychainpy/demand/_evo_algo.pyx":321
  *                 parent_offspring_population.append(tuple(pke))
  * 
  *             for genome in parent_offspring_population:             # <<<<<<<<<<<<<<
@@ -7982,52 +8063,52 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     for (;;) {
       if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_3)) break;
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-      __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 313, __pyx_L1_error)
+      __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 321, __pyx_L1_error)
       #else
-      __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 313, __pyx_L1_error)
+      __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 321, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       #endif
       __Pyx_XDECREF_SET(__pyx_v_genome, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "supplychainpy/demand/_evo_algo.pyx":314
+      /* "supplychainpy/demand/_evo_algo.pyx":322
  * 
  *             for genome in parent_offspring_population:
  *                 new_individual = Individual(overide=True)             # <<<<<<<<<<<<<<
  *                 new_individual.genome = genome
  *                 new_individuals.append(new_individual)
  */
-      __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_Individual); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 314, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_Individual); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 322, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 314, __pyx_L1_error)
+      __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 322, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_overide, Py_True) < 0) __PYX_ERR(0, 314, __pyx_L1_error)
-      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 314, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_overide, Py_True) < 0) __PYX_ERR(0, 322, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 322, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_XDECREF_SET(__pyx_v_new_individual, __pyx_t_7);
       __pyx_t_7 = 0;
 
-      /* "supplychainpy/demand/_evo_algo.pyx":315
+      /* "supplychainpy/demand/_evo_algo.pyx":323
  *             for genome in parent_offspring_population:
  *                 new_individual = Individual(overide=True)
  *                 new_individual.genome = genome             # <<<<<<<<<<<<<<
  *                 new_individuals.append(new_individual)
  * 
  */
-      if (__Pyx_PyObject_SetAttrStr(__pyx_v_new_individual, __pyx_n_s_genome_2, __pyx_v_genome) < 0) __PYX_ERR(0, 315, __pyx_L1_error)
+      if (__Pyx_PyObject_SetAttrStr(__pyx_v_new_individual, __pyx_n_s_genome_2, __pyx_v_genome) < 0) __PYX_ERR(0, 323, __pyx_L1_error)
 
-      /* "supplychainpy/demand/_evo_algo.pyx":316
+      /* "supplychainpy/demand/_evo_algo.pyx":324
  *                 new_individual = Individual(overide=True)
  *                 new_individual.genome = genome
  *                 new_individuals.append(new_individual)             # <<<<<<<<<<<<<<
  * 
  *             # while population allele boundary ie 50 70 95 is less than specified number.
  */
-      __pyx_t_8 = __Pyx_PyList_Append(__pyx_v_new_individuals, __pyx_v_new_individual); if (unlikely(__pyx_t_8 == -1)) __PYX_ERR(0, 316, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyList_Append(__pyx_v_new_individuals, __pyx_v_new_individual); if (unlikely(__pyx_t_8 == -1)) __PYX_ERR(0, 324, __pyx_L1_error)
 
-      /* "supplychainpy/demand/_evo_algo.pyx":313
+      /* "supplychainpy/demand/_evo_algo.pyx":321
  *                 parent_offspring_population.append(tuple(pke))
  * 
  *             for genome in parent_offspring_population:             # <<<<<<<<<<<<<<
@@ -8037,38 +8118,38 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":319
+    /* "supplychainpy/demand/_evo_algo.pyx":327
  * 
  *             # while population allele boundary ie 50 70 95 is less than specified number.
  *             new_population_genome = [i for i in self.generate_smoothing_level_genome(population=new_individuals,             # <<<<<<<<<<<<<<
  *                                                                                      individual_type=individual_type)]
  * 
  */
-    __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 319, __pyx_L1_error)
+    __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 327, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_generate_smoothing_level_genome); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 319, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_generate_smoothing_level_genome); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 327, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 319, __pyx_L1_error)
+    __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 327, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_population, __pyx_v_new_individuals) < 0) __PYX_ERR(0, 319, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_population, __pyx_v_new_individuals) < 0) __PYX_ERR(0, 327, __pyx_L1_error)
 
-    /* "supplychainpy/demand/_evo_algo.pyx":320
+    /* "supplychainpy/demand/_evo_algo.pyx":328
  *             # while population allele boundary ie 50 70 95 is less than specified number.
  *             new_population_genome = [i for i in self.generate_smoothing_level_genome(population=new_individuals,
  *                                                                                      individual_type=individual_type)]             # <<<<<<<<<<<<<<
  * 
  *             new_populations_traits = [i for i in
  */
-    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_individual_type, __pyx_v_individual_type) < 0) __PYX_ERR(0, 319, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_individual_type, __pyx_v_individual_type) < 0) __PYX_ERR(0, 327, __pyx_L1_error)
 
-    /* "supplychainpy/demand/_evo_algo.pyx":319
+    /* "supplychainpy/demand/_evo_algo.pyx":327
  * 
  *             # while population allele boundary ie 50 70 95 is less than specified number.
  *             new_population_genome = [i for i in self.generate_smoothing_level_genome(population=new_individuals,             # <<<<<<<<<<<<<<
  *                                                                                      individual_type=individual_type)]
  * 
  */
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 319, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 327, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -8076,9 +8157,9 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       __pyx_t_1 = __pyx_t_4; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
       __pyx_t_6 = NULL;
     } else {
-      __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 319, __pyx_L1_error)
+      __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 327, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_6 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 319, __pyx_L1_error)
+      __pyx_t_6 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 327, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     for (;;) {
@@ -8086,17 +8167,17 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         if (likely(PyList_CheckExact(__pyx_t_1))) {
           if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 319, __pyx_L1_error)
+          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 327, __pyx_L1_error)
           #else
-          __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 319, __pyx_L1_error)
+          __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 327, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           #endif
         } else {
           if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 319, __pyx_L1_error)
+          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 327, __pyx_L1_error)
           #else
-          __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 319, __pyx_L1_error)
+          __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 327, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           #endif
         }
@@ -8106,7 +8187,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 319, __pyx_L1_error)
+            else __PYX_ERR(0, 327, __pyx_L1_error)
           }
           break;
         }
@@ -8114,55 +8195,55 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       }
       __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_4);
       __pyx_t_4 = 0;
-      if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 319, __pyx_L1_error)
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 327, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_XDECREF_SET(__pyx_v_new_population_genome, ((PyObject*)__pyx_t_3));
     __pyx_t_3 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":322
+    /* "supplychainpy/demand/_evo_algo.pyx":330
  *                                                                                      individual_type=individual_type)]
  * 
  *             new_populations_traits = [i for i in             # <<<<<<<<<<<<<<
  *                                       self.express_smoothing_level_genome(individuals_genome=new_population_genome,
  *                                                                           standard_error=self.__standard_error)]
  */
-    __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 322, __pyx_L1_error)
+    __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 330, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
 
-    /* "supplychainpy/demand/_evo_algo.pyx":323
+    /* "supplychainpy/demand/_evo_algo.pyx":331
  * 
  *             new_populations_traits = [i for i in
  *                                       self.express_smoothing_level_genome(individuals_genome=new_population_genome,             # <<<<<<<<<<<<<<
  *                                                                           standard_error=self.__standard_error)]
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_express_smoothing_level_genome); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 323, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_express_smoothing_level_genome); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 331, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 323, __pyx_L1_error)
+    __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 331, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_individuals_genome, __pyx_v_new_population_genome) < 0) __PYX_ERR(0, 323, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_individuals_genome, __pyx_v_new_population_genome) < 0) __PYX_ERR(0, 331, __pyx_L1_error)
 
-    /* "supplychainpy/demand/_evo_algo.pyx":324
+    /* "supplychainpy/demand/_evo_algo.pyx":332
  *             new_populations_traits = [i for i in
  *                                       self.express_smoothing_level_genome(individuals_genome=new_population_genome,
  *                                                                           standard_error=self.__standard_error)]             # <<<<<<<<<<<<<<
  * 
  *             new_fit_population = [i for i in self._population_fitness(population=new_populations_traits,
  */
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 324, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 332, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_standard_error, __pyx_t_7) < 0) __PYX_ERR(0, 323, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_standard_error, __pyx_t_7) < 0) __PYX_ERR(0, 331, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":323
+    /* "supplychainpy/demand/_evo_algo.pyx":331
  * 
  *             new_populations_traits = [i for i in
  *                                       self.express_smoothing_level_genome(individuals_genome=new_population_genome,             # <<<<<<<<<<<<<<
  *                                                                           standard_error=self.__standard_error)]
  * 
  */
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 323, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 331, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -8170,9 +8251,9 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       __pyx_t_4 = __pyx_t_7; __Pyx_INCREF(__pyx_t_4); __pyx_t_2 = 0;
       __pyx_t_6 = NULL;
     } else {
-      __pyx_t_2 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 323, __pyx_L1_error)
+      __pyx_t_2 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 331, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_6 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 323, __pyx_L1_error)
+      __pyx_t_6 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 331, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     for (;;) {
@@ -8180,17 +8261,17 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         if (likely(PyList_CheckExact(__pyx_t_4))) {
           if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_4)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_7 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_2); __Pyx_INCREF(__pyx_t_7); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 323, __pyx_L1_error)
+          __pyx_t_7 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_2); __Pyx_INCREF(__pyx_t_7); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 331, __pyx_L1_error)
           #else
-          __pyx_t_7 = PySequence_ITEM(__pyx_t_4, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 323, __pyx_L1_error)
+          __pyx_t_7 = PySequence_ITEM(__pyx_t_4, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 331, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
           #endif
         } else {
           if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_7 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_2); __Pyx_INCREF(__pyx_t_7); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 323, __pyx_L1_error)
+          __pyx_t_7 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_2); __Pyx_INCREF(__pyx_t_7); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 331, __pyx_L1_error)
           #else
-          __pyx_t_7 = PySequence_ITEM(__pyx_t_4, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 323, __pyx_L1_error)
+          __pyx_t_7 = PySequence_ITEM(__pyx_t_4, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 331, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
           #endif
         }
@@ -8200,7 +8281,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 323, __pyx_L1_error)
+            else __PYX_ERR(0, 331, __pyx_L1_error)
           }
           break;
         }
@@ -8209,51 +8290,51 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_7);
       __pyx_t_7 = 0;
 
-      /* "supplychainpy/demand/_evo_algo.pyx":322
+      /* "supplychainpy/demand/_evo_algo.pyx":330
  *                                                                                      individual_type=individual_type)]
  * 
  *             new_populations_traits = [i for i in             # <<<<<<<<<<<<<<
  *                                       self.express_smoothing_level_genome(individuals_genome=new_population_genome,
  *                                                                           standard_error=self.__standard_error)]
  */
-      if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 322, __pyx_L1_error)
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 330, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_new_populations_traits, ((PyObject*)__pyx_t_3));
+    __Pyx_DECREF_SET(__pyx_v_new_populations_traits, ((PyObject*)__pyx_t_3));
     __pyx_t_3 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":326
+    /* "supplychainpy/demand/_evo_algo.pyx":334
  *                                                                           standard_error=self.__standard_error)]
  * 
  *             new_fit_population = [i for i in self._population_fitness(population=new_populations_traits,             # <<<<<<<<<<<<<<
  *                                                                       individual_type=individual_type)]
  *             new_population = new_fit_population
  */
-    __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 326, __pyx_L1_error)
+    __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 334, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_population_fitness); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 326, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_population_fitness); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 334, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_7 = PyDict_New(); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 326, __pyx_L1_error)
+    __pyx_t_7 = PyDict_New(); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 334, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_population, __pyx_v_new_populations_traits) < 0) __PYX_ERR(0, 326, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_population, __pyx_v_new_populations_traits) < 0) __PYX_ERR(0, 334, __pyx_L1_error)
 
-    /* "supplychainpy/demand/_evo_algo.pyx":327
+    /* "supplychainpy/demand/_evo_algo.pyx":335
  * 
  *             new_fit_population = [i for i in self._population_fitness(population=new_populations_traits,
  *                                                                       individual_type=individual_type)]             # <<<<<<<<<<<<<<
  *             new_population = new_fit_population
  * 
  */
-    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_individual_type, __pyx_v_individual_type) < 0) __PYX_ERR(0, 326, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_individual_type, __pyx_v_individual_type) < 0) __PYX_ERR(0, 334, __pyx_L1_error)
 
-    /* "supplychainpy/demand/_evo_algo.pyx":326
+    /* "supplychainpy/demand/_evo_algo.pyx":334
  *                                                                           standard_error=self.__standard_error)]
  * 
  *             new_fit_population = [i for i in self._population_fitness(population=new_populations_traits,             # <<<<<<<<<<<<<<
  *                                                                       individual_type=individual_type)]
  *             new_population = new_fit_population
  */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_empty_tuple, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 326, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_empty_tuple, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 334, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -8261,9 +8342,9 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       __pyx_t_7 = __pyx_t_1; __Pyx_INCREF(__pyx_t_7); __pyx_t_2 = 0;
       __pyx_t_6 = NULL;
     } else {
-      __pyx_t_2 = -1; __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 326, __pyx_L1_error)
+      __pyx_t_2 = -1; __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 334, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_6 = Py_TYPE(__pyx_t_7)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 326, __pyx_L1_error)
+      __pyx_t_6 = Py_TYPE(__pyx_t_7)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 334, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     for (;;) {
@@ -8271,17 +8352,17 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         if (likely(PyList_CheckExact(__pyx_t_7))) {
           if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_7)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_1 = PyList_GET_ITEM(__pyx_t_7, __pyx_t_2); __Pyx_INCREF(__pyx_t_1); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 326, __pyx_L1_error)
+          __pyx_t_1 = PyList_GET_ITEM(__pyx_t_7, __pyx_t_2); __Pyx_INCREF(__pyx_t_1); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 334, __pyx_L1_error)
           #else
-          __pyx_t_1 = PySequence_ITEM(__pyx_t_7, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 326, __pyx_L1_error)
+          __pyx_t_1 = PySequence_ITEM(__pyx_t_7, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 334, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           #endif
         } else {
           if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_7)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_7, __pyx_t_2); __Pyx_INCREF(__pyx_t_1); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 326, __pyx_L1_error)
+          __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_7, __pyx_t_2); __Pyx_INCREF(__pyx_t_1); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 334, __pyx_L1_error)
           #else
-          __pyx_t_1 = PySequence_ITEM(__pyx_t_7, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 326, __pyx_L1_error)
+          __pyx_t_1 = PySequence_ITEM(__pyx_t_7, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 334, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           #endif
         }
@@ -8291,7 +8372,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 326, __pyx_L1_error)
+            else __PYX_ERR(0, 334, __pyx_L1_error)
           }
           break;
         }
@@ -8299,13 +8380,13 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       }
       __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_1);
       __pyx_t_1 = 0;
-      if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 326, __pyx_L1_error)
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 334, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_new_fit_population, ((PyObject*)__pyx_t_3));
+    __Pyx_DECREF_SET(__pyx_v_new_fit_population, ((PyObject*)__pyx_t_3));
     __pyx_t_3 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":328
+    /* "supplychainpy/demand/_evo_algo.pyx":336
  *             new_fit_population = [i for i in self._population_fitness(population=new_populations_traits,
  *                                                                       individual_type=individual_type)]
  *             new_population = new_fit_population             # <<<<<<<<<<<<<<
@@ -8316,14 +8397,14 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __Pyx_DECREF_SET(__pyx_v_new_population, __pyx_v_new_fit_population);
   }
 
-  /* "supplychainpy/demand/_evo_algo.pyx":330
+  /* "supplychainpy/demand/_evo_algo.pyx":338
  *             new_population = new_fit_population
  * 
  *         new_individuals.clear()             # <<<<<<<<<<<<<<
  * 
  *         new_individuals = [i for i in self.create_individuals(new_population)]
  */
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_new_individuals, __pyx_n_s_clear); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 330, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_new_individuals, __pyx_n_s_clear); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 338, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_1 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_7))) {
@@ -8336,25 +8417,25 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
   }
   if (__pyx_t_1) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 330, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 338, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   } else {
-    __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 330, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 338, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":332
+  /* "supplychainpy/demand/_evo_algo.pyx":340
  *         new_individuals.clear()
  * 
  *         new_individuals = [i for i in self.create_individuals(new_population)]             # <<<<<<<<<<<<<<
  * 
  *         final_error = [i for i in self.generate_smoothing_level_genome(population=new_individuals,
  */
-  __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 332, __pyx_L1_error)
+  __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 340, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_create_individuals); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 332, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_create_individuals); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 340, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -8367,13 +8448,13 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
   }
   if (!__pyx_t_4) {
-    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_new_population); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 332, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_new_population); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 340, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_1)) {
       PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_v_new_population};
-      __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 332, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 340, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_7);
     } else
@@ -8381,19 +8462,19 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
       PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_v_new_population};
-      __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 332, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 340, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_7);
     } else
     #endif
     {
-      __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 332, __pyx_L1_error)
+      __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 340, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_4); __pyx_t_4 = NULL;
       __Pyx_INCREF(__pyx_v_new_population);
       __Pyx_GIVEREF(__pyx_v_new_population);
       PyTuple_SET_ITEM(__pyx_t_10, 0+1, __pyx_v_new_population);
-      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_10, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 332, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_10, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 340, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     }
@@ -8403,9 +8484,9 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __pyx_t_1 = __pyx_t_7; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
     __pyx_t_6 = NULL;
   } else {
-    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 332, __pyx_L1_error)
+    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 340, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_6 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 332, __pyx_L1_error)
+    __pyx_t_6 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 340, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   for (;;) {
@@ -8413,17 +8494,17 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_7 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_7); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 332, __pyx_L1_error)
+        __pyx_t_7 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_7); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 340, __pyx_L1_error)
         #else
-        __pyx_t_7 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 332, __pyx_L1_error)
+        __pyx_t_7 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 340, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         #endif
       } else {
         if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_7 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_7); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 332, __pyx_L1_error)
+        __pyx_t_7 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_7); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 340, __pyx_L1_error)
         #else
-        __pyx_t_7 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 332, __pyx_L1_error)
+        __pyx_t_7 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 340, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         #endif
       }
@@ -8433,7 +8514,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 332, __pyx_L1_error)
+          else __PYX_ERR(0, 340, __pyx_L1_error)
         }
         break;
       }
@@ -8441,44 +8522,44 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_7);
     __pyx_t_7 = 0;
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 332, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 340, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF_SET(__pyx_v_new_individuals, ((PyObject*)__pyx_t_3));
   __pyx_t_3 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":334
+  /* "supplychainpy/demand/_evo_algo.pyx":342
  *         new_individuals = [i for i in self.create_individuals(new_population)]
  * 
  *         final_error = [i for i in self.generate_smoothing_level_genome(population=new_individuals,             # <<<<<<<<<<<<<<
  *                                                                        individual_type=individual_type)]
  * 
  */
-  __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 334, __pyx_L1_error)
+  __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 342, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_generate_smoothing_level_genome); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 334, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_generate_smoothing_level_genome); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 342, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_7 = PyDict_New(); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 334, __pyx_L1_error)
+  __pyx_t_7 = PyDict_New(); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 342, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_population, __pyx_v_new_individuals) < 0) __PYX_ERR(0, 334, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_population, __pyx_v_new_individuals) < 0) __PYX_ERR(0, 342, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":335
+  /* "supplychainpy/demand/_evo_algo.pyx":343
  * 
  *         final_error = [i for i in self.generate_smoothing_level_genome(population=new_individuals,
  *                                                                        individual_type=individual_type)]             # <<<<<<<<<<<<<<
  * 
  *         minimum_smoothing_level = min(zip(final_error[0].values(), final_error[0].keys()))
  */
-  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_individual_type, __pyx_v_individual_type) < 0) __PYX_ERR(0, 334, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_individual_type, __pyx_v_individual_type) < 0) __PYX_ERR(0, 342, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":334
+  /* "supplychainpy/demand/_evo_algo.pyx":342
  *         new_individuals = [i for i in self.create_individuals(new_population)]
  * 
  *         final_error = [i for i in self.generate_smoothing_level_genome(population=new_individuals,             # <<<<<<<<<<<<<<
  *                                                                        individual_type=individual_type)]
  * 
  */
-  __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_7); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 334, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_7); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 342, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -8486,9 +8567,9 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __pyx_t_7 = __pyx_t_10; __Pyx_INCREF(__pyx_t_7); __pyx_t_2 = 0;
     __pyx_t_6 = NULL;
   } else {
-    __pyx_t_2 = -1; __pyx_t_7 = PyObject_GetIter(__pyx_t_10); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 334, __pyx_L1_error)
+    __pyx_t_2 = -1; __pyx_t_7 = PyObject_GetIter(__pyx_t_10); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 342, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_6 = Py_TYPE(__pyx_t_7)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 334, __pyx_L1_error)
+    __pyx_t_6 = Py_TYPE(__pyx_t_7)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 342, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   for (;;) {
@@ -8496,17 +8577,17 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       if (likely(PyList_CheckExact(__pyx_t_7))) {
         if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_7)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_10 = PyList_GET_ITEM(__pyx_t_7, __pyx_t_2); __Pyx_INCREF(__pyx_t_10); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 334, __pyx_L1_error)
+        __pyx_t_10 = PyList_GET_ITEM(__pyx_t_7, __pyx_t_2); __Pyx_INCREF(__pyx_t_10); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 342, __pyx_L1_error)
         #else
-        __pyx_t_10 = PySequence_ITEM(__pyx_t_7, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 334, __pyx_L1_error)
+        __pyx_t_10 = PySequence_ITEM(__pyx_t_7, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 342, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         #endif
       } else {
         if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_7)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_10 = PyTuple_GET_ITEM(__pyx_t_7, __pyx_t_2); __Pyx_INCREF(__pyx_t_10); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 334, __pyx_L1_error)
+        __pyx_t_10 = PyTuple_GET_ITEM(__pyx_t_7, __pyx_t_2); __Pyx_INCREF(__pyx_t_10); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 342, __pyx_L1_error)
         #else
-        __pyx_t_10 = PySequence_ITEM(__pyx_t_7, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 334, __pyx_L1_error)
+        __pyx_t_10 = PySequence_ITEM(__pyx_t_7, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 342, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         #endif
       }
@@ -8516,7 +8597,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 334, __pyx_L1_error)
+          else __PYX_ERR(0, 342, __pyx_L1_error)
         }
         break;
       }
@@ -8524,22 +8605,22 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_10);
     __pyx_t_10 = 0;
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 334, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 342, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_v_final_error = ((PyObject*)__pyx_t_3);
+  __Pyx_DECREF_SET(__pyx_v_final_error, ((PyObject*)__pyx_t_3));
   __pyx_t_3 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":337
+  /* "supplychainpy/demand/_evo_algo.pyx":345
  *                                                                        individual_type=individual_type)]
  * 
  *         minimum_smoothing_level = min(zip(final_error[0].values(), final_error[0].keys()))             # <<<<<<<<<<<<<<
  * 
  *         return minimum_smoothing_level
  */
-  __pyx_t_7 = __Pyx_GetItemInt_List(__pyx_v_final_error, 0, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 337, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_GetItemInt_List(__pyx_v_final_error, 0, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 345, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_values); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 337, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_values); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 345, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_t_7 = NULL;
@@ -8553,16 +8634,16 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
   }
   if (__pyx_t_7) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 337, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 345, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   } else {
-    __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_10); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 337, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_10); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 345, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __pyx_t_7 = __Pyx_GetItemInt_List(__pyx_v_final_error, 0, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 337, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_GetItemInt_List(__pyx_v_final_error, 0, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 345, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_keys); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 337, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_keys); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 345, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_t_7 = NULL;
@@ -8576,14 +8657,14 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
   }
   if (__pyx_t_7) {
-    __pyx_t_10 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 337, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 345, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   } else {
-    __pyx_t_10 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 337, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 345, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 337, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 345, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_3);
@@ -8591,21 +8672,22 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_10);
   __pyx_t_3 = 0;
   __pyx_t_10 = 0;
-  __pyx_t_10 = __Pyx_PyObject_Call(__pyx_builtin_zip, __pyx_t_1, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 337, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_Call(__pyx_builtin_zip, __pyx_t_1, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 345, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 337, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 345, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_10);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_10);
   __pyx_t_10 = 0;
-  __pyx_t_10 = __Pyx_PyObject_Call(__pyx_builtin_min, __pyx_t_1, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 337, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_Call(__pyx_builtin_min, __pyx_t_1, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 345, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_minimum_smoothing_level = __pyx_t_10;
+  if (!(likely(PyTuple_CheckExact(__pyx_t_10))||((__pyx_t_10) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_t_10)->tp_name), 0))) __PYX_ERR(0, 345, __pyx_L1_error)
+  __pyx_v_minimum_smoothing_level = ((PyObject*)__pyx_t_10);
   __pyx_t_10 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":339
+  /* "supplychainpy/demand/_evo_algo.pyx":347
  *         minimum_smoothing_level = min(zip(final_error[0].values(), final_error[0].keys()))
  * 
  *         return minimum_smoothing_level             # <<<<<<<<<<<<<<
@@ -8637,31 +8719,31 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_parents);
   __Pyx_XDECREF(__pyx_v_parents_population);
-  __Pyx_XDECREF(__pyx_v_i);
-  __Pyx_XDECREF(__pyx_v_parent);
   __Pyx_XDECREF(__pyx_v_populations_genome);
   __Pyx_XDECREF(__pyx_v_populations_traits);
+  __Pyx_XDECREF(__pyx_v_i);
+  __Pyx_XDECREF(__pyx_v_parent);
   __Pyx_XDECREF(__pyx_v_fit_population);
   __Pyx_XDECREF(__pyx_v_create_offspring);
   __Pyx_XDECREF(__pyx_v_new_population);
   __Pyx_XDECREF(__pyx_v_parent_offspring_population);
   __Pyx_XDECREF(__pyx_v_new_individuals);
+  __Pyx_XDECREF(__pyx_v_new_populations_traits);
+  __Pyx_XDECREF(__pyx_v_new_fit_population);
+  __Pyx_XDECREF(__pyx_v_final_error);
+  __Pyx_XDECREF(__pyx_v_minimum_smoothing_level);
   __Pyx_XDECREF(__pyx_v_po);
   __Pyx_XDECREF(__pyx_v_pke);
   __Pyx_XDECREF(__pyx_v_genome);
   __Pyx_XDECREF(__pyx_v_new_individual);
   __Pyx_XDECREF(__pyx_v_new_population_genome);
-  __Pyx_XDECREF(__pyx_v_new_populations_traits);
-  __Pyx_XDECREF(__pyx_v_new_fit_population);
-  __Pyx_XDECREF(__pyx_v_final_error);
-  __Pyx_XDECREF(__pyx_v_minimum_smoothing_level);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_12generator3(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
-/* "supplychainpy/demand/_evo_algo.pyx":342
+/* "supplychainpy/demand/_evo_algo.pyx":350
  * 
  *     @staticmethod
  *     def create_individuals(list new_population):             # <<<<<<<<<<<<<<
@@ -8677,7 +8759,7 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("create_individuals (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_new_population), (&PyList_Type), 1, "new_population", 1))) __PYX_ERR(0, 342, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_new_population), (&PyList_Type), 1, "new_population", 1))) __PYX_ERR(0, 350, __pyx_L1_error)
   __pyx_r = __pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_10create_individuals(__pyx_self, ((PyObject*)__pyx_v_new_population));
 
   /* function exit code */
@@ -8698,7 +8780,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_4_create_individuals *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 342, __pyx_L1_error)
+    __PYX_ERR(0, 350, __pyx_L1_error)
   } else {
     __Pyx_GOTREF(__pyx_cur_scope);
   }
@@ -8706,7 +8788,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_new_population);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_new_population);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_12generator3, (PyObject *) __pyx_cur_scope, __pyx_n_s_create_individuals, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg, __pyx_n_s_supplychainpy_demand__evo_algo); if (unlikely(!gen)) __PYX_ERR(0, 342, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_12generator3, (PyObject *) __pyx_cur_scope, __pyx_n_s_create_individuals, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg, __pyx_n_s_supplychainpy_demand__evo_algo); if (unlikely(!gen)) __PYX_ERR(0, 350, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -8742,22 +8824,22 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 342, __pyx_L1_error)
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 350, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":347
+  /* "supplychainpy/demand/_evo_algo.pyx":355
  *             new_population (list):  new population of individual genomes.
  *         """
  *         cdef list parent_offspring_population = []             # <<<<<<<<<<<<<<
  * 
  *         for po in new_population:
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 347, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 355, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_cur_scope->__pyx_v_parent_offspring_population = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":349
+  /* "supplychainpy/demand/_evo_algo.pyx":357
  *         cdef list parent_offspring_population = []
  * 
  *         for po in new_population:             # <<<<<<<<<<<<<<
@@ -8766,15 +8848,15 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
  */
   if (unlikely(__pyx_cur_scope->__pyx_v_new_population == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-    __PYX_ERR(0, 349, __pyx_L1_error)
+    __PYX_ERR(0, 357, __pyx_L1_error)
   }
   __pyx_t_1 = __pyx_cur_scope->__pyx_v_new_population; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
   for (;;) {
     if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_3); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 349, __pyx_L1_error)
+    __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_3); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 357, __pyx_L1_error)
     #else
-    __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 349, __pyx_L1_error)
+    __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 357, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     #endif
     __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_po);
@@ -8782,14 +8864,14 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __Pyx_GIVEREF(__pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":350
+    /* "supplychainpy/demand/_evo_algo.pyx":358
  * 
  *         for po in new_population:
  *             pke = po.keys()             # <<<<<<<<<<<<<<
  *             parent_offspring_population.append(tuple(pke))
  * 
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_po, __pyx_n_s_keys); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 350, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_po, __pyx_n_s_keys); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 358, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
@@ -8802,10 +8884,10 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       }
     }
     if (__pyx_t_5) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 350, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 358, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     } else {
-      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 350, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 358, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -8814,19 +8896,19 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __Pyx_GIVEREF(__pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":351
+    /* "supplychainpy/demand/_evo_algo.pyx":359
  *         for po in new_population:
  *             pke = po.keys()
  *             parent_offspring_population.append(tuple(pke))             # <<<<<<<<<<<<<<
  * 
  *         for genome in parent_offspring_population:
  */
-    __pyx_t_3 = PySequence_Tuple(__pyx_cur_scope->__pyx_v_pke); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 351, __pyx_L1_error)
+    __pyx_t_3 = PySequence_Tuple(__pyx_cur_scope->__pyx_v_pke); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 359, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_6 = __Pyx_PyList_Append(__pyx_cur_scope->__pyx_v_parent_offspring_population, __pyx_t_3); if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 351, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyList_Append(__pyx_cur_scope->__pyx_v_parent_offspring_population, __pyx_t_3); if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 359, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":349
+    /* "supplychainpy/demand/_evo_algo.pyx":357
  *         cdef list parent_offspring_population = []
  * 
  *         for po in new_population:             # <<<<<<<<<<<<<<
@@ -8836,7 +8918,7 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":353
+  /* "supplychainpy/demand/_evo_algo.pyx":361
  *             parent_offspring_population.append(tuple(pke))
  * 
  *         for genome in parent_offspring_population:             # <<<<<<<<<<<<<<
@@ -8847,9 +8929,9 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   for (;;) {
     if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_3); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 353, __pyx_L1_error)
+    __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_3); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 361, __pyx_L1_error)
     #else
-    __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 353, __pyx_L1_error)
+    __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 361, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     #endif
     __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_genome);
@@ -8857,19 +8939,19 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __Pyx_GIVEREF(__pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":354
+    /* "supplychainpy/demand/_evo_algo.pyx":362
  * 
  *         for genome in parent_offspring_population:
  *             new_individual = Individual(overide=True)             # <<<<<<<<<<<<<<
  *             new_individual.genome = genome
  *             yield new_individual
  */
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_Individual); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 354, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_Individual); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 362, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 354, __pyx_L1_error)
+    __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 362, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_overide, Py_True) < 0) __PYX_ERR(0, 354, __pyx_L1_error)
-    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_empty_tuple, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 354, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_overide, Py_True) < 0) __PYX_ERR(0, 362, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_empty_tuple, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 362, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -8878,16 +8960,16 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __Pyx_GIVEREF(__pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":355
+    /* "supplychainpy/demand/_evo_algo.pyx":363
  *         for genome in parent_offspring_population:
  *             new_individual = Individual(overide=True)
  *             new_individual.genome = genome             # <<<<<<<<<<<<<<
  *             yield new_individual
  * 
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_new_individual, __pyx_n_s_genome_2, __pyx_cur_scope->__pyx_v_genome) < 0) __PYX_ERR(0, 355, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_new_individual, __pyx_n_s_genome_2, __pyx_cur_scope->__pyx_v_genome) < 0) __PYX_ERR(0, 363, __pyx_L1_error)
 
-    /* "supplychainpy/demand/_evo_algo.pyx":356
+    /* "supplychainpy/demand/_evo_algo.pyx":364
  *             new_individual = Individual(overide=True)
  *             new_individual.genome = genome
  *             yield new_individual             # <<<<<<<<<<<<<<
@@ -8909,9 +8991,9 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __pyx_cur_scope->__pyx_t_0 = 0;
     __Pyx_XGOTREF(__pyx_t_1);
     __pyx_t_2 = __pyx_cur_scope->__pyx_t_1;
-    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 356, __pyx_L1_error)
+    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 364, __pyx_L1_error)
 
-    /* "supplychainpy/demand/_evo_algo.pyx":353
+    /* "supplychainpy/demand/_evo_algo.pyx":361
  *             parent_offspring_population.append(tuple(pke))
  * 
  *         for genome in parent_offspring_population:             # <<<<<<<<<<<<<<
@@ -8922,7 +9004,7 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   CYTHON_MAYBE_UNUSED_VAR(__pyx_cur_scope);
 
-  /* "supplychainpy/demand/_evo_algo.pyx":342
+  /* "supplychainpy/demand/_evo_algo.pyx":350
  * 
  *     @staticmethod
  *     def create_individuals(list new_population):             # <<<<<<<<<<<<<<
@@ -8948,10 +9030,10 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
 }
 static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_15generator4(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
-/* "supplychainpy/demand/_evo_algo.pyx":359
+/* "supplychainpy/demand/_evo_algo.pyx":367
  * 
  *     @staticmethod
- *     def _population_fitness(population: list, individual_type: str = 'ses') -> list:             # <<<<<<<<<<<<<<
+ *     def _population_fitness(list population, individual_type='ses'):             # <<<<<<<<<<<<<<
  *         """ Assess the population for fitness before crossover and creating next generation. Positive traits
  *         should be reflected by more than 70% of the genes in the genome.
  */
@@ -8991,7 +9073,7 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_population_fitness") < 0)) __PYX_ERR(0, 359, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_population_fitness") < 0)) __PYX_ERR(0, 367, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -9001,20 +9083,25 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         default: goto __pyx_L5_argtuple_error;
       }
     }
-    __pyx_v_population = values[0];
+    __pyx_v_population = ((PyObject*)values[0]);
     __pyx_v_individual_type = values[1];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_population_fitness", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 359, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_population_fitness", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 367, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("supplychainpy.demand._evo_algo.OptimiseSmoothingLevelGeneticAlgorithm._population_fitness", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_population), (&PyList_Type), 1, "population", 1))) __PYX_ERR(0, 367, __pyx_L1_error)
   __pyx_r = __pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_13_population_fitness(__pyx_self, __pyx_v_population, __pyx_v_individual_type);
 
   /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -9028,7 +9115,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_5__population_fitness *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 359, __pyx_L1_error)
+    __PYX_ERR(0, 367, __pyx_L1_error)
   } else {
     __Pyx_GOTREF(__pyx_cur_scope);
   }
@@ -9039,7 +9126,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_individual_type);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_individual_type);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_15generator4, (PyObject *) __pyx_cur_scope, __pyx_n_s_population_fitness, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_2, __pyx_n_s_supplychainpy_demand__evo_algo); if (unlikely(!gen)) __PYX_ERR(0, 359, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_15generator4, (PyObject *) __pyx_cur_scope, __pyx_n_s_population_fitness, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_2, __pyx_n_s_supplychainpy_demand__evo_algo); if (unlikely(!gen)) __PYX_ERR(0, 367, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -9061,14 +9148,13 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   PyObject *__pyx_r = NULL;
   PyObject *__pyx_t_1 = NULL;
   Py_ssize_t __pyx_t_2;
-  PyObject *(*__pyx_t_3)(PyObject *);
+  PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
   PyObject *__pyx_t_6 = NULL;
-  PyObject *__pyx_t_7 = NULL;
-  Py_ssize_t __pyx_t_8;
-  double __pyx_t_9;
-  int __pyx_t_10;
+  Py_ssize_t __pyx_t_7;
+  double __pyx_t_8;
+  int __pyx_t_9;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("None", 0);
   switch (__pyx_generator->resume_label) {
@@ -9080,67 +9166,69 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 359, __pyx_L1_error)
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 367, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":372
+  /* "supplychainpy/demand/_evo_algo.pyx":380
  *                                     exponential smoothing and 30% for holts trend correcting. """
  *         cdef double procreation_probability
  *         for individual in population:             # <<<<<<<<<<<<<<
  *             procreation_probability = sum(individual.values()) / len(individual.values())
  *             if individual_type == 'ses':
  */
-  if (likely(PyList_CheckExact(__pyx_cur_scope->__pyx_v_population)) || PyTuple_CheckExact(__pyx_cur_scope->__pyx_v_population)) {
-    __pyx_t_1 = __pyx_cur_scope->__pyx_v_population; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
-    __pyx_t_3 = NULL;
-  } else {
-    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_cur_scope->__pyx_v_population); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 372, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 372, __pyx_L1_error)
+  if (unlikely(__pyx_cur_scope->__pyx_v_population == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
+    __PYX_ERR(0, 380, __pyx_L1_error)
   }
+  __pyx_t_1 = __pyx_cur_scope->__pyx_v_population; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
   for (;;) {
-    if (likely(!__pyx_t_3)) {
-      if (likely(PyList_CheckExact(__pyx_t_1))) {
-        if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
-        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 372, __pyx_L1_error)
-        #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 372, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
-        #endif
-      } else {
-        if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
-        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 372, __pyx_L1_error)
-        #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 372, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
-        #endif
-      }
-    } else {
-      __pyx_t_4 = __pyx_t_3(__pyx_t_1);
-      if (unlikely(!__pyx_t_4)) {
-        PyObject* exc_type = PyErr_Occurred();
-        if (exc_type) {
-          if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 372, __pyx_L1_error)
-        }
-        break;
-      }
-      __Pyx_GOTREF(__pyx_t_4);
-    }
+    if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
+    #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+    __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_3); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 380, __pyx_L1_error)
+    #else
+    __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 380, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    #endif
     __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_individual);
-    __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_individual, __pyx_t_4);
-    __Pyx_GIVEREF(__pyx_t_4);
-    __pyx_t_4 = 0;
+    __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_individual, __pyx_t_3);
+    __Pyx_GIVEREF(__pyx_t_3);
+    __pyx_t_3 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":373
+    /* "supplychainpy/demand/_evo_algo.pyx":381
  *         cdef double procreation_probability
  *         for individual in population:
  *             procreation_probability = sum(individual.values()) / len(individual.values())             # <<<<<<<<<<<<<<
  *             if individual_type == 'ses':
  *                 if procreation_probability >= 0.5:
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_individual, __pyx_n_s_values); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 373, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_individual, __pyx_n_s_values); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 381, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_5 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
+      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
+      if (likely(__pyx_t_5)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+        __Pyx_INCREF(__pyx_t_5);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_4, function);
+      }
+    }
+    if (__pyx_t_5) {
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 381, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    } else {
+      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 381, __pyx_L1_error)
+    }
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 381, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_GIVEREF(__pyx_t_3);
+    PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3);
+    __pyx_t_3 = 0;
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_sum, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 381, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_individual, __pyx_n_s_values); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 381, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_6 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
@@ -9153,74 +9241,46 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       }
     }
     if (__pyx_t_6) {
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 373, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 381, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     } else {
-      __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 373, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 381, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 373, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_GIVEREF(__pyx_t_4);
-    PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4);
-    __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_sum, __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 373, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_individual, __pyx_n_s_values); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 373, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
-      __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_6);
-      if (likely(__pyx_t_7)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
-        __Pyx_INCREF(__pyx_t_7);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_6, function);
-      }
-    }
-    if (__pyx_t_7) {
-      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 373, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    } else {
-      __pyx_t_5 = __Pyx_PyObject_CallNoArg(__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 373, __pyx_L1_error)
-    }
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_8 = PyObject_Length(__pyx_t_5); if (unlikely(__pyx_t_8 == -1)) __PYX_ERR(0, 373, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PyInt_FromSsize_t(__pyx_t_8); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 373, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = __Pyx_PyNumber_Divide(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 373, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_7 = PyObject_Length(__pyx_t_4); if (unlikely(__pyx_t_7 == -1)) __PYX_ERR(0, 381, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_4 = PyInt_FromSsize_t(__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 381, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_5 = __Pyx_PyNumber_Divide(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 381, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_8 = __pyx_PyFloat_AsDouble(__pyx_t_5); if (unlikely((__pyx_t_8 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 381, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_9 = __pyx_PyFloat_AsDouble(__pyx_t_6); if (unlikely((__pyx_t_9 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 373, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_cur_scope->__pyx_v_procreation_probability = __pyx_t_9;
+    __pyx_cur_scope->__pyx_v_procreation_probability = __pyx_t_8;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":374
+    /* "supplychainpy/demand/_evo_algo.pyx":382
  *         for individual in population:
  *             procreation_probability = sum(individual.values()) / len(individual.values())
  *             if individual_type == 'ses':             # <<<<<<<<<<<<<<
  *                 if procreation_probability >= 0.5:
  *                     yield individual
  */
-    __pyx_t_10 = (__Pyx_PyString_Equals(__pyx_cur_scope->__pyx_v_individual_type, __pyx_n_s_ses, Py_EQ)); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 374, __pyx_L1_error)
-    if (__pyx_t_10) {
+    __pyx_t_9 = (__Pyx_PyString_Equals(__pyx_cur_scope->__pyx_v_individual_type, __pyx_n_s_ses, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 382, __pyx_L1_error)
+    if (__pyx_t_9) {
 
-      /* "supplychainpy/demand/_evo_algo.pyx":375
+      /* "supplychainpy/demand/_evo_algo.pyx":383
  *             procreation_probability = sum(individual.values()) / len(individual.values())
  *             if individual_type == 'ses':
  *                 if procreation_probability >= 0.5:             # <<<<<<<<<<<<<<
  *                     yield individual
  *             else:
  */
-      __pyx_t_10 = ((__pyx_cur_scope->__pyx_v_procreation_probability >= 0.5) != 0);
-      if (__pyx_t_10) {
+      __pyx_t_9 = ((__pyx_cur_scope->__pyx_v_procreation_probability >= 0.5) != 0);
+      if (__pyx_t_9) {
 
-        /* "supplychainpy/demand/_evo_algo.pyx":376
+        /* "supplychainpy/demand/_evo_algo.pyx":384
  *             if individual_type == 'ses':
  *                 if procreation_probability >= 0.5:
  *                     yield individual             # <<<<<<<<<<<<<<
@@ -9232,7 +9292,6 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         __Pyx_XGIVEREF(__pyx_t_1);
         __pyx_cur_scope->__pyx_t_0 = __pyx_t_1;
         __pyx_cur_scope->__pyx_t_1 = __pyx_t_2;
-        __pyx_cur_scope->__pyx_t_2 = __pyx_t_3;
         __Pyx_XGIVEREF(__pyx_r);
         __Pyx_RefNannyFinishContext();
         /* return from generator, yielding value */
@@ -9243,10 +9302,9 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         __pyx_cur_scope->__pyx_t_0 = 0;
         __Pyx_XGOTREF(__pyx_t_1);
         __pyx_t_2 = __pyx_cur_scope->__pyx_t_1;
-        __pyx_t_3 = __pyx_cur_scope->__pyx_t_2;
-        if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 376, __pyx_L1_error)
+        if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 384, __pyx_L1_error)
 
-        /* "supplychainpy/demand/_evo_algo.pyx":375
+        /* "supplychainpy/demand/_evo_algo.pyx":383
  *             procreation_probability = sum(individual.values()) / len(individual.values())
  *             if individual_type == 'ses':
  *                 if procreation_probability >= 0.5:             # <<<<<<<<<<<<<<
@@ -9255,7 +9313,7 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
  */
       }
 
-      /* "supplychainpy/demand/_evo_algo.pyx":374
+      /* "supplychainpy/demand/_evo_algo.pyx":382
  *         for individual in population:
  *             procreation_probability = sum(individual.values()) / len(individual.values())
  *             if individual_type == 'ses':             # <<<<<<<<<<<<<<
@@ -9265,7 +9323,7 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       goto __pyx_L6;
     }
 
-    /* "supplychainpy/demand/_evo_algo.pyx":378
+    /* "supplychainpy/demand/_evo_algo.pyx":386
  *                     yield individual
  *             else:
  *                 if procreation_probability >= 0.3:             # <<<<<<<<<<<<<<
@@ -9273,22 +9331,21 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
  * 
  */
     /*else*/ {
-      __pyx_t_10 = ((__pyx_cur_scope->__pyx_v_procreation_probability >= 0.3) != 0);
-      if (__pyx_t_10) {
+      __pyx_t_9 = ((__pyx_cur_scope->__pyx_v_procreation_probability >= 0.3) != 0);
+      if (__pyx_t_9) {
 
-        /* "supplychainpy/demand/_evo_algo.pyx":379
+        /* "supplychainpy/demand/_evo_algo.pyx":387
  *             else:
  *                 if procreation_probability >= 0.3:
  *                     yield individual             # <<<<<<<<<<<<<<
  * 
- *     def generate_smoothing_level_genome(self, population: list, individual_type: str = 'ses'):
+ *     def generate_smoothing_level_genome(self, list population, individual_type = 'ses'):
  */
         __Pyx_INCREF(__pyx_cur_scope->__pyx_v_individual);
         __pyx_r = __pyx_cur_scope->__pyx_v_individual;
         __Pyx_XGIVEREF(__pyx_t_1);
         __pyx_cur_scope->__pyx_t_0 = __pyx_t_1;
         __pyx_cur_scope->__pyx_t_1 = __pyx_t_2;
-        __pyx_cur_scope->__pyx_t_2 = __pyx_t_3;
         __Pyx_XGIVEREF(__pyx_r);
         __Pyx_RefNannyFinishContext();
         /* return from generator, yielding value */
@@ -9299,10 +9356,9 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         __pyx_cur_scope->__pyx_t_0 = 0;
         __Pyx_XGOTREF(__pyx_t_1);
         __pyx_t_2 = __pyx_cur_scope->__pyx_t_1;
-        __pyx_t_3 = __pyx_cur_scope->__pyx_t_2;
-        if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 379, __pyx_L1_error)
+        if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 387, __pyx_L1_error)
 
-        /* "supplychainpy/demand/_evo_algo.pyx":378
+        /* "supplychainpy/demand/_evo_algo.pyx":386
  *                     yield individual
  *             else:
  *                 if procreation_probability >= 0.3:             # <<<<<<<<<<<<<<
@@ -9313,7 +9369,7 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
     __pyx_L6:;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":372
+    /* "supplychainpy/demand/_evo_algo.pyx":380
  *                                     exponential smoothing and 30% for holts trend correcting. """
  *         cdef double procreation_probability
  *         for individual in population:             # <<<<<<<<<<<<<<
@@ -9324,10 +9380,10 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   CYTHON_MAYBE_UNUSED_VAR(__pyx_cur_scope);
 
-  /* "supplychainpy/demand/_evo_algo.pyx":359
+  /* "supplychainpy/demand/_evo_algo.pyx":367
  * 
  *     @staticmethod
- *     def _population_fitness(population: list, individual_type: str = 'ses') -> list:             # <<<<<<<<<<<<<<
+ *     def _population_fitness(list population, individual_type='ses'):             # <<<<<<<<<<<<<<
  *         """ Assess the population for fitness before crossover and creating next generation. Positive traits
  *         should be reflected by more than 70% of the genes in the genome.
  */
@@ -9337,10 +9393,10 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_XDECREF(__pyx_t_7);
   __Pyx_AddTraceback("_population_fitness", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_r); __pyx_r = 0;
@@ -9351,10 +9407,10 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
 }
 static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_18generator5(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
-/* "supplychainpy/demand/_evo_algo.pyx":381
+/* "supplychainpy/demand/_evo_algo.pyx":389
  *                     yield individual
  * 
- *     def generate_smoothing_level_genome(self, population: list, individual_type: str = 'ses'):             # <<<<<<<<<<<<<<
+ *     def generate_smoothing_level_genome(self, list population, individual_type = 'ses'):             # <<<<<<<<<<<<<<
  * 
  *         # stack parents and offspring into a list for next steps
  */
@@ -9391,7 +9447,7 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_population)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("generate_smoothing_level_genome", 0, 2, 3, 1); __PYX_ERR(0, 381, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("generate_smoothing_level_genome", 0, 2, 3, 1); __PYX_ERR(0, 389, __pyx_L3_error)
         }
         case  2:
         if (kw_args > 0) {
@@ -9400,7 +9456,7 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "generate_smoothing_level_genome") < 0)) __PYX_ERR(0, 381, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "generate_smoothing_level_genome") < 0)) __PYX_ERR(0, 389, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -9412,20 +9468,25 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       }
     }
     __pyx_v_self = values[0];
-    __pyx_v_population = values[1];
+    __pyx_v_population = ((PyObject*)values[1]);
     __pyx_v_individual_type = values[2];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("generate_smoothing_level_genome", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 381, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("generate_smoothing_level_genome", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 389, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("supplychainpy.demand._evo_algo.OptimiseSmoothingLevelGeneticAlgorithm.generate_smoothing_level_genome", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_population), (&PyList_Type), 1, "population", 1))) __PYX_ERR(0, 389, __pyx_L1_error)
   __pyx_r = __pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_16generate_smoothing_level_genome(__pyx_self, __pyx_v_self, __pyx_v_population, __pyx_v_individual_type);
 
   /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -9439,7 +9500,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_6_generate_smoothing_level_genome *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 381, __pyx_L1_error)
+    __PYX_ERR(0, 389, __pyx_L1_error)
   } else {
     __Pyx_GOTREF(__pyx_cur_scope);
   }
@@ -9453,7 +9514,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_individual_type);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_individual_type);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_18generator5, (PyObject *) __pyx_cur_scope, __pyx_n_s_generate_smoothing_level_genome, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_3, __pyx_n_s_supplychainpy_demand__evo_algo); if (unlikely(!gen)) __PYX_ERR(0, 381, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_18generator5, (PyObject *) __pyx_cur_scope, __pyx_n_s_generate_smoothing_level_genome, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_3, __pyx_n_s_supplychainpy_demand__evo_algo); if (unlikely(!gen)) __PYX_ERR(0, 389, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -9476,12 +9537,11 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   int __pyx_t_1;
   PyObject *__pyx_t_2 = NULL;
   Py_ssize_t __pyx_t_3;
-  PyObject *(*__pyx_t_4)(PyObject *);
+  PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
   PyObject *__pyx_t_6 = NULL;
   PyObject *__pyx_t_7 = NULL;
   PyObject *__pyx_t_8 = NULL;
-  PyObject *__pyx_t_9 = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("None", 0);
   switch (__pyx_generator->resume_label) {
@@ -9493,132 +9553,106 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 381, __pyx_L1_error)
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 389, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":384
+  /* "supplychainpy/demand/_evo_algo.pyx":392
  * 
  *         # stack parents and offspring into a list for next steps
  *         if individual_type == 'ses':             # <<<<<<<<<<<<<<
  *             for parent in population:
  *                 individuals_genome = self._run_exponential_smoothing_forecast(parent.genome)
  */
-  __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_cur_scope->__pyx_v_individual_type, __pyx_n_s_ses, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 384, __pyx_L1_error)
+  __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_cur_scope->__pyx_v_individual_type, __pyx_n_s_ses, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 392, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "supplychainpy/demand/_evo_algo.pyx":385
+    /* "supplychainpy/demand/_evo_algo.pyx":393
  *         # stack parents and offspring into a list for next steps
  *         if individual_type == 'ses':
  *             for parent in population:             # <<<<<<<<<<<<<<
  *                 individuals_genome = self._run_exponential_smoothing_forecast(parent.genome)
  *                 # print(individuals_genome)
  */
-    if (likely(PyList_CheckExact(__pyx_cur_scope->__pyx_v_population)) || PyTuple_CheckExact(__pyx_cur_scope->__pyx_v_population)) {
-      __pyx_t_2 = __pyx_cur_scope->__pyx_v_population; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
-      __pyx_t_4 = NULL;
-    } else {
-      __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_cur_scope->__pyx_v_population); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 385, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 385, __pyx_L1_error)
+    if (unlikely(__pyx_cur_scope->__pyx_v_population == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
+      __PYX_ERR(0, 393, __pyx_L1_error)
     }
+    __pyx_t_2 = __pyx_cur_scope->__pyx_v_population; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
     for (;;) {
-      if (likely(!__pyx_t_4)) {
-        if (likely(PyList_CheckExact(__pyx_t_2))) {
-          if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
-          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_5 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_5); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 385, __pyx_L1_error)
-          #else
-          __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 385, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_5);
-          #endif
-        } else {
-          if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
-          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_5); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 385, __pyx_L1_error)
-          #else
-          __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 385, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_5);
-          #endif
-        }
-      } else {
-        __pyx_t_5 = __pyx_t_4(__pyx_t_2);
-        if (unlikely(!__pyx_t_5)) {
-          PyObject* exc_type = PyErr_Occurred();
-          if (exc_type) {
-            if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 385, __pyx_L1_error)
-          }
-          break;
-        }
-        __Pyx_GOTREF(__pyx_t_5);
-      }
+      if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
+      #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+      __pyx_t_4 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_4); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 393, __pyx_L1_error)
+      #else
+      __pyx_t_4 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 393, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      #endif
       __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_parent);
-      __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_parent, __pyx_t_5);
-      __Pyx_GIVEREF(__pyx_t_5);
-      __pyx_t_5 = 0;
+      __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_parent, __pyx_t_4);
+      __Pyx_GIVEREF(__pyx_t_4);
+      __pyx_t_4 = 0;
 
-      /* "supplychainpy/demand/_evo_algo.pyx":386
+      /* "supplychainpy/demand/_evo_algo.pyx":394
  *         if individual_type == 'ses':
  *             for parent in population:
  *                 individuals_genome = self._run_exponential_smoothing_forecast(parent.genome)             # <<<<<<<<<<<<<<
  *                 # print(individuals_genome)
  *                 # individuals_traits = self._express_trait(standard_error, smoothing_level, individuals_genome)
  */
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_run_exponential_smoothing_forec); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 386, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_run_exponential_smoothing_forec); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 394, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_parent, __pyx_n_s_genome_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 394, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_parent, __pyx_n_s_genome_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 386, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_8 = NULL;
-      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
-        __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_6);
-        if (likely(__pyx_t_8)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
-          __Pyx_INCREF(__pyx_t_8);
+      __pyx_t_7 = NULL;
+      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
+        __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_5);
+        if (likely(__pyx_t_7)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+          __Pyx_INCREF(__pyx_t_7);
           __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_6, function);
+          __Pyx_DECREF_SET(__pyx_t_5, function);
         }
       }
-      if (!__pyx_t_8) {
-        __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 386, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        __Pyx_GOTREF(__pyx_t_5);
+      if (!__pyx_t_7) {
+        __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 394, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __Pyx_GOTREF(__pyx_t_4);
       } else {
         #if CYTHON_FAST_PYCALL
-        if (PyFunction_Check(__pyx_t_6)) {
-          PyObject *__pyx_temp[2] = {__pyx_t_8, __pyx_t_7};
-          __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 386, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-          __Pyx_GOTREF(__pyx_t_5);
-          __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        if (PyFunction_Check(__pyx_t_5)) {
+          PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_6};
+          __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 394, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+          __Pyx_GOTREF(__pyx_t_4);
+          __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         } else
         #endif
         #if CYTHON_FAST_PYCCALL
-        if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
-          PyObject *__pyx_temp[2] = {__pyx_t_8, __pyx_t_7};
-          __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 386, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-          __Pyx_GOTREF(__pyx_t_5);
-          __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
+          PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_6};
+          __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 394, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+          __Pyx_GOTREF(__pyx_t_4);
+          __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         } else
         #endif
         {
-          __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 386, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_9);
-          __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_8); __pyx_t_8 = NULL;
-          __Pyx_GIVEREF(__pyx_t_7);
-          PyTuple_SET_ITEM(__pyx_t_9, 0+1, __pyx_t_7);
-          __pyx_t_7 = 0;
-          __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_9, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 386, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_5);
-          __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+          __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 394, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_8);
+          __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_7); __pyx_t_7 = NULL;
+          __Pyx_GIVEREF(__pyx_t_6);
+          PyTuple_SET_ITEM(__pyx_t_8, 0+1, __pyx_t_6);
+          __pyx_t_6 = 0;
+          __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_8, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 394, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_4);
+          __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         }
       }
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_individuals_genome);
-      __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_individuals_genome, __pyx_t_5);
-      __Pyx_GIVEREF(__pyx_t_5);
-      __pyx_t_5 = 0;
+      __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_individuals_genome, __pyx_t_4);
+      __Pyx_GIVEREF(__pyx_t_4);
+      __pyx_t_4 = 0;
 
-      /* "supplychainpy/demand/_evo_algo.pyx":390
+      /* "supplychainpy/demand/_evo_algo.pyx":398
  *                 # individuals_traits = self._express_trait(standard_error, smoothing_level, individuals_genome)
  * 
  *                 yield individuals_genome             # <<<<<<<<<<<<<<
@@ -9630,7 +9664,6 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       __Pyx_XGIVEREF(__pyx_t_2);
       __pyx_cur_scope->__pyx_t_0 = __pyx_t_2;
       __pyx_cur_scope->__pyx_t_1 = __pyx_t_3;
-      __pyx_cur_scope->__pyx_t_2 = __pyx_t_4;
       __Pyx_XGIVEREF(__pyx_r);
       __Pyx_RefNannyFinishContext();
       /* return from generator, yielding value */
@@ -9641,10 +9674,9 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       __pyx_cur_scope->__pyx_t_0 = 0;
       __Pyx_XGOTREF(__pyx_t_2);
       __pyx_t_3 = __pyx_cur_scope->__pyx_t_1;
-      __pyx_t_4 = __pyx_cur_scope->__pyx_t_2;
-      if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 390, __pyx_L1_error)
+      if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 398, __pyx_L1_error)
 
-      /* "supplychainpy/demand/_evo_algo.pyx":385
+      /* "supplychainpy/demand/_evo_algo.pyx":393
  *         # stack parents and offspring into a list for next steps
  *         if individual_type == 'ses':
  *             for parent in population:             # <<<<<<<<<<<<<<
@@ -9654,7 +9686,7 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":384
+    /* "supplychainpy/demand/_evo_algo.pyx":392
  * 
  *         # stack parents and offspring into a list for next steps
  *         if individual_type == 'ses':             # <<<<<<<<<<<<<<
@@ -9664,7 +9696,7 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     goto __pyx_L4;
   }
 
-  /* "supplychainpy/demand/_evo_algo.pyx":392
+  /* "supplychainpy/demand/_evo_algo.pyx":400
  *                 yield individuals_genome
  *         else:
  *             for parent in population:             # <<<<<<<<<<<<<<
@@ -9672,113 +9704,87 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
  *                 # print(individuals_genome)
  */
   /*else*/ {
-    if (likely(PyList_CheckExact(__pyx_cur_scope->__pyx_v_population)) || PyTuple_CheckExact(__pyx_cur_scope->__pyx_v_population)) {
-      __pyx_t_2 = __pyx_cur_scope->__pyx_v_population; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
-      __pyx_t_4 = NULL;
-    } else {
-      __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_cur_scope->__pyx_v_population); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 392, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 392, __pyx_L1_error)
+    if (unlikely(__pyx_cur_scope->__pyx_v_population == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
+      __PYX_ERR(0, 400, __pyx_L1_error)
     }
+    __pyx_t_2 = __pyx_cur_scope->__pyx_v_population; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
     for (;;) {
-      if (likely(!__pyx_t_4)) {
-        if (likely(PyList_CheckExact(__pyx_t_2))) {
-          if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
-          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_5 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_5); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 392, __pyx_L1_error)
-          #else
-          __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 392, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_5);
-          #endif
-        } else {
-          if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
-          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_5); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 392, __pyx_L1_error)
-          #else
-          __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 392, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_5);
-          #endif
-        }
-      } else {
-        __pyx_t_5 = __pyx_t_4(__pyx_t_2);
-        if (unlikely(!__pyx_t_5)) {
-          PyObject* exc_type = PyErr_Occurred();
-          if (exc_type) {
-            if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 392, __pyx_L1_error)
-          }
-          break;
-        }
-        __Pyx_GOTREF(__pyx_t_5);
-      }
+      if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
+      #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+      __pyx_t_4 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_4); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 400, __pyx_L1_error)
+      #else
+      __pyx_t_4 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 400, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      #endif
       __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_parent);
-      __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_parent, __pyx_t_5);
-      __Pyx_GIVEREF(__pyx_t_5);
-      __pyx_t_5 = 0;
+      __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_parent, __pyx_t_4);
+      __Pyx_GIVEREF(__pyx_t_4);
+      __pyx_t_4 = 0;
 
-      /* "supplychainpy/demand/_evo_algo.pyx":393
+      /* "supplychainpy/demand/_evo_algo.pyx":401
  *         else:
  *             for parent in population:
  *                 individuals_genome = self._run_holts_trend_corrected_exponential_smoothing(parent.genome)             # <<<<<<<<<<<<<<
  *                 # print(individuals_genome)
  *                 # individuals_traits = self._express_trait(standard_error, smoothing_level, individuals_genome)
  */
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_run_holts_trend_corrected_expon); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 393, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_parent, __pyx_n_s_genome_2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 393, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __pyx_t_7 = NULL;
-      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
-        __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_6);
-        if (likely(__pyx_t_7)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
-          __Pyx_INCREF(__pyx_t_7);
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_run_holts_trend_corrected_expon); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 401, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_parent, __pyx_n_s_genome_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 401, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
+      __pyx_t_6 = NULL;
+      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
+        __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_5);
+        if (likely(__pyx_t_6)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+          __Pyx_INCREF(__pyx_t_6);
           __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_6, function);
+          __Pyx_DECREF_SET(__pyx_t_5, function);
         }
       }
-      if (!__pyx_t_7) {
-        __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_9); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 393, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-        __Pyx_GOTREF(__pyx_t_5);
+      if (!__pyx_t_6) {
+        __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 401, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+        __Pyx_GOTREF(__pyx_t_4);
       } else {
         #if CYTHON_FAST_PYCALL
-        if (PyFunction_Check(__pyx_t_6)) {
-          PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_9};
-          __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 393, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-          __Pyx_GOTREF(__pyx_t_5);
-          __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+        if (PyFunction_Check(__pyx_t_5)) {
+          PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_8};
+          __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 401, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+          __Pyx_GOTREF(__pyx_t_4);
+          __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         } else
         #endif
         #if CYTHON_FAST_PYCCALL
-        if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
-          PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_9};
-          __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 393, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-          __Pyx_GOTREF(__pyx_t_5);
-          __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+        if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
+          PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_8};
+          __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 401, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+          __Pyx_GOTREF(__pyx_t_4);
+          __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         } else
         #endif
         {
-          __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 393, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_8);
-          __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_7); __pyx_t_7 = NULL;
-          __Pyx_GIVEREF(__pyx_t_9);
-          PyTuple_SET_ITEM(__pyx_t_8, 0+1, __pyx_t_9);
-          __pyx_t_9 = 0;
-          __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_8, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 393, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_5);
-          __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+          __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 401, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_7);
+          __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
+          __Pyx_GIVEREF(__pyx_t_8);
+          PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_8);
+          __pyx_t_8 = 0;
+          __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 401, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_4);
+          __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         }
       }
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_individuals_genome);
-      __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_individuals_genome, __pyx_t_5);
-      __Pyx_GIVEREF(__pyx_t_5);
-      __pyx_t_5 = 0;
+      __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_individuals_genome, __pyx_t_4);
+      __Pyx_GIVEREF(__pyx_t_4);
+      __pyx_t_4 = 0;
 
-      /* "supplychainpy/demand/_evo_algo.pyx":397
+      /* "supplychainpy/demand/_evo_algo.pyx":405
  *                 # individuals_traits = self._express_trait(standard_error, smoothing_level, individuals_genome)
  * 
  *                 yield individuals_genome             # <<<<<<<<<<<<<<
@@ -9790,7 +9796,6 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       __Pyx_XGIVEREF(__pyx_t_2);
       __pyx_cur_scope->__pyx_t_0 = __pyx_t_2;
       __pyx_cur_scope->__pyx_t_1 = __pyx_t_3;
-      __pyx_cur_scope->__pyx_t_2 = __pyx_t_4;
       __Pyx_XGIVEREF(__pyx_r);
       __Pyx_RefNannyFinishContext();
       /* return from generator, yielding value */
@@ -9801,10 +9806,9 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       __pyx_cur_scope->__pyx_t_0 = 0;
       __Pyx_XGOTREF(__pyx_t_2);
       __pyx_t_3 = __pyx_cur_scope->__pyx_t_1;
-      __pyx_t_4 = __pyx_cur_scope->__pyx_t_2;
-      if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 397, __pyx_L1_error)
+      if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 405, __pyx_L1_error)
 
-      /* "supplychainpy/demand/_evo_algo.pyx":392
+      /* "supplychainpy/demand/_evo_algo.pyx":400
  *                 yield individuals_genome
  *         else:
  *             for parent in population:             # <<<<<<<<<<<<<<
@@ -9817,10 +9821,10 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __pyx_L4:;
   CYTHON_MAYBE_UNUSED_VAR(__pyx_cur_scope);
 
-  /* "supplychainpy/demand/_evo_algo.pyx":381
+  /* "supplychainpy/demand/_evo_algo.pyx":389
  *                     yield individual
  * 
- *     def generate_smoothing_level_genome(self, population: list, individual_type: str = 'ses'):             # <<<<<<<<<<<<<<
+ *     def generate_smoothing_level_genome(self, list population, individual_type = 'ses'):             # <<<<<<<<<<<<<<
  * 
  *         # stack parents and offspring into a list for next steps
  */
@@ -9830,11 +9834,11 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_XDECREF(__pyx_t_9);
   __Pyx_AddTraceback("generate_smoothing_level_genome", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_r); __pyx_r = 0;
@@ -9844,7 +9848,7 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   return __pyx_r;
 }
 
-/* "supplychainpy/demand/_evo_algo.pyx":400
+/* "supplychainpy/demand/_evo_algo.pyx":408
  * 
  *     @staticmethod
  *     def htce_para(forecast, alpha, gamma, intercept, slope):             # <<<<<<<<<<<<<<
@@ -9887,26 +9891,26 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_alpha)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("htce_para", 1, 5, 5, 1); __PYX_ERR(0, 400, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("htce_para", 1, 5, 5, 1); __PYX_ERR(0, 408, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_gamma)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("htce_para", 1, 5, 5, 2); __PYX_ERR(0, 400, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("htce_para", 1, 5, 5, 2); __PYX_ERR(0, 408, __pyx_L3_error)
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_intercept)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("htce_para", 1, 5, 5, 3); __PYX_ERR(0, 400, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("htce_para", 1, 5, 5, 3); __PYX_ERR(0, 408, __pyx_L3_error)
         }
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_slope)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("htce_para", 1, 5, 5, 4); __PYX_ERR(0, 400, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("htce_para", 1, 5, 5, 4); __PYX_ERR(0, 408, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "htce_para") < 0)) __PYX_ERR(0, 400, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "htce_para") < 0)) __PYX_ERR(0, 408, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 5) {
       goto __pyx_L5_argtuple_error;
@@ -9925,7 +9929,7 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("htce_para", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 400, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("htce_para", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 408, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("supplychainpy.demand._evo_algo.OptimiseSmoothingLevelGeneticAlgorithm.htce_para", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -9950,7 +9954,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   PyObject *(*__pyx_t_6)(PyObject *);
   __Pyx_RefNannySetupContext("htce_para", 0);
 
-  /* "supplychainpy/demand/_evo_algo.pyx":401
+  /* "supplychainpy/demand/_evo_algo.pyx":409
  *     @staticmethod
  *     def htce_para(forecast, alpha, gamma, intercept, slope):
  *         return [i for i in forecast.holts_trend_corrected_exponential_smoothing(alpha=alpha, gamma=gamma,             # <<<<<<<<<<<<<<
@@ -9958,41 +9962,41 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
  *                                                                                 slope=slope)]
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 401, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 409, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_forecast, __pyx_n_s_holts_trend_corrected_exponentia); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 401, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_forecast, __pyx_n_s_holts_trend_corrected_exponentia); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 409, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 401, __pyx_L1_error)
+  __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 409, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_alpha, __pyx_v_alpha) < 0) __PYX_ERR(0, 401, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_gamma, __pyx_v_gamma) < 0) __PYX_ERR(0, 401, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_alpha, __pyx_v_alpha) < 0) __PYX_ERR(0, 409, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_gamma, __pyx_v_gamma) < 0) __PYX_ERR(0, 409, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":402
+  /* "supplychainpy/demand/_evo_algo.pyx":410
  *     def htce_para(forecast, alpha, gamma, intercept, slope):
  *         return [i for i in forecast.holts_trend_corrected_exponential_smoothing(alpha=alpha, gamma=gamma,
  *                                                                                 intercept=intercept,             # <<<<<<<<<<<<<<
  *                                                                                 slope=slope)]
  * 
  */
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_intercept, __pyx_v_intercept) < 0) __PYX_ERR(0, 401, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_intercept, __pyx_v_intercept) < 0) __PYX_ERR(0, 409, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":403
+  /* "supplychainpy/demand/_evo_algo.pyx":411
  *         return [i for i in forecast.holts_trend_corrected_exponential_smoothing(alpha=alpha, gamma=gamma,
  *                                                                                 intercept=intercept,
  *                                                                                 slope=slope)]             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_slope, __pyx_v_slope) < 0) __PYX_ERR(0, 401, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_slope, __pyx_v_slope) < 0) __PYX_ERR(0, 409, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":401
+  /* "supplychainpy/demand/_evo_algo.pyx":409
  *     @staticmethod
  *     def htce_para(forecast, alpha, gamma, intercept, slope):
  *         return [i for i in forecast.holts_trend_corrected_exponential_smoothing(alpha=alpha, gamma=gamma,             # <<<<<<<<<<<<<<
  *                                                                                 intercept=intercept,
  *                                                                                 slope=slope)]
  */
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 401, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 409, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -10000,9 +10004,9 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __pyx_t_3 = __pyx_t_4; __Pyx_INCREF(__pyx_t_3); __pyx_t_5 = 0;
     __pyx_t_6 = NULL;
   } else {
-    __pyx_t_5 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 401, __pyx_L1_error)
+    __pyx_t_5 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 409, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_6 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 401, __pyx_L1_error)
+    __pyx_t_6 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 409, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   for (;;) {
@@ -10010,17 +10014,17 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       if (likely(PyList_CheckExact(__pyx_t_3))) {
         if (__pyx_t_5 >= PyList_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_4); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 401, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_4); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 409, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 401, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 409, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_5 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_4); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 401, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_4); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 409, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 401, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 409, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -10030,7 +10034,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 401, __pyx_L1_error)
+          else __PYX_ERR(0, 409, __pyx_L1_error)
         }
         break;
       }
@@ -10038,14 +10042,14 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_4);
     __pyx_t_4 = 0;
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 401, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 409, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":400
+  /* "supplychainpy/demand/_evo_algo.pyx":408
  * 
  *     @staticmethod
  *     def htce_para(forecast, alpha, gamma, intercept, slope):             # <<<<<<<<<<<<<<
@@ -10068,7 +10072,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   return __pyx_r;
 }
 
-/* "supplychainpy/demand/_evo_algo.pyx":406
+/* "supplychainpy/demand/_evo_algo.pyx":414
  * 
  * 
  *     def sum_squared_error_para(self, forecast, holts_trend_corrected_smoothing, alpha, gamma, smoothing_level):             # <<<<<<<<<<<<<<
@@ -10113,31 +10117,31 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_forecast)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("sum_squared_error_para", 1, 6, 6, 1); __PYX_ERR(0, 406, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("sum_squared_error_para", 1, 6, 6, 1); __PYX_ERR(0, 414, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_holts_trend_corrected_smoothing)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("sum_squared_error_para", 1, 6, 6, 2); __PYX_ERR(0, 406, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("sum_squared_error_para", 1, 6, 6, 2); __PYX_ERR(0, 414, __pyx_L3_error)
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_alpha)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("sum_squared_error_para", 1, 6, 6, 3); __PYX_ERR(0, 406, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("sum_squared_error_para", 1, 6, 6, 3); __PYX_ERR(0, 414, __pyx_L3_error)
         }
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_gamma)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("sum_squared_error_para", 1, 6, 6, 4); __PYX_ERR(0, 406, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("sum_squared_error_para", 1, 6, 6, 4); __PYX_ERR(0, 414, __pyx_L3_error)
         }
         case  5:
         if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_smoothing_level)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("sum_squared_error_para", 1, 6, 6, 5); __PYX_ERR(0, 406, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("sum_squared_error_para", 1, 6, 6, 5); __PYX_ERR(0, 414, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "sum_squared_error_para") < 0)) __PYX_ERR(0, 406, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "sum_squared_error_para") < 0)) __PYX_ERR(0, 414, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 6) {
       goto __pyx_L5_argtuple_error;
@@ -10158,7 +10162,7 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("sum_squared_error_para", 1, 6, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 406, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("sum_squared_error_para", 1, 6, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 414, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("supplychainpy.demand._evo_algo.OptimiseSmoothingLevelGeneticAlgorithm.sum_squared_error_para", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -10186,69 +10190,69 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   PyObject *__pyx_t_7 = NULL;
   __Pyx_RefNannySetupContext("sum_squared_error_para", 0);
 
-  /* "supplychainpy/demand/_evo_algo.pyx":407
+  /* "supplychainpy/demand/_evo_algo.pyx":415
  * 
  *     def sum_squared_error_para(self, forecast, holts_trend_corrected_smoothing, alpha, gamma, smoothing_level):
  *         appraised_individual = {}             # <<<<<<<<<<<<<<
  *         sum_squared_error = forecast.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,
  *                                                             alpha=alpha, gamma=gamma)
  */
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 407, __pyx_L1_error)
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 415, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_appraised_individual = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":408
+  /* "supplychainpy/demand/_evo_algo.pyx":416
  *     def sum_squared_error_para(self, forecast, holts_trend_corrected_smoothing, alpha, gamma, smoothing_level):
  *         appraised_individual = {}
  *         sum_squared_error = forecast.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,             # <<<<<<<<<<<<<<
  *                                                             alpha=alpha, gamma=gamma)
  *         standard_error = forecast.standard_error(sum_squared_error, len(self.__orders), smoothing_level)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_forecast, __pyx_n_s_sum_squared_errors_indi_htces); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 408, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_forecast, __pyx_n_s_sum_squared_errors_indi_htces); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 416, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 408, __pyx_L1_error)
+  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 416, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_squared_error, __pyx_v_holts_trend_corrected_smoothing) < 0) __PYX_ERR(0, 408, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_squared_error, __pyx_v_holts_trend_corrected_smoothing) < 0) __PYX_ERR(0, 416, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":409
+  /* "supplychainpy/demand/_evo_algo.pyx":417
  *         appraised_individual = {}
  *         sum_squared_error = forecast.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,
  *                                                             alpha=alpha, gamma=gamma)             # <<<<<<<<<<<<<<
  *         standard_error = forecast.standard_error(sum_squared_error, len(self.__orders), smoothing_level)
  *         appraised_individual.update({smoothing_level: standard_error})
  */
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_alpha, __pyx_v_alpha) < 0) __PYX_ERR(0, 408, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_gamma, __pyx_v_gamma) < 0) __PYX_ERR(0, 408, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_alpha, __pyx_v_alpha) < 0) __PYX_ERR(0, 416, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_gamma, __pyx_v_gamma) < 0) __PYX_ERR(0, 416, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":408
+  /* "supplychainpy/demand/_evo_algo.pyx":416
  *     def sum_squared_error_para(self, forecast, holts_trend_corrected_smoothing, alpha, gamma, smoothing_level):
  *         appraised_individual = {}
  *         sum_squared_error = forecast.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,             # <<<<<<<<<<<<<<
  *                                                             alpha=alpha, gamma=gamma)
  *         standard_error = forecast.standard_error(sum_squared_error, len(self.__orders), smoothing_level)
  */
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 408, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 416, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_sum_squared_error = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":410
+  /* "supplychainpy/demand/_evo_algo.pyx":418
  *         sum_squared_error = forecast.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,
  *                                                             alpha=alpha, gamma=gamma)
  *         standard_error = forecast.standard_error(sum_squared_error, len(self.__orders), smoothing_level)             # <<<<<<<<<<<<<<
  *         appraised_individual.update({smoothing_level: standard_error})
  *         return appraised_individual
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_forecast, __pyx_n_s_standard_error); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 410, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_forecast, __pyx_n_s_standard_error); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 418, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 410, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 418, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_4 == -1)) __PYX_ERR(0, 410, __pyx_L1_error)
+  __pyx_t_4 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_4 == -1)) __PYX_ERR(0, 418, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 410, __pyx_L1_error)
+  __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 418, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_5 = NULL;
   __pyx_t_6 = 0;
@@ -10265,7 +10269,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[4] = {__pyx_t_5, __pyx_v_sum_squared_error, __pyx_t_1, __pyx_v_smoothing_level};
-    __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 410, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 418, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -10274,14 +10278,14 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[4] = {__pyx_t_5, __pyx_v_sum_squared_error, __pyx_t_1, __pyx_v_smoothing_level};
-    __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 410, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 418, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   } else
   #endif
   {
-    __pyx_t_7 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 410, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 418, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     if (__pyx_t_5) {
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -10295,7 +10299,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __Pyx_GIVEREF(__pyx_v_smoothing_level);
     PyTuple_SET_ITEM(__pyx_t_7, 2+__pyx_t_6, __pyx_v_smoothing_level);
     __pyx_t_1 = 0;
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 410, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 418, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
@@ -10303,18 +10307,18 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __pyx_v_standard_error = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":411
+  /* "supplychainpy/demand/_evo_algo.pyx":419
  *                                                             alpha=alpha, gamma=gamma)
  *         standard_error = forecast.standard_error(sum_squared_error, len(self.__orders), smoothing_level)
  *         appraised_individual.update({smoothing_level: standard_error})             # <<<<<<<<<<<<<<
  *         return appraised_individual
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_appraised_individual, __pyx_n_s_update); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 411, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_appraised_individual, __pyx_n_s_update); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 419, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_7 = PyDict_New(); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 411, __pyx_L1_error)
+  __pyx_t_7 = PyDict_New(); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 419, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (PyDict_SetItem(__pyx_t_7, __pyx_v_smoothing_level, __pyx_v_standard_error) < 0) __PYX_ERR(0, 411, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_7, __pyx_v_smoothing_level, __pyx_v_standard_error) < 0) __PYX_ERR(0, 419, __pyx_L1_error)
   __pyx_t_1 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
     __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_2);
@@ -10326,14 +10330,14 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
   }
   if (!__pyx_t_1) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 411, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 419, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_GOTREF(__pyx_t_3);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_7};
-      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 411, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 419, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -10342,20 +10346,20 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_7};
-      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 411, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 419, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     } else
     #endif
     {
-      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 411, __pyx_L1_error)
+      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 419, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_1); __pyx_t_1 = NULL;
       __Pyx_GIVEREF(__pyx_t_7);
       PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_7);
       __pyx_t_7 = 0;
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 411, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 419, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
@@ -10363,7 +10367,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":412
+  /* "supplychainpy/demand/_evo_algo.pyx":420
  *         standard_error = forecast.standard_error(sum_squared_error, len(self.__orders), smoothing_level)
  *         appraised_individual.update({smoothing_level: standard_error})
  *         return appraised_individual             # <<<<<<<<<<<<<<
@@ -10375,7 +10379,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __pyx_r = __pyx_v_appraised_individual;
   goto __pyx_L0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":406
+  /* "supplychainpy/demand/_evo_algo.pyx":414
  * 
  * 
  *     def sum_squared_error_para(self, forecast, holts_trend_corrected_smoothing, alpha, gamma, smoothing_level):             # <<<<<<<<<<<<<<
@@ -10401,7 +10405,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   return __pyx_r;
 }
 
-/* "supplychainpy/demand/_evo_algo.pyx":414
+/* "supplychainpy/demand/_evo_algo.pyx":422
  *         return appraised_individual
  * 
  *     def _run_holts_trend_corrected_exponential_smoothing(self, individual: tuple):             # <<<<<<<<<<<<<<
@@ -10438,11 +10442,11 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_individual)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_run_holts_trend_corrected_exponential_smoothing", 1, 2, 2, 1); __PYX_ERR(0, 414, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_run_holts_trend_corrected_exponential_smoothing", 1, 2, 2, 1); __PYX_ERR(0, 422, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_run_holts_trend_corrected_exponential_smoothing") < 0)) __PYX_ERR(0, 414, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_run_holts_trend_corrected_exponential_smoothing") < 0)) __PYX_ERR(0, 422, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -10455,7 +10459,7 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_run_holts_trend_corrected_exponential_smoothing", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 414, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_run_holts_trend_corrected_exponential_smoothing", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 422, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("supplychainpy.demand._evo_algo.OptimiseSmoothingLevelGeneticAlgorithm._run_holts_trend_corrected_exponential_smoothing", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -10499,18 +10503,18 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   int __pyx_t_12;
   __Pyx_RefNannySetupContext("_run_holts_trend_corrected_exponential_smoothing", 0);
 
-  /* "supplychainpy/demand/_evo_algo.pyx":415
+  /* "supplychainpy/demand/_evo_algo.pyx":423
  * 
  *     def _run_holts_trend_corrected_exponential_smoothing(self, individual: tuple):
  *         f = Forecast(self.__orders, self.__average_order)             # <<<<<<<<<<<<<<
  *         holts_trend_corrected_smoothing = []
  *         demand = [{'t': index, 'demand': order} for index, order in enumerate(self.__orders, 1)]
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_Forecast); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 415, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_Forecast); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 423, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 415, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 423, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 415, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 423, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = NULL;
   __pyx_t_6 = 0;
@@ -10527,7 +10531,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_t_3, __pyx_t_4};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 415, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 423, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -10537,7 +10541,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_t_3, __pyx_t_4};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 415, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 423, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -10545,7 +10549,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   } else
   #endif
   {
-    __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 415, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 423, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     if (__pyx_t_5) {
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -10556,7 +10560,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_t_4);
     __pyx_t_3 = 0;
     __pyx_t_4 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 415, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 423, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
@@ -10564,38 +10568,38 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __pyx_v_f = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":416
+  /* "supplychainpy/demand/_evo_algo.pyx":424
  *     def _run_holts_trend_corrected_exponential_smoothing(self, individual: tuple):
  *         f = Forecast(self.__orders, self.__average_order)
  *         holts_trend_corrected_smoothing = []             # <<<<<<<<<<<<<<
  *         demand = [{'t': index, 'demand': order} for index, order in enumerate(self.__orders, 1)]
  *         stats = LinearRegression(demand)
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 416, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 424, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_holts_trend_corrected_smoothing = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":417
+  /* "supplychainpy/demand/_evo_algo.pyx":425
  *         f = Forecast(self.__orders, self.__average_order)
  *         holts_trend_corrected_smoothing = []
  *         demand = [{'t': index, 'demand': order} for index, order in enumerate(self.__orders, 1)]             # <<<<<<<<<<<<<<
  *         stats = LinearRegression(demand)
  *         log_stats = stats.least_squared_error(slice_end=6)
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 417, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 425, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_int_1);
   __pyx_t_2 = __pyx_int_1;
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 417, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 425, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   if (likely(PyList_CheckExact(__pyx_t_7)) || PyTuple_CheckExact(__pyx_t_7)) {
     __pyx_t_4 = __pyx_t_7; __Pyx_INCREF(__pyx_t_4); __pyx_t_8 = 0;
     __pyx_t_9 = NULL;
   } else {
-    __pyx_t_8 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 417, __pyx_L1_error)
+    __pyx_t_8 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 425, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_9 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 417, __pyx_L1_error)
+    __pyx_t_9 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 425, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   for (;;) {
@@ -10603,17 +10607,17 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       if (likely(PyList_CheckExact(__pyx_t_4))) {
         if (__pyx_t_8 >= PyList_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_7 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_8); __Pyx_INCREF(__pyx_t_7); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 417, __pyx_L1_error)
+        __pyx_t_7 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_8); __Pyx_INCREF(__pyx_t_7); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 425, __pyx_L1_error)
         #else
-        __pyx_t_7 = PySequence_ITEM(__pyx_t_4, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 417, __pyx_L1_error)
+        __pyx_t_7 = PySequence_ITEM(__pyx_t_4, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 425, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         #endif
       } else {
         if (__pyx_t_8 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_7 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_8); __Pyx_INCREF(__pyx_t_7); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 417, __pyx_L1_error)
+        __pyx_t_7 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_8); __Pyx_INCREF(__pyx_t_7); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 425, __pyx_L1_error)
         #else
-        __pyx_t_7 = PySequence_ITEM(__pyx_t_4, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 417, __pyx_L1_error)
+        __pyx_t_7 = PySequence_ITEM(__pyx_t_4, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 425, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         #endif
       }
@@ -10623,7 +10627,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 417, __pyx_L1_error)
+          else __PYX_ERR(0, 425, __pyx_L1_error)
         }
         break;
       }
@@ -10633,16 +10637,16 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __pyx_t_7 = 0;
     __Pyx_INCREF(__pyx_t_2);
     __Pyx_XDECREF_SET(__pyx_v_index, __pyx_t_2);
-    __pyx_t_7 = __Pyx_PyInt_AddObjC(__pyx_t_2, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 417, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyInt_AddObjC(__pyx_t_2, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 425, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_2);
     __pyx_t_2 = __pyx_t_7;
     __pyx_t_7 = 0;
-    __pyx_t_7 = PyDict_New(); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 417, __pyx_L1_error)
+    __pyx_t_7 = PyDict_New(); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 425, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_t, __pyx_v_index) < 0) __PYX_ERR(0, 417, __pyx_L1_error)
-    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_demand, __pyx_v_order) < 0) __PYX_ERR(0, 417, __pyx_L1_error)
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_7))) __PYX_ERR(0, 417, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_t, __pyx_v_index) < 0) __PYX_ERR(0, 425, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_demand, __pyx_v_order) < 0) __PYX_ERR(0, 425, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_7))) __PYX_ERR(0, 425, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -10650,14 +10654,14 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __pyx_v_demand = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":418
+  /* "supplychainpy/demand/_evo_algo.pyx":426
  *         holts_trend_corrected_smoothing = []
  *         demand = [{'t': index, 'demand': order} for index, order in enumerate(self.__orders, 1)]
  *         stats = LinearRegression(demand)             # <<<<<<<<<<<<<<
  *         log_stats = stats.least_squared_error(slice_end=6)
  * 
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_LinearRegression); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 418, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_LinearRegression); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 426, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
@@ -10670,13 +10674,13 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
   }
   if (!__pyx_t_4) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_demand); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 418, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_demand); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 426, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_v_demand};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 418, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 426, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -10684,19 +10688,19 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_v_demand};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 418, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 426, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 418, __pyx_L1_error)
+      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 426, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_4); __pyx_t_4 = NULL;
       __Pyx_INCREF(__pyx_v_demand);
       __Pyx_GIVEREF(__pyx_v_demand);
       PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_v_demand);
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 418, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 426, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     }
@@ -10705,222 +10709,31 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __pyx_v_stats = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":419
+  /* "supplychainpy/demand/_evo_algo.pyx":427
  *         demand = [{'t': index, 'demand': order} for index, order in enumerate(self.__orders, 1)]
  *         stats = LinearRegression(demand)
  *         log_stats = stats.least_squared_error(slice_end=6)             # <<<<<<<<<<<<<<
  * 
  *         for sm_lvl in individual:
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_stats, __pyx_n_s_least_squared_error); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 419, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_stats, __pyx_n_s_least_squared_error); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 427, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 419, __pyx_L1_error)
+  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 427, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_slice_end, __pyx_int_6) < 0) __PYX_ERR(0, 419, __pyx_L1_error)
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 419, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_slice_end, __pyx_int_6) < 0) __PYX_ERR(0, 427, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 427, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_log_stats = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":421
- *         log_stats = stats.least_squared_error(slice_end=6)
- * 
- *         for sm_lvl in individual:             # <<<<<<<<<<<<<<
- *             p = [i for i in f.holts_trend_corrected_exponential_smoothing(alpha=sm_lvl[0], gamma=sm_lvl[1],
- *                                                                           intercept=log_stats.get('intercept'),
- */
-  if (likely(PyList_CheckExact(__pyx_v_individual)) || PyTuple_CheckExact(__pyx_v_individual)) {
-    __pyx_t_7 = __pyx_v_individual; __Pyx_INCREF(__pyx_t_7); __pyx_t_8 = 0;
-    __pyx_t_9 = NULL;
-  } else {
-    __pyx_t_8 = -1; __pyx_t_7 = PyObject_GetIter(__pyx_v_individual); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 421, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_9 = Py_TYPE(__pyx_t_7)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 421, __pyx_L1_error)
-  }
-  for (;;) {
-    if (likely(!__pyx_t_9)) {
-      if (likely(PyList_CheckExact(__pyx_t_7))) {
-        if (__pyx_t_8 >= PyList_GET_SIZE(__pyx_t_7)) break;
-        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_7, __pyx_t_8); __Pyx_INCREF(__pyx_t_2); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 421, __pyx_L1_error)
-        #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_7, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 421, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        #endif
-      } else {
-        if (__pyx_t_8 >= PyTuple_GET_SIZE(__pyx_t_7)) break;
-        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_7, __pyx_t_8); __Pyx_INCREF(__pyx_t_2); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 421, __pyx_L1_error)
-        #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_7, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 421, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        #endif
-      }
-    } else {
-      __pyx_t_2 = __pyx_t_9(__pyx_t_7);
-      if (unlikely(!__pyx_t_2)) {
-        PyObject* exc_type = PyErr_Occurred();
-        if (exc_type) {
-          if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 421, __pyx_L1_error)
-        }
-        break;
-      }
-      __Pyx_GOTREF(__pyx_t_2);
-    }
-    __Pyx_XDECREF_SET(__pyx_v_sm_lvl, __pyx_t_2);
-    __pyx_t_2 = 0;
-
-    /* "supplychainpy/demand/_evo_algo.pyx":422
- * 
- *         for sm_lvl in individual:
- *             p = [i for i in f.holts_trend_corrected_exponential_smoothing(alpha=sm_lvl[0], gamma=sm_lvl[1],             # <<<<<<<<<<<<<<
- *                                                                           intercept=log_stats.get('intercept'),
- *                                                                           slope=log_stats.get('slope'))]
- */
-    __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 422, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_holts_trend_corrected_exponentia); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 422, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 422, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_sm_lvl, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 422, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_alpha, __pyx_t_3) < 0) __PYX_ERR(0, 422, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_sm_lvl, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 422, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_gamma, __pyx_t_3) < 0) __PYX_ERR(0, 422, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-
-    /* "supplychainpy/demand/_evo_algo.pyx":423
- *         for sm_lvl in individual:
- *             p = [i for i in f.holts_trend_corrected_exponential_smoothing(alpha=sm_lvl[0], gamma=sm_lvl[1],
- *                                                                           intercept=log_stats.get('intercept'),             # <<<<<<<<<<<<<<
- *                                                                           slope=log_stats.get('slope'))]
- *             # print(p)
- */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_log_stats, __pyx_n_s_get); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 423, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 423, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_intercept, __pyx_t_5) < 0) __PYX_ERR(0, 422, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-
-    /* "supplychainpy/demand/_evo_algo.pyx":424
- *             p = [i for i in f.holts_trend_corrected_exponential_smoothing(alpha=sm_lvl[0], gamma=sm_lvl[1],
- *                                                                           intercept=log_stats.get('intercept'),
- *                                                                           slope=log_stats.get('slope'))]             # <<<<<<<<<<<<<<
- *             # print(p)
- *             holts_trend_corrected_smoothing.append(p)
- */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_log_stats, __pyx_n_s_get); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 424, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 424, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_slope, __pyx_t_3) < 0) __PYX_ERR(0, 422, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-
-    /* "supplychainpy/demand/_evo_algo.pyx":422
- * 
- *         for sm_lvl in individual:
- *             p = [i for i in f.holts_trend_corrected_exponential_smoothing(alpha=sm_lvl[0], gamma=sm_lvl[1],             # <<<<<<<<<<<<<<
- *                                                                           intercept=log_stats.get('intercept'),
- *                                                                           slope=log_stats.get('slope'))]
- */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 422, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (likely(PyList_CheckExact(__pyx_t_3)) || PyTuple_CheckExact(__pyx_t_3)) {
-      __pyx_t_4 = __pyx_t_3; __Pyx_INCREF(__pyx_t_4); __pyx_t_10 = 0;
-      __pyx_t_11 = NULL;
-    } else {
-      __pyx_t_10 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 422, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_11 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 422, __pyx_L1_error)
-    }
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    for (;;) {
-      if (likely(!__pyx_t_11)) {
-        if (likely(PyList_CheckExact(__pyx_t_4))) {
-          if (__pyx_t_10 >= PyList_GET_SIZE(__pyx_t_4)) break;
-          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_3 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_3); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 422, __pyx_L1_error)
-          #else
-          __pyx_t_3 = PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 422, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_3);
-          #endif
-        } else {
-          if (__pyx_t_10 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
-          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_3); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 422, __pyx_L1_error)
-          #else
-          __pyx_t_3 = PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 422, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_3);
-          #endif
-        }
-      } else {
-        __pyx_t_3 = __pyx_t_11(__pyx_t_4);
-        if (unlikely(!__pyx_t_3)) {
-          PyObject* exc_type = PyErr_Occurred();
-          if (exc_type) {
-            if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 422, __pyx_L1_error)
-          }
-          break;
-        }
-        __Pyx_GOTREF(__pyx_t_3);
-      }
-      __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_3);
-      __pyx_t_3 = 0;
-      if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 422, __pyx_L1_error)
-    }
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_p, ((PyObject*)__pyx_t_2));
-    __pyx_t_2 = 0;
-
-    /* "supplychainpy/demand/_evo_algo.pyx":426
- *                                                                           slope=log_stats.get('slope'))]
- *             # print(p)
- *             holts_trend_corrected_smoothing.append(p)             # <<<<<<<<<<<<<<
- * 
- *         appraised_individual = {}
- */
-    __pyx_t_12 = __Pyx_PyList_Append(__pyx_v_holts_trend_corrected_smoothing, __pyx_v_p); if (unlikely(__pyx_t_12 == -1)) __PYX_ERR(0, 426, __pyx_L1_error)
-
-    /* "supplychainpy/demand/_evo_algo.pyx":421
- *         log_stats = stats.least_squared_error(slice_end=6)
- * 
- *         for sm_lvl in individual:             # <<<<<<<<<<<<<<
- *             p = [i for i in f.holts_trend_corrected_exponential_smoothing(alpha=sm_lvl[0], gamma=sm_lvl[1],
- *                                                                           intercept=log_stats.get('intercept'),
- */
-  }
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-
-  /* "supplychainpy/demand/_evo_algo.pyx":428
- *             holts_trend_corrected_smoothing.append(p)
- * 
- *         appraised_individual = {}             # <<<<<<<<<<<<<<
- *         for smoothing_level in individual:
- *             sum_squared_error = f.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,
- */
-  __pyx_t_7 = PyDict_New(); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 428, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  __pyx_v_appraised_individual = ((PyObject*)__pyx_t_7);
-  __pyx_t_7 = 0;
-
   /* "supplychainpy/demand/_evo_algo.pyx":429
+ *         log_stats = stats.least_squared_error(slice_end=6)
  * 
- *         appraised_individual = {}
- *         for smoothing_level in individual:             # <<<<<<<<<<<<<<
- *             sum_squared_error = f.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,
- *                                                                 alpha=smoothing_level[0], gamma=smoothing_level[1])
+ *         for sm_lvl in individual:             # <<<<<<<<<<<<<<
+ *             p = [i for i in f.holts_trend_corrected_exponential_smoothing(alpha=sm_lvl[0], gamma=sm_lvl[1],
+ *                                                                           intercept=log_stats.get('intercept'),
  */
   if (likely(PyList_CheckExact(__pyx_v_individual)) || PyTuple_CheckExact(__pyx_v_individual)) {
     __pyx_t_7 = __pyx_v_individual; __Pyx_INCREF(__pyx_t_7); __pyx_t_8 = 0;
@@ -10961,66 +10774,257 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       }
       __Pyx_GOTREF(__pyx_t_2);
     }
-    __Pyx_XDECREF_SET(__pyx_v_smoothing_level, __pyx_t_2);
+    __Pyx_XDECREF_SET(__pyx_v_sm_lvl, __pyx_t_2);
     __pyx_t_2 = 0;
 
     /* "supplychainpy/demand/_evo_algo.pyx":430
+ * 
+ *         for sm_lvl in individual:
+ *             p = [i for i in f.holts_trend_corrected_exponential_smoothing(alpha=sm_lvl[0], gamma=sm_lvl[1],             # <<<<<<<<<<<<<<
+ *                                                                           intercept=log_stats.get('intercept'),
+ *                                                                           slope=log_stats.get('slope'))]
+ */
+    __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 430, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_holts_trend_corrected_exponentia); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 430, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 430, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_sm_lvl, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 430, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_alpha, __pyx_t_3) < 0) __PYX_ERR(0, 430, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_sm_lvl, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 430, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_gamma, __pyx_t_3) < 0) __PYX_ERR(0, 430, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "supplychainpy/demand/_evo_algo.pyx":431
+ *         for sm_lvl in individual:
+ *             p = [i for i in f.holts_trend_corrected_exponential_smoothing(alpha=sm_lvl[0], gamma=sm_lvl[1],
+ *                                                                           intercept=log_stats.get('intercept'),             # <<<<<<<<<<<<<<
+ *                                                                           slope=log_stats.get('slope'))]
+ *             # print(p)
+ */
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_log_stats, __pyx_n_s_get); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 431, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 431, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_intercept, __pyx_t_5) < 0) __PYX_ERR(0, 430, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+    /* "supplychainpy/demand/_evo_algo.pyx":432
+ *             p = [i for i in f.holts_trend_corrected_exponential_smoothing(alpha=sm_lvl[0], gamma=sm_lvl[1],
+ *                                                                           intercept=log_stats.get('intercept'),
+ *                                                                           slope=log_stats.get('slope'))]             # <<<<<<<<<<<<<<
+ *             # print(p)
+ *             holts_trend_corrected_smoothing.append(p)
+ */
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_log_stats, __pyx_n_s_get); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 432, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 432, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_slope, __pyx_t_3) < 0) __PYX_ERR(0, 430, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "supplychainpy/demand/_evo_algo.pyx":430
+ * 
+ *         for sm_lvl in individual:
+ *             p = [i for i in f.holts_trend_corrected_exponential_smoothing(alpha=sm_lvl[0], gamma=sm_lvl[1],             # <<<<<<<<<<<<<<
+ *                                                                           intercept=log_stats.get('intercept'),
+ *                                                                           slope=log_stats.get('slope'))]
+ */
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 430, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    if (likely(PyList_CheckExact(__pyx_t_3)) || PyTuple_CheckExact(__pyx_t_3)) {
+      __pyx_t_4 = __pyx_t_3; __Pyx_INCREF(__pyx_t_4); __pyx_t_10 = 0;
+      __pyx_t_11 = NULL;
+    } else {
+      __pyx_t_10 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 430, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_11 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 430, __pyx_L1_error)
+    }
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    for (;;) {
+      if (likely(!__pyx_t_11)) {
+        if (likely(PyList_CheckExact(__pyx_t_4))) {
+          if (__pyx_t_10 >= PyList_GET_SIZE(__pyx_t_4)) break;
+          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+          __pyx_t_3 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_3); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 430, __pyx_L1_error)
+          #else
+          __pyx_t_3 = PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 430, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          #endif
+        } else {
+          if (__pyx_t_10 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
+          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+          __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_3); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 430, __pyx_L1_error)
+          #else
+          __pyx_t_3 = PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 430, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          #endif
+        }
+      } else {
+        __pyx_t_3 = __pyx_t_11(__pyx_t_4);
+        if (unlikely(!__pyx_t_3)) {
+          PyObject* exc_type = PyErr_Occurred();
+          if (exc_type) {
+            if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+            else __PYX_ERR(0, 430, __pyx_L1_error)
+          }
+          break;
+        }
+        __Pyx_GOTREF(__pyx_t_3);
+      }
+      __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_3);
+      __pyx_t_3 = 0;
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 430, __pyx_L1_error)
+    }
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_p, ((PyObject*)__pyx_t_2));
+    __pyx_t_2 = 0;
+
+    /* "supplychainpy/demand/_evo_algo.pyx":434
+ *                                                                           slope=log_stats.get('slope'))]
+ *             # print(p)
+ *             holts_trend_corrected_smoothing.append(p)             # <<<<<<<<<<<<<<
+ * 
+ *         appraised_individual = {}
+ */
+    __pyx_t_12 = __Pyx_PyList_Append(__pyx_v_holts_trend_corrected_smoothing, __pyx_v_p); if (unlikely(__pyx_t_12 == -1)) __PYX_ERR(0, 434, __pyx_L1_error)
+
+    /* "supplychainpy/demand/_evo_algo.pyx":429
+ *         log_stats = stats.least_squared_error(slice_end=6)
+ * 
+ *         for sm_lvl in individual:             # <<<<<<<<<<<<<<
+ *             p = [i for i in f.holts_trend_corrected_exponential_smoothing(alpha=sm_lvl[0], gamma=sm_lvl[1],
+ *                                                                           intercept=log_stats.get('intercept'),
+ */
+  }
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+
+  /* "supplychainpy/demand/_evo_algo.pyx":436
+ *             holts_trend_corrected_smoothing.append(p)
+ * 
+ *         appraised_individual = {}             # <<<<<<<<<<<<<<
+ *         for smoothing_level in individual:
+ *             sum_squared_error = f.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,
+ */
+  __pyx_t_7 = PyDict_New(); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 436, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __pyx_v_appraised_individual = ((PyObject*)__pyx_t_7);
+  __pyx_t_7 = 0;
+
+  /* "supplychainpy/demand/_evo_algo.pyx":437
+ * 
+ *         appraised_individual = {}
+ *         for smoothing_level in individual:             # <<<<<<<<<<<<<<
+ *             sum_squared_error = f.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,
+ *                                                                 alpha=smoothing_level[0], gamma=smoothing_level[1])
+ */
+  if (likely(PyList_CheckExact(__pyx_v_individual)) || PyTuple_CheckExact(__pyx_v_individual)) {
+    __pyx_t_7 = __pyx_v_individual; __Pyx_INCREF(__pyx_t_7); __pyx_t_8 = 0;
+    __pyx_t_9 = NULL;
+  } else {
+    __pyx_t_8 = -1; __pyx_t_7 = PyObject_GetIter(__pyx_v_individual); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 437, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __pyx_t_9 = Py_TYPE(__pyx_t_7)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 437, __pyx_L1_error)
+  }
+  for (;;) {
+    if (likely(!__pyx_t_9)) {
+      if (likely(PyList_CheckExact(__pyx_t_7))) {
+        if (__pyx_t_8 >= PyList_GET_SIZE(__pyx_t_7)) break;
+        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_7, __pyx_t_8); __Pyx_INCREF(__pyx_t_2); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 437, __pyx_L1_error)
+        #else
+        __pyx_t_2 = PySequence_ITEM(__pyx_t_7, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 437, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        #endif
+      } else {
+        if (__pyx_t_8 >= PyTuple_GET_SIZE(__pyx_t_7)) break;
+        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_7, __pyx_t_8); __Pyx_INCREF(__pyx_t_2); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 437, __pyx_L1_error)
+        #else
+        __pyx_t_2 = PySequence_ITEM(__pyx_t_7, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 437, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        #endif
+      }
+    } else {
+      __pyx_t_2 = __pyx_t_9(__pyx_t_7);
+      if (unlikely(!__pyx_t_2)) {
+        PyObject* exc_type = PyErr_Occurred();
+        if (exc_type) {
+          if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+          else __PYX_ERR(0, 437, __pyx_L1_error)
+        }
+        break;
+      }
+      __Pyx_GOTREF(__pyx_t_2);
+    }
+    __Pyx_XDECREF_SET(__pyx_v_smoothing_level, __pyx_t_2);
+    __pyx_t_2 = 0;
+
+    /* "supplychainpy/demand/_evo_algo.pyx":438
  *         appraised_individual = {}
  *         for smoothing_level in individual:
  *             sum_squared_error = f.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,             # <<<<<<<<<<<<<<
  *                                                                 alpha=smoothing_level[0], gamma=smoothing_level[1])
  *             standard_error = f.standard_error(sum_squared_error, len(self.__orders), smoothing_level)
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_sum_squared_errors_indi_htces); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 430, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_sum_squared_errors_indi_htces); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 438, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 430, __pyx_L1_error)
+    __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 438, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_squared_error, __pyx_v_holts_trend_corrected_smoothing) < 0) __PYX_ERR(0, 430, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_squared_error, __pyx_v_holts_trend_corrected_smoothing) < 0) __PYX_ERR(0, 438, __pyx_L1_error)
 
-    /* "supplychainpy/demand/_evo_algo.pyx":431
+    /* "supplychainpy/demand/_evo_algo.pyx":439
  *         for smoothing_level in individual:
  *             sum_squared_error = f.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,
  *                                                                 alpha=smoothing_level[0], gamma=smoothing_level[1])             # <<<<<<<<<<<<<<
  *             standard_error = f.standard_error(sum_squared_error, len(self.__orders), smoothing_level)
  *             appraised_individual.update({smoothing_level: standard_error})
  */
-    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_smoothing_level, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 431, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_smoothing_level, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 439, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_alpha, __pyx_t_3) < 0) __PYX_ERR(0, 430, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_alpha, __pyx_t_3) < 0) __PYX_ERR(0, 438, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_smoothing_level, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 431, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_smoothing_level, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 439, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_gamma, __pyx_t_3) < 0) __PYX_ERR(0, 430, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_gamma, __pyx_t_3) < 0) __PYX_ERR(0, 438, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":430
+    /* "supplychainpy/demand/_evo_algo.pyx":438
  *         appraised_individual = {}
  *         for smoothing_level in individual:
  *             sum_squared_error = f.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,             # <<<<<<<<<<<<<<
  *                                                                 alpha=smoothing_level[0], gamma=smoothing_level[1])
  *             standard_error = f.standard_error(sum_squared_error, len(self.__orders), smoothing_level)
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 430, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 438, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_XDECREF_SET(__pyx_v_sum_squared_error, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":432
+    /* "supplychainpy/demand/_evo_algo.pyx":440
  *             sum_squared_error = f.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,
  *                                                                 alpha=smoothing_level[0], gamma=smoothing_level[1])
  *             standard_error = f.standard_error(sum_squared_error, len(self.__orders), smoothing_level)             # <<<<<<<<<<<<<<
  *             appraised_individual.update({smoothing_level: standard_error})
  *         # print('The standard error as a trait has been calculated {}'.format(appraised_individual))
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_standard_error); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 432, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_standard_error); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 440, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 432, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 440, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_10 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_10 == -1)) __PYX_ERR(0, 432, __pyx_L1_error)
+    __pyx_t_10 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_10 == -1)) __PYX_ERR(0, 440, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyInt_FromSsize_t(__pyx_t_10); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 432, __pyx_L1_error)
+    __pyx_t_2 = PyInt_FromSsize_t(__pyx_t_10); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 440, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_1 = NULL;
     __pyx_t_6 = 0;
@@ -11037,7 +11041,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[4] = {__pyx_t_1, __pyx_v_sum_squared_error, __pyx_t_2, __pyx_v_smoothing_level};
-      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 432, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 440, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -11046,14 +11050,14 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[4] = {__pyx_t_1, __pyx_v_sum_squared_error, __pyx_t_2, __pyx_v_smoothing_level};
-      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 432, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 440, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     } else
     #endif
     {
-      __pyx_t_5 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 432, __pyx_L1_error)
+      __pyx_t_5 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 440, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       if (__pyx_t_1) {
         __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_1); __pyx_t_1 = NULL;
@@ -11067,7 +11071,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       __Pyx_GIVEREF(__pyx_v_smoothing_level);
       PyTuple_SET_ITEM(__pyx_t_5, 2+__pyx_t_6, __pyx_v_smoothing_level);
       __pyx_t_2 = 0;
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 432, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 440, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
@@ -11075,18 +11079,18 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __Pyx_XDECREF_SET(__pyx_v_standard_error, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":433
+    /* "supplychainpy/demand/_evo_algo.pyx":441
  *                                                                 alpha=smoothing_level[0], gamma=smoothing_level[1])
  *             standard_error = f.standard_error(sum_squared_error, len(self.__orders), smoothing_level)
  *             appraised_individual.update({smoothing_level: standard_error})             # <<<<<<<<<<<<<<
  *         # print('The standard error as a trait has been calculated {}'.format(appraised_individual))
  *         return appraised_individual
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_appraised_individual, __pyx_n_s_update); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 433, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_appraised_individual, __pyx_n_s_update); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 441, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = PyDict_New(); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 433, __pyx_L1_error)
+    __pyx_t_5 = PyDict_New(); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 441, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    if (PyDict_SetItem(__pyx_t_5, __pyx_v_smoothing_level, __pyx_v_standard_error) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_5, __pyx_v_smoothing_level, __pyx_v_standard_error) < 0) __PYX_ERR(0, 441, __pyx_L1_error)
     __pyx_t_2 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
       __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_4);
@@ -11098,14 +11102,14 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       }
     }
     if (!__pyx_t_2) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 433, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 441, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_GOTREF(__pyx_t_3);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_4)) {
         PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_5};
-        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 433, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 441, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -11114,20 +11118,20 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
         PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_5};
-        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 433, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 441, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       } else
       #endif
       {
-        __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 433, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 441, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2); __pyx_t_2 = NULL;
         __Pyx_GIVEREF(__pyx_t_5);
         PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_t_5);
         __pyx_t_5 = 0;
-        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 433, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 441, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       }
@@ -11135,7 +11139,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":429
+    /* "supplychainpy/demand/_evo_algo.pyx":437
  * 
  *         appraised_individual = {}
  *         for smoothing_level in individual:             # <<<<<<<<<<<<<<
@@ -11145,7 +11149,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   }
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":435
+  /* "supplychainpy/demand/_evo_algo.pyx":443
  *             appraised_individual.update({smoothing_level: standard_error})
  *         # print('The standard error as a trait has been calculated {}'.format(appraised_individual))
  *         return appraised_individual             # <<<<<<<<<<<<<<
@@ -11157,7 +11161,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __pyx_r = __pyx_v_appraised_individual;
   goto __pyx_L0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":414
+  /* "supplychainpy/demand/_evo_algo.pyx":422
  *         return appraised_individual
  * 
  *     def _run_holts_trend_corrected_exponential_smoothing(self, individual: tuple):             # <<<<<<<<<<<<<<
@@ -11196,7 +11200,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
 }
 static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_27generator6(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
-/* "supplychainpy/demand/_evo_algo.pyx":437
+/* "supplychainpy/demand/_evo_algo.pyx":445
  *         return appraised_individual
  * 
  *     def express_smoothing_level_genome(self, individuals_genome: list, standard_error):             # <<<<<<<<<<<<<<
@@ -11235,16 +11239,16 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_individuals_genome)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("express_smoothing_level_genome", 1, 3, 3, 1); __PYX_ERR(0, 437, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("express_smoothing_level_genome", 1, 3, 3, 1); __PYX_ERR(0, 445, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_standard_error)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("express_smoothing_level_genome", 1, 3, 3, 2); __PYX_ERR(0, 437, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("express_smoothing_level_genome", 1, 3, 3, 2); __PYX_ERR(0, 445, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "express_smoothing_level_genome") < 0)) __PYX_ERR(0, 437, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "express_smoothing_level_genome") < 0)) __PYX_ERR(0, 445, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -11259,7 +11263,7 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("express_smoothing_level_genome", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 437, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("express_smoothing_level_genome", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 445, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("supplychainpy.demand._evo_algo.OptimiseSmoothingLevelGeneticAlgorithm.express_smoothing_level_genome", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -11281,7 +11285,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_7_express_smoothing_level_genome *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 437, __pyx_L1_error)
+    __PYX_ERR(0, 445, __pyx_L1_error)
   } else {
     __Pyx_GOTREF(__pyx_cur_scope);
   }
@@ -11295,7 +11299,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_standard_error);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_standard_error);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_27generator6, (PyObject *) __pyx_cur_scope, __pyx_n_s_express_smoothing_level_genome, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_4, __pyx_n_s_supplychainpy_demand__evo_algo); if (unlikely(!gen)) __PYX_ERR(0, 437, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_27generator6, (PyObject *) __pyx_cur_scope, __pyx_n_s_express_smoothing_level_genome, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_4, __pyx_n_s_supplychainpy_demand__evo_algo); if (unlikely(!gen)) __PYX_ERR(0, 445, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -11333,9 +11337,9 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 437, __pyx_L1_error)
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 445, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":440
+  /* "supplychainpy/demand/_evo_algo.pyx":448
  * 
  *         # stack parents and offspring into a list for next steps
  *         for genome in individuals_genome:             # <<<<<<<<<<<<<<
@@ -11346,26 +11350,26 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __pyx_t_1 = __pyx_cur_scope->__pyx_v_individuals_genome; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
     __pyx_t_3 = NULL;
   } else {
-    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_cur_scope->__pyx_v_individuals_genome); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 440, __pyx_L1_error)
+    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_cur_scope->__pyx_v_individuals_genome); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 448, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 440, __pyx_L1_error)
+    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 448, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_3)) {
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 440, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 448, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 440, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 448, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 440, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 448, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 440, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 448, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -11375,7 +11379,7 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 440, __pyx_L1_error)
+          else __PYX_ERR(0, 448, __pyx_L1_error)
         }
         break;
       }
@@ -11386,14 +11390,14 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __Pyx_GIVEREF(__pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":441
+    /* "supplychainpy/demand/_evo_algo.pyx":449
  *         # stack parents and offspring into a list for next steps
  *         for genome in individuals_genome:
  *             individuals_traits = self._express_trait(standard_error, genome)             # <<<<<<<<<<<<<<
  *             yield individuals_traits
  * 
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_express_trait); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 441, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_express_trait); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 449, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_6 = NULL;
     __pyx_t_7 = 0;
@@ -11410,7 +11414,7 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_cur_scope->__pyx_v_standard_error, __pyx_cur_scope->__pyx_v_genome};
-      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 441, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 449, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_4);
     } else
@@ -11418,13 +11422,13 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_cur_scope->__pyx_v_standard_error, __pyx_cur_scope->__pyx_v_genome};
-      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 441, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 449, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_4);
     } else
     #endif
     {
-      __pyx_t_8 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 441, __pyx_L1_error)
+      __pyx_t_8 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 449, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       if (__pyx_t_6) {
         __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -11435,7 +11439,7 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       __Pyx_INCREF(__pyx_cur_scope->__pyx_v_genome);
       __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_genome);
       PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_7, __pyx_cur_scope->__pyx_v_genome);
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_8, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 441, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_8, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 449, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     }
@@ -11445,12 +11449,12 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __Pyx_GIVEREF(__pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":442
+    /* "supplychainpy/demand/_evo_algo.pyx":450
  *         for genome in individuals_genome:
  *             individuals_traits = self._express_trait(standard_error, genome)
  *             yield individuals_traits             # <<<<<<<<<<<<<<
  * 
- *     def _run_exponential_smoothing_forecast(self, individual: tuple) -> dict:
+ *     def _run_exponential_smoothing_forecast(self, individual ):
  */
     __Pyx_INCREF(__pyx_cur_scope->__pyx_v_individuals_traits);
     __pyx_r = __pyx_cur_scope->__pyx_v_individuals_traits;
@@ -11469,9 +11473,9 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __Pyx_XGOTREF(__pyx_t_1);
     __pyx_t_2 = __pyx_cur_scope->__pyx_t_1;
     __pyx_t_3 = __pyx_cur_scope->__pyx_t_2;
-    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 442, __pyx_L1_error)
+    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 450, __pyx_L1_error)
 
-    /* "supplychainpy/demand/_evo_algo.pyx":440
+    /* "supplychainpy/demand/_evo_algo.pyx":448
  * 
  *         # stack parents and offspring into a list for next steps
  *         for genome in individuals_genome:             # <<<<<<<<<<<<<<
@@ -11482,7 +11486,7 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   CYTHON_MAYBE_UNUSED_VAR(__pyx_cur_scope);
 
-  /* "supplychainpy/demand/_evo_algo.pyx":437
+  /* "supplychainpy/demand/_evo_algo.pyx":445
  *         return appraised_individual
  * 
  *     def express_smoothing_level_genome(self, individuals_genome: list, standard_error):             # <<<<<<<<<<<<<<
@@ -11508,10 +11512,10 @@ static PyObject *__pyx_gb_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   return __pyx_r;
 }
 
-/* "supplychainpy/demand/_evo_algo.pyx":444
+/* "supplychainpy/demand/_evo_algo.pyx":452
  *             yield individuals_traits
  * 
- *     def _run_exponential_smoothing_forecast(self, individual: tuple) -> dict:             # <<<<<<<<<<<<<<
+ *     def _run_exponential_smoothing_forecast(self, individual ):             # <<<<<<<<<<<<<<
  * 
  *         f = Forecast(self.__orders, self.__average_order)
  */
@@ -11545,11 +11549,11 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_individual)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_run_exponential_smoothing_forecast", 1, 2, 2, 1); __PYX_ERR(0, 444, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_run_exponential_smoothing_forecast", 1, 2, 2, 1); __PYX_ERR(0, 452, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_run_exponential_smoothing_forecast") < 0)) __PYX_ERR(0, 444, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_run_exponential_smoothing_forecast") < 0)) __PYX_ERR(0, 452, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -11562,7 +11566,7 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_run_exponential_smoothing_forecast", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 444, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_run_exponential_smoothing_forecast", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 452, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("supplychainpy.demand._evo_algo.OptimiseSmoothingLevelGeneticAlgorithm._run_exponential_smoothing_forecast", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -11601,18 +11605,18 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   int __pyx_t_12;
   __Pyx_RefNannySetupContext("_run_exponential_smoothing_forecast", 0);
 
-  /* "supplychainpy/demand/_evo_algo.pyx":446
- *     def _run_exponential_smoothing_forecast(self, individual: tuple) -> dict:
+  /* "supplychainpy/demand/_evo_algo.pyx":454
+ *     def _run_exponential_smoothing_forecast(self, individual ):
  * 
  *         f = Forecast(self.__orders, self.__average_order)             # <<<<<<<<<<<<<<
  *         simple_expo_smoothing = []
  *         for sm_lvl in individual:
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_Forecast); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 446, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_Forecast); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 454, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 446, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 454, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 446, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 454, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = NULL;
   __pyx_t_6 = 0;
@@ -11629,7 +11633,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_t_3, __pyx_t_4};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 446, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 454, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -11639,7 +11643,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_t_3, __pyx_t_4};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 446, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 454, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -11647,7 +11651,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   } else
   #endif
   {
-    __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 446, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 454, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     if (__pyx_t_5) {
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -11658,7 +11662,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_t_4);
     __pyx_t_3 = 0;
     __pyx_t_4 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 446, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 454, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
@@ -11666,19 +11670,19 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __pyx_v_f = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":447
+  /* "supplychainpy/demand/_evo_algo.pyx":455
  * 
  *         f = Forecast(self.__orders, self.__average_order)
  *         simple_expo_smoothing = []             # <<<<<<<<<<<<<<
  *         for sm_lvl in individual:
  *             p = [i for i in f.simple_exponential_smoothing(sm_lvl)]
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 447, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 455, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_simple_expo_smoothing = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":448
+  /* "supplychainpy/demand/_evo_algo.pyx":456
  *         f = Forecast(self.__orders, self.__average_order)
  *         simple_expo_smoothing = []
  *         for sm_lvl in individual:             # <<<<<<<<<<<<<<
@@ -11689,26 +11693,26 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __pyx_t_1 = __pyx_v_individual; __Pyx_INCREF(__pyx_t_1); __pyx_t_8 = 0;
     __pyx_t_9 = NULL;
   } else {
-    __pyx_t_8 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_individual); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 448, __pyx_L1_error)
+    __pyx_t_8 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_individual); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 456, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_9 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 448, __pyx_L1_error)
+    __pyx_t_9 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 456, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_9)) {
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_8 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_8); __Pyx_INCREF(__pyx_t_2); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 448, __pyx_L1_error)
+        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_8); __Pyx_INCREF(__pyx_t_2); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 456, __pyx_L1_error)
         #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 448, __pyx_L1_error)
+        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 456, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         #endif
       } else {
         if (__pyx_t_8 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_8); __Pyx_INCREF(__pyx_t_2); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 448, __pyx_L1_error)
+        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_8); __Pyx_INCREF(__pyx_t_2); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 456, __pyx_L1_error)
         #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 448, __pyx_L1_error)
+        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 456, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         #endif
       }
@@ -11718,7 +11722,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 448, __pyx_L1_error)
+          else __PYX_ERR(0, 456, __pyx_L1_error)
         }
         break;
       }
@@ -11727,16 +11731,16 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __Pyx_XDECREF_SET(__pyx_v_sm_lvl, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":449
+    /* "supplychainpy/demand/_evo_algo.pyx":457
  *         simple_expo_smoothing = []
  *         for sm_lvl in individual:
  *             p = [i for i in f.simple_exponential_smoothing(sm_lvl)]             # <<<<<<<<<<<<<<
  *             # print(p)
  *             simple_expo_smoothing.append(p)
  */
-    __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 449, __pyx_L1_error)
+    __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 457, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_simple_exponential_smoothing); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 449, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_simple_exponential_smoothing); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 457, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_3 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
@@ -11749,13 +11753,13 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       }
     }
     if (!__pyx_t_3) {
-      __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_sm_lvl); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 449, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_sm_lvl); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 457, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_4)) {
         PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_v_sm_lvl};
-        __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 449, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 457, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_7);
       } else
@@ -11763,19 +11767,19 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
         PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_v_sm_lvl};
-        __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 449, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 457, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_7);
       } else
       #endif
       {
-        __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 449, __pyx_L1_error)
+        __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 457, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_3); __pyx_t_3 = NULL;
         __Pyx_INCREF(__pyx_v_sm_lvl);
         __Pyx_GIVEREF(__pyx_v_sm_lvl);
         PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_v_sm_lvl);
-        __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 449, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 457, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       }
@@ -11785,9 +11789,9 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       __pyx_t_4 = __pyx_t_7; __Pyx_INCREF(__pyx_t_4); __pyx_t_10 = 0;
       __pyx_t_11 = NULL;
     } else {
-      __pyx_t_10 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 449, __pyx_L1_error)
+      __pyx_t_10 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 457, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_11 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 449, __pyx_L1_error)
+      __pyx_t_11 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 457, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     for (;;) {
@@ -11795,17 +11799,17 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         if (likely(PyList_CheckExact(__pyx_t_4))) {
           if (__pyx_t_10 >= PyList_GET_SIZE(__pyx_t_4)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_7 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_7); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 449, __pyx_L1_error)
+          __pyx_t_7 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_7); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 457, __pyx_L1_error)
           #else
-          __pyx_t_7 = PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 449, __pyx_L1_error)
+          __pyx_t_7 = PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 457, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
           #endif
         } else {
           if (__pyx_t_10 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_7 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_7); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 449, __pyx_L1_error)
+          __pyx_t_7 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_7); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 457, __pyx_L1_error)
           #else
-          __pyx_t_7 = PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 449, __pyx_L1_error)
+          __pyx_t_7 = PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 457, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
           #endif
         }
@@ -11815,7 +11819,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 449, __pyx_L1_error)
+            else __PYX_ERR(0, 457, __pyx_L1_error)
           }
           break;
         }
@@ -11823,22 +11827,22 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       }
       __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_7);
       __pyx_t_7 = 0;
-      if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 449, __pyx_L1_error)
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 457, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_XDECREF_SET(__pyx_v_p, ((PyObject*)__pyx_t_2));
     __pyx_t_2 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":451
+    /* "supplychainpy/demand/_evo_algo.pyx":459
  *             p = [i for i in f.simple_exponential_smoothing(sm_lvl)]
  *             # print(p)
  *             simple_expo_smoothing.append(p)             # <<<<<<<<<<<<<<
  * 
  *         appraised_individual = {}
  */
-    __pyx_t_12 = __Pyx_PyList_Append(__pyx_v_simple_expo_smoothing, __pyx_v_p); if (unlikely(__pyx_t_12 == -1)) __PYX_ERR(0, 451, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyList_Append(__pyx_v_simple_expo_smoothing, __pyx_v_p); if (unlikely(__pyx_t_12 == -1)) __PYX_ERR(0, 459, __pyx_L1_error)
 
-    /* "supplychainpy/demand/_evo_algo.pyx":448
+    /* "supplychainpy/demand/_evo_algo.pyx":456
  *         f = Forecast(self.__orders, self.__average_order)
  *         simple_expo_smoothing = []
  *         for sm_lvl in individual:             # <<<<<<<<<<<<<<
@@ -11848,19 +11852,19 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":453
+  /* "supplychainpy/demand/_evo_algo.pyx":461
  *             simple_expo_smoothing.append(p)
  * 
  *         appraised_individual = {}             # <<<<<<<<<<<<<<
  *         for smoothing_level in individual:
  *             sum_squared_error = f.sum_squared_errors_indi(simple_expo_smoothing, smoothing_level)
  */
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 453, __pyx_L1_error)
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 461, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_appraised_individual = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":454
+  /* "supplychainpy/demand/_evo_algo.pyx":462
  * 
  *         appraised_individual = {}
  *         for smoothing_level in individual:             # <<<<<<<<<<<<<<
@@ -11871,26 +11875,26 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __pyx_t_1 = __pyx_v_individual; __Pyx_INCREF(__pyx_t_1); __pyx_t_8 = 0;
     __pyx_t_9 = NULL;
   } else {
-    __pyx_t_8 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_individual); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 454, __pyx_L1_error)
+    __pyx_t_8 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_individual); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 462, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_9 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 454, __pyx_L1_error)
+    __pyx_t_9 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 462, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_9)) {
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_8 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_8); __Pyx_INCREF(__pyx_t_2); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 454, __pyx_L1_error)
+        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_8); __Pyx_INCREF(__pyx_t_2); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 462, __pyx_L1_error)
         #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 454, __pyx_L1_error)
+        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 462, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         #endif
       } else {
         if (__pyx_t_8 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_8); __Pyx_INCREF(__pyx_t_2); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 454, __pyx_L1_error)
+        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_8); __Pyx_INCREF(__pyx_t_2); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 462, __pyx_L1_error)
         #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 454, __pyx_L1_error)
+        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 462, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         #endif
       }
@@ -11900,7 +11904,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 454, __pyx_L1_error)
+          else __PYX_ERR(0, 462, __pyx_L1_error)
         }
         break;
       }
@@ -11909,14 +11913,14 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __Pyx_XDECREF_SET(__pyx_v_smoothing_level, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":455
+    /* "supplychainpy/demand/_evo_algo.pyx":463
  *         appraised_individual = {}
  *         for smoothing_level in individual:
  *             sum_squared_error = f.sum_squared_errors_indi(simple_expo_smoothing, smoothing_level)             # <<<<<<<<<<<<<<
  *             standard_error = f.standard_error(sum_squared_error, len(self.__orders), smoothing_level)
  *             appraised_individual.update({smoothing_level: standard_error})
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_sum_squared_errors_indi); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 455, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_sum_squared_errors_indi); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 463, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_7 = NULL;
     __pyx_t_6 = 0;
@@ -11933,7 +11937,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[3] = {__pyx_t_7, __pyx_v_simple_expo_smoothing, __pyx_v_smoothing_level};
-      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 455, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 463, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_GOTREF(__pyx_t_2);
     } else
@@ -11941,13 +11945,13 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[3] = {__pyx_t_7, __pyx_v_simple_expo_smoothing, __pyx_v_smoothing_level};
-      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 455, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 463, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_GOTREF(__pyx_t_2);
     } else
     #endif
     {
-      __pyx_t_5 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 455, __pyx_L1_error)
+      __pyx_t_5 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 463, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       if (__pyx_t_7) {
         __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_7); __pyx_t_7 = NULL;
@@ -11958,7 +11962,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       __Pyx_INCREF(__pyx_v_smoothing_level);
       __Pyx_GIVEREF(__pyx_v_smoothing_level);
       PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_6, __pyx_v_smoothing_level);
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 455, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 463, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
@@ -11966,20 +11970,20 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __Pyx_XDECREF_SET(__pyx_v_sum_squared_error, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":456
+    /* "supplychainpy/demand/_evo_algo.pyx":464
  *         for smoothing_level in individual:
  *             sum_squared_error = f.sum_squared_errors_indi(simple_expo_smoothing, smoothing_level)
  *             standard_error = f.standard_error(sum_squared_error, len(self.__orders), smoothing_level)             # <<<<<<<<<<<<<<
  *             appraised_individual.update({smoothing_level: standard_error})
  *         # print('The standard error as a trait has been calculated {}'.format(appraised_individual))
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_standard_error); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 456, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_standard_error); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 464, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 456, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 464, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_10 = PyObject_Length(__pyx_t_5); if (unlikely(__pyx_t_10 == -1)) __PYX_ERR(0, 456, __pyx_L1_error)
+    __pyx_t_10 = PyObject_Length(__pyx_t_5); if (unlikely(__pyx_t_10 == -1)) __PYX_ERR(0, 464, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PyInt_FromSsize_t(__pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 456, __pyx_L1_error)
+    __pyx_t_5 = PyInt_FromSsize_t(__pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 464, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_7 = NULL;
     __pyx_t_6 = 0;
@@ -11996,7 +12000,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[4] = {__pyx_t_7, __pyx_v_sum_squared_error, __pyx_t_5, __pyx_v_smoothing_level};
-      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 456, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 464, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -12005,14 +12009,14 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[4] = {__pyx_t_7, __pyx_v_sum_squared_error, __pyx_t_5, __pyx_v_smoothing_level};
-      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 456, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 464, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     } else
     #endif
     {
-      __pyx_t_3 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 456, __pyx_L1_error)
+      __pyx_t_3 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 464, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       if (__pyx_t_7) {
         __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_7); __pyx_t_7 = NULL;
@@ -12026,7 +12030,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       __Pyx_GIVEREF(__pyx_v_smoothing_level);
       PyTuple_SET_ITEM(__pyx_t_3, 2+__pyx_t_6, __pyx_v_smoothing_level);
       __pyx_t_5 = 0;
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 456, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 464, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
@@ -12034,18 +12038,18 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __Pyx_XDECREF_SET(__pyx_v_standard_error, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":457
+    /* "supplychainpy/demand/_evo_algo.pyx":465
  *             sum_squared_error = f.sum_squared_errors_indi(simple_expo_smoothing, smoothing_level)
  *             standard_error = f.standard_error(sum_squared_error, len(self.__orders), smoothing_level)
  *             appraised_individual.update({smoothing_level: standard_error})             # <<<<<<<<<<<<<<
  *         # print('The standard error as a trait has been calculated {}'.format(appraised_individual))
  *         return appraised_individual
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_appraised_individual, __pyx_n_s_update); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 457, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_appraised_individual, __pyx_n_s_update); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 465, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 457, __pyx_L1_error)
+    __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 465, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    if (PyDict_SetItem(__pyx_t_3, __pyx_v_smoothing_level, __pyx_v_standard_error) < 0) __PYX_ERR(0, 457, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_3, __pyx_v_smoothing_level, __pyx_v_standard_error) < 0) __PYX_ERR(0, 465, __pyx_L1_error)
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
       __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
@@ -12057,14 +12061,14 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       }
     }
     if (!__pyx_t_5) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 457, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 465, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_2);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_4)) {
         PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_3};
-        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 457, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 465, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -12073,20 +12077,20 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
         PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_3};
-        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 457, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 465, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       } else
       #endif
       {
-        __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 457, __pyx_L1_error)
+        __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 465, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __pyx_t_5 = NULL;
         __Pyx_GIVEREF(__pyx_t_3);
         PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_3);
         __pyx_t_3 = 0;
-        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 457, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 465, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       }
@@ -12094,7 +12098,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":454
+    /* "supplychainpy/demand/_evo_algo.pyx":462
  * 
  *         appraised_individual = {}
  *         for smoothing_level in individual:             # <<<<<<<<<<<<<<
@@ -12104,7 +12108,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":459
+  /* "supplychainpy/demand/_evo_algo.pyx":467
  *             appraised_individual.update({smoothing_level: standard_error})
  *         # print('The standard error as a trait has been calculated {}'.format(appraised_individual))
  *         return appraised_individual             # <<<<<<<<<<<<<<
@@ -12116,10 +12120,10 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __pyx_r = __pyx_v_appraised_individual;
   goto __pyx_L0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":444
+  /* "supplychainpy/demand/_evo_algo.pyx":452
  *             yield individuals_traits
  * 
- *     def _run_exponential_smoothing_forecast(self, individual: tuple) -> dict:             # <<<<<<<<<<<<<<
+ *     def _run_exponential_smoothing_forecast(self, individual ):             # <<<<<<<<<<<<<<
  * 
  *         f = Forecast(self.__orders, self.__average_order)
  */
@@ -12149,7 +12153,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   return __pyx_r;
 }
 
-/* "supplychainpy/demand/_evo_algo.pyx":462
+/* "supplychainpy/demand/_evo_algo.pyx":470
  * 
  *     @staticmethod
  *     def _express_trait(original_standard_error: float, appraised_individual: dict):             # <<<<<<<<<<<<<<
@@ -12186,11 +12190,11 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_appraised_individual)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_express_trait", 1, 2, 2, 1); __PYX_ERR(0, 462, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_express_trait", 1, 2, 2, 1); __PYX_ERR(0, 470, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_express_trait") < 0)) __PYX_ERR(0, 462, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_express_trait") < 0)) __PYX_ERR(0, 470, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -12203,7 +12207,7 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_express_trait", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 462, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_express_trait", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 470, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("supplychainpy.demand._evo_algo.OptimiseSmoothingLevelGeneticAlgorithm._express_trait", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -12228,7 +12232,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   int __pyx_t_6;
   __Pyx_RefNannySetupContext("_express_trait", 0);
 
-  /* "supplychainpy/demand/_evo_algo.pyx":465
+  /* "supplychainpy/demand/_evo_algo.pyx":473
  *         # fitness test? over 50% of the alleles must be positive traits. give percentage score
  *         # print(original_standard_error)
  *         for key in appraised_individual:             # <<<<<<<<<<<<<<
@@ -12239,26 +12243,26 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __pyx_t_1 = __pyx_v_appraised_individual; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
     __pyx_t_3 = NULL;
   } else {
-    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_appraised_individual); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 465, __pyx_L1_error)
+    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_appraised_individual); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 473, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 465, __pyx_L1_error)
+    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 473, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_3)) {
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 465, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 473, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 465, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 473, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 465, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 473, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 465, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 473, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -12268,7 +12272,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 465, __pyx_L1_error)
+          else __PYX_ERR(0, 473, __pyx_L1_error)
         }
         break;
       }
@@ -12277,31 +12281,31 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __Pyx_XDECREF_SET(__pyx_v_key, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":466
+    /* "supplychainpy/demand/_evo_algo.pyx":474
  *         # print(original_standard_error)
  *         for key in appraised_individual:
  *             if appraised_individual[key] < original_standard_error:             # <<<<<<<<<<<<<<
  *                 appraised_individual[key] = 1
  *             else:
  */
-    __pyx_t_4 = PyObject_GetItem(__pyx_v_appraised_individual, __pyx_v_key); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 466, __pyx_L1_error)
+    __pyx_t_4 = PyObject_GetItem(__pyx_v_appraised_individual, __pyx_v_key); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 474, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_v_original_standard_error, Py_LT); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 466, __pyx_L1_error)
+    __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_v_original_standard_error, Py_LT); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 474, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 466, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 474, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     if (__pyx_t_6) {
 
-      /* "supplychainpy/demand/_evo_algo.pyx":467
+      /* "supplychainpy/demand/_evo_algo.pyx":475
  *         for key in appraised_individual:
  *             if appraised_individual[key] < original_standard_error:
  *                 appraised_individual[key] = 1             # <<<<<<<<<<<<<<
  *             else:
  *                 appraised_individual[key] = 0
  */
-      if (unlikely(PyObject_SetItem(__pyx_v_appraised_individual, __pyx_v_key, __pyx_int_1) < 0)) __PYX_ERR(0, 467, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_v_appraised_individual, __pyx_v_key, __pyx_int_1) < 0)) __PYX_ERR(0, 475, __pyx_L1_error)
 
-      /* "supplychainpy/demand/_evo_algo.pyx":466
+      /* "supplychainpy/demand/_evo_algo.pyx":474
  *         # print(original_standard_error)
  *         for key in appraised_individual:
  *             if appraised_individual[key] < original_standard_error:             # <<<<<<<<<<<<<<
@@ -12311,7 +12315,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       goto __pyx_L5;
     }
 
-    /* "supplychainpy/demand/_evo_algo.pyx":469
+    /* "supplychainpy/demand/_evo_algo.pyx":477
  *                 appraised_individual[key] = 1
  *             else:
  *                 appraised_individual[key] = 0             # <<<<<<<<<<<<<<
@@ -12319,11 +12323,11 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
  *         # check fitness of individual to procreate. 50% of traits need to be better smoothing_levels than the original
  */
     /*else*/ {
-      if (unlikely(PyObject_SetItem(__pyx_v_appraised_individual, __pyx_v_key, __pyx_int_0) < 0)) __PYX_ERR(0, 469, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_v_appraised_individual, __pyx_v_key, __pyx_int_0) < 0)) __PYX_ERR(0, 477, __pyx_L1_error)
     }
     __pyx_L5:;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":465
+    /* "supplychainpy/demand/_evo_algo.pyx":473
  *         # fitness test? over 50% of the alleles must be positive traits. give percentage score
  *         # print(original_standard_error)
  *         for key in appraised_individual:             # <<<<<<<<<<<<<<
@@ -12333,7 +12337,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":472
+  /* "supplychainpy/demand/_evo_algo.pyx":480
  *         # print('The traits have been verified {}'.format(appraised_individual))
  *         # check fitness of individual to procreate. 50% of traits need to be better smoothing_levels than the original
  *         return appraised_individual             # <<<<<<<<<<<<<<
@@ -12345,7 +12349,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __pyx_r = __pyx_v_appraised_individual;
   goto __pyx_L0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":462
+  /* "supplychainpy/demand/_evo_algo.pyx":470
  * 
  *     @staticmethod
  *     def _express_trait(original_standard_error: float, appraised_individual: dict):             # <<<<<<<<<<<<<<
@@ -12367,7 +12371,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   return __pyx_r;
 }
 
-/* "supplychainpy/demand/_evo_algo.pyx":474
+/* "supplychainpy/demand/_evo_algo.pyx":482
  *         return appraised_individual
  * 
  *     def _selection_population(self, individuals_fitness: dict, appraised_individual: list):             # <<<<<<<<<<<<<<
@@ -12406,16 +12410,16 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_individuals_fitness)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_selection_population", 1, 3, 3, 1); __PYX_ERR(0, 474, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_selection_population", 1, 3, 3, 1); __PYX_ERR(0, 482, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_appraised_individual)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_selection_population", 1, 3, 3, 2); __PYX_ERR(0, 474, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_selection_population", 1, 3, 3, 2); __PYX_ERR(0, 482, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_selection_population") < 0)) __PYX_ERR(0, 474, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_selection_population") < 0)) __PYX_ERR(0, 482, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -12430,7 +12434,7 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_selection_population", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 474, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_selection_population", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 482, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("supplychainpy.demand._evo_algo.OptimiseSmoothingLevelGeneticAlgorithm._selection_population", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -12455,12 +12459,12 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   return __pyx_r;
 }
 
-/* "supplychainpy/demand/_evo_algo.pyx":477
+/* "supplychainpy/demand/_evo_algo.pyx":485
  *         pass
  * 
- *     def simple_exponential_smoothing_evo(self, smoothing_level_constant: float, initial_estimate_period: int,             # <<<<<<<<<<<<<<
- *                                          recombination_type: str = 'single_point', population_size: int = 10,
- *                                          forecast_length: int = 5) -> dict:
+ *     def simple_exponential_smoothing_evo(self, smoothing_level_constant, initial_estimate_period,             # <<<<<<<<<<<<<<
+ *                                          recombination_type = 'single_point', int population_size = 10,
+ *                                          int forecast_length = 5):
  */
 
 /* Python wrapper */
@@ -12472,8 +12476,8 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   PyObject *__pyx_v_smoothing_level_constant = 0;
   PyObject *__pyx_v_initial_estimate_period = 0;
   PyObject *__pyx_v_recombination_type = 0;
-  PyObject *__pyx_v_population_size = 0;
-  PyObject *__pyx_v_forecast_length = 0;
+  int __pyx_v_population_size;
+  int __pyx_v_forecast_length;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("simple_exponential_smoothing_evo (wrapper)", 0);
@@ -12481,8 +12485,6 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_smoothing_level_constant,&__pyx_n_s_initial_estimate_period,&__pyx_n_s_recombination_type,&__pyx_n_s_population_size,&__pyx_n_s_forecast_length,0};
     PyObject* values[6] = {0,0,0,0,0,0};
     values[3] = ((PyObject *)((PyObject*)__pyx_n_s_single_point));
-    values[4] = ((PyObject *)((PyObject *)__pyx_int_10));
-    values[5] = ((PyObject *)((PyObject *)__pyx_int_5));
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
@@ -12504,12 +12506,12 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_smoothing_level_constant)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("simple_exponential_smoothing_evo", 0, 3, 6, 1); __PYX_ERR(0, 477, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("simple_exponential_smoothing_evo", 0, 3, 6, 1); __PYX_ERR(0, 485, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_initial_estimate_period)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("simple_exponential_smoothing_evo", 0, 3, 6, 2); __PYX_ERR(0, 477, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("simple_exponential_smoothing_evo", 0, 3, 6, 2); __PYX_ERR(0, 485, __pyx_L3_error)
         }
         case  3:
         if (kw_args > 0) {
@@ -12528,7 +12530,7 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "simple_exponential_smoothing_evo") < 0)) __PYX_ERR(0, 477, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "simple_exponential_smoothing_evo") < 0)) __PYX_ERR(0, 485, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -12546,12 +12548,20 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __pyx_v_smoothing_level_constant = values[1];
     __pyx_v_initial_estimate_period = values[2];
     __pyx_v_recombination_type = values[3];
-    __pyx_v_population_size = values[4];
-    __pyx_v_forecast_length = values[5];
+    if (values[4]) {
+      __pyx_v_population_size = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_population_size == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 486, __pyx_L3_error)
+    } else {
+      __pyx_v_population_size = ((int)((int)10));
+    }
+    if (values[5]) {
+      __pyx_v_forecast_length = __Pyx_PyInt_As_int(values[5]); if (unlikely((__pyx_v_forecast_length == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 487, __pyx_L3_error)
+    } else {
+      __pyx_v_forecast_length = ((int)((int)5));
+    }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("simple_exponential_smoothing_evo", 0, 3, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 477, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("simple_exponential_smoothing_evo", 0, 3, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 485, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("supplychainpy.demand._evo_algo.OptimiseSmoothingLevelGeneticAlgorithm.simple_exponential_smoothing_evo", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -12564,7 +12574,7 @@ static PyObject *__pyx_pw_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_34simple_exponential_smoothing_evo(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_smoothing_level_constant, PyObject *__pyx_v_initial_estimate_period, PyObject *__pyx_v_recombination_type, PyObject *__pyx_v_population_size, PyObject *__pyx_v_forecast_length) {
+static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_34simple_exponential_smoothing_evo(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_smoothing_level_constant, PyObject *__pyx_v_initial_estimate_period, PyObject *__pyx_v_recombination_type, int __pyx_v_population_size, int __pyx_v_forecast_length) {
   PyObject *__pyx_v_sum_orders = NULL;
   PyObject *__pyx_v_demand = NULL;
   PyObject *__pyx_v_avg_orders = NULL;
@@ -12596,34 +12606,34 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __Pyx_RefNannySetupContext("simple_exponential_smoothing_evo", 0);
   __Pyx_INCREF(__pyx_v_recombination_type);
 
-  /* "supplychainpy/demand/_evo_algo.pyx":492
+  /* "supplychainpy/demand/_evo_algo.pyx":500
  * 
  *         """
  *         if None != self.__recombination_type:             # <<<<<<<<<<<<<<
  *             recombination_type = self.__recombination_type
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 492, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 500, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_RichCompare(Py_None, __pyx_t_1, Py_NE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 492, __pyx_L1_error)
+  __pyx_t_2 = PyObject_RichCompare(Py_None, __pyx_t_1, Py_NE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 500, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 492, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 500, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_3) {
 
-    /* "supplychainpy/demand/_evo_algo.pyx":493
+    /* "supplychainpy/demand/_evo_algo.pyx":501
  *         """
  *         if None != self.__recombination_type:
  *             recombination_type = self.__recombination_type             # <<<<<<<<<<<<<<
  * 
  *         sum_orders = 0
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 493, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 501, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF_SET(__pyx_v_recombination_type, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":492
+    /* "supplychainpy/demand/_evo_algo.pyx":500
  * 
  *         """
  *         if None != self.__recombination_type:             # <<<<<<<<<<<<<<
@@ -12632,7 +12642,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
  */
   }
 
-  /* "supplychainpy/demand/_evo_algo.pyx":495
+  /* "supplychainpy/demand/_evo_algo.pyx":503
  *             recombination_type = self.__recombination_type
  * 
  *         sum_orders = 0             # <<<<<<<<<<<<<<
@@ -12642,25 +12652,25 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_sum_orders = __pyx_int_0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":497
+  /* "supplychainpy/demand/_evo_algo.pyx":505
  *         sum_orders = 0
  * 
  *         for demand in self.__orders[:initial_estimate_period]:             # <<<<<<<<<<<<<<
  *             sum_orders += demand
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 497, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 505, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_t_2, 0, 0, NULL, &__pyx_v_initial_estimate_period, NULL, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 497, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_t_2, 0, 0, NULL, &__pyx_v_initial_estimate_period, NULL, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 505, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
     __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2); __pyx_t_4 = 0;
     __pyx_t_5 = NULL;
   } else {
-    __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 497, __pyx_L1_error)
+    __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 505, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 497, __pyx_L1_error)
+    __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 505, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -12668,17 +12678,17 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 497, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 505, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 497, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 505, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 497, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 505, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 497, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 505, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -12688,7 +12698,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 497, __pyx_L1_error)
+          else __PYX_ERR(0, 505, __pyx_L1_error)
         }
         break;
       }
@@ -12697,19 +12707,19 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __Pyx_XDECREF_SET(__pyx_v_demand, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":498
+    /* "supplychainpy/demand/_evo_algo.pyx":506
  * 
  *         for demand in self.__orders[:initial_estimate_period]:
  *             sum_orders += demand             # <<<<<<<<<<<<<<
  * 
  *         avg_orders = sum_orders / initial_estimate_period
  */
-    __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_v_sum_orders, __pyx_v_demand); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 498, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_v_sum_orders, __pyx_v_demand); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 506, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF_SET(__pyx_v_sum_orders, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "supplychainpy/demand/_evo_algo.pyx":497
+    /* "supplychainpy/demand/_evo_algo.pyx":505
  *         sum_orders = 0
  * 
  *         for demand in self.__orders[:initial_estimate_period]:             # <<<<<<<<<<<<<<
@@ -12719,28 +12729,28 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":500
+  /* "supplychainpy/demand/_evo_algo.pyx":508
  *             sum_orders += demand
  * 
  *         avg_orders = sum_orders / initial_estimate_period             # <<<<<<<<<<<<<<
  * 
  *         forecast_demand = Forecast(self.__orders, avg_orders)
  */
-  __pyx_t_2 = __Pyx_PyNumber_Divide(__pyx_v_sum_orders, __pyx_v_initial_estimate_period); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 500, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyNumber_Divide(__pyx_v_sum_orders, __pyx_v_initial_estimate_period); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 508, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_avg_orders = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":502
+  /* "supplychainpy/demand/_evo_algo.pyx":510
  *         avg_orders = sum_orders / initial_estimate_period
  * 
  *         forecast_demand = Forecast(self.__orders, avg_orders)             # <<<<<<<<<<<<<<
  * 
  *         ses_forecast = [i for i in forecast_demand.simple_exponential_smoothing(*(smoothing_level_constant,))]
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_Forecast); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 502, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_Forecast); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 510, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 502, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 510, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_t_7 = NULL;
   __pyx_t_8 = 0;
@@ -12757,7 +12767,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_1)) {
     PyObject *__pyx_temp[3] = {__pyx_t_7, __pyx_t_6, __pyx_v_avg_orders};
-    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_8, 2+__pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 502, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_8, 2+__pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 510, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -12766,14 +12776,14 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
     PyObject *__pyx_temp[3] = {__pyx_t_7, __pyx_t_6, __pyx_v_avg_orders};
-    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_8, 2+__pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 502, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_8, 2+__pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 510, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   } else
   #endif
   {
-    __pyx_t_9 = PyTuple_New(2+__pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 502, __pyx_L1_error)
+    __pyx_t_9 = PyTuple_New(2+__pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 510, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     if (__pyx_t_7) {
       __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_7); __pyx_t_7 = NULL;
@@ -12784,7 +12794,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __Pyx_GIVEREF(__pyx_v_avg_orders);
     PyTuple_SET_ITEM(__pyx_t_9, 1+__pyx_t_8, __pyx_v_avg_orders);
     __pyx_t_6 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_9, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 502, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_9, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 510, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   }
@@ -12792,23 +12802,23 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __pyx_v_forecast_demand = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":504
+  /* "supplychainpy/demand/_evo_algo.pyx":512
  *         forecast_demand = Forecast(self.__orders, avg_orders)
  * 
  *         ses_forecast = [i for i in forecast_demand.simple_exponential_smoothing(*(smoothing_level_constant,))]             # <<<<<<<<<<<<<<
  * 
  *         sum_squared_error = forecast_demand.sum_squared_errors(ses_forecast, smoothing_level_constant)
  */
-  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 504, __pyx_L1_error)
+  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 512, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_forecast_demand, __pyx_n_s_simple_exponential_smoothing); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 504, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_forecast_demand, __pyx_n_s_simple_exponential_smoothing); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 512, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 504, __pyx_L1_error)
+  __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 512, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_INCREF(__pyx_v_smoothing_level_constant);
   __Pyx_GIVEREF(__pyx_v_smoothing_level_constant);
   PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_v_smoothing_level_constant);
-  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_9, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 504, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_9, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 512, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
@@ -12816,9 +12826,9 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __pyx_t_9 = __pyx_t_6; __Pyx_INCREF(__pyx_t_9); __pyx_t_4 = 0;
     __pyx_t_5 = NULL;
   } else {
-    __pyx_t_4 = -1; __pyx_t_9 = PyObject_GetIter(__pyx_t_6); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 504, __pyx_L1_error)
+    __pyx_t_4 = -1; __pyx_t_9 = PyObject_GetIter(__pyx_t_6); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 512, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_5 = Py_TYPE(__pyx_t_9)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 504, __pyx_L1_error)
+    __pyx_t_5 = Py_TYPE(__pyx_t_9)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 512, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   for (;;) {
@@ -12826,17 +12836,17 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       if (likely(PyList_CheckExact(__pyx_t_9))) {
         if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_9)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_6 = PyList_GET_ITEM(__pyx_t_9, __pyx_t_4); __Pyx_INCREF(__pyx_t_6); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 504, __pyx_L1_error)
+        __pyx_t_6 = PyList_GET_ITEM(__pyx_t_9, __pyx_t_4); __Pyx_INCREF(__pyx_t_6); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 512, __pyx_L1_error)
         #else
-        __pyx_t_6 = PySequence_ITEM(__pyx_t_9, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 504, __pyx_L1_error)
+        __pyx_t_6 = PySequence_ITEM(__pyx_t_9, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 512, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         #endif
       } else {
         if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_9)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_6 = PyTuple_GET_ITEM(__pyx_t_9, __pyx_t_4); __Pyx_INCREF(__pyx_t_6); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 504, __pyx_L1_error)
+        __pyx_t_6 = PyTuple_GET_ITEM(__pyx_t_9, __pyx_t_4); __Pyx_INCREF(__pyx_t_6); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 512, __pyx_L1_error)
         #else
-        __pyx_t_6 = PySequence_ITEM(__pyx_t_9, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 504, __pyx_L1_error)
+        __pyx_t_6 = PySequence_ITEM(__pyx_t_9, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 512, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         #endif
       }
@@ -12846,7 +12856,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 504, __pyx_L1_error)
+          else __PYX_ERR(0, 512, __pyx_L1_error)
         }
         break;
       }
@@ -12854,20 +12864,20 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_6);
     __pyx_t_6 = 0;
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 504, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 512, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __pyx_v_ses_forecast = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":506
+  /* "supplychainpy/demand/_evo_algo.pyx":514
  *         ses_forecast = [i for i in forecast_demand.simple_exponential_smoothing(*(smoothing_level_constant,))]
  * 
  *         sum_squared_error = forecast_demand.sum_squared_errors(ses_forecast, smoothing_level_constant)             # <<<<<<<<<<<<<<
  * 
  *         standard_error = forecast_demand.standard_error(sum_squared_error, len(self.__orders),
  */
-  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_forecast_demand, __pyx_n_s_sum_squared_errors); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 506, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_forecast_demand, __pyx_n_s_sum_squared_errors); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 514, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __pyx_t_6 = NULL;
   __pyx_t_8 = 0;
@@ -12884,7 +12894,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_9)) {
     PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_v_ses_forecast, __pyx_v_smoothing_level_constant};
-    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_9, __pyx_temp+1-__pyx_t_8, 2+__pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 506, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_9, __pyx_temp+1-__pyx_t_8, 2+__pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 514, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else
@@ -12892,13 +12902,13 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_9)) {
     PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_v_ses_forecast, __pyx_v_smoothing_level_constant};
-    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_9, __pyx_temp+1-__pyx_t_8, 2+__pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 506, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_9, __pyx_temp+1-__pyx_t_8, 2+__pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 514, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else
   #endif
   {
-    __pyx_t_1 = PyTuple_New(2+__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 506, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(2+__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 514, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     if (__pyx_t_6) {
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -12909,7 +12919,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __Pyx_INCREF(__pyx_v_smoothing_level_constant);
     __Pyx_GIVEREF(__pyx_v_smoothing_level_constant);
     PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_8, __pyx_v_smoothing_level_constant);
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 506, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 514, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
@@ -12917,23 +12927,23 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __pyx_v_sum_squared_error = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":508
+  /* "supplychainpy/demand/_evo_algo.pyx":516
  *         sum_squared_error = forecast_demand.sum_squared_errors(ses_forecast, smoothing_level_constant)
  * 
  *         standard_error = forecast_demand.standard_error(sum_squared_error, len(self.__orders),             # <<<<<<<<<<<<<<
  *                                                         smoothing_level_constant)
  * 
  */
-  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_forecast_demand, __pyx_n_s_standard_error); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 508, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_forecast_demand, __pyx_n_s_standard_error); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 516, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 508, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 516, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_4 == -1)) __PYX_ERR(0, 508, __pyx_L1_error)
+  __pyx_t_4 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_4 == -1)) __PYX_ERR(0, 516, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 508, __pyx_L1_error)
+  __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 516, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "supplychainpy/demand/_evo_algo.pyx":509
+  /* "supplychainpy/demand/_evo_algo.pyx":517
  * 
  *         standard_error = forecast_demand.standard_error(sum_squared_error, len(self.__orders),
  *                                                         smoothing_level_constant)             # <<<<<<<<<<<<<<
@@ -12955,7 +12965,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_9)) {
     PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_v_sum_squared_error, __pyx_t_1, __pyx_v_smoothing_level_constant};
-    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_9, __pyx_temp+1-__pyx_t_8, 3+__pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 508, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_9, __pyx_temp+1-__pyx_t_8, 3+__pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 516, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -12964,14 +12974,14 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_9)) {
     PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_v_sum_squared_error, __pyx_t_1, __pyx_v_smoothing_level_constant};
-    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_9, __pyx_temp+1-__pyx_t_8, 3+__pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 508, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_9, __pyx_temp+1-__pyx_t_8, 3+__pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 516, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   } else
   #endif
   {
-    __pyx_t_7 = PyTuple_New(3+__pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 508, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(3+__pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 516, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     if (__pyx_t_6) {
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -12985,7 +12995,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __Pyx_GIVEREF(__pyx_v_smoothing_level_constant);
     PyTuple_SET_ITEM(__pyx_t_7, 2+__pyx_t_8, __pyx_v_smoothing_level_constant);
     __pyx_t_1 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 508, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 516, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
@@ -12993,89 +13003,92 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __pyx_v_standard_error = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":511
+  /* "supplychainpy/demand/_evo_algo.pyx":519
  *                                                         smoothing_level_constant)
  * 
  *         evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=self.__orders,             # <<<<<<<<<<<<<<
  *                                                          average_order=avg_orders,
  *                                                          smoothing_level=smoothing_level_constant,
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_OptimiseSmoothingLevelGeneticAlg_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 511, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_OptimiseSmoothingLevelGeneticAlg_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 519, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_9 = PyDict_New(); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 511, __pyx_L1_error)
+  __pyx_t_9 = PyDict_New(); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 519, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 511, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_OptimiseSmoothingLevelGeneticAl); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 519, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_orders, __pyx_t_7) < 0) __PYX_ERR(0, 511, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_orders, __pyx_t_7) < 0) __PYX_ERR(0, 519, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":512
+  /* "supplychainpy/demand/_evo_algo.pyx":520
  * 
  *         evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=self.__orders,
  *                                                          average_order=avg_orders,             # <<<<<<<<<<<<<<
  *                                                          smoothing_level=smoothing_level_constant,
  *                                                          population_size=population_size,
  */
-  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_average_order, __pyx_v_avg_orders) < 0) __PYX_ERR(0, 511, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_average_order, __pyx_v_avg_orders) < 0) __PYX_ERR(0, 519, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":513
+  /* "supplychainpy/demand/_evo_algo.pyx":521
  *         evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=self.__orders,
  *                                                          average_order=avg_orders,
  *                                                          smoothing_level=smoothing_level_constant,             # <<<<<<<<<<<<<<
  *                                                          population_size=population_size,
  *                                                          standard_error=standard_error,
  */
-  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_smoothing_level, __pyx_v_smoothing_level_constant) < 0) __PYX_ERR(0, 511, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_smoothing_level, __pyx_v_smoothing_level_constant) < 0) __PYX_ERR(0, 519, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":514
+  /* "supplychainpy/demand/_evo_algo.pyx":522
  *                                                          average_order=avg_orders,
  *                                                          smoothing_level=smoothing_level_constant,
  *                                                          population_size=population_size,             # <<<<<<<<<<<<<<
  *                                                          standard_error=standard_error,
  *                                                          recombination_type=recombination_type)
  */
-  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_population_size, __pyx_v_population_size) < 0) __PYX_ERR(0, 511, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_population_size); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 522, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_population_size, __pyx_t_7) < 0) __PYX_ERR(0, 519, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":515
+  /* "supplychainpy/demand/_evo_algo.pyx":523
  *                                                          smoothing_level=smoothing_level_constant,
  *                                                          population_size=population_size,
  *                                                          standard_error=standard_error,             # <<<<<<<<<<<<<<
  *                                                          recombination_type=recombination_type)
  * 
  */
-  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_standard_error, __pyx_v_standard_error) < 0) __PYX_ERR(0, 511, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_standard_error, __pyx_v_standard_error) < 0) __PYX_ERR(0, 519, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":516
+  /* "supplychainpy/demand/_evo_algo.pyx":524
  *                                                          population_size=population_size,
  *                                                          standard_error=standard_error,
  *                                                          recombination_type=recombination_type)             # <<<<<<<<<<<<<<
  * 
  *         optimal_alpha = evo_mod.initial_population()
  */
-  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_recombination_type, __pyx_v_recombination_type) < 0) __PYX_ERR(0, 511, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_recombination_type, __pyx_v_recombination_type) < 0) __PYX_ERR(0, 519, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":511
+  /* "supplychainpy/demand/_evo_algo.pyx":519
  *                                                         smoothing_level_constant)
  * 
  *         evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=self.__orders,             # <<<<<<<<<<<<<<
  *                                                          average_order=avg_orders,
  *                                                          smoothing_level=smoothing_level_constant,
  */
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 511, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 519, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __pyx_v_evo_mod = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":518
+  /* "supplychainpy/demand/_evo_algo.pyx":526
  *                                                          recombination_type=recombination_type)
  * 
  *         optimal_alpha = evo_mod.initial_population()             # <<<<<<<<<<<<<<
  * 
  *         optimal_ses_forecast = [i for i in forecast_demand.simple_exponential_smoothing(optimal_alpha[1])]
  */
-  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_evo_mod, __pyx_n_s_initial_population); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 518, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_evo_mod, __pyx_n_s_initial_population); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 526, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __pyx_t_2 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_9))) {
@@ -13088,28 +13101,28 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
   }
   if (__pyx_t_2) {
-    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 518, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 526, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else {
-    __pyx_t_7 = __Pyx_PyObject_CallNoArg(__pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 518, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_CallNoArg(__pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 526, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __pyx_v_optimal_alpha = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":520
+  /* "supplychainpy/demand/_evo_algo.pyx":528
  *         optimal_alpha = evo_mod.initial_population()
  * 
  *         optimal_ses_forecast = [i for i in forecast_demand.simple_exponential_smoothing(optimal_alpha[1])]             # <<<<<<<<<<<<<<
  * 
  *         ape = LinearRegression(optimal_ses_forecast)
  */
-  __pyx_t_7 = PyList_New(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 520, __pyx_L1_error)
+  __pyx_t_7 = PyList_New(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 528, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_forecast_demand, __pyx_n_s_simple_exponential_smoothing); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 520, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_forecast_demand, __pyx_n_s_simple_exponential_smoothing); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 528, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_optimal_alpha, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 520, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_optimal_alpha, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 528, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_6 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -13122,14 +13135,14 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
   }
   if (!__pyx_t_6) {
-    __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 520, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 528, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_GOTREF(__pyx_t_9);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_1};
-      __pyx_t_9 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 520, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 528, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -13138,20 +13151,20 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_1};
-      __pyx_t_9 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 520, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 528, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else
     #endif
     {
-      __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 520, __pyx_L1_error)
+      __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 528, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_6); __pyx_t_6 = NULL;
       __Pyx_GIVEREF(__pyx_t_1);
       PyTuple_SET_ITEM(__pyx_t_10, 0+1, __pyx_t_1);
       __pyx_t_1 = 0;
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_10, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 520, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_10, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 528, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     }
@@ -13161,9 +13174,9 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     __pyx_t_2 = __pyx_t_9; __Pyx_INCREF(__pyx_t_2); __pyx_t_4 = 0;
     __pyx_t_5 = NULL;
   } else {
-    __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_9); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 520, __pyx_L1_error)
+    __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_9); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 528, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 520, __pyx_L1_error)
+    __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 528, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   for (;;) {
@@ -13171,17 +13184,17 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_9 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_9); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 520, __pyx_L1_error)
+        __pyx_t_9 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_9); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 528, __pyx_L1_error)
         #else
-        __pyx_t_9 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 520, __pyx_L1_error)
+        __pyx_t_9 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 528, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         #endif
       } else {
         if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_9 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_9); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 520, __pyx_L1_error)
+        __pyx_t_9 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_9); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 528, __pyx_L1_error)
         #else
-        __pyx_t_9 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 520, __pyx_L1_error)
+        __pyx_t_9 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 528, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         #endif
       }
@@ -13191,7 +13204,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 520, __pyx_L1_error)
+          else __PYX_ERR(0, 528, __pyx_L1_error)
         }
         break;
       }
@@ -13199,20 +13212,20 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_9);
     __pyx_t_9 = 0;
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_7, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 520, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_7, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 528, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_optimal_ses_forecast = ((PyObject*)__pyx_t_7);
   __pyx_t_7 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":522
+  /* "supplychainpy/demand/_evo_algo.pyx":530
  *         optimal_ses_forecast = [i for i in forecast_demand.simple_exponential_smoothing(optimal_alpha[1])]
  * 
  *         ape = LinearRegression(optimal_ses_forecast)             # <<<<<<<<<<<<<<
  *         mape = forecast_demand.mean_aboslute_percentage_error_opt(optimal_ses_forecast)
  *         stats = ape.least_squared_error()
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_LinearRegression); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 522, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_LinearRegression); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 530, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_9 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
@@ -13225,13 +13238,13 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
   }
   if (!__pyx_t_9) {
-    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_optimal_ses_forecast); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 522, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_optimal_ses_forecast); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 530, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_9, __pyx_v_optimal_ses_forecast};
-      __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 522, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 530, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
       __Pyx_GOTREF(__pyx_t_7);
     } else
@@ -13239,19 +13252,19 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_9, __pyx_v_optimal_ses_forecast};
-      __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 522, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 530, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
       __Pyx_GOTREF(__pyx_t_7);
     } else
     #endif
     {
-      __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 522, __pyx_L1_error)
+      __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 530, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_9); __pyx_t_9 = NULL;
       __Pyx_INCREF(__pyx_v_optimal_ses_forecast);
       __Pyx_GIVEREF(__pyx_v_optimal_ses_forecast);
       PyTuple_SET_ITEM(__pyx_t_10, 0+1, __pyx_v_optimal_ses_forecast);
-      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_10, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 522, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_10, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 530, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     }
@@ -13260,14 +13273,14 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __pyx_v_ape = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":523
+  /* "supplychainpy/demand/_evo_algo.pyx":531
  * 
  *         ape = LinearRegression(optimal_ses_forecast)
  *         mape = forecast_demand.mean_aboslute_percentage_error_opt(optimal_ses_forecast)             # <<<<<<<<<<<<<<
  *         stats = ape.least_squared_error()
  *         simple_forecast = forecast_demand.simple_exponential_smoothing_forecast(forecast=optimal_ses_forecast,
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_forecast_demand, __pyx_n_s_mean_aboslute_percentage_error_o); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 523, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_forecast_demand, __pyx_n_s_mean_aboslute_percentage_error_o); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 531, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_10 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -13280,13 +13293,13 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
   }
   if (!__pyx_t_10) {
-    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_optimal_ses_forecast); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 523, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_optimal_ses_forecast); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 531, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_10, __pyx_v_optimal_ses_forecast};
-      __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 523, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 531, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
       __Pyx_GOTREF(__pyx_t_7);
     } else
@@ -13294,19 +13307,19 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_10, __pyx_v_optimal_ses_forecast};
-      __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 523, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 531, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
       __Pyx_GOTREF(__pyx_t_7);
     } else
     #endif
     {
-      __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 523, __pyx_L1_error)
+      __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 531, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_10); __pyx_t_10 = NULL;
       __Pyx_INCREF(__pyx_v_optimal_ses_forecast);
       __Pyx_GIVEREF(__pyx_v_optimal_ses_forecast);
       PyTuple_SET_ITEM(__pyx_t_9, 0+1, __pyx_v_optimal_ses_forecast);
-      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_9, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 523, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_9, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 531, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     }
@@ -13315,14 +13328,14 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
   __pyx_v_mape = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":524
+  /* "supplychainpy/demand/_evo_algo.pyx":532
  *         ape = LinearRegression(optimal_ses_forecast)
  *         mape = forecast_demand.mean_aboslute_percentage_error_opt(optimal_ses_forecast)
  *         stats = ape.least_squared_error()             # <<<<<<<<<<<<<<
  *         simple_forecast = forecast_demand.simple_exponential_smoothing_forecast(forecast=optimal_ses_forecast,
  *                                                                                 forecast_length=forecast_length)
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_ape, __pyx_n_s_least_squared_error); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 524, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_ape, __pyx_n_s_least_squared_error); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 532, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_9 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -13335,72 +13348,75 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
   }
   if (__pyx_t_9) {
-    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 524, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 532, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   } else {
-    __pyx_t_7 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 524, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 532, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_stats = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":525
+  /* "supplychainpy/demand/_evo_algo.pyx":533
  *         mape = forecast_demand.mean_aboslute_percentage_error_opt(optimal_ses_forecast)
  *         stats = ape.least_squared_error()
  *         simple_forecast = forecast_demand.simple_exponential_smoothing_forecast(forecast=optimal_ses_forecast,             # <<<<<<<<<<<<<<
  *                                                                                 forecast_length=forecast_length)
  *         regression = {
  */
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_forecast_demand, __pyx_n_s_simple_exponential_smoothing_for); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 525, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_forecast_demand, __pyx_n_s_simple_exponential_smoothing_for); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 533, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 525, __pyx_L1_error)
+  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 533, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_forecast, __pyx_v_optimal_ses_forecast) < 0) __PYX_ERR(0, 525, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_forecast, __pyx_v_optimal_ses_forecast) < 0) __PYX_ERR(0, 533, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":526
+  /* "supplychainpy/demand/_evo_algo.pyx":534
  *         stats = ape.least_squared_error()
  *         simple_forecast = forecast_demand.simple_exponential_smoothing_forecast(forecast=optimal_ses_forecast,
  *                                                                                 forecast_length=forecast_length)             # <<<<<<<<<<<<<<
  *         regression = {
  *             'regression': [(stats.get('slope') * i) + stats.get('intercept') for i in range(0, 12)]}
  */
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_forecast_length, __pyx_v_forecast_length) < 0) __PYX_ERR(0, 525, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_forecast_length); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 534, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_forecast_length, __pyx_t_9) < 0) __PYX_ERR(0, 533, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":525
+  /* "supplychainpy/demand/_evo_algo.pyx":533
  *         mape = forecast_demand.mean_aboslute_percentage_error_opt(optimal_ses_forecast)
  *         stats = ape.least_squared_error()
  *         simple_forecast = forecast_demand.simple_exponential_smoothing_forecast(forecast=optimal_ses_forecast,             # <<<<<<<<<<<<<<
  *                                                                                 forecast_length=forecast_length)
  *         regression = {
  */
-  __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 525, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 533, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_simple_forecast = __pyx_t_9;
   __pyx_t_9 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":528
+  /* "supplychainpy/demand/_evo_algo.pyx":536
  *                                                                                 forecast_length=forecast_length)
  *         regression = {
  *             'regression': [(stats.get('slope') * i) + stats.get('intercept') for i in range(0, 12)]}             # <<<<<<<<<<<<<<
  *         return {'forecast_breakdown': optimal_ses_forecast, 'mape': mape, 'statistics': stats,
  *                 'forecast': simple_forecast, 'optimal_alpha': optimal_alpha[1], 'standard_error': standard_error,
  */
-  __pyx_t_9 = PyDict_New(); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 528, __pyx_L1_error)
+  __pyx_t_9 = PyDict_New(); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 536, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 528, __pyx_L1_error)
+  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 536, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_tuple__8, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 528, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_tuple__8, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 536, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   if (likely(PyList_CheckExact(__pyx_t_7)) || PyTuple_CheckExact(__pyx_t_7)) {
     __pyx_t_10 = __pyx_t_7; __Pyx_INCREF(__pyx_t_10); __pyx_t_4 = 0;
     __pyx_t_5 = NULL;
   } else {
-    __pyx_t_4 = -1; __pyx_t_10 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 528, __pyx_L1_error)
+    __pyx_t_4 = -1; __pyx_t_10 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 536, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_5 = Py_TYPE(__pyx_t_10)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 528, __pyx_L1_error)
+    __pyx_t_5 = Py_TYPE(__pyx_t_10)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 536, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   for (;;) {
@@ -13408,17 +13424,17 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       if (likely(PyList_CheckExact(__pyx_t_10))) {
         if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_10)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_7 = PyList_GET_ITEM(__pyx_t_10, __pyx_t_4); __Pyx_INCREF(__pyx_t_7); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 528, __pyx_L1_error)
+        __pyx_t_7 = PyList_GET_ITEM(__pyx_t_10, __pyx_t_4); __Pyx_INCREF(__pyx_t_7); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 536, __pyx_L1_error)
         #else
-        __pyx_t_7 = PySequence_ITEM(__pyx_t_10, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 528, __pyx_L1_error)
+        __pyx_t_7 = PySequence_ITEM(__pyx_t_10, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 536, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         #endif
       } else {
         if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_10)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_7 = PyTuple_GET_ITEM(__pyx_t_10, __pyx_t_4); __Pyx_INCREF(__pyx_t_7); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 528, __pyx_L1_error)
+        __pyx_t_7 = PyTuple_GET_ITEM(__pyx_t_10, __pyx_t_4); __Pyx_INCREF(__pyx_t_7); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 536, __pyx_L1_error)
         #else
-        __pyx_t_7 = PySequence_ITEM(__pyx_t_10, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 528, __pyx_L1_error)
+        __pyx_t_7 = PySequence_ITEM(__pyx_t_10, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 536, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         #endif
       }
@@ -13428,7 +13444,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 528, __pyx_L1_error)
+          else __PYX_ERR(0, 536, __pyx_L1_error)
         }
         break;
       }
@@ -13436,33 +13452,33 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_7);
     __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_stats, __pyx_n_s_get); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 528, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_stats, __pyx_n_s_get); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 536, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 528, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 536, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyNumber_Multiply(__pyx_t_1, __pyx_v_i); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 528, __pyx_L1_error)
+    __pyx_t_7 = PyNumber_Multiply(__pyx_t_1, __pyx_v_i); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 536, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_stats, __pyx_n_s_get); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 528, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_stats, __pyx_n_s_get); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 536, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__10, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 528, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__10, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 536, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_Add(__pyx_t_7, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 528, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Add(__pyx_t_7, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 536, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_1))) __PYX_ERR(0, 528, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_1))) __PYX_ERR(0, 536, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_regression, __pyx_t_2) < 0) __PYX_ERR(0, 528, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_regression, __pyx_t_2) < 0) __PYX_ERR(0, 536, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_regression = ((PyObject*)__pyx_t_9);
   __pyx_t_9 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":529
+  /* "supplychainpy/demand/_evo_algo.pyx":537
  *         regression = {
  *             'regression': [(stats.get('slope') * i) + stats.get('intercept') for i in range(0, 12)]}
  *         return {'forecast_breakdown': optimal_ses_forecast, 'mape': mape, 'statistics': stats,             # <<<<<<<<<<<<<<
@@ -13470,41 +13486,41 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
  *                 'regression': [i for i in regression.get('regression')]}
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_9 = PyDict_New(); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 529, __pyx_L1_error)
+  __pyx_t_9 = PyDict_New(); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 537, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_forecast_breakdown, __pyx_v_optimal_ses_forecast) < 0) __PYX_ERR(0, 529, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_mape, __pyx_v_mape) < 0) __PYX_ERR(0, 529, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_statistics, __pyx_v_stats) < 0) __PYX_ERR(0, 529, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_forecast_breakdown, __pyx_v_optimal_ses_forecast) < 0) __PYX_ERR(0, 537, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_mape, __pyx_v_mape) < 0) __PYX_ERR(0, 537, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_statistics, __pyx_v_stats) < 0) __PYX_ERR(0, 537, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":530
+  /* "supplychainpy/demand/_evo_algo.pyx":538
  *             'regression': [(stats.get('slope') * i) + stats.get('intercept') for i in range(0, 12)]}
  *         return {'forecast_breakdown': optimal_ses_forecast, 'mape': mape, 'statistics': stats,
  *                 'forecast': simple_forecast, 'optimal_alpha': optimal_alpha[1], 'standard_error': standard_error,             # <<<<<<<<<<<<<<
  *                 'regression': [i for i in regression.get('regression')]}
  */
-  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_forecast, __pyx_v_simple_forecast) < 0) __PYX_ERR(0, 529, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_optimal_alpha, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 530, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_forecast, __pyx_v_simple_forecast) < 0) __PYX_ERR(0, 537, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_optimal_alpha, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 538, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_optimal_alpha, __pyx_t_2) < 0) __PYX_ERR(0, 529, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_optimal_alpha, __pyx_t_2) < 0) __PYX_ERR(0, 537, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_standard_error, __pyx_v_standard_error) < 0) __PYX_ERR(0, 529, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_standard_error, __pyx_v_standard_error) < 0) __PYX_ERR(0, 537, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":531
+  /* "supplychainpy/demand/_evo_algo.pyx":539
  *         return {'forecast_breakdown': optimal_ses_forecast, 'mape': mape, 'statistics': stats,
  *                 'forecast': simple_forecast, 'optimal_alpha': optimal_alpha[1], 'standard_error': standard_error,
  *                 'regression': [i for i in regression.get('regression')]}             # <<<<<<<<<<<<<<
  */
-  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 531, __pyx_L1_error)
+  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 539, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_10 = __Pyx_PyDict_GetItemDefault(__pyx_v_regression, __pyx_n_s_regression, Py_None); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 531, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyDict_GetItemDefault(__pyx_v_regression, __pyx_n_s_regression, Py_None); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 539, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   if (likely(PyList_CheckExact(__pyx_t_10)) || PyTuple_CheckExact(__pyx_t_10)) {
     __pyx_t_1 = __pyx_t_10; __Pyx_INCREF(__pyx_t_1); __pyx_t_4 = 0;
     __pyx_t_5 = NULL;
   } else {
-    __pyx_t_4 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 531, __pyx_L1_error)
+    __pyx_t_4 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 539, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 531, __pyx_L1_error)
+    __pyx_t_5 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 539, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   for (;;) {
@@ -13512,17 +13528,17 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_10 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_4); __Pyx_INCREF(__pyx_t_10); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 531, __pyx_L1_error)
+        __pyx_t_10 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_4); __Pyx_INCREF(__pyx_t_10); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 539, __pyx_L1_error)
         #else
-        __pyx_t_10 = PySequence_ITEM(__pyx_t_1, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 531, __pyx_L1_error)
+        __pyx_t_10 = PySequence_ITEM(__pyx_t_1, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 539, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         #endif
       } else {
         if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_10 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_4); __Pyx_INCREF(__pyx_t_10); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 531, __pyx_L1_error)
+        __pyx_t_10 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_4); __Pyx_INCREF(__pyx_t_10); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 539, __pyx_L1_error)
         #else
-        __pyx_t_10 = PySequence_ITEM(__pyx_t_1, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 531, __pyx_L1_error)
+        __pyx_t_10 = PySequence_ITEM(__pyx_t_1, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 539, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         #endif
       }
@@ -13532,7 +13548,7 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 531, __pyx_L1_error)
+          else __PYX_ERR(0, 539, __pyx_L1_error)
         }
         break;
       }
@@ -13540,21 +13556,21 @@ static PyObject *__pyx_pf_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothing
     }
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_10);
     __pyx_t_10 = 0;
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 531, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_v_i))) __PYX_ERR(0, 539, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_regression, __pyx_t_2) < 0) __PYX_ERR(0, 529, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_regression, __pyx_t_2) < 0) __PYX_ERR(0, 537, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_r = __pyx_t_9;
   __pyx_t_9 = 0;
   goto __pyx_L0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":477
+  /* "supplychainpy/demand/_evo_algo.pyx":485
  *         pass
  * 
- *     def simple_exponential_smoothing_evo(self, smoothing_level_constant: float, initial_estimate_period: int,             # <<<<<<<<<<<<<<
- *                                          recombination_type: str = 'single_point', population_size: int = 10,
- *                                          forecast_length: int = 5) -> dict:
+ *     def simple_exponential_smoothing_evo(self, smoothing_level_constant, initial_estimate_period,             # <<<<<<<<<<<<<<
+ *                                          recombination_type = 'single_point', int population_size = 10,
+ *                                          int forecast_length = 5):
  */
 
   /* function exit code */
@@ -14428,7 +14444,7 @@ static int __pyx_tp_clear_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_
   p->__pyx_v_individual_type = Py_None; Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->__pyx_v_population);
-  p->__pyx_v_population = Py_None; Py_INCREF(Py_None);
+  p->__pyx_v_population = ((PyObject*)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->__pyx_t_0);
   p->__pyx_t_0 = Py_None; Py_INCREF(Py_None);
@@ -14564,7 +14580,7 @@ static int __pyx_tp_clear_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_
   p->__pyx_v_parent = Py_None; Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->__pyx_v_population);
-  p->__pyx_v_population = Py_None; Py_INCREF(Py_None);
+  p->__pyx_v_population = ((PyObject*)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->__pyx_v_self);
   p->__pyx_v_self = Py_None; Py_INCREF(Py_None);
@@ -14959,7 +14975,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_regression, __pyx_k_regression, sizeof(__pyx_k_regression), 0, 0, 1, 1},
   {&__pyx_n_s_repr, __pyx_k_repr, sizeof(__pyx_k_repr), 0, 0, 1, 1},
   {&__pyx_n_s_reproduce, __pyx_k_reproduce, sizeof(__pyx_k_reproduce), 0, 0, 1, 1},
-  {&__pyx_n_s_return, __pyx_k_return, sizeof(__pyx_k_return), 0, 0, 1, 1},
   {&__pyx_n_s_round, __pyx_k_round, sizeof(__pyx_k_round), 0, 0, 1, 1},
   {&__pyx_n_s_run_exponential_smoothing_forec, __pyx_k_run_exponential_smoothing_forec, sizeof(__pyx_k_run_exponential_smoothing_forec), 0, 0, 1, 1},
   {&__pyx_n_s_run_holts_trend_corrected_expon, __pyx_k_run_holts_trend_corrected_expon, sizeof(__pyx_k_run_holts_trend_corrected_expon), 0, 0, 1, 1},
@@ -15020,9 +15035,9 @@ static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_round = __Pyx_GetBuiltinName(__pyx_n_s_round); if (!__pyx_builtin_round) __PYX_ERR(0, 108, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 147, __pyx_L1_error)
   __pyx_builtin_OSError = __Pyx_GetBuiltinName(__pyx_n_s_OSError); if (!__pyx_builtin_OSError) __PYX_ERR(0, 212, __pyx_L1_error)
-  __pyx_builtin_min = __Pyx_GetBuiltinName(__pyx_n_s_min); if (!__pyx_builtin_min) __PYX_ERR(0, 337, __pyx_L1_error)
-  __pyx_builtin_zip = __Pyx_GetBuiltinName(__pyx_n_s_zip); if (!__pyx_builtin_zip) __PYX_ERR(0, 337, __pyx_L1_error)
-  __pyx_builtin_sum = __Pyx_GetBuiltinName(__pyx_n_s_sum); if (!__pyx_builtin_sum) __PYX_ERR(0, 373, __pyx_L1_error)
+  __pyx_builtin_min = __Pyx_GetBuiltinName(__pyx_n_s_min); if (!__pyx_builtin_min) __PYX_ERR(0, 345, __pyx_L1_error)
+  __pyx_builtin_zip = __Pyx_GetBuiltinName(__pyx_n_s_zip); if (!__pyx_builtin_zip) __PYX_ERR(0, 345, __pyx_L1_error)
+  __pyx_builtin_sum = __Pyx_GetBuiltinName(__pyx_n_s_sum); if (!__pyx_builtin_sum) __PYX_ERR(0, 381, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -15066,42 +15081,42 @@ static int __Pyx_InitCachedConstants(void) {
  */
   __pyx_codeobj__5 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_mutate, 235, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__5)) __PYX_ERR(0, 235, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":423
+  /* "supplychainpy/demand/_evo_algo.pyx":431
  *         for sm_lvl in individual:
  *             p = [i for i in f.holts_trend_corrected_exponential_smoothing(alpha=sm_lvl[0], gamma=sm_lvl[1],
  *                                                                           intercept=log_stats.get('intercept'),             # <<<<<<<<<<<<<<
  *                                                                           slope=log_stats.get('slope'))]
  *             # print(p)
  */
-  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_n_s_intercept); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 423, __pyx_L1_error)
+  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_n_s_intercept); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 431, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "supplychainpy/demand/_evo_algo.pyx":424
+  /* "supplychainpy/demand/_evo_algo.pyx":432
  *             p = [i for i in f.holts_trend_corrected_exponential_smoothing(alpha=sm_lvl[0], gamma=sm_lvl[1],
  *                                                                           intercept=log_stats.get('intercept'),
  *                                                                           slope=log_stats.get('slope'))]             # <<<<<<<<<<<<<<
  *             # print(p)
  *             holts_trend_corrected_smoothing.append(p)
  */
-  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_n_s_slope); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 424, __pyx_L1_error)
+  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_n_s_slope); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 432, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
 
-  /* "supplychainpy/demand/_evo_algo.pyx":528
+  /* "supplychainpy/demand/_evo_algo.pyx":536
  *                                                                                 forecast_length=forecast_length)
  *         regression = {
  *             'regression': [(stats.get('slope') * i) + stats.get('intercept') for i in range(0, 12)]}             # <<<<<<<<<<<<<<
  *         return {'forecast_breakdown': optimal_ses_forecast, 'mape': mape, 'statistics': stats,
  *                 'forecast': simple_forecast, 'optimal_alpha': optimal_alpha[1], 'standard_error': standard_error,
  */
-  __pyx_tuple__8 = PyTuple_Pack(2, __pyx_int_0, __pyx_int_12); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 528, __pyx_L1_error)
+  __pyx_tuple__8 = PyTuple_Pack(2, __pyx_int_0, __pyx_int_12); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 536, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
-  __pyx_tuple__9 = PyTuple_Pack(1, __pyx_n_s_slope); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 528, __pyx_L1_error)
+  __pyx_tuple__9 = PyTuple_Pack(1, __pyx_n_s_slope); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 536, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
-  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_n_s_intercept); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 528, __pyx_L1_error)
+  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_n_s_intercept); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 536, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
 
@@ -15109,16 +15124,13 @@ static int __Pyx_InitCachedConstants(void) {
  *     _genome = 0
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
- *             self, name: str='offspring', overide: bool=False, gene_count: int=12,
- *             forecast_type: str='ses'
+ *             self, name ='offspring', overide=False, int gene_count =12,
+ *             forecast_type ='ses'
  */
   __pyx_tuple__11 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_name, __pyx_n_s_overide, __pyx_n_s_gene_count, __pyx_n_s_forecast_type); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__11);
   __Pyx_GIVEREF(__pyx_tuple__11);
   __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(5, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_init, 9, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 9, __pyx_L1_error)
-  __pyx_tuple__13 = PyTuple_Pack(4, ((PyObject*)__pyx_n_s_offspring), ((PyObject *)Py_False), ((PyObject *)__pyx_int_12), ((PyObject*)__pyx_n_s_ses)); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 9, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__13);
-  __Pyx_GIVEREF(__pyx_tuple__13);
 
   /* "supplychainpy/demand/_evo_algo.pyx":20
  *             self._genome = self.__genome_generator()
@@ -15127,34 +15139,34 @@ static int __Pyx_InitCachedConstants(void) {
  *         return '{}: {}'.format(self._name, self._genome)
  * 
  */
-  __pyx_tuple__14 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(0, 20, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__14);
-  __Pyx_GIVEREF(__pyx_tuple__14);
-  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__14, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_repr, 20, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_tuple__13 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__13);
+  __Pyx_GIVEREF(__pyx_tuple__13);
+  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_repr, 20, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 20, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":24
  * 
  *     @property
- *     def gene_count(self) -> int:             # <<<<<<<<<<<<<<
+ *     def gene_count(self):             # <<<<<<<<<<<<<<
  *         return self.gene_count
  * 
  */
-  __pyx_tuple__16 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(0, 24, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__16);
-  __Pyx_GIVEREF(__pyx_tuple__16);
-  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_gene_count, 24, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_tuple__15 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__15);
+  __Pyx_GIVEREF(__pyx_tuple__15);
+  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_gene_count, 24, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 24, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":28
  * 
  *     @gene_count.setter
- *     def gene_count(self, value: int):             # <<<<<<<<<<<<<<
+ *     def gene_count(self, int value):             # <<<<<<<<<<<<<<
  *         self._gene_count = value
  * 
  */
-  __pyx_tuple__18 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(0, 28, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__18);
-  __Pyx_GIVEREF(__pyx_tuple__18);
-  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_gene_count, 28, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(0, 28, __pyx_L1_error)
+  __pyx_tuple__17 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(0, 28, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__17);
+  __Pyx_GIVEREF(__pyx_tuple__17);
+  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_gene_count, 28, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(0, 28, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":32
  * 
@@ -15163,22 +15175,22 @@ static int __Pyx_InitCachedConstants(void) {
  *         return self._genome
  * 
  */
-  __pyx_tuple__20 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 32, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__20);
-  __Pyx_GIVEREF(__pyx_tuple__20);
-  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_genome_2, 32, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(0, 32, __pyx_L1_error)
+  __pyx_tuple__19 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(0, 32, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__19);
+  __Pyx_GIVEREF(__pyx_tuple__19);
+  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_genome_2, 32, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) __PYX_ERR(0, 32, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":36
  * 
  *     @genome.setter
- *     def genome(self, val: tuple):             # <<<<<<<<<<<<<<
+ *     def genome(self, tuple val):             # <<<<<<<<<<<<<<
  *         self._genome = val
  * 
  */
-  __pyx_tuple__22 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_val); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 36, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__22);
-  __Pyx_GIVEREF(__pyx_tuple__22);
-  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_genome_2, 36, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_tuple__21 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_val); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__21);
+  __Pyx_GIVEREF(__pyx_tuple__21);
+  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__21, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_genome_2, 36, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(0, 36, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":40
  * 
@@ -15187,10 +15199,10 @@ static int __Pyx_InitCachedConstants(void) {
  *         return self._name
  * 
  */
-  __pyx_tuple__24 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 40, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__24);
-  __Pyx_GIVEREF(__pyx_tuple__24);
-  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_name, 40, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __pyx_tuple__23 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__23);
+  __Pyx_GIVEREF(__pyx_tuple__23);
+  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_name, 40, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 40, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":43
  *         return self._name
@@ -15199,10 +15211,10 @@ static int __Pyx_InitCachedConstants(void) {
  *         genome = ()
  *         if self._forecast_type == 'ses':
  */
-  __pyx_tuple__26 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_genome_2, __pyx_n_s_i); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(0, 43, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__26);
-  __Pyx_GIVEREF(__pyx_tuple__26);
-  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_genome_generator, 43, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(0, 43, __pyx_L1_error)
+  __pyx_tuple__25 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_genome_2, __pyx_n_s_i); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 43, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__25);
+  __Pyx_GIVEREF(__pyx_tuple__25);
+  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_genome_generator, 43, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 43, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":57
  * 
@@ -15211,9 +15223,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *     def __init__(self, list individuals, double mutation_probability = 0.2):
  */
-  __pyx_tuple__28 = PyTuple_Pack(3, __pyx_n_s_single_point, __pyx_n_s_two_point, __pyx_n_s_uniform); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 57, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__28);
-  __Pyx_GIVEREF(__pyx_tuple__28);
+  __pyx_tuple__27 = PyTuple_Pack(3, __pyx_n_s_single_point, __pyx_n_s_two_point, __pyx_n_s_uniform); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__27);
+  __Pyx_GIVEREF(__pyx_tuple__27);
 
   /* "supplychainpy/demand/_evo_algo.pyx":59
  *     _recombination_type = ('single_point', 'two_point', 'uniform')
@@ -15222,37 +15234,37 @@ static int __Pyx_InitCachedConstants(void) {
  *         self.individuals = individuals
  *         self.mutation_probability = mutation_probability
  */
-  __pyx_tuple__29 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_individuals, __pyx_n_s_mutation_probability); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 59, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__29);
-  __Pyx_GIVEREF(__pyx_tuple__29);
-  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_init, 59, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 59, __pyx_L1_error)
+  __pyx_tuple__28 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_individuals, __pyx_n_s_mutation_probability); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 59, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__28);
+  __Pyx_GIVEREF(__pyx_tuple__28);
+  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_init, 59, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(0, 59, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":64
  *         #print("initialising {}".format(id(self)))
  * 
- *     def reproduce(self, recombination_type: str = 'single_point'):             # <<<<<<<<<<<<<<
+ *     def reproduce(self, recombination_type = 'single_point'):             # <<<<<<<<<<<<<<
  *         """ Coordinates the reproduction of two individuals, using one of three recombination methods 'single_point,
  *         two_point or uniform'.
  */
-  __pyx_tuple__31 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_recombination_type, __pyx_n_s_i); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(0, 64, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__31);
-  __Pyx_GIVEREF(__pyx_tuple__31);
-  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_reproduce, 64, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 64, __pyx_L1_error)
-  __pyx_tuple__33 = PyTuple_Pack(1, ((PyObject*)__pyx_n_s_single_point)); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 64, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__33);
-  __Pyx_GIVEREF(__pyx_tuple__33);
+  __pyx_tuple__30 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_recombination_type, __pyx_n_s_i); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(0, 64, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__30);
+  __Pyx_GIVEREF(__pyx_tuple__30);
+  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_reproduce, 64, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 64, __pyx_L1_error)
+  __pyx_tuple__32 = PyTuple_Pack(1, ((PyObject*)__pyx_n_s_single_point)); if (unlikely(!__pyx_tuple__32)) __PYX_ERR(0, 64, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__32);
+  __Pyx_GIVEREF(__pyx_tuple__32);
 
   /* "supplychainpy/demand/_evo_algo.pyx":85
  *             yield [i for i in self._uniform_crossover_recombination()][0]
  * 
- *     def _single_point_crossover_recombination(self) -> object:             # <<<<<<<<<<<<<<
+ *     def _single_point_crossover_recombination(self):             # <<<<<<<<<<<<<<
  *         """ Selects genes from the parent to crossover based on one point along the chromosome.
  * 
  */
-  __pyx_tuple__34 = PyTuple_Pack(12, __pyx_n_s_self, __pyx_n_s_genome_count, __pyx_n_s_new_individual, __pyx_n_s_new_individual_two, __pyx_n_s_mutation_count, __pyx_n_s_mutation_index, __pyx_n_s_index, __pyx_n_s_individual, __pyx_n_s_key, __pyx_n_s_value, __pyx_n_s_population_allele_count, __pyx_n_s_number_of_mutations_allowed); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(0, 85, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__34);
-  __Pyx_GIVEREF(__pyx_tuple__34);
-  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(1, 0, 12, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_single_point_crossover_recombin, 85, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_tuple__33 = PyTuple_Pack(12, __pyx_n_s_self, __pyx_n_s_genome_count, __pyx_n_s_new_individual, __pyx_n_s_new_individual_two, __pyx_n_s_mutation_count, __pyx_n_s_mutation_index, __pyx_n_s_index, __pyx_n_s_individual, __pyx_n_s_key, __pyx_n_s_value, __pyx_n_s_population_allele_count, __pyx_n_s_number_of_mutations_allowed); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__33);
+  __Pyx_GIVEREF(__pyx_tuple__33);
+  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(1, 0, 12, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_single_point_crossover_recombin, 85, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) __PYX_ERR(0, 85, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":152
  *             print('Population Size is too small for effective genetic recombination and reproduction of offspring')
@@ -15261,10 +15273,10 @@ static int __Pyx_InitCachedConstants(void) {
  *         """ Selects genes from the parent to crossover based on two points along the chromosome.
  * 
  */
-  __pyx_tuple__36 = PyTuple_Pack(13, __pyx_n_s_self, __pyx_n_s_genome_count, __pyx_n_s_new_individual, __pyx_n_s_mutation_count, __pyx_n_s_mutation_index, __pyx_n_s_new_individual_two, __pyx_n_s_index, __pyx_n_s_individual, __pyx_n_s_key, __pyx_n_s_value, __pyx_n_s_population_allele_count, __pyx_n_s_number_of_mutations_allowed, __pyx_n_s_e); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(0, 152, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__36);
-  __Pyx_GIVEREF(__pyx_tuple__36);
-  __pyx_codeobj__37 = (PyObject*)__Pyx_PyCode_New(1, 0, 13, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__36, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_two_point_crossover_recombinati, 152, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__37)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_tuple__35 = PyTuple_Pack(13, __pyx_n_s_self, __pyx_n_s_genome_count, __pyx_n_s_new_individual, __pyx_n_s_mutation_count, __pyx_n_s_mutation_index, __pyx_n_s_new_individual_two, __pyx_n_s_index, __pyx_n_s_individual, __pyx_n_s_key, __pyx_n_s_value, __pyx_n_s_population_allele_count, __pyx_n_s_number_of_mutations_allowed, __pyx_n_s_e); if (unlikely(!__pyx_tuple__35)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__35);
+  __Pyx_GIVEREF(__pyx_tuple__35);
+  __pyx_codeobj__36 = (PyObject*)__Pyx_PyCode_New(1, 0, 13, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__35, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_two_point_crossover_recombinati, 152, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__36)) __PYX_ERR(0, 152, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":217
  * 
@@ -15273,10 +15285,10 @@ static int __Pyx_InitCachedConstants(void) {
  *         pass
  * 
  */
-  __pyx_tuple__38 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__38)) __PYX_ERR(0, 217, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__38);
-  __Pyx_GIVEREF(__pyx_tuple__38);
-  __pyx_codeobj__39 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__38, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_uniform_crossover_recombination, 217, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__39)) __PYX_ERR(0, 217, __pyx_L1_error)
+  __pyx_tuple__37 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(0, 217, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__37);
+  __Pyx_GIVEREF(__pyx_tuple__37);
+  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_uniform_crossover_recombination, 217, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 217, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":221
  * 
@@ -15285,10 +15297,10 @@ static int __Pyx_InitCachedConstants(void) {
  *         """Mutates a gene and reinserts it into the chromosome. A phenotype expressed as a standard error is altered
  *         by having the bit representing it flipped.
  */
-  __pyx_tuple__40 = PyTuple_Pack(6, __pyx_n_s_gene, __pyx_n_s_original_gene, __pyx_n_s_mutate, __pyx_n_s_mutate, __pyx_n_s_k, __pyx_n_s_v); if (unlikely(!__pyx_tuple__40)) __PYX_ERR(0, 221, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__40);
-  __Pyx_GIVEREF(__pyx_tuple__40);
-  __pyx_codeobj__41 = (PyObject*)__Pyx_PyCode_New(1, 0, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__40, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_mutation, 221, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__41)) __PYX_ERR(0, 221, __pyx_L1_error)
+  __pyx_tuple__39 = PyTuple_Pack(6, __pyx_n_s_gene, __pyx_n_s_original_gene, __pyx_n_s_mutate, __pyx_n_s_mutate, __pyx_n_s_k, __pyx_n_s_v); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(0, 221, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__39);
+  __Pyx_GIVEREF(__pyx_tuple__39);
+  __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(1, 0, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_mutation, 221, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 221, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":251
  *     __generation = 0
@@ -15297,25 +15309,25 @@ static int __Pyx_InitCachedConstants(void) {
  *         self.__orders = orders
  *         if len(kwargs) != 0:
  */
-  __pyx_tuple__42 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_orders, __pyx_n_s_kwargs); if (unlikely(!__pyx_tuple__42)) __PYX_ERR(0, 251, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__42);
-  __Pyx_GIVEREF(__pyx_tuple__42);
-  __pyx_codeobj__43 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__42, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_init, 251, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__43)) __PYX_ERR(0, 251, __pyx_L1_error)
+  __pyx_tuple__41 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_orders, __pyx_n_s_kwargs); if (unlikely(!__pyx_tuple__41)) __PYX_ERR(0, 251, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__41);
+  __Pyx_GIVEREF(__pyx_tuple__41);
+  __pyx_codeobj__42 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__41, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_init, 251, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__42)) __PYX_ERR(0, 251, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":259
  *             self.__recombination_type = kwargs['recombination_type']
  * 
- *     def initial_population(self, individual_type: str = 'ses'):             # <<<<<<<<<<<<<<
+ *     def initial_population(self, individual_type = 'ses'):             # <<<<<<<<<<<<<<
  *         """Initialises population and initiates the optimisation of the standard error by searching for an optimum
  *         alpha value.
  */
-  __pyx_tuple__44 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_individual_type); if (unlikely(!__pyx_tuple__44)) __PYX_ERR(0, 259, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__44);
-  __Pyx_GIVEREF(__pyx_tuple__44);
-  __pyx_codeobj__45 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__44, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_initial_population, 259, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__45)) __PYX_ERR(0, 259, __pyx_L1_error)
-  __pyx_tuple__46 = PyTuple_Pack(1, ((PyObject*)__pyx_n_s_ses)); if (unlikely(!__pyx_tuple__46)) __PYX_ERR(0, 259, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__46);
-  __Pyx_GIVEREF(__pyx_tuple__46);
+  __pyx_tuple__43 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_individual_type); if (unlikely(!__pyx_tuple__43)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__43);
+  __Pyx_GIVEREF(__pyx_tuple__43);
+  __pyx_codeobj__44 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__43, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_initial_population, 259, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__44)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_tuple__45 = PyTuple_Pack(1, ((PyObject*)__pyx_n_s_ses)); if (unlikely(!__pyx_tuple__45)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__45);
+  __Pyx_GIVEREF(__pyx_tuple__45);
 
   /* "supplychainpy/demand/_evo_algo.pyx":268
  * 
@@ -15324,10 +15336,10 @@ static int __Pyx_InitCachedConstants(void) {
  *         return self.__population_size
  * 
  */
-  __pyx_tuple__47 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__47)) __PYX_ERR(0, 268, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__47);
-  __Pyx_GIVEREF(__pyx_tuple__47);
-  __pyx_codeobj__48 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__47, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_population_size, 268, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__48)) __PYX_ERR(0, 268, __pyx_L1_error)
+  __pyx_tuple__46 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__46)) __PYX_ERR(0, 268, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__46);
+  __Pyx_GIVEREF(__pyx_tuple__46);
+  __pyx_codeobj__47 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__46, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_population_size, 268, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__47)) __PYX_ERR(0, 268, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":272
  * 
@@ -15336,10 +15348,10 @@ static int __Pyx_InitCachedConstants(void) {
  *         self.__population_size = population_size
  * 
  */
-  __pyx_tuple__49 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_population_size); if (unlikely(!__pyx_tuple__49)) __PYX_ERR(0, 272, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__49);
-  __Pyx_GIVEREF(__pyx_tuple__49);
-  __pyx_codeobj__50 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__49, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_population_size, 272, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__50)) __PYX_ERR(0, 272, __pyx_L1_error)
+  __pyx_tuple__48 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_population_size); if (unlikely(!__pyx_tuple__48)) __PYX_ERR(0, 272, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__48);
+  __Pyx_GIVEREF(__pyx_tuple__48);
+  __pyx_codeobj__49 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__48, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_population_size, 272, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__49)) __PYX_ERR(0, 272, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":275
  *         self.__population_size = population_size
@@ -15348,151 +15360,148 @@ static int __Pyx_InitCachedConstants(void) {
  *         """ Starts the process for creating the population. The number of parents is specified during the
  *          initialisation of the class. """
  */
-  __pyx_tuple__51 = PyTuple_Pack(22, __pyx_n_s_self, __pyx_n_s_individual_type, __pyx_n_s_parents, __pyx_n_s_parents_population, __pyx_n_s_i, __pyx_n_s_parent, __pyx_n_s_populations_genome, __pyx_n_s_populations_traits, __pyx_n_s_fit_population, __pyx_n_s_create_offspring, __pyx_n_s_new_population, __pyx_n_s_parent_offspring_population, __pyx_n_s_new_individuals, __pyx_n_s_po, __pyx_n_s_pke, __pyx_n_s_genome_2, __pyx_n_s_new_individual, __pyx_n_s_new_population_genome, __pyx_n_s_new_populations_traits, __pyx_n_s_new_fit_population, __pyx_n_s_final_error, __pyx_n_s_minimum_smoothing_level); if (unlikely(!__pyx_tuple__51)) __PYX_ERR(0, 275, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__51);
-  __Pyx_GIVEREF(__pyx_tuple__51);
-  __pyx_codeobj__52 = (PyObject*)__Pyx_PyCode_New(2, 0, 22, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__51, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_initialise_smoothing_level_evol, 275, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__52)) __PYX_ERR(0, 275, __pyx_L1_error)
+  __pyx_tuple__50 = PyTuple_Pack(22, __pyx_n_s_self, __pyx_n_s_individual_type, __pyx_n_s_parents, __pyx_n_s_parents_population, __pyx_n_s_populations_genome, __pyx_n_s_populations_traits, __pyx_n_s_i, __pyx_n_s_parent, __pyx_n_s_fit_population, __pyx_n_s_create_offspring, __pyx_n_s_new_population, __pyx_n_s_parent_offspring_population, __pyx_n_s_new_individuals, __pyx_n_s_new_populations_traits, __pyx_n_s_new_fit_population, __pyx_n_s_final_error, __pyx_n_s_minimum_smoothing_level, __pyx_n_s_po, __pyx_n_s_pke, __pyx_n_s_genome_2, __pyx_n_s_new_individual, __pyx_n_s_new_population_genome); if (unlikely(!__pyx_tuple__50)) __PYX_ERR(0, 275, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__50);
+  __Pyx_GIVEREF(__pyx_tuple__50);
+  __pyx_codeobj__51 = (PyObject*)__Pyx_PyCode_New(2, 0, 22, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__50, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_initialise_smoothing_level_evol, 275, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__51)) __PYX_ERR(0, 275, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":342
+  /* "supplychainpy/demand/_evo_algo.pyx":350
  * 
  *     @staticmethod
  *     def create_individuals(list new_population):             # <<<<<<<<<<<<<<
  *         """Create individuals using class from genomes striped during processing fitness.
  *         Args:
  */
-  __pyx_tuple__53 = PyTuple_Pack(6, __pyx_n_s_new_population, __pyx_n_s_parent_offspring_population, __pyx_n_s_po, __pyx_n_s_pke, __pyx_n_s_genome_2, __pyx_n_s_new_individual); if (unlikely(!__pyx_tuple__53)) __PYX_ERR(0, 342, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__53);
-  __Pyx_GIVEREF(__pyx_tuple__53);
-  __pyx_codeobj__54 = (PyObject*)__Pyx_PyCode_New(1, 0, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__53, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_create_individuals, 342, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__54)) __PYX_ERR(0, 342, __pyx_L1_error)
+  __pyx_tuple__52 = PyTuple_Pack(6, __pyx_n_s_new_population, __pyx_n_s_parent_offspring_population, __pyx_n_s_po, __pyx_n_s_pke, __pyx_n_s_genome_2, __pyx_n_s_new_individual); if (unlikely(!__pyx_tuple__52)) __PYX_ERR(0, 350, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__52);
+  __Pyx_GIVEREF(__pyx_tuple__52);
+  __pyx_codeobj__53 = (PyObject*)__Pyx_PyCode_New(1, 0, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__52, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_create_individuals, 350, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__53)) __PYX_ERR(0, 350, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":359
+  /* "supplychainpy/demand/_evo_algo.pyx":367
  * 
  *     @staticmethod
- *     def _population_fitness(population: list, individual_type: str = 'ses') -> list:             # <<<<<<<<<<<<<<
+ *     def _population_fitness(list population, individual_type='ses'):             # <<<<<<<<<<<<<<
  *         """ Assess the population for fitness before crossover and creating next generation. Positive traits
  *         should be reflected by more than 70% of the genes in the genome.
  */
-  __pyx_tuple__55 = PyTuple_Pack(4, __pyx_n_s_population, __pyx_n_s_individual_type, __pyx_n_s_procreation_probability, __pyx_n_s_individual); if (unlikely(!__pyx_tuple__55)) __PYX_ERR(0, 359, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__55);
-  __Pyx_GIVEREF(__pyx_tuple__55);
-  __pyx_codeobj__56 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__55, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_population_fitness, 359, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__56)) __PYX_ERR(0, 359, __pyx_L1_error)
-  __pyx_tuple__57 = PyTuple_Pack(1, ((PyObject*)__pyx_n_s_ses)); if (unlikely(!__pyx_tuple__57)) __PYX_ERR(0, 359, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__57);
-  __Pyx_GIVEREF(__pyx_tuple__57);
+  __pyx_tuple__54 = PyTuple_Pack(4, __pyx_n_s_population, __pyx_n_s_individual_type, __pyx_n_s_procreation_probability, __pyx_n_s_individual); if (unlikely(!__pyx_tuple__54)) __PYX_ERR(0, 367, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__54);
+  __Pyx_GIVEREF(__pyx_tuple__54);
+  __pyx_codeobj__55 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__54, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_population_fitness, 367, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__55)) __PYX_ERR(0, 367, __pyx_L1_error)
+  __pyx_tuple__56 = PyTuple_Pack(1, ((PyObject*)__pyx_n_s_ses)); if (unlikely(!__pyx_tuple__56)) __PYX_ERR(0, 367, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__56);
+  __Pyx_GIVEREF(__pyx_tuple__56);
 
-  /* "supplychainpy/demand/_evo_algo.pyx":381
+  /* "supplychainpy/demand/_evo_algo.pyx":389
  *                     yield individual
  * 
- *     def generate_smoothing_level_genome(self, population: list, individual_type: str = 'ses'):             # <<<<<<<<<<<<<<
+ *     def generate_smoothing_level_genome(self, list population, individual_type = 'ses'):             # <<<<<<<<<<<<<<
  * 
  *         # stack parents and offspring into a list for next steps
  */
-  __pyx_tuple__58 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_population, __pyx_n_s_individual_type, __pyx_n_s_parent, __pyx_n_s_individuals_genome); if (unlikely(!__pyx_tuple__58)) __PYX_ERR(0, 381, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__58);
-  __Pyx_GIVEREF(__pyx_tuple__58);
-  __pyx_codeobj__59 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__58, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_generate_smoothing_level_genome, 381, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__59)) __PYX_ERR(0, 381, __pyx_L1_error)
-  __pyx_tuple__60 = PyTuple_Pack(1, ((PyObject*)__pyx_n_s_ses)); if (unlikely(!__pyx_tuple__60)) __PYX_ERR(0, 381, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__60);
-  __Pyx_GIVEREF(__pyx_tuple__60);
+  __pyx_tuple__57 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_population, __pyx_n_s_individual_type, __pyx_n_s_parent, __pyx_n_s_individuals_genome); if (unlikely(!__pyx_tuple__57)) __PYX_ERR(0, 389, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__57);
+  __Pyx_GIVEREF(__pyx_tuple__57);
+  __pyx_codeobj__58 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__57, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_generate_smoothing_level_genome, 389, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__58)) __PYX_ERR(0, 389, __pyx_L1_error)
+  __pyx_tuple__59 = PyTuple_Pack(1, ((PyObject*)__pyx_n_s_ses)); if (unlikely(!__pyx_tuple__59)) __PYX_ERR(0, 389, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__59);
+  __Pyx_GIVEREF(__pyx_tuple__59);
 
-  /* "supplychainpy/demand/_evo_algo.pyx":400
+  /* "supplychainpy/demand/_evo_algo.pyx":408
  * 
  *     @staticmethod
  *     def htce_para(forecast, alpha, gamma, intercept, slope):             # <<<<<<<<<<<<<<
  *         return [i for i in forecast.holts_trend_corrected_exponential_smoothing(alpha=alpha, gamma=gamma,
  *                                                                                 intercept=intercept,
  */
-  __pyx_tuple__61 = PyTuple_Pack(6, __pyx_n_s_forecast, __pyx_n_s_alpha, __pyx_n_s_gamma, __pyx_n_s_intercept, __pyx_n_s_slope, __pyx_n_s_i); if (unlikely(!__pyx_tuple__61)) __PYX_ERR(0, 400, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__61);
-  __Pyx_GIVEREF(__pyx_tuple__61);
-  __pyx_codeobj__62 = (PyObject*)__Pyx_PyCode_New(5, 0, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__61, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_htce_para, 400, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__62)) __PYX_ERR(0, 400, __pyx_L1_error)
+  __pyx_tuple__60 = PyTuple_Pack(6, __pyx_n_s_forecast, __pyx_n_s_alpha, __pyx_n_s_gamma, __pyx_n_s_intercept, __pyx_n_s_slope, __pyx_n_s_i); if (unlikely(!__pyx_tuple__60)) __PYX_ERR(0, 408, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__60);
+  __Pyx_GIVEREF(__pyx_tuple__60);
+  __pyx_codeobj__61 = (PyObject*)__Pyx_PyCode_New(5, 0, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__60, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_htce_para, 408, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__61)) __PYX_ERR(0, 408, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":406
+  /* "supplychainpy/demand/_evo_algo.pyx":414
  * 
  * 
  *     def sum_squared_error_para(self, forecast, holts_trend_corrected_smoothing, alpha, gamma, smoothing_level):             # <<<<<<<<<<<<<<
  *         appraised_individual = {}
  *         sum_squared_error = forecast.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,
  */
-  __pyx_tuple__63 = PyTuple_Pack(9, __pyx_n_s_self, __pyx_n_s_forecast, __pyx_n_s_holts_trend_corrected_smoothing, __pyx_n_s_alpha, __pyx_n_s_gamma, __pyx_n_s_smoothing_level, __pyx_n_s_appraised_individual, __pyx_n_s_sum_squared_error, __pyx_n_s_standard_error); if (unlikely(!__pyx_tuple__63)) __PYX_ERR(0, 406, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__63);
-  __Pyx_GIVEREF(__pyx_tuple__63);
-  __pyx_codeobj__64 = (PyObject*)__Pyx_PyCode_New(6, 0, 9, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__63, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_sum_squared_error_para, 406, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__64)) __PYX_ERR(0, 406, __pyx_L1_error)
+  __pyx_tuple__62 = PyTuple_Pack(9, __pyx_n_s_self, __pyx_n_s_forecast, __pyx_n_s_holts_trend_corrected_smoothing, __pyx_n_s_alpha, __pyx_n_s_gamma, __pyx_n_s_smoothing_level, __pyx_n_s_appraised_individual, __pyx_n_s_sum_squared_error, __pyx_n_s_standard_error); if (unlikely(!__pyx_tuple__62)) __PYX_ERR(0, 414, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__62);
+  __Pyx_GIVEREF(__pyx_tuple__62);
+  __pyx_codeobj__63 = (PyObject*)__Pyx_PyCode_New(6, 0, 9, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__62, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_sum_squared_error_para, 414, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__63)) __PYX_ERR(0, 414, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":414
+  /* "supplychainpy/demand/_evo_algo.pyx":422
  *         return appraised_individual
  * 
  *     def _run_holts_trend_corrected_exponential_smoothing(self, individual: tuple):             # <<<<<<<<<<<<<<
  *         f = Forecast(self.__orders, self.__average_order)
  *         holts_trend_corrected_smoothing = []
  */
-  __pyx_tuple__65 = PyTuple_Pack(16, __pyx_n_s_self, __pyx_n_s_individual, __pyx_n_s_f, __pyx_n_s_holts_trend_corrected_smoothing, __pyx_n_s_demand, __pyx_n_s_stats, __pyx_n_s_log_stats, __pyx_n_s_sm_lvl, __pyx_n_s_p, __pyx_n_s_appraised_individual, __pyx_n_s_smoothing_level, __pyx_n_s_sum_squared_error, __pyx_n_s_standard_error, __pyx_n_s_index, __pyx_n_s_order, __pyx_n_s_i); if (unlikely(!__pyx_tuple__65)) __PYX_ERR(0, 414, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__65);
-  __Pyx_GIVEREF(__pyx_tuple__65);
-  __pyx_codeobj__66 = (PyObject*)__Pyx_PyCode_New(2, 0, 16, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__65, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_run_holts_trend_corrected_expon, 414, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__66)) __PYX_ERR(0, 414, __pyx_L1_error)
+  __pyx_tuple__64 = PyTuple_Pack(16, __pyx_n_s_self, __pyx_n_s_individual, __pyx_n_s_f, __pyx_n_s_holts_trend_corrected_smoothing, __pyx_n_s_demand, __pyx_n_s_stats, __pyx_n_s_log_stats, __pyx_n_s_sm_lvl, __pyx_n_s_p, __pyx_n_s_appraised_individual, __pyx_n_s_smoothing_level, __pyx_n_s_sum_squared_error, __pyx_n_s_standard_error, __pyx_n_s_index, __pyx_n_s_order, __pyx_n_s_i); if (unlikely(!__pyx_tuple__64)) __PYX_ERR(0, 422, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__64);
+  __Pyx_GIVEREF(__pyx_tuple__64);
+  __pyx_codeobj__65 = (PyObject*)__Pyx_PyCode_New(2, 0, 16, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__64, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_run_holts_trend_corrected_expon, 422, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__65)) __PYX_ERR(0, 422, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":437
+  /* "supplychainpy/demand/_evo_algo.pyx":445
  *         return appraised_individual
  * 
  *     def express_smoothing_level_genome(self, individuals_genome: list, standard_error):             # <<<<<<<<<<<<<<
  * 
  *         # stack parents and offspring into a list for next steps
  */
-  __pyx_tuple__67 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_individuals_genome, __pyx_n_s_standard_error, __pyx_n_s_genome_2, __pyx_n_s_individuals_traits); if (unlikely(!__pyx_tuple__67)) __PYX_ERR(0, 437, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__67);
-  __Pyx_GIVEREF(__pyx_tuple__67);
-  __pyx_codeobj__68 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__67, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_express_smoothing_level_genome, 437, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__68)) __PYX_ERR(0, 437, __pyx_L1_error)
+  __pyx_tuple__66 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_individuals_genome, __pyx_n_s_standard_error, __pyx_n_s_genome_2, __pyx_n_s_individuals_traits); if (unlikely(!__pyx_tuple__66)) __PYX_ERR(0, 445, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__66);
+  __Pyx_GIVEREF(__pyx_tuple__66);
+  __pyx_codeobj__67 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__66, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_express_smoothing_level_genome, 445, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__67)) __PYX_ERR(0, 445, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":444
+  /* "supplychainpy/demand/_evo_algo.pyx":452
  *             yield individuals_traits
  * 
- *     def _run_exponential_smoothing_forecast(self, individual: tuple) -> dict:             # <<<<<<<<<<<<<<
+ *     def _run_exponential_smoothing_forecast(self, individual ):             # <<<<<<<<<<<<<<
  * 
  *         f = Forecast(self.__orders, self.__average_order)
  */
-  __pyx_tuple__69 = PyTuple_Pack(11, __pyx_n_s_self, __pyx_n_s_individual, __pyx_n_s_f, __pyx_n_s_simple_expo_smoothing, __pyx_n_s_sm_lvl, __pyx_n_s_p, __pyx_n_s_appraised_individual, __pyx_n_s_smoothing_level, __pyx_n_s_sum_squared_error, __pyx_n_s_standard_error, __pyx_n_s_i); if (unlikely(!__pyx_tuple__69)) __PYX_ERR(0, 444, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__69);
-  __Pyx_GIVEREF(__pyx_tuple__69);
-  __pyx_codeobj__70 = (PyObject*)__Pyx_PyCode_New(2, 0, 11, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__69, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_run_exponential_smoothing_forec, 444, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__70)) __PYX_ERR(0, 444, __pyx_L1_error)
+  __pyx_tuple__68 = PyTuple_Pack(11, __pyx_n_s_self, __pyx_n_s_individual, __pyx_n_s_f, __pyx_n_s_simple_expo_smoothing, __pyx_n_s_sm_lvl, __pyx_n_s_p, __pyx_n_s_appraised_individual, __pyx_n_s_smoothing_level, __pyx_n_s_sum_squared_error, __pyx_n_s_standard_error, __pyx_n_s_i); if (unlikely(!__pyx_tuple__68)) __PYX_ERR(0, 452, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__68);
+  __Pyx_GIVEREF(__pyx_tuple__68);
+  __pyx_codeobj__69 = (PyObject*)__Pyx_PyCode_New(2, 0, 11, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__68, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_run_exponential_smoothing_forec, 452, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__69)) __PYX_ERR(0, 452, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":462
+  /* "supplychainpy/demand/_evo_algo.pyx":470
  * 
  *     @staticmethod
  *     def _express_trait(original_standard_error: float, appraised_individual: dict):             # <<<<<<<<<<<<<<
  *         # fitness test? over 50% of the alleles must be positive traits. give percentage score
  *         # print(original_standard_error)
  */
-  __pyx_tuple__71 = PyTuple_Pack(3, __pyx_n_s_original_standard_error, __pyx_n_s_appraised_individual, __pyx_n_s_key); if (unlikely(!__pyx_tuple__71)) __PYX_ERR(0, 462, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__71);
-  __Pyx_GIVEREF(__pyx_tuple__71);
-  __pyx_codeobj__72 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__71, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_express_trait, 462, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__72)) __PYX_ERR(0, 462, __pyx_L1_error)
+  __pyx_tuple__70 = PyTuple_Pack(3, __pyx_n_s_original_standard_error, __pyx_n_s_appraised_individual, __pyx_n_s_key); if (unlikely(!__pyx_tuple__70)) __PYX_ERR(0, 470, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__70);
+  __Pyx_GIVEREF(__pyx_tuple__70);
+  __pyx_codeobj__71 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__70, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_express_trait, 470, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__71)) __PYX_ERR(0, 470, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":474
+  /* "supplychainpy/demand/_evo_algo.pyx":482
  *         return appraised_individual
  * 
  *     def _selection_population(self, individuals_fitness: dict, appraised_individual: list):             # <<<<<<<<<<<<<<
  *         pass
  * 
  */
-  __pyx_tuple__73 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_individuals_fitness, __pyx_n_s_appraised_individual); if (unlikely(!__pyx_tuple__73)) __PYX_ERR(0, 474, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__73);
-  __Pyx_GIVEREF(__pyx_tuple__73);
-  __pyx_codeobj__74 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__73, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_selection_population, 474, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__74)) __PYX_ERR(0, 474, __pyx_L1_error)
+  __pyx_tuple__72 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_individuals_fitness, __pyx_n_s_appraised_individual); if (unlikely(!__pyx_tuple__72)) __PYX_ERR(0, 482, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__72);
+  __Pyx_GIVEREF(__pyx_tuple__72);
+  __pyx_codeobj__73 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__72, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_selection_population, 482, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__73)) __PYX_ERR(0, 482, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":477
+  /* "supplychainpy/demand/_evo_algo.pyx":485
  *         pass
  * 
- *     def simple_exponential_smoothing_evo(self, smoothing_level_constant: float, initial_estimate_period: int,             # <<<<<<<<<<<<<<
- *                                          recombination_type: str = 'single_point', population_size: int = 10,
- *                                          forecast_length: int = 5) -> dict:
+ *     def simple_exponential_smoothing_evo(self, smoothing_level_constant, initial_estimate_period,             # <<<<<<<<<<<<<<
+ *                                          recombination_type = 'single_point', int population_size = 10,
+ *                                          int forecast_length = 5):
  */
-  __pyx_tuple__75 = PyTuple_Pack(22, __pyx_n_s_self, __pyx_n_s_smoothing_level_constant, __pyx_n_s_initial_estimate_period, __pyx_n_s_recombination_type, __pyx_n_s_population_size, __pyx_n_s_forecast_length, __pyx_n_s_sum_orders, __pyx_n_s_demand, __pyx_n_s_avg_orders, __pyx_n_s_forecast_demand, __pyx_n_s_ses_forecast, __pyx_n_s_sum_squared_error, __pyx_n_s_standard_error, __pyx_n_s_evo_mod, __pyx_n_s_optimal_alpha, __pyx_n_s_optimal_ses_forecast, __pyx_n_s_ape, __pyx_n_s_mape, __pyx_n_s_stats, __pyx_n_s_simple_forecast, __pyx_n_s_regression, __pyx_n_s_i); if (unlikely(!__pyx_tuple__75)) __PYX_ERR(0, 477, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__75);
-  __Pyx_GIVEREF(__pyx_tuple__75);
-  __pyx_codeobj__76 = (PyObject*)__Pyx_PyCode_New(6, 0, 22, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__75, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_simple_exponential_smoothing_evo, 477, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__76)) __PYX_ERR(0, 477, __pyx_L1_error)
-  __pyx_tuple__77 = PyTuple_Pack(3, ((PyObject*)__pyx_n_s_single_point), ((PyObject *)__pyx_int_10), ((PyObject *)__pyx_int_5)); if (unlikely(!__pyx_tuple__77)) __PYX_ERR(0, 477, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__77);
-  __Pyx_GIVEREF(__pyx_tuple__77);
+  __pyx_tuple__74 = PyTuple_Pack(22, __pyx_n_s_self, __pyx_n_s_smoothing_level_constant, __pyx_n_s_initial_estimate_period, __pyx_n_s_recombination_type, __pyx_n_s_population_size, __pyx_n_s_forecast_length, __pyx_n_s_sum_orders, __pyx_n_s_demand, __pyx_n_s_avg_orders, __pyx_n_s_forecast_demand, __pyx_n_s_ses_forecast, __pyx_n_s_sum_squared_error, __pyx_n_s_standard_error, __pyx_n_s_evo_mod, __pyx_n_s_optimal_alpha, __pyx_n_s_optimal_ses_forecast, __pyx_n_s_ape, __pyx_n_s_mape, __pyx_n_s_stats, __pyx_n_s_simple_forecast, __pyx_n_s_regression, __pyx_n_s_i); if (unlikely(!__pyx_tuple__74)) __PYX_ERR(0, 485, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__74);
+  __Pyx_GIVEREF(__pyx_tuple__74);
+  __pyx_codeobj__75 = (PyObject*)__Pyx_PyCode_New(6, 0, 22, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__74, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_simple_exponential_smoothing_evo, 485, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__75)) __PYX_ERR(0, 485, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -15504,7 +15513,6 @@ static int __Pyx_InitGlobals(void) {
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
   __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_int_5 = PyInt_FromLong(5); if (unlikely(!__pyx_int_5)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_6 = PyInt_FromLong(6); if (unlikely(!__pyx_int_6)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_10 = PyInt_FromLong(10); if (unlikely(!__pyx_int_10)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_12 = PyInt_FromLong(12); if (unlikely(!__pyx_int_12)) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -15614,16 +15622,16 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
   if (PyType_Ready(&__pyx_type_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_3__mutation) < 0) __PYX_ERR(0, 221, __pyx_L1_error)
   __pyx_type_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_3__mutation.tp_print = 0;
   __pyx_ptype_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_3__mutation = &__pyx_type_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_3__mutation;
-  if (PyType_Ready(&__pyx_type_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_4_create_individuals) < 0) __PYX_ERR(0, 342, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_4_create_individuals) < 0) __PYX_ERR(0, 350, __pyx_L1_error)
   __pyx_type_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_4_create_individuals.tp_print = 0;
   __pyx_ptype_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_4_create_individuals = &__pyx_type_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_4_create_individuals;
-  if (PyType_Ready(&__pyx_type_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_5__population_fitness) < 0) __PYX_ERR(0, 359, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_5__population_fitness) < 0) __PYX_ERR(0, 367, __pyx_L1_error)
   __pyx_type_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_5__population_fitness.tp_print = 0;
   __pyx_ptype_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_5__population_fitness = &__pyx_type_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_5__population_fitness;
-  if (PyType_Ready(&__pyx_type_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_6_generate_smoothing_level_genome) < 0) __PYX_ERR(0, 381, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_6_generate_smoothing_level_genome) < 0) __PYX_ERR(0, 389, __pyx_L1_error)
   __pyx_type_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_6_generate_smoothing_level_genome.tp_print = 0;
   __pyx_ptype_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_6_generate_smoothing_level_genome = &__pyx_type_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_6_generate_smoothing_level_genome;
-  if (PyType_Ready(&__pyx_type_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_7_express_smoothing_level_genome) < 0) __PYX_ERR(0, 437, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_7_express_smoothing_level_genome) < 0) __PYX_ERR(0, 445, __pyx_L1_error)
   __pyx_type_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_7_express_smoothing_level_genome.tp_print = 0;
   __pyx_ptype_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_7_express_smoothing_level_genome = &__pyx_type_13supplychainpy_6demand_9_evo_algo___pyx_scope_struct_7_express_smoothing_level_genome;
   /*--- Type import code ---*/
@@ -15714,50 +15722,43 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
  */
   if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_genome, __pyx_int_0) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
 
-  /* "supplychainpy/demand/_evo_algo.pyx":9
- *     _genome = 0
- * 
- *     def __init__(             # <<<<<<<<<<<<<<
- *             self, name: str='offspring', overide: bool=False, gene_count: int=12,
- *             forecast_type: str='ses'
- */
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-
   /* "supplychainpy/demand/_evo_algo.pyx":10
  * 
  *     def __init__(
- *             self, name: str='offspring', overide: bool=False, gene_count: int=12,             # <<<<<<<<<<<<<<
- *             forecast_type: str='ses'
+ *             self, name ='offspring', overide=False, int gene_count =12,             # <<<<<<<<<<<<<<
+ *             forecast_type ='ses'
  *         ):
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_name, ((PyObject *)(&PyString_Type))) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_overide, ((PyObject*)&PyBool_Type)) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_gene_count, ((PyObject *)(&PyInt_Type))) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
-
-  /* "supplychainpy/demand/_evo_algo.pyx":11
- *     def __init__(
- *             self, name: str='offspring', overide: bool=False, gene_count: int=12,
- *             forecast_type: str='ses'             # <<<<<<<<<<<<<<
- *         ):
- * 
- */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_forecast_type, ((PyObject *)(&PyString_Type))) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(((int)12)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
 
   /* "supplychainpy/demand/_evo_algo.pyx":9
  *     _genome = 0
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
- *             self, name: str='offspring', overide: bool=False, gene_count: int=12,
- *             forecast_type: str='ses'
+ *             self, name ='offspring', overide=False, int gene_count =12,
+ *             forecast_type ='ses'
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Individual_1__init__, 0, __pyx_n_s_Individual___init, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__12)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_3, __pyx_tuple__13);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_3, __pyx_t_1);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_init, __pyx_t_3) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
+  __Pyx_INCREF(((PyObject*)__pyx_n_s_offspring));
+  __Pyx_GIVEREF(((PyObject*)__pyx_n_s_offspring));
+  PyTuple_SET_ITEM(__pyx_t_3, 0, ((PyObject*)__pyx_n_s_offspring));
+  __Pyx_INCREF(((PyObject *)Py_False));
+  __Pyx_GIVEREF(((PyObject *)Py_False));
+  PyTuple_SET_ITEM(__pyx_t_3, 1, ((PyObject *)Py_False));
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_3, 2, __pyx_t_1);
+  __Pyx_INCREF(((PyObject*)__pyx_n_s_ses));
+  __Pyx_GIVEREF(((PyObject*)__pyx_n_s_ses));
+  PyTuple_SET_ITEM(__pyx_t_3, 3, ((PyObject*)__pyx_n_s_ses));
+  __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Individual_1__init__, 0, __pyx_n_s_Individual___init, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__12)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_t_3);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_init, __pyx_t_1) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "supplychainpy/demand/_evo_algo.pyx":20
  *             self._genome = self.__genome_generator()
@@ -15766,31 +15767,26 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
  *         return '{}: {}'.format(self._name, self._genome)
  * 
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Individual_3__repr__, 0, __pyx_n_s_Individual___repr, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__15)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 20, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_repr, __pyx_t_3) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Individual_3__repr__, 0, __pyx_n_s_Individual___repr, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_repr, __pyx_t_1) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "supplychainpy/demand/_evo_algo.pyx":24
  * 
  *     @property
- *     def gene_count(self) -> int:             # <<<<<<<<<<<<<<
+ *     def gene_count(self):             # <<<<<<<<<<<<<<
  *         return self.gene_count
  * 
  */
-  __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 24, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_return, ((PyObject *)(&PyInt_Type))) < 0) __PYX_ERR(0, 24, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Individual_5gene_count, 0, __pyx_n_s_Individual_gene_count, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__17)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Individual_5gene_count, 0, __pyx_n_s_Individual_gene_count, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_1, __pyx_t_3);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "supplychainpy/demand/_evo_algo.pyx":23
  *         return '{}: {}'.format(self._name, self._genome)
  * 
  *     @property             # <<<<<<<<<<<<<<
- *     def gene_count(self) -> int:
+ *     def gene_count(self):
  *         return self.gene_count
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 23, __pyx_L1_error)
@@ -15808,7 +15804,7 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
  *         return self.gene_count
  * 
  *     @gene_count.setter             # <<<<<<<<<<<<<<
- *     def gene_count(self, value: int):
+ *     def gene_count(self, int value):
  *         self._gene_count = value
  */
   __pyx_t_3 = PyObject_GetItem(__pyx_t_2, __pyx_n_s_gene_count);
@@ -15825,57 +15821,52 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
   /* "supplychainpy/demand/_evo_algo.pyx":28
  * 
  *     @gene_count.setter
- *     def gene_count(self, value: int):             # <<<<<<<<<<<<<<
+ *     def gene_count(self, int value):             # <<<<<<<<<<<<<<
  *         self._gene_count = value
  * 
  */
-  __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 28, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Individual_7gene_count, 0, __pyx_n_s_Individual_gene_count, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__18)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 28, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_value, ((PyObject *)(&PyInt_Type))) < 0) __PYX_ERR(0, 28, __pyx_L1_error)
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Individual_7gene_count, 0, __pyx_n_s_Individual_gene_count, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 28, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_5, __pyx_t_3);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = NULL;
+  __pyx_t_5 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_4);
-    if (likely(__pyx_t_3)) {
+    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
+    if (likely(__pyx_t_5)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_5);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_4, function);
     }
   }
-  if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 27, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (!__pyx_t_5) {
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 27, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_5};
+      PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_3};
       __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 27, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else
     #endif
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_5};
+      PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_3};
       __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 27, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else
     #endif
     {
       __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 27, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_3); __pyx_t_3 = NULL;
-      __Pyx_GIVEREF(__pyx_t_5);
-      PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_5);
-      __pyx_t_5 = 0;
+      __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5); __pyx_t_5 = NULL;
+      __Pyx_GIVEREF(__pyx_t_3);
+      PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_3);
+      __pyx_t_3 = 0;
       __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 27, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -15892,7 +15883,7 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
  *         return self._genome
  * 
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Individual_9genome, 0, __pyx_n_s_Individual_genome, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__21)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 32, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Individual_9genome, 0, __pyx_n_s_Individual_genome, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__20)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
   /* "supplychainpy/demand/_evo_algo.pyx":31
@@ -15917,7 +15908,7 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
  *         return self._genome
  * 
  *     @genome.setter             # <<<<<<<<<<<<<<
- *     def genome(self, val: tuple):
+ *     def genome(self, tuple val):
  *         self._genome = val
  */
   __pyx_t_4 = PyObject_GetItem(__pyx_t_2, __pyx_n_s_genome_2);
@@ -15934,60 +15925,55 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
   /* "supplychainpy/demand/_evo_algo.pyx":36
  * 
  *     @genome.setter
- *     def genome(self, val: tuple):             # <<<<<<<<<<<<<<
+ *     def genome(self, tuple val):             # <<<<<<<<<<<<<<
  *         self._genome = val
  * 
  */
-  __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Individual_11genome, 0, __pyx_n_s_Individual_genome, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__22)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_val, ((PyObject *)(&PyTuple_Type))) < 0) __PYX_ERR(0, 36, __pyx_L1_error)
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Individual_11genome, 0, __pyx_n_s_Individual_genome, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__23)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 36, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_5, __pyx_t_4);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = NULL;
+  __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
-    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_6);
-    if (likely(__pyx_t_4)) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_6);
+    if (likely(__pyx_t_3)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
-      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(__pyx_t_3);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_6, function);
     }
   }
-  if (!__pyx_t_4) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (!__pyx_t_3) {
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_6)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_5};
+      PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_4};
       __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     } else
     #endif
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_5};
+      PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_4};
       __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     } else
     #endif
     {
-      __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 35, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_4); __pyx_t_4 = NULL;
-      __Pyx_GIVEREF(__pyx_t_5);
-      PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_t_5);
-      __pyx_t_5 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
+      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 35, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_3); __pyx_t_3 = NULL;
+      __Pyx_GIVEREF(__pyx_t_4);
+      PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_4);
+      __pyx_t_4 = 0;
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -16001,7 +15987,7 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
  *         return self._name
  * 
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Individual_13name, 0, __pyx_n_s_Individual_name, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Individual_13name, 0, __pyx_n_s_Individual_name, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__24)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 40, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
   /* "supplychainpy/demand/_evo_algo.pyx":39
@@ -16029,7 +16015,7 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
  *         genome = ()
  *         if self._forecast_type == 'ses':
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Individual_15__genome_generator, 0, __pyx_n_s_Individual___genome_generator, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__27)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Individual_15__genome_generator, 0, __pyx_n_s_Individual___genome_generator, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__26)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_Individual__genome_generator, __pyx_t_1) < 0) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -16082,7 +16068,7 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
  * 
  *     def __init__(self, list individuals, double mutation_probability = 0.2):
  */
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_recombination_type_2, __pyx_tuple__28) < 0) __PYX_ERR(0, 57, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_recombination_type_2, __pyx_tuple__27) < 0) __PYX_ERR(0, 57, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":59
  *     _recombination_type = ('single_point', 'two_point', 'uniform')
@@ -16098,7 +16084,7 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Population_1__init__, 0, __pyx_n_s_Population___init, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__30)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Population_1__init__, 0, __pyx_n_s_Population___init, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__29)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_t_6);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -16108,32 +16094,27 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
   /* "supplychainpy/demand/_evo_algo.pyx":64
  *         #print("initialising {}".format(id(self)))
  * 
- *     def reproduce(self, recombination_type: str = 'single_point'):             # <<<<<<<<<<<<<<
+ *     def reproduce(self, recombination_type = 'single_point'):             # <<<<<<<<<<<<<<
  *         """ Coordinates the reproduction of two individuals, using one of three recombination methods 'single_point,
  *         two_point or uniform'.
  */
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 64, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Population_3reproduce, 0, __pyx_n_s_Population_reproduce, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__31)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_recombination_type, ((PyObject *)(&PyString_Type))) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Population_3reproduce, 0, __pyx_n_s_Population_reproduce, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__32)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 64, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_6, __pyx_tuple__33);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_6, __pyx_t_1);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_tuple__32);
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_reproduce, __pyx_t_1) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_reproduce, __pyx_t_6) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
   /* "supplychainpy/demand/_evo_algo.pyx":85
  *             yield [i for i in self._uniform_crossover_recombination()][0]
  * 
- *     def _single_point_crossover_recombination(self) -> object:             # <<<<<<<<<<<<<<
+ *     def _single_point_crossover_recombination(self):             # <<<<<<<<<<<<<<
  *         """ Selects genes from the parent to crossover based on one point along the chromosome.
  * 
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Population_6_single_point_crossover_recombination, 0, __pyx_n_s_Population__single_point_crossov, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__35)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 85, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_single_point_crossover_recombin, __pyx_t_6) < 0) __PYX_ERR(0, 85, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Population_6_single_point_crossover_recombination, 0, __pyx_n_s_Population__single_point_crossov, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__34)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_single_point_crossover_recombin, __pyx_t_1) < 0) __PYX_ERR(0, 85, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "supplychainpy/demand/_evo_algo.pyx":152
  *             print('Population Size is too small for effective genetic recombination and reproduction of offspring')
@@ -16142,10 +16123,10 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
  *         """ Selects genes from the parent to crossover based on two points along the chromosome.
  * 
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Population_9_two_point_crossover_recombination, 0, __pyx_n_s_Population__two_point_crossover, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__37)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 152, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_two_point_crossover_recombinati, __pyx_t_6) < 0) __PYX_ERR(0, 152, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Population_9_two_point_crossover_recombination, 0, __pyx_n_s_Population__two_point_crossover, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__36)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_two_point_crossover_recombinati, __pyx_t_1) < 0) __PYX_ERR(0, 152, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "supplychainpy/demand/_evo_algo.pyx":217
  * 
@@ -16154,10 +16135,10 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
  *         pass
  * 
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Population_12_uniform_crossover_recombination, 0, __pyx_n_s_Population__uniform_crossover_re, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__39)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 217, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_uniform_crossover_recombination, __pyx_t_6) < 0) __PYX_ERR(0, 217, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Population_12_uniform_crossover_recombination, 0, __pyx_n_s_Population__uniform_crossover_re, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__38)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 217, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_uniform_crossover_recombination, __pyx_t_1) < 0) __PYX_ERR(0, 217, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "supplychainpy/demand/_evo_algo.pyx":221
  * 
@@ -16166,13 +16147,13 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
  *         """Mutates a gene and reinserts it into the chromosome. A phenotype expressed as a standard error is altered
  *         by having the bit representing it flipped.
  */
-  __pyx_t_6 = PyDict_New(); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 221, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_gene, ((PyObject *)(&PyDict_Type))) < 0) __PYX_ERR(0, 221, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Population_14_mutation, __Pyx_CYFUNCTION_STATICMETHOD, __pyx_n_s_Population__mutation, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__41)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 221, __pyx_L1_error)
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 221, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_1, __pyx_t_6);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_gene, ((PyObject *)(&PyDict_Type))) < 0) __PYX_ERR(0, 221, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_10Population_14_mutation, __Pyx_CYFUNCTION_STATICMETHOD, __pyx_n_s_Population__mutation, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__40)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 221, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_6, __pyx_t_1);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "supplychainpy/demand/_evo_algo.pyx":220
  *         pass
@@ -16181,16 +16162,16 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
  *     def _mutation(gene: dict):
  *         """Mutates a gene and reinserts it into the chromosome. A phenotype expressed as a standard error is altered
  */
-  __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 220, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_GIVEREF(__pyx_t_1);
-  PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_1);
-  __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_mutation, __pyx_t_1) < 0) __PYX_ERR(0, 221, __pyx_L1_error)
+  __Pyx_GIVEREF(__pyx_t_6);
+  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_6);
+  __pyx_t_6 = 0;
+  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_1, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 220, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_mutation, __pyx_t_6) < 0) __PYX_ERR(0, 221, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
   /* "supplychainpy/demand/_evo_algo.pyx":53
  * 
@@ -16199,10 +16180,10 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
  *     """ Create a population of individuals to reproduce. """
  * 
  */
-  __pyx_t_1 = __Pyx_Py3ClassCreate(((PyObject*)&__Pyx_DefaultClassType), __pyx_n_s_Population, __pyx_empty_tuple, __pyx_t_2, NULL, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Population, __pyx_t_1) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_6 = __Pyx_Py3ClassCreate(((PyObject*)&__Pyx_DefaultClassType), __pyx_n_s_Population, __pyx_empty_tuple, __pyx_t_2, NULL, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Population, __pyx_t_6) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "supplychainpy/demand/_evo_algo.pyx":248
@@ -16231,31 +16212,26 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
  *         self.__orders = orders
  *         if len(kwargs) != 0:
  */
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 251, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_orders, ((PyObject *)(&PyList_Type))) < 0) __PYX_ERR(0, 251, __pyx_L1_error)
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_1__init__, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_6, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__43)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 251, __pyx_L1_error)
+  __pyx_t_6 = PyDict_New(); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 251, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_6, __pyx_t_1);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_init, __pyx_t_6) < 0) __PYX_ERR(0, 251, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_orders, ((PyObject *)(&PyList_Type))) < 0) __PYX_ERR(0, 251, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_1__init__, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_6, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__42)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 251, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_1, __pyx_t_6);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_init, __pyx_t_1) < 0) __PYX_ERR(0, 251, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "supplychainpy/demand/_evo_algo.pyx":259
  *             self.__recombination_type = kwargs['recombination_type']
  * 
- *     def initial_population(self, individual_type: str = 'ses'):             # <<<<<<<<<<<<<<
+ *     def initial_population(self, individual_type = 'ses'):             # <<<<<<<<<<<<<<
  *         """Initialises population and initiates the optimisation of the standard error by searching for an optimum
  *         alpha value.
  */
-  __pyx_t_6 = PyDict_New(); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 259, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_individual_type, ((PyObject *)(&PyString_Type))) < 0) __PYX_ERR(0, 259, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_3initial_population, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_7, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__45)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_3initial_population, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_7, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__44)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_tuple__46);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_1, __pyx_t_6);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_tuple__45);
   if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_initial_population, __pyx_t_1) < 0) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
@@ -16266,7 +16242,7 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
  *         return self.__population_size
  * 
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_5population_size, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_8, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__48)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 268, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_5population_size, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_8, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__47)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 268, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
   /* "supplychainpy/demand/_evo_algo.pyx":267
@@ -16301,8 +16277,8 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
   }
   if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 271, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_setter); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 271, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_setter); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 271, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
   /* "supplychainpy/demand/_evo_algo.pyx":272
@@ -16312,54 +16288,54 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
  *         self.__population_size = population_size
  * 
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_7population_size, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_8, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__50)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 272, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_7population_size, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_8, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__49)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 272, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_5 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
-    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_3);
-    if (likely(__pyx_t_5)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-      __Pyx_INCREF(__pyx_t_5);
+  __pyx_t_4 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_5);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+      __Pyx_INCREF(__pyx_t_4);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_3, function);
+      __Pyx_DECREF_SET(__pyx_t_5, function);
     }
   }
-  if (!__pyx_t_5) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 271, __pyx_L1_error)
+  if (!__pyx_t_4) {
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 271, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(__pyx_t_3)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_6};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 271, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+    if (PyFunction_Check(__pyx_t_5)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_6};
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 271, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     } else
     #endif
     #if CYTHON_FAST_PYCCALL
-    if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_6};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 271, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+    if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_6};
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 271, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     } else
     #endif
     {
-      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 271, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_5); __pyx_t_5 = NULL;
+      __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 271, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_4); __pyx_t_4 = NULL;
       __Pyx_GIVEREF(__pyx_t_6);
-      PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_t_6);
+      PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_t_6);
       __pyx_t_6 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 271, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 271, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
   }
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_population_size, __pyx_t_1) < 0) __PYX_ERR(0, 272, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
@@ -16373,285 +16349,265 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
   __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_individual_type, ((PyObject *)(&PyString_Type))) < 0) __PYX_ERR(0, 275, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_9_initialise_smoothing_level_evolutionary_algorithm_population, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_9, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__52)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 275, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_3, __pyx_t_1);
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_9_initialise_smoothing_level_evolutionary_algorithm_population, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_9, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__51)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 275, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_5, __pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_initialise_smoothing_level_evol, __pyx_t_3) < 0) __PYX_ERR(0, 275, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_initialise_smoothing_level_evol, __pyx_t_5) < 0) __PYX_ERR(0, 275, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":342
+  /* "supplychainpy/demand/_evo_algo.pyx":350
  * 
  *     @staticmethod
  *     def create_individuals(list new_population):             # <<<<<<<<<<<<<<
  *         """Create individuals using class from genomes striped during processing fitness.
  *         Args:
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_11create_individuals, __Pyx_CYFUNCTION_STATICMETHOD, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__54)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 342, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_11create_individuals, __Pyx_CYFUNCTION_STATICMETHOD, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__53)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 350, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
 
-  /* "supplychainpy/demand/_evo_algo.pyx":341
+  /* "supplychainpy/demand/_evo_algo.pyx":349
  *         return minimum_smoothing_level
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def create_individuals(list new_population):
  *         """Create individuals using class from genomes striped during processing fitness.
  */
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 341, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 349, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GIVEREF(__pyx_t_3);
-  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_3);
-  __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 341, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_5);
+  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_5);
+  __pyx_t_5 = 0;
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_1, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 349, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_create_individuals, __pyx_t_3) < 0) __PYX_ERR(0, 342, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_create_individuals, __pyx_t_5) < 0) __PYX_ERR(0, 350, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":359
+  /* "supplychainpy/demand/_evo_algo.pyx":367
  * 
  *     @staticmethod
- *     def _population_fitness(population: list, individual_type: str = 'ses') -> list:             # <<<<<<<<<<<<<<
+ *     def _population_fitness(list population, individual_type='ses'):             # <<<<<<<<<<<<<<
  *         """ Assess the population for fitness before crossover and creating next generation. Positive traits
  *         should be reflected by more than 70% of the genes in the genome.
  */
-  __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 359, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_population, ((PyObject *)(&PyList_Type))) < 0) __PYX_ERR(0, 359, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_individual_type, ((PyObject *)(&PyString_Type))) < 0) __PYX_ERR(0, 359, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_14_population_fitness, __Pyx_CYFUNCTION_STATICMETHOD, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_2, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__56)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 359, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_tuple__57);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_1, __pyx_t_3);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_14_population_fitness, __Pyx_CYFUNCTION_STATICMETHOD, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_2, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__55)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 367, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_5, __pyx_tuple__56);
 
-  /* "supplychainpy/demand/_evo_algo.pyx":358
+  /* "supplychainpy/demand/_evo_algo.pyx":366
  *             yield new_individual
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
- *     def _population_fitness(population: list, individual_type: str = 'ses') -> list:
+ *     def _population_fitness(list population, individual_type='ses'):
  *         """ Assess the population for fitness before crossover and creating next generation. Positive traits
  */
-  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 358, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_GIVEREF(__pyx_t_1);
-  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
-  __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 358, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 366, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_population_fitness, __pyx_t_1) < 0) __PYX_ERR(0, 359, __pyx_L1_error)
+  __Pyx_GIVEREF(__pyx_t_5);
+  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_5);
+  __pyx_t_5 = 0;
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_1, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 366, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_population_fitness, __pyx_t_5) < 0) __PYX_ERR(0, 367, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":381
+  /* "supplychainpy/demand/_evo_algo.pyx":389
  *                     yield individual
  * 
- *     def generate_smoothing_level_genome(self, population: list, individual_type: str = 'ses'):             # <<<<<<<<<<<<<<
+ *     def generate_smoothing_level_genome(self, list population, individual_type = 'ses'):             # <<<<<<<<<<<<<<
  * 
  *         # stack parents and offspring into a list for next steps
  */
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 381, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_population, ((PyObject *)(&PyList_Type))) < 0) __PYX_ERR(0, 381, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_individual_type, ((PyObject *)(&PyString_Type))) < 0) __PYX_ERR(0, 381, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_17generate_smoothing_level_genome, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_3, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__59)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 381, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_3, __pyx_tuple__60);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_3, __pyx_t_1);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_generate_smoothing_level_genome, __pyx_t_3) < 0) __PYX_ERR(0, 381, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_17generate_smoothing_level_genome, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_3, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__58)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 389, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_5, __pyx_tuple__59);
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_generate_smoothing_level_genome, __pyx_t_5) < 0) __PYX_ERR(0, 389, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":400
+  /* "supplychainpy/demand/_evo_algo.pyx":408
  * 
  *     @staticmethod
  *     def htce_para(forecast, alpha, gamma, intercept, slope):             # <<<<<<<<<<<<<<
  *         return [i for i in forecast.holts_trend_corrected_exponential_smoothing(alpha=alpha, gamma=gamma,
  *                                                                                 intercept=intercept,
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_20htce_para, __Pyx_CYFUNCTION_STATICMETHOD, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_10, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__62)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 400, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_20htce_para, __Pyx_CYFUNCTION_STATICMETHOD, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_10, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__61)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 408, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
 
-  /* "supplychainpy/demand/_evo_algo.pyx":399
+  /* "supplychainpy/demand/_evo_algo.pyx":407
  *                 yield individuals_genome
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def htce_para(forecast, alpha, gamma, intercept, slope):
  *         return [i for i in forecast.holts_trend_corrected_exponential_smoothing(alpha=alpha, gamma=gamma,
  */
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 399, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 407, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GIVEREF(__pyx_t_3);
-  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_3);
-  __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 399, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_5);
+  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_5);
+  __pyx_t_5 = 0;
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_1, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 407, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_htce_para, __pyx_t_3) < 0) __PYX_ERR(0, 400, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_htce_para, __pyx_t_5) < 0) __PYX_ERR(0, 408, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":406
+  /* "supplychainpy/demand/_evo_algo.pyx":414
  * 
  * 
  *     def sum_squared_error_para(self, forecast, holts_trend_corrected_smoothing, alpha, gamma, smoothing_level):             # <<<<<<<<<<<<<<
  *         appraised_individual = {}
  *         sum_squared_error = forecast.sum_squared_errors_indi_htces(squared_error=holts_trend_corrected_smoothing,
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_22sum_squared_error_para, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_11, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__64)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 406, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_sum_squared_error_para, __pyx_t_3) < 0) __PYX_ERR(0, 406, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_22sum_squared_error_para, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_11, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__63)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 414, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_sum_squared_error_para, __pyx_t_5) < 0) __PYX_ERR(0, 414, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":414
+  /* "supplychainpy/demand/_evo_algo.pyx":422
  *         return appraised_individual
  * 
  *     def _run_holts_trend_corrected_exponential_smoothing(self, individual: tuple):             # <<<<<<<<<<<<<<
  *         f = Forecast(self.__orders, self.__average_order)
  *         holts_trend_corrected_smoothing = []
  */
-  __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 414, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_individual, ((PyObject *)(&PyTuple_Type))) < 0) __PYX_ERR(0, 414, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_24_run_holts_trend_corrected_exponential_smoothing, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_12, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__66)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 414, __pyx_L1_error)
+  __pyx_t_5 = PyDict_New(); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 422, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_individual, ((PyObject *)(&PyTuple_Type))) < 0) __PYX_ERR(0, 422, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_24_run_holts_trend_corrected_exponential_smoothing, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_12, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__65)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 422, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_1, __pyx_t_3);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_run_holts_trend_corrected_expon, __pyx_t_1) < 0) __PYX_ERR(0, 414, __pyx_L1_error)
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_1, __pyx_t_5);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_run_holts_trend_corrected_expon, __pyx_t_1) < 0) __PYX_ERR(0, 422, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":437
+  /* "supplychainpy/demand/_evo_algo.pyx":445
  *         return appraised_individual
  * 
  *     def express_smoothing_level_genome(self, individuals_genome: list, standard_error):             # <<<<<<<<<<<<<<
  * 
  *         # stack parents and offspring into a list for next steps
  */
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 437, __pyx_L1_error)
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 445, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_individuals_genome, ((PyObject *)(&PyList_Type))) < 0) __PYX_ERR(0, 437, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_26express_smoothing_level_genome, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_4, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__68)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 437, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_3, __pyx_t_1);
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_individuals_genome, ((PyObject *)(&PyList_Type))) < 0) __PYX_ERR(0, 445, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_26express_smoothing_level_genome, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_4, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__67)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 445, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_5, __pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_express_smoothing_level_genome, __pyx_t_3) < 0) __PYX_ERR(0, 437, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_express_smoothing_level_genome, __pyx_t_5) < 0) __PYX_ERR(0, 445, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":444
+  /* "supplychainpy/demand/_evo_algo.pyx":452
  *             yield individuals_traits
  * 
- *     def _run_exponential_smoothing_forecast(self, individual: tuple) -> dict:             # <<<<<<<<<<<<<<
+ *     def _run_exponential_smoothing_forecast(self, individual ):             # <<<<<<<<<<<<<<
  * 
  *         f = Forecast(self.__orders, self.__average_order)
  */
-  __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 444, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_individual, ((PyObject *)(&PyTuple_Type))) < 0) __PYX_ERR(0, 444, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_return, ((PyObject *)(&PyDict_Type))) < 0) __PYX_ERR(0, 444, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_29_run_exponential_smoothing_forecast, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_13, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__70)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 444, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_1, __pyx_t_3);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_run_exponential_smoothing_forec, __pyx_t_1) < 0) __PYX_ERR(0, 444, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_29_run_exponential_smoothing_forecast, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_13, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__69)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 452, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_run_exponential_smoothing_forec, __pyx_t_5) < 0) __PYX_ERR(0, 452, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":462
+  /* "supplychainpy/demand/_evo_algo.pyx":470
  * 
  *     @staticmethod
  *     def _express_trait(original_standard_error: float, appraised_individual: dict):             # <<<<<<<<<<<<<<
  *         # fitness test? over 50% of the alleles must be positive traits. give percentage score
  *         # print(original_standard_error)
  */
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 462, __pyx_L1_error)
+  __pyx_t_5 = PyDict_New(); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 470, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_original_standard_error, ((PyObject *)(&PyFloat_Type))) < 0) __PYX_ERR(0, 470, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_appraised_individual, ((PyObject *)(&PyDict_Type))) < 0) __PYX_ERR(0, 470, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_31_express_trait, __Pyx_CYFUNCTION_STATICMETHOD, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_14, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__71)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 470, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_original_standard_error, ((PyObject *)(&PyFloat_Type))) < 0) __PYX_ERR(0, 462, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_appraised_individual, ((PyObject *)(&PyDict_Type))) < 0) __PYX_ERR(0, 462, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_31_express_trait, __Pyx_CYFUNCTION_STATICMETHOD, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_14, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__72)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 462, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_3, __pyx_t_1);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_1, __pyx_t_5);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":461
+  /* "supplychainpy/demand/_evo_algo.pyx":469
  *         return appraised_individual
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def _express_trait(original_standard_error: float, appraised_individual: dict):
  *         # fitness test? over 50% of the alleles must be positive traits. give percentage score
  */
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 461, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 469, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_1);
+  __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 469, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GIVEREF(__pyx_t_3);
-  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_3);
-  __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 461, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_express_trait, __pyx_t_1) < 0) __PYX_ERR(0, 470, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_express_trait, __pyx_t_3) < 0) __PYX_ERR(0, 462, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":474
+  /* "supplychainpy/demand/_evo_algo.pyx":482
  *         return appraised_individual
  * 
  *     def _selection_population(self, individuals_fitness: dict, appraised_individual: list):             # <<<<<<<<<<<<<<
  *         pass
  * 
  */
-  __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 474, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_individuals_fitness, ((PyObject *)(&PyDict_Type))) < 0) __PYX_ERR(0, 474, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_appraised_individual, ((PyObject *)(&PyList_Type))) < 0) __PYX_ERR(0, 474, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_33_selection_population, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_15, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__74)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 474, __pyx_L1_error)
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 482, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_1, __pyx_t_3);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_selection_population, __pyx_t_1) < 0) __PYX_ERR(0, 474, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_individuals_fitness, ((PyObject *)(&PyDict_Type))) < 0) __PYX_ERR(0, 482, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_appraised_individual, ((PyObject *)(&PyList_Type))) < 0) __PYX_ERR(0, 482, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_33_selection_population, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_15, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__73)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 482, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_5, __pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_selection_population, __pyx_t_5) < 0) __PYX_ERR(0, 482, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "supplychainpy/demand/_evo_algo.pyx":477
- *         pass
+  /* "supplychainpy/demand/_evo_algo.pyx":486
  * 
- *     def simple_exponential_smoothing_evo(self, smoothing_level_constant: float, initial_estimate_period: int,             # <<<<<<<<<<<<<<
- *                                          recombination_type: str = 'single_point', population_size: int = 10,
- *                                          forecast_length: int = 5) -> dict:
- */
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 477, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_smoothing_level_constant, ((PyObject *)(&PyFloat_Type))) < 0) __PYX_ERR(0, 477, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_initial_estimate_period, ((PyObject *)(&PyInt_Type))) < 0) __PYX_ERR(0, 477, __pyx_L1_error)
-
-  /* "supplychainpy/demand/_evo_algo.pyx":478
- * 
- *     def simple_exponential_smoothing_evo(self, smoothing_level_constant: float, initial_estimate_period: int,
- *                                          recombination_type: str = 'single_point', population_size: int = 10,             # <<<<<<<<<<<<<<
- *                                          forecast_length: int = 5) -> dict:
+ *     def simple_exponential_smoothing_evo(self, smoothing_level_constant, initial_estimate_period,
+ *                                          recombination_type = 'single_point', int population_size = 10,             # <<<<<<<<<<<<<<
+ *                                          int forecast_length = 5):
  *         """ Simple exponential smoothing using evolutionary algorithm for optimising smoothing level constant (alpha value)
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_recombination_type, ((PyObject *)(&PyString_Type))) < 0) __PYX_ERR(0, 477, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_population_size, ((PyObject *)(&PyInt_Type))) < 0) __PYX_ERR(0, 477, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_From_int(((int)10)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 486, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
 
-  /* "supplychainpy/demand/_evo_algo.pyx":479
- *     def simple_exponential_smoothing_evo(self, smoothing_level_constant: float, initial_estimate_period: int,
- *                                          recombination_type: str = 'single_point', population_size: int = 10,
- *                                          forecast_length: int = 5) -> dict:             # <<<<<<<<<<<<<<
+  /* "supplychainpy/demand/_evo_algo.pyx":487
+ *     def simple_exponential_smoothing_evo(self, smoothing_level_constant, initial_estimate_period,
+ *                                          recombination_type = 'single_point', int population_size = 10,
+ *                                          int forecast_length = 5):             # <<<<<<<<<<<<<<
  *         """ Simple exponential smoothing using evolutionary algorithm for optimising smoothing level constant (alpha value)
  * 
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_forecast_length, ((PyObject *)(&PyInt_Type))) < 0) __PYX_ERR(0, 477, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_return, ((PyObject *)(&PyDict_Type))) < 0) __PYX_ERR(0, 477, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(((int)5)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 487, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
 
-  /* "supplychainpy/demand/_evo_algo.pyx":477
+  /* "supplychainpy/demand/_evo_algo.pyx":485
  *         pass
  * 
- *     def simple_exponential_smoothing_evo(self, smoothing_level_constant: float, initial_estimate_period: int,             # <<<<<<<<<<<<<<
- *                                          recombination_type: str = 'single_point', population_size: int = 10,
- *                                          forecast_length: int = 5) -> dict:
+ *     def simple_exponential_smoothing_evo(self, smoothing_level_constant, initial_estimate_period,             # <<<<<<<<<<<<<<
+ *                                          recombination_type = 'single_point', int population_size = 10,
+ *                                          int forecast_length = 5):
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_35simple_exponential_smoothing_evo, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_16, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__76)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 477, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 485, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_3, __pyx_tuple__77);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_3, __pyx_t_1);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_simple_exponential_smoothing_evo, __pyx_t_3) < 0) __PYX_ERR(0, 477, __pyx_L1_error)
+  __Pyx_INCREF(((PyObject*)__pyx_n_s_single_point));
+  __Pyx_GIVEREF(((PyObject*)__pyx_n_s_single_point));
+  PyTuple_SET_ITEM(__pyx_t_3, 0, ((PyObject*)__pyx_n_s_single_point));
+  __Pyx_GIVEREF(__pyx_t_5);
+  PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_5);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_3, 2, __pyx_t_1);
+  __pyx_t_5 = 0;
+  __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13supplychainpy_6demand_9_evo_algo_38OptimiseSmoothingLevelGeneticAlgorithm_35simple_exponential_smoothing_evo, 0, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_16, NULL, __pyx_n_s_supplychainpy_demand__evo_algo, __pyx_d, ((PyObject *)__pyx_codeobj__75)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 485, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_t_3);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_simple_exponential_smoothing_evo, __pyx_t_1) < 0) __PYX_ERR(0, 485, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "supplychainpy/demand/_evo_algo.pyx":248
  * 
@@ -16660,10 +16616,10 @@ PyMODINIT_FUNC PyInit__evo_algo(void)
  *     __generation = 0
  * 
  */
-  __pyx_t_3 = __Pyx_Py3ClassCreate(((PyObject*)&__Pyx_DefaultClassType), __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_5, __pyx_empty_tuple, __pyx_t_2, NULL, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 248, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_5, __pyx_t_3) < 0) __PYX_ERR(0, 248, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_1 = __Pyx_Py3ClassCreate(((PyObject*)&__Pyx_DefaultClassType), __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_5, __pyx_empty_tuple, __pyx_t_2, NULL, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_OptimiseSmoothingLevelGeneticAlg_5, __pyx_t_1) < 0) __PYX_ERR(0, 248, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "supplychainpy/demand/_evo_algo.pyx":1
@@ -17120,6 +17076,33 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
 }
 #endif
 
+/* ArgTypeTest */
+    static void __Pyx_RaiseArgumentTypeInvalid(const char* name, PyObject *obj, PyTypeObject *type) {
+    PyErr_Format(PyExc_TypeError,
+        "Argument '%.200s' has incorrect type (expected %.200s, got %.200s)",
+        name, type->tp_name, Py_TYPE(obj)->tp_name);
+}
+static CYTHON_INLINE int __Pyx_ArgTypeTest(PyObject *obj, PyTypeObject *type, int none_allowed,
+    const char *name, int exact)
+{
+    if (unlikely(!type)) {
+        PyErr_SetString(PyExc_SystemError, "Missing type object");
+        return 0;
+    }
+    if (none_allowed && obj == Py_None) return 1;
+    else if (exact) {
+        if (likely(Py_TYPE(obj) == type)) return 1;
+        #if PY_MAJOR_VERSION == 2
+        else if ((type == &PyBaseString_Type) && likely(__Pyx_PyBaseString_CheckExact(obj))) return 1;
+        #endif
+    }
+    else {
+        if (likely(PyObject_TypeCheck(obj, type))) return 1;
+    }
+    __Pyx_RaiseArgumentTypeInvalid(name, obj, type);
+    return 0;
+}
+
 /* BytesEquals */
     static CYTHON_INLINE int __Pyx_PyBytes_Equals(PyObject* s1, PyObject* s2, int equals) {
 #if CYTHON_COMPILING_IN_PYPY
@@ -17258,33 +17241,6 @@ return_ne:
         result = __Pyx_GetBuiltinName(name);
     }
     return result;
-}
-
-/* ArgTypeTest */
-      static void __Pyx_RaiseArgumentTypeInvalid(const char* name, PyObject *obj, PyTypeObject *type) {
-    PyErr_Format(PyExc_TypeError,
-        "Argument '%.200s' has incorrect type (expected %.200s, got %.200s)",
-        name, type->tp_name, Py_TYPE(obj)->tp_name);
-}
-static CYTHON_INLINE int __Pyx_ArgTypeTest(PyObject *obj, PyTypeObject *type, int none_allowed,
-    const char *name, int exact)
-{
-    if (unlikely(!type)) {
-        PyErr_SetString(PyExc_SystemError, "Missing type object");
-        return 0;
-    }
-    if (none_allowed && obj == Py_None) return 1;
-    else if (exact) {
-        if (likely(Py_TYPE(obj) == type)) return 1;
-        #if PY_MAJOR_VERSION == 2
-        else if ((type == &PyBaseString_Type) && likely(__Pyx_PyBaseString_CheckExact(obj))) return 1;
-        #endif
-    }
-    else {
-        if (likely(PyObject_TypeCheck(obj, type))) return 1;
-    }
-    __Pyx_RaiseArgumentTypeInvalid(name, obj, type);
-    return 0;
 }
 
 /* GetItemInt */
@@ -19018,36 +18974,27 @@ bad:
     Py_XDECREF(py_frame);
 }
 
-/* CIntToPy */
-              static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
-    const long neg_one = (long) -1, const_zero = (long) 0;
-    const int is_unsigned = neg_one > const_zero;
-    if (is_unsigned) {
-        if (sizeof(long) < sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(long) <= sizeof(unsigned long)) {
-            return PyLong_FromUnsignedLong((unsigned long) value);
-#ifdef HAVE_LONG_LONG
-        } else if (sizeof(long) <= sizeof(unsigned PY_LONG_LONG)) {
-            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
-#endif
-        }
-    } else {
-        if (sizeof(long) <= sizeof(long)) {
-            return PyInt_FromLong((long) value);
-#ifdef HAVE_LONG_LONG
-        } else if (sizeof(long) <= sizeof(PY_LONG_LONG)) {
-            return PyLong_FromLongLong((PY_LONG_LONG) value);
-#endif
-        }
+/* CIntFromPyVerify */
+              #define __PYX_VERIFY_RETURN_INT(target_type, func_type, func_value)\
+    __PYX__VERIFY_RETURN_INT(target_type, func_type, func_value, 0)
+#define __PYX_VERIFY_RETURN_INT_EXC(target_type, func_type, func_value)\
+    __PYX__VERIFY_RETURN_INT(target_type, func_type, func_value, 1)
+#define __PYX__VERIFY_RETURN_INT(target_type, func_type, func_value, exc)\
+    {\
+        func_type value = func_value;\
+        if (sizeof(target_type) < sizeof(func_type)) {\
+            if (unlikely(value != (func_type) (target_type) value)) {\
+                func_type zero = 0;\
+                if (exc && unlikely(value == (func_type)-1 && PyErr_Occurred()))\
+                    return (target_type) -1;\
+                if (is_unsigned && unlikely(value < zero))\
+                    goto raise_neg_overflow;\
+                else\
+                    goto raise_overflow;\
+            }\
+        }\
+        return (target_type) value;\
     }
-    {
-        int one = 1; int little = (int)*(unsigned char *)&one;
-        unsigned char *bytes = (unsigned char *)&value;
-        return _PyLong_FromByteArray(bytes, sizeof(long),
-                                     little, !is_unsigned);
-    }
-}
 
 /* CIntToPy */
               static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
@@ -19076,6 +19023,37 @@ bad:
         int one = 1; int little = (int)*(unsigned char *)&one;
         unsigned char *bytes = (unsigned char *)&value;
         return _PyLong_FromByteArray(bytes, sizeof(int),
+                                     little, !is_unsigned);
+    }
+}
+
+/* CIntToPy */
+              static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
+    const long neg_one = (long) -1, const_zero = (long) 0;
+    const int is_unsigned = neg_one > const_zero;
+    if (is_unsigned) {
+        if (sizeof(long) < sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(long) <= sizeof(unsigned long)) {
+            return PyLong_FromUnsignedLong((unsigned long) value);
+#ifdef HAVE_LONG_LONG
+        } else if (sizeof(long) <= sizeof(unsigned PY_LONG_LONG)) {
+            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
+#endif
+        }
+    } else {
+        if (sizeof(long) <= sizeof(long)) {
+            return PyInt_FromLong((long) value);
+#ifdef HAVE_LONG_LONG
+        } else if (sizeof(long) <= sizeof(PY_LONG_LONG)) {
+            return PyLong_FromLongLong((PY_LONG_LONG) value);
+#endif
+        }
+    }
+    {
+        int one = 1; int little = (int)*(unsigned char *)&one;
+        unsigned char *bytes = (unsigned char *)&value;
+        return _PyLong_FromByteArray(bytes, sizeof(long),
                                      little, !is_unsigned);
     }
 }
@@ -19185,254 +19163,6 @@ bad:
     return -1;
 }
 #endif
-
-/* PrintOne */
-              #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
-static int __Pyx_PrintOne(PyObject* f, PyObject *o) {
-    if (!f) {
-        if (!(f = __Pyx_GetStdout()))
-            return -1;
-    }
-    Py_INCREF(f);
-    if (PyFile_SoftSpace(f, 0)) {
-        if (PyFile_WriteString(" ", f) < 0)
-            goto error;
-    }
-    if (PyFile_WriteObject(o, f, Py_PRINT_RAW) < 0)
-        goto error;
-    if (PyFile_WriteString("\n", f) < 0)
-        goto error;
-    Py_DECREF(f);
-    return 0;
-error:
-    Py_DECREF(f);
-    return -1;
-    /* the line below is just to avoid C compiler
-     * warnings about unused functions */
-    return __Pyx_Print(f, NULL, 0);
-}
-#else
-static int __Pyx_PrintOne(PyObject* stream, PyObject *o) {
-    int res;
-    PyObject* arg_tuple = PyTuple_Pack(1, o);
-    if (unlikely(!arg_tuple))
-        return -1;
-    res = __Pyx_Print(stream, arg_tuple, 1);
-    Py_DECREF(arg_tuple);
-    return res;
-}
-#endif
-
-/* CIntFromPyVerify */
-              #define __PYX_VERIFY_RETURN_INT(target_type, func_type, func_value)\
-    __PYX__VERIFY_RETURN_INT(target_type, func_type, func_value, 0)
-#define __PYX_VERIFY_RETURN_INT_EXC(target_type, func_type, func_value)\
-    __PYX__VERIFY_RETURN_INT(target_type, func_type, func_value, 1)
-#define __PYX__VERIFY_RETURN_INT(target_type, func_type, func_value, exc)\
-    {\
-        func_type value = func_value;\
-        if (sizeof(target_type) < sizeof(func_type)) {\
-            if (unlikely(value != (func_type) (target_type) value)) {\
-                func_type zero = 0;\
-                if (exc && unlikely(value == (func_type)-1 && PyErr_Occurred()))\
-                    return (target_type) -1;\
-                if (is_unsigned && unlikely(value < zero))\
-                    goto raise_neg_overflow;\
-                else\
-                    goto raise_overflow;\
-            }\
-        }\
-        return (target_type) value;\
-    }
-
-/* CIntFromPy */
-              static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *x) {
-    const long neg_one = (long) -1, const_zero = (long) 0;
-    const int is_unsigned = neg_one > const_zero;
-#if PY_MAJOR_VERSION < 3
-    if (likely(PyInt_Check(x))) {
-        if (sizeof(long) < sizeof(long)) {
-            __PYX_VERIFY_RETURN_INT(long, long, PyInt_AS_LONG(x))
-        } else {
-            long val = PyInt_AS_LONG(x);
-            if (is_unsigned && unlikely(val < 0)) {
-                goto raise_neg_overflow;
-            }
-            return (long) val;
-        }
-    } else
-#endif
-    if (likely(PyLong_Check(x))) {
-        if (is_unsigned) {
-#if CYTHON_USE_PYLONG_INTERNALS
-            const digit* digits = ((PyLongObject*)x)->ob_digit;
-            switch (Py_SIZE(x)) {
-                case  0: return (long) 0;
-                case  1: __PYX_VERIFY_RETURN_INT(long, digit, digits[0])
-                case 2:
-                    if (8 * sizeof(long) > 1 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(long) >= 2 * PyLong_SHIFT) {
-                            return (long) (((((long)digits[1]) << PyLong_SHIFT) | (long)digits[0]));
-                        }
-                    }
-                    break;
-                case 3:
-                    if (8 * sizeof(long) > 2 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(long) >= 3 * PyLong_SHIFT) {
-                            return (long) (((((((long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0]));
-                        }
-                    }
-                    break;
-                case 4:
-                    if (8 * sizeof(long) > 3 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(long) >= 4 * PyLong_SHIFT) {
-                            return (long) (((((((((long)digits[3]) << PyLong_SHIFT) | (long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0]));
-                        }
-                    }
-                    break;
-            }
-#endif
-#if CYTHON_COMPILING_IN_CPYTHON
-            if (unlikely(Py_SIZE(x) < 0)) {
-                goto raise_neg_overflow;
-            }
-#else
-            {
-                int result = PyObject_RichCompareBool(x, Py_False, Py_LT);
-                if (unlikely(result < 0))
-                    return (long) -1;
-                if (unlikely(result == 1))
-                    goto raise_neg_overflow;
-            }
-#endif
-            if (sizeof(long) <= sizeof(unsigned long)) {
-                __PYX_VERIFY_RETURN_INT_EXC(long, unsigned long, PyLong_AsUnsignedLong(x))
-#ifdef HAVE_LONG_LONG
-            } else if (sizeof(long) <= sizeof(unsigned PY_LONG_LONG)) {
-                __PYX_VERIFY_RETURN_INT_EXC(long, unsigned PY_LONG_LONG, PyLong_AsUnsignedLongLong(x))
-#endif
-            }
-        } else {
-#if CYTHON_USE_PYLONG_INTERNALS
-            const digit* digits = ((PyLongObject*)x)->ob_digit;
-            switch (Py_SIZE(x)) {
-                case  0: return (long) 0;
-                case -1: __PYX_VERIFY_RETURN_INT(long, sdigit, (sdigit) (-(sdigit)digits[0]))
-                case  1: __PYX_VERIFY_RETURN_INT(long,  digit, +digits[0])
-                case -2:
-                    if (8 * sizeof(long) - 1 > 1 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(long, long, -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
-                            return (long) (((long)-1)*(((((long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
-                        }
-                    }
-                    break;
-                case 2:
-                    if (8 * sizeof(long) > 1 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
-                            return (long) ((((((long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
-                        }
-                    }
-                    break;
-                case -3:
-                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(long, long, -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
-                            return (long) (((long)-1)*(((((((long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
-                        }
-                    }
-                    break;
-                case 3:
-                    if (8 * sizeof(long) > 2 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
-                            return (long) ((((((((long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
-                        }
-                    }
-                    break;
-                case -4:
-                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(long, long, -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
-                            return (long) (((long)-1)*(((((((((long)digits[3]) << PyLong_SHIFT) | (long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
-                        }
-                    }
-                    break;
-                case 4:
-                    if (8 * sizeof(long) > 3 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
-                            return (long) ((((((((((long)digits[3]) << PyLong_SHIFT) | (long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
-                        }
-                    }
-                    break;
-            }
-#endif
-            if (sizeof(long) <= sizeof(long)) {
-                __PYX_VERIFY_RETURN_INT_EXC(long, long, PyLong_AsLong(x))
-#ifdef HAVE_LONG_LONG
-            } else if (sizeof(long) <= sizeof(PY_LONG_LONG)) {
-                __PYX_VERIFY_RETURN_INT_EXC(long, PY_LONG_LONG, PyLong_AsLongLong(x))
-#endif
-            }
-        }
-        {
-#if CYTHON_COMPILING_IN_PYPY && !defined(_PyLong_AsByteArray)
-            PyErr_SetString(PyExc_RuntimeError,
-                            "_PyLong_AsByteArray() not available in PyPy, cannot convert large numbers");
-#else
-            long val;
-            PyObject *v = __Pyx_PyNumber_IntOrLong(x);
- #if PY_MAJOR_VERSION < 3
-            if (likely(v) && !PyLong_Check(v)) {
-                PyObject *tmp = v;
-                v = PyNumber_Long(tmp);
-                Py_DECREF(tmp);
-            }
- #endif
-            if (likely(v)) {
-                int one = 1; int is_little = (int)*(unsigned char *)&one;
-                unsigned char *bytes = (unsigned char *)&val;
-                int ret = _PyLong_AsByteArray((PyLongObject *)v,
-                                              bytes, sizeof(val),
-                                              is_little, !is_unsigned);
-                Py_DECREF(v);
-                if (likely(!ret))
-                    return val;
-            }
-#endif
-            return (long) -1;
-        }
-    } else {
-        long val;
-        PyObject *tmp = __Pyx_PyNumber_IntOrLong(x);
-        if (!tmp) return (long) -1;
-        val = __Pyx_PyInt_As_long(tmp);
-        Py_DECREF(tmp);
-        return val;
-    }
-raise_overflow:
-    PyErr_SetString(PyExc_OverflowError,
-        "value too large to convert to long");
-    return (long) -1;
-raise_neg_overflow:
-    PyErr_SetString(PyExc_OverflowError,
-        "can't convert negative value to long");
-    return (long) -1;
-}
 
 /* CIntFromPy */
               static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *x) {
@@ -19621,6 +19351,232 @@ raise_neg_overflow:
     PyErr_SetString(PyExc_OverflowError,
         "can't convert negative value to int");
     return (int) -1;
+}
+
+/* PrintOne */
+              #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
+static int __Pyx_PrintOne(PyObject* f, PyObject *o) {
+    if (!f) {
+        if (!(f = __Pyx_GetStdout()))
+            return -1;
+    }
+    Py_INCREF(f);
+    if (PyFile_SoftSpace(f, 0)) {
+        if (PyFile_WriteString(" ", f) < 0)
+            goto error;
+    }
+    if (PyFile_WriteObject(o, f, Py_PRINT_RAW) < 0)
+        goto error;
+    if (PyFile_WriteString("\n", f) < 0)
+        goto error;
+    Py_DECREF(f);
+    return 0;
+error:
+    Py_DECREF(f);
+    return -1;
+    /* the line below is just to avoid C compiler
+     * warnings about unused functions */
+    return __Pyx_Print(f, NULL, 0);
+}
+#else
+static int __Pyx_PrintOne(PyObject* stream, PyObject *o) {
+    int res;
+    PyObject* arg_tuple = PyTuple_Pack(1, o);
+    if (unlikely(!arg_tuple))
+        return -1;
+    res = __Pyx_Print(stream, arg_tuple, 1);
+    Py_DECREF(arg_tuple);
+    return res;
+}
+#endif
+
+/* CIntFromPy */
+              static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *x) {
+    const long neg_one = (long) -1, const_zero = (long) 0;
+    const int is_unsigned = neg_one > const_zero;
+#if PY_MAJOR_VERSION < 3
+    if (likely(PyInt_Check(x))) {
+        if (sizeof(long) < sizeof(long)) {
+            __PYX_VERIFY_RETURN_INT(long, long, PyInt_AS_LONG(x))
+        } else {
+            long val = PyInt_AS_LONG(x);
+            if (is_unsigned && unlikely(val < 0)) {
+                goto raise_neg_overflow;
+            }
+            return (long) val;
+        }
+    } else
+#endif
+    if (likely(PyLong_Check(x))) {
+        if (is_unsigned) {
+#if CYTHON_USE_PYLONG_INTERNALS
+            const digit* digits = ((PyLongObject*)x)->ob_digit;
+            switch (Py_SIZE(x)) {
+                case  0: return (long) 0;
+                case  1: __PYX_VERIFY_RETURN_INT(long, digit, digits[0])
+                case 2:
+                    if (8 * sizeof(long) > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(long) >= 2 * PyLong_SHIFT) {
+                            return (long) (((((long)digits[1]) << PyLong_SHIFT) | (long)digits[0]));
+                        }
+                    }
+                    break;
+                case 3:
+                    if (8 * sizeof(long) > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(long) >= 3 * PyLong_SHIFT) {
+                            return (long) (((((((long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0]));
+                        }
+                    }
+                    break;
+                case 4:
+                    if (8 * sizeof(long) > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(long) >= 4 * PyLong_SHIFT) {
+                            return (long) (((((((((long)digits[3]) << PyLong_SHIFT) | (long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0]));
+                        }
+                    }
+                    break;
+            }
+#endif
+#if CYTHON_COMPILING_IN_CPYTHON
+            if (unlikely(Py_SIZE(x) < 0)) {
+                goto raise_neg_overflow;
+            }
+#else
+            {
+                int result = PyObject_RichCompareBool(x, Py_False, Py_LT);
+                if (unlikely(result < 0))
+                    return (long) -1;
+                if (unlikely(result == 1))
+                    goto raise_neg_overflow;
+            }
+#endif
+            if (sizeof(long) <= sizeof(unsigned long)) {
+                __PYX_VERIFY_RETURN_INT_EXC(long, unsigned long, PyLong_AsUnsignedLong(x))
+#ifdef HAVE_LONG_LONG
+            } else if (sizeof(long) <= sizeof(unsigned PY_LONG_LONG)) {
+                __PYX_VERIFY_RETURN_INT_EXC(long, unsigned PY_LONG_LONG, PyLong_AsUnsignedLongLong(x))
+#endif
+            }
+        } else {
+#if CYTHON_USE_PYLONG_INTERNALS
+            const digit* digits = ((PyLongObject*)x)->ob_digit;
+            switch (Py_SIZE(x)) {
+                case  0: return (long) 0;
+                case -1: __PYX_VERIFY_RETURN_INT(long, sdigit, (sdigit) (-(sdigit)digits[0]))
+                case  1: __PYX_VERIFY_RETURN_INT(long,  digit, +digits[0])
+                case -2:
+                    if (8 * sizeof(long) - 1 > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(long, long, -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
+                            return (long) (((long)-1)*(((((long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
+                        }
+                    }
+                    break;
+                case 2:
+                    if (8 * sizeof(long) > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
+                            return (long) ((((((long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
+                        }
+                    }
+                    break;
+                case -3:
+                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(long, long, -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
+                            return (long) (((long)-1)*(((((((long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
+                        }
+                    }
+                    break;
+                case 3:
+                    if (8 * sizeof(long) > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
+                            return (long) ((((((((long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
+                        }
+                    }
+                    break;
+                case -4:
+                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(long, long, -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
+                            return (long) (((long)-1)*(((((((((long)digits[3]) << PyLong_SHIFT) | (long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
+                        }
+                    }
+                    break;
+                case 4:
+                    if (8 * sizeof(long) > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
+                            return (long) ((((((((((long)digits[3]) << PyLong_SHIFT) | (long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
+                        }
+                    }
+                    break;
+            }
+#endif
+            if (sizeof(long) <= sizeof(long)) {
+                __PYX_VERIFY_RETURN_INT_EXC(long, long, PyLong_AsLong(x))
+#ifdef HAVE_LONG_LONG
+            } else if (sizeof(long) <= sizeof(PY_LONG_LONG)) {
+                __PYX_VERIFY_RETURN_INT_EXC(long, PY_LONG_LONG, PyLong_AsLongLong(x))
+#endif
+            }
+        }
+        {
+#if CYTHON_COMPILING_IN_PYPY && !defined(_PyLong_AsByteArray)
+            PyErr_SetString(PyExc_RuntimeError,
+                            "_PyLong_AsByteArray() not available in PyPy, cannot convert large numbers");
+#else
+            long val;
+            PyObject *v = __Pyx_PyNumber_IntOrLong(x);
+ #if PY_MAJOR_VERSION < 3
+            if (likely(v) && !PyLong_Check(v)) {
+                PyObject *tmp = v;
+                v = PyNumber_Long(tmp);
+                Py_DECREF(tmp);
+            }
+ #endif
+            if (likely(v)) {
+                int one = 1; int is_little = (int)*(unsigned char *)&one;
+                unsigned char *bytes = (unsigned char *)&val;
+                int ret = _PyLong_AsByteArray((PyLongObject *)v,
+                                              bytes, sizeof(val),
+                                              is_little, !is_unsigned);
+                Py_DECREF(v);
+                if (likely(!ret))
+                    return val;
+            }
+#endif
+            return (long) -1;
+        }
+    } else {
+        long val;
+        PyObject *tmp = __Pyx_PyNumber_IntOrLong(x);
+        if (!tmp) return (long) -1;
+        val = __Pyx_PyInt_As_long(tmp);
+        Py_DECREF(tmp);
+        return val;
+    }
+raise_overflow:
+    PyErr_SetString(PyExc_OverflowError,
+        "value too large to convert to long");
+    return (long) -1;
+raise_neg_overflow:
+    PyErr_SetString(PyExc_OverflowError,
+        "can't convert negative value to long");
+    return (long) -1;
 }
 
 /* SwapException */
