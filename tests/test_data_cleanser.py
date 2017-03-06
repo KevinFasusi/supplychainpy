@@ -5,7 +5,7 @@ import logging
 from supplychainpy._helpers import _data_cleansing
 from supplychainpy.sample_data.config import ABS_FILE_PATH
 
-logging.basicConfig(level=logging.CRITICAL, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class TestCleanser(TestCase):
     def test_incorrect_row_length(self):
