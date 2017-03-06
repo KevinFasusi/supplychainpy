@@ -88,6 +88,12 @@ def random_demand(orders_analysis=None, period_length=None)->list:
     r_demand = simulation.generate_normal_random_distribution(period_length=period_length)
     return r_demand
 
+
+def get_demand(orders_analysis, period_length):
+    demand = deepcopy(random_demand(orders_analysis= orders_analysis,  period_length= period_length))
+    return demand
+
+
 def run_monte_carlo(orders_analysis: list, runs: int, period_length: int = 12) -> list:
     """Runs monte carlo simulation.
 
@@ -157,10 +163,9 @@ def run_monte_carlo(orders_analysis: list, runs: int, period_length: int = 12) -
     # add shortage cost,
     cpu_cores = CoreCount()
     cores = cpu_cores.core_count
-    demand = random_demand(orders_analysis= orders_analysis,  period_length= period_length)
 
     with ProcessPoolExecutor(max_workers=cores) as executor:
-        transactions = {k: executor.submit(run_transactions, *(demand, period_length, orders_analysis)) for k in range(0, runs)}
+        transactions = {k: executor.submit(run_transactions, *(get_demand(orders_analysis=orders_analysis, period_length=period_length), period_length, orders_analysis)) for k in range(0, runs)}
         transactions_gen = {item : cf.as_completed(transactions[item]) for item in transactions}
         transaction_report = [transactions[item].result() for item in transactions_gen]
             #transaction_report.append(deepcopy(pool.apply(run_transactions, args=[random_demand, period_length, orders_analysis])))
