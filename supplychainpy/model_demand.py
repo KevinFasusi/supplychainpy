@@ -25,9 +25,13 @@
 import logging
 from copy import deepcopy
 
+from pyximport import pyximport
+
 from supplychainpy._helpers import _data_cleansing
 from supplychainpy._helpers._enum_formats import FileFormats
 from supplychainpy._helpers._data_cleansing import check_extension
+
+pyximport.install()
 from supplychainpy.demand._evo_algo import OptimiseSmoothingLevelGeneticAlgorithm
 from supplychainpy.demand._forecast_demand import Forecast
 from supplychainpy.demand.regression import LinearRegression
@@ -36,7 +40,6 @@ log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
 
 UNKNOWN = "UNKNOWN"
-
 
 def simple_exponential_smoothing_forecast(demand: list = None, smoothing_level_constant: float = 0.5,
                                           forecast_length: int = 5, initial_estimate_period: int = 6, **kwargs) -> dict:
