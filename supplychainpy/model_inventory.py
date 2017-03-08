@@ -51,7 +51,6 @@ UNKNOWN = 'UNKNOWN'
 
 
 @keyword_sniffer
-@log_this(logging.INFO, message='analysing data source.')
 def analyse(currency: str, z_value: Decimal = 1.28, reorder_cost: Decimal = 10, interval_length: int = 12,
             interval_type: str = 'month', **kwargs):
     """ Performs several types of common inventory analysis on the raw demand data. Including safety stock, reorder
@@ -154,8 +153,7 @@ def analyse(currency: str, z_value: Decimal = 1.28, reorder_cost: Decimal = 10, 
                               'quantity_on_hand':quantity_on_hand,
                               'currency':currency,
                               'total_orders':total_orders,
-                              'backlog':backlog}
-
+                              'backlog': float(backlog)}
                     collect_kwargs.append(kwargs)
                 analysed_orders = [pool.apply(_analyse_orders, args=(x['orders'],
                                                                      x['sku_id'],
@@ -192,7 +190,7 @@ def analyse(currency: str, z_value: Decimal = 1.28, reorder_cost: Decimal = 10, 
     except KeyError as e:
         print(e)
 
-@log_this(logging.INFO, message='Cleansing the data source.')
+
 def _clean_file(file_type: str, file_path: str, interval_length: int) -> dict:
     """ Cleans-up csv and txt files and validates the format.
 

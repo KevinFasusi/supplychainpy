@@ -38,7 +38,7 @@ log.addHandler(logging.NullHandler())
 UNKNOWN = "UNKNOWN"
 
 
-def simple_exponential_smoothing_forecast(demand: list = None, smoothing_level_constant: float = 0.5,
+def  simple_exponential_smoothing_forecast(demand: list = None, smoothing_level_constant: float = 0.5,
                                           forecast_length: int = 5, initial_estimate_period: int = 6, **kwargs) -> dict:
     """ Performs a simple exoponential smoothing forecast on
 

@@ -27,7 +27,7 @@ import os
 APP_DIR = os.path.dirname(__file__, )
 COMPLETE_CSV_SM = 'complete_dataset_small.csv'
 COMPLETE_CSV_XSM = 'complete_dataset_xsmall.csv'
-COMPLETE_CSV_LG = 'complete_dataset_large'
+COMPLETE_CSV_LG = 'complete_dataset_large.csv'
 PARTIAL_COL_CSV_SM ='partial_dataset_col_small.csv'
 PARTIAL_ROW_TXT_SM = 'partial_dataset_row_small.txt'
 PARTIAL_COL_TXT_SM = 'partial_dataset_col_small.txt'
