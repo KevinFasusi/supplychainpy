@@ -21,8 +21,12 @@
 # SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+import logging
 
 from supplychainpy.bi._analytical_heirachy_process import _PairwiseComparison
+
+log = logging.getLogger(__name__)
+log.addHandler(logging.NullHandler())
 
 
 def analytical_hierarchy_process(criteria: tuple, criteria_scores: list, options: tuple, option_scores: dict,
@@ -65,6 +69,7 @@ def analytical_hierarchy_process(criteria: tuple, criteria_scores: list, options
                               quantitative_criteria=quantitative_criteria)
     if kwargs:
         ahp_cvb = ahp.cost_benefit_summary(ahp_summary=ahp.summary(), item_cost=kwargs.get('item_cost'))
+        log.debug("AHP completed")
         return {'analytical_hierarchy': ahp.summary(), 'cost_benefit_ratios': ahp_cvb}
 
     return ahp.summary()

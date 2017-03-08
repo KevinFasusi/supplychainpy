@@ -21,10 +21,13 @@
 # SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+from typing import Generator
 
 import numpy as np
 import logging
 import pyximport
+
+from supplychainpy._helpers._decorators import log_this
 
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
@@ -298,7 +301,8 @@ class Forecast:
 
         return std_array
 
-    def simple_exponential_smoothing(self, *alpha) -> dict:
+    @log_this(logging.DEBUG, "Called to compute simple exponential smoothing.")
+    def simple_exponential_smoothing(self, *alpha)->Generator[dict, None, None]:
         """ Generates forecast using simple exponential smoothing (SES).
 
         Args:
@@ -339,6 +343,7 @@ class Forecast:
                        }
                 previous_level_estimate = current_level_estimate
 
+    @log_this(logging.DEBUG, "Called HTEC exponential smoothing.")
     def holts_trend_corrected_exponential_smoothing(self, alpha: float, gamma: float, intercept: float, slope: float):
         forecast = {}
         # log.debug('holts ')
@@ -357,18 +362,18 @@ class Forecast:
         previous_trend = slope
         previous_level_estimate = current_level_estimate
         for index, demand in enumerate(tuple(self.__orders), 1):
-            # log.debug('demand: {}'.format(demand))
+            log.debug('demand: {}'.format(demand))
             one_step = previous_level_estimate + previous_trend
-            # log.debug('one_step: {}'.format(one_step))
+            log.debug('one_step: {}'.format(one_step))
             forecast_error = self._forecast_error(demand, one_step)
-            # log.debug('forecast_error: {}'.format(forecast_error))
+            log.debug('forecast_error: {}'.format(forecast_error))
             current_trend = self._holts_trend(previous_trend, gamma, alpha, forecast_error)
-            # log.debug('trend: {}'.format(current_trend))
+            log.debug('trend: {}'.format(current_trend))
             current_level_estimate = self._level_estimate_holts_trend_corrected(previous_level_estimate,
                                                                                 alpha,
                                                                                 previous_trend,
                                                                                 forecast_error)
-            # log.debug('current_level: {}'.format(current_level_estimate))
+            log.debug('current_level: {}'.format(current_level_estimate))
             squared_error = forecast_error ** 2
             yield {'alpha': alpha,
                    'gamma': gamma,
@@ -380,7 +385,7 @@ class Forecast:
                    'forecast_error': forecast_error,
                    'squared_error': squared_error
                    }
-            # log.debug('squared_error: {}'.format(squared_error))
+            log.debug('squared_error: {}'.format(squared_error))
             previous_level_estimate = current_level_estimate
             previous_trend = current_trend
 
@@ -466,7 +471,15 @@ class Forecast:
 
         pass
 
-    def mean_aboslute_percentage_error_opt(self, forecast: list) -> list:
+    def mean_aboslute_percentage_error_opt(self, forecast: list) -> int:
+        """ Calculates the mean absolute percentage error for the optimised forecasts
+
+        Args:
+            forecast (list): forecast generated
+
+        Returns:
+
+        """
         sum_ape = sum([abs((i['demand'] - i['level_estimates']) / i['demand']) for i in forecast])
         mape = (sum_ape / len(forecast)) * 100
         return mape

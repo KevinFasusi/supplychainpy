@@ -27,6 +27,8 @@ from copy import deepcopy
 import logging
 import numpy as np
 
+from supplychainpy._helpers._decorators import log_this
+
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
 
@@ -87,6 +89,7 @@ class _PairwiseComparison:
     def consistency_ratio(self):
         return self._cr
 
+    @log_this(logging.DEBUG, message='Called to map the reciprocal in pairwise matrix.')
     def _map_reciprocal(self, importance_score: list) -> np.array:
         """ Fills in the reciprocal relative weights matrix of  for each criterion.
 
@@ -105,12 +108,15 @@ class _PairwiseComparison:
                         importance_score_matrix[index_one, index_two])
         return importance_score_matrix
 
+    @log_this(logging.DEBUG, message='Called to compile the solution with scores for the relative importance '
+                                    'for each category.')
     def summary(self) -> dict:
-        """ Summaries the Analytical Hierarchy Process,with a dict of scores for ranking.
+        """ Summarise the Analytical Hierarchy Process ,with a dict of scores for ranking.
 
         Returns:
             dict:   Scores for each alternative based on the relative importance of each category.
         """
+        log.log(logging.INFO, "Scoring alternative for ranking")
         np.set_printoptions(precision=3, suppress=True)
         criteria_eigenvector_rank = self.compute_criteria_eingenvector()
         alternative_matrix_subjective = {val: self._square_matrix(np.array(self.alternative_scores.get(val))) for val in
@@ -127,6 +133,7 @@ class _PairwiseComparison:
         return ahp_solution
 
     @staticmethod
+    @log_this(logging.DEBUG, "Called to compute cost benefit ratio for alternative in AHP.")
     def cost_benefit_summary(ahp_summary: dict, item_cost: dict) -> dict:
         """ Normalises the costs for each alternative and converts cost into benefits cost ratio.
 
@@ -138,6 +145,7 @@ class _PairwiseComparison:
             dict:   benefit cost ratio for alternatives in analytical hierarchy
 
         """
+        log.log(logging.INFO, "Cost benefits analysis")
         if ahp_summary.keys() == item_cost.keys():
             total_cost = sum([item_cost.get(i) for i in item_cost])
             normalised_item_cost = {}
@@ -150,17 +158,19 @@ class _PairwiseComparison:
         else:
             raise KeyError("Please check keys and ensure both 'ahp_summary' and 'item_costs' have identical keys.")
 
+    @log_this(logging.DEBUG, "Called to compile overall solution,")
     def _compile_ahp_solution(self, recompiled_main_hierarchy: dict, criteria_eigenvector: tuple) -> dict:
         """ Multiplies the criteria rankings by the rankings for the alternatives.
 
         Args:
-            recompiled_main_hierarchy (dict):   The eignenvectors for the subjective and objective categories
+            recompiled_main_hierarchy (dict):   The eigenvectors for the subjective and objective categories
             criteria_eigenvector (dict):        The eigenvector for the criteria.
 
         Returns:
             dict:   The final solution for the AHP.
 
         """
+        log.log(logging.INFO, "Compile solution as dict")
         ahp_solution = {}
         stack = []
         for count, alternative in enumerate(self.alternatives):
@@ -170,6 +180,7 @@ class _PairwiseComparison:
             stack.clear()
         return ahp_solution
 
+    @log_this(logging.DEBUG, "Called to compute cost benifit ratio for alternatve in AHP.")
     def _alternative_eigenvector(self, alternative_matrix):
         """
 
@@ -185,6 +196,7 @@ class _PairwiseComparison:
             eigenvectors_for_alternatives.append({x: self._calculate_eigenvector(alternative_matrix.get(x))})
         return eigenvectors_for_alternatives
 
+    @log_this(logging.DEBUG, "Called to compute normalised ranking.")
     def _normalise_quantitative_rank(self) -> list:
         """ Normalises the values for the categories ranked using quantities e.g. fuel consumption.
 
@@ -192,6 +204,7 @@ class _PairwiseComparison:
             list:   Normalised ranking of alternatives for quantitative categories.
 
         """
+        log.log(logging.INFO, "Compile normalised ranking")
         normalised_quantitive_criteria_ranking = []
         for x in self.quantitative_criteria:
             quant_criteria = self.alternative_scores.get(x)
@@ -201,18 +214,20 @@ class _PairwiseComparison:
         return normalised_quantitive_criteria_ranking
 
     @staticmethod
+    @log_this(logging.DEBUG, "Called to combine subjective and objective criteria matrices.")
     def _recompile_main_hierarchy_matrix(alternative_matrix_quantitative: list,
                                          alternative_matrix_eigenvectors: list) -> dict:
         """ Combines the subjective matrices and the objective (quantitative) matrices together.
 
         Args:
-            alternative_matrix_quantitative (list):     Eignevectors for the objective categories for the AHP
-            alternative_matrix_eigenvectors (list):     Eignevectors for the subjective categories for the AHP
+            alternative_matrix_quantitative (list):     Eigenvectors for the objective categories for the AHP
+            alternative_matrix_eigenvectors (list):     Eigenvectors for the subjective categories for the AHP
 
         Returns:
-            dict:   Combined subjective and objective eignevectors.
+            dict:   Combined subjective and objective eigenvectors.
 
         """
+        log.log(logging.INFO, "Combine the subjective matrices")
         for i in alternative_matrix_quantitative:
             alternative_matrix_eigenvectors.append(i)
         recompiled_matrix = {}
@@ -237,6 +252,7 @@ class _PairwiseComparison:
         """
         return score * score
 
+    @log_this(logging.DEBUG, "Called to calculate eigenvector.")
     def _calculate_eigenvector(self, squared_comparison_matrix: np.array) -> tuple:
         """ Calculates the eigenvector.
 
@@ -268,6 +284,7 @@ class _PairwiseComparison:
         # final_eigenvector = comparison_eigenvector(*eigenvector)
         return tuple(eigenvector)
 
+    @log_this(logging.DEBUG, "Called to initiate AHP.")
     def compute_criteria_eingenvector(self) -> tuple:
         """ Initiates and conducts the calculation of eigenvectors.
 
@@ -302,6 +319,7 @@ class _PairwiseComparison:
         comparison_matrix = self._map_reciprocal(importance_score=score)
         return comparison_matrix
 
+    @log_this(logging.DEBUG, "Checks consistency of the choices made in the pair-wise matrix.")
     def _consistency_ratio(self):
         """ Calculates the consistency ratio, indicating how consistent the decision maker is being with their pair-wise
         comparisons.

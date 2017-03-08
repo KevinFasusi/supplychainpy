@@ -2,11 +2,13 @@ from unittest import TestCase
 import unittest
 import logging
 
+import collections
+
 from supplychainpy.demand._evolutionary_algorithms import OptimiseSmoothingLevelGeneticAlgorithm
 from supplychainpy.demand._forecast_demand import Forecast
 #from supplychainpy.demand._evo_algo import OptimiseSmoothingLevelGeneticAlgorithm
 
-#logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class TestForecast(TestCase):
     def setUp(self):
@@ -31,7 +33,7 @@ class TestForecast(TestCase):
 
         avg_orders = total_orders / self.__initial_estimate_period
 
-        evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders= self.__orders_ex,
+        evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=self.__orders_ex,
                                                          average_order=avg_orders,
                                                          smoothing_level=self.__smoothing_level_constant,
                                                          population_size=10,
