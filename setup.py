@@ -21,7 +21,7 @@ long_description = f.read().strip()
 f.close()
 setup(name='supplychainpy',
       version='0.0.4',
-      description='A library for supply chain, operations and manufacturing, analysis, modeling and simulation.',
+      description='A library for supply chain, operations and manufacturing, analysis, modelling and simulation.',
       url='https://github.com/KevinFasusi/supplychainpy',
       download_url='https://github.com/KevinFasusi/supplychainpy/tarball/0.0.4',
       author='Kevin Fasusi',

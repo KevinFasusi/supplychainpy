@@ -35,6 +35,7 @@ from supplychainpy.reporting.blueprints.dashboard.views import db
 
 
 class ReportsLauncher(threading.Thread):
+    """Launches reporting lauch panel """
 
     def __init__(self):
         threading.Thread.__init__(self)
@@ -45,6 +46,7 @@ class ReportsLauncher(threading.Thread):
         self.app = create_app()
 
     def print_message(self):
+        """Prints launch message"""
         print(self.message)
 
     def run(self):
@@ -57,17 +59,18 @@ class ReportsLauncher(threading.Thread):
 
 
 def exit_report():
+    """Exits reports"""
     exit()
 
 
 def launch_browser(event, url: str):
+    """Launches web browser"""
     webbrowser.open_new(str(url))
 
 
 class SupplychainpyReporting:
-    """Creates report launcher gui, to launch browser and using flask local server. Allows port number to be
-        changed.
-    """
+    """Creates report launcher gui, to launch browser and using flask local server. Allows port
+    number to be changed."""
 
     def __init__(self, master):
         master.title('Supplychainpy')
@@ -96,8 +99,11 @@ class SupplychainpyReporting:
         self.instruction_label.config(background='black', foreground='white')
 
         self.hyperlink_label = tk.Label(master)
-        self.hyperlink_label.config(background='black', foreground='#8dc53e', text='click to open browser:',
-                                    font=('system', 10, 'bold'))
+        self.hyperlink_label.config(background='black',
+                                    foreground='#8dc53e',
+                                    text='click to open browser:',
+                                    font=('system', 10, 'bold')
+                                   )
 
         self.validation_label = tk.Label(master)
         self.validation_label.config(background='black', foreground='red',
@@ -105,8 +111,10 @@ class SupplychainpyReporting:
                                      font=('system', 10, 'bold'))
 
         self.runtime_validation_label = tk.Label(master)
-        self.runtime_validation_label.config(background='black', foreground='red',
-                                             text='The reports are already running @ {}'.format(self.hyperlink),
+        reporting_txt = 'The reports are already running @ {}'.format(self.hyperlink)
+        self.runtime_validation_label.config(background='black',
+                                             foreground='red',
+                                             text=reporting_txt,
                                              font=('system', 10, 'bold'))
 
         self.port_label = tk.Label(master, text='Change port (default :5000):')
@@ -118,11 +126,20 @@ class SupplychainpyReporting:
         self.change_port.set(False)
         if os.name in ['posix', 'mac']:
             # sort out the checkbutton in ttk not tk
-            s = ttk.Style()
-            s.configure('Mac.TCheckbutton', focus='#000000', background='#000000', foreground='#FFFFFF')
-            self.change_port_checkbutton = ttk.Checkbutton(master, variable=self.change_port, style='Mac.TCheckbutton',
-                                                           text='Change default port (default :5000)',
-                                                           command=lambda: self.show_port_entry())
+            report_style = ttk.Style()
+            report_style.configure(
+                'Mac.TCheckbutton',
+                focus='#000000',
+                background='#000000',
+                foreground='#FFFFFF'
+                )
+            self.change_port_checkbutton = ttk.Checkbutton(
+                master,
+                variable=self.change_port,
+                style='Mac.TCheckbutton',
+                text='Change default port (default :5000)',
+                command=lambda: self.show_port_entry()
+                )
 
         elif os.name == 'nt':
             print('nt')

@@ -32,15 +32,9 @@ class TestRecommendations(TestCase):
         self.orders_analysis = model_inventory.analyse(file_path=ABS_FILE_PATH['COMPLETE_CSV_SM'],
                                                        z_value=Decimal(1.28),
                                                        reorder_cost=Decimal(5000),
-<<<<<<< HEAD
-                                                       file_type="csv",
-                                                       length=12,
-                                                       currency='GBP')
-=======
                                                        file_type='csv',
                                                        length=12,
                                                        currency='USD')
->>>>>>> 05eab56d220b6643292e15433e9bb0e6719ef161
 
         self.forecast = deserialise_config(ABS_FILE_PATH['FORECAST_PICKLE'])
 
@@ -58,9 +52,12 @@ class TestRecommendations(TestCase):
 
     def test_add_states(self):
         """Checks length of loaded states"""
+        import ipdb
+        ipdb.set_trace()
         self.assertEqual(8, len(self.recommend.handlers))
 
     def test_add_states_key(self):
+        """Checks all states are present"""
         for state in self.recommend.handlers.keys():
             self.assertIn(state, self._states)
 
