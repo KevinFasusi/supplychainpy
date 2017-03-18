@@ -52,8 +52,6 @@ class TestRecommendations(TestCase):
 
     def test_add_states(self):
         """Checks length of loaded states"""
-        import ipdb
-        ipdb.set_trace()
         self.assertEqual(8, len(self.recommend.handlers))
 
     def test_add_states_key(self):
