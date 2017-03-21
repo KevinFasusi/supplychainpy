@@ -1,5 +1,5 @@
 
-Monte Carlo simulation
+Monte Carlo Simulation
 ----------------------
 
 After analysing the orders, the results for safety stock may not adequately calculate

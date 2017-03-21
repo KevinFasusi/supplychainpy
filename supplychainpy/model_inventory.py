@@ -595,11 +595,11 @@ def analyse_orders_abcxyz_from_file(file_path: str, z_value: Decimal, reorder_co
     item_list = {}
     if check_extension(file_path=file_path, file_type=file_type):
         if file_type == FileFormats.text.name:
-            f = open(file_path, 'r')
-            item_list = (_data_cleansing.clean_orders_data_row(f, length))
+            with open(file_path, 'r') as raw_data:
+                item_list = (_data_cleansing.clean_orders_data_row(raw_data, length))
         elif file_type == FileFormats.csv.name:
-            f = open(file_path)
-            item_list = _data_cleansing.clean_orders_data_row_csv(f, length=length)
+            with open(file_path) as raw_data:
+                item_list = _data_cleansing.clean_orders_data_row_csv(raw_data, length=length)
     else:
         incorrect_file = "Incorrect file type specified. Please specify 'csv' or 'text' for the file_type parameter."
         raise Exception(incorrect_file)
