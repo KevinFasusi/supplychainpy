@@ -28,7 +28,6 @@ class TestSimulate(TestCase):
 
     # if backlog is zero then shortage cost is zero as well
     def test_shortage_cost_zero(self):
-
         """ Ensures that there is 0 shortage cost when a backlog has not been recorded."""
 
         sim = simulate.run_monte_carlo(orders_analysis=self.__orders_analysis,
@@ -38,7 +37,6 @@ class TestSimulate(TestCase):
                 self.assertEqual(int(period[0].get("shortage_cost")), 0)
 
     def test_shortage_cost(self):
-
         """ Test shortage cost when a backlog has been recorded. """
 
         sim = simulate.run_monte_carlo(orders_analysis=self.__orders_analysis, runs=1, period_length=12)
@@ -47,7 +45,6 @@ class TestSimulate(TestCase):
                 self.assertGreater(int(period[0].get("backlog")), 0)
 
     def test_po_quantity_zero(self):
-
         """Ensures a purchase order is raised if the closing stock is 0. """
 
         sim = simulate.run_monte_carlo(orders_analysis=self.__orders_analysis, runs=1, period_length=12)
