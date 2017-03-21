@@ -15,10 +15,9 @@ extensions = [
 ]
 
 here = os.path.dirname(os.path.abspath(__file__))
-f = open(os.path.join(here,'LOG.txt'))
-long_description = f.read().strip()
+with open(os.path.join(here,'LOG.txt')) as f:
+    long_description = f.read().strip()
 
-f.close()
 setup(name='supplychainpy',
       version='0.0.4',
       description='A library for supply chain, operations and manufacturing, analysis, modelling and simulation.',

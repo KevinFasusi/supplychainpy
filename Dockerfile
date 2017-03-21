@@ -6,6 +6,7 @@ RUN apt-get -y update
 RUN apt-get -y install gcc
 
 ADD /dist/supplychainpy-0.0.4.tar.gz /
+ADD LOG.txt /supplychainpy-0.0.4
 
 WORKDIR /supplychainpy-0.0.4/
 
@@ -25,5 +26,5 @@ WORKDIR /
 
 EXPOSE 5000
 
-CMD supplychainpy complete_dataset_xsmall.csv -a -loc / -lx --host 0.0.0.0
+#CMD supplychainpy complete_dataset_xsmall.csv -a -loc / -lx --host 0.0.0.0
 
