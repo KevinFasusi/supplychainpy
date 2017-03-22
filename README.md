@@ -27,7 +27,14 @@ The library is currently in early stages of development, so not ready for use in
 
 The easiest way to install supplychainpy is via pip: `pip install supplychainpy`.
 
-An alternative is to clone the repository and run `python setup.py install`
+An alternative is to clone the repository:
+
+1. Run the command: `python setup.py sdist` 
+
+2. Navigate to the `dist` folder.
+
+3. Run the command: `pip install supplychainpy-0.0.4.tar.gz`
+
 
 ## Dependencies
 

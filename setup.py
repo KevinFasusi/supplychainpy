@@ -48,7 +48,7 @@ setup(name='supplychainpy',
               'supplychainpy = supplychainpy.supplychain:main'
           ]
       },
-      long_description=long_description,
+      long_description= long_description,
       classifiers=[
         "Development Status :: 1 - Planning",
         "License :: OSI Approved :: BSD License",

@@ -160,16 +160,20 @@ def load(file_path: str, location: str=None):
             print('Calculating Forecasts...', end="")
             cores = int(multiprocessing.cpu_count())
             cores -= 1
+
+            import multiprocessing as mp
+            pool = mp.Pool(processes=4)
+            simple_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_simple, args = (analysis,)) for analysis in orders_analysis}
+            simple_forecast = {key: simple_forecast_gen[key].get() for key in simple_forecast_gen}
+            print(simple_forecast)
             with ProcessPoolExecutor(max_workers=cores) as executor:
-                simple_forecast_futures = { analysis.sku_id: executor.submit(_analysis_forecast_simple, analysis) for analysis in orders_analysis}
-                simple_forecast_gen = { future: concurrent.futures.as_completed(simple_forecast_futures[future]) for future in simple_forecast_futures}
-                simple_forecast = {value: simple_forecast_futures[value].result() for value in simple_forecast_gen}
+                #simple_forecast_futures = { analysis.sku_id: executor.submit(_analysis_forecast_simple, analysis) for analysis in orders_analysis}
+                #simple_forecast_gen = {future: concurrent.futures.as_completed(simple_forecast_futures[future]) for future in simple_forecast_futures}
+                #simple_forecast = {value: simple_forecast_futures[value].result() for value in simple_forecast_gen}
                 holts_forecast_futures = { analysis.sku_id: executor.submit(_analysis_forecast_holt, analysis) for analysis in orders_analysis}
                 holts_forecast_gen = { future: concurrent.futures.as_completed(holts_forecast_futures[future]) for future in holts_forecast_futures}
                 holts_forecast = {value: holts_forecast_futures[value].result() for value in holts_forecast_gen}
-
                 executor.shutdown(wait=False)
-            print(simple_forecast)
 
             transact = TransactionLog()
             transact.date = date_now

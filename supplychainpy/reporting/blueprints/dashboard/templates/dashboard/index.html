@@ -249,7 +249,7 @@
                 </div>
                 <div class=" slate col-md-3">
                     <h1>Total Excess: </h1>
-                    {% set total = 0 %}
+                    {% set total = 0.0 %}
                     {% for sku in excess %}
                     {% for cur in currency if (cur.id == sku.currency_id) and (loop.index == 1) %}
                     {% set sym = cur.symbol %}
@@ -257,13 +257,10 @@
                     <h1 class="slate-values"><strong class="slate-values" id="total-excess">{{ sym }}
                         {% endautoescape %}
                         {% endfor %}
-
-                        {% set total = total + sku.excess_cost %}
+            
+                        {% set total = (total| float) + (sku.excess_cost|float) %}
                         {% if loop.last %}
-
                             {{ "{:,.2f}".format(total) }}</strong></h1>
-
-                        {% else %}
                         {% endif %}
 
                     {% endfor %}
@@ -272,6 +269,8 @@
                 <div id="excess-percent-inv" class=" slate col-md-3">
                     <h1>Top 10 Excess as % of Inventory Value: </h1>
                     {% set total = 0 %}
+                    {% set top_excess = 0 %}
+                    {% set count = 0 %}
                     {% for sku in excess %}
                     {% for cur in currency if (cur.id == sku.currency_id) and (loop.index == 1) %}
                     {% set sym = cur.symbol %}
@@ -279,19 +278,12 @@
                     <h1 id="excess-inventory-sl"><strong>
                         {% endautoescape %}
                         {% endfor %}
-
-                        {% set total = total + sku.excess_cost %}
-                        {% if sku.excess_rank == 1 %}
-                            {% set top_excess = sku.excess_cost %}
-                        {% endif %}
-
+                            
+                        {% set total = (total |float) + (sku.excess_cost |float) %}
+                        {% set count = (count |int) + 1 %}
                         {% if loop.last %}
-
-                            {{ "{:,.2f}".format((top_excess/total) * 100) }}</strong></h1>
-
-                        {% else %}
+                            {{ "{:,.2f}".format(((total| float)/(count| int) * 100) )}}</strong></h1>
                         {% endif %}
-
                     {% endfor %}
                 </div>
                 <div class=" slate col-md-3">
