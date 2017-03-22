@@ -26,6 +26,7 @@ import datetime
 import logging
 import multiprocessing
 import os
+import ipdb
 from decimal import Decimal
 
 from concurrent.futures import ProcessPoolExecutor
@@ -48,6 +49,7 @@ from supplychainpy.reporting.blueprints.dashboard.models import TransactionLog, 
 from supplychainpy.inventory.analyse_uncertain_demand import UncertainDemand
 from supplychainpy.sample_data.config import ABS_FILE_PATH
 from copy import deepcopy
+
 
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
@@ -86,6 +88,7 @@ def _analysis_forecast_simple(analysis: UncertainDemand)-> dict:
         analysis.sku_id,
         id(analysis))
          )
+
     #print("{}".format({analysis.sku_id: analysis.simple_exponential_smoothing_forecast}))
     return analysis.simple_exponential_smoothing_forecast
 
@@ -162,25 +165,31 @@ def load(file_path: str, location: str=None):
             cores -= 1
 
             import multiprocessing as mp
-            pool = mp.Pool(processes=4)
+            pool = mp.Pool(processes=cores)
+            print('new code')       
+            ipdb.set_trace()
             simple_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_simple, args = (analysis,)) for analysis in orders_analysis}
             simple_forecast = {key: simple_forecast_gen[key].get() for key in simple_forecast_gen}
             print(simple_forecast)
-            with ProcessPoolExecutor(max_workers=cores) as executor:
+            pool = mp.Pool(processes=cores)
+            holts_forecast_gen = {analysis.sku_id: executor.apply_async(_analysis_forecast_holt,  args = (analysis,)) for analysis in orders_analysis}
+            holts_forecast = {value: holts_forecast_gen[key].get() for key in holts_forecast_gen}
+            print(holts_forecast)
+            #with ProcessPoolExecutor(max_workers=cores) as executor:
                 #simple_forecast_futures = { analysis.sku_id: executor.submit(_analysis_forecast_simple, analysis) for analysis in orders_analysis}
                 #simple_forecast_gen = {future: concurrent.futures.as_completed(simple_forecast_futures[future]) for future in simple_forecast_futures}
                 #simple_forecast = {value: simple_forecast_futures[value].result() for value in simple_forecast_gen}
-                holts_forecast_futures = { analysis.sku_id: executor.submit(_analysis_forecast_holt, analysis) for analysis in orders_analysis}
-                holts_forecast_gen = { future: concurrent.futures.as_completed(holts_forecast_futures[future]) for future in holts_forecast_futures}
-                holts_forecast = {value: holts_forecast_futures[value].result() for value in holts_forecast_gen}
-                executor.shutdown(wait=False)
+                #holts_forecast_futures = { analysis.sku_id: executor.submit(_analysis_forecast_holt, analysis) for analysis in orders_analysis}
+                #holts_forecast_gen = { future: concurrent.futures.as_completed(holts_forecast_futures[future]) for future in holts_forecast_futures}
+                #holts_forecast = {value: holts_forecast_futures[value].result() for value in holts_forecast_gen}
+                #executor.shutdown(wait=False)
 
             transact = TransactionLog()
             transact.date = date_now
             db.session.add(transact)
             db.session.commit()
 
-            transaction_sub = db.session.query(db.func.max(TransactionLog.date))
+            transaction_sub = db.session.query(bdb.func.max(TransactionLog.date))
             transaction_id = db.session.query(TransactionLog).filter(TransactionLog.date == transaction_sub).first()
 
             # loads inventory profile recommendations
@@ -299,7 +308,8 @@ def load(file_path: str, location: str=None):
                             forecast_breakdown.squared_error = sesf['squared_error']
                             forecast_breakdown.regression = simple_forecast.get(forecasted_demand)['regression'][q]
                             db.session.add(forecast_breakdown)
-                        break
+                        break            
+
                 for i, holts_forecast_demand in enumerate(holts_forecast, 1):
                     if holts_forecast_demand == item['sku']:
                         forecast_stats = ForecastStatistics()
@@ -381,4 +391,4 @@ def load_profile_recommendations(analysed_order, forecast, transaction_log_id):
 
 
 if __name__ == '__main__':
-    load(ABS_FILE_PATH['COMPLETE_CSV_XSM'])
+    load(ABS_FILE_PATH['COMPLETE_CSV_LG'])
