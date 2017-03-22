@@ -26,7 +26,6 @@ import datetime
 import logging
 import multiprocessing
 import os
-import ipdb
 from decimal import Decimal
 
 from concurrent.futures import ProcessPoolExecutor
@@ -167,13 +166,34 @@ def load(file_path: str, location: str=None):
             import multiprocessing as mp
             pool = mp.Pool(processes=cores)
             print('new code')       
-            ipdb.set_trace()
-            simple_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_simple, args = (analysis,)) for analysis in orders_analysis}
-            simple_forecast = {key: simple_forecast_gen[key].get() for key in simple_forecast_gen}
+            analysis_length = len(orders_analysis)
+            print(analysis_length)
+            index_intervals = []
+            count= 0
+            finished = False
+            while not finished:
+                if (analysis_length < 100):
+                     index_intervals.append(analysis_length)
+                     finished = True
+                elif count >= analysis_length:
+                     finished = True
+                else:
+                    count+= 100
+                    index_intervals.append(count)
+
+            print(index_intervals)
+            simple_forecast={}
+            adj =0
+            for i in index_intervals:
+                simple_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_simple, args = (analysis,)) for analysis in orders_analysis[0+adj:i]}
+                simple_forecast_int = {key: simple_forecast_gen[key].get() for key in simple_forecast_gen}
+                simple_forecast.update(**simple_forecast_int)
+                adj+=i+1
+                print(simple_forecast)
             print(simple_forecast)
             pool = mp.Pool(processes=cores)
-            holts_forecast_gen = {analysis.sku_id: executor.apply_async(_analysis_forecast_holt,  args = (analysis,)) for analysis in orders_analysis}
-            holts_forecast = {value: holts_forecast_gen[key].get() for key in holts_forecast_gen}
+            holts_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_holt,  args = (analysis,)) for analysis in orders_analysis}
+            holts_forecast = {key: holts_forecast_gen[key].get() for key in holts_forecast_gen}
             print(holts_forecast)
             #with ProcessPoolExecutor(max_workers=cores) as executor:
                 #simple_forecast_futures = { analysis.sku_id: executor.submit(_analysis_forecast_simple, analysis) for analysis in orders_analysis}
@@ -189,7 +209,7 @@ def load(file_path: str, location: str=None):
             db.session.add(transact)
             db.session.commit()
 
-            transaction_sub = db.session.query(bdb.func.max(TransactionLog.date))
+            transaction_sub = db.session.query(db.func.max(TransactionLog.date))
             transaction_id = db.session.query(TransactionLog).filter(TransactionLog.date == transaction_sub).first()
 
             # loads inventory profile recommendations
