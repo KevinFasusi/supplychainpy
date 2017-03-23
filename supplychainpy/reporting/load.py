@@ -164,7 +164,7 @@ def load(file_path: str, location: str=None):
             cores -= 1
 
             import multiprocessing as mp
-            pool = mp.Pool(processes=cores)
+
             print('new code')       
             analysis_length = len(orders_analysis)
             print(analysis_length)
@@ -173,23 +173,31 @@ def load(file_path: str, location: str=None):
             finished = False
             while not finished:
                 if (analysis_length < 100):
-                     index_intervals.append(analysis_length)
-                     finished = True
-                elif count >= analysis_length:
-                     finished = True
+                    index_intervals.append(analysis_length)
+                    finished = True
+                elif count > analysis_length:
+                    #index_intervals.append(analysis_length)                    
+                    finished = True
                 else:
-                    count+= 100
                     index_intervals.append(count)
-
-            print(index_intervals)
+                    count+= 100
             simple_forecast={}
             adj =0
+            print(index_intervals)
+            #for i in index_intervals:
             for i in index_intervals:
-                simple_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_simple, args = (analysis,)) for analysis in orders_analysis[0+adj:i]}
-                simple_forecast_int = {key: simple_forecast_gen[key].get() for key in simple_forecast_gen}
-                simple_forecast.update(**simple_forecast_int)
-                adj+=i+1
-                print(simple_forecast)
+                with mp.Pool(processes=cores) as pool:
+                    print('index1: {}, index2: {}'.format(adj, i))
+                    simple_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_simple, args = (analysis,)) for analysis in orders_analysis[adj:i]}
+                    simple_forecast_wait = {key: simple_forecast_gen[key].wait() for key in simple_forecast_gen}
+                    simple_forecast_int = {key: simple_forecast_gen[key].get() for key in simple_forecast_gen}
+                    simple_forecast.update(**simple_forecast_int)
+                    del simple_forecast_gen
+                    del simple_forecast_int
+                    simple_forecast_gen={}
+                    simple_forecast_int={}
+                    adj = i + 1
+
             print(simple_forecast)
             pool = mp.Pool(processes=cores)
             holts_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_holt,  args = (analysis,)) for analysis in orders_analysis}
