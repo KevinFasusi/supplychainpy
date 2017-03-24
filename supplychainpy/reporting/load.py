@@ -182,18 +182,21 @@ def load(file_path: str, location: str=None):
                     index_intervals.append(count)
                     count+= 100
             simple_forecast={}
-            adj =0
+            #adj =0
             print(index_intervals)
             #for i in index_intervals:
             with mp.Pool(processes=cores) as pool:
                 #print('index1: {}, index2: {}'.format(adj, i))
-                holts_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_holt,  args = (analysis,)) for analysis in orders_analysis}
-                holts_forecast = {key: holts_forecast_gen[key].get() for key in holts_forecast_gen}
                 simple_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_simple, args = (analysis,)) for analysis in orders_analysis}
                 simple_forecast_wait = {key: simple_forecast_gen[key].wait() for key in simple_forecast_gen}
                 simple_forecast_int = {key: simple_forecast_gen[key].get() for key in simple_forecast_gen}
                 simple_forecast.update(**simple_forecast_int)
                 #adj = i + 1
+                holts_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_holt,  args = (analysis,)) for analysis in orders_analysis}
+                holts_forecast = {key: holts_forecast_gen[key].get() for key in holts_forecast_gen}
+                del simple_forecast_gen
+                del simple_forecast_int
+
 
             #with ProcessPoolExecutor(max_workers=cores) as executor:
                 #simple_forecast_futures = { analysis.sku_id: executor.submit(_analysis_forecast_simple, analysis) for analysis in orders_analysis}
