@@ -2,11 +2,10 @@ import logging
 import os
 import tempfile
 
-from IPython.terminal.pt_inputhooks import tk
 from unittest import TestCase
 
 from flask import Flask
-
+import tkinter as tk
 from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_APPLICATION_CONFIG
 from supplychainpy._helpers._pickle_config import serialise_config
 from supplychainpy.launch_reports import load_db, SupplychainpyReporting
@@ -27,12 +26,12 @@ class TestFlaskReports(TestCase):
        app.config['TESTING'] = True
        self.app = app.test_client()
        app_settings = {
-           'file': ABS_FILE_PATH['COMPLETE_CSV_LG'],
+           'file': ABS_FILE_PATH['COMPLETE_CSV_SM'],
            'currency': 'USD'
        }
        serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
        with app.app_context():
-           load_db(file=ABS_FILE_PATH['COMPLETE_CSV_LG'])
+           load_db(file=ABS_FILE_PATH['COMPLETE_CSV_SM'])
 
    def tearDown(self):
        """Close database link and delete sqlite database"""
