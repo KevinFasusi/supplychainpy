@@ -185,10 +185,13 @@ def load(file_path: str, location: str=None):
             #adj =0
             print(index_intervals)
             #for i in index_intervals:
+            simple_forecast_gen = {}
             with mp.Pool(processes=cores) as pool:
                 #print('index1: {}, index2: {}'.format(adj, i))
-                simple_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_simple, args = (analysis,)) for analysis in orders_analysis}
-                simple_forecast_wait = {key: simple_forecast_gen[key].wait() for key in simple_forecast_gen}
+
+                for analysis in orders_analysis:
+                    simple_forecast_gen.update({analysis.sku_id: pool.apply_async(_analysis_forecast_simple, args = (analysis,))})
+                    simple_forecast_gen[analysis.sku_id].wait()
                 simple_forecast_int = {key: simple_forecast_gen[key].get() for key in simple_forecast_gen}
                 simple_forecast.update(**simple_forecast_int)
                 del simple_forecast_gen
