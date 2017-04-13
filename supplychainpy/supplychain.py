@@ -28,6 +28,8 @@ import pickle
 
 import sys
 
+import logging
+
 from supplychainpy._csv_management._csv_manager import _Orchestrate
 from supplychainpy._csv_management._model._db_setup import create_management_db
 from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_APPLICATION_CONFIG
@@ -35,7 +37,6 @@ from supplychainpy._helpers._pickle_config import serialise_config, deserialise_
 from supplychainpy.launch_reports import launch_load_report, launch_report_server
 from supplychainpy.launch_reports import launch_report
 from supplychainpy.launch_reports import load_db
-
 
 def main():
     parser = argparse.ArgumentParser(description='Supplychainpy commandline interface a')
@@ -74,6 +75,9 @@ def main():
                         help='Sets the host for the server \
                         (defaults 127.0.0.1) ', default='127.0.0.1')
 
+    parser.add_argument('--debug', dest='debug', action='store_true',
+                        help='Runs in debug mode (default : debug.INFO)')
+
     parser.add_argument('-loc', dest='location', action='store',
                         help='database path e.g. ')
 
@@ -96,7 +100,7 @@ def main():
         print(1)
         launch_load_report(args.filenames)
 
-    elif args.launch and args.analyse_file and args.filenames is not None and args.location is not None:
+    elif args.launch and args.analyse_file and args.filenames is not None and args.location is not None and args.debug == False:
         print(2)
         if args.currency is not None:
             currency = args.currency
@@ -116,7 +120,7 @@ def main():
         #    create_management_db()
         launch_load_report(args.filenames, args.location)
 
-    elif args.launch and args.location is not None and args.host:
+    elif args.launch and args.location is not None and args.host and args.debug == False:
         print(3)
         app_settings = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
 
@@ -125,6 +129,29 @@ def main():
 
         serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
 
+        launch_report(location=args.location, host=args.host, port=args.port)
+
+    elif args.launch and args.analyse_file and args.filenames is not None and args.location is not None and args.debug:
+        print(7)
+        logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+        if args.currency is not None:
+            currency = args.currency
+        else:
+            currency = 'USD'
+
+        app_settings = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
+        app_settings['database_path'] = args.location
+        app_settings['file'] = args.filenames
+        app_settings['currency'] = currency
+
+        serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
+        #d = _Orchestrate()
+        #d.copy_file()
+        #db_present = d.check_for_db()
+        #if db_present:
+        #    create_management_db()
+        launch_load_report(args.filenames, args.location)
         launch_report(location=args.location, host=args.host, port=args.port)
 
     elif args.analyse_file and args.location is not None and args.filenames is not None and args.launch_console is None:
