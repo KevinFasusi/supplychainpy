@@ -25,16 +25,16 @@
 import logging
 from copy import deepcopy
 
-from pyximport import pyximport
+#from pyximport import pyximport
+#pyximport.install()
 
+import supplychainpy.demand._forecast_demand
 from supplychainpy._helpers import _data_cleansing
-from supplychainpy._helpers._enum_formats import FileFormats
 from supplychainpy._helpers._data_cleansing import check_extension
+
+from supplychainpy._helpers._enum_formats import FileFormats
 from supplychainpy.demand._evolutionary_algorithms import OptimiseSmoothingLevelGeneticAlgorithm
 
-pyximport.install()
-
-from supplychainpy.demand._forecast_demand import Forecast
 from supplychainpy.demand.regression import LinearRegression
 
 log = logging.getLogger(__name__)
@@ -42,10 +42,9 @@ log.addHandler(logging.NullHandler())
 
 UNKNOWN = "UNKNOWN"
 
-
-def  simple_exponential_smoothing_forecast(demand: list = None, smoothing_level_constant: float = 0.5,
+def simple_exponential_smoothing_forecast(demand: list = None, smoothing_level_constant: float = 0.5,
                                            forecast_length: int = 5, initial_estimate_period: int = 6, **kwargs) -> dict:
-    """ Performs a simple exoponential smoothing forecast on
+    """ Performs a simple exponential smoothing forecast on historical demand.
 
     Args:
         forecast_length (int):              Number of periods to extend the forecast.
@@ -67,50 +66,61 @@ def  simple_exponential_smoothing_forecast(demand: list = None, smoothing_level_
 
 
     """
-    ds = kwargs.get('ds', 'UNKNOWN')
-    if ds is not UNKNOWN:
-        orders = list(kwargs.get('ds', "UNKNOWN"))
-    else:
-        orders = [int(i) for i in demand]
-    forecast_demand = Forecast(orders)
-
-    # optimise, population_size, genome_length, mutation_probability, recombination_types
-    if len(kwargs) != 0:
-        optimise_flag = kwargs.get('optimise', "UNKNOWN")
-        if optimise_flag is not UNKNOWN:
-
-            ses_forecast = [i for i in forecast_demand.simple_exponential_smoothing(*(smoothing_level_constant,))]
-
-            sum_squared_error = forecast_demand.sum_squared_errors(ses_forecast, smoothing_level_constant)
-
-            standard_error = forecast_demand.standard_error(sum_squared_error, len(orders), smoothing_level_constant)
-            total_orders = 0
-
-            for order in orders[:initial_estimate_period]:
-                total_orders += order
-
-            avg_orders = total_orders / initial_estimate_period
-
-            evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=orders,
-                                                             average_order=avg_orders,
-                                                             smoothing_level=smoothing_level_constant,
-                                                             population_size=10,
-                                                             standard_error=standard_error,
-                                                             recombination_type='single_point')
-
-            ses_evo_forecast = evo_mod.simple_exponential_smoothing_evo(
-                smoothing_level_constant=smoothing_level_constant,
-                initial_estimate_period=initial_estimate_period)
-
-            return ses_evo_forecast
+    orders = []
+    try:
+        ds = kwargs.get('ds', 'UNKNOWN')
+        if ds is not UNKNOWN:
+            orders = list(kwargs.get('ds', "UNKNOWN"))
         else:
-            return _ses_forecast(smoothing_level_constant=smoothing_level_constant,
-                                 forecast_demand=forecast_demand,
-                                 forecast_length=forecast_length)
-    else:
-        return _ses_forecast(smoothing_level_constant=smoothing_level_constant,
-                             forecast_demand=forecast_demand,
-                             forecast_length=forecast_length)
+            orders = [int(i) for i in demand]
+            forecast_demand = supplychainpy.demand._forecast_demand.Forecast(orders)
+
+            log.log(logging.INFO, "Started simple exponential smoothing")
+            # optimise, population_size, genome_length, mutation_probability, recombination_types
+            if len(kwargs) != 0:
+                optimise_flag = kwargs.get('optimise', "UNKNOWN")
+                if optimise_flag is not UNKNOWN:
+                    log.log(logging.INFO, "Using solver version to find alpha.")
+                    ses_forecast = [i for i in
+                                    forecast_demand.simple_exponential_smoothing(*(smoothing_level_constant,))]
+
+                    sum_squared_error = forecast_demand.sum_squared_errors(ses_forecast, smoothing_level_constant)
+
+                    standard_error = forecast_demand.standard_error(sum_squared_error, len(orders),
+                                                                    smoothing_level_constant)
+                    total_orders = 0
+
+                    for order in orders[:initial_estimate_period]:
+                        total_orders += order
+
+                    avg_orders = total_orders / initial_estimate_period
+
+                    evo_mod = OptimiseSmoothingLevelGeneticAlgorithm(orders=orders,
+                                                                     average_order=avg_orders,
+                                                                     smoothing_level=smoothing_level_constant,
+                                                                     population_size=10,
+                                                                     standard_error=standard_error,
+                                                                     recombination_type='single_point')
+
+                    ses_evo_forecast = evo_mod.simple_exponential_smoothing_evo(
+                        smoothing_level_constant=smoothing_level_constant,
+                        initial_estimate_period=initial_estimate_period)
+
+                    return ses_evo_forecast
+                else:
+                    return _ses_forecast(smoothing_level_constant=smoothing_level_constant,
+                                         forecast_demand=forecast_demand,
+                                         forecast_length=forecast_length)
+            else:
+                return _ses_forecast(smoothing_level_constant=smoothing_level_constant,
+                                     forecast_demand=forecast_demand,
+                                     forecast_length=forecast_length)
+    except TypeError as e:
+        if demand is None:
+            print("Please supply a list of demand values. Use the keyword \'demand=\'\n{}".format(e))
+
+
+
 
 
 def _ses_forecast(smoothing_level_constant, forecast_demand, forecast_length):
@@ -194,6 +204,20 @@ def simple_exponential_smoothing_forecast_from_file(file_path: str, file_type: s
 
 def holts_trend_corrected_exponential_smoothing_forecast(demand: list, alpha: float, gamma: float,
                                                          forecast_length: int = 4, initial_period: int = 6, **kwargs):
+    """ Performs a holt's trend corrected exponential smoothing forecast on known demand
+    
+    Args:
+        demand:  Original historical demand.
+        alpha: smoothing constant
+        
+        gamma: 
+        forecast_length: 
+        initial_period: 
+        **kwargs: 
+
+    Returns:
+
+    """
     if len(kwargs) != 0:
         if kwargs['optimise']:
 
@@ -203,7 +227,7 @@ def holts_trend_corrected_exponential_smoothing_forecast(demand: list, alpha: fl
                 total_orders += order
 
             avg_orders = total_orders / initial_period
-            forecast_demand = Forecast(demand)
+            forecast_demand = supplychainpy.demand._forecast_demand.Forecast(demand)
 
             processed_demand = [{'t': index, 'demand': order} for index, order in enumerate(demand, 1)]
             stats = LinearRegression(processed_demand)
@@ -265,7 +289,7 @@ def holts_trend_corrected_exponential_smoothing_forecast(demand: list, alpha: fl
 
     else:
 
-        forecast_demand = Forecast(demand)
+        forecast_demand = supplychainpy.demand._forecast_demand.Forecast(demand)
         processed_demand = [{'t': index, 'demand': order} for index, order in enumerate(demand, 1)]
         stats = LinearRegression(processed_demand)
         log_stats = stats.least_squared_error(slice_end=6)

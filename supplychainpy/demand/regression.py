@@ -26,6 +26,8 @@ import logging
 
 from scipy import stats
 
+from supplychainpy._helpers._decorators import log_this
+
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
 
@@ -36,6 +38,7 @@ class LinearRegression:
     def __init__(self, orders: list):
         self.orders = orders
 
+    @log_this(logging.DEBUG, message='Called to generate Linear regression.')
     def least_squared_error(self, slice_end:int = 0, slice_start: int=0):
         """Calculate simple linear regression values and two_tail pvalue to determine linearity.
 

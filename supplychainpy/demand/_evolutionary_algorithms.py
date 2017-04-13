@@ -310,6 +310,9 @@ class DiversifyPopulation(Population):
 class OptimiseSmoothingLevelGeneticAlgorithm:
     __generation = 0
 
+    def __str__(self):
+        return "{} {}".format(type(self), id(self) )
+
     def __init__(self, orders: list, **kwargs):
         self.__orders = orders
         if len(kwargs) != 0:
@@ -317,6 +320,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
             self.__population_size = kwargs['population_size']
             self.__standard_error = kwargs['standard_error']
             self.__recombination_type = kwargs['recombination_type']
+            log.log(logging.DEBUG, "Initialising GA solver for {}.".format(self.__str__()))
 
     def initial_population(self, individual_type: str = 'ses'):
         """Initialises population and initiates the optimisation of the standard error by searching for an optimum
@@ -324,6 +328,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
         Returns:
 
         """
+        log.log(logging.INFO, "Initialising population.")
         return self._initialise_smoothing_level_evolutionary_algorithm_population(individual_type=individual_type)
 
     @property
@@ -554,6 +559,17 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
             Example:
 
         """
+        log.log(logging.INFO, "Executing simple exponential smoothing. "
+                              "SMOOTHING_LEVEL: {} "
+                              "INITIAL_ESTIMATE_PERIOD: {} "
+                              "RECOMBINATION_TYPE: {} "
+                              "POPULATION_SIZE: {} "
+                              "FORECAST_LENGTH: {}".format(smoothing_level_constant,
+                                                             initial_estimate_period,
+                                                             recombination_type,
+                                                             population_size,
+                                                             forecast_length
+                                                             ))
         if None != self.__recombination_type:
             recombination_type = self.__recombination_type
 
@@ -566,6 +582,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
 
         forecast_demand = Forecast(self.__orders, avg_orders)
 
+        #calls simple_exponential_smoothing method from Forecast object
         ses_forecast = [i for i in forecast_demand.simple_exponential_smoothing(*(smoothing_level_constant,))]
 
         sum_squared_error = forecast_demand.sum_squared_errors(ses_forecast, smoothing_level_constant)
@@ -589,6 +606,10 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
         stats = ape.least_squared_error()
         simple_forecast = forecast_demand.simple_exponential_smoothing_forecast(forecast=optimal_ses_forecast,
                                                                                 forecast_length=forecast_length)
+
+        sum_squared_error = forecast_demand.sum_squared_errors(optimal_ses_forecast, optimal_alpha[1])
+        standard_error = forecast_demand.standard_error(sum_squared_error, len(self.__orders),
+                                                        optimal_alpha[1])
         regression = {
             'regression': [(stats.get('slope') * i) + stats.get('intercept') for i in range(0, 12)]}
 
