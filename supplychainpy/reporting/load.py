@@ -166,12 +166,10 @@ def load(file_path: str, location: str=None):
 
             simple_forecast_gen = {}
             with mp.Pool(processes=cores) as pool:
-                simple_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_simple, args = (analysis,)) for analysis in orders_analysis}
+                simple_forecast_gen = {analysis.sku_id: pool.apply_async(analysis.simple_exponential_smoothing_forecast, args = (analysis,)) for analysis in orders_analysis}
                 simple_forecast= {key: simple_forecast_gen[key].get() for key in simple_forecast_gen}
                 holts_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_holt,  args = (analysis,)) for analysis in orders_analysis}
                 holts_forecast = {key: holts_forecast_gen[key].get() for key in holts_forecast_gen}
-                print(holts_forecast)
-
 
             #with ProcessPoolExecutor(max_workers=cores) as executor:
             #    simple_forecast_futures = { analysis.sku_id: executor.submit(_analysis_forecast_simple, analysis) for analysis in orders_analysis}
