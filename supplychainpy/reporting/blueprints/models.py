@@ -38,6 +38,7 @@ class MasterSkuList(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     sku_id = db.Column(db.String(255))
     analysis = db.relationship("InventoryAnalysis", backref='sku', lazy='dynamic')
+    simulation_summary_id = db.relationship("SimulationSummary", backref='sim', lazy='dynamic')
 
 
 class Currency(db.Model):
@@ -207,3 +208,34 @@ class ProfileRecommendation(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     transaction_id = db.Column(db.Integer, db.ForeignKey('transaction_log.id'))
     statement = db.Column(db.Text())
+
+
+class Simulation(db.Model):
+    __table_args__ = {'sqlite_autoincrement': True}
+    id = db.Column(db.Integer(), primary_key=True)
+    date = db.Column(db.DateTime())
+    runs = db.Column(db.Integer())
+    sim_summary_id = db.relationship("SimulationSummary", backref='simulation', lazy='dynamic')
+
+
+class SimulationSummary(db.Model):
+    __table_args__ = {'sqlite_autoincrement': True}
+    id = db.Column(db.Integer(), primary_key=True)
+    sku_id = db.Column(db.Integer, db.ForeignKey('master_sku_list.id'))
+    sim_id = db.Column(db.Integer, db.ForeignKey('simulation.id'))
+    variance_opening_stock = db.Column(db.Integer())
+    minimum_opening_stock = db.Column(db.Integer())
+    maximum_closing_stock =  db.Column(db.Integer())
+    maximum_quantity_sold = db.Column(db.Integer())
+    maximum_backlog = db.Column(db.Integer())
+    average_backlog = db.Column(db.Integer())
+    minimum_closing_stock = db.Column(db.Integer())
+    minimum_backlog = db.Column(db.Integer())
+    minimum_quantity_sold = db.Column(db.Integer())
+    average_quantity_sold = db.Column(db.Integer())
+    maximum_opening_stock = db.Column(db.Integer())
+    standard_deviation_quantity_sold = db.Column(db.Integer())
+    standard_deviation_closing_stock = db.Column(db.Integer())
+    average_closing_stock = db.Column(db.Integer())
+    standard_deviation_backlog = db.Column(db.Integer())
+    average_shortage_units = db.Column(db.Integer())

@@ -29,14 +29,13 @@ from flask import Blueprint
 from flask import Flask
 from flask import send_from_directory
 from flask.ext.restless import APIManager
-
 from sqlalchemy import func, desc, asc
 
-from supplychainpy.reporting.blueprints.dashboard.models import (InventoryAnalysis,
-                                                                 Currency,
-                                                                 MasterSkuList, Recommendations, ProfileRecommendation,
-                                                                 TransactionLog, Orders, ForecastBreakdown, Forecast,
-                                                                 ForecastStatistics)
+from supplychainpy.reporting.blueprints.models import (InventoryAnalysis,
+                                                       Currency,
+                                                       MasterSkuList, Recommendations, TransactionLog, Orders,
+                                                       ForecastBreakdown, Forecast,
+                                                       ForecastStatistics)
 from supplychainpy.reporting.config.settings import DevConfig
 from supplychainpy.reporting.extensions import db
 
@@ -283,7 +282,7 @@ def currency():
 #    form = DataForm()
 #    upload_data = DataUpload()
 #
-#    if request.method == 'POST':
+    #    if request.method == 'POST':
 #        file = request.files['data']
 #        if file and allowed_file(file.filename):
 #            filename = secure_filename(file.filename)

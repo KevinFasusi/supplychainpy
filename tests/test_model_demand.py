@@ -19,7 +19,16 @@ class TestModelDemand(TestCase):
         self._orders = [165, 171, 147, 143, 164, 160, 152, 150, 159, 169, 173, 203, 169, 166, 162, 147, 188, 161, 162,
                         169, 185, 188, 200, 229, 189, 218, 185, 199, 210, 193, 211, 208, 216, 218, 264, 304]
 
-        self.ses_components = ['mape', 'regression', 'forecast', 'forecast_breakdown', 'alpha', 'statistics', 'standard_error']
+        self.ses_components = [
+            'mape',
+            'regression',
+            'forecast',
+            'forecast_breakdown',
+            'alpha',
+            'statistics',
+            'standard_error',
+            'optimal_alpha'
+        ]
         with open(ABS_FILE_PATH['COMPLETE_CSV_XSM'], 'r') as raw_data:
             self.item_list = _data_cleansing.clean_orders_data_row_csv(raw_data, length=12)
         self.sku_id = []
@@ -73,7 +82,8 @@ class TestModelDemand(TestCase):
                                                                                          alpha=0.5,
                                                                                          gamma=0.5,
                                                                                          forecast_length=6,
-                                                                                         initial_period=18)
+                                                                                         initial_period=18,
+                                                                                         optimise=False)
 
         self.assertEqual(281, round(holts_trend_corrected_esf.get('forecast')[0]))
         self.assertEqual(308, round(holts_trend_corrected_esf.get('forecast')[1]))

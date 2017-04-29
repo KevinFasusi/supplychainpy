@@ -204,7 +204,7 @@ def holts_trend_corrected_exponential_smoothing_forecast(demand: list, alpha: fl
         total_orders = 0
         for order in demand[:initial_period]:
             total_orders += order
-        avg_orders = total_orders / initial_period
+        avg_orders = total_orders // initial_period
         forecast_demand = Forecast(demand)
         processed_demand = [{'t': index, 'demand': order} for index, order in enumerate(demand, 1)]
         stats = LinearRegression(processed_demand)

@@ -25,14 +25,15 @@ from _decimal import Decimal
 from concurrent.futures import ThreadPoolExecutor
 
 import flask
-from flask import Blueprint, render_template
+from flask import Blueprint, request
 
 from supplychainpy import simulate
 from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_APPLICATION_CONFIG
 from supplychainpy._helpers._enum_formats import FileFormats
 from supplychainpy._helpers._pickle_config import deserialise_config
-from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
-from supplychainpy.reporting.blueprints.dashboard.models import MasterSkuList
+from supplychainpy.model_inventory import analyse
+from supplychainpy.reporting.blueprints.models import MasterSkuList
+from supplychainpy.reporting.blueprints.simulation.controller import store_simulation, select_last_simulation
 from supplychainpy.reporting.extensions import db
 
 simulation_blueprint = Blueprint('simulation', __name__, template_folder='templates')
@@ -50,12 +51,13 @@ def simulation(runs:int=None):
     sim_results = []
     sim_summary_results = []
     inventory = []
+
     if runs is not None:
         config = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
         database_path = config['database_path']
         file_name = config['file']
-        file_path = database_path.replace(' ','') + (file_name.replace(' ',''))
-        analysed_orders = analyse_orders_abcxyz_from_file(file_path=str(file_path), z_value=Decimal(1.28), reorder_cost=Decimal(5000), file_type=FileFormats.csv.name, length=12, currency='USD')
+        file_path = database_path.replace(' ','') + '/' +(file_name.replace(' ',''))
+        analysed_orders = analyse(file_path=str(file_path), z_value=Decimal(1.28), reorder_cost=Decimal(5000), file_type=FileFormats.csv.name, length=12, currency='USD')
         # run the simulation, populate a database and then retrieve the most current values for the simulation page.
         try:
             with ThreadPoolExecutor(max_workers=1) as executor:
@@ -65,11 +67,14 @@ def simulation(runs:int=None):
                 sim_window_result = sim_window.result()
                 sim_summary = executor.submit(simulate.summarise_frame, sim_window_result)
                 sim_summary_results = sim_summary.result()
-
+                store_simulation(sim_summary_results)
             inventory = db.session.query(MasterSkuList).all()
 
         except OSError as e:
             print(e)
+    elif runs is None and request.method == 'GET':
+        sim_summary_results = select_last_simulation()
+        inventory = db.session.query(MasterSkuList).all()
 
     return flask.render_template('simulation/simulation.html', db= database_path, file_name=file_name, sim=sim_summary_results, runs=sim_results, inventory=inventory)
 

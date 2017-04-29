@@ -82,11 +82,11 @@ class TestSimulate(TestCase):
         #            print(s)
         #print(sim_window)
         frame_summary = simulate.summarise_frame(sim_window)
-        print(frame_summary)
+        #print(frame_summary)
         #for item in frame_summary:
         #    if item.get('sku_id')=='KR202-209':
         #        print(item)
-        #print(frame_summary)
+        print(frame_summary)
 
 if __name__ == "__main__":
     unittest.main()

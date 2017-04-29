@@ -412,14 +412,12 @@ class UncertainDemand:
         try:
             demand = (list(self.__orders.get("demand")))
             orders = [int(i) for i in demand]
-            # filter for lowest standard order and use for evo model
-            ses_evo_forecast = simple_exponential_smoothing_forecast(demand=orders, smoothing_level_constant=0.5,
-                                                                     optimise=True)
-
+            ses_evo_forecast = simple_exponential_smoothing_forecast(demand=orders, smoothing_level_constant=0.5)
             return ses_evo_forecast
-
         except TypeError as e:
             print('Exponential smoothing forecast (evolutionary model) failed. {}'.format(e))
+        except OSError as e:
+            print(e)
 
     @log_this(logging.INFO, message='Called to generate optimised HTCES forecast.')
     def _generate_holts_es_forecast(self):

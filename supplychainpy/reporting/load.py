@@ -21,41 +21,33 @@
 # SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-import concurrent.futures
 import datetime
 import logging
 import multiprocessing
 import os
 from decimal import Decimal
 
-from concurrent.futures import ProcessPoolExecutor
 from supplychainpy import model_inventory
 from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_APPLICATION_CONFIG
 from supplychainpy._helpers._pickle_config import deserialise_config
 from supplychainpy.bi.recommendation_generator import run_sku_recommendation, run_profile_recommendation
-from supplychainpy.inventory.summarise import Inventory
-from supplychainpy.reporting.extensions import db
-from supplychainpy.reporting.app import create_app
-from supplychainpy.reporting.blueprints.dashboard.models import Currency
-from supplychainpy.reporting.blueprints.dashboard.models import Forecast
-from supplychainpy.reporting.blueprints.dashboard.models import ForecastBreakdown
-from supplychainpy.reporting.blueprints.dashboard.models import ForecastStatistics
-from supplychainpy.reporting.blueprints.dashboard.models import ForecastType
-from supplychainpy.reporting.blueprints.dashboard.models import InventoryAnalysis
-from supplychainpy.reporting.blueprints.dashboard.models import MasterSkuList
-from supplychainpy.reporting.blueprints.dashboard.models import Orders
-from supplychainpy.reporting.blueprints.dashboard.models import TransactionLog, Recommendations, ProfileRecommendation
 from supplychainpy.inventory.analyse_uncertain_demand import UncertainDemand
+from supplychainpy.inventory.summarise import Inventory
+from supplychainpy.reporting.app import create_app
+from supplychainpy.reporting.blueprints.models import Currency
+from supplychainpy.reporting.blueprints.models import Forecast
+from supplychainpy.reporting.blueprints.models import ForecastBreakdown
+from supplychainpy.reporting.blueprints.models import ForecastStatistics
+from supplychainpy.reporting.blueprints.models import ForecastType
+from supplychainpy.reporting.blueprints.models import InventoryAnalysis
+from supplychainpy.reporting.blueprints.models import MasterSkuList
+from supplychainpy.reporting.blueprints.models import Orders
+from supplychainpy.reporting.blueprints.models import TransactionLog, Recommendations, ProfileRecommendation
+from supplychainpy.reporting.extensions import db
 from supplychainpy.sample_data.config import ABS_FILE_PATH
-from copy import deepcopy
-
 
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
-
-
-# logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
-
 
 def currency_codes() -> dict:
     """ Retrives HTML Entity (decimal) for currency symbol.
@@ -69,11 +61,11 @@ def currency_codes() -> dict:
              "EUR": ("Euro Member Countries", "&#8364;"),
              "GBP": ("United Kingdom Pound", "&#163;"),
              "USD": ("United States Dollar", "&#36;"),
-            }
+             }
     return codes
 
 
-def _analysis_forecast_simple(analysis: UncertainDemand)-> dict:
+def _analysis_forecast_simple(analysis: UncertainDemand) -> dict:
     """ Retrieves simple_exponentions_forecast from an instance of UncertainDemand.
         Function only required for Concurrent.futures.
 
@@ -83,15 +75,16 @@ def _analysis_forecast_simple(analysis: UncertainDemand)-> dict:
     Returns:
         dict:   Forecast breakdown.
     """
-    logging.log(logging.INFO, "Simple exponential smoothing forecast for SKU: {}\nObject id: {} ".format(
-        analysis.sku_id,
-        id(analysis))
-         )
-
-    #print("{}".format({analysis.sku_id: analysis.simple_exponential_smoothing_forecast}))
+    logging.log(logging.INFO,
+                "Simple exponential smoothing forecast for SKU: {}\nObject id: {} ".format(
+                    analysis.sku_id,
+                    id(analysis)
+                )
+                )
     return analysis.simple_exponential_smoothing_forecast
 
-def _analysis_forecast_holt(analysis: UncertainDemand)->dict:
+
+def _analysis_forecast_holt(analysis: UncertainDemand) -> dict:
     """ Retrieves simple_exponentions_forecast from an instance of UncertainDemand.
         Function only required for Concurrent.futures.
 
@@ -101,24 +94,28 @@ def _analysis_forecast_holt(analysis: UncertainDemand)->dict:
     Returns:
         dict:   Forecast breakdown.
     """
-    logging.log(logging.INFO,"Holts tc exponential smoothing forecast for SKU: {}\nObject id: {} ".format(
-        analysis.sku_id,
-        id(analysis))
-         )
-    #print("{}".format({analysis.sku_id: analysis.holts_trend_corrected_forecast}))
+    logging.log(logging.INFO,
+                "Holt's trend corrected exponential smoothing forecast for SKU: {}\nObject id: {} ".format(
+                    analysis.sku_id,
+                    id(analysis)
+                )
+                )
     return analysis.holts_trend_corrected_forecast
 
-def load_currency(currency_codes, db):
-    for key, value in currency_codes.items():
+
+def load_currency(fx_codes: currency_codes(), ctx: db):
+    """Loads Currency Symbols"""
+
+    for key, value in fx_codes.items():
         codes = Currency()
         codes.country = value[0]
         codes.symbol = value[1]
         codes.currency_code = key
-        db.session.add(codes)
-    db.session.commit()
+        ctx.session.add(codes)
+    ctx.session.commit()
 
 
-def load(file_path: str, location: str=None):
+def load(file_path: str, location: str = None):
     """ Loads analysis and forecast into local database for reporting suite.
 
     Args:
@@ -165,13 +162,16 @@ def load(file_path: str, location: str=None):
             import multiprocessing as mp
 
             simple_forecast_gen = {}
+            simple_forecast = {}
             with mp.Pool(processes=cores) as pool:
-                simple_forecast_gen = {analysis.sku_id: pool.apply_async(analysis.simple_exponential_smoothing_forecast, args = (analysis,)) for analysis in orders_analysis}
-                simple_forecast= {key: simple_forecast_gen[key].get() for key in simple_forecast_gen}
+                simple_forecast_gen = ({analysis.sku_id: pool.apply_async(_analysis_forecast_simple, args = (analysis,))} for analysis in orders_analysis)
+                for gen in simple_forecast_gen:
+                    simple_forecast.update(gen)
+                simple_forecast = {key: value.get() for key, value in simple_forecast.items()}
                 holts_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_holt,  args = (analysis,)) for analysis in orders_analysis}
                 holts_forecast = {key: holts_forecast_gen[key].get() for key in holts_forecast_gen}
 
-            #with ProcessPoolExecutor(max_workers=cores) as executor:
+            # with ProcessPoolExecutor(max_workers=cores) as executor:
             #    simple_forecast_futures = { analysis.sku_id: executor.submit(_analysis_forecast_simple, analysis) for analysis in orders_analysis}
             #    simple_forecast_gen = {future: concurrent.futures.as_completed(simple_forecast_futures[future]) for future in simple_forecast_futures}
             #    simple_forecast = {value: simple_forecast_futures[value].result() for value in simple_forecast_gen}
@@ -187,16 +187,12 @@ def load(file_path: str, location: str=None):
 
             transaction_sub = db.session.query(db.func.max(TransactionLog.date))
             transaction_id = db.session.query(TransactionLog).filter(TransactionLog.date == transaction_sub).first()
-
-            # loads inventory profile recommendations
             load_profile_recommendations(analysed_order=orders_analysis, forecast=holts_forecast,
                                          transaction_log_id=transaction_id)
 
             # d = _Orchestrate()
             # d.update_database(int(transaction_id.id))
-
             forecast_types = ('ses', 'htces')
-
             for f_type in forecast_types:
                 forecast_type = ForecastType()
                 forecast_type.type = f_type
@@ -271,7 +267,8 @@ def load(file_path: str, location: str=None):
                         forecast_stats.forecast_type_id = ses_id.id
                         forecast_stats.slope = simple_forecast.get(forecasted_demand)['statistics']['slope']
                         forecast_stats.p_value = simple_forecast.get(forecasted_demand)['statistics']['pvalue']
-                        forecast_stats.test_statistic = simple_forecast.get(forecasted_demand)['statistics']['test_statistic']
+                        forecast_stats.test_statistic = simple_forecast.get(forecasted_demand)['statistics'][
+                            'test_statistic']
                         forecast_stats.slope_standard_error = simple_forecast.get(forecasted_demand)['statistics'][
                             'slope_standard_error']
                         forecast_stats.intercept = simple_forecast.get(forecasted_demand)['statistics']['intercept']
@@ -361,6 +358,7 @@ def load(file_path: str, location: str=None):
     except OSError as e:
         print(e)
 
+
 def load_recommendations(summary, forecast, analysed_order):
     recommend = run_sku_recommendation(analysed_orders=analysed_order, forecast=forecast)
     for item in summary:
@@ -384,7 +382,6 @@ def load_profile_recommendations(analysed_order, forecast, transaction_log_id):
     rec.statement = recommend.get('profile')
     db.session.add(rec)
     db.session.commit()
-
 
 if __name__ == '__main__':
     load(ABS_FILE_PATH['COMPLETE_CSV_LG'])

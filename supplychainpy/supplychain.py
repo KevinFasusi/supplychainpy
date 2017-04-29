@@ -38,6 +38,10 @@ from supplychainpy.launch_reports import launch_load_report, launch_report_serve
 from supplychainpy.launch_reports import launch_report
 from supplychainpy.launch_reports import load_db
 
+log = logging.getLogger(__name__)
+log.addHandler(logging.NullHandler())
+
+
 def main():
     parser = argparse.ArgumentParser(description='Supplychainpy commandline interface a')
 
@@ -106,7 +110,7 @@ def main():
             currency = args.currency
         else:
             currency = 'USD'
-
+        logging.basicConfig(level=logging.WARNING, format='%(asctime)s - %(levelname)s - %(message)s')
         app_settings = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
         app_settings['database_path'] = args.location
         app_settings['file'] = args.filenames

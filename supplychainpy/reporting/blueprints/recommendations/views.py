@@ -2,7 +2,7 @@ import flask
 from flask import Blueprint
 from flask import Flask
 
-from supplychainpy.reporting.blueprints.dashboard.models import InventoryAnalysis, Currency, MasterSkuList, \
+from supplychainpy.reporting.blueprints.models import InventoryAnalysis, MasterSkuList, \
     Recommendations, ProfileRecommendation
 from supplychainpy.reporting.config.settings import DevConfig
 from supplychainpy.reporting.extensions import db
