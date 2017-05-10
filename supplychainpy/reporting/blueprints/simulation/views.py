@@ -25,7 +25,7 @@ from _decimal import Decimal
 from concurrent.futures import ThreadPoolExecutor
 
 import flask
-from flask import Blueprint, request
+from flask import Blueprint, request, abort
 
 from supplychainpy import simulate
 from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_APPLICATION_CONFIG
@@ -38,6 +38,11 @@ from supplychainpy.reporting.extensions import db
 
 simulation_blueprint = Blueprint('simulation', __name__, template_folder='templates')
 
+abort
+def page_not_found(e):
+    print('hello')
+    return flask.render_template('../templates/layouts/error.html'), 404
+
 
 def run_simulation():
     pass
@@ -46,38 +51,43 @@ def run_simulation():
 @simulation_blueprint.route('/simulation', methods=['GET','PUT'])
 @simulation_blueprint.route('/simulation/<int:runs>', methods=['GET','PUT'])
 def simulation(runs:int=None):
-    database_path = ''
-    file_name = ''
-    sim_results = []
-    sim_summary_results = []
-    inventory = []
+    try:
+        database_path = ''
+        file_name = ''
+        sim_results = []
+        sim_summary_results = []
+        inventory = []
 
-    if runs is not None:
-        config = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
-        database_path = config['database_path']
-        file_name = config['file']
-        file_path = database_path.replace(' ','') + '/' +(file_name.replace(' ',''))
-        analysed_orders = analyse(file_path=str(file_path), z_value=Decimal(1.28), reorder_cost=Decimal(5000), file_type=FileFormats.csv.name, length=12, currency='USD')
-        # run the simulation, populate a database and then retrieve the most current values for the simulation page.
-        try:
-            with ThreadPoolExecutor(max_workers=1) as executor:
-                sim = executor.submit(simulate.run_monte_carlo, orders_analysis=analysed_orders, runs=runs, period_length=12)
-                sim_results = sim.result()
-                sim_window = executor.submit(simulate.summarize_window, simulation_frame=sim_results, period_length=12)
-                sim_window_result = sim_window.result()
-                sim_summary = executor.submit(simulate.summarise_frame, sim_window_result)
-                sim_summary_results = sim_summary.result()
-                store_simulation(sim_summary_results)
-            inventory = db.session.query(MasterSkuList).all()
+        if runs is not None:
+            config = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
+            database_path = config['database_path']
+            file_name = config['file']
+            file_path = database_path.replace(' ','') + '/' +(file_name.replace(' ',''))
+            analysed_orders = analyse(file_path=str(file_path), z_value=Decimal(1.28), reorder_cost=Decimal(5000), file_type=FileFormats.csv.name, length=12, currency='USD')
+            # run the simulation, populate a database and then retrieve the most current values for the simulation page.
+            try:
+                with ThreadPoolExecutor(max_workers=1) as executor:
+                    sim = executor.submit(simulate.run_monte_carlo, orders_analysis=analysed_orders, runs=runs, period_length=12)
+                    sim_results = sim.result()
+                    sim_window = executor.submit(simulate.summarize_window, simulation_frame=sim_results, period_length=12)
+                    sim_window_result = sim_window.result()
+                    sim_summary = executor.submit(simulate.summarise_frame, sim_window_result)
+                    sim_summary_results = sim_summary.result()
+                    store_simulation(sim_summary_results)
+                inventory = db.session.query(MasterSkuList).all()
 
-        except OSError as e:
-            print(e)
-    elif runs is None and request.method == 'GET':
-        sim_summary_results = select_last_simulation()
-        inventory = db.session.query(MasterSkuList).all()
+            except OSError as e:
+                print(e)
+        elif runs is None and request.method == 'GET':
+            try:
+                sim_summary_results = select_last_simulation()
+                inventory = db.session.query(MasterSkuList).all()
+            except AttributeError as e:
+                pass
 
-    return flask.render_template('simulation/simulation.html', db= database_path, file_name=file_name, sim=sim_summary_results, runs=sim_results, inventory=inventory)
-
+        return flask.render_template('simulation/simulation.html', db= database_path, file_name=file_name, sim=sim_summary_results, runs=sim_results, inventory=inventory)
+    except OSError:
+        abort(404)
 
 if __name__ == '__main__':
     simulation()

@@ -4,6 +4,7 @@
 import $ from 'jquery';
 
 $(function () {
+
     $('#loader').hide();
     $('#currency-dropdown-btn >li').click(function () {
         var currency = $(".dropdown-menu > li > a").text();
@@ -407,6 +408,7 @@ $(function () {
         url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
         dataType: 'json',
         async: true,
+
         data: {"q": JSON.stringify({"filters": excess_filters})},
         success: function (data) {
             //console.log(data.objects);
@@ -484,7 +486,6 @@ $(function () {
     bar_chart_sku();
     line_chart_forecast();
     line_chart_forecast_ses();
-
 });
 
 /** Searches for sku on recommendation page (feed.html)

@@ -1,5 +1,5 @@
-from flask.ext.restful import Api
-from flask.ext.restful import Resource
+from flask_restful import Api
+from flask_restful import Resource
 
 rest_api = Api()
 

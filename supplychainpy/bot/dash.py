@@ -48,6 +48,7 @@ class ChatBot:
         """
         response = DashMachine()
         states = DashStates()
+        states.compiled_response.shared_response.clear()
         response.add_state("start", states.initialise_chat)
         response.add_state("pronoun", states.pronoun)
         response.add_state("greeting", states.greeting)

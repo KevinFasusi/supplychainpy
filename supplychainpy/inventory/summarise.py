@@ -158,7 +158,7 @@ class Inventory:
         except TypeError as e:
             raise TypeError(
                 "SKU id {} is not valid, please make sure you supply the correct sku id. {}".format(args, e))
-
+    
     def _summarise_sku(self, sku_id: str) -> dict:
         """Summarise SKU using descriptive statistics, key performance indicators and rankings.
 

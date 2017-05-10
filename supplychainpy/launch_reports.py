@@ -28,11 +28,15 @@ import tkinter as tk
 import webbrowser
 from tkinter import ttk
 
+import logging
+
 from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_APPLICATION_CONFIG
 from supplychainpy._helpers._pickle_config import deserialise_config, serialise_config
 from supplychainpy.reporting.app import create_app
 from supplychainpy.reporting.blueprints.dashboard.views import db
 
+log = logging.getLogger(__name__)
+log.addHandler(logging.NullHandler())
 
 class ReportsLauncher(threading.Thread):
     """Launches reporting lauch panel """
@@ -48,6 +52,7 @@ class ReportsLauncher(threading.Thread):
     def print_message(self):
         """Prints launch message"""
         print(self.message)
+
 
     def run(self):
         config = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)

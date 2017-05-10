@@ -29,10 +29,23 @@ import time
 
 from functools import wraps
 
+import sys
+
+import io
+
 from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_DASH
 
 UNKNOWN = 'UNKNOWN'
 
+def quiet_console(func):
+    @wraps(func)
+    def wrapper(**kwargs):
+        stdout_cache = sys.stdout
+        sys.stdout = io.StringIO()
+        result = func( **kwargs)
+        sys.stdout = stdout_cache
+        return result
+    return wrapper
 
 def log_this(level, name=None, message=None):
     """Logs and reports the execution time of methods and functions"""

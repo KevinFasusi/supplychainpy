@@ -32,7 +32,7 @@ from supplychainpy.demand._forecast_demand import Forecast
 from supplychainpy._helpers import _data_cleansing
 from supplychainpy._helpers._data_cleansing import check_extension
 from supplychainpy._helpers._enum_formats import FileFormats
-from supplychainpy.demand._evolutionary_algorithms import OptimiseSmoothingLevelGeneticAlgorithm
+from supplychainpy.demand._evo_algo import OptimiseSmoothingLevelGeneticAlgorithm
 from supplychainpy.demand.regression import LinearRegression
 
 log = logging.getLogger(__name__)
@@ -103,6 +103,7 @@ def simple_exponential_smoothing_forecast(demand: list, smoothing_level_constant
                 return _ses_forecast(smoothing_level_constant=smoothing_level_constant,
                                      forecast_demand=forecast_demand,
                                      forecast_length=forecast_length, orders_length=len(orders))
+
 
     except TypeError as e:
         if demand is None:

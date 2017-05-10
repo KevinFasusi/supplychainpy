@@ -4,14 +4,14 @@ from flask import Flask
 
 from supplychainpy.reporting.blueprints.models import InventoryAnalysis, MasterSkuList, \
     Recommendations, ProfileRecommendation
-from supplychainpy.reporting.config.settings import DevConfig
+from supplychainpy.reporting.config.settings import ProdConfig
 from supplychainpy.reporting.extensions import db
 
 recommendations_blueprint = Blueprint('recommendations', __name__, template_folder='templates')
 
 
 app = Flask(__name__)
-app.config.from_object(DevConfig)
+app.config.from_object(ProdConfig)
 
 @recommendations_blueprint.route('/recommended/<string:sku_id>', methods=['GET'])
 def recommended(sku_id: str = None):

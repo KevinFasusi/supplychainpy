@@ -33,7 +33,9 @@ import logging
 from supplychainpy._csv_management._csv_manager import _Orchestrate
 from supplychainpy._csv_management._model._db_setup import create_management_db
 from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_APPLICATION_CONFIG
+from supplychainpy._helpers._decorators import quiet_console
 from supplychainpy._helpers._pickle_config import serialise_config, deserialise_config
+from supplychainpy.bot.dash import ChatBot
 from supplychainpy.launch_reports import launch_load_report, launch_report_server
 from supplychainpy.launch_reports import launch_report
 from supplychainpy.launch_reports import load_db
@@ -91,6 +93,9 @@ def main():
     parser.add_argument('-p', '--port', dest='port', action='store',
                         help='port to use for local server e.g. 8080 \
                         (default: 5000)', default='5000')
+
+    parser.add_argument('-c', dest='chat', action='store_true',
+                        help='chat to dash from the command line')
 
     args = parser.parse_args()
 
@@ -189,6 +194,15 @@ def main():
         }
         serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
         launch_report_server(location=args.location, port=args.port, host=args.host)
+
+    elif args.chat:
+        msg = input("Enter message for Dash: ")
+        while msg != 'q':
+            dash = ChatBot()
+            response = dash.chat_machine(message=msg)
+            for i in response:
+                print('Dash> ', i)
+            msg = input("> ")
 
 if __name__ == '__main__':
     main()

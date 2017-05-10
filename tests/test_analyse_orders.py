@@ -155,5 +155,7 @@ class TestAnalyseOrders(TestCase):
                 currency='USD'
                 )
 
+
+
 if __name__ == '__main__':
     unittest.main()

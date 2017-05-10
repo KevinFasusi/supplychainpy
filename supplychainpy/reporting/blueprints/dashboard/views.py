@@ -25,10 +25,12 @@
 import os
 
 import flask
+import logging
 from flask import Blueprint
 from flask import Flask
 from flask import send_from_directory
-from flask.ext.restless import APIManager
+from flask_restless import APIManager
+
 from sqlalchemy import func, desc, asc
 
 from supplychainpy.reporting.blueprints.models import (InventoryAnalysis,
@@ -36,18 +38,22 @@ from supplychainpy.reporting.blueprints.models import (InventoryAnalysis,
                                                        MasterSkuList, Recommendations, TransactionLog, Orders,
                                                        ForecastBreakdown, Forecast,
                                                        ForecastStatistics)
-from supplychainpy.reporting.config.settings import DevConfig
-from supplychainpy.reporting.extensions import db
+from supplychainpy.reporting.config.settings import ProdConfig
+from supplychainpy.reporting.extensions import db, debug_toolbar
+
+log = logging.getLogger(__name__)
+log.addHandler(logging.NullHandler())
 
 app_dir = os.path.dirname(__file__, )
 rel_path = '../uploads'
 abs_file_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
 UPLOAD_FOLDER = abs_file_path
 app = Flask(__name__)
-app.config.from_object(DevConfig)
+app.config.from_object(ProdConfig)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 dashboard_blueprint = Blueprint('dashboard', __name__, template_folder='templates')
+debug_toolbar.init_app(app)
 
 manager = APIManager(flask_sqlalchemy_db=db)
 manager.init_app(app)
@@ -60,6 +66,7 @@ manager.create_api(ForecastStatistics, methods=['GET', 'POST', 'DELETE', 'PATCH'
 manager.create_api(ForecastBreakdown, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
 manager.create_api(MasterSkuList, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
 manager.create_api(Recommendations, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)
+
 
 
 @dashboard_blueprint.route('/')
@@ -127,9 +134,7 @@ def sku_detail(sku_id: str = None):
     return flask.jsonify(json_list=[i.serialize for i in inventory])
 
 
-@dashboard_blueprint.route('/sku_detail', methods=['GET'])
-@dashboard_blueprint.route('/sku_detail/<string:sku_id>', methods=['GET'])
-def sku(sku_id: str = None):
+
     """route for restful sku detail, whole content limited by most recent date or individual sku"""
     if sku_id is not None:
         sku = db.session.query(MasterSkuList).filter(MasterSkuList.id == sku_id).first()

@@ -14,6 +14,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 (0, _jquery2.default)(function () {
+
     (0, _jquery2.default)('#loader').hide();
     (0, _jquery2.default)('#currency-dropdown-btn >li').click(function () {
         var currency = (0, _jquery2.default)(".dropdown-menu > li > a").text();
@@ -378,6 +379,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
         url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
         dataType: 'json',
         async: true,
+
         data: { "q": JSON.stringify({ "filters": excess_filters }) },
         success: function success(data) {
             //console.log(data.objects);
