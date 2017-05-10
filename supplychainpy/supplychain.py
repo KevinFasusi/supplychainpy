@@ -105,17 +105,18 @@ def main():
         print('process file = {}'.format(args.analyse_file))
         print('database location = {}'.format(args.location))
 
-    if args.launch and args.analyse_file and args.filenames is not None and args.location is None:
-        print(1)
-        launch_load_report(args.filenames)
+    if args.debug:
+        logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-    elif args.launch and args.analyse_file and args.filenames is not None and args.location is not None and args.debug == False:
-        print(2)
+
+    if args.launch and args.analyse_file is None and args.filenames is not None and args.location:
+        # -l -loc
+        print(1)
+
         if args.currency is not None:
             currency = args.currency
         else:
             currency = 'USD'
-        logging.basicConfig(level=logging.WARNING, format='%(asctime)s - %(levelname)s - %(message)s')
         app_settings = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
         app_settings['database_path'] = args.location
         app_settings['file'] = args.filenames
@@ -129,8 +130,28 @@ def main():
         #    create_management_db()
         launch_load_report(args.filenames, args.location)
 
-    elif args.launch and args.location is not None and args.host and args.debug == False:
-        print(3)
+    elif args.launch and args.analyse_file and args.filenames is not None and args.location is not None:
+        # -a -loc -l
+
+        if args.currency is not None:
+            currency = args.currency
+        else:
+            currency = 'USD'
+        app_settings = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
+        app_settings['database_path'] = args.location
+        app_settings['file'] = args.filenames
+        app_settings['currency'] = currency
+
+        serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
+        #d = _Orchestrate()
+        #d.copy_file()
+        #db_present = d.check_for_db()
+        #if db_present:
+        #    create_management_db()
+        launch_load_report(args.filenames, args.location)
+
+    elif args.launch and args.location is not None and args.host:
+        # -l -loc --host
         app_settings = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
 
         app_settings['database_path'] = args.location
@@ -140,9 +161,8 @@ def main():
 
         launch_report(location=args.location, host=args.host, port=args.port)
 
-    elif args.launch and args.analyse_file and args.filenames is not None and args.location is not None and args.debug:
-        print(7)
-        logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+    elif args.launch and args.analyse_file and args.filenames and args.location:
+        # -a -l -loc
 
         if args.currency is not None:
             currency = args.currency
@@ -164,13 +184,11 @@ def main():
         launch_report(location=args.location, host=args.host, port=args.port)
 
     elif args.analyse_file and args.location is not None and args.filenames is not None and args.launch_console is None:
-        print(4)
-
+        # -a
         load_db(file=args.filenames, location=args.location)
 
     elif args.analyse_file and args.location and args.filenames and args.launch_console and args.port:
-        print(5)
-
+        # -a -loc --lx -p
         app_settings = {
             'database_path': args.location,
             'file': args.filenames,
@@ -186,7 +204,18 @@ def main():
         launch_report_server(location=args.location, port=args.port, host=args.host)
 
     elif args.location and args.launch_console and args.port and args.host:
-        print(6)
+        # -loc -lx -p --host
+        app_settings = {
+            'database_path': args.location,
+            'host': args.host,
+            'currency': args.currency
+        }
+        serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
+        launch_report_server(location=args.location, port=args.port, host=args.host)
+
+    elif args.analyse_file and args.location is not None and args.filenames is not None and args.launch_console is None and args.host:
+        # -a -loc -lx --host
+
         app_settings = {
             'database_path': args.location,
             'host': args.host,
