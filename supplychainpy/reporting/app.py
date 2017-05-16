@@ -34,15 +34,14 @@ def create_app(settings_override=None):
     if settings_override:
         app.config.update(settings_override)
     try:
-
-        app.register_blueprint(dashboard_blueprint)
-        app.register_blueprint(bot_blueprint)
-        app.register_blueprint(rawdata_blueprint)
-        app.register_blueprint(recommendations_blueprint)
-        app.register_blueprint(contact_blueprint)
-        app.register_blueprint(simulation_blueprint)
-        debug_toolbar.init_app(app)
-        extensions(app)
+        with app.app_context():
+            app.register_blueprint(dashboard_blueprint)
+            app.register_blueprint(bot_blueprint)
+            app.register_blueprint(rawdata_blueprint)
+            app.register_blueprint(recommendations_blueprint)
+            app.register_blueprint(contact_blueprint)
+            app.register_blueprint(simulation_blueprint)
+            extensions(app)
     except OSError:
         abort(404)
 
@@ -56,6 +55,6 @@ def extensions(app):
 
 
     """
-
+    debug_toolbar.init_app(app)
     db.init_app(app)
     return None

@@ -13,10 +13,10 @@ extensions = [
     Extension('supplychainpy.demand._evo_algo',
               ['supplychainpy/demand/_evo_algo.pyx']),
 ]
-
-here = os.path.dirname(os.path.abspath(__file__))
-with open(os.path.join(here,'LOG.txt')) as f:
-    long_description = f.read().strip()
+# only required for pypi
+#here = os.path.dirname(os.path.abspath(__file__))
+#with open(os.path.join(here,'LOG.txt')) as f:
+#    long_description = f.read().strip()
 
 setup(name='supplychainpy',
       version='0.0.4',
@@ -39,7 +39,8 @@ setup(name='supplychainpy',
                         'flask-script',
                         'flask-sqlalchemy',
                         'flask-uploads',
-                        'flask-wtf'
+                        'flask-wtf',
+                        'textblob'
                         ],
       keywords=['supply chain', 'operations research', 'operations management', 'simulation'],
       ext_modules=cythonize(extensions),
@@ -48,12 +49,12 @@ setup(name='supplychainpy',
               'supplychainpy = supplychainpy.supplychain:main'
           ]
       },
-      long_description= long_description,
+      long_description= '',
       classifiers=[
         "Development Status :: 1 - Planning",
         "License :: OSI Approved :: BSD License",
         "Programming Language :: Python :: 3.5",
     ],
       package_data={
-          'supplychainpy': ['reporting/static/*', 'reporting/templates/*', 'sample_data/*.csv', 'sample_data/*.py','_pickled/*']
+          'supplychainpy': ['reporting/dashboard/templates/dashboard/*','reporting/*','reporting/static/images/*','reporting/static/*', 'reporting/templates/*', 'sample_data/*.csv', 'sample_data/*.py','_pickled/*']
       })

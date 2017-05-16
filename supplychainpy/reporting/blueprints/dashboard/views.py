@@ -69,7 +69,7 @@ manager.create_api(Recommendations, methods=['GET', 'POST', 'DELETE', 'PATCH'], 
 
 
 
-@dashboard_blueprint.route('/')
+@dashboard_blueprint.route('/', methods=['GET'])
 def dashboard():
     top_ten_shortages = db.session.query(InventoryAnalysis).order_by(desc(InventoryAnalysis.shortage_cost)).limit(10)
     largest_shortage = db.session.query(InventoryAnalysis).order_by(asc(InventoryAnalysis.shortage_rank)).first()
@@ -81,7 +81,7 @@ def dashboard():
     total_excess = total_excess.with_entities(func.sum(InventoryAnalysis.excess_cost)).scalar
     currency = db.session.query(Currency).all()
 
-    return flask.render_template('dashboard/index.html', shortages=top_ten_shortages, currency=currency,
+    return flask.render_template('dashboard/dashboard.html', shortages=top_ten_shortages, currency=currency,
                                  largest= largest_shortage, shortage= total_shortages, excess=top_ten_excess,
                                  largest_excess=largest_excess, total_excess=total_excess)
 
@@ -134,7 +134,9 @@ def sku_detail(sku_id: str = None):
     return flask.jsonify(json_list=[i.serialize for i in inventory])
 
 
-
+@dashboard_blueprint.route('/sku_detail', methods=['GET'])
+@dashboard_blueprint.route('/sku_detail/<string:sku_id>', methods=['GET'])
+def sku(sku_id: str = None):
     """route for restful sku detail, whole content limited by most recent date or individual sku"""
     if sku_id is not None:
         sku = db.session.query(MasterSkuList).filter(MasterSkuList.id == sku_id).first()

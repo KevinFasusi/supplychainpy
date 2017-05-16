@@ -161,7 +161,6 @@ def load(file_path: str, location: str = None):
             cores -= 1
             import multiprocessing as mp
 
-            simple_forecast_gen = {}
             simple_forecast = {}
             with mp.Pool(processes=cores) as pool:
                 simple_forecast_gen = ({analysis.sku_id: pool.apply_async(_analysis_forecast_simple, args = (analysis,))} for analysis in orders_analysis)

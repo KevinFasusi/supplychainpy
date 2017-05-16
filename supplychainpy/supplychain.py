@@ -132,6 +132,7 @@ def main():
 
     elif args.launch and args.analyse_file and args.filenames is not None and args.location is not None:
         # -a -loc -l
+        print(2)
 
         if args.currency is not None:
             currency = args.currency
@@ -152,6 +153,8 @@ def main():
 
     elif args.launch and args.location is not None and args.host:
         # -l -loc --host
+        print(3)
+
         app_settings = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
 
         app_settings['database_path'] = args.location
@@ -163,6 +166,7 @@ def main():
 
     elif args.launch and args.analyse_file and args.filenames and args.location:
         # -a -l -loc
+        print(4)
 
         if args.currency is not None:
             currency = args.currency
@@ -189,32 +193,42 @@ def main():
 
     elif args.analyse_file and args.location and args.filenames and args.launch_console and args.port:
         # -a -loc --lx -p
-        app_settings = {
-            'database_path': args.location,
-            'file': args.filenames,
-            'currency': args.currency
-        }
-        serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
-        #d = _Orchestrate()
-        #d.copy_file()
-        #db_present = d.check_for_db()
-        #if db_present:
-        #    create_management_db()
-        load_db(file=args.filenames, location=args.location)
-        launch_report_server(location=args.location, port=args.port, host=args.host)
+        try:
+            print(5)
+            app_settings = {
+                'database_path': args.location,
+                'file': args.filenames,
+                'currency': args.currency
+            }
+            serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
+            #d = _Orchestrate()
+            #d.copy_file()
+            #db_present = d.check_for_db()
+            #if db_present:
+            #    create_management_db()
+            load_db(file=args.filenames, location=args.location)
+            launch_report_server(location=args.location, port=args.port, host=args.host)
+        except OSError as e:
+            print(e)
 
     elif args.location and args.launch_console and args.port and args.host:
         # -loc -lx -p --host
-        app_settings = {
-            'database_path': args.location,
-            'host': args.host,
-            'currency': args.currency
-        }
-        serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
-        launch_report_server(location=args.location, port=args.port, host=args.host)
+        try:
+            print(6)
+
+            app_settings = {
+                'database_path': args.location,
+                'host': args.host,
+                'currency': args.currency
+            }
+            serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
+            launch_report_server(location=args.location, port=args.port, host=args.host)
+        except OSError as e:
+            print(e)
 
     elif args.analyse_file and args.location is not None and args.filenames is not None and args.launch_console is None and args.host:
         # -a -loc -lx --host
+        print(7)
 
         app_settings = {
             'database_path': args.location,

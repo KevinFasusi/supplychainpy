@@ -1,6 +1,26 @@
 Change Log
 ==========
 
+0.0.5
+-----
+
+Application
+^^^^^^^^^^^
+-   [Update] Load scripts use multi-processing when processing data file for reporting suite.
+-   [Update] GA solver rewritten in Cython.
+-   [Update] Debug commandline argument for viewing logging output `--debug'.
+-   [Update] Use Chat Bot from commandline with `-c` flag.
+-   [Update] Recommendation generator takes into account forecasts
+-   [Update] Flask factory pattern and use of Blueprints for reporting views.
+-   [New Feature] Basic ability to run Monte Carlo Simulation and view summarised results.
+
+
+Documentation
+^^^^^^^^^^^^^
+-   [New] Wiki .
+-   [Update] Tutorial.
+
+
 
 0.0.4
 -----
