@@ -540,7 +540,7 @@ function chat_to_bot() {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: location.host + '/chat/' + message,
+        url: '/chat/' + message,
         dataType: 'json',
         async: true,
         data: "{}",
@@ -555,7 +555,6 @@ function chat_to_bot() {
             //console.log(result);// make 404.html page
         }
     });
-
 
     $('#chat-input').val('');
 }
