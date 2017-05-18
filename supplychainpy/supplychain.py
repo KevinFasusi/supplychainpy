@@ -43,7 +43,7 @@ from supplychainpy.launch_reports import load_db
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
 
-
+3
 def main():
     parser = argparse.ArgumentParser(description='Supplychainpy commandline interface a')
 

@@ -268,4 +268,6 @@ def launch_report_server(location: str = None, port: int = 5000, host: str = '12
     app_launch = ReportsLauncher()
     app_launch.port = port
     app_launch.host = host
+    app_launch.run()
+
 
