@@ -136,7 +136,7 @@ def sku_detail(sku_id: str = None):
 
 @dashboard_blueprint.route('/sku_detail', methods=['GET'])
 @dashboard_blueprint.route('/sku_detail/<string:sku_id>', methods=['GET'])
-def sku(sku_id: str = None):
+def  sku(sku_id: str = None):
     """route for restful sku detail, whole content limited by most recent date or individual sku"""
     if sku_id is not None:
         sku = db.session.query(MasterSkuList).filter(MasterSkuList.id == sku_id).first()
