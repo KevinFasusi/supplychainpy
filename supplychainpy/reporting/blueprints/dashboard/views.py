@@ -39,7 +39,7 @@ from supplychainpy.reporting.blueprints.models import (InventoryAnalysis,
                                                        ForecastBreakdown, Forecast,
                                                        ForecastStatistics)
 from supplychainpy.reporting.config.settings import ProdConfig
-from supplychainpy.reporting.extensions import db, debug_toolbar
+from supplychainpy.reporting.extensions import db, debug_toolbar, manager
 
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
@@ -55,8 +55,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 dashboard_blueprint = Blueprint('dashboard', __name__, template_folder='templates')
 debug_toolbar.init_app(app)
 
-manager = APIManager(flask_sqlalchemy_db=db)
-manager.init_app(app)
+
 manager.create_api(InventoryAnalysis, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True,
                    results_per_page=10, max_results_per_page=500)
 manager.create_api(Currency, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True)

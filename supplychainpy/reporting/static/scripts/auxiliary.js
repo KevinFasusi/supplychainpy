@@ -178,7 +178,7 @@ $(function () {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:' + location.port + '/reporting/api/v1.0/top_shortages',
+        url: '/reporting/api/v1.0/top_shortages',
         dataType: 'json',
         async: true,
         data: {"q": JSON.stringify({"filters": filters})},
@@ -211,7 +211,7 @@ $(function () {
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
-            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+            url: '/api/inventory_analysis',
             dataType: 'json',
             async: true,
             data: {"q": JSON.stringify({"filters": ay})},
@@ -230,7 +230,7 @@ $(function () {
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
-            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+            url: '/api/inventory_analysis',
             dataType: 'json',
             async: true,
             data: {"q": JSON.stringify({"filters": ax})},
@@ -252,7 +252,7 @@ $(function () {
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
-            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+            url: '/api/inventory_analysis',
             dataType: 'json',
             async: true,
             data: {"q": JSON.stringify({"filters": az})},
@@ -274,7 +274,7 @@ $(function () {
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
-            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+            url: '/api/inventory_analysis',
             dataType: 'json',
             async: true,
             data: {"q": JSON.stringify({"filters": bx})},
@@ -292,11 +292,12 @@ $(function () {
             }
         });
     }
+
     if (by_val > 0) {
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
-            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+            url: '/api/inventory_analysis',
             dataType: 'json',
             async: true,
             data: {"q": JSON.stringify({"filters": by})},
@@ -318,7 +319,7 @@ $(function () {
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
-            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+            url: '/api/inventory_analysis',
             dataType: 'json',
             async: true,
             data: {"q": JSON.stringify({"filters": bz})},
@@ -340,7 +341,7 @@ $(function () {
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
-            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+            url: '/api/inventory_analysis',
             dataType: 'json',
             async: true,
             data: {"q": JSON.stringify({"filters": cx})},
@@ -362,7 +363,7 @@ $(function () {
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
-            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+            url: '/api/inventory_analysis',
             dataType: 'json',
             async: true,
             data: {"q": JSON.stringify({"filters": cy})},
@@ -384,7 +385,7 @@ $(function () {
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
-            url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+            url: '/api/inventory_analysis',
             dataType: 'json',
             async: true,
             data: {"q": JSON.stringify({"filters": cz})},
@@ -405,7 +406,7 @@ $(function () {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:' + location.port + '/api/inventory_analysis',
+        url: '/api/inventory_analysis',
         dataType: 'json',
         async: true,
 
@@ -420,12 +421,11 @@ $(function () {
         }
     });
 
-
     //ajax request for json containing all costs summarised by product class (abcxyz), builds pie chart (#chart2)
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:' + location.port + '/reporting/api/v1.0/abc_summary',
+        url: '/reporting/api/v1.0/abc_summary',
         dataType: 'json',
         async: true,
         data: "{}",
@@ -452,7 +452,7 @@ $(function () {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:' + location.port + '/reporting/api/v1.0/top_excess/10',
+        url: '/reporting/api/v1.0/top_excess/10',
         dataType: 'json',
         async: true,
         data: "{}",
@@ -469,7 +469,7 @@ $(function () {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:' + location.port + '/api/forecast_breakdown',
+        url: '/api/forecast_breakdown',
         dataType: 'json',
         async: true,
         data: "{}",
@@ -527,7 +527,7 @@ function show_sim() {
 function run_simulation() {
     var runs = $('#runs-input').val();
 
-    window.location = 'http://127.0.0.1:' + location.port + '/simulation/' + runs;
+    window.location = location.host + '/simulation/' + runs;
 }
 
 
@@ -540,7 +540,7 @@ function chat_to_bot() {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:' + location.port + '/chat/' + message,
+        url: location.host + '/chat/' + message,
         dataType: 'json',
         async: true,
         data: "{}",
@@ -1112,7 +1112,7 @@ function currency_fetch(id) {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:' + location.port + '/api/currency',
+        url: '/api/currency',
         dataType: 'json',
         async: true,
         data: {"q": JSON.stringify({"filters": filters})},
@@ -1675,7 +1675,7 @@ function create_excess_table(data) {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: 'http://127.0.0.1:5000/api/total_inventory',
+        url: '/api/total_inventory',
         dataType: 'json',
         async: true,
         data: "{}",
