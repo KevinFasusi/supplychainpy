@@ -421,6 +421,7 @@ $(function () {
         }
     });
 
+
     //ajax request for json containing all costs summarised by product class (abcxyz), builds pie chart (#chart2)
     $.ajax({
         type: "GET",
@@ -540,7 +541,7 @@ function chat_to_bot() {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: location.host + '/chat/' + message,
+        url: '/chat/' + message,
         dataType: 'json',
         async: true,
         data: "{}",

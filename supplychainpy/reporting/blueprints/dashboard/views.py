@@ -29,7 +29,6 @@ import logging
 from flask import Blueprint
 from flask import Flask
 from flask import send_from_directory
-from flask_restless import APIManager
 
 from sqlalchemy import func, desc, asc
 
