@@ -52,8 +52,6 @@ app.config.from_object(ProdConfig)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 dashboard_blueprint = Blueprint('dashboard', __name__, template_folder='templates')
-debug_toolbar.init_app(app)
-
 
 manager.create_api(InventoryAnalysis, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True,
                    results_per_page=10, max_results_per_page=500)

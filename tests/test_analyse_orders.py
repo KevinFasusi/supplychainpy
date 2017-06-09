@@ -142,7 +142,7 @@ class TestAnalyseOrders(TestCase):
 
 
     def test_order_constraint(self):
-        """Tes the constraint for performing the calculation with less than five data points"""
+        """Test the constraint for performing the calculation with less than five data points"""
         orders_placed = [25, 25, 25]
         with self.assertRaises(Exception):
             analyse_uncertain_demand.UncertainDemand(
