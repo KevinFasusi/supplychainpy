@@ -115,7 +115,7 @@ def simple_exponential_smoothing_forecast(demand: list, smoothing_level_constant
 def _ses_forecast(smoothing_level_constant: float, forecast_demand: Forecast, forecast_length: int, orders_length: int) -> dict:
     """ Private function for executing the simple exponential smoothing forecast.
     """
-    forecast_breakdown = [i for i in forecast_demand.simple_exponential_smoothing(smoothing_level_constant)]
+    forecast_breakdown = list([i for i in forecast_demand.simple_exponential_smoothing(smoothing_level_constant)])
     ape = LinearRegression(forecast_breakdown)
     mape = forecast_demand.mean_aboslute_percentage_error_opt(forecast_breakdown)
     stats = ape.least_squared_error()

@@ -321,7 +321,6 @@ class Forecast:
 
         for arg in alpha:
             forecast = {}
-
             current_level_estimate = self.__average_orders
             forecast.update({'alpha': arg,
                              't': 0,
