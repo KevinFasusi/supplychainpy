@@ -55,3 +55,4 @@ class TestBot(TestCase):
         self.assertIn('SKU KR202-245', *self.__dude.chat_machine("what is the smallest excess?")[0])
         self.assertIn('SKU KR202-213', *self.__dude.chat_machine("Which SKU has the smallest average order?")[0])
         self.assertIn('SKU KR202-241', *self.__dude.chat_machine("Which SKU has the greatest safety stock?")[0])
+        print("finished")
