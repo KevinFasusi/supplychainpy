@@ -557,7 +557,6 @@ function chat_to_bot() {
         }
     });
 
-
     $('#chat-input').val('');
 }
 
