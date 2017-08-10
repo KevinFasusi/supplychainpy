@@ -51,6 +51,7 @@ from supplychainpy.sample_data.config import ABS_FILE_PATH
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
 
+
 def currency_codes() -> dict:
     """ Retrives HTML Entity (decimal) for currency symbol.
 
@@ -117,6 +118,16 @@ def load_currency(fx_codes: currency_codes(), ctx: db):
     ctx.session.commit()
 
 
+def batch(analysis, n):
+    """Yield n-sized batches from analysis.
+    Args:
+        analysis:
+        n:
+    """
+    for i in range(0, len(analysis), n):
+        yield analysis[i:i + n]
+
+
 def load(file_path: str, location: str = None):
     """ Loads analysis and forecast into local database for reporting suite.
 
@@ -163,13 +174,21 @@ def load(file_path: str, location: str = None):
             cores -= 1
 
             simple_forecast = {}
+            oh = [i for i in batch(orders_analysis, 50)]
+
+            print(oh)
+            for i in oh:
+                with mp.Pool(processes=cores) as pool:
+                    simple_forecast_gen = {
+                    analysis.sku_id: pool.apply_async(_analysis_forecast_simple, args=(analysis,)) for analysis in i}
+                    simple_forecast.update({key: simple_forecast_gen[key].get() for key in simple_forecast_gen})
+
             with mp.Pool(processes=cores) as pool:
-                simple_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_simple, args = (analysis,)) for analysis in orders_analysis}
-                simple_forecast = {key: simple_forecast_gen[key].get() for key in simple_forecast_gen}
-                holts_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_holt,  args = (analysis,)) for analysis in orders_analysis}
+                holts_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_holt, args=(analysis,)) for
+                                      analysis in orders_analysis}
                 holts_forecast = {key: holts_forecast_gen[key].get() for key in holts_forecast_gen}
 
-            #with ProcessPoolExecutor(max_workers=cores) as executor:
+            # with ProcessPoolExecutor(max_workers=cores) as executor:
             #    simple_forecast_futures = { analysis.sku_id: executor.submit(_analysis_forecast_simple, analysis) for analysis in orders_analysis}
             #    simple_forecast_gen = {future: concurrent.futures.as_completed(simple_forecast_futures[future]) for future in simple_forecast_futures}
             #    simple_forecast = {value: simple_forecast_futures[value].result() for value in simple_forecast_gen}
@@ -380,6 +399,7 @@ def load_profile_recommendations(analysed_order, forecast, transaction_log_id):
     rec.statement = recommend.get('profile')
     db.session.add(rec)
     db.session.commit()
+
 
 if __name__ == '__main__':
     load(ABS_FILE_PATH['COMPLETE_CSV_LG'])
