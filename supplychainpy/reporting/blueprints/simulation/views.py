@@ -38,7 +38,7 @@ from supplychainpy.reporting.extensions import db
 
 simulation_blueprint = Blueprint('simulation', __name__, template_folder='templates')
 
-abort
+
 def page_not_found(e):
     print('hello')
     return flask.render_template('../templates/layouts/error.html'), 404

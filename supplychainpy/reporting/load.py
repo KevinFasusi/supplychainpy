@@ -21,10 +21,12 @@
 # SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+import concurrent
 import datetime
 import logging
-import multiprocessing
+import multiprocessing as mp
 import os
+from concurrent.futures import ProcessPoolExecutor
 from decimal import Decimal
 
 from supplychainpy import model_inventory
@@ -157,9 +159,8 @@ def load(file_path: str, location: str = None):
             print('[COMPLETED]\n')
             log.log(logging.DEBUG, 'Calculating Forecasts...\n')
             print('Calculating Forecasts...', end="")
-            cores = int(multiprocessing.cpu_count())
+            cores = int(mp.cpu_count())
             cores -= 1
-            import multiprocessing as mp
 
             simple_forecast = {}
             with mp.Pool(processes=cores) as pool:
@@ -168,7 +169,7 @@ def load(file_path: str, location: str = None):
                 holts_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_holt,  args = (analysis,)) for analysis in orders_analysis}
                 holts_forecast = {key: holts_forecast_gen[key].get() for key in holts_forecast_gen}
 
-            # with ProcessPoolExecutor(max_workers=cores) as executor:
+            #with ProcessPoolExecutor(max_workers=cores) as executor:
             #    simple_forecast_futures = { analysis.sku_id: executor.submit(_analysis_forecast_simple, analysis) for analysis in orders_analysis}
             #    simple_forecast_gen = {future: concurrent.futures.as_completed(simple_forecast_futures[future]) for future in simple_forecast_futures}
             #    simple_forecast = {value: simple_forecast_futures[value].result() for value in simple_forecast_gen}

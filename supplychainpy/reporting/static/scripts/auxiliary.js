@@ -528,7 +528,7 @@ function show_sim() {
 function run_simulation() {
     var runs = $('#runs-input').val();
 
-    window.location = location.host + '/simulation/' + runs;
+    window.location = '/simulation/' + runs;
 }
 
 
