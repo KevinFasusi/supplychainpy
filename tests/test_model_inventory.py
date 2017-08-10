@@ -177,6 +177,19 @@ class TestBuildModel(TestCase):
         analysis_df = analyse(df=raw_df, start=1, interval_length=12, interval_type='months')
         self.assertIsInstance(analysis_df[['sku', 'quantity_on_hand', 'excess_stock', 'shortages', 'ABC_XYZ_Classification']], DataFrame)
 
+    def test_short_raw_data(self):
+        yearly_demand = {'jan': 75, 'feb': 75}
+        with self.assertRaises(expected_exception=ValueError):
+            summary = model_inventory.analyse_orders(yearly_demand,
+                                                     sku_id='RX983-90',
+                                                     lead_time=Decimal(3),
+                                                     unit_cost=Decimal(50.99),
+                                                     reorder_cost=Decimal(400),
+                                                     z_value=Decimal(1.28),
+                                                     retail_price=Decimal(600),
+                                                     quantity_on_hand=Decimal(390))
+
+
     #def test_recommendation_per_sku(self):
     #    app_config = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
     #    analysed_order = analyse(file_path=app_config['file'],z_value=Decimal(1.28),

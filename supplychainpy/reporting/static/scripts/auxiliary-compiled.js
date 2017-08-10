@@ -1,6 +1,7 @@
 /**
  * Created by Fasusi on 22/05/2016.
  */
+import $ from 'jquery';
 
 $(function () {
 
@@ -477,7 +478,7 @@ function show_sim() {
 function run_simulation() {
     var runs = $('#runs-input').val();
 
-    window.location = location.host + '/simulation/' + runs;
+    window.location = '/simulation/' + runs;
 }
 
 function chat_to_bot() {

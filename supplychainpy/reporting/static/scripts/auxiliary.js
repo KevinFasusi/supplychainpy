@@ -421,6 +421,7 @@ $(function () {
         }
     });
 
+
     //ajax request for json containing all costs summarised by product class (abcxyz), builds pie chart (#chart2)
     $.ajax({
         type: "GET",
@@ -527,7 +528,7 @@ function show_sim() {
 function run_simulation() {
     var runs = $('#runs-input').val();
 
-    window.location = location.host + '/simulation/' + runs;
+    window.location = '/simulation/' + runs;
 }
 
 
