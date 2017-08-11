@@ -7,12 +7,11 @@ Thank you for considering contributing to supplychainpy. Let's build a useful to
 
 The three most likely reasons for contributing are:
 
-- Fixing a bug you have discovered;
+- Fixing a bug, you have discovered;
 - Closing an open issue, posted by the community; and
-- Adding a feature you would like to see in the project.
+- Adding a feature, you would like to see in the project.
 
-If you want to report a bug, please use the [issues](https://github.com/KevinFasusi/supplychainpy/issues) tracker. Check to
-if the issue has been submitted. If the issue is not listed, raise a ticket.
+If you want to report a bug, please use the [issues](https://github.com/KevinFasusi/supplychainpy/issues) tracker. Check if the issue is already submitted. If the issue is not listed, raise a ticket.
 
 ### Fix the issue
 
@@ -21,7 +20,7 @@ If the bug is something you feel you can fix, fork the [repo](https://github.com
 ```
 $ git clone https://github.com/<name-of-your-repo>/supplychainpy
 ```
-and create a branch. Use a descriptive name for the branch for example:
+And create a branch. Use a descriptive name for the branch for example:
 
 ```
 $ git checkout -b 203-add-olap-etl
@@ -58,9 +57,9 @@ A development environment can be set up using the Anaconda package management en
 
 4.    Install requirements for development (make sure you are in the root folder of the supplychainpy library check to see if you can see the dev_requirements.txt file in the current folder):
 
-	```
-	$ pip install dev_requiments.txt
-	```
+    ```
+    $ pip install dev_requiments.txt
+    ```
 
 5. Run all the unit test to verify your environment is setup correctly. This may take some time depending on your machine; you might want to get some coffee. If any of the tests fail due to missing package, install the missing package:
 
