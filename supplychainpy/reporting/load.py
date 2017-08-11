@@ -174,28 +174,35 @@ def load(file_path: str, location: str = None):
             cores -= 1
 
             simple_forecast = {}
-            oh = [i for i in batch(orders_analysis, 50)]
+            holts_forecast = {}
+            oh = [i for i in batch(orders_analysis, 1)]
 
-            print(oh)
+            print("...............................................................")
+            #for i in oh:
+            #    with mp.Pool(processes=cores) as pool:
+            #        simple_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_simple, args=(analysis,)) for analysis in i}
+            #        simple_forecast.update({key: simple_forecast_gen[key].get() for key in simple_forecast_gen})
+            #        print(".............. .................................................")
+            #        pool.close()
+#
+            #with mp.Pool(processes=cores) as pool:
+            #    holts_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_holt, args=(analysis,)) for
+            #                          analysis in orders_analysis}
+            #    holts_forecast = {key: holts_forecast_gen[key].get() for key in holts_forecast_gen}
+
             for i in oh:
-                with mp.Pool(processes=cores) as pool:
-                    simple_forecast_gen = {
-                    analysis.sku_id: pool.apply_async(_analysis_forecast_simple, args=(analysis,)) for analysis in i}
-                    simple_forecast.update({key: simple_forecast_gen[key].get() for key in simple_forecast_gen})
+                with ProcessPoolExecutor(max_workers=cores) as executor:
+                    simple_forecast_futures = { analysis.sku_id: executor.submit(_analysis_forecast_simple, analysis) for analysis in i}
+                    simple_forecast_gen = {future: concurrent.futures.as_completed(simple_forecast_futures[future]) for future in simple_forecast_futures}
+                    simple_forecast.update({value: simple_forecast_futures[value].result() for value in simple_forecast_gen})
+                    print("...............................................................")
 
-            with mp.Pool(processes=cores) as pool:
-                holts_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_holt, args=(analysis,)) for
-                                      analysis in orders_analysis}
-                holts_forecast = {key: holts_forecast_gen[key].get() for key in holts_forecast_gen}
+            for i in oh:
+                with ProcessPoolExecutor(max_workers=cores) as executor:
+                    holts_forecast_futures = { analysis.sku_id: executor.submit(_analysis_forecast_holt, analysis) for analysis in i}
+                    holts_forecast_gen = { future: concurrent.futures.as_completed(holts_forecast_futures[future]) for future in holts_forecast_futures}
+                    holts_forecast.update({value: holts_forecast_futures[value].result() for value in holts_forecast_gen})
 
-            # with ProcessPoolExecutor(max_workers=cores) as executor:
-            #    simple_forecast_futures = { analysis.sku_id: executor.submit(_analysis_forecast_simple, analysis) for analysis in orders_analysis}
-            #    simple_forecast_gen = {future: concurrent.futures.as_completed(simple_forecast_futures[future]) for future in simple_forecast_futures}
-            #    simple_forecast = {value: simple_forecast_futures[value].result() for value in simple_forecast_gen}
-            #    holts_forecast_futures = { analysis.sku_id: executor.submit(_analysis_forecast_holt, analysis) for analysis in orders_analysis}
-            #    holts_forecast_gen = { future: concurrent.futures.as_completed(holts_forecast_futures[future]) for future in holts_forecast_futures}
-            #    holts_forecast = {value: holts_forecast_futures[value].result() for value in holts_forecast_gen}
-            #    executor.shutdown(wait=False)
 
             transact = TransactionLog()
             transact.date = date_now
