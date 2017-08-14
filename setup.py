@@ -40,7 +40,9 @@ setup(name='supplychainpy',
                         'flask-sqlalchemy',
                         'flask-uploads',
                         'flask-wtf',
-                        'textblob'
+                        'textblob',
+                        'Simplejson',
+                        'wtforms'
                         ],
       keywords=['supply chain', 'operations research', 'operations management', 'simulation'],
       ext_modules=cythonize(extensions),

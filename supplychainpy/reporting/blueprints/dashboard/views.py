@@ -38,7 +38,7 @@ from supplychainpy.reporting.blueprints.models import (InventoryAnalysis,
                                                        ForecastBreakdown, Forecast,
                                                        ForecastStatistics)
 from supplychainpy.reporting.config.settings import ProdConfig
-from supplychainpy.reporting.extensions import db, debug_toolbar, manager
+from supplychainpy.reporting.extensions import db, manager
 
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())

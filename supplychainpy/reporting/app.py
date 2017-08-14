@@ -11,7 +11,7 @@ from supplychainpy.reporting.blueprints.recommendations.views import recommendat
 from supplychainpy.reporting.blueprints.simulation.views import simulation_blueprint
 
 from supplychainpy.reporting.config.settings import ProdConfig, DevConfig
-from supplychainpy.reporting.extensions import debug_toolbar, db, manager
+from supplychainpy.reporting.extensions import db, manager
 from flask import abort
 
 
@@ -55,7 +55,6 @@ def extensions(app):
 
 
     """
-    debug_toolbar.init_app(app)
     db.init_app(app)
     manager.init_app(app)
     return None
