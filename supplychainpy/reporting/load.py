@@ -175,7 +175,7 @@ def load(file_path: str, location: str = None):
 
             simple_forecast = {}
             holts_forecast = {}
-            oh = [i for i in batch(orders_analysis, 1)]
+            oh = [i for i in batch(orders_analysis, 10)]
 
             print("...............................................................")
             #for i in oh:
@@ -187,8 +187,14 @@ def load(file_path: str, location: str = None):
 #
             #with mp.Pool(processes=cores) as pool:
             #    holts_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_holt, args=(analysis,)) for
-            #                          analysis in orders_analysis}
+            #                           analysis in orders_analysis}
             #    holts_forecast = {key: holts_forecast_gen[key].get() for key in holts_forecast_gen}
+            for i in oh:
+                with ProcessPoolExecutor(max_workers=cores) as executor:
+                    holts_forecast_futures = { analysis.sku_id: executor.submit(_analysis_forecast_holt, analysis) for analysis in i}
+                    holts_forecast_gen = { future: concurrent.futures.as_completed(holts_forecast_futures[future]) for future in holts_forecast_futures}
+                    holts_forecast.update({value: holts_forecast_futures[value].result() for value in holts_forecast_gen})
+                    executor.shutdown(wait=False)
 
             for i in oh:
                 with ProcessPoolExecutor(max_workers=cores) as executor:
@@ -196,12 +202,8 @@ def load(file_path: str, location: str = None):
                     simple_forecast_gen = {future: concurrent.futures.as_completed(simple_forecast_futures[future]) for future in simple_forecast_futures}
                     simple_forecast.update({value: simple_forecast_futures[value].result() for value in simple_forecast_gen})
                     print("...............................................................")
+                    executor.shutdown(wait=False)
 
-            for i in oh:
-                with ProcessPoolExecutor(max_workers=cores) as executor:
-                    holts_forecast_futures = { analysis.sku_id: executor.submit(_analysis_forecast_holt, analysis) for analysis in i}
-                    holts_forecast_gen = { future: concurrent.futures.as_completed(holts_forecast_futures[future]) for future in holts_forecast_futures}
-                    holts_forecast.update({value: holts_forecast_futures[value].result() for value in holts_forecast_gen})
 
 
             transact = TransactionLog()

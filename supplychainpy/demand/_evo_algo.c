@@ -1536,9 +1536,9 @@ static const char __pyx_k_supplychainpy_demand__evo_algo[] = "supplychainpy.dema
 static const char __pyx_k_Create_a_population_of_individu[] = " Create a population of individuals to reproduce. ";
 static const char __pyx_k_OptimiseSmoothingLevelGeneticAl[] = "_OptimiseSmoothingLevelGeneticAlgorithm__orders";
 static const char __pyx_k_Population__two_point_crossover[] = "Population._two_point_crossover_recombination";
-static const char __pyx_k_Users_Fasusi_Projects_supplycha[] = "/Users/Fasusi/Projects/supplychainlibraries/python/supplychainpy/supplychainpy/demand/_evo_algo.pyx";
 static const char __pyx_k_generate_smoothing_level_genome[] = "generate_smoothing_level_genome";
 static const char __pyx_k_holts_trend_corrected_smoothing[] = "holts_trend_corrected_smoothing";
+static const char __pyx_k_home_kevin_Projects_Python_supp[] = "/home/kevin/Projects/Python/supplychainpy/supplychainpy/demand/_evo_algo.pyx";
 static const char __pyx_k_initialise_smoothing_level_evol[] = "_initialise_smoothing_level_evolutionary_algorithm_population";
 static const char __pyx_k_run_exponential_smoothing_forec[] = "_run_exponential_smoothing_forecast";
 static const char __pyx_k_run_holts_trend_corrected_expon[] = "_run_holts_trend_corrected_exponential_smoothing";
@@ -1620,7 +1620,6 @@ static PyObject *__pyx_n_s_Population__single_point_crossov;
 static PyObject *__pyx_n_s_Population__two_point_crossover;
 static PyObject *__pyx_n_s_Population__uniform_crossover_re;
 static PyObject *__pyx_n_s_Population_reproduce;
-static PyObject *__pyx_kp_s_Users_Fasusi_Projects_supplycha;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_n_s_alpha;
 static PyObject *__pyx_n_s_ape;
@@ -1663,6 +1662,7 @@ static PyObject *__pyx_n_s_genome_generator;
 static PyObject *__pyx_n_s_get;
 static PyObject *__pyx_n_s_holts_trend_corrected_exponentia;
 static PyObject *__pyx_n_s_holts_trend_corrected_smoothing;
+static PyObject *__pyx_kp_s_home_kevin_Projects_Python_supp;
 static PyObject *__pyx_n_s_htce_para;
 static PyObject *__pyx_n_s_i;
 static PyObject *__pyx_n_s_import;
@@ -14855,7 +14855,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_Population__two_point_crossover, __pyx_k_Population__two_point_crossover, sizeof(__pyx_k_Population__two_point_crossover), 0, 0, 1, 1},
   {&__pyx_n_s_Population__uniform_crossover_re, __pyx_k_Population__uniform_crossover_re, sizeof(__pyx_k_Population__uniform_crossover_re), 0, 0, 1, 1},
   {&__pyx_n_s_Population_reproduce, __pyx_k_Population_reproduce, sizeof(__pyx_k_Population_reproduce), 0, 0, 1, 1},
-  {&__pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_k_Users_Fasusi_Projects_supplycha, sizeof(__pyx_k_Users_Fasusi_Projects_supplycha), 0, 0, 1, 0},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_n_s_alpha, __pyx_k_alpha, sizeof(__pyx_k_alpha), 0, 0, 1, 1},
   {&__pyx_n_s_ape, __pyx_k_ape, sizeof(__pyx_k_ape), 0, 0, 1, 1},
@@ -14898,6 +14897,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_get, __pyx_k_get, sizeof(__pyx_k_get), 0, 0, 1, 1},
   {&__pyx_n_s_holts_trend_corrected_exponentia, __pyx_k_holts_trend_corrected_exponentia, sizeof(__pyx_k_holts_trend_corrected_exponentia), 0, 0, 1, 1},
   {&__pyx_n_s_holts_trend_corrected_smoothing, __pyx_k_holts_trend_corrected_smoothing, sizeof(__pyx_k_holts_trend_corrected_smoothing), 0, 0, 1, 1},
+  {&__pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_k_home_kevin_Projects_Python_supp, sizeof(__pyx_k_home_kevin_Projects_Python_supp), 0, 0, 1, 0},
   {&__pyx_n_s_htce_para, __pyx_k_htce_para, sizeof(__pyx_k_htce_para), 0, 0, 1, 1},
   {&__pyx_n_s_i, __pyx_k_i, sizeof(__pyx_k_i), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
@@ -15079,7 +15079,7 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *             if original_gene[0][1] == 0:
  */
-  __pyx_codeobj__5 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_mutate, 235, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__5)) __PYX_ERR(0, 235, __pyx_L1_error)
+  __pyx_codeobj__5 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_mutate, 235, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__5)) __PYX_ERR(0, 235, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":431
  *         for sm_lvl in individual:
@@ -15130,7 +15130,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__11 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_name, __pyx_n_s_overide, __pyx_n_s_gene_count, __pyx_n_s_forecast_type); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__11);
   __Pyx_GIVEREF(__pyx_tuple__11);
-  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(5, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_init, 9, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(5, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_init, 9, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 9, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":20
  *             self._genome = self.__genome_generator()
@@ -15142,7 +15142,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__13 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__13);
   __Pyx_GIVEREF(__pyx_tuple__13);
-  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_repr, 20, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_repr, 20, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 20, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":24
  * 
@@ -15154,7 +15154,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__15 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__15);
   __Pyx_GIVEREF(__pyx_tuple__15);
-  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_gene_count, 24, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_gene_count, 24, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 24, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":28
  * 
@@ -15166,7 +15166,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__17 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(0, 28, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__17);
   __Pyx_GIVEREF(__pyx_tuple__17);
-  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_gene_count, 28, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(0, 28, __pyx_L1_error)
+  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_gene_count, 28, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(0, 28, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":32
  * 
@@ -15178,7 +15178,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__19 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__19);
   __Pyx_GIVEREF(__pyx_tuple__19);
-  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_genome_2, 32, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) __PYX_ERR(0, 32, __pyx_L1_error)
+  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_genome_2, 32, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) __PYX_ERR(0, 32, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":36
  * 
@@ -15190,7 +15190,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__21 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_val); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__21);
   __Pyx_GIVEREF(__pyx_tuple__21);
-  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__21, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_genome_2, 36, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__21, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_genome_2, 36, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(0, 36, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":40
  * 
@@ -15202,7 +15202,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__23 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 40, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__23);
   __Pyx_GIVEREF(__pyx_tuple__23);
-  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_name, 40, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_name, 40, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 40, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":43
  *         return self._name
@@ -15214,7 +15214,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__25 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_genome_2, __pyx_n_s_i); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__25);
   __Pyx_GIVEREF(__pyx_tuple__25);
-  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_genome_generator, 43, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 43, __pyx_L1_error)
+  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_genome_generator, 43, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 43, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":57
  * 
@@ -15237,7 +15237,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__28 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_individuals, __pyx_n_s_mutation_probability); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__28);
   __Pyx_GIVEREF(__pyx_tuple__28);
-  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_init, 59, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(0, 59, __pyx_L1_error)
+  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_init, 59, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(0, 59, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":64
  *         #print("initialising {}".format(id(self)))
@@ -15249,7 +15249,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__30 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_recombination_type, __pyx_n_s_i); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__30);
   __Pyx_GIVEREF(__pyx_tuple__30);
-  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_reproduce, 64, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 64, __pyx_L1_error)
+  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_reproduce, 64, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 64, __pyx_L1_error)
   __pyx_tuple__32 = PyTuple_Pack(1, ((PyObject*)__pyx_n_s_single_point)); if (unlikely(!__pyx_tuple__32)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__32);
   __Pyx_GIVEREF(__pyx_tuple__32);
@@ -15264,7 +15264,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__33 = PyTuple_Pack(12, __pyx_n_s_self, __pyx_n_s_genome_count, __pyx_n_s_new_individual, __pyx_n_s_new_individual_two, __pyx_n_s_mutation_count, __pyx_n_s_mutation_index, __pyx_n_s_index, __pyx_n_s_individual, __pyx_n_s_key, __pyx_n_s_value, __pyx_n_s_population_allele_count, __pyx_n_s_number_of_mutations_allowed); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__33);
   __Pyx_GIVEREF(__pyx_tuple__33);
-  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(1, 0, 12, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_single_point_crossover_recombin, 85, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(1, 0, 12, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_single_point_crossover_recombin, 85, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) __PYX_ERR(0, 85, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":152
  *             print('Population Size is too small for effective genetic recombination and reproduction of offspring')
@@ -15276,7 +15276,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__35 = PyTuple_Pack(13, __pyx_n_s_self, __pyx_n_s_genome_count, __pyx_n_s_new_individual, __pyx_n_s_mutation_count, __pyx_n_s_mutation_index, __pyx_n_s_new_individual_two, __pyx_n_s_index, __pyx_n_s_individual, __pyx_n_s_key, __pyx_n_s_value, __pyx_n_s_population_allele_count, __pyx_n_s_number_of_mutations_allowed, __pyx_n_s_e); if (unlikely(!__pyx_tuple__35)) __PYX_ERR(0, 152, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__35);
   __Pyx_GIVEREF(__pyx_tuple__35);
-  __pyx_codeobj__36 = (PyObject*)__Pyx_PyCode_New(1, 0, 13, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__35, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_two_point_crossover_recombinati, 152, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__36)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_codeobj__36 = (PyObject*)__Pyx_PyCode_New(1, 0, 13, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__35, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_two_point_crossover_recombinati, 152, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__36)) __PYX_ERR(0, 152, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":217
  * 
@@ -15288,7 +15288,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__37 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(0, 217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__37);
   __Pyx_GIVEREF(__pyx_tuple__37);
-  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_uniform_crossover_recombination, 217, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 217, __pyx_L1_error)
+  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_uniform_crossover_recombination, 217, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 217, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":221
  * 
@@ -15300,7 +15300,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__39 = PyTuple_Pack(6, __pyx_n_s_gene, __pyx_n_s_original_gene, __pyx_n_s_mutate, __pyx_n_s_mutate, __pyx_n_s_k, __pyx_n_s_v); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(0, 221, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__39);
   __Pyx_GIVEREF(__pyx_tuple__39);
-  __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(1, 0, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_mutation, 221, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 221, __pyx_L1_error)
+  __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(1, 0, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_mutation, 221, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 221, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":251
  *     __generation = 0
@@ -15312,7 +15312,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__41 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_orders, __pyx_n_s_kwargs); if (unlikely(!__pyx_tuple__41)) __PYX_ERR(0, 251, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__41);
   __Pyx_GIVEREF(__pyx_tuple__41);
-  __pyx_codeobj__42 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__41, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_init, 251, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__42)) __PYX_ERR(0, 251, __pyx_L1_error)
+  __pyx_codeobj__42 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__41, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_init, 251, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__42)) __PYX_ERR(0, 251, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":259
  *             self.__recombination_type = kwargs['recombination_type']
@@ -15324,7 +15324,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__43 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_individual_type); if (unlikely(!__pyx_tuple__43)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__43);
   __Pyx_GIVEREF(__pyx_tuple__43);
-  __pyx_codeobj__44 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__43, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_initial_population, 259, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__44)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_codeobj__44 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__43, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_initial_population, 259, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__44)) __PYX_ERR(0, 259, __pyx_L1_error)
   __pyx_tuple__45 = PyTuple_Pack(1, ((PyObject*)__pyx_n_s_ses)); if (unlikely(!__pyx_tuple__45)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__45);
   __Pyx_GIVEREF(__pyx_tuple__45);
@@ -15339,7 +15339,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__46 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__46)) __PYX_ERR(0, 268, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__46);
   __Pyx_GIVEREF(__pyx_tuple__46);
-  __pyx_codeobj__47 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__46, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_population_size, 268, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__47)) __PYX_ERR(0, 268, __pyx_L1_error)
+  __pyx_codeobj__47 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__46, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_population_size, 268, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__47)) __PYX_ERR(0, 268, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":272
  * 
@@ -15351,7 +15351,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__48 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_population_size); if (unlikely(!__pyx_tuple__48)) __PYX_ERR(0, 272, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__48);
   __Pyx_GIVEREF(__pyx_tuple__48);
-  __pyx_codeobj__49 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__48, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_population_size, 272, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__49)) __PYX_ERR(0, 272, __pyx_L1_error)
+  __pyx_codeobj__49 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__48, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_population_size, 272, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__49)) __PYX_ERR(0, 272, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":275
  *         self.__population_size = population_size
@@ -15363,7 +15363,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__50 = PyTuple_Pack(22, __pyx_n_s_self, __pyx_n_s_individual_type, __pyx_n_s_parents, __pyx_n_s_parents_population, __pyx_n_s_populations_genome, __pyx_n_s_populations_traits, __pyx_n_s_i, __pyx_n_s_parent, __pyx_n_s_fit_population, __pyx_n_s_create_offspring, __pyx_n_s_new_population, __pyx_n_s_parent_offspring_population, __pyx_n_s_new_individuals, __pyx_n_s_new_populations_traits, __pyx_n_s_new_fit_population, __pyx_n_s_final_error, __pyx_n_s_minimum_smoothing_level, __pyx_n_s_po, __pyx_n_s_pke, __pyx_n_s_genome_2, __pyx_n_s_new_individual, __pyx_n_s_new_population_genome); if (unlikely(!__pyx_tuple__50)) __PYX_ERR(0, 275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__50);
   __Pyx_GIVEREF(__pyx_tuple__50);
-  __pyx_codeobj__51 = (PyObject*)__Pyx_PyCode_New(2, 0, 22, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__50, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_initialise_smoothing_level_evol, 275, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__51)) __PYX_ERR(0, 275, __pyx_L1_error)
+  __pyx_codeobj__51 = (PyObject*)__Pyx_PyCode_New(2, 0, 22, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__50, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_initialise_smoothing_level_evol, 275, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__51)) __PYX_ERR(0, 275, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":350
  * 
@@ -15375,7 +15375,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__52 = PyTuple_Pack(6, __pyx_n_s_new_population, __pyx_n_s_parent_offspring_population, __pyx_n_s_po, __pyx_n_s_pke, __pyx_n_s_genome_2, __pyx_n_s_new_individual); if (unlikely(!__pyx_tuple__52)) __PYX_ERR(0, 350, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__52);
   __Pyx_GIVEREF(__pyx_tuple__52);
-  __pyx_codeobj__53 = (PyObject*)__Pyx_PyCode_New(1, 0, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__52, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_create_individuals, 350, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__53)) __PYX_ERR(0, 350, __pyx_L1_error)
+  __pyx_codeobj__53 = (PyObject*)__Pyx_PyCode_New(1, 0, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__52, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_create_individuals, 350, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__53)) __PYX_ERR(0, 350, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":367
  * 
@@ -15387,7 +15387,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__54 = PyTuple_Pack(4, __pyx_n_s_population, __pyx_n_s_individual_type, __pyx_n_s_procreation_probability, __pyx_n_s_individual); if (unlikely(!__pyx_tuple__54)) __PYX_ERR(0, 367, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__54);
   __Pyx_GIVEREF(__pyx_tuple__54);
-  __pyx_codeobj__55 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__54, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_population_fitness, 367, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__55)) __PYX_ERR(0, 367, __pyx_L1_error)
+  __pyx_codeobj__55 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__54, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_population_fitness, 367, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__55)) __PYX_ERR(0, 367, __pyx_L1_error)
   __pyx_tuple__56 = PyTuple_Pack(1, ((PyObject*)__pyx_n_s_ses)); if (unlikely(!__pyx_tuple__56)) __PYX_ERR(0, 367, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__56);
   __Pyx_GIVEREF(__pyx_tuple__56);
@@ -15402,7 +15402,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__57 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_population, __pyx_n_s_individual_type, __pyx_n_s_parent, __pyx_n_s_individuals_genome); if (unlikely(!__pyx_tuple__57)) __PYX_ERR(0, 389, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__57);
   __Pyx_GIVEREF(__pyx_tuple__57);
-  __pyx_codeobj__58 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__57, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_generate_smoothing_level_genome, 389, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__58)) __PYX_ERR(0, 389, __pyx_L1_error)
+  __pyx_codeobj__58 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__57, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_generate_smoothing_level_genome, 389, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__58)) __PYX_ERR(0, 389, __pyx_L1_error)
   __pyx_tuple__59 = PyTuple_Pack(1, ((PyObject*)__pyx_n_s_ses)); if (unlikely(!__pyx_tuple__59)) __PYX_ERR(0, 389, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__59);
   __Pyx_GIVEREF(__pyx_tuple__59);
@@ -15417,7 +15417,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__60 = PyTuple_Pack(6, __pyx_n_s_forecast, __pyx_n_s_alpha, __pyx_n_s_gamma, __pyx_n_s_intercept, __pyx_n_s_slope, __pyx_n_s_i); if (unlikely(!__pyx_tuple__60)) __PYX_ERR(0, 408, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__60);
   __Pyx_GIVEREF(__pyx_tuple__60);
-  __pyx_codeobj__61 = (PyObject*)__Pyx_PyCode_New(5, 0, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__60, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_htce_para, 408, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__61)) __PYX_ERR(0, 408, __pyx_L1_error)
+  __pyx_codeobj__61 = (PyObject*)__Pyx_PyCode_New(5, 0, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__60, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_htce_para, 408, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__61)) __PYX_ERR(0, 408, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":414
  * 
@@ -15429,7 +15429,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__62 = PyTuple_Pack(9, __pyx_n_s_self, __pyx_n_s_forecast, __pyx_n_s_holts_trend_corrected_smoothing, __pyx_n_s_alpha, __pyx_n_s_gamma, __pyx_n_s_smoothing_level, __pyx_n_s_appraised_individual, __pyx_n_s_sum_squared_error, __pyx_n_s_standard_error); if (unlikely(!__pyx_tuple__62)) __PYX_ERR(0, 414, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__62);
   __Pyx_GIVEREF(__pyx_tuple__62);
-  __pyx_codeobj__63 = (PyObject*)__Pyx_PyCode_New(6, 0, 9, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__62, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_sum_squared_error_para, 414, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__63)) __PYX_ERR(0, 414, __pyx_L1_error)
+  __pyx_codeobj__63 = (PyObject*)__Pyx_PyCode_New(6, 0, 9, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__62, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_sum_squared_error_para, 414, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__63)) __PYX_ERR(0, 414, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":422
  *         return appraised_individual
@@ -15441,7 +15441,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__64 = PyTuple_Pack(16, __pyx_n_s_self, __pyx_n_s_individual, __pyx_n_s_f, __pyx_n_s_holts_trend_corrected_smoothing, __pyx_n_s_demand, __pyx_n_s_stats, __pyx_n_s_log_stats, __pyx_n_s_sm_lvl, __pyx_n_s_p, __pyx_n_s_appraised_individual, __pyx_n_s_smoothing_level, __pyx_n_s_sum_squared_error, __pyx_n_s_standard_error, __pyx_n_s_index, __pyx_n_s_order, __pyx_n_s_i); if (unlikely(!__pyx_tuple__64)) __PYX_ERR(0, 422, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__64);
   __Pyx_GIVEREF(__pyx_tuple__64);
-  __pyx_codeobj__65 = (PyObject*)__Pyx_PyCode_New(2, 0, 16, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__64, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_run_holts_trend_corrected_expon, 422, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__65)) __PYX_ERR(0, 422, __pyx_L1_error)
+  __pyx_codeobj__65 = (PyObject*)__Pyx_PyCode_New(2, 0, 16, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__64, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_run_holts_trend_corrected_expon, 422, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__65)) __PYX_ERR(0, 422, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":445
  *         return appraised_individual
@@ -15453,7 +15453,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__66 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_individuals_genome, __pyx_n_s_standard_error, __pyx_n_s_genome_2, __pyx_n_s_individuals_traits); if (unlikely(!__pyx_tuple__66)) __PYX_ERR(0, 445, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__66);
   __Pyx_GIVEREF(__pyx_tuple__66);
-  __pyx_codeobj__67 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__66, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_express_smoothing_level_genome, 445, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__67)) __PYX_ERR(0, 445, __pyx_L1_error)
+  __pyx_codeobj__67 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__66, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_express_smoothing_level_genome, 445, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__67)) __PYX_ERR(0, 445, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":452
  *             yield individuals_traits
@@ -15465,7 +15465,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__68 = PyTuple_Pack(11, __pyx_n_s_self, __pyx_n_s_individual, __pyx_n_s_f, __pyx_n_s_simple_expo_smoothing, __pyx_n_s_sm_lvl, __pyx_n_s_p, __pyx_n_s_appraised_individual, __pyx_n_s_smoothing_level, __pyx_n_s_sum_squared_error, __pyx_n_s_standard_error, __pyx_n_s_i); if (unlikely(!__pyx_tuple__68)) __PYX_ERR(0, 452, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__68);
   __Pyx_GIVEREF(__pyx_tuple__68);
-  __pyx_codeobj__69 = (PyObject*)__Pyx_PyCode_New(2, 0, 11, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__68, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_run_exponential_smoothing_forec, 452, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__69)) __PYX_ERR(0, 452, __pyx_L1_error)
+  __pyx_codeobj__69 = (PyObject*)__Pyx_PyCode_New(2, 0, 11, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__68, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_run_exponential_smoothing_forec, 452, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__69)) __PYX_ERR(0, 452, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":470
  * 
@@ -15477,7 +15477,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__70 = PyTuple_Pack(3, __pyx_n_s_original_standard_error, __pyx_n_s_appraised_individual, __pyx_n_s_key); if (unlikely(!__pyx_tuple__70)) __PYX_ERR(0, 470, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__70);
   __Pyx_GIVEREF(__pyx_tuple__70);
-  __pyx_codeobj__71 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__70, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_express_trait, 470, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__71)) __PYX_ERR(0, 470, __pyx_L1_error)
+  __pyx_codeobj__71 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__70, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_express_trait, 470, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__71)) __PYX_ERR(0, 470, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":482
  *         return appraised_individual
@@ -15489,7 +15489,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__72 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_individuals_fitness, __pyx_n_s_appraised_individual); if (unlikely(!__pyx_tuple__72)) __PYX_ERR(0, 482, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__72);
   __Pyx_GIVEREF(__pyx_tuple__72);
-  __pyx_codeobj__73 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__72, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_selection_population, 482, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__73)) __PYX_ERR(0, 482, __pyx_L1_error)
+  __pyx_codeobj__73 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__72, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_selection_population, 482, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__73)) __PYX_ERR(0, 482, __pyx_L1_error)
 
   /* "supplychainpy/demand/_evo_algo.pyx":485
  *         pass
@@ -15501,7 +15501,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__74 = PyTuple_Pack(22, __pyx_n_s_self, __pyx_n_s_smoothing_level_constant, __pyx_n_s_initial_estimate_period, __pyx_n_s_recombination_type, __pyx_n_s_population_size, __pyx_n_s_forecast_length, __pyx_n_s_sum_orders, __pyx_n_s_demand, __pyx_n_s_avg_orders, __pyx_n_s_forecast_demand, __pyx_n_s_ses_forecast, __pyx_n_s_sum_squared_error, __pyx_n_s_standard_error, __pyx_n_s_evo_mod, __pyx_n_s_optimal_alpha, __pyx_n_s_optimal_ses_forecast, __pyx_n_s_ape, __pyx_n_s_mape, __pyx_n_s_stats, __pyx_n_s_simple_forecast, __pyx_n_s_regression, __pyx_n_s_i); if (unlikely(!__pyx_tuple__74)) __PYX_ERR(0, 485, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__74);
   __Pyx_GIVEREF(__pyx_tuple__74);
-  __pyx_codeobj__75 = (PyObject*)__Pyx_PyCode_New(6, 0, 22, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__74, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Fasusi_Projects_supplycha, __pyx_n_s_simple_exponential_smoothing_evo, 485, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__75)) __PYX_ERR(0, 485, __pyx_L1_error)
+  __pyx_codeobj__75 = (PyObject*)__Pyx_PyCode_New(6, 0, 22, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__74, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_simple_exponential_smoothing_evo, 485, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__75)) __PYX_ERR(0, 485, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
