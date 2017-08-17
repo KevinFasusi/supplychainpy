@@ -12,6 +12,8 @@ extensions = [
               ['supplychainpy/demand/_squared_error.pyx']),
     Extension('supplychainpy.demand._evo_algo',
               ['supplychainpy/demand/_evo_algo.pyx']),
+    Extension('supplychainpy.reporting.parallelise_forecast',
+              ['supplychainpy/reporting/parallelise_forecast.pyx']),
 ]
 # only required for pypi
 #here = os.path.dirname(os.path.abspath(__file__))

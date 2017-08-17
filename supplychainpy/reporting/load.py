@@ -27,6 +27,7 @@ import logging
 import multiprocessing as mp
 import os
 from concurrent.futures import ProcessPoolExecutor
+from copy import deepcopy
 from decimal import Decimal
 
 from supplychainpy import model_inventory
@@ -128,6 +129,64 @@ def batch(analysis, n):
         yield analysis[i:i + n]
 
 
+def parallelise_ses(batched_analysis: list, core_count: int) -> dict:
+    """ Execute the exponential smoothing forecaste in parallel.
+
+    Args:
+        batched_analysis: Uncertain demand objects batched for appropriate number of cores available on the host machine
+        core_count: Number of cores available on the host machine, minus one.
+
+    Returns:
+        dict
+    """
+    simple_forecast = {}
+
+    for unbatched in batched_analysis:
+        with ProcessPoolExecutor(max_workers=core_count) as executor:
+            simple_forecast_futures = {analysis.sku_id: executor.submit(_analysis_forecast_simple, analysis) for
+                                       analysis in unbatched}
+            simple_forecast_gen = {future: concurrent.futures.as_completed(simple_forecast_futures[future]) for
+                                   future
+                                   in simple_forecast_futures}
+        try:
+            simple_forecast.update( deepcopy(
+                {value: simple_forecast_futures[value].result() for value in simple_forecast_gen}))
+            del simple_forecast_futures
+            del simple_forecast_gen
+            executor.shutdown(wait=False)
+        except OSError as err:
+            print('{}'.format(err))
+    return simple_forecast
+
+
+def parallelise_htc(batched_analysis: list, core_count: int):
+    """ Execute the Holts' trend corrected smoothing forecast in parallel.
+
+    Args:
+        batched_analysis: Uncertain demand objects batched for appropriate number of cores available on the host machine
+        core_count: Number of cores available on the host machine, minus one.
+
+    Returns:
+        dict
+    """
+    holts_forecast = {}
+    try:
+        for unbatched in batched_analysis:
+            with ProcessPoolExecutor(max_workers=core_count) as executor:
+                holts_forecast_futures = {analysis.sku_id: executor.submit(_analysis_forecast_holt, analysis) for
+                                          analysis
+                                          in unbatched}
+                holts_forecast_gen = {future: concurrent.futures.as_completed(holts_forecast_futures[future]) for future
+                                      in
+                                      holts_forecast_futures}
+                holts_forecast.update(
+                    {value: holts_forecast_futures[value].result() for value in holts_forecast_gen})
+                executor.shutdown(wait=False)
+    except TypeError as err:
+        print('{}'.format(err))
+    return holts_forecast
+
+
 def load(file_path: str, location: str = None):
     """ Loads analysis and forecast into local database for reporting suite.
 
@@ -170,41 +229,13 @@ def load(file_path: str, location: str = None):
             print('[COMPLETED]\n')
             log.log(logging.DEBUG, 'Calculating Forecasts...\n')
             print('Calculating Forecasts...', end="")
+
             cores = int(mp.cpu_count())
             cores -= 1
-
-            simple_forecast = {}
-            holts_forecast = {}
-            oh = [i for i in batch(orders_analysis, 10)]
-
-            print("...............................................................")
-            #for i in oh:
-            #    with mp.Pool(processes=cores) as pool:
-            #        simple_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_simple, args=(analysis,)) for analysis in i}
-            #        simple_forecast.update({key: simple_forecast_gen[key].get() for key in simple_forecast_gen})
-            #        print(".............. .................................................")
-            #        pool.close()
-#
-            #with mp.Pool(processes=cores) as pool:
-            #    holts_forecast_gen = {analysis.sku_id: pool.apply_async(_analysis_forecast_holt, args=(analysis,)) for
-            #                           analysis in orders_analysis}
-            #    holts_forecast = {key: holts_forecast_gen[key].get() for key in holts_forecast_gen}
-            for i in oh:
-                with ProcessPoolExecutor(max_workers=cores) as executor:
-                    holts_forecast_futures = { analysis.sku_id: executor.submit(_analysis_forecast_holt, analysis) for analysis in i}
-                    holts_forecast_gen = { future: concurrent.futures.as_completed(holts_forecast_futures[future]) for future in holts_forecast_futures}
-                    holts_forecast.update({value: holts_forecast_futures[value].result() for value in holts_forecast_gen})
-                    executor.shutdown(wait=False)
-
-            for i in oh:
-                with ProcessPoolExecutor(max_workers=cores) as executor:
-                    simple_forecast_futures = { analysis.sku_id: executor.submit(_analysis_forecast_simple, analysis) for analysis in i}
-                    simple_forecast_gen = {future: concurrent.futures.as_completed(simple_forecast_futures[future]) for future in simple_forecast_futures}
-                    simple_forecast.update({value: simple_forecast_futures[value].result() for value in simple_forecast_gen})
-                    print("...............................................................")
-                    executor.shutdown(wait=False)
-
-
+            print('core count {}'.format(cores))
+            batched_analysis = [i for i in batch(orders_analysis, cores // 2)]
+            simple_forecast = parallelise_ses(batched_analysis=batched_analysis, core_count=cores)
+            holts_forecast = parallelise_htc(batched_analysis=batched_analysis, core_count=cores)
 
             transact = TransactionLog()
             transact.date = date_now
