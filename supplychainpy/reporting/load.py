@@ -233,7 +233,7 @@ def load(file_path: str, location: str = None):
             cores = int(mp.cpu_count())
             cores -= 1
             print('core count {}'.format(cores))
-            batched_analysis = [i for i in batch(orders_analysis, cores // 2)]
+            batched_analysis = [i for i in batch(orders_analysis, cores)]
             simple_forecast = parallelise_ses(batched_analysis=batched_analysis, core_count=cores)
             holts_forecast = parallelise_htc(batched_analysis=batched_analysis, core_count=cores)
 
