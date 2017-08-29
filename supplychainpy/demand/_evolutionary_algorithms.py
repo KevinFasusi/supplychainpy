@@ -375,7 +375,7 @@ class OptimiseSmoothingLevelGeneticAlgorithm:
 
         parent_offspring_population = []
         new_individuals = []
-        while len(new_population) < self.__population_size * 10:
+        while len(new_population) < self.__population_size * 5:
             for po in new_population:
                 pke = po.keys()
                 parent_offspring_population.append(tuple(pke))

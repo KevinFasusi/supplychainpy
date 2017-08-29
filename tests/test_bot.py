@@ -43,7 +43,7 @@ class TestBot(TestCase):
             db.create_all()
             load_db(file=ABS_FILE_PATH['COMPLETE_CSV_SM'],location=PWD)
 
-    def test_chatbot(self):
+    def test_chat_bot(self):
         greeting1 = self.__dude.chat_machine("hello")[0]
         self.assertIn(*greeting1, self.__SALUTATION_RESPONSES)
         self.assertIn('KR202-247', *self.__dude.chat_machine("Which SKU has the highest reorder level?")[0])

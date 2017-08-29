@@ -456,7 +456,7 @@ class UncertainDemand:
     def orders_summary(self) -> dict:
         return self._summary(self._summary_keywords)
 
-    def orders_summary_simple(self) -> dict:
+    def orders_summary_simple(self)->dict:
         return self._summary(
             itertools.chain(self._summary_keywords[:7], self._summary_keywords[9:len(self._summary_keywords)]))
 

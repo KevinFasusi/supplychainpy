@@ -342,6 +342,7 @@ class Forecast:
                        }
                 previous_level_estimate = current_level_estimate
 
+
     @log_this(logging.DEBUG, "Called HTEC exponential smoothing.")
     def holts_trend_corrected_exponential_smoothing(self, alpha: float, gamma: float, intercept: float, slope: float):
         forecast = {}

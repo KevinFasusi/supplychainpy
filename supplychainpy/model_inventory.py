@@ -155,18 +155,21 @@ def analyse(currency: str, z_value: Decimal = 1.28, reorder_cost: Decimal = 10, 
                               'total_orders':total_orders,
                               'backlog': float(backlog)}
                     collect_kwargs.append(kwargs)
-                analysed_orders = [pool.apply(_analyse_orders, args=(x['orders'],
-                                                                     x['sku_id'],
-                                                                     x['lead_time'],
-                                                                     x['unit_cost'],
-                                                                     x['reorder_cost'],
-                                                                     x['z_value'],
-                                                                     x['retail_price'],
-                                                                     x['quantity_on_hand'],
-                                                                     x['currency'],
-                                                                     x['total_orders'],
-                                                                     x['backlog'])) for x in collect_kwargs]
+                analysed_orders = [_analyse_orders(
+                                                x['orders'],
+                                                x['sku_id'],
+                                                x['lead_time'],
+                                                x['unit_cost'],
+                                                x['reorder_cost'],
+                                                x['z_value'],
+                                                x['retail_price'],
+                                                x['quantity_on_hand'],
+                                                x['currency'],
+                                                x['total_orders'],
+                                                x['backlog']) for x in collect_kwargs]
+
                     #mapfunc = partial(_analyse_orders, **kwargs)
+
                     #analysed_orders = pool.map(mapfunc, 0)
                 for x in analysed_orders:
                     analysed_orders_collection.append(x)

@@ -27,7 +27,7 @@ from copy import deepcopy
 
 # from pyximport import pyximport
 # pyximport.install()
-
+from supplychainpy._helpers._decorators import log_this
 from supplychainpy.demand._forecast_demand import Forecast
 from supplychainpy._helpers import _data_cleansing
 from supplychainpy._helpers._data_cleansing import check_extension
@@ -40,7 +40,7 @@ log.addHandler(logging.NullHandler())
 
 UNKNOWN = "UNKNOWN"
 
-
+@log_this(logging.INFO, "Called public api for simple_exponential_smoothing_forecast.")
 def simple_exponential_smoothing_forecast(demand: list, smoothing_level_constant: float = 0.5, optimise: bool = True,
                                           forecast_length: int = 5, initial_estimate_period: int = 6,
                                            **kwargs) -> dict:

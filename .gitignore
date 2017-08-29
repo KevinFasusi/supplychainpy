@@ -16,13 +16,10 @@ __pycache__/
 .db
 .babelrc
 karma.conf*
-package.json
-npm*
 *suchpy_tests_log.txt
 *suchpy_log.txt
 reporting.db
 /uploads
-coverage
 webpack.config*
 scratch.py
 _archive/*
