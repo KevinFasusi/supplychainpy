@@ -27,6 +27,7 @@ import logging
 import multiprocessing as mp
 import os
 import pickle
+import re
 from concurrent.futures import ProcessPoolExecutor
 from decimal import Decimal
 
@@ -53,6 +54,7 @@ log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
 
 def currency_codes() -> dict:
     """ Retrives HTML Entity (decimal) for currency symbol.
@@ -131,17 +133,17 @@ def batch(analysis, n):
 
 
 def parallelise_ses(pickeled_ses_batch_files: list, core_count: int) -> dict:
-    """ Execute the exponential smoothing forecaste in parallel.
+    """ Execute the exponential smoothing forecast in parallel.
 
     Args:
-        batched_analysis: Uncertain demand objects batched for appropriate number of cores available on the host machine
-        core_count: Number of cores available on the host machine, minus one.
+        pickeled_ses_batch_files:   Uncertain demand objects batched for appropriate number of cores available on
+                                    the host machine
+        core_count:                 Number of cores available on the host machine, minus one.
 
     Returns:
         dict
     """
     simple_forecast = {}
-
 
     try:
         for num, batch_path in enumerate(pickeled_ses_batch_files, 0):
@@ -149,28 +151,31 @@ def parallelise_ses(pickeled_ses_batch_files: list, core_count: int) -> dict:
             with ProcessPoolExecutor(max_workers=core_count) as executor:
                 simple_forecast = {}
                 ses_forecast_futures = {analysis.sku_id: executor.submit(_analysis_forecast_simple, analysis) for
-                                          analysis in order_batch}
-                ses_forecast_gen = {future: concurrent.futures.as_completed(ses_forecast_futures[future],timeout=10) for future
-                                      in ses_forecast_futures}
-                simple_forecast.update({value: ses_forecast_futures[value].result(timeout=20,) for value in ses_forecast_gen})
+                                        analysis in order_batch}
+                ses_forecast_gen = {future: concurrent.futures.as_completed(ses_forecast_futures[future], timeout=10)
+                                    for future
+                                    in ses_forecast_futures}
+                simple_forecast.update(
+                    {value: ses_forecast_futures[value].result(timeout=20, ) for value in ses_forecast_gen})
                 build_results_pickle(simple_forecast)
                 print(batch_path, '\n', pickeled_ses_batch_files[num])
                 pickeled_ses_batch_files.pop(num)
-                simple_forecast.clear()
-                ses_forecast_gen.clear()
-                ses_forecast_futures.clear()
-                del ses_forecast_futures
-                del ses_forecast_gen
-                del simple_forecast
+                # simple_forecast.clear()
+                # ses_forecast_gen.clear()
+                # ses_forecast_futures.clear()
+                # del ses_forecast_futures
+                # del ses_forecast_gen
+                # del simple_forecast
 
             remove_pickle(batch_path)
         simple_forecast = retrieve_results_pickle()
     except concurrent.futures.TimeoutError as err:
+        print(err)
         if len(pickeled_ses_batch_files) > 0:
             parallelise_ses(pickeled_ses_batch_files=pickeled_ses_batch_files, core_count=core_count)
     except OSError as err:
         print(err)
-    return simple_forecast
+    return simple_forecast[0]
 
 
 def parallelise_htc(batched_analysis: list, core_count: int):
@@ -196,11 +201,13 @@ def parallelise_htc(batched_analysis: list, core_count: int):
         print('{}'.format(err))
     return holts_forecast
 
+
 def write_pickle(**kwargs) -> str:
     """pickle data to file"""
     try:
         for k, v in kwargs.items():
-            path = '{}/{}.pickle'.format(ABS_FILE_PICKLE,k)
+            path = os.path.abspath(os.path.join(ABS_FILE_PICKLE, k))
+            print(path)
             with open(path, "wb") as ses:
                 pickle.dump(v, ses)
             return path
@@ -208,47 +215,72 @@ def write_pickle(**kwargs) -> str:
         print(err)
         return ''
 
-def read_pickle(batch_path:str):
+
+def read_pickle(batch_path: str):
     """Read pickled data from file"""
     retrieved_pickle = []
     try:
         with open(batch_path, "r+b") as ses:
-              retrieved_pickle.append(pickle.load(ses))
+            retrieved_pickle.append(pickle.load(ses))
         return retrieved_pickle
     except OSError as err:
+        print(err)
         return retrieved_pickle
 
-def remove_pickle(path:str):
+
+def remove_pickle(path: str):
     try:
         os.remove(path=path)
     except OSError as err:
-        print('file not present')
+        print('file not present. {}'.format(err))
         pass
 
-def pickle_ses_forecast(batched_analysis:list) ->list:
+
+def pickle_ses_forecast(batched_analysis: list) -> list:
     number = 0
     pickled_paths = []
     for item in batched_analysis:
         number += 1
-        filename = 'ses{}'.format(number)
+        filename = 'ses{}.pickle'.format(number)
         pickle_me = {filename: item}
         pickle_path = write_pickle(**pickle_me)
         pickled_paths.append(pickle_path)
     return pickled_paths
 
-def build_results_pickle(ses_forecast_results:dict):
-    path = '{}/{}.pickle'.format(ABS_FILE_PICKLE, 'ses_forecast_results')
+
+def build_results_pickle(ses_forecast_results: dict):
+    filename = 'ses_forecast_results'
+    path = os.path.abspath(os.path.join(ABS_FILE_PICKLE, filename))
     stored_ses_data = read_pickle(path)
     for i in stored_ses_data:
         ses_forecast_results.update(i)
     with open(path, "wb") as ses:
         pickle.dump(ses_forecast_results, ses)
 
+
 def retrieve_results_pickle():
-    path = '{}/{}.pickle'.format(ABS_FILE_PICKLE, 'ses_forecast_results')
+    filename = 'ses_forecast_results'
+    path = os.path.abspath(os.path.join(ABS_FILE_PICKLE, filename))
     stored_ses_data = read_pickle(path)
     remove_pickle(path=path)
     return stored_ses_data
+
+
+def cleanup_pickled_files():
+    try:
+        filename = 'ses_forecast_results'
+        path = os.path.abspath(os.path.join(ABS_FILE_PICKLE, filename))
+        remove_pickle(path=path)
+        ses_file_regex = re.compile('[s][e][s]\d+[.][p][i][c][k][l][e]')
+        for filename in os.listdir(ABS_FILE_PICKLE):
+            if ses_file_regex.match(filename) and filename.endswith(".pickle"):
+                path = os.path.abspath(os.path.join(ABS_FILE_PICKLE, filename))
+                remove_pickle(path)
+    except FileNotFoundError as err:
+        print(err)
+        pass
+    except OSError as err:
+        print(err)
 
 
 def load(file_path: str, location: str = None):
@@ -299,6 +331,7 @@ def load(file_path: str, location: str = None):
             batched_analysis = [i for i in batch(orders_analysis, cores)]
             pickeled_paths = pickle_ses_forecast(batched_analysis=batched_analysis)
             simple_forecast = parallelise_ses(pickeled_ses_batch_files=pickeled_paths, core_count=cores)
+            cleanup_pickled_files()
             holts_forecast = parallelise_htc(batched_analysis=batched_analysis, core_count=cores)
 
             transact = TransactionLog()
@@ -326,7 +359,6 @@ def load(file_path: str, location: str = None):
             print('loading database ...', end="")
 
             for item in ia:
-                re = 0
                 skus_description = [summarised for summarised in analysis_summary.describe_sku(item['sku'])]
                 denom = db.session.query(Currency.id).filter(Currency.currency_code == item['currency']).first()
                 master_sku = MasterSkuList()
@@ -451,7 +483,7 @@ def load(file_path: str, location: str = None):
                             forecast_data.period = p + 1
                             forecast_data.create_date = date_now
                             db.session.add(forecast_data)
-                        for i, htcesf in enumerate(holts_forecast.get(holts_forecast_demand)['forecast_breakdown']):
+                        for k, htcesf in enumerate(holts_forecast.get(holts_forecast_demand)['forecast_breakdown']):
                             forecast_breakdown = ForecastBreakdown()
                             forecast_breakdown.analysis_id = inva.id
                             forecast_breakdown.forecast_type_id = htces_id.id
@@ -464,7 +496,7 @@ def load(file_path: str, location: str = None):
                             forecast_breakdown.forecast_error = \
                                 htcesf['forecast_error']
                             forecast_breakdown.squared_error = htcesf['squared_error']
-                            forecast_breakdown.regression = holts_forecast.get(holts_forecast_demand)['regression'][i]
+                            forecast_breakdown.regression = holts_forecast.get(holts_forecast_demand)['regression'][k]
                             db.session.add(forecast_breakdown)
                         break
 
@@ -506,4 +538,4 @@ def load_profile_recommendations(analysed_order, forecast, transaction_log_id):
 
 
 if __name__ == '__main__':
-    load(ABS_FILE_PATH['COMPLETE_CSV_LG'])
+    load(ABS_FILE_PATH['COMPLETE_CSV_SM'])
