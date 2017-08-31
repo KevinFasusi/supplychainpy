@@ -132,11 +132,11 @@ def batch(analysis, n):
         yield analysis[i:i + n]
 
 
-def parallelise_ses(pickeled_ses_batch_files: list, core_count: int) -> dict:
+def parallelise_ses(pickled_ses_batch_files: list, core_count: int) -> dict:
     """ Execute the exponential smoothing forecast in parallel.
 
     Args:
-        pickeled_ses_batch_files:   Uncertain demand objects batched for appropriate number of cores available on
+        pickled_ses_batch_files:   Uncertain demand objects batched for appropriate number of cores available on
                                     the host machine
         core_count:                 Number of cores available on the host machine, minus one.
 
@@ -146,7 +146,7 @@ def parallelise_ses(pickeled_ses_batch_files: list, core_count: int) -> dict:
     simple_forecast = {}
 
     try:
-        for num, batch_path in enumerate(pickeled_ses_batch_files, 0):
+        for num, batch_path in enumerate(pickled_ses_batch_files, 0):
             order_batch = read_pickle(batch_path)[0]
             with ProcessPoolExecutor(max_workers=core_count) as executor:
                 simple_forecast = {}
@@ -158,8 +158,8 @@ def parallelise_ses(pickeled_ses_batch_files: list, core_count: int) -> dict:
                 simple_forecast.update(
                     {value: ses_forecast_futures[value].result(timeout=20, ) for value in ses_forecast_gen})
                 build_results_pickle(simple_forecast)
-                print(batch_path, '\n', pickeled_ses_batch_files[num])
-                pickeled_ses_batch_files.pop(num)
+                print(batch_path, '\n', pickled_ses_batch_files[num])
+                pickled_ses_batch_files.pop(num)
                 # simple_forecast.clear()
                 # ses_forecast_gen.clear()
                 # ses_forecast_futures.clear()
@@ -171,8 +171,8 @@ def parallelise_ses(pickeled_ses_batch_files: list, core_count: int) -> dict:
         simple_forecast = retrieve_results_pickle()
     except concurrent.futures.TimeoutError as err:
         print(err)
-        if len(pickeled_ses_batch_files) > 0:
-            parallelise_ses(pickeled_ses_batch_files=pickeled_ses_batch_files, core_count=core_count)
+        if len(pickled_ses_batch_files) > 0:
+            parallelise_ses(pickled_ses_batch_files=pickled_ses_batch_files, core_count=core_count)
     except OSError as err:
         print(err)
     return simple_forecast[0]
@@ -329,8 +329,8 @@ def load(file_path: str, location: str = None):
             cores = int(mp.cpu_count())
             cores -= 1
             batched_analysis = [i for i in batch(orders_analysis, cores)]
-            pickeled_paths = pickle_ses_forecast(batched_analysis=batched_analysis)
-            simple_forecast = parallelise_ses(pickeled_ses_batch_files=pickeled_paths, core_count=cores)
+            pickled_paths = pickle_ses_forecast(batched_analysis=batched_analysis)
+            simple_forecast = parallelise_ses(pickled_ses_batch_files=pickled_paths, core_count=cores)
             cleanup_pickled_files()
             holts_forecast = parallelise_htc(batched_analysis=batched_analysis, core_count=cores)
 

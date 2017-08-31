@@ -49,7 +49,7 @@ class TestBot(TestCase):
         self.assertIn('KR202-247', *self.__dude.chat_machine("Which SKU has the highest reorder level?")[0])
         self.assertEqual('<a href="/sku_detail/36">Here you go!</a>', *self.__dude.chat_machine("show KR202-244")[0])
         self.assertIn('SKU KR202-247', *self.__dude.chat_machine("what is the biggest shortage?")[0])
-        self.assertIn('SKU KR202-223', *self.__dude.chat_machine("what is the biggest excess?")[0])
+        self.assertIn('SKU KR202-247', *self.__dude.chat_machine("what is the biggest excess?")[0])
         self.assertIn('SKU KR202-235', *self.__dude.chat_machine("what is the biggest revenue?")[0])
         self.assertIn('SKU KR202-212', *self.__dude.chat_machine("what is the smallest revenue?")[0])
         self.assertIn('SKU KR202-245', *self.__dude.chat_machine("what is the smallest excess?")[0])
