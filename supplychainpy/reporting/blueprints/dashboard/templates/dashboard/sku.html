@@ -395,7 +395,8 @@
                             <th>Forecast Period</th>
                             <th>Forecast Quantity</th>
                         </tr>
-
+                        {% set holts = "htces" %}
+                        {% set simple = "ses" %}
                         {% for item in forecast %}
                         {% if (item.type.type == simple) %}
 

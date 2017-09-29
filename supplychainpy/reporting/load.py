@@ -28,6 +28,7 @@ import multiprocessing as mp
 import os
 import pickle
 import re
+from collections import deque
 from concurrent.futures import ProcessPoolExecutor
 from decimal import Decimal
 
@@ -128,6 +129,7 @@ def batch(analysis, n):
         analysis:
         n:
     """
+
     for i in range(0, len(analysis), n):
         yield analysis[i:i + n]
 
@@ -143,10 +145,12 @@ def parallelise_ses(pickled_ses_batch_files: list, core_count: int) -> dict:
     Returns:
         dict
     """
+    attempts = 0
     simple_forecast = {}
-
+    pickled_ses_batch_files_completed = []
+    log.log(logging.INFO, 'Multiprocessing batch {} files using {} cores'.format(len(pickled_ses_batch_files), core_count))
     try:
-        for num, batch_path in enumerate(pickled_ses_batch_files, 0):
+        for num, batch_path in enumerate(pickled_ses_batch_files):
             order_batch = read_pickle(batch_path)[0]
             with ProcessPoolExecutor(max_workers=core_count) as executor:
                 simple_forecast = {}
@@ -158,8 +162,8 @@ def parallelise_ses(pickled_ses_batch_files: list, core_count: int) -> dict:
                 simple_forecast.update(
                     {value: ses_forecast_futures[value].result(timeout=20, ) for value in ses_forecast_gen})
                 build_results_pickle(simple_forecast)
-                print(batch_path, '\n', pickled_ses_batch_files[num])
-                pickled_ses_batch_files.pop(num)
+                log.log(logging.INFO, 'Batch processed: {}'.format(batch_path))
+                pickled_ses_batch_files_completed.append(batch_path)
                 # simple_forecast.clear()
                 # ses_forecast_gen.clear()
                 # ses_forecast_futures.clear()
@@ -167,12 +171,19 @@ def parallelise_ses(pickled_ses_batch_files: list, core_count: int) -> dict:
                 # del ses_forecast_gen
                 # del simple_forecast
 
-            remove_pickle(batch_path)
         simple_forecast = retrieve_results_pickle()
     except concurrent.futures.TimeoutError as err:
         print(err)
-        if len(pickled_ses_batch_files) > 0:
-            parallelise_ses(pickled_ses_batch_files=pickled_ses_batch_files, core_count=core_count)
+        attempts +=1
+        pickled_ses_batch_files_remaining = set(pickled_ses_batch_files) -  set(pickled_ses_batch_files_completed)
+        log.log(logging.INFO, 'ERROR processing batch. Retrying remaining batch files: {}'.format(pickled_ses_batch_files_remaining))
+        for file_path in pickled_ses_batch_files_completed:
+            remove_pickle(file_path)
+
+        if len(pickled_ses_batch_files_remaining) > 0 and attempts > 4:
+            parallelise_ses(pickled_ses_batch_files=list(pickled_ses_batch_files_remaining), core_count=core_count)
+        else:
+            print('The forecasting calculation process was unable to complete. Please check the source file.')
     except OSError as err:
         print(err)
     return simple_forecast[0]
@@ -207,7 +218,7 @@ def write_pickle(**kwargs) -> str:
     try:
         for k, v in kwargs.items():
             path = os.path.abspath(os.path.join(ABS_FILE_PICKLE, k))
-            print(path)
+            log.log(logging.INFO, 'Pickled file created at: {}'.format(path))
             with open(path, "wb") as ses:
                 pickle.dump(v, ses)
             return path
@@ -221,6 +232,7 @@ def read_pickle(batch_path: str):
     retrieved_pickle = []
     try:
         with open(batch_path, "r+b") as ses:
+            log.log(logging.INFO, 'Pickled file retrieved from : {}'.format(ses))
             retrieved_pickle.append(pickle.load(ses))
         return retrieved_pickle
     except OSError as err:
@@ -240,17 +252,18 @@ def pickle_ses_forecast(batched_analysis: list) -> list:
     number = 0
     pickled_paths = []
     for item in batched_analysis:
-        number += 1
         filename = 'ses{}.pickle'.format(number)
         pickle_me = {filename: item}
         pickle_path = write_pickle(**pickle_me)
         pickled_paths.append(pickle_path)
+        number += 1
     return pickled_paths
 
 
 def build_results_pickle(ses_forecast_results: dict):
     filename = 'ses_forecast_results'
     path = os.path.abspath(os.path.join(ABS_FILE_PICKLE, filename))
+    log.log(logging.INFO, 'Generating results pickle at: {}'.format(path))
     stored_ses_data = read_pickle(path)
     for i in stored_ses_data:
         ses_forecast_results.update(i)
@@ -275,7 +288,9 @@ def cleanup_pickled_files():
         for filename in os.listdir(ABS_FILE_PICKLE):
             if ses_file_regex.match(filename) and filename.endswith(".pickle"):
                 path = os.path.abspath(os.path.join(ABS_FILE_PICKLE, filename))
+                log.log(logging.INFO, 'Cleaning up pickled file at: {}'.format(path))
                 remove_pickle(path)
+
     except FileNotFoundError as err:
         print(err)
         pass
@@ -305,16 +320,16 @@ def load(file_path: str, location: str = None):
         with app.app_context():
             db.create_all()
             log.log(logging.DEBUG, 'loading currency symbols...\n')
-            print('loading currency symbols...', end="")
+            print('loading currency symbols...\n')
             fx = currency_codes()
             load_currency(fx, db)
 
-            print('[COMPLETED]\n')
+            print('loading currency symbols...[COMPLETED]\n')
             config = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
             currency = config.get('currency')
 
             log.log(logging.DEBUG, 'Analysing file: {}...\n'.format(file_path))
-            print('Analysing file: {}...'.format(file_path), end="")
+            print('Analysing file: {}...\n'.format(file_path))
             orders_analysis = model_inventory.analyse(file_path=file_path,
                                                       z_value=Decimal(1.28),
                                                       reorder_cost=Decimal(5000),
@@ -323,7 +338,7 @@ def load(file_path: str, location: str = None):
             ia = [analysis.orders_summary() for analysis in orders_analysis]
             date_now = datetime.datetime.now()
             analysis_summary = Inventory(processed_orders=orders_analysis)
-            print('[COMPLETED]\n\nCalculating Forecasts...', end="")
+            print('Analysing file: {}...[COMPLETED]\n\nCalculating Forecasts...\n'.format(file_path))
             log.log(logging.DEBUG, 'Calculating Forecasts...\n')
 
             cores = int(mp.cpu_count())
@@ -354,9 +369,12 @@ def load(file_path: str, location: str = None):
             db.session.commit()
             ses_id = db.session.query(ForecastType.id).filter(ForecastType.type == forecast_types[0]).first()
             htces_id = db.session.query(ForecastType.id).filter(ForecastType.type == forecast_types[1]).first()
-            print('[COMPLETED]\n')
+            current_msk = db.session.query(MasterSkuList.sku_id).all()
+            match_sku = [str(i) for i in current_msk]
+            print(match_sku)
+            print('Calculating Forecasts...[COMPLETED]\n')
             log.log(logging.DEBUG, 'loading database ...\n')
-            print('loading database ...', end="")
+            print('loading database ...\n')
 
             for item in ia:
                 skus_description = [summarised for summarised in analysis_summary.describe_sku(item['sku'])]
@@ -462,16 +480,15 @@ def load(file_path: str, location: str = None):
                         forecast_stats.analysis_id = inva.id
                         forecast_stats.mape = holts_forecast.get(holts_forecast_demand)['mape']
                         forecast_stats.forecast_type_id = htces_id.id
-                        forecast_stats.slope = holts_forecast.get(holts_forecast_demand)['statistics']['slope']
-                        forecast_stats.p_value = holts_forecast.get(holts_forecast_demand)['statistics']['pvalue']
-                        forecast_stats.test_statistic = holts_forecast.get(holts_forecast_demand)['statistics'][
-                            'test_statistic']
-                        forecast_stats.slope_standard_error = holts_forecast.get(holts_forecast_demand)['statistics'][
-                            'slope_standard_error']
-                        forecast_stats.intercept = holts_forecast.get(holts_forecast_demand)['statistics']['intercept']
-                        forecast_stats.standard_residuals = holts_forecast.get(holts_forecast_demand)['statistics'][
-                            'std_residuals']
-                        forecast_stats.trending = holts_forecast.get(holts_forecast_demand)['statistics']['trend']
+                        forecast_stats.slope = holts_forecast.get(holts_forecast_demand)['statistics'].get('slope')
+                        forecast_stats.p_value = holts_forecast.get(holts_forecast_demand)['statistics'].get('pvalue')
+                        forecast_stats.test_statistic = holts_forecast.get(holts_forecast_demand)['statistics'].get(
+                            'test_statistic')
+                        forecast_stats.slope_standard_error = holts_forecast.get(holts_forecast_demand)['statistics'].get(
+                            'slope_standard_error')
+                        forecast_stats.intercept = holts_forecast.get(holts_forecast_demand)['statistics'].get('intercept')
+                        forecast_stats.standard_residuals = holts_forecast.get(holts_forecast_demand)['statistics'].get('std_residuals')
+                        forecast_stats.trending = holts_forecast.get(holts_forecast_demand)['statistics'].get('trend')
                         forecast_stats.optimal_alpha = holts_forecast.get(holts_forecast_demand)['optimal_alpha']
                         forecast_stats.optimal_gamma = holts_forecast.get(holts_forecast_demand)['optimal_gamma']
                         db.session.add(forecast_stats)
@@ -501,13 +518,13 @@ def load(file_path: str, location: str = None):
                         break
 
             db.session.commit()
-            print('[COMPLETED]\n')
-            loading = 'Loading recommendations into database... '
+            print('loading database ...[COMPLETED]\n')
+            loading = 'Loading recommendations into database...'
             print(loading, end="")
             load_recommendations(summary=ia, forecast=holts_forecast, analysed_order=orders_analysis)
-            print('[COMPLETED]\n')
-            log.log(logging.DEBUG, "Analysis ...\n")
-            print("Analysis ... [COMPLETED]")
+            print('Loading recommendations into database...[COMPLETED]\n')
+            log.log(logging.DEBUG, 'Analysis ...\n')
+            print('Analysis ... [COMPLETED]\n')
     except OSError as e:
         print(e)
 
@@ -538,4 +555,4 @@ def load_profile_recommendations(analysed_order, forecast, transaction_log_id):
 
 
 if __name__ == '__main__':
-    load(ABS_FILE_PATH['COMPLETE_CSV_SM'])
+    load(ABS_FILE_PATH['COMPLETE_CSV_LG'])

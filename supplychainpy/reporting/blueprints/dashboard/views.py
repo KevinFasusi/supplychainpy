@@ -132,11 +132,12 @@ def sku_detail(sku_id: str = None):
 
 @dashboard_blueprint.route('/sku_detail', methods=['GET'])
 @dashboard_blueprint.route('/sku_detail/<string:sku_id>', methods=['GET'])
-def  sku(sku_id: str = None):
+def sku(sku_id: str = None):
     """route for restful sku detail, whole content limited by most recent date or individual sku"""
     if sku_id is not None:
+        current_transaction = db.session.query(TransactionLog).order_by(desc(TransactionLog.id)).first()
         sku = db.session.query(MasterSkuList).filter(MasterSkuList.id == sku_id).first()
-        inventory = db.session.query(InventoryAnalysis).filter(InventoryAnalysis.sku_id == sku.id).all()
+        inventory = db.session.query(InventoryAnalysis).filter(InventoryAnalysis.transaction_log_id == current_transaction.id, InventoryAnalysis.sku_id == sku.id).all()
         inven = db.session.query(InventoryAnalysis.id).filter(InventoryAnalysis.sku_id == sku.id).first()
         orders = db.session.query(Orders).filter(Orders.analysis_id == inven.id).order_by(
             asc(Orders.rank)).all()
