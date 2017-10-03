@@ -156,7 +156,7 @@ def parallelise_ses(pickled_ses_batch_files: list, core_count: int) -> dict:
                 simple_forecast = {}
                 ses_forecast_futures = {analysis.sku_id: executor.submit(_analysis_forecast_simple, analysis) for
                                         analysis in order_batch}
-                ses_forecast_gen = {future: concurrent.futures.as_completed(ses_forecast_futures[future], timeout=10)
+                ses_forecast_gen = {future: concurrent.futures.as_completed(ses_forecast_futures[future], timeout=20)
                                     for future
                                     in ses_forecast_futures}
                 simple_forecast.update(
