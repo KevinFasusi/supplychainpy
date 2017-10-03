@@ -344,19 +344,23 @@ class SKUStates:
 
         """
         # if the demand shows a linear trend then check if the forecast is less than the excess units.
-        if self._htces_forecast.get(sku)['statistics']['trend']:
-            if self._htces_forecast.get(sku)['forecast'][0] < int(self._summary.get('excess_units')):
-                response = 'It is unlikely {} will fair better next month as the most optimistic forecast is '
-                self.append_response(response=response, sku=sku)
-        if self._htces_forecast.get(sku)['statistics']['trend'] and int(self._summary.get('excess_units')) > 0 \
-                and self._summary.get('classification') in ('AX', 'AY', 'BX', 'BY', 'CX') \
-                and self._htces_forecast.get(sku)['forecast'][0] > int(self._summary.get('excess_units')):
-            response = 'The current excess can be reduced by reducing purchase orders and allow the ' \
-                       'forecasted demand to be catered for from stock. '
-            self.append_response(response=response, sku=sku)
         state = self._TRANSITION_STATES.get('RECOMMENDATION_STATE', self._END_STATE)
-        serialise_config(configuration=self._compiled_response.shared_response,
-                         file_path=ABS_FILE_PATH['RECOMMENDATION_PICKLE'])
+        try:
+            if self._htces_forecast.get(sku)['statistics'].get('trend'):
+                if self._htces_forecast.get(sku)['forecast'][0] < int(self._summary.get('excess_units')):
+                    response = 'It is unlikely {} will fair better next month as the most optimistic forecast is '
+                    self.append_response(response=response, sku=sku)
+            if self._htces_forecast.get(sku)['statistics'].get('trend') and int(self._summary.get('excess_units')) > 0 \
+                    and self._summary.get('classification') in ('AX', 'AY', 'BX', 'BY', 'CX') \
+                    and self._htces_forecast.get(sku)['forecast'][0] > int(self._summary.get('excess_units')):
+                response = 'The current excess can be reduced by reducing purchase orders and allow the ' \
+                           'forecasted demand to be catered for from stock. '
+                self.append_response(response=response, sku=sku)
+            state = self._TRANSITION_STATES.get('RECOMMENDATION_STATE', self._END_STATE)
+            serialise_config(configuration=self._compiled_response.shared_response,
+                             file_path=ABS_FILE_PATH['RECOMMENDATION_PICKLE'])
+        except TypeError as err:
+            pass
         return state, sku
 
 

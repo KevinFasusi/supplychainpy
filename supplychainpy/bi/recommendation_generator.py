@@ -85,7 +85,7 @@ def run_profile_recommendation(analysed_orders: UncertainDemand, forecast: dict)
 
 
 if __name__ == '__main__':
-    orders_analysis = model_inventory.analyse(file_path=ABS_FILE_PATH['COMPLETE_CSV_SM'],
+    orders_analysis = model_inventory.analyse(file_path=ABS_FILE_PATH['COMPLETE_CSV_LG'],
                                               z_value=Decimal(1.28),
                                               reorder_cost=Decimal(5000),
                                               file_type="csv",
@@ -94,10 +94,10 @@ if __name__ == '__main__':
     # d = ProfileGenerator(analysed_orders=orders_analysis)
     # d.Top_Concerns()
     # resp = {}
-    #for i in run_sku_recommendation(analysed_orders=orders_analysis, forecast=deserialise_config(FORECAST_PICKLE)).values():
-    #   print(i)
+    for i in run_sku_recommendation(analysed_orders=orders_analysis, forecast=deserialise_config(FORECAST_PICKLE)).values():
+       print(i)
     # d = ProfileStates(analysed_orders=orders_analysis, forecast=deserialise_config(FORECAST_PICKLE))
     # d.revenue()
-    for i in run_profile_recommendation(analysed_orders=orders_analysis,
-                                        forecast=deserialise_config(FORECAST_PICKLE)).values():
-        print(i)
+    #for i in run_profile_recommendation(analysed_orders=orders_analysis,
+    #                                    forecast=deserialise_config(FORECAST_PICKLE)).values():
+    #    print(i)
