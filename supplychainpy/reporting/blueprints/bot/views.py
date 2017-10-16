@@ -32,7 +32,7 @@ bot_blueprint = Blueprint('bot', __name__, template_folder='templates')
 @bot_blueprint.route('/bot')
 def bot():
     """the route for Dash the chat bot."""
-    return render_template('bot/bot.html')
+    return render_template('bot.html')
 
 
 @bot_blueprint.route('/bot/lexicon')
@@ -43,7 +43,7 @@ def lexicon():
         html
 
     """
-    return render_template('bot/lexicon.html')
+    return render_template('lexicon.html')
 
 
 @bot_blueprint.route('/chat/<string:message>', methods=['GET'])

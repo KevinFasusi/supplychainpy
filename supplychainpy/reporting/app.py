@@ -26,15 +26,12 @@ def create_app(settings_override=None):
     """
 
     app = Flask(__name__, instance_relative_config=True)
-    app.config.from_object(ProdConfig)
-    #template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(DASHBOARD_TEMPLATE_DIR))
-    #####my_loader = jinja2.ChoiceLoader([
-    ####    app.jinja_loader,
-    ##    jinja2.FileSystemLoader([ DASHBOARD_TEMPLATE_DIR,
-    ###                              ]),
-    #])
 
-    #app.jinja_loader = template_env
+    app.config.from_object(ProdConfig)
+    app.add_url_rule('/styles/<path:filename>', endpoint='styles', view_func=app.send_static_file)
+    app.add_url_rule('/scripts/<path:filename>', endpoint='scripts', view_func=app.send_static_file)
+    app.add_url_rule('/images/<path:filename>', endpoint='images', view_func=app.send_static_file)
+
 
     @app.errorhandler(404)
     def page_not_found(e):

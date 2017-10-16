@@ -197,7 +197,8 @@ def main():
             app_settings = {
                 'database_path': args.location,
                 'file': args.filenames,
-                'currency': args.currency
+                'currency': args.currency,
+                'host': args.host
             }
             serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
             #d = _Orchestrate()
