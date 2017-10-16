@@ -41,7 +41,7 @@ simulation_blueprint = Blueprint('simulation', __name__, template_folder='templa
 
 def page_not_found(e):
     print('hello')
-    return flask.render_template('../templates/layouts/error.html'), 404
+    return flask.render_template('404.html'), 404
 
 
 def run_simulation():
@@ -85,7 +85,7 @@ def simulation(runs:int=None):
             except AttributeError as e:
                 pass
 
-        return flask.render_template('simulation/simulation.html', db= database_path, file_name=file_name, sim=sim_summary_results, runs=sim_results, inventory=inventory)
+        return flask.render_template('simulation.html', db= database_path, file_name=file_name, sim=sim_summary_results, runs=sim_results, inventory=inventory)
     except OSError:
         abort(404)
 

@@ -1,10 +1,11 @@
 import os
 
 import flask
+import jinja2
 from flask import Flask
 
 from supplychainpy.reporting.blueprints.contact.views import contact_blueprint
-from supplychainpy.reporting.blueprints.dashboard.views import dashboard_blueprint
+from supplychainpy.reporting.blueprints.dashboard.views import dashboard_blueprint, DASHBOARD_TEMPLATE_DIR
 from supplychainpy.reporting.blueprints.bot.views import bot_blueprint
 from supplychainpy.reporting.blueprints.rawdata.views import rawdata_blueprint
 from supplychainpy.reporting.blueprints.recommendations.views import recommendations_blueprint
@@ -26,6 +27,14 @@ def create_app(settings_override=None):
 
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(ProdConfig)
+    #template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(DASHBOARD_TEMPLATE_DIR))
+    #####my_loader = jinja2.ChoiceLoader([
+    ####    app.jinja_loader,
+    ##    jinja2.FileSystemLoader([ DASHBOARD_TEMPLATE_DIR,
+    ###                              ]),
+    #])
+
+    #app.jinja_loader = template_env
 
     @app.errorhandler(404)
     def page_not_found(e):

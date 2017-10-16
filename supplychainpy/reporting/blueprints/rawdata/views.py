@@ -22,5 +22,5 @@ def rawdata():
     inventory = db.session.query(InventoryAnalysis).all()
     cur = db.session.query(Currency).all()
 
-    return flask.render_template('rawdata/rawdata.html', inventory=inventory, currency=cur)
+    return flask.render_template('rawdata.html', inventory=inventory, currency=cur)
 

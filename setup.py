@@ -19,10 +19,10 @@ extensions = [
 #    long_description = f.read().strip()
 
 setup(name='supplychainpy',
-      version='0.0.4',
+      version='0.0.5',
       description='A library for supply chain, operations and manufacturing, analysis, modelling and simulation.',
       url='https://github.com/KevinFasusi/supplychainpy',
-      download_url='https://github.com/KevinFasusi/supplychainpy/tarball/0.0.4',
+      download_url='https://github.com/KevinFasusi/supplychainpy/tarball/0.0.5',
       author='Kevin Fasusi',
       author_email='kevin@supplybi.com',
       license='BSD 3',

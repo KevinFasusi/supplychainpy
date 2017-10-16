@@ -34,5 +34,5 @@ def recommendations():
     recommend = db.session.query(Recommendations).all()
     profile = db.session.query(ProfileRecommendation).all()
     inventory = db.session.query(InventoryAnalysis).all()
-    return flask.render_template('recommendations/feed.html', inventory=inventory, profile=profile, recommendations=recommend)
+    return flask.render_template('feed.html', inventory=inventory, profile=profile, recommendations=recommend)
 

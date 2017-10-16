@@ -50,7 +50,7 @@ UPLOAD_FOLDER = abs_file_path
 app = Flask(__name__)
 app.config.from_object(ProdConfig)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
+DASHBOARD_TEMPLATE_DIR = os.path.dirname(os.path.abspath(__file__))
 dashboard_blueprint = Blueprint('dashboard', __name__, template_folder='templates')
 
 manager.create_api(InventoryAnalysis, methods=['GET', 'POST', 'DELETE', 'PATCH'], allow_functions=True,
@@ -77,7 +77,7 @@ def dashboard():
     total_excess = total_excess.with_entities(func.sum(InventoryAnalysis.excess_cost)).scalar
     currency = db.session.query(Currency).all()
 
-    return flask.render_template('dashboard/dashboard.html', shortages=top_ten_shortages, currency=currency,
+    return flask.render_template('dashboard.html', shortages=top_ten_shortages, currency=currency,
                                  largest= largest_shortage, shortage= total_shortages, excess=top_ten_excess,
                                  largest_excess=largest_excess, total_excess=total_excess)
 
@@ -148,7 +148,7 @@ def sku(sku_id: str = None):
             Recommendations.analysis_id == inven.id).all()
         cur = db.session.query(Currency).all()
 
-    return flask.render_template('dashboard/sku.html', inventory=inventory, orders=orders, breakdown=forecast_breakdown,
+    return flask.render_template('sku.html', inventory=inventory, orders=orders, breakdown=forecast_breakdown,
                                  forecast=forecast, statistics=forecast_statistics, recommendations=recommend,
                                  currency=cur)
 
@@ -189,7 +189,7 @@ def abxyz(classification: str = None):
     msk = db.session.query(MasterSkuList).all()
     cur = db.session.query(Currency).all()
 
-    return flask.render_template('dashboard/abcxyz.html', inventory=abc, mks=msk, currency=cur)
+    return flask.render_template('abcxyz.html', inventory=abc, mks=msk, currency=cur)
 
 
 @dashboard_blueprint.route('/reporting/api/v1.0/top_shortages', methods=['GET'])
