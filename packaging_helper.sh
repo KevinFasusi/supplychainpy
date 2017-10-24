@@ -1,14 +1,10 @@
 #!/bin/bash
-# Author Kevin Fasusi
-# MIT licence
-# This script takes two arguments, the name of the package and the conda environment name. The script
+# This script takes three arguments, the name of the package, the conda environment name and the packaging type (e.g. sdist, bdist_wheel). The script
 # activates the environment cleans the previous packaged distribution from the dist folder, creates a new build
-# and finally installs the new package.
-# LICENSE, README.md, .gitignore, setup.py, requirements.txt, Dockerfile
-# A License is requested and populated, using the website licenses.opendefinition.org
 
 installed_package=$1
 environment_name=$2
+package_type=$3
 
 if [[ $MACHTYPE == "x86_64-apple-darwin16" ]]; then
     package_manager="gpip" 
@@ -27,13 +23,14 @@ function clean_env {
 
 function package_dist {
     rm -r dist/ 
-    python setup.py sdist
+    python setup.py $3
 }
 
 function install_package {
     cd dist
     package=$(ls)
     $package_manager install ${package[0]}
+    echo
     echo "NEW INSTALL COMPLETED: Package ${package[0]} installed successfully."
     cd ..
 }
