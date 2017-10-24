@@ -11,7 +11,7 @@ from supplychainpy.simulations import monte_carlo
 from supplychainpy.simulations.simulation_frame_summary import \
   MonteCarloFrameSummary
 
-logging.basicConfig(level=logging.CRITICAL, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class TestMonteCarlo(TestCase):

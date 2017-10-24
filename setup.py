@@ -19,10 +19,10 @@ extensions = [
 #    long_description = f.read().strip()
 
 setup(name='supplychainpy',
-      version='0.0.5',
+      version='0.0.5rc',
       description='A library for supply chain, operations and manufacturing, analysis, modelling and simulation.',
       url='https://github.com/KevinFasusi/supplychainpy',
-      download_url='https://github.com/KevinFasusi/supplychainpy/tarball/0.0.5',
+      download_url='https://github.com/KevinFasusi/supplychainpy/tarball/0.0.5rc',
       author='Kevin Fasusi',
       author_email='kevin@supplybi.com',
       license='BSD 3',
@@ -58,5 +58,5 @@ setup(name='supplychainpy',
         "Programming Language :: Python :: 3.5",
     ],
       package_data={
-          'supplychainpy': ['reporting/dashboard/templates/dashboard/*','reporting/*','reporting/static/images/*','reporting/static/*', 'reporting/templates/*', 'sample_data/*.csv', 'sample_data/*.py','_pickled/*']
+          'supplychainpy': ['reporting/dashboard/templates/dashboard/*','reporting/*','reporting/static/images/*','reporting/static/fonts/*','reporting/static/scripts/*','reporting/static/styles/*','reporting/static/*', 'reporting/templates/*', 'sample_data/*.csv', 'sample_data/*.py','_pickled/*']
       })

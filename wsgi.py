@@ -41,4 +41,5 @@ with app.app_context():
 
 if __name__ == "__main__":
     """Target this file for running application on a server using http server like Nginx and Gunicorn. """
-    app.run()
+
+    app.run(host="0.0.0.0")

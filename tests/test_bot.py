@@ -37,7 +37,6 @@ class TestBot(TestCase):
             'database_path': PWD,
         }
         serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
-        print(PWD)
         with app.app_context():
             db.init_app(app)
             db.create_all()

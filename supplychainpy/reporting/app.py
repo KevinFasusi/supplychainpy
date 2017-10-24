@@ -24,14 +24,13 @@ def create_app(settings_override=None):
         Flask: Application
 
     """
+    #here = os.path.dirname(os.path.abspath(__file__))
+   # static_path = os.path.join(here,'static')
+    #print(static_path)
 
-    app = Flask(__name__, instance_relative_config=True)
+    app = Flask(__name__, instance_relative_config=True, static_folder='static',)
 
     app.config.from_object(ProdConfig)
-    app.add_url_rule('/styles/<path:filename>', endpoint='styles', view_func=app.send_static_file)
-    app.add_url_rule('/scripts/<path:filename>', endpoint='scripts', view_func=app.send_static_file)
-    app.add_url_rule('/images/<path:filename>', endpoint='images', view_func=app.send_static_file)
-
 
     @app.errorhandler(404)
     def page_not_found(e):

@@ -13,7 +13,7 @@ from supplychainpy._helpers._pickle_config import deserialise_config
 from supplychainpy.model_inventory import analyse, recommendations
 from supplychainpy.sample_data.config import ABS_FILE_PATH
 # logging.basicConfig(filename='suchpy_tests_log.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
-logging.basicConfig(level=logging.CRITICAL, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class TestBuildModel(TestCase):
     _yearly_demand = {'jan': 75, 'feb': 75, 'mar': 75, 'apr': 75, 'may': 75, 'jun': 75, 'jul': 25,

@@ -11,7 +11,7 @@ from supplychainpy.model_inventory import analyse_orders_abcxyz_from_file
 from supplychainpy.sample_data.config import ABS_FILE_PATH
 from supplychainpy.simulate import summarise_frame
 
-logging.basicConfig(level=logging.CRITICAL, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class TestSimulate(TestCase):
     """ Test for simulation logic"""
