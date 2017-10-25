@@ -6,30 +6,23 @@ installed_package=$1
 environment_name=$2
 package_type=$3
 
-if [[ $MACHTYPE == "x86_64-apple-darwin16" ]]; then
-    package_manager="gpip" 
-else
-    package_manager="pip"
-fi
-
-
 echo "activating conda environment named: $environment_name"
 
 source activate $environment_name
 
 function clean_env {
-    gpip uninstall $1
+    pip uninstall $installed_package
 }
 
 function package_dist {
     rm -r dist/ 
-    python setup.py $3
+    python setup.py $package_type
 }
 
 function install_package {
     cd dist
     package=$(ls)
-    $package_manager install ${package[0]}
+    pip install ${package[0]}
     echo
     echo "NEW INSTALL COMPLETED: Package ${package[0]} installed successfully."
     cd ..
