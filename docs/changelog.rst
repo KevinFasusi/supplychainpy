@@ -6,18 +6,20 @@ Change Log
 
 Application
 ^^^^^^^^^^^
--   [Update] Load scripts use multi-processing when processing data file for reporting suite.
--   [Update] GA solver rewritten in Cython.
+-   [Bug Fix] Using Flask's web server for the Dashboard on a public route on a standalone server (--host 0.0.0.0)
+-   [Bug Fix] Javascript error while loading dashboard.
+-   [New Feature] Basic ability to run Monte Carlo Simulation and view summarised results in reporting suite.
+-   [Update] Load scripts use multi-processing for forecast calculations when processing data file.
+-   [Update] Load scripts using batch process.
 -   [Update] Debug commandline argument for viewing logging output `--debug'.
--   [Update] Use Chat Bot from commandline with `-c` flag.
+-   [Update] Use Chat Bot from commandline with `-c` flag. EXPERIMENTAL
 -   [Update] Recommendation generator takes into account forecasts
--   [Update] Flask factory pattern and use of Blueprints for reporting views.
--   [New Feature] Basic ability to run Monte Carlo Simulation and view summarised results.
+-   [Update] Flask Blueprints used for reporting views.
 
 
 Documentation
 ^^^^^^^^^^^^^
--   [New] Wiki .
+-   [New] Wiki started on GitHub for more responsive updates to documentation including changes to source during development.
 -   [Update] Tutorial.
 
 
@@ -26,7 +28,7 @@ Documentation
 -----
 Release 0.0.4 has breaking API changes. Namespaces have changed in this release. All the modules previously in the
 "demand" package are now inside the "inventory" package. If you have been using the "model_inventory" module, then nothing has
-changed, and there will not be any break in contracts.
+changed, there will not be any break in contracts.
 
 
 Application

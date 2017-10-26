@@ -29,6 +29,8 @@ from supplychainpy._helpers._pickle_config import deserialise_config
 from supplychainpy.reporting.app import create_app
 from supplychainpy.reporting.extensions import db
 
+"""Target this file for running application on a server using http server like Nginx and Gunicorn. """
+
 config = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
 app = create_app()
 
@@ -40,6 +42,5 @@ with app.app_context():
     db.create_all()
 
 if __name__ == "__main__":
-    """Target this file for running application on a server using http server like Nginx and Gunicorn. """
 
     app.run(host="0.0.0.0")

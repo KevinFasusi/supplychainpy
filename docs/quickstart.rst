@@ -8,7 +8,7 @@ Quick Guide
 Overview
 --------
 
-Supplychainpy is a Python library for supply chain analysis, modelling and simulation. The library assists a workflow that is reliant on Excel and VBA.
+Supplychainpy is a Python library for supply chain analysis, modelling and simulation. The library assists a workflow that is reliant on spreadsheets.
 
 This quick guide assumes analysts have the requisite domain knowledge, and predominantly use Excel. Some
 knowledge of Python or programming is assumed, although those new to data analysis or using Python will likely be able to
@@ -20,7 +20,7 @@ instructions for :ref:`installation`.
 Up and Running
 --------------
 
-Typically, inventory analysis using Excel requires several formulas, manual processes, possibly some pivot tables and in
+Typically, inventory analysis requires several formulas, manual processes, possibly some pivot tables and in
 some cases VBA. Using the supplychainpy library can reduce the time taken and effort made for the same analysis.
 
 A simple analysis for an individual SKU can be carried out by using:
@@ -98,7 +98,7 @@ An example using file:
      'total_orders': '24638'},
 
 
-The library also supports Pandas using a ` DataFrame`. The following example shows how to use the library to perform an inventory analysis if a `DataFrame` is the preference:
+The library also supports Pandas using a `DataFrame`. The following example shows how to use the library to perform an inventory analysis if a `DataFrame` is the preference:
 
 .. code:: python
 
