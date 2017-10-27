@@ -160,7 +160,7 @@ def parallelise_ses(pickled_ses_batch_files: list, core_count: int) -> dict:
                                     for future
                                     in ses_forecast_futures}
                 simple_forecast.update(
-                    {value: ses_forecast_futures[value].result(timeout=20, ) for value in ses_forecast_gen})
+                    {value: ses_forecast_futures[value].result(timeout=30, ) for value in ses_forecast_gen})
                 build_results_pickle(simple_forecast)
                 log.log(logging.INFO, 'Batch processed: {}'.format(batch_path))
                 pickled_ses_batch_files_completed.append(batch_path)
@@ -172,6 +172,9 @@ def parallelise_ses(pickled_ses_batch_files: list, core_count: int) -> dict:
                 # del simple_forecast
 
         simple_forecast = retrieve_results_pickle()
+        simple_forecast = simple_forecast[0]
+
+        return simple_forecast
     except concurrent.futures.TimeoutError as err:
         print(err)
         attempts +=1
@@ -186,7 +189,6 @@ def parallelise_ses(pickled_ses_batch_files: list, core_count: int) -> dict:
             print('The forecasting calculation process was unable to complete. Please check the source file.')
     except OSError as err:
         print(err)
-    return simple_forecast[0]
 
 
 def parallelise_htc(batched_analysis: list, core_count: int):
@@ -249,14 +251,12 @@ def remove_pickle(path: str):
 
 
 def pickle_ses_forecast(batched_analysis: list) -> list:
-    number = 0
     pickled_paths = []
-    for item in batched_analysis:
-        filename = 'ses{}.pickle'.format(number)
+    for num, item in enumerate(batched_analysis):
+        filename = 'ses{}.pickle'.format(num)
         pickle_me = {filename: item}
         pickle_path = write_pickle(**pickle_me)
         pickled_paths.append(pickle_path)
-        number += 1
     return pickled_paths
 
 
@@ -345,11 +345,7 @@ def load(file_path: str, location: str = None):
             cores -= 1
             batched_analysis = [i for i in batch(orders_analysis, cores)]
             pickled_paths = pickle_ses_forecast(batched_analysis=batched_analysis)
-            try:
-                simple_forecast = parallelise_ses(pickled_ses_batch_files=pickled_paths, core_count=cores)
-            except OSError:
-                simple_forecast = []
-                pass
+            simple_forecast = parallelise_ses(pickled_ses_batch_files=pickled_paths, core_count=cores)
             cleanup_pickled_files()
             holts_forecast = parallelise_htc(batched_analysis=batched_analysis, core_count=cores)
 
@@ -559,4 +555,4 @@ def load_profile_recommendations(analysed_order, forecast, transaction_log_id):
 
 
 if __name__ == '__main__':
-    load(ABS_FILE_PATH['COMPLETE_CSV_LG'])
+    load(ABS_FILE_PATH['COMPLETE_CSV_SM'])

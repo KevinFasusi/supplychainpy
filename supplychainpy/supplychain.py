@@ -189,7 +189,11 @@ def main():
         launch_report(location=args.location, host=args.host, port=args.port)
 
     elif args.analyse_file and args.location is not None and args.filenames is not None and args.launch_console is None:
+        print(8)
         # -a
+        app_settings = deserialise_config(ABS_FILE_PATH_APPLICATION_CONFIG)
+        app_settings['database_path'] = args.location
+        app_settings['file'] = args.filenames
         load_db(file=args.filenames, location=args.location)
 
     elif args.analyse_file and args.location and args.filenames and args.launch_console and args.port:
