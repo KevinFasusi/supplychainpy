@@ -631,7 +631,11 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
+<<<<<<< HEAD
   "supplychainpy/simulations/monte_carlo_simulation.pyx",
+=======
+  "supplychainpy\\simulations\\monte_carlo_simulation.pyx",
+>>>>>>> 176f70adb5ba21881ee41c55f4c87a76e3910b8d
 };
 
 /*--- Type declarations ---*/
@@ -1139,11 +1143,20 @@ static const char __pyx_k_holding_cost_percentage[] = "holding_cost_percentage";
 static const char __pyx_k_shortage_cost_percentage[] = "shortage_cost_percentage";
 static const char __pyx_k_purchase_order_raised_qty[] = "purchase_order_raised_qty";
 static const char __pyx_k_purchase_order_receipt_qty[] = "purchase_order_receipt_qty";
+<<<<<<< HEAD
 static const char __pyx_k_home_kevin_Projects_Python_supp[] = "/home/kevin/Projects/Python/supplychainpy/supplychainpy/simulations/monte_carlo_simulation.pyx";
 static const char __pyx_k_supplychainpy_simulations_monte[] = "supplychainpy.simulations.monte_carlo_simulation";
 static const char __pyx_k_The_period_length_is_currently_a[] = "The period_length is currently {} and the actual length of the demand is {}. Please make sure that the two values are equal";
 static const char __pyx_k_supplychainpy_simulations_simula[] = "supplychainpy.simulations.simulation_window";
 static PyObject *__pyx_kp_s_;
+=======
+static const char __pyx_k_supplychainpy_simulations_monte[] = "supplychainpy.simulations.monte_carlo_simulation";
+static const char __pyx_k_C_Users_Kevin_Documents_supplybi[] = "C:\\Users\\Kevin\\Documents\\supplybipy\\supplychainpy\\simulations\\monte_carlo_simulation.pyx";
+static const char __pyx_k_The_period_length_is_currently_a[] = "The period_length is currently {} and the actual length of the demand is {}. Please make sure that the two values are equal";
+static const char __pyx_k_supplychainpy_simulations_simula[] = "supplychainpy.simulations.simulation_window";
+static PyObject *__pyx_kp_s_;
+static PyObject *__pyx_kp_s_C_Users_Kevin_Documents_supplybi;
+>>>>>>> 176f70adb5ba21881ee41c55f4c87a76e3910b8d
 static PyObject *__pyx_n_s_MonteCarloWindow;
 static PyObject *__pyx_n_s_NullHandler;
 static PyObject *__pyx_kp_s_PO_0f;
@@ -1163,7 +1176,10 @@ static PyObject *__pyx_n_s_get;
 static PyObject *__pyx_n_s_getLogger;
 static PyObject *__pyx_n_s_holding_cost;
 static PyObject *__pyx_n_s_holding_cost_percentage;
+<<<<<<< HEAD
 static PyObject *__pyx_kp_s_home_kevin_Projects_Python_supp;
+=======
+>>>>>>> 176f70adb5ba21881ee41c55f4c87a76e3910b8d
 static PyObject *__pyx_n_s_i;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_index;
@@ -3877,6 +3893,10 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_, __pyx_k_, sizeof(__pyx_k_), 0, 0, 1, 0},
+<<<<<<< HEAD
+=======
+  {&__pyx_kp_s_C_Users_Kevin_Documents_supplybi, __pyx_k_C_Users_Kevin_Documents_supplybi, sizeof(__pyx_k_C_Users_Kevin_Documents_supplybi), 0, 0, 1, 0},
+>>>>>>> 176f70adb5ba21881ee41c55f4c87a76e3910b8d
   {&__pyx_n_s_MonteCarloWindow, __pyx_k_MonteCarloWindow, sizeof(__pyx_k_MonteCarloWindow), 0, 0, 1, 1},
   {&__pyx_n_s_NullHandler, __pyx_k_NullHandler, sizeof(__pyx_k_NullHandler), 0, 0, 1, 1},
   {&__pyx_kp_s_PO_0f, __pyx_k_PO_0f, sizeof(__pyx_k_PO_0f), 0, 0, 1, 0},
@@ -3896,7 +3916,10 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_getLogger, __pyx_k_getLogger, sizeof(__pyx_k_getLogger), 0, 0, 1, 1},
   {&__pyx_n_s_holding_cost, __pyx_k_holding_cost, sizeof(__pyx_k_holding_cost), 0, 0, 1, 1},
   {&__pyx_n_s_holding_cost_percentage, __pyx_k_holding_cost_percentage, sizeof(__pyx_k_holding_cost_percentage), 0, 0, 1, 1},
+<<<<<<< HEAD
   {&__pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_k_home_kevin_Projects_Python_supp, sizeof(__pyx_k_home_kevin_Projects_Python_supp), 0, 0, 1, 0},
+=======
+>>>>>>> 176f70adb5ba21881ee41c55f4c87a76e3910b8d
   {&__pyx_n_s_i, __pyx_k_i, sizeof(__pyx_k_i), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_index, __pyx_k_index, sizeof(__pyx_k_index), 0, 0, 1, 1},
@@ -3967,7 +3990,11 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__2 = PyTuple_Pack(19, __pyx_n_s_random_normal_demand, __pyx_n_s_period_length, __pyx_n_s_analysed_orders, __pyx_n_s_holding_cost_percentage, __pyx_n_s_shortage_cost_percentage, __pyx_n_s_sku, __pyx_n_s_sim_frame_collection, __pyx_n_s_index_item, __pyx_n_s_period, __pyx_n_s_order_receipt_index, __pyx_n_s_final_stock, __pyx_n_s_sim_window_collection, __pyx_n_s_po_qty_raised, __pyx_n_s_sold, __pyx_n_s_i, __pyx_n_s_sim_window, __pyx_n_s_previous_closing_stock, __pyx_n_s_demand, __pyx_n_s_po_receipt_period); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
+<<<<<<< HEAD
   __pyx_codeobj__3 = (PyObject*)__Pyx_PyCode_New(5, 0, 19, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__2, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_Projects_Python_supp, __pyx_n_s_simulation_window, 79, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__3)) __PYX_ERR(0, 79, __pyx_L1_error)
+=======
+  __pyx_codeobj__3 = (PyObject*)__Pyx_PyCode_New(5, 0, 19, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__2, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_C_Users_Kevin_Documents_supplybi, __pyx_n_s_simulation_window, 79, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__3)) __PYX_ERR(0, 79, __pyx_L1_error)
+>>>>>>> 176f70adb5ba21881ee41c55f4c87a76e3910b8d
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;

@@ -7,7 +7,10 @@ Author: Kevin Fasusi
 Author-email: kevin@supplybi.com
 License: BSD 3
 Download-URL: https://github.com/KevinFasusi/supplychainpy/tarball/0.0.5rc
+<<<<<<< HEAD
 Description-Content-Type: UNKNOWN
+=======
+>>>>>>> 176f70adb5ba21881ee41c55f4c87a76e3910b8d
 Description: UNKNOWN
 Keywords: supply chain,operations research,operations management,simulation
 Platform: UNKNOWN
