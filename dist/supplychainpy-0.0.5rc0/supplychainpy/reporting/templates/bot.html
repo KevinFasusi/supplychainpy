@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block body%}
+<div class="container-fluid">
+    <h2>Chat with Dash:</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <p><strong class="dash-notes"> Congratulations your analysis is ready, you can chat with Dash about the
+                facts
+                and figures. Using the guide and
+                examples below, specific commands will assist you in retrieving important data and links. Remember Dash
+                is here to service your queries about the data, Dash does not have an opinion on your colleagues,
+                the football league or the latest Netflix Original.</strong></p>
+
+
+        </div>
+    </div>
+    <div class="row scribble-panel">
+        <div class="row">
+            <div class="col-xs-11">
+                <div id="response-panel">
+                    <p></p>
+
+                </div>
+
+            </div>
+            <div class=" col-md-1">
+                <img id="oldchap" src="{{ url_for('static', filename='images/bot.png') }}">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-11">
+                <div class="form-group">
+                    <label id="chat-label" for="chat-input">Chat:</label>
+                    <input class="form-control input-lg" id="chat-input" type="text">
+                </div>
+                <button id="chat-btn" class=" btn btn-sm btn-primary"
+                        aria-pressed="false"><span class="glyphicons glyphicons-envelope">
+
+                </span>Send
+                </button>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12" id="quick-guide">
+            <h3>Quick Guide</h3>
+
+            Ask Dash to "Show me {SKU}", replacing the "{SKU}" with a SKU ID from your inventory profile. You can also
+            ask Dash "What the (largest/smallest,highest/lowest) (shortage, excess, revenue ...)?" You can use any of
+            the keywords
+            found in the analysis given in the list <a href="{{ url_for('bot.lexicon') }}">here</a>.
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-11" id="dash-examples">
+            <table class="table">
+                <tr>
+                    <th>Example</th>
+                    <th>Result</th>
+                </tr>
+
+                <tr>
+                    <td>"Show {sku}", "Describe {sku}", "Explain {sku}" ...</td>
+                    <td>Replacing {sku} with the id of a sku in your analysis, returns a link to the SKU analysis
+                        page.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <ul>
+                            <li>"What is the {largest, smallest, highest, lowest...} shortage, excess, revenue ...}?"
+                            </li>
+                            <li>"Which SKU has the {largest, smallest, highest, lowest...} {shortage, excess, revenue
+                                ...}?"
+                            </li>
+                        </ul>
+                    </td>
+                    <td>Replacing the braces ("{}") with an appropriate adjective will return the SKU and value with the
+                        corresponding description.
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

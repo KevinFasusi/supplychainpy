@@ -1,0 +1,16 @@
+Cython==0.27.1
+Flask==0.12.2
+Flask-RESTful==0.3.6
+Flask-Restless==0.17.0
+Flask-Script==2.0.6
+Flask-SQLAlchemy==2.3.0
+Flask-Uploads==0.2.1
+Flask-WTF==0.14.2
+nltk==3.2.5
+numpy==1.13.3
+pandas==0.20.3
+scipy==0.19.1
+simplejson==3.11.1
+SQLAlchemy==1.1.14
+textblob==0.13.0
+WTForms==2.1
