@@ -1,0 +1,377 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+
+<div class=" row">
+    <div class=" col-md-10">
+        <button id="classifications-btn" class=" btn btn-primary btn-sm active" data-toggle="button"
+                aria-pressed="false"
+        >Classification Breakdown
+        </button>
+        <button id="shortages-btn" class=" btn btn-sm btn-primary active" data-toggle="button" aria-pressed="false"
+        >Top 10 Shortages
+        </button>
+        <button id="excess-btn" class=" btn btn-sm btn-primary active" data-toggle="button" aria-pressed="false">Top 10
+            Excess
+        </button>
+    </div>
+    <div class="  col-md-2">
+        <!--<div id="currency-dropdown" class="dropdown">
+            <button id="currency-dropdown-btn" class="btn btn-sm btn-primary dropdown-toggle " id="menu1" type="button"
+                    data-toggle="dropdown">
+                Currency
+                <span class="caret"></span></button>
+            <ul id="currency-list" class="dropdown-menu scrollable-menu " role="menu" aria-labelledby="menu1">
+                <li></li>
+            </ul>-->
+        <div id="currency-code">
+        </div>
+
+    </div>
+</div>
+<div id="app"></div>
+<div id="collapse-classification">
+    <div class="container-fluid">
+        <div class=" row">
+            <h2>Classification Breakdown</h2>
+            <div class=" slate col-md-3">
+                <h1>Largest Shortage: </h1>
+                <h1 id="lg-shortage-classification-class"></h1>
+                <h1 id="lg-shortage-classification"></h1>
+                <h1 id="lg-shortage-percentage"></h1>
+                <h1></h1>
+            </div>
+            <div class=" slate col-md-3">
+                <h1>Largest Excess: </h1>
+                <h1 id="lg-excess-classification-class"></h1>
+                <h1 id="lg-excess-classification"></h1>
+                <h1 id="lg-excess-percentage"></h1>
+                <h1></h1>
+            </div>
+            <div class=" slate col-md-3">
+                <h1>Total Shortage: </h1>
+
+                <h1 id="lg-total-shortage"></h1>
+                <h1></h1>
+                <h1></h1>
+            </div>
+            <div class=" slate col-md-3">
+                <h1>Total Excess: </h1>
+
+                <h1 id="lg-total-excess"></h1>
+                <h1></h1>
+                <h1></h1>
+            </div>
+        </div>
+    </div>
+    <div class=" slate-object row">
+        <div class=" pad-chart-col col-md-4">
+            <h3>Revenue</h3>
+            <div id="revenue-class-chart"></div>
+        </div>
+        <div class=" pad-chart-col col-md-4">
+            <h3>Shortage</h3>
+            <div id="shortage-class-chart"></div>
+        </div>
+        <div class=" pad-chart-col col-md-4">
+            <h3>Excess </h3>
+            <div id="excess-class-chart"></div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class=" col-lg-11">
+                <table id="classification-table" class="  ia table-responsive table ">
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="collapse-shortages">
+    <div class="container-fluid">
+        <div class=" row">
+            <h2> Top 10 Shortages</h2>
+            <div class=" slate col-md-3">
+                <h1>Largest Shortage: </h1>
+                {% for sku in shortages %}
+                {% for cur in currency if (cur.id == sku.currency_id) and (loop.index == 1) %}
+                {% set sym = cur.symbol %}
+                {% autoescape false %}
+                <h1 id="lg-shortage-sku"><a href="sku_detail/{{ sku.id }}">{{ largest.sku.sku_id }}</a></h1>
+                <h1 class="slate-values" id="lg-shortage-cost">
+                    {{ sym }}{{ "{:,.2f}".format(largest.shortage_cost) }}</h1>
+                {% endautoescape %}
+                {% endfor %}
+                {% endfor %}
+                <h1 class="slate-hint" id="lg-shortage-units">{{ largest.shortages }} units</h1>
+            </div>
+            <div class=" slate col-md-3">
+                <h1>Total Shortage: </h1>
+                {% set total = 0 %}
+                {% for sku in shortages %}
+                {% for cur in currency if (cur.id == sku.currency_id) and (loop.index == 1) %}
+                {% set sym = cur.symbol %}
+                {% autoescape false %}
+                <h1 class="slate-text-sm"><strong class="slate-values" id="total-shortage">{{ sym }}
+                    {% endautoescape %}
+                    {% endfor %}
+
+                    {% set total = total + sku.shortage_cost %}
+                    {% if loop.last %}
+
+                        {{ "{:,.2f}".format(total) }}</strong></h1>
+
+                    {% else %}
+                    {% endif %}
+
+                {% endfor %}
+
+            </div>
+            <div class=" slate col-md-3">
+                <h1>Percentage of Top 10 SKUs at Risk of Stock-Out </h1>
+                <h1 class="slate-text-lg" id="shortage-percentage">
+                    {% set risk = 0 %}
+                    {% for sku in shortages %}
+                        {% if sku.traffic_light == 'white' %}
+                            {% set risk = risk + 1 %}
+                            {% if loop.last %}
+                                {{ (risk/10) * 100 }} %
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </h1>
+            </div>
+            <div class="  slate col-md-3">
+                <h1>Most Understocked SKU</h1>
+                {% set net_stock = 0 %}
+                {% set understocked_qty = 0 %}
+                {% for sku in shortages %}
+                    {% set net_stock = sku.quantity_on_hand - sku.reorder_level %}
+                    {% if ((net_stock |abs) > understocked_qty) %}
+                        {% set understocked_sku = sku.sku.sku_id %}
+                        {% set understocked_rol = sku.reorder_level %}
+                        {% set understocked_qoh = sku.quantity_on_hand %}
+                    {% endif %}
+                    {% if (loop.last) %}
+                        <h1 class="slate-hint" id="understocked-sku"><a
+                                href="sku_detail/{{ sku.id }}">{{ understocked_sku }}</a>
+                        </h1>
+                        <h1 class="slate-hint" id="understocked-qoh"><strong>qty on hand: {{ understocked_qoh }}
+                            units</strong>
+                        </h1>
+                        <h1 class="slate-hint" id="understocked_rol"><strong>reorder level: {{ understocked_rol }}
+                            units</strong>
+                        </h1>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class=" slate-object row">
+        <div class=" pad-chart-col col-md-6">
+            <h3>Top 10 Shortage Cost by SKU</h3>
+            <div id="shortage-chart"></div>
+        </div>
+        <div class=" pad-chart-col col-md-4">
+            <h3>Top 10 Shortage Cost by Classification</h3>
+            <div id="pie-shortage">
+                <h3></h3>
+            </div>
+        </div>
+    </div>
+
+
+    <div class=" row">
+        <div id="short-table" class=" col-lg-11">
+            <table id="shortage-table" class=" ia table-responsive table ">
+                <thead>
+                <tr id='first'>
+                    <th>SKU</th>
+                    <th>Quantity on Hand</th>
+                    <th>Average Orders</th>
+                    <th>Shortage</th>
+                    <th>Shortage Cost</th>
+                    <th>Safety Stock</th>
+                    <th>Reorder Level</th>
+                    <th>Percentage Contribution</th>
+                    <th>Revenue Rank</th>
+                    <th>Classification</th>
+                </tr>
+                </thead>
+                {% for sku in shortages %}
+                {% for cur in currency if (cur.id == sku.currency_id) %}
+                {% autoescape false %}
+                {% set sym = cur.symbol %}
+                <tbody>
+                <tr>
+                    <td><a href="sku_detail/{{ sku.sku_id }}"> {{ sku.sku.sku_id }}</a></td>
+                    <td>{{ "{:,}".format(sku.quantity_on_hand) }}</td>
+                    <td>{{ "{:,}".format(sku.average_orders) }}</td>
+                    <td>{{ "{:,}".format(sku.shortages) }}</td>
+                    <td>{{ sym }}{{ "{:,.2f}".format(sku.shortage_cost) }}</td>
+                    <td>{{ "{:,}".format(sku.safety_stock) }}</td>
+                    <td>{{ "{:,}".format(sku.reorder_level) }}</td>
+                    <td>{{ "{:,.2f}".format(sku.percentage_contribution_revenue) }}</td>
+                    <td>{{ "{:,}".format(sku.revenue_rank) }}</td>
+                    <td><a href="abcxyz/{{ sku.abc_xyz_classification }}">{{ sku.abc_xyz_classification }}</a></td>
+                </tr>
+                {% endautoescape %}
+                {% endfor %}
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+<div id="collapse-excess">
+    <div class="container-fluid">
+        <div class=" row">
+            <div class=" row">
+                <h2> Top 10 Excess</h2>
+                <div class=" slate col-md-3">
+                    <h1>Top Excess: </h1>
+                    {% for sku in excess %}
+                    {% for cur in currency if (cur.id == sku.currency_id) and (loop.index == 1) %}
+                    {% set sym = cur.symbol %}
+                    {% autoescape false %}
+                    <h1 id="lg-excess-sku"><a href="sku_detail/{{ sku.id }}">{{ largest_excess.sku.sku_id }}</a></h1>
+                    <h1 class="slate-values" id="lg-excess-cost">
+                        {{ sym }}{{ "{:,.2f}".format(largest_excess.excess_cost) }}</h1>
+                    <h1 class="slate-hint" id="lg-excess-units">{{ "{:,}".format(largest_excess.excess_stock) }}
+                        units</h1>
+                    {% endautoescape %}
+                    {% endfor %}
+                    {% endfor %}
+                </div>
+                <div class=" slate col-md-3">
+                    <h1>Total Excess: </h1>
+                    {% set total = 0.0 %}
+                    {% for sku in excess %}
+                    {% for cur in currency if (cur.id == sku.currency_id) and (loop.index == 1) %}
+                    {% set sym = cur.symbol %}
+                    {% autoescape false %}
+                    <h1 class="slate-values"><strong class="slate-values" id="total-excess">{{ sym }}
+                        {% endautoescape %}
+                        {% endfor %}
+            
+                        {% set total = (total| float) + (sku.excess_cost|float) %}
+                        {% if loop.last %}
+                            {{ "{:,.2f}".format(total) }}</strong></h1>
+                        {% endif %}
+
+                    {% endfor %}
+
+                </div>
+                <div id="excess-percent-inv" class=" slate col-md-3">
+                    <h1>Top 10 Excess as % of Inventory Value: </h1>
+                    {% set total = 0 %}
+                    {% set top_excess = 0 %}
+                    {% set count = 0 %}
+                    {% for sku in excess %}
+                    {% for cur in currency if (cur.id == sku.currency_id) and (loop.index == 1) %}
+                    {% set sym = cur.symbol %}
+                    {% autoescape false %}
+                    <h1 id="excess-inventory-sl"><strong>
+                        {% endautoescape %}
+                        {% endfor %}
+                            
+                        {% set total = (total |float) + (sku.excess_cost |float) %}
+                        {% set count = (count |int) + 1 %}
+                        {% if loop.last %}
+                            {{ "{:,.2f}".format(((total| float)/(count| int) * 100) )}}</strong></h1>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class=" slate col-md-3">
+                    <h1>Excess Holding Cost </h1>
+                    {% set total = 0 %}
+                    {% set total_holding_cost = 0 %}
+                    {% for sku in excess %}
+                    {% for cur in currency if (cur.id == sku.currency_id) and (loop.index == 1) %}
+                    {% set sym = cur.symbol %}
+                    {% autoescape false %}
+
+                    <h1 class="slate-values">
+                        {{ sym }}
+                        {% endautoescape %}
+                        {% endfor %}
+                        {% set total_holding_cost = total_holding_cost + ((sku.quantity_on_hand |float) * ((sku.unit_cost |float) * 0.25)) %}
+
+                        {% if loop.last %}
+                            <strong>
+                                {{ "{:,.2f}".format(total_holding_cost) }}
+                            </strong></h1>
+
+                        {% else %}
+                        {% endif %}
+
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=" slate-object row">
+        <div class=" pad-chart-col col-md-6">
+            <h3>Top 10 Excess Cost by SKU</h3>
+            <div id="excess-chart"></div>
+        </div>
+        <div class=" pad-chart-col col-md-4">
+            <h3>Top 10 Excess Cost by Classification</h3>
+            <div id="excess-pie">
+                <h3></h3>
+            </div>
+        </div>
+    </div>
+    <div class=" row">
+        <div id="excess" class=" col-lg-11">
+            <table id="excess-table" class=" ia table-responsive table ">
+                <thead>
+                <tr>
+                    <th>SKU</th>
+                    <th>Quantity on Hand</th>
+                    <th>Average Orders</th>
+                    <th>Excess</th>
+                    <th>Excess Cost</th>
+                    <th>Safety Stock</th>
+                    <th>Reorder Level</th>
+                    <th>Percentage Contribution</th>
+                    <th>Revenue Rank</th>
+                    <th>Classification</th>
+                </tr>
+                </thead>
+                {% for sku in excess %}
+                {% for cur in currency if (cur.id == sku.currency_id) %}
+                {% autoescape false %}
+                {% set sym = cur.symbol %}
+                <tbody>
+                <tr>
+                    <td><a href="sku_detail/{{ sku.sku_id }}"> {{ sku.sku.sku_id }}</a></td>
+                    <td>{{ "{:,}".format(sku.quantity_on_hand) }}</td>
+                    <td>{{ "{:,}".format(sku.average_orders) }}</td>
+                    <td>{{ "{:,}".format(sku.excess_stock) }}</td>
+                    <td>{{ sym }}{{ "{:,.2f}".format(sku.excess_cost) }}</td>
+                    <td>{{ "{:,}".format(sku.safety_stock) }}</td>
+                    <td>{{ "{:,}".format(sku.reorder_level) }}</td>
+                    <td>{{ "{:,.2f}".format(sku.percentage_contribution_revenue) }}</td>
+                    <td>{{ "{:,}".format(sku.revenue_rank) }}</td>
+                    <td><a href="abcxyz/{{ sku.abc_xyz_classification }}">{{ sku.abc_xyz_classification }}</a></td>
+                </tr>
+                {% endautoescape %}
+                {% endfor %}
+                {% endfor %}
+                </tbody>
+
+
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block body %}
+<meta charset="utf-8"/>
+<div class="container-fluid">
+    <h2>Simulation</h2>
+    <div class="dash-notes">
+        <p>Run the Discrete event simulation from within the reports. Specify the number of times the simulation
+            should be
+            run. </p>
+        <p>Bear in mind the higher the number of runs the more probable the results. Please limit the number of runs
+            to less
+            than 1000.
+            if more runs are necessary run using the supplychainpy library from within an interpreter or ide.</p>
+    </div>
+
+    <div class=" row">
+        <div class="scribble-panel">
+            <div class="form-group">
+
+                <div class="col-md-3">
+                    <label id="runs-label" for="runs-input">Runs:</label>
+                    <input style="color: white" class="form-control input-lg" id="runs-input" type="text">
+                </div>
+                <div class="col-md-3">
+                    <button id="simulate-btn" class=" btn btn-sm btn-primary"
+                            aria-pressed="false">Run Simulation
+                    </button>
+                    <div id="loader"></div>
+                </div>
+                <div class="col-md-3">
+                    <label id="sim-search-label" for="sim-search-input">Search:</label>
+                    <input style="color: white" class="form-control input-lg" id="sim-search-input" type="text">
+                </div>
+                <div class="col-md-3">
+                    <button id="sim-search-btn" class=" btn btn-sm btn-primary"
+                            aria-pressed="false">Search
+                    </button>
+                    <button id="sim-clear-btn" class=" btn btn-sm btn-primary"
+                            aria-pressed="false">Clear
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h3 style="margin: 20px ;color: white; font-size: larger">Simulation Summary</h3>
+    <div id="sim-profile-rec" class=" row">
+        <div id="sim-sku-rec" class=" col-lg-11">
+
+            {% for item in sim %}
+
+            <div id="{{ item.sku_id }}" class="row">
+
+                <div class="recommendation-panel rec-panel">
+                    <div class=" row">
+                        {% for ms in inventory %}
+                        {% if (ms.sku_id == item.sku_id) %}
+                        <a href="{{ url_for('dashboard.sku') }}/{{ ms.id }}">{{ item.sku_id }}</a>
+                        {% else %}
+
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+
+
+                    <div id="sim-summary">
+                        <!-- <button id="sim-detail-btn" class=" btn btn-xs btn-primary"
+                                aria-pressed="false">Toggle Detail
+                        </button> -->
+                        <div class=" row">
+
+                            <div class=" row">
+                                <div class="col-lg-3">
+                                    <h3>Backlog (Min): {{ "{:,.0f}".format(item.minimum_backlog) }}</h3>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h3>Opening Stock
+                                        (VAR): {{ "{:,.0f}".format(item.variance_opening_stock |int) }}</h3>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h3>Service Level: {{ item.service_level }}</h3>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h3>Shortage (AVG) {{ item.average_shortage_units }}</h3>
+                                </div>
+                            </div>
+                            <div class=" row">
+                                <div class="col-lg-3">
+                                    <h3>Quantity Sold (MIN) {{ item.minimum_quantity_sold }}</h3>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h3>Closing Stock (MAX) {{ item.maximum_closing_stock }}</h3>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h3>Quantity Sold (STDEV.) {{ item.standard_deviation_quantity_sold }}</h3>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h3>Quantity Sold (AVG) {{ item.average_quantity_sold }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="sim-detail">
+         {% for run in runs %}
+         {% for r in run %}
+         {% for m in r %}
+         {% if (m.sku_id == item.sku_id) %}
+         {{r}}
+         {% else %}
+         {% endif %}
+         {% endfor %}
+         {% endfor %}
+         {% endfor %}
+     </div> -->
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}

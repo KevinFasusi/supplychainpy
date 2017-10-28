@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block body%}
+<div class="container-fluid">
+    <div class="scribble-panel">
+        <div class="form-group">
+            <div class="row" id="rec-btns">
+                <h2>Recommendations</h2>
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-3">
+                        <label id="search-label" for="search-input">Search:</label>
+                        <input class="form-control input-lg" id="search-input" type="text">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-3">
+                        <button id="search-btn" class=" btn btn-sm btn-primary"
+                                aria-pressed="false">Search
+                        </button>
+                        <button id="clear-btn" class=" btn btn-sm btn-primary"
+                                aria-pressed="false">Clear
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="profile-rec">
+            <div class="recommendation-panel rec-panel">
+                <img id="warehouse-icon" src="{{ url_for('static', filename='images/warehouse_icon.png')}}">
+                <h3>Inventory Profile</h3>
+                {% for i in profile %}
+                {{i.statement}}
+                {% endfor %}
+            </div>
+        </div>
+        <div id="sku-rec">
+            {% for i in recommendations %}
+            <div id="{{i.rec.sku.sku_id}}" class="recommendation-panel rec-panel">
+
+                <div class="row">
+
+                    <div class="col-md-1"> {% for sku in inventory %}
+                        {% if (sku.sku.sku_id == i.rec.sku.sku_id) %}
+                        <div class="traffic-light {{sku.traffic_light}}"></div>
+                        {% else %}
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="col-md-2"><h3><strong><a href="sku_detail/{{i.rec.sku_id}}">{{i.rec.sku.sku_id}}</a></strong></h3></div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-7">
+                        <img id="sku-icon" src="{{ url_for('static', filename='images/sku_icon.png')}}">
+                    </div>
+                </div>
+                <p>{{i.statement}}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

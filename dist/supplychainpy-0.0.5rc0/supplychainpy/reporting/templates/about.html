@@ -1,0 +1,60 @@
+{% extends "layouts/base.html" %}
+
+{% block body%}
+
+<h2>Get in Contact</h2>
+<div class="row">
+    <div class="col-lg-3">
+        <div class="rec-panel contact">
+            <h3>Forum</h3>
+            <p>Connect with us in our Google groups
+                <a href="https://groups.google.com/forum/#!forum/supplychainpy">
+                    community forum.
+                </a>
+            </p>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="rec-panel contact">
+            <h3>Contribute</h3>
+            <p>
+                Contribute to the code base at Git Hub.
+                <a href="https://github.com/KevinFasusi/supplychainpy">
+                    <img src="{{ url_for('static', filename='GitHub-Mark-32px.png') }}">
+                </a>
+            </p>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="rec-panel contact">
+
+            <h3>Read Blog</h3>
+            <p>
+                Keep up to date with the latest developments for  <a href="http://www.supplychainpy.org/blog/">supplychainpy</a>.
+            </p>
+
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="rec-panel contact">
+
+            <h3>Twitter</h3>
+            <p>Follow us on twitter and keep the conversation alive. Let us know what you think, features you are looking for or just say hey!</p>
+            <a href="https://twitter.com/supplychainpy" class="twitter-follow-button" data-show-count="false"
+               data-show-screen-name="false">Follow @supplychainpy</a>
+            <script>!function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                if (!d.getElementById(id)) {
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = p + '://platform.twitter.com/widgets.js';
+                    fjs.parentNode.insertBefore(js, fjs);
+                }
+            }(document, 'script', 'twitter-wjs');</script>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+

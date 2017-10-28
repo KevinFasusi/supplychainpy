@@ -1,0 +1,484 @@
+{% extends "base.html" %}
+
+{% block body%}
+<div class="container-fluid">
+    <div>
+        {% for sku in inventory %}
+
+        {% if (sku.excess_stock > sku.shortages) %}
+        <p>
+        <h2> {{sku.sku.sku_id}}<img src="{{ url_for('static', filename='images/excess.png') }}"></h2></p>
+        {% elif (sku.excess_stock < sku.shortages) %}
+        <p>
+        <h2> {{sku.sku.sku_id}}<img src="{{ url_for('static', filename='images/shortages.png') }}"></h2></p>
+        {% else %}
+        <p>
+        <h2> {{sku.sku.sku_id}}<img src="{{ url_for('static', filename='images/healthy.png') }}"></h2></p>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class=" row">
+        {% for sku in inventory %}
+        <div class=" slate col-md-3">
+            <div class=" row">
+                <h1>Quantity On Hand: {{"{:,.2f}".format(sku.quantity_on_hand)}}</h1>
+            </div>
+            {% for cur in currency if (cur.id == sku.currency_id) %}
+            {% autoescape false %}
+            {% set sym = cur.symbol %}
+            <p>Retail Price: <strong>{{sym}}{{"{:,.2f}".format(sku.retail_price)}}</strong></p>
+            <p>Unit Cost: <strong>{{sym}}{{"{:,.2f}".format(sku.unit_cost)}}</strong></p>
+            <p>Markup: <strong> {{(sku.markup_percentage * 100)|round(0)|int}}%</strong></p>
+            <p>Gross Margin: <strong>{{sym}}{{"{:,.2f}".format(sku.gross_profit_margin)}}</strong></p>
+        </div>
+        <div class=" slate col-md-3">
+            <h1>Average Orders: <strong>{{sku.average_orders}}</strong></h1>
+            <p>Minimum Order: <strong>{{sku.min_order}}</strong></p>
+            <p>Maximum Order: <strong>{{sku.max_order}}</strong></p>
+            <p>Standard Deviation: <strong>{{sku.standard_deviation}}</strong></p>
+        </div>
+        <div class=" slate col-md-3">
+            <div class=" row">
+                {% if (sku.excess_stock > sku.shortages) %}
+                <h3>Status: <strong>Excess</strong></h3>
+                <h3>Excess Units: {{sku.excess_stock}}</h3>
+                <h3>Excess Cost: {{sym}}{{"{:,.2f}".format(sku.excess_cost)}}</h3>
+                {% elif (sku.excess_stock < sku.shortages) %}
+                <h3>Status: <strong>Shortage</strong></h3>
+                <h3>Shortage Units: {{sku.shortages}}</h3>
+                <h3>Shortage Cost: {{sym}}{{"{:,.2f}".format(sku.shortage_cost)}}</h3>
+                {% else %}
+                <h3>Status: <strong>Healthy</strong></h3>
+                {% endif %}
+            </div>
+
+        </div>
+        <div class=" slate col-md-3">
+
+            <h1>Revenue: <strong>{{sym}}{{"{:,.2f}".format(sku.revenue)}}</strong></h1>
+            <p>Contribution to Revenue: <strong> {{"{:.2f}".format(sku.percentage_contribution_revenue *100)}}</strong>
+            </p>
+            <p>Revenue Rank: <strong> {{sku.revenue_rank}}</strong></p>
+        </div>
+        {% endautoescape %}
+        {% endfor %}
+        {% endfor %}
+
+    </div>
+
+    <div class=" row">
+        <div class="  col-lg-6">
+            <div id="demand-chart">
+
+            </div>
+        </div>
+        <div class="  col-md-1">
+            <table class="ia">
+                <thead>
+                <tr>
+                    <td>Period</td>
+                    <td>Orders</td>
+                </tr>
+                </thead>
+                <tbody id="orders-data">
+                {% set count = 1 %}
+                {% for order in orders %}
+                <tr>
+                    <td>
+                        {{ count }}
+                        {% set count = count + 1 %}
+                    </td>
+                    <td class="orders-raw-data">
+                        {{order.order_quantity}}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="  col-lg-4">
+            <table id="inventory-summary-table" class="ia" style="width:100%">
+                {% for sku in inventory %}
+                <tr>
+                    <th>Economic Order (qty):</th>
+                    <td>{{sku.economic_order_quantity}}</td>
+                </tr>
+                {% for cur in currency if (cur.id == sku.currency_id) %}
+                {% autoescape false %}
+                {% set sym = cur.symbol %}
+                <tr>
+                    <th>Retail Price</th>
+                    <td>{{sym}}{{"{:,.2f}".format(sku.retail_price)}}</td>
+                </tr>
+                <tr>
+                    <th>Unit Cost</th>
+
+                    <td>{{sym}}{{"{:,.2f}".format(sku.unit_cost)}}</td>
+                </tr>
+                <tr>
+                    <th>Retail Price</th>
+                    <td>{{sym}}{{"{:,.2f}".format(sku.retail_price)}}</td>
+                </tr>
+                <tr>
+                    <th>Markup</th>
+                    <td>{{(sku.markup_percentage * 100)|round(0)|int}}%</td>
+                </tr>
+                <tr>
+                    <th>Gross Margin:</th>
+                    <td>{{sym}}{{"{:,.2f}".format(sku.gross_profit_margin)}}</td>
+                </tr>
+                <p><strong> </strong></p>
+                <tr>
+                    <th>Reorder Quantity:</th>
+                    <td>{{sku.reorder_quantity}}</td>
+                </tr>
+                <tr>
+                    <th>Inventory Turns:</th>
+                    <td>{{sku.inventory_turns}}</td>
+                </tr>
+                <tr>
+                    <th>Inventory Classification:</th>
+                    <td>{{sku.abc_xyz_classification}}</td>
+                </tr>
+                <tr>
+                    <th>Safety Stock:</th>
+                    <td id="safety-stock">{{sku.safety_stock}}</td>
+                </tr>
+                <tr>
+                    <th>Reorder Level:</th>
+                    <td id="reorder-lvl">{{sku.reorder_level}}</td>
+                </tr>
+                {% endautoescape %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+
+    <div class="row recommendation-panel">
+        <div class="row">
+            <div class="col-xs-10">
+                <h3>Recommendations:</h3>
+
+            </div>
+            <div class=" col-xs-2">
+                <img id="oldchap" src="{{ url_for('static', filename='images/bot.png') }}">
+            </div>
+        </div>
+        <div id="response-panel">
+            <p>
+                {% for recommendation in recommendations%}
+                {{recommendation.statement}}
+                {% endfor %}
+                {% endfor %}
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-12 forecast-btn">
+        <button id="ses-btn" class=" btn btn-primary btn-sm active" data-toggle="button"
+                aria-pressed="false">Simple Exponential
+        </button>
+        <button id="htces-btn" class=" btn btn-sm btn-primary active" data-toggle="button"
+                aria-pressed="false"
+        >Holts Trend Corrected
+        </button>
+    </div>
+
+    <div id="htces">
+        <div class=" row">
+            <h2>Holts Trend Corrected Forecast</h2>
+        </div>
+        <div class=" row">
+            <div class=" slate col-md-3">
+                <h1>Trend: </h1>
+                {% set holts = "htces" %}
+                {% set simple = "ses" %}
+                {% for item in statistics %}
+                {% if (item.details.type == holts) and (item.trending == true) %}
+
+                <h3 class="success">Linear Trend</h3>
+
+                {% elif (item.details.type == holts) and (item.trending == false) %}
+
+                <h3 class="fail">No Linear Trend</h3>
+                {% else %}
+                {% endif %}
+                {% endfor %}
+
+            </div>
+            <div class=" slate col-md-3">
+
+                {% for item in statistics %}
+                {% if (item.details.type == holts) %}
+                <h1>MAPE:</h1>
+                <h1>{{item.mape |round(2)}}</h1>
+                {% else %}
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class=" slate col-md-3">
+                <h1>Shortage as % Inventory </h1>
+                <h1><strong>10</strong></h1>
+            </div>
+            <div class=" slate col-md-3">
+                <h1></h1>
+                <h1><strong></strong></h1>
+                <h1><strong></strong></h1>
+            </div>
+
+
+        </div>
+
+
+        <!-- Retrieves the holts trend corrected forecast for the -->
+        <div class=" row">
+            <div class="col-md-8">
+                <div id="forecast-chart"></div>
+            </div>
+            <div class="col-md-4">
+                <div class=" row">
+                    <table id="forecast" class="ia">
+                        <tr>
+                            <th>Forecast Period</th>
+                            <th>Forecast Quantity</th>
+                        </tr>
+
+                        {% for item in forecast %}
+                        {% if (item.type.type == holts) %}
+
+                        <tr>
+                            <td>{{item.period}}</td>
+                            <td class="forecast-values">{{item.forecast_quantity |round |int}}</td>
+                        </tr>
+                        {% else %}
+                        {% endif %}
+                        {% endfor %}
+
+                    </table>
+                </div>
+            </div>
+            <div class=" row">
+                <table id="statistics-data" class="ia">
+                    {% for item in statistics %}
+                    {% if (item.details.type == holts) %}
+
+                    <tr>
+                        <th>p-value:</th>
+                        <td>{{item.p_value |round(4)}}</td>
+                    </tr>
+                    <tr>
+                        <th>Slope:</th>
+                        <td>{{item.slope |round(4)}}</td>
+                    </tr>
+                    <tr>
+                        <th>Optimal Alpha:</th>
+                        <td>{{item.optimal_alpha |round(4)}}</td>
+                    </tr>
+                    <tr>
+                        <th>Optimal Gamma:</th>
+                        <td>{{item.optimal_gamma |round(4)}}</td>
+                    </tr>
+                    <tr>
+                        <th>Intercept:</th>
+                        <td>{{item.intercept |round(4)}}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Standard Error:</th>
+                        <td>{{item.slope_standard_error |round(4)}}</td>
+                    </tr>
+
+                    {% else %}
+                    {% endif %}
+                    {% endfor %}
+
+                </table>
+            </div>
+
+        </div>
+
+        <div class=" row">
+            <div class="col-md-8">
+                <table class="ia">
+                    <tr>
+                        <th>Forecast Period</th>
+                        <th>Level Estimate</th>
+                        <th>One Step Forecast</th>
+                        <th>Forecast Error</th>
+                        <th>Trend</th>
+                        <th>Squared Error</th>
+                        <th>Regression</th>
+                    </tr>
+                    <tbody id="forecast-data">
+                    {% for item in breakdown %}
+                    {% if (item.breakdown.type == holts)%}
+
+                    <tr>
+                        <td>{{item.period}}</td>
+                        <td>{{item.level_estimates |round(4) }}</td>
+                        <td class="forecast-raw-data">{{item.one_step_forecast |round(4)}}</td>
+                        <td>{{item.forecast_error |round(4)}}</td>
+                        <td>{{item.trend |round(4)}}</td>
+                        <td>{{item.squared_error |round(4)}}</td>
+                        <td class="regression">{{item.regression | round(4)}}</td>
+                    </tr>
+                    {% else %}
+                    {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Simple -->
+    <div id="ses-tg">
+        <div class=" row">
+            <h2>Simple Exponential Smoothing</h2>
+        </div>
+        <div class=" row">
+            <div class=" slate col-md-3">
+                <h1>Trend: </h1>
+                {% set holts = "htces" %}
+                {% set simple = "ses" %}
+                {% for item in statistics %}
+                {% if (item.details.type == simple) and (item.trending == true) %}
+
+                <h3 class="success">Linear Trend</h3>
+
+                {% elif (item.details.type == simple) and (item.trending == false) %}
+
+                <h3 class="fail">No Linear Trend</h3>
+                {% else %}
+                {% endif %}
+                {% endfor %}
+
+            </div>
+            <div class=" slate col-md-3">
+
+                {% for item in statistics %}
+                {% if (item.details.type == simple) %}
+                <h1>MAPE:</h1>
+                <h1>{{item.mape |round(2)}}</h1>
+                {% else %}
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class=" slate col-md-3">
+                <h1></h1>
+                <h1><strong></strong></h1>
+            </div>
+            <div class=" slate col-md-3">
+                <h1></h1>
+                <h1><strong></strong></h1>
+                <h1><strong></strong></h1>
+            </div>
+
+
+        </div>
+
+        <div class=" row">
+            <div class="col-md-8">
+                <div id="ses-chart"></div>
+            </div>
+            <div class="col-md-4">
+                <div class=" row">
+                    <table id="ses" class="ia">
+                        <tr>
+                            <th>Forecast Period</th>
+                            <th>Forecast Quantity</th>
+                        </tr>
+                        {% set holts = "htces" %}
+                        {% set simple = "ses" %}
+                        {% for item in forecast %}
+                        {% if (item.type.type == simple) %}
+
+                        <tr>
+                            <td>{{item.period}}</td>
+                            <td class="forecast-values">{{item.forecast_quantity |round |int}}</td>
+                        </tr>
+                        {% else %}
+                        {% endif %}
+                        {% endfor %}
+
+                    </table>
+                </div>
+            </div>
+            <div class=" row">
+                <table id="ses-statistics-data" class="ia">
+                    {% for item in statistics %}
+                    {% if (item.details.type == simple) %}
+
+                    <tr>
+                        <th>p-value:</th>
+                        <td>{{item.p_value |round(4)}}</td>
+                    </tr>
+                    <tr>
+                        <th>Slope:</th>
+                        <td>{{item.slope |round(4)}}</td>
+                    </tr>
+                    <tr>
+                        <th>Optimal Alpha:</th>
+                        <td>{{item.optimal_alpha |round(4)}}</td>
+                    </tr>
+                    <tr>
+                        <th>Intercept:</th>
+                        <td>{{item.intercept |round(4)}}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Standard Error:</th>
+                        <td>{{item.slope_standard_error |round(4)}}</td>
+                    </tr>
+
+                    {% else %}
+                    {% endif %}
+                    {% endfor %}
+
+                </table>
+            </div>
+
+        </div>
+
+        <div class=" row">
+            <div class="col-md-8">
+                <table class="ia">
+                    <tr>
+                        <th>Forecast Period</th>
+                        <th>Level Estimate</th>
+                        <th>One Step Forecast</th>
+                        <th>Forecast Error</th>
+                        <th>Squared Error</th>
+                        <th>Regression</th>
+                    </tr>
+                    <tbody id="ses-data">
+                    {% set holts = "htces" %}
+                    {% set simple = "ses" %}
+                    {% for item in breakdown %}
+                    {% if (item.breakdown.type == simple)%}
+
+                    <tr>
+                        <td>{{item.period}}</td>
+                        <td>{{item.level_estimates |round(4) }}</td>
+                        <td class="forecast-raw-data-ses">{{item.one_step_forecast |round(4)}}</td>
+                        <td>{{item.forecast_error |round(4)}}</td>
+                        <td>{{item.squared_error |round(4)}}</td>
+                        <td class="regression-ses">{{item.regression | round(4)}}</td>
+                    </tr>
+                    {% else %}
+                    {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

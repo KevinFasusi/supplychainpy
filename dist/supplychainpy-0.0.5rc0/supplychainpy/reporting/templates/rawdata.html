@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block body%}
+
+<section class="container-fluid">
+
+    <h2>Inventory Analysis Data</h2>
+
+    <table id="analysis_table" class="ia table responsive">
+        <div class=" row">
+            <div class=" col-lg-7">
+                <caption>Calculated Values</caption>
+                <thead>
+                <tr>
+                    <th>SKU</th>
+                    <th>Class</th>
+                    <th>Safety Stock (qty)</th>
+                    <th>Revenue</th>
+                    <th>Economic Order (qty)</th>
+                    <th>Average Orders (qty)</th>
+                    <th>Shortage Units (qty)</th>
+                    <th>Excess Stock (qty)</th>
+                    <th>Shortage Cost</th>
+                    <th>Backlog</th>
+                </tr>
+                </thead>
+                {% for sku in inventory %}
+                <tr>
+                    <td><a href="sku_detail/{{sku.sku_id}}">{{sku.sku.sku_id}}</a></td>
+                    <td><a href="abcxyz/{{sku.abc_xyz_classification}}">{{sku.abc_xyz_classification}}</a></td>
+                    <td>{{"{:,.0f}".format(sku.safety_stock)}}</td>
+                    {% for cur in currency if (cur.id == sku.currency_id) %}
+                    {% autoescape false %}
+                    {% set sym = cur.symbol %}
+                    <td> {{sym}}{{"{:,.2f}".format(sku.revenue)}}</td>
+
+                    <td>{{sku.economic_order_quantity}}</td>
+                    <td>{{"{:,.0f}".format(sku.average_orders)}}</td>
+                    <td>{{"{:,.0f}".format(sku.shortages)}}</td>
+                    <td>{{"{:,.0f}".format(sku.excess_stock)}}</td>
+                    <td>{{sym}}{{"{:,.2f}".format(sku.shortage_cost)}}</td>
+                    <td>{{"{:,.0f}".format(sku.backlog)}}</td>
+                        {% endautoescape %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </div>
+        </div>
+    </table>
+
+    <script>
+        $('#analysis_table').DataTable();
+    </script>
+
+    <!-- controls the style for the analysis_table, changing the labels to a more visible white-->
+    <style>
+        .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate .paginate_button .dataTables_paginate .paging_simple_numbers .dataTables_wrapper .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+            color: gray;
+        }
+    </style>
+</section>
+
+{% endblock %}

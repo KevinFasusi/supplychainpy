@@ -1,0 +1,16 @@
+Metadata-Version: 1.1
+Name: supplychainpy
+Version: 0.0.5rc0
+Summary: A library for supply chain, operations and manufacturing, analysis, modelling and simulation.
+Home-page: https://github.com/KevinFasusi/supplychainpy
+Author: Kevin Fasusi
+Author-email: kevin@supplybi.com
+License: BSD 3
+Download-URL: https://github.com/KevinFasusi/supplychainpy/tarball/0.0.5rc
+Description-Content-Type: UNKNOWN
+Description: UNKNOWN
+Keywords: supply chain,operations research,operations management,simulation
+Platform: UNKNOWN
+Classifier: Development Status :: 1 - Planning
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python :: 3.5

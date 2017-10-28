@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block body%}
+
+<div id="node-chart">
+    {% set classification_AY = "AY" %}
+    {% set classification_AX = "AX" %}
+    {% set classification_AZ = "AZ" %}
+    {% set classification_BX = "BX" %}
+    {% set classification_BY = "BY" %}
+    {% set classification_BZ = "BZ" %}
+    {% set classification_CX = "CX" %}
+    {% set classification_CY = "CY" %}
+    {% set classification_CZ = "CZ" %}
+    <h3>Top Shortages</h3>
+    {% for sku in inventory %}
+
+    {% if (sku.abc_xyz_classification == classification_AY) and (loop.index == 1) %}
+    <div id="AY-node"></div>
+    {% endif %}
+    {% if (sku.abc_xyz_classification == classification_AX) and (loop.index == 1) %}
+
+    <div id="AX-node"></div>
+    {% endif %}
+    {% if (sku.abc_xyz_classification == classification_AZ) and (loop.index == 1) %}
+    <div id="AZ-node"></div>
+    {% endif %}
+    {% if (sku.abc_xyz_classification == classification_BX) and (loop.index == 1) %}
+    <div id="BX-node"></div>
+    {% endif %}
+    {% if (sku.abc_xyz_classification == classification_BY) and (loop.index == 1) %}
+    <div id="BY-node"></div>
+    {% endif %}
+    {% if (sku.abc_xyz_classification == classification_BZ) and (loop.index == 1) %}
+    <div id="BZ-node"></div>
+    {% endif %}
+
+    {% if (sku.abc_xyz_classification == classification_CX) and (loop.index == 1) %}
+    <div id="CX-node"></div>
+    {% endif %}
+    {% if (sku.abc_xyz_classification == classification_CY) and (loop.index == 1) %}
+    <div id="CY-node"></div>
+    {% endif %}
+    {% if (sku.abc_xyz_classification == classification_CZ) and (loop.index == 1) %}
+    <div id="CZ-node"></div>
+    {% endif %}
+    {% endfor %}
+</div>
+<div id="shortage-bar-chart">
+
+</div>
+<table id="analysis_table" class="ia table table-responsive">
+    <div class=" row">
+        <div class=" col-lg-11">
+            <caption>Calculated Values</caption>
+            <thead>
+            <tr>
+                <th>SKU</th>
+                <th>Class</th>
+                <th>Safety Stock (qty)</th>
+                <th>Revenue</th>
+                <th>Reorder Level (qty)</th>
+                <th>Economic Order (qty)</th>
+                <th>Standard Deviation</th>
+                <!--<th>Demand Variability</th>-->
+                <th>Average Orders (qty)</th>
+                <th>Shortage Units (qty)</th>
+                <th>Excess Stock (qty) (qty)</th>
+                <th>Reorder Quantity</th>
+                <!--<th>EOQ Variable Cost</th>-->
+                <th>Unit Cost</th>
+                <!--<th>Excess Cost</th>
+                <th>Percentage Contribution</th>
+                <th>Retail Price</th>
+                <th>Gross Profit Margin</th>
+                <th>Min Order (qty)</th>
+                <th>Safety Stock Cost</th>
+                <th>Markup Percentage</th>
+                <th>Max Order</th>
+                <th>Shortage Cost</th> -->
+            </tr>
+            </thead>
+            {% for sku in inventory %}
+            {% for cur in currency if (cur.id == sku.currency_id) %}
+            {% autoescape false %}
+            {% set sym = cur.symbol %}
+            <tr>
+                <td><a href="/sku_detail/{{sku.sku_id}}">{{sku.sku.sku_id}}</a></td>
+                <td>{{sku.abc_xyz_classification}}</td>
+                <td>{{"{:,.2f}".format(sku.safety_stock)}}</td>
+                <td>{{sym}}{{"{:,.2f}".format(sku.revenue)}}</td>
+                <td>{{"{:,.0f}".format(sku.reorder_level)}}</td>
+                <td>{{"{:,.0f}".format(sku.economic_order_quantity)}}</td>
+                <td>{{sku.standard_deviation}}</td>
+                <!--<td>{{sku.demand_variability}}</td>-->
+                <td>{{"{:,.0f}".format(sku.average_orders)}}</td>
+                <td>{{"{:,.0f}".format(sku.shortages)}}</td>
+                <td>{{"{:,.0f}".format(sku.excess_stock)}}</td>
+                <td>{{"{:,.0f}".format(sku.reorder_quantity)}}</td>
+                <!--<td>{{sku.economic_order_variable_cost}}</td>-->
+                <td>{{sym}}{{"{:,.2f}".format(sku.unit_cost)}}</td>
+                <!-- <td>{{sku.excess_cost}}</td>
+                <td>{{sku.percentage_contribution_revenue}}</td>
+                <td>{{sku.retail_price}}</td>
+                <td>{{sku.gross_profit_margin}}</td>
+                <td>{{sku.min_order}}</td>
+                <td>{{sku.safety_stock_cost}}</td>
+                <td>{{sku.markup_percentage}}</td>
+                <td>{{sku.max_order}}</td>
+                <td>{{sku.shortage_cost}}</td>-->
+            </tr>
+            {% endautoescape %}
+            {% endfor %}
+            {% endfor %}
+
+        </div>
+    </div>
+</table>
+<script>
+    $('#analysis_table').DataTable();
+</script>
+
+<!-- controls the style for the analysis_table, changing the labels to a more visible white-->
+<style>
+    .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate .paginate_button .dataTables_paginate .paging_simple_numbers .dataTables_wrapper .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+        color: gray;
+    }
+</style>
+
+{% endblock %}

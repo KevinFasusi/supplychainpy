@@ -1,0 +1,12 @@
+jan|25
+feb|25
+mar|25
+apr|25
+may|25
+jun|25
+jul|75
+aug|75
+sep|75
+oct|75
+nov|75
+dec|75

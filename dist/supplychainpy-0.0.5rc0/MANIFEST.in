@@ -1,0 +1,2 @@
+recursive-include supplychainpy  *.py[xd] *.px[di] *.h *.c *.so *.csv *.txt *.js *.css *.gif *.png *.html
+include /Users/Fasusi/Projects/supplychainlibraries/python/supplychainpy/supplychainpy/reporting/blueprints/dashboard/templates/dashboard

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<title>supplychainpy Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/bootstrap.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/auxiliary.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/dc.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='scripts/jquery-2.2.3.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='scripts/bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='scripts/bundle.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='scripts/d3.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='scripts/dc.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='scripts/crossfilter.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='scripts/flotr2.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.dropdown-toggle').dropdown();
+    });
+</script>
+</head>
+
+<body>
+
+<nav class="active-nav">
+    <a href="#" class="nav-toggle-btn">
+        <img src="{{ url_for('static', filename='images/logo.png') }}">
+    </a>
+    <ul id="nav-list-settings">
+
+        <li>
+            <a class="nav-tabs" href="{{url_for('rawdata.rawdata')}}">
+                <div class=" row sub-row">
+                    <div class="  col-md-11"><img src="{{ url_for('static', filename='images/data.png') }}"></div>
+
+                </div>
+            </a>
+        </li>
+
+        <li>
+            <a class="nav-tabs" href="/">
+                <div class=" row sub-row">
+                    <div class="col-md-11"><img src="{{ url_for('static', filename='images/dash.png') }}"></div>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a class="nav-tabs" href="{{url_for('recommendations.recommendations')}}">
+                <div class=" row sub-row">
+                    <div class="col-md-11"><img src="{{ url_for('static', filename='images/reporting.png') }}"></div>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a class="nav-tabs" href="{{url_for('bot.bot')}}">
+                <div class=" row sub-row">
+                    <div class="col-md-11"><img src="{{ url_for('static', filename='images/bot_icon.png') }}"></div>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a class="nav-tabs" href="{{url_for('simulation.simulation')}}">
+                <div class=" row sub-row">
+                    <div class="col-md-11"><img src="{{ url_for('static', filename='images/sim.png') }}"></div>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a class="nav-tabs" href="{{url_for('contact.about')}}">
+                <div class=" row sub-row">
+                    <div class="col-md-11"><img src="{{ url_for('static', filename='images/information.png') }}"></div>
+                </div>
+            </a>
+        </li>
+
+    </ul>
+</nav>
+<script>
+    (function toggle_nav() {
+        var bodyElement = $('body'),
+            navToggleBtn = bodyElement.find('.nav-toggle-btn');
+
+        navToggleBtn.on('click', function (e) {
+            bodyElement.toggleClass('active-nav');
+            e.preventDefault();
+        })
+    })();
+</script>
+<div class="content container-fluid">
+    {% block body%}
+    {% endblock %}
+</div>
+</body>
+</html>
