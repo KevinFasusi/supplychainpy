@@ -68,17 +68,20 @@ An alternative is to clone the repository:
 Below is a quick example using a [sample data file](https://github.com/KevinFasusi/supplychainpy/blob/master/supplychainpy/sample_data/complete_dataset_small.csv). 
 
 ```python
-    from supplychainpy.model_inventory import analyse
-    from supplychainpy.sample_data.config import ABS_FILE_PATH
-    from decimal import Decimal
-    analysed_data = analyse(file_path=ABS_FILE_PATH['COMPLETE_CSV_SM'],
-                            z_value=Decimal(1.28),
-                            reorder_cost=Decimal(400),
-                            retail_price=Decimal(455),
-                            file_type='csv',
-                            currency='USD')
-    analysis = [demand.orders_summary() for demand in analysed_data]
     
+from supplychainpy.model_inventory import analyse
+from supplychainpy.sample_data.config import ABS_FILE_PATH
+from decimal import Decimal
+
+analysed_data = analyse(
+						file_path=ABS_FILE_PATH['COMPLETE_CSV_SM'],
+						z_value=Decimal(1.28),
+                        reorder_cost=Decimal(400),
+                        retail_price=Decimal(455),
+                        file_type='csv',
+                        currency='USD'
+                        )
+analysis = [demand.orders_summary() for demand in analysed_data] 
 ```
 
 output:
@@ -91,24 +94,26 @@ output:
 Alternatively using a Pandas `DataFrame`:
 
 ```python
-    from supplychainpy.model_inventory import analyse
-    from supplychainpy.sample_data.config import ABS_FILE_PATH
-    from decimal import Decimal
-    import pandas as pd
-    raw_df = pd.read_csv(ABS_FILE_PATH['COMPLETE_CSV_SM'])
-    analyse_kv = dict(
-        df=raw_df,
-        start=1,
-        interval_length=12,
-        interval_type='months',
-        z_value=Decimal(1.28),
-        reorder_cost=Decimal(400),
-        retail_price=Decimal(455),
-        file_type='csv',
-        currency='USD'
-    )
-    analysis_df = analyse(**analyse_kv)
 
+from supplychainpy.model_inventory import analyse
+from supplychainpy.sample_data.config import ABS_FILE_PATH
+from decimal import Decimal
+import pandas as pd
+
+raw_df = pd.read_csv(ABS_FILE_PATH['COMPLETE_CSV_SM'])
+analyse_kv = dict(
+					df=raw_df,
+        			start=1,
+        			interval_length=12,
+        			interval_type='months',
+        			z_value=Decimal(1.28),
+        			reorder_cost=Decimal(400),
+			        retail_price=Decimal(455),
+        			file_type='csv',
+        			currency='USD'
+        			)
+
+analysis_df = analyse(**analyse_kv)
 
 ```
 
@@ -166,3 +171,113 @@ Make sure you specify the host as "0.0.0.0" for the reporting instance running i
 
 BSD-3-Clause
 
+
+## Change Log
+
+### 0.0.5
+
+**Application**
+
+-   **[Bug Fix]** Using Flask's web server for the Dashboard on a public route on a standalone server (--host 0.0.0.0)
+-   **[Bug Fix]** Javascript error while loading dashboard.
+-   **[New]** Basic ability to run Monte Carlo Simulation and view summarised results in reporting suite.
+-   **[Update]** Load scripts use multi-processing for forecast calculations when processing data file.
+-   **[Update]** Load scripts using batch process.
+-   **[Update]** Debug commandline argument for viewing logging output `--debug'.
+-   **[Update]** Use Chat Bot from commandline with `-c` flag. EXPERIMENTAL
+-   **[Update]** Recommendation generator takes into account forecasts
+-   **[Update]** Flask Blueprints used for reporting views.
+
+
+**Documentation**
+
+-   [New] Wiki started on GitHub for more responsive updates to documentation including changes to source during development.
+-   [Update] Tutorial.
+
+
+### 0.0.4 [17 Nov 2016]
+
+Release 0.0.4 has breaking API changes. Namespaces have changed in this release. All the modules previously in the
+"demand" package are now inside the "inventory" package. If you have been using the "model_inventory" module, then nothing has
+changed, there will not be any break in contracts.
+
+#### Application
+
+-   **[Update]** Explicit internal and public API.
+-   **[Update]** Excess, shortages added to the UncertainDemand order_summary.
+-   **[Update]** Moved abc_xyz.py, analyse_uncertain_demand.py, economic_order_quantity.py and eoq.pyx from "demand" to "inventory" package
+-   **[Update]** "demand" package now contains: evolutionary_algorithms.py, forecast_demand.py and regression.py
+-   **[Update]** retail_price added to `model_inventory.analyse_orders`.
+-   **[Update]** backlog added to the data format for loading into the analysis.
+-   **[Update]** Unit Tests.
+-   **[Update]** Docstrings.
+-   **[New]** Analytic Hierarchy Process.
+-   **[New]** API supports Pandas `DataFrame`.
+-   **[New]** Browser based reporting suite, with charts, data summaries and integrated chat bot.
+-   **[New]** Dash Bot, a basic chat bot assistant for the data in the reporting suite. Query data using natural language.
+-   **[New]** Command line interface for processing .csv to database, launching reports and chat bot.
+-   **[New]** "Model_Demand" module containing simple exponential smoothing and holts trend corrected exponential smoothing.
+-   **[New]** Summarise and filter your analysis.
+-   **[New]** Holts Trend Corrected Exponential Smoothing Forecast and optimised variant (evolutionary algorithm for optimised alpha and gamma)
+-   **[New]** Simple Exponential Smoothing (evolutionary algorithm for optimised alpha).
+-   **[New]** Evolutionary Algorithms for Smoothing Level Constants (converges on better smoothing levels using genetic algorithm)
+-   **[New]** SKU and inventory profile recommendations generator.
+
+#### Documentation
+
+-   [New] Reporting Suite Walk Through.
+-   [Update] Tutorial.
+-   [Update] Quick Guide.
+-   [New] Declare public API explicitly. describe and document each module and function, give an example also add to website tutorial as Jupyter notebook.
+-   [New] Docker for supplychainpy quick guide.
+-   [New] Analytic Hierarchy Process quick guide.
+-   [New] Inventory Modeling.
+-   [New] Demand Planning with Pandas.
+
+
+### 0.0.3 [30 Mar 2016]
+
+**Application**
+
+-   Compiled Cython (eoq and simulation modules) for OS X, Windows and Linux.
+-   Removed z_value, file_type, file_path and reorder_cost parameters from simulate.run_monte_carlo.
+
+**Documentation**
+
+-   **[Update]** Quick Guide
+
+
+### 0.0.2 [30 Mar 2016]
+
+**Application**
+
+-   **[New]** monte carlo simulation and simulation summary using Cython optimisation.
+-   **[New]**  orders analysis optimisation, based on results of the monte carlo simulation.
+-   **[New]**  simulate module to api.
+-   **[New]**  weighted moving average forecast.
+-   **[New]**  moving average forecast.
+-   **[New]**  mean absolute deviation.
+-   **[Update]** economic order quantity using Cython optimisation.
+-   **[Update]** unit tests.
+
+**Documentation**
+
+-   **[New]** Formulas and Equations.
+-   **[Update]** Quick Guide.
+-   **[Update]** Tutorial.
+-   **[Update]** README.md
+-   **[Update]** updated data.csv.
+
+
+## 0.0.1 [20 Feb 2016]
+
+**Application**
+
+-   **[New]** inventory analysis for uncertain demand. Analyse orders from .csv, .txt or from dict.
+-   **[New]** inventory analysis summary for uncertain demand. ABC XYZ, economic order quantity (EOQ), reorder level (ROL), demand variability and safety stock.
+
+**Documentation**
+
+-   **[New]** Quick Guide.
+-   **[New]** Tutorial.
+-   **[New]** Installation.
