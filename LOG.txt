@@ -27,7 +27,7 @@ Application
 -   [New Feature] Basic ability to run Monte Carlo Simulation and view summarised results in reporting suite.
 -   [Update] Load scripts use multi-processing for forecast calculations when processing data file.
 -   [Update] Load scripts using batch process.
--   [Update] Debug commandline argument for viewing logging output `--debug'.
+-   [Update] Debug commandline argument for viewing logging output `--debug`.
 -   [Update] Use Chat Bot from commandline with `-c` flag. EXPERIMENTAL
 -   [Update] Recommendation generator takes into account forecasts
 -   [Update] Flask Blueprints used for reporting views.

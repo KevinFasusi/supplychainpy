@@ -14,12 +14,12 @@ extensions = [
               ['supplychainpy/demand/_evo_algo.pyx']),
 ]
 # only required for pypi
-#here = os.path.dirname(os.path.abspath(__file__))
-#with open(os.path.join(here,'LOG.txt')) as f:
-#    long_description = f.read().strip()
+here = os.path.dirname(os.path.abspath(__file__))
+with open(os.path.join(here,'LOG.txt')) as f:
+    long_description = f.read().strip()
 
 setup(name='supplychainpy',
-      version='0.0.5rc',
+      version='0.0.5rc3',
       description='A library for supply chain, operations and manufacturing, analysis, modelling and simulation.',
       url='https://github.com/KevinFasusi/supplychainpy',
       download_url='https://github.com/KevinFasusi/supplychainpy/tarball/0.0.5rc',
@@ -51,7 +51,7 @@ setup(name='supplychainpy',
               'supplychainpy = supplychainpy.supplychain:main'
           ]
       },
-      long_description= '',
+      long_description= long_description,
       classifiers=[
         "Development Status :: 1 - Planning",
         "License :: OSI Approved :: BSD License",
