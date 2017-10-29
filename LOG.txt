@@ -132,5 +132,5 @@ Documentation
 -------------
 
 -   [New] Added Quick Guide.
--   [New] dded Tutorial.
+-   [New] Added Tutorial.
 -   [New] Added Installation.

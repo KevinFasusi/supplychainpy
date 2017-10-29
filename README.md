@@ -191,8 +191,8 @@ BSD-3-Clause
 
 **Documentation**
 
--   [New] Wiki started on GitHub for more responsive updates to documentation including changes to source during development.
--   [Update] Tutorial.
+-   **[New]** Wiki started on GitHub for more responsive updates to documentation including changes to source during development.
+-   **[Update]** Tutorial.
 
 
 ### 0.0.4 [17 Nov 2016]
@@ -243,7 +243,7 @@ changed, there will not be any break in contracts.
 
 **Documentation**
 
--   **[Update]** Quick Guide
+-  **[Update]** Quick Guide
 
 
 ### 0.0.2 [30 Mar 2016]
