@@ -203,14 +203,6 @@ changed, there will not be any break in contracts.
 
 #### Application
 
--   **[Update]** Explicit internal and public API.
--   **[Update]** Excess, shortages added to the UncertainDemand order_summary.
--   **[Update]** Moved abc_xyz.py, analyse_uncertain_demand.py, economic_order_quantity.py and eoq.pyx from "demand" to "inventory" package
--   **[Update]** "demand" package now contains: evolutionary_algorithms.py, forecast_demand.py and regression.py
--   **[Update]** retail_price added to `model_inventory.analyse_orders`.
--   **[Update]** backlog added to the data format for loading into the analysis.
--   **[Update]** Unit Tests.
--   **[Update]** Docstrings.
 -   **[New]** Analytic Hierarchy Process.
 -   **[New]** API supports Pandas `DataFrame`.
 -   **[New]** Browser based reporting suite, with charts, data summaries and integrated chat bot.
@@ -222,25 +214,32 @@ changed, there will not be any break in contracts.
 -   **[New]** Simple Exponential Smoothing (evolutionary algorithm for optimised alpha).
 -   **[New]** Evolutionary Algorithms for Smoothing Level Constants (converges on better smoothing levels using genetic algorithm)
 -   **[New]** SKU and inventory profile recommendations generator.
+-   **[Update]** Explicit internal and public API.
+-   **[Update]** Excess, shortages added to the UncertainDemand order_summary.
+-   **[Update]** Moved abc_xyz.py, analyse_uncertain_demand.py, economic_order_quantity.py and eoq.pyx from "demand" to "inventory" package
+-   **[Update]** "demand" package now contains: evolutionary_algorithms.py, forecast_demand.py and regression.py
+-   **[Update]** retail_price added to `model_inventory.analyse_orders`.
+-   **[Update]** backlog added to the data format for loading into the analysis.
+-   **[Update]** Unit Tests.
+-   **[Update]** Docstrings.
 
 #### Documentation
 
--   [New] Reporting Suite Walk Through.
--   [Update] Tutorial.
--   [Update] Quick Guide.
--   [New] Declare public API explicitly. describe and document each module and function, give an example also add to website tutorial as Jupyter notebook.
--   [New] Docker for supplychainpy quick guide.
--   [New] Analytic Hierarchy Process quick guide.
--   [New] Inventory Modeling.
--   [New] Demand Planning with Pandas.
-
+-   **[New]** Reporting Suite Walk Through.
+-   **[New]** Declare public API explicitly. describe and document each module and function, give an example also add to website tutorial as Jupyter notebook.
+-   **[New]** Docker for supplychainpy quick guide.
+-   **[New]** Analytic Hierarchy Process quick guide.
+-   **[New]** Inventory Modeling.
+-   **[New]** Demand Planning with Pandas.
+-   **[Update]** Tutorial.
+-   **[Update]** Quick Guide.
 
 ### 0.0.3 [30 Mar 2016]
 
 **Application**
 
--   Compiled Cython (eoq and simulation modules) for OS X, Windows and Linux.
--   Removed z_value, file_type, file_path and reorder_cost parameters from simulate.run_monte_carlo.
+-  **[Update]** Compiled Cython (eoq and simulation modules) for OS X, Windows and Linux.
+-  **[Update]** Removed z_value, file_type, file_path and reorder_cost parameters from simulate.run_monte_carlo.
 
 **Documentation**
 
