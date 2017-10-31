@@ -1,5 +1,3 @@
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
 /*!
  * Bootstrap v3.3.6 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -59,7 +57,7 @@ if (typeof jQuery === 'undefined') {
     $(this).one('bsTransitionEnd', function () {
       called = true;
     });
-    var callback = function callback() {
+    var callback = function () {
       if (!called) $($el).trigger($.support.transition.end);
     };
     setTimeout(callback, duration);
@@ -74,7 +72,7 @@ if (typeof jQuery === 'undefined') {
     $.event.special.bsTransitionEnd = {
       bindType: $.support.transition.end,
       delegateType: $.support.transition.end,
-      handle: function handle(e) {
+      handle: function (e) {
         if ($(e.target).is(this)) return e.handleObj.handler.apply(this, arguments);
       }
     };
@@ -96,7 +94,7 @@ if (typeof jQuery === 'undefined') {
   // ======================
 
   var dismiss = '[data-dismiss="alert"]';
-  var Alert = function Alert(el) {
+  var Alert = function (el) {
     $(el).on('click', dismiss, this.close);
   };
 
@@ -181,7 +179,7 @@ if (typeof jQuery === 'undefined') {
   // BUTTON PUBLIC CLASS DEFINITION
   // ==============================
 
-  var Button = function Button(element, options) {
+  var Button = function (element, options) {
     this.$element = $(element);
     this.options = $.extend({}, Button.DEFAULTS, options);
     this.isLoading = false;
@@ -246,7 +244,7 @@ if (typeof jQuery === 'undefined') {
     return this.each(function () {
       var $this = $(this);
       var data = $this.data('bs.button');
-      var options = (typeof option === 'undefined' ? 'undefined' : _typeof(option)) == 'object' && option;
+      var options = typeof option == 'object' && option;
 
       if (!data) $this.data('bs.button', data = new Button(this, options));
 
@@ -294,7 +292,7 @@ if (typeof jQuery === 'undefined') {
   // CAROUSEL CLASS DEFINITION
   // =========================
 
-  var Carousel = function Carousel(element, options) {
+  var Carousel = function (element, options) {
     this.$element = $(element);
     this.$indicators = this.$element.find('.carousel-indicators');
     this.options = options;
@@ -455,7 +453,7 @@ if (typeof jQuery === 'undefined') {
     return this.each(function () {
       var $this = $(this);
       var data = $this.data('bs.carousel');
-      var options = $.extend({}, Carousel.DEFAULTS, $this.data(), (typeof option === 'undefined' ? 'undefined' : _typeof(option)) == 'object' && option);
+      var options = $.extend({}, Carousel.DEFAULTS, $this.data(), typeof option == 'object' && option);
       var action = typeof option == 'string' ? option : options.slide;
 
       if (!data) $this.data('bs.carousel', data = new Carousel(this, options));
@@ -479,7 +477,7 @@ if (typeof jQuery === 'undefined') {
   // CAROUSEL DATA-API
   // =================
 
-  var clickHandler = function clickHandler(e) {
+  var clickHandler = function (e) {
     var href;
     var $this = $(this);
     var $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')); // strip for ie7
@@ -521,7 +519,7 @@ if (typeof jQuery === 'undefined') {
   // COLLAPSE PUBLIC CLASS DEFINITION
   // ================================
 
-  var Collapse = function Collapse(element, options) {
+  var Collapse = function (element, options) {
     this.$element = $(element);
     this.options = $.extend({}, Collapse.DEFAULTS, options);
     this.$trigger = $('[data-toggle="collapse"][href="#' + element.id + '"],' + '[data-toggle="collapse"][data-target="#' + element.id + '"]');
@@ -577,7 +575,7 @@ if (typeof jQuery === 'undefined') {
 
     this.transitioning = 1;
 
-    var complete = function complete() {
+    var complete = function () {
       this.$element.removeClass('collapsing').addClass('collapse in')[dimension]('');
       this.transitioning = 0;
       this.$element.trigger('shown.bs.collapse');
@@ -607,7 +605,7 @@ if (typeof jQuery === 'undefined') {
 
     this.transitioning = 1;
 
-    var complete = function complete() {
+    var complete = function () {
       this.transitioning = 0;
       this.$element.removeClass('collapsing').addClass('collapse').trigger('hidden.bs.collapse');
     };
@@ -649,7 +647,7 @@ if (typeof jQuery === 'undefined') {
     return this.each(function () {
       var $this = $(this);
       var data = $this.data('bs.collapse');
-      var options = $.extend({}, Collapse.DEFAULTS, $this.data(), (typeof option === 'undefined' ? 'undefined' : _typeof(option)) == 'object' && option);
+      var options = $.extend({}, Collapse.DEFAULTS, $this.data(), typeof option == 'object' && option);
 
       if (!data && options.toggle && /show|hide/.test(option)) options.toggle = false;
       if (!data) $this.data('bs.collapse', data = new Collapse(this, options));
@@ -702,7 +700,7 @@ if (typeof jQuery === 'undefined') {
 
   var backdrop = '.dropdown-backdrop';
   var toggle = '[data-toggle="dropdown"]';
-  var Dropdown = function Dropdown(element) {
+  var Dropdown = function (element) {
     $(element).on('click.bs.dropdown', this.toggle);
   };
 
@@ -851,7 +849,7 @@ if (typeof jQuery === 'undefined') {
   // MODAL CLASS DEFINITION
   // ======================
 
-  var Modal = function Modal(element, options) {
+  var Modal = function (element, options) {
     this.options = options;
     this.$body = $(document.body);
     this.$element = $(element);
@@ -1031,7 +1029,7 @@ if (typeof jQuery === 'undefined') {
     } else if (!this.isShown && this.$backdrop) {
       this.$backdrop.removeClass('in');
 
-      var callbackRemove = function callbackRemove() {
+      var callbackRemove = function () {
         that.removeBackdrop();
         callback && callback();
       };
@@ -1101,7 +1099,7 @@ if (typeof jQuery === 'undefined') {
     return this.each(function () {
       var $this = $(this);
       var data = $this.data('bs.modal');
-      var options = $.extend({}, Modal.DEFAULTS, $this.data(), (typeof option === 'undefined' ? 'undefined' : _typeof(option)) == 'object' && option);
+      var options = $.extend({}, Modal.DEFAULTS, $this.data(), typeof option == 'object' && option);
 
       if (!data) $this.data('bs.modal', data = new Modal(this, options));
       if (typeof option == 'string') data[option](_relatedTarget);else if (options.show) data.show(_relatedTarget);
@@ -1157,7 +1155,7 @@ if (typeof jQuery === 'undefined') {
   // TOOLTIP PUBLIC CLASS DEFINITION
   // ===============================
 
-  var Tooltip = function Tooltip(element, options) {
+  var Tooltip = function (element, options) {
     this.type = null;
     this.options = null;
     this.enabled = null;
@@ -1357,7 +1355,7 @@ if (typeof jQuery === 'undefined') {
 
       this.applyPlacement(calculatedOffset, placement);
 
-      var complete = function complete() {
+      var complete = function () {
         var prevHoverState = that.hoverState;
         that.$element.trigger('shown.bs.' + that.type);
         that.hoverState = null;
@@ -1388,7 +1386,7 @@ if (typeof jQuery === 'undefined') {
     // $.fn.offset doesn't round pixel values
     // so we use setOffset directly with our own function B-0
     $.offset.setOffset($tip[0], $.extend({
-      using: function using(props) {
+      using: function (props) {
         $tip.css({
           top: Math.round(props.top),
           left: Math.round(props.left)
@@ -1531,9 +1529,7 @@ if (typeof jQuery === 'undefined') {
   };
 
   Tooltip.prototype.getUID = function (prefix) {
-    do {
-      prefix += ~ ~(Math.random() * 1000000);
-    } while (document.getElementById(prefix));
+    do prefix += ~ ~(Math.random() * 1000000); while (document.getElementById(prefix));
     return prefix;
   };
 
@@ -1602,7 +1598,7 @@ if (typeof jQuery === 'undefined') {
     return this.each(function () {
       var $this = $(this);
       var data = $this.data('bs.tooltip');
-      var options = (typeof option === 'undefined' ? 'undefined' : _typeof(option)) == 'object' && option;
+      var options = typeof option == 'object' && option;
 
       if (!data && /destroy|hide/.test(option)) return;
       if (!data) $this.data('bs.tooltip', data = new Tooltip(this, options));
@@ -1638,7 +1634,7 @@ if (typeof jQuery === 'undefined') {
   // POPOVER PUBLIC CLASS DEFINITION
   // ===============================
 
-  var Popover = function Popover(element, options) {
+  var Popover = function (element, options) {
     this.init('popover', element, options);
   };
 
@@ -1702,7 +1698,7 @@ if (typeof jQuery === 'undefined') {
     return this.each(function () {
       var $this = $(this);
       var data = $this.data('bs.popover');
-      var options = (typeof option === 'undefined' ? 'undefined' : _typeof(option)) == 'object' && option;
+      var options = typeof option == 'object' && option;
 
       if (!data && /destroy|hide/.test(option)) return;
       if (!data) $this.data('bs.popover', data = new Popover(this, options));
@@ -1845,7 +1841,7 @@ if (typeof jQuery === 'undefined') {
     return this.each(function () {
       var $this = $(this);
       var data = $this.data('bs.scrollspy');
-      var options = (typeof option === 'undefined' ? 'undefined' : _typeof(option)) == 'object' && option;
+      var options = typeof option == 'object' && option;
 
       if (!data) $this.data('bs.scrollspy', data = new ScrollSpy(this, options));
       if (typeof option == 'string') data[option]();
@@ -1890,7 +1886,7 @@ if (typeof jQuery === 'undefined') {
   // TAB CLASS DEFINITION
   // ====================
 
-  var Tab = function Tab(element) {
+  var Tab = function (element) {
     // jscs:disable requireDollarBeforejQueryAssignment
     this.element = $(element);
     // jscs:enable requireDollarBeforejQueryAssignment
@@ -1997,7 +1993,7 @@ if (typeof jQuery === 'undefined') {
   // TAB DATA-API
   // ============
 
-  var clickHandler = function clickHandler(e) {
+  var clickHandler = function (e) {
     e.preventDefault();
     Plugin.call($(this), 'show');
   };
@@ -2019,7 +2015,7 @@ if (typeof jQuery === 'undefined') {
   // AFFIX CLASS DEFINITION
   // ======================
 
-  var Affix = function Affix(element, options) {
+  var Affix = function (element, options) {
     this.options = $.extend({}, Affix.DEFAULTS, options);
 
     this.$target = $(this.options.target).on('scroll.bs.affix.data-api', $.proxy(this.checkPosition, this)).on('click.bs.affix.data-api', $.proxy(this.checkPositionWithEventLoop, this));
@@ -2084,7 +2080,7 @@ if (typeof jQuery === 'undefined') {
     var offsetBottom = offset.bottom;
     var scrollHeight = Math.max($(document).height(), $(document.body).height());
 
-    if ((typeof offset === 'undefined' ? 'undefined' : _typeof(offset)) != 'object') offsetBottom = offsetTop = offset;
+    if (typeof offset != 'object') offsetBottom = offsetTop = offset;
     if (typeof offsetTop == 'function') offsetTop = offset.top(this.$element);
     if (typeof offsetBottom == 'function') offsetBottom = offset.bottom(this.$element);
 
@@ -2120,7 +2116,7 @@ if (typeof jQuery === 'undefined') {
     return this.each(function () {
       var $this = $(this);
       var data = $this.data('bs.affix');
-      var options = (typeof option === 'undefined' ? 'undefined' : _typeof(option)) == 'object' && option;
+      var options = typeof option == 'object' && option;
 
       if (!data) $this.data('bs.affix', data = new Affix(this, options));
       if (typeof option == 'string') data[option]();

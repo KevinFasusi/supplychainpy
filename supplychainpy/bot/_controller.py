@@ -101,7 +101,8 @@ def excess_controller(uri: str, direction: str = None, sku_id: str = None) -> tu
         # print(sku_id)
         msk_table = Table('master_sku_list', meta, autoload=True, autoload_with=connection)
         skus = select([msk_table.columns.id, msk_table.columns.sku_id]).where(msk_table.columns.id == sku_id)
-        rp = connection.execute(skus)
+        rp = connection.execute(skus
+                                )
 
         for i in rp:
             result.append(i['sku_id'])
