@@ -14,7 +14,7 @@ from supplychainpy.reporting.config.settings import ProdConfig, DevConfig, Integ
 from supplychainpy.reporting.extensions import db
 from supplychainpy.sample_data.config import ABS_FILE_PATH
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.WARNING, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class TestBot(TestCase):
@@ -53,4 +53,3 @@ class TestBot(TestCase):
         #self.assertIn('SKU KR202-245', *self.__dude.chat_machine("what is the smallest excess?")[0])
         #self.assertIn('SKU KR202-213', *self.__dude.chat_machine("Which SKU has the smallest average order?")[0])
         #self.assertIn('SKU KR202-241', *self.__dude.chat_machine("Which SKU has the greatest safety stock?")[0])
-        #print("finished")

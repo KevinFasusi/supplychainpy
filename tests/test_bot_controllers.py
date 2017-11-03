@@ -16,7 +16,7 @@ from supplychainpy.reporting.config.settings import IntegrationConfig
 from supplychainpy.reporting.extensions import db
 from supplychainpy.sample_data.config import ABS_FILE_PATH
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.WARNING, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class TestBotController(TestCase):
@@ -41,7 +41,7 @@ class TestBotController(TestCase):
         with app.app_context():
             db.init_app(app)
             db.create_all()
-            load_db(file=self._file, location=PWD)
+            #load_db(file=self._file, location=PWD)
 
     def test_master_sku_list_controller(self):
         pass
