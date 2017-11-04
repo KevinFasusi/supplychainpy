@@ -41,7 +41,7 @@ class TestBotController(TestCase):
         with app.app_context():
             db.init_app(app)
             db.create_all()
-            #load_db(file=self._file, location=PWD)
+            load_db(file=self._file, location=PWD)
 
     def test_master_sku_list_controller(self):
         pass
