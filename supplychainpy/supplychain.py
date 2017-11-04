@@ -253,6 +253,8 @@ def main():
             for i in response:
                 print('Dash> ', i)
             msg = input("> ")
+    else:
+        launch_report()
 
 if __name__ == '__main__':
     main()

@@ -29,7 +29,7 @@ class TestRecommendations(TestCase):
             'START'
             )
 
-        self.orders_analysis = model_inventory.analyse(file_path=ABS_FILE_PATH['COMPLETE_CSV_SM'],
+        self.orders_analysis = model_inventory.analyse(file_path=ABS_FILE_PATH['COMPLETE_CSV_XSM'],
                                                        z_value=Decimal(1.28),
                                                        reorder_cost=Decimal(5000),
                                                        file_type='csv',

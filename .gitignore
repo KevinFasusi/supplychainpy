@@ -26,3 +26,6 @@ webpack.config*
 scratch.py
 _archive/*
 .vscode/
+setup_mac_installer.py
+crate.icns
+dist/supplychain.app/*

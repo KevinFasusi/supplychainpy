@@ -73,10 +73,6 @@ class TestModelDemand(TestCase):
             if stat.get('trend'):
                 self.assertTrue(stat.get('pvalue') < 0.05)
 
-    def test_holts_trend_corrected_exponential_smoothing_keys(self):
-        for key in self.sku_id:
-            self.assertIn(key, self.unpack_keys_htces)
-
     def test_holts_trend_corrected_exponential_smoothing(self):
         holts_trend_corrected_esf = holts_trend_corrected_exponential_smoothing_forecast(demand=self._orders,
                                                                                          alpha=0.5,
@@ -88,6 +84,9 @@ class TestModelDemand(TestCase):
         self.assertEqual(281, round(holts_trend_corrected_esf.get('forecast')[0]))
         self.assertEqual(308, round(holts_trend_corrected_esf.get('forecast')[1]))
         self.assertEqual(334, round(holts_trend_corrected_esf.get('forecast')[2]))
+
+        for key in self.sku_id:
+            self.assertIn(key, self.unpack_keys_htces)
 
     def test_simple_exponential_smoothing_key(self):
         ses = simple_exponential_smoothing_forecast(demand=self._orders, alpha=0.5, forecast_length=6, initial_period=18)

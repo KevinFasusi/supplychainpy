@@ -30,7 +30,7 @@ class TestBotController(TestCase):
         app.config['DATABASE'] = PWD
         app.config['TESTING'] = True
         self.app = app.test_client()
-        self._file= ABS_FILE_PATH['COMPLETE_CSV_SM']
+        self._file= ABS_FILE_PATH['COMPLETE_CSV_XSM']
         app_settings = {
             'file': self._file,
             'currency': 'USD',
