@@ -36,6 +36,10 @@ class TestModelDemand(TestCase):
         for sku in self.item_list:
             self.sku_id.append(sku.get("sku_id"))
 
+
+
+    def test_simple_exponential_smoothing_forecast_trend(self):
+
         self.ses_forecast = [i for i in
                              simple_exponential_smoothing_forecast_from_file(
                                  file_path=ABS_FILE_PATH['COMPLETE_CSV_XSM'],
@@ -43,27 +47,12 @@ class TestModelDemand(TestCase):
                                  length=12,
                                  smoothing_level_constant=0.5,
                                  optimise=True)]
+
         self.keys = [list(i.keys()) for i in self.ses_forecast]
         self.unpack_keys = [i[0] for i in self.keys]
-        self.htces_forecast = [i for i in
-                               holts_trend_corrected_exponential_smoothing_forecast_from_file(
-                                   file_path=ABS_FILE_PATH['COMPLETE_CSV_XSM'],
-                                   file_type='csv',
-                                   length=12,
-                                   alpha=0.5,
-                                   gamma=0.5,
-                                   smoothing_level_constant=0.5,
-                                   optimise=True)]
-
-        self.keys = [list(i.keys()) for i in self.htces_forecast]
-        self.unpack_keys_htces = [i[0] for i in self.keys]
-
-    def test_simple_exponential_smoothing_forecast(self):
-        """ Tests every sku listed in file, is processed for forecast """
         for key in self.sku_id:
             self.assertIn(key, self.unpack_keys)
 
-    def test_simple_exponential_smoothing_forecast_trend(self):
         trending = [list(i.values()) for i in self.ses_forecast]
         unpack_trending = [i[0] for i in trending]
         stats = []
@@ -74,6 +63,18 @@ class TestModelDemand(TestCase):
                 self.assertTrue(stat.get('pvalue') < 0.05)
 
     def test_holts_trend_corrected_exponential_smoothing(self):
+
+        self.htces_forecast = [i for i in
+                               holts_trend_corrected_exponential_smoothing_forecast_from_file(
+                                   file_path=ABS_FILE_PATH['COMPLETE_CSV_XSM'],
+                                   file_type='csv',
+                                   length=12,
+                                   alpha=0.5,
+                                   gamma=0.5,
+                                   smoothing_level_constant=0.5,
+                                   optimise=True)]
+
+
         holts_trend_corrected_esf = holts_trend_corrected_exponential_smoothing_forecast(demand=self._orders,
                                                                                          alpha=0.5,
                                                                                          gamma=0.5,
@@ -85,18 +86,20 @@ class TestModelDemand(TestCase):
         self.assertEqual(308, round(holts_trend_corrected_esf.get('forecast')[1]))
         self.assertEqual(334, round(holts_trend_corrected_esf.get('forecast')[2]))
 
+        self.keys = [list(i.keys()) for i in self.htces_forecast]
+        self.unpack_keys_htces = [i[0] for i in self.keys]
+
         for key in self.sku_id:
             self.assertIn(key, self.unpack_keys_htces)
+
+        for i in self.htces_forecast:
+            for k in i.values():
+                self.assertGreater(k.get('original_standard_error'), k.get('standard_error'))
 
     def test_simple_exponential_smoothing_key(self):
         ses = simple_exponential_smoothing_forecast(demand=self._orders, alpha=0.5, forecast_length=6, initial_period=18)
         for k in ses:
             self.assertIn(k, self.ses_components)
-
-    def test_holts_optimisation(self):
-        for i in self.htces_forecast:
-            for k in i.values():
-                self.assertGreater(k.get('original_standard_error'), k.get('standard_error'))
 
 if __name__ == "__main__":
     unittest.main()

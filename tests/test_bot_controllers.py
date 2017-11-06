@@ -43,9 +43,6 @@ class TestBotController(TestCase):
             db.create_all()
             load_db(file=self._file, location=PWD)
 
-    def test_master_sku_list_controller(self):
-        pass
-
     def test_controllers(self):
 
         smallest_excess = excess_controller(database_connection_uri(retrieve='retrieve'), direction='smallest')
