@@ -20,13 +20,14 @@ logging.basicConfig(level=logging.WARNING, format='%(asctime)s - %(levelname)s -
 
 
 class TestBotController(TestCase):
-    def setUp(self):
+
+    def test_controllers(self):
         app = Flask(__name__, instance_relative_config=True)
         PWD = os.path.abspath(os.curdir)
         i_c = IntegrationConfig
         i_c.SQLALCHEMY_DATABASE_URI = 'sqlite:///{}/reporting.db'.format(PWD)
         app.config.from_object(i_c)
-
+        print('\n\n\n', PWD,'\n\n\n')
         app.config['DATABASE'] = PWD
         app.config['TESTING'] = True
         self.app = app.test_client()
@@ -42,8 +43,6 @@ class TestBotController(TestCase):
             db.init_app(app)
             db.create_all()
             load_db(file=self._file, location=PWD)
-
-    def test_controllers(self):
 
         smallest_excess = excess_controller(database_connection_uri(retrieve='retrieve'), direction='smallest')
         largest_excess = excess_controller(database_connection_uri(retrieve='retrieve'), direction='biggest')
