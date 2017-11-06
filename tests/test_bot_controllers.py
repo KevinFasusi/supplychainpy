@@ -27,11 +27,11 @@ class TestBotController(TestCase):
         i_c = IntegrationConfig
         i_c.SQLALCHEMY_DATABASE_URI = 'sqlite:///{}/reporting.db'.format(PWD)
         app.config.from_object(i_c)
-        print('\n\n\n', PWD,'\n\n\n')
+        print(PWD)
         app.config['DATABASE'] = PWD
         app.config['TESTING'] = True
         self.app = app.test_client()
-        self._file= ABS_FILE_PATH['COMPLETE_CSV_XSM']
+        self._file= ABS_FILE_PATH['COMPLETE_CSV_SM']
         app_settings = {
             'file': self._file,
             'currency': 'USD',
