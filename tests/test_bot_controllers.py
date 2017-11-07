@@ -11,6 +11,7 @@ from supplychainpy._helpers._db_connection import database_connection_uri
 from supplychainpy._helpers._pickle_config import serialise_config
 from supplychainpy.bot._controller import excess_controller, shortage_controller, revenue_controller, \
     inventory_turns_controller, average_orders_controller, safety_stock_controller, reorder_level_controller
+from supplychainpy.bot.dash import ChatBot
 from supplychainpy.launch_reports import load_db
 from supplychainpy.reporting.config.settings import IntegrationConfig
 from supplychainpy.reporting.extensions import db
@@ -54,7 +55,7 @@ class TestBotController(TestCase):
         largest_inventory_turns = inventory_turns_controller(database_connection_uri(retrieve='retrieve'), direction='biggest')
         smallest_average_orders = average_orders_controller(database_connection_uri(retrieve='retrieve'), direction='smallest')
         biggest_average_orders = average_orders_controller(database_connection_uri(retrieve='retrieve'), direction='biggest')
-        smallest_safety_stock =  safety_stock_controller(database_connection_uri(retrieve='retrieve'), direction='smallest')
+        smallest_safety_stock = safety_stock_controller(database_connection_uri(retrieve='retrieve'), direction='smallest')
         biggest_safety_stock = safety_stock_controller(database_connection_uri(retrieve='retrieve'), direction='biggest`')
         smallest_reorder_level = reorder_level_controller(database_connection_uri(retrieve='retrieve'), direction='smallest')
         biggest_reorder_level = reorder_level_controller(database_connection_uri(retrieve='retrieve'), direction='biggest')
@@ -68,3 +69,14 @@ class TestBotController(TestCase):
         for i in result:
             self.assertTrue(ses_file_regex.match(i[1]))
 
+        salutation = ["hi", "hello", "how's tricks?"]
+        dude = ChatBot()
+        greeting1 = dude.chat_machine("hello")[0]
+        self.assertIn(*greeting1, salutation)
+        self.assertEqual('<a href="/sku_detail/6">Here you go!</a>', *dude.chat_machine("show KR202-214")[0])
+        self.assertIn('SKU KR202-209',*dude.chat_machine("what is the biggest shortage?")[0])
+        self.assertIn('SKU KR202-215',*dude.chat_machine("what is the biggest excess?")[0])
+        self.assertIn('SKU KR202-209',*dude.chat_machine("what is the biggest revenue?")[0])
+        self.assertIn('SKU KR202-212',*dude.chat_machine("what is the smallest revenue?")[0])
+        self.assertIn('SKU KR202-213',*dude.chat_machine("Which SKU has the smallest average order?")[0])
+        self.assertIn('SKU KR202-212',*dude.chat_machine("Which SKU has the greatest safety stock?")[0])
