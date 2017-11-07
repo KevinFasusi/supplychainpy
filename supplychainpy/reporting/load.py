@@ -345,9 +345,17 @@ def load(file_path: str, location: str = None):
             cores -= 1
             batched_analysis = [i for i in batch(orders_analysis, cores)]
             pickled_paths = pickle_ses_forecast(batched_analysis=batched_analysis)
-            simple_forecast = parallelise_ses(pickled_ses_batch_files=pickled_paths, core_count=cores)
+            try:
+                simple_forecast = parallelise_ses(pickled_ses_batch_files=pickled_paths, core_count=cores)
+            except:
+                simple_forecast = {}
+
             cleanup_pickled_files()
-            holts_forecast = parallelise_htc(batched_analysis=batched_analysis, core_count=cores)
+
+            try:
+                holts_forecast = parallelise_htc(batched_analysis=batched_analysis, core_count=cores)
+            except:
+                holts_forecast = {}
 
             transact = TransactionLog()
             transact.date = date_now

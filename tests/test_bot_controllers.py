@@ -46,7 +46,7 @@ class TestBotController(TestCase):
 
         smallest_excess = excess_controller(database_connection_uri(retrieve='retrieve'), direction='smallest')
         largest_excess = excess_controller(database_connection_uri(retrieve='retrieve'), direction='biggest')
-        smallest_shortage = shortage_controller(database_connection_uri(retrieve='retrieve'), direction='smallest')
+        smallest_sishortage = shortage_controller(database_connection_uri(retrieve='retrieve'), direction='smallest')
         largest_shortage = shortage_controller(database_connection_uri(retrieve='retrieve'), direction='biggest')
         smallest_revenue = revenue_controller(database_connection_uri(retrieve='retrieve'), direction='smallest')
         largest_revenue = revenue_controller(database_connection_uri(retrieve='retrieve'), direction='biggest')
