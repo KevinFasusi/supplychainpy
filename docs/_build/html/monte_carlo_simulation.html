@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Monte Carlo simulation &mdash; supplychainpy 0.0.4 documentation</title>
+  <title>Monte Carlo Simulation &mdash; supplychainpy 0.0.4 documentation</title>
   
 
+  
+  
   
   
 
@@ -30,6 +32,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="supplychainpy 0.0.4 documentation" href="index.html"/>
         <link rel="next" title="Supplychainpy with Docker" href="docker.html"/>
         <link rel="prev" title="Analytic Hierarchy Process" href="ahp.html"/> 
@@ -41,6 +46,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -81,7 +87,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
@@ -89,7 +98,7 @@
 <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory Modeling and Analysis Made Easy with Supplychainpy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pandas.html">Using supplychainpy with Pandas, Jupyter and Matplotlib</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ahp.html">Analytic Hierarchy Process</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Monte Carlo simulation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Monte Carlo Simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Supplychainpy with Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
 </ul>
@@ -104,8 +113,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">supplychainpy</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">supplychainpy</a>
+        
       </nav>
 
 
@@ -118,26 +129,43 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Monte Carlo simulation</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Monte Carlo Simulation</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/monte_carlo_simulation.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/monte_carlo_simulation.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
   <div class="section" id="monte-carlo-simulation">
-<h1>Monte Carlo simulation<a class="headerlink" href="#monte-carlo-simulation" title="Permalink to this headline">¶</a></h1>
+<h1>Monte Carlo Simulation<a class="headerlink" href="#monte-carlo-simulation" title="Permalink to this headline">¶</a></h1>
 <p>After analysing the orders, the results for safety stock may not adequately calculate
 the service level required. The complexity of the supply chain operation may include randomness an analytical model
 does not capture. A simulation is useful for giving a dynamic view of a complex process. The simulation replicates
@@ -147,25 +175,25 @@ requested. The higher the number of runs the more accurately the simulation capt
 when summarised later. The simulation is limited by the assumptions inherent in the simulations design (detailed in the
 <span class="xref std std-ref">calculations</span>).</p>
 <p>To start we need to analyse the orders again like we did in the inventory analysis above:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="k">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">orders_analysis</span> <span class="o">=</span> <span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
 <span class="gp">&gt;&gt;&gt; </span>                                       <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The orders are then passed as a parameter to the monte carlo simulation:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="kn">import</span> <span class="n">simulate</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="k">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="k">import</span> <span class="n">simulate</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">orders_analysis</span> <span class="o">=</span> <span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
 <span class="gp">&gt;&gt;&gt; </span>                                       <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sim</span> <span class="o">=</span> <span class="n">simulate</span><span class="o">.</span><span class="n">run_monte_carlo</span><span class="p">(</span><span class="n">orders_analysis</span><span class="o">=</span><span class="n">orders_analysis</span><span class="o">.</span><span class="n">orders</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span> <span class="n">runs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span>                              <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">4000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span> <span class="n">period_length</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">transaction</span> <span class="ow">in</span> <span class="n">sim</span><span class="p">:</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="k">print</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The Monte Carlo simulation generates normally distributed random demand, based on the historical data. The demand for each SKU is then used in each period to model a probable transaction history. The output below are the sales for one SKU over the year for 100 runs (1 run shown).</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">[{</span><span class="s1">&#39;delivery&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_sold&#39;</span><span class="p">:</span> <span class="s1">&#39;1354&#39;</span><span class="p">,</span> <span class="s1">&#39;po_received&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;po_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;3630&#39;</span><span class="p">,</span> <span class="s1">&#39;opening_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;1446&#39;</span><span class="p">,</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[{</span><span class="s1">&#39;delivery&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_sold&#39;</span><span class="p">:</span> <span class="s1">&#39;1354&#39;</span><span class="p">,</span> <span class="s1">&#39;po_received&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;po_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;3630&#39;</span><span class="p">,</span> <span class="s1">&#39;opening_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;1446&#39;</span><span class="p">,</span>
 <span class="s1">&#39;shortage_units&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;closing_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;1355&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;541946&#39;</span><span class="p">,</span> <span class="s1">&#39;demand&#39;</span><span class="p">:</span> <span class="s1">&#39;92&#39;</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;po_raised&#39;</span><span class="p">:</span>
 <span class="s1">&#39;PO 31&#39;</span><span class="p">,</span> <span class="s1">&#39;period&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;backlog&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;sku_id&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span> <span class="s1">&#39;shortage_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">}]</span>
 <span class="p">[{</span><span class="s1">&#39;delivery&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity_sold&#39;</span><span class="p">:</span> <span class="s1">&#39;1354&#39;</span><span class="p">,</span> <span class="s1">&#39;po_received&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;po_quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;6268&#39;</span><span class="p">,</span> <span class="s1">&#39;opening_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;1355&#39;</span><span class="p">,</span>
@@ -204,8 +232,8 @@ when summarised later. The simulation is limited by the assumptions inherent in 
 </pre></div>
 </div>
 <p>After running the Monte Carlo simulation, the results can be passed as a parameter for summary:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="kn">import</span> <span class="n">simulate</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="k">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="k">import</span> <span class="n">simulate</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">orders_analysis</span> <span class="o">=</span> <span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
 <span class="gp">&gt;&gt;&gt; </span>                                       <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
 <span class="go">&gt;&gt;&gt;</span>
@@ -213,12 +241,12 @@ when summarised later. The simulation is limited by the assumptions inherent in 
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sim_window</span> <span class="o">=</span> <span class="n">simulate</span><span class="o">.</span><span class="n">summarize_window</span><span class="p">(</span><span class="n">simulation_frame</span><span class="o">=</span><span class="n">sim</span><span class="p">,</span> <span class="n">period_length</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
-<span class="gp">&gt;&gt;&gt; </span>        <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The result is a transactions summary for each SKU, over every run (100) requested. It is important to note that each
 run will have a different randomly generated demand. Due to the randomised demand, the transaction summary for the same SKU will differ over consecutive runs. The spread of data captures the statistically probable distribution of demand the SKU can expect. However the more runs (thousands, tens of thousands), the more useful the result.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s1">&#39;standard_deviation_backlog&#39;</span><span class="p">:</span> <span class="mf">250.43961347997646</span><span class="p">,</span> <span class="s1">&#39;variance_quantity_sold&#39;</span><span class="p">:</span> <span class="mf">4045303.0763888955</span><span class="p">,</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;standard_deviation_backlog&#39;</span><span class="p">:</span> <span class="mf">250.43961347997646</span><span class="p">,</span> <span class="s1">&#39;variance_quantity_sold&#39;</span><span class="p">:</span> <span class="mf">4045303.0763888955</span><span class="p">,</span>
 <span class="s1">&#39;total_shortage_units&#39;</span><span class="p">:</span> <span class="mf">672.0</span><span class="p">,</span> <span class="s1">&#39;average_closing_stock&#39;</span><span class="p">:</span> <span class="mf">3028.416748046875</span><span class="p">,</span> <span class="s1">&#39;maximum_opening_stock&#39;</span><span class="p">:</span> <span class="mf">6279.0</span><span class="p">,</span>
 <span class="s1">&#39;minimum_closing_stock&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;maximum_shortage_units&#39;</span><span class="p">:</span> <span class="mf">672.0</span><span class="p">,</span> <span class="s1">&#39;variance_backlog&#39;</span><span class="p">:</span> <span class="mf">62720.0</span><span class="p">,</span>
 <span class="s1">&#39;average_quantity_sold&#39;</span><span class="p">:</span> <span class="mf">3091.583251953125</span><span class="p">,</span> <span class="s1">&#39;minimum_backlog&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;maximum_backlog&#39;</span><span class="p">:</span> <span class="mf">672.0</span><span class="p">,</span>
@@ -234,8 +262,8 @@ run will have a different randomly generated demand. Due to the randomised deman
 <p>The <cite>summarize_window</cite> returns max, min, averages and standard deviations for the primary values from the transaction summary.</p>
 <p>The last method summarises the runs into one transaction summary for each SKU. Similar in content to the previous
 summary, however, this summary aggregates the simulation runs.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="kn">import</span> <span class="n">simulate</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="k">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="k">import</span> <span class="n">simulate</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">orders_analysis</span> <span class="o">=</span> <span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
 <span class="gp">&gt;&gt;&gt; </span>                                       <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
@@ -247,11 +275,11 @@ summary, however, this summary aggregates the simulation runs.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sim_frame</span><span class="o">=</span> <span class="n">simulate</span><span class="o">.</span><span class="n">summarise_frame</span><span class="p">(</span><span class="n">sim_window</span><span class="p">)</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">transaction_summary</span> <span class="ow">in</span> <span class="n">sim_frame</span><span class="p">:</span>
-<span class="gp">&gt;&gt;&gt; </span>        <span class="k">print</span><span class="p">(</span><span class="n">transaction_summary</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="nb">print</span><span class="p">(</span><span class="n">transaction_summary</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Below is 1 of 32 results for 32 SKUs ran 100 times.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s1">&#39;standard_deviation_quantity_sold&#39;</span><span class="p">:</span> <span class="s1">&#39;2228&#39;</span><span class="p">,</span> <span class="s1">&#39;average_backlog&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;standard_deviation_closing_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;2228&#39;</span><span class="p">,</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;standard_deviation_quantity_sold&#39;</span><span class="p">:</span> <span class="s1">&#39;2228&#39;</span><span class="p">,</span> <span class="s1">&#39;average_backlog&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;standard_deviation_closing_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;2228&#39;</span><span class="p">,</span>
 <span class="s1">&#39;maximum_quantity_sold&#39;</span><span class="p">:</span> <span class="mf">7901.0</span><span class="p">,</span> <span class="s1">&#39;sku_id&#39;</span><span class="p">:</span> <span class="s1">&#39;KR202-209&#39;</span><span class="p">,</span> <span class="s1">&#39;minimum_quantity_sold&#39;</span><span class="p">:</span> <span class="mf">407.0</span><span class="p">,</span> <span class="s1">&#39;minimum_backlog&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
 <span class="s1">&#39;average_closing_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;3592&#39;</span><span class="p">,</span> <span class="s1">&#39;average_shortage_units&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;variance_opening_stock&#39;</span><span class="p">:</span> <span class="s1">&#39;2287&#39;</span><span class="p">,</span>
 <span class="s1">&#39;minimum_opening_stock&#39;</span><span class="p">:</span> <span class="mi">407</span><span class="p">,</span> <span class="s1">&#39;maximum_opening_stock&#39;</span><span class="p">:</span> <span class="mi">7901</span><span class="p">,</span> <span class="s1">&#39;minimum_closing_stock&#39;</span><span class="p">:</span> <span class="mi">407</span><span class="p">,</span> <span class="s1">&#39;service_level&#39;</span><span class="p">:</span> <span class="s1">&#39;100.00&#39;</span><span class="p">,</span>
@@ -261,8 +289,8 @@ summary, however, this summary aggregates the simulation runs.</p>
 </div>
 <p>An optimisation option exists, if after running the Monte Carlo analysis, the behaviour in the transaction summary is not favourable. If most SKUs are not achieving their desired service level or have large
 quantities of backlog etc., then you can use:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="kn">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="kn">import</span> <span class="n">simulate</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy.model_inventory</span> <span class="k">import</span> <span class="n">analyse_orders_abcxyz_from_file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplychainpy</span> <span class="k">import</span> <span class="n">simulate</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">orders_analysis</span> <span class="o">=</span> <span class="n">analyse_orders_abcxyz_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">z_value</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mf">1.28</span><span class="p">),</span>
 <span class="gp">&gt;&gt;&gt; </span>                                       <span class="n">reorder_cost</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
@@ -288,15 +316,18 @@ for each release.</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="docker.html" class="btn btn-neutral float-right" title="Supplychainpy with Docker" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="docker.html" class="btn btn-neutral float-right" title="Supplychainpy with Docker" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="ahp.html" class="btn btn-neutral" title="Analytic Hierarchy Process" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ahp.html" class="btn btn-neutral" title="Analytic Hierarchy Process" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -330,13 +361,14 @@ for each release.</p>
             VERSION:'0.0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

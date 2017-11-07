@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -30,6 +32,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="supplychainpy 0.0.4 documentation" href="index.html"/> 
 
   
@@ -39,6 +44,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -79,7 +85,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
@@ -87,7 +96,7 @@
 <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory Modeling and Analysis Made Easy with Supplychainpy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pandas.html">Using supplychainpy with Pandas, Jupyter and Matplotlib</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ahp.html">Analytic Hierarchy Process</a></li>
-<li class="toctree-l1"><a class="reference internal" href="monte_carlo_simulation.html">Monte Carlo simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo_simulation.html">Monte Carlo Simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Supplychainpy with Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
 </ul>
@@ -102,8 +111,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">supplychainpy</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">supplychainpy</a>
+        
       </nav>
 
 
@@ -116,19 +127,36 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>supplychainpy.bi package</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>supplychainpy.bi package</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/supplychainpy.bi.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/supplychainpy.bi.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -143,15 +171,15 @@
 <span id="supplychainpy-bi-recommendation-generator-module"></span><h2>supplychainpy.bi.recommendation_generator module<a class="headerlink" href="#module-supplychainpy.bi.recommendation_generator" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="supplychainpy.bi.recommendation_generator.run_profile_recommendation">
-<code class="descclassname">supplychainpy.bi.recommendation_generator.</code><code class="descname">run_profile_recommendation</code><span class="sig-paren">(</span><em>analysed_orders: supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand</em>, <em>forecast: dict</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.bi.recommendation_generator.run_profile_recommendation" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">supplychainpy.bi.recommendation_generator.</code><code class="descname">run_profile_recommendation</code><span class="sig-paren">(</span><em>analysed_orders: supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand</em>, <em>forecast: dict</em><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#supplychainpy.bi.recommendation_generator.run_profile_recommendation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs profile recommendation state machine and generates recommendations for entire inventory profile.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>analysed_orders</strong> (<a class="reference internal" href="supplychainpy.inventory.html#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand" title="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand"><em>UncertainDemand</em></a>) &#8211; Analysed orders as UncertainDemand object</li>
-<li><strong>forecast</strong> (<em>dict</em>) &#8211; Forecast results for same data set.</li>
+<li><strong>analysed_orders</strong> (<a class="reference internal" href="supplychainpy.inventory.html#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand" title="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand"><em>UncertainDemand</em></a>) – Analysed orders as UncertainDemand object</li>
+<li><strong>forecast</strong> (<em>dict</em>) – Forecast results for same data set.</li>
 </ul>
 </td>
 </tr>
@@ -167,15 +195,15 @@
 
 <dl class="function">
 <dt id="supplychainpy.bi.recommendation_generator.run_sku_recommendation">
-<code class="descclassname">supplychainpy.bi.recommendation_generator.</code><code class="descname">run_sku_recommendation</code><span class="sig-paren">(</span><em>analysed_orders: supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand</em>, <em>forecast: dict</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.bi.recommendation_generator.run_sku_recommendation" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">supplychainpy.bi.recommendation_generator.</code><code class="descname">run_sku_recommendation</code><span class="sig-paren">(</span><em>analysed_orders: supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand</em>, <em>forecast: dict</em><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#supplychainpy.bi.recommendation_generator.run_sku_recommendation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs SKU recommendation state machine and generates recommendations for each sku.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>analysed_orders</strong> (<a class="reference internal" href="supplychainpy.inventory.html#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand" title="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand"><em>UncertainDemand</em></a>) &#8211; Analysed Orders.</li>
-<li><strong>forecast</strong> (<em>dict</em>) &#8211; forecast.</li>
+<li><strong>analysed_orders</strong> (<a class="reference internal" href="supplychainpy.inventory.html#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand" title="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand"><em>UncertainDemand</em></a>) – Analysed Orders.</li>
+<li><strong>forecast</strong> (<em>dict</em>) – forecast.</li>
 </ul>
 </td>
 </tr>
@@ -196,6 +224,9 @@
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -230,13 +261,14 @@
             VERSION:'0.0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

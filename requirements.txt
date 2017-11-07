@@ -14,6 +14,6 @@ simplejson==3.12.0
 SQLAlchemy==1.1.15
 textblob==0.13.0
 WTForms==2.1
-Sphinx==1.4.8
-sphinx-rtd-theme==0.1.9
-sphinxcontrib-napoleon==0.5.3
+Sphinx==1.6.5
+sphinx-rtd-theme==0.2.4
+sphinxcontrib-napoleon==0.6.1

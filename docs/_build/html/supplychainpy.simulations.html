@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -30,6 +32,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="supplychainpy 0.0.4 documentation" href="index.html"/> 
 
   
@@ -39,6 +44,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -79,7 +85,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
@@ -87,7 +96,7 @@
 <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory Modeling and Analysis Made Easy with Supplychainpy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pandas.html">Using supplychainpy with Pandas, Jupyter and Matplotlib</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ahp.html">Analytic Hierarchy Process</a></li>
-<li class="toctree-l1"><a class="reference internal" href="monte_carlo_simulation.html">Monte Carlo simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo_simulation.html">Monte Carlo Simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Supplychainpy with Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
 </ul>
@@ -102,8 +111,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">supplychainpy</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">supplychainpy</a>
+        
       </nav>
 
 
@@ -116,19 +127,36 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>supplychainpy.simulations package</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>supplychainpy.simulations package</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/supplychainpy.simulations.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/supplychainpy.simulations.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -143,12 +171,12 @@
 <span id="supplychainpy-simulations-monte-carlo-module"></span><h2>supplychainpy.simulations.monte_carlo module<a class="headerlink" href="#module-supplychainpy.simulations.monte_carlo" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="supplychainpy.simulations.monte_carlo.SetupMonteCarlo">
-<em class="property">class </em><code class="descclassname">supplychainpy.simulations.monte_carlo.</code><code class="descname">SetupMonteCarlo</code><span class="sig-paren">(</span><em>analysed_orders: list</em>, <em>period: str='months'</em>, <em>period_length: int=12</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.simulations.monte_carlo.SetupMonteCarlo" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">supplychainpy.simulations.monte_carlo.</code><code class="descname">SetupMonteCarlo</code><span class="sig-paren">(</span><em>analysed_orders: list</em>, <em>period: str = 'months'</em>, <em>period_length: int = 12</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.simulations.monte_carlo.SetupMonteCarlo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Create a monte carlo simulation for inventory analysis.</p>
 <dl class="method">
 <dt id="supplychainpy.simulations.monte_carlo.SetupMonteCarlo.build_window">
-<code class="descname">build_window</code><span class="sig-paren">(</span><em>random_normal_demand: list</em>, <em>period_length: int=0</em>, <em>holding_cost_percentage: decimal.Decimal=0.48</em>, <em>shortage_cost_percentage: decimal.Decimal=0.3</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.simulations.monte_carlo.SetupMonteCarlo.build_window" title="Permalink to this definition">¶</a></dt>
+<code class="descname">build_window</code><span class="sig-paren">(</span><em>random_normal_demand: list</em>, <em>period_length: int = 0</em>, <em>holding_cost_percentage: decimal.Decimal = 0.48</em>, <em>shortage_cost_percentage: decimal.Decimal = 0.3</em><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#supplychainpy.simulations.monte_carlo.SetupMonteCarlo.build_window" title="Permalink to this definition">¶</a></dt>
 <dd><p>Builds the simulation window for opening stock, demand, closing stock, backlog, holding cost and shortages.</p>
 <p>The window represents a fixed time frame, supplied by the user. The window is then run several times to generate
 probabilities for example the probability of stocking out during the period specified or the probability that the
@@ -159,10 +187,10 @@ calculate the safety stock etc, based on a few assumptions.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>random_normal_demand</strong> (<em>list</em>) &#8211; A list of random demand normally distributed.</li>
-<li><strong>period_length</strong> (<em>int</em>) &#8211; length of window e.g. 12 weeks for a quarter etc.</li>
-<li><strong>holding_cost_percentage</strong> (<em>Decimal</em>) &#8211; The percentage of unit cost to associate with holding cost,</li>
-<li><strong>shortage_cost_percentage</strong> (<em>Decimal</em>) &#8211; The percentage of unit cost to associate with shortage cost,</li>
+<li><strong>random_normal_demand</strong> (<em>list</em>) – A list of random demand normally distributed.</li>
+<li><strong>period_length</strong> (<em>int</em>) – length of window e.g. 12 weeks for a quarter etc.</li>
+<li><strong>holding_cost_percentage</strong> (<em>Decimal</em>) – The percentage of unit cost to associate with holding cost,</li>
+<li><strong>shortage_cost_percentage</strong> (<em>Decimal</em>) – The percentage of unit cost to associate with shortage cost,</li>
 </ul>
 </td>
 </tr>
@@ -177,8 +205,8 @@ calculate the safety stock etc, based on a few assumptions.</p>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">dict</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; The period_length is currently {} and the actual length of the demand is {}.
-Please make sure that the two values are equal&#8221;.format(period_length,
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – The period_length is currently {} and the actual length of the demand is {}.
+Please make sure that the two values are equal”.format(period_length,
 len(random_normal_demand[0][sku.sku_id]))</p>
 </td>
 </tr>
@@ -188,14 +216,14 @@ len(random_normal_demand[0][sku.sku_id]))</p>
 
 <dl class="method">
 <dt id="supplychainpy.simulations.monte_carlo.SetupMonteCarlo.generate_normal_random_distribution">
-<code class="descname">generate_normal_random_distribution</code><span class="sig-paren">(</span><em>period_length: int</em><span class="sig-paren">)</span> &rarr; list<a class="headerlink" href="#supplychainpy.simulations.monte_carlo.SetupMonteCarlo.generate_normal_random_distribution" title="Permalink to this definition">¶</a></dt>
+<code class="descname">generate_normal_random_distribution</code><span class="sig-paren">(</span><em>period_length: int</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#supplychainpy.simulations.monte_carlo.SetupMonteCarlo.generate_normal_random_distribution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates the random demand for a given sku.</p>
 <p>For each sku a set of random demands are calculated based on the normal distribution of demand for this product.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>period_length</strong> (<em>int</em>) &#8211; length of window e.g. 12 weeks for a quarter etc.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>period_length</strong> (<em>int</em>) – length of window e.g. 12 weeks for a quarter etc.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A list of randomly generated demand.</td>
 </tr>
@@ -261,11 +289,11 @@ is run again.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>frame_summary</strong> (<em>list</em>) &#8211; window summary for each period multiplied by the number of runs.</li>
-<li><strong>orders_analysis</strong> (<em>list</em>) &#8211; prior analysis of orders data.</li>
-<li><strong>service_level</strong> (<em>double</em>) &#8211; required service level as a percentage.</li>
-<li><strong>runs</strong> (<em>int</em>) &#8211; number of runs from previous</li>
-<li><strong>percentage_increase</strong> (<em>double</em>) &#8211; the percentage increase required</li>
+<li><strong>frame_summary</strong> (<em>list</em>) – window summary for each period multiplied by the number of runs.</li>
+<li><strong>orders_analysis</strong> (<em>list</em>) – prior analysis of orders data.</li>
+<li><strong>service_level</strong> (<em>double</em>) – required service level as a percentage.</li>
+<li><strong>runs</strong> (<em>int</em>) – number of runs from previous</li>
+<li><strong>percentage_increase</strong> (<em>double</em>) – the percentage increase required</li>
 </ul>
 </td>
 </tr>
@@ -306,8 +334,8 @@ for inventory movements.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>simulation_frame</strong> (<em>list</em>) &#8211; The path to the file containing two columns of data, 1 period and 1 data-point per sku.</li>
-<li><strong>period_length</strong> (<em>int</em>) &#8211; The number of periods define the simulation window e.g. 12 weeks, months etc.</li>
+<li><strong>simulation_frame</strong> (<em>list</em>) – The path to the file containing two columns of data, 1 period and 1 data-point per sku.</li>
+<li><strong>period_length</strong> (<em>int</em>) – The number of periods define the simulation window e.g. 12 weeks, months etc.</li>
 </ul>
 </td>
 </tr>
@@ -337,8 +365,8 @@ for inventory movements.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>period_length</strong> (<em>int</em>) &#8211; length of window e.g. 12 weeks for a quarter etc.</li>
-<li><strong>closing_stock</strong> (<em>list</em>) &#8211; list of closing stock values for a given sku over the same time frame
+<li><strong>period_length</strong> (<em>int</em>) – length of window e.g. 12 weeks for a quarter etc.</li>
+<li><strong>closing_stock</strong> (<em>list</em>) – list of closing stock values for a given sku over the same time frame
 as the period_length</li>
 </ul>
 </td>
@@ -349,7 +377,7 @@ as the period_length</li>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">float</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; The number of stock positions and the period length must match exactly.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – The number of stock positions and the period length must match exactly.</p>
 </td>
 </tr>
 </tbody>
@@ -380,7 +408,7 @@ as the period_length</li>
 If you read the value of <cite>pos</cite>, it will return a tuple with the values of
 <cite>x</cite> and <cite>y</cite>.</p>
 <p>For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MyWidget</span><span class="p">(</span><span class="n">EventDispatcher</span><span class="p">):</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyWidget</span><span class="p">(</span><span class="n">EventDispatcher</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">NumericProperty</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">NumericProperty</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">pos</span> <span class="o">=</span> <span class="n">ReferenceListProperty</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -405,9 +433,9 @@ If you read the value of <cite>pos</cite>, it will return a tuple with the value
 </tr>
 </tbody>
 </table>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">wid</span> <span class="o">=</span> <span class="n">Widget</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wid</span> <span class="o">=</span> <span class="n">Widget</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wid</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">42</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">wid</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">wid</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
 <span class="go">42</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wid</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;plop&quot;</span>
 <span class="go"> Traceback (most recent call last):</span>
@@ -420,8 +448,8 @@ If you read the value of <cite>pos</cite>, it will return a tuple with the value
 </div>
 <div class="versionchanged">
 <p><span class="versionmodified">Changed in version 1.4.1: </span>NumericProperty can now accept custom text and tuple value to indicate a
-type, like &#8220;in&#8221;, &#8220;pt&#8221;, &#8220;px&#8221;, &#8220;cm&#8221;, &#8220;mm&#8221;, in the format: &#8216;10pt&#8217; or (10,
-&#8216;pt&#8217;).</p>
+type, like “in”, “pt”, “px”, “cm”, “mm”, in the format: ‘10pt’ or (10,
+‘pt’).</p>
 </div>
 </dd></dl>
 
@@ -442,9 +470,9 @@ type, like &#8220;in&#8221;, &#8220;pt&#8221;, &#8220;px&#8221;, &#8220;cm&#8221
 </tr>
 </tbody>
 </table>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">wid</span> <span class="o">=</span> <span class="n">Widget</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wid</span> <span class="o">=</span> <span class="n">Widget</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wid</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">42</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">wid</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">wid</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
 <span class="go">42</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wid</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;plop&quot;</span>
 <span class="go"> Traceback (most recent call last):</span>
@@ -457,8 +485,8 @@ type, like &#8220;in&#8221;, &#8220;pt&#8221;, &#8220;px&#8221;, &#8220;cm&#8221
 </div>
 <div class="versionchanged">
 <p><span class="versionmodified">Changed in version 1.4.1: </span>NumericProperty can now accept custom text and tuple value to indicate a
-type, like &#8220;in&#8221;, &#8220;pt&#8221;, &#8220;px&#8221;, &#8220;cm&#8221;, &#8220;mm&#8221;, in the format: &#8216;10pt&#8217; or (10,
-&#8216;pt&#8217;).</p>
+type, like “in”, “pt”, “px”, “cm”, “mm”, in the format: ‘10pt’ or (10,
+‘pt’).</p>
 </div>
 </dd></dl>
 
@@ -489,7 +517,7 @@ type, like &#8220;in&#8221;, &#8220;pt&#8221;, &#8220;px&#8221;, &#8220;cm&#8221
 <dd><p class="first">Whether kv rules using this object as an intermediate attribute
 in a kv rule, will update the bound property when this object
 changes.</p>
-<p>That is the standard behavior is that if there&#8217;s a kv rule
+<p>That is the standard behavior is that if there’s a kv rule
 <code class="docutils literal"><span class="pre">text:</span> <span class="pre">self.a.b.c.d</span></code>, where <code class="docutils literal"><span class="pre">a</span></code>, <code class="docutils literal"><span class="pre">b</span></code>, and <code class="docutils literal"><span class="pre">c</span></code> are
 properties with <code class="docutils literal"><span class="pre">rebind</span></code> <code class="docutils literal"><span class="pre">False</span></code> and <code class="docutils literal"><span class="pre">d</span></code> is a
 <code class="xref py py-class docutils literal"><span class="pre">StringProperty</span></code>. Then when the rule is applied, <code class="docutils literal"><span class="pre">text</span></code>
@@ -510,7 +538,7 @@ that <code class="docutils literal"><span class="pre">text</span></code> is now 
 <dd><dl class="first last docutils">
 <dt><cite>baseclass</cite></dt>
 <dd><p class="first last">If kwargs includes a <cite>baseclass</cite> argument, this value will be
-used for validation: <cite>isinstance(value, kwargs[&#8216;baseclass&#8217;])</cite>.</p>
+used for validation: <cite>isinstance(value, kwargs[‘baseclass’])</cite>.</p>
 </dd>
 </dl>
 </dd>
@@ -552,7 +580,7 @@ used for validation: <cite>isinstance(value, kwargs[&#8216;baseclass&#8217;])</c
 <dd><p class="first">Whether kv rules using this object as an intermediate attribute
 in a kv rule, will update the bound property when this object
 changes.</p>
-<p>That is the standard behavior is that if there&#8217;s a kv rule
+<p>That is the standard behavior is that if there’s a kv rule
 <code class="docutils literal"><span class="pre">text:</span> <span class="pre">self.a.b.c.d</span></code>, where <code class="docutils literal"><span class="pre">a</span></code>, <code class="docutils literal"><span class="pre">b</span></code>, and <code class="docutils literal"><span class="pre">c</span></code> are
 properties with <code class="docutils literal"><span class="pre">rebind</span></code> <code class="docutils literal"><span class="pre">False</span></code> and <code class="docutils literal"><span class="pre">d</span></code> is a
 <code class="xref py py-class docutils literal"><span class="pre">StringProperty</span></code>. Then when the rule is applied, <code class="docutils literal"><span class="pre">text</span></code>
@@ -573,7 +601,7 @@ that <code class="docutils literal"><span class="pre">text</span></code> is now 
 <dd><dl class="first last docutils">
 <dt><cite>baseclass</cite></dt>
 <dd><p class="first last">If kwargs includes a <cite>baseclass</cite> argument, this value will be
-used for validation: <cite>isinstance(value, kwargs[&#8216;baseclass&#8217;])</cite>.</p>
+used for validation: <cite>isinstance(value, kwargs[‘baseclass’])</cite>.</p>
 </dd>
 </dl>
 </dd>
@@ -626,7 +654,7 @@ used for validation: <cite>isinstance(value, kwargs[&#8216;baseclass&#8217;])</c
 <dd><p class="first">Whether kv rules using this object as an intermediate attribute
 in a kv rule, will update the bound property when this object
 changes.</p>
-<p>That is the standard behavior is that if there&#8217;s a kv rule
+<p>That is the standard behavior is that if there’s a kv rule
 <code class="docutils literal"><span class="pre">text:</span> <span class="pre">self.a.b.c.d</span></code>, where <code class="docutils literal"><span class="pre">a</span></code>, <code class="docutils literal"><span class="pre">b</span></code>, and <code class="docutils literal"><span class="pre">c</span></code> are
 properties with <code class="docutils literal"><span class="pre">rebind</span></code> <code class="docutils literal"><span class="pre">False</span></code> and <code class="docutils literal"><span class="pre">d</span></code> is a
 <code class="xref py py-class docutils literal"><span class="pre">StringProperty</span></code>. Then when the rule is applied, <code class="docutils literal"><span class="pre">text</span></code>
@@ -647,7 +675,7 @@ that <code class="docutils literal"><span class="pre">text</span></code> is now 
 <dd><dl class="first last docutils">
 <dt><cite>baseclass</cite></dt>
 <dd><p class="first last">If kwargs includes a <cite>baseclass</cite> argument, this value will be
-used for validation: <cite>isinstance(value, kwargs[&#8216;baseclass&#8217;])</cite>.</p>
+used for validation: <cite>isinstance(value, kwargs[‘baseclass’])</cite>.</p>
 </dd>
 </dl>
 </dd>
@@ -683,7 +711,7 @@ used for validation: <cite>isinstance(value, kwargs[&#8216;baseclass&#8217;])</c
 
 <dl class="function">
 <dt id="supplychainpy.simulations.simulation_gui.random">
-<code class="descclassname">supplychainpy.simulations.simulation_gui.</code><code class="descname">random</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; x in the interval [0, 1).<a class="headerlink" href="#supplychainpy.simulations.simulation_gui.random" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">supplychainpy.simulations.simulation_gui.</code><code class="descname">random</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; x in the interval [0, 1).<a class="headerlink" href="#supplychainpy.simulations.simulation_gui.random" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -814,6 +842,11 @@ used for validation: <cite>isinstance(value, kwargs[&#8216;baseclass&#8217;])</c
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.previous_backlog">
+<code class="descname">previous_backlog</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.previous_backlog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="supplychainpy.simulations.simulation_window.MonteCarloWindow.purchase_order_raised_qty">
 <code class="descname">purchase_order_raised_qty</code><a class="headerlink" href="#supplychainpy.simulations.simulation_window.MonteCarloWindow.purchase_order_raised_qty" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -863,6 +896,9 @@ used for validation: <cite>isinstance(value, kwargs[&#8216;baseclass&#8217;])</c
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
@@ -896,13 +932,14 @@ used for validation: <cite>isinstance(value, kwargs[&#8216;baseclass&#8217;])</c
             VERSION:'0.0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

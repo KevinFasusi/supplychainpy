@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -30,6 +32,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="supplychainpy 0.0.4 documentation" href="index.html"/>
         <link rel="next" title="Inventory Modeling and Analysis Made Easy with Supplychainpy" href="inventory.html"/>
         <link rel="prev" title="Quick Guide" href="quickstart.html"/> 
@@ -41,6 +46,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -81,11 +87,14 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Supplychainpy Reporting Suite</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Supplychainpy Reporting Suite</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#launch-from-cli">Launch from Cli</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#reporting-suite-walk-through">Reporting Suite Walk Through</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#navigation">Navigation</a></li>
@@ -103,7 +112,7 @@
 <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory Modeling and Analysis Made Easy with Supplychainpy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pandas.html">Using supplychainpy with Pandas, Jupyter and Matplotlib</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ahp.html">Analytic Hierarchy Process</a></li>
-<li class="toctree-l1"><a class="reference internal" href="monte_carlo_simulation.html">Monte Carlo simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo_simulation.html">Monte Carlo Simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Supplychainpy with Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
 </ul>
@@ -118,8 +127,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">supplychainpy</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">supplychainpy</a>
+        
       </nav>
 
 
@@ -132,19 +143,36 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Supplychainpy Reporting Suite</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Supplychainpy Reporting Suite</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/reporting.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/reporting.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -158,31 +186,31 @@ The reports bring some of the data analysis capabilities of the library to life 
 charts, tables, KPIs and an interactive Bot.</p>
 <p>The reports aim to:</p>
 <ol class="arabic simple">
-<li>provide the ability to visualise data and spot trends, allowing analysts to get a &#8220;feel&#8221; for their data.</li>
+<li>provide the ability to visualise data and spot trends, allowing analysts to get a “feel” for their data.</li>
 <li>provide a set of generic default reports, to showcase some general uses cases and highlight the capabilities of the library.</li>
 <li>identify areas of interest for further exploration.</li>
 </ol>
 <div class="section" id="launch-from-cli">
 <h2>Launch from Cli<a class="headerlink" href="#launch-from-cli" title="Permalink to this headline">¶</a></h2>
-<p>The command line arguments can be viewed using the <cite>&#8211;help</cite> flag. There are several options for launching the reports. Using the the reporting function generates a sqlite database called <cite>reporting</cite>.
+<p>The command line arguments can be viewed using the <cite>–help</cite> flag. There are several options for launching the reports. Using the the reporting function generates a sqlite database called <cite>reporting</cite>.
 To process a CSV file and initiate the reporting suite directly after, navigate to a directory suitable for storing the CSV and resulting database. Use the following commands:</p>
 <p><strong>Linux and Mac</strong></p>
-<div class="code bash highlight-python"><div class="highlight"><pre>supplychainpy filename.csv -a -loc ~/absolute/path/to/current/directory -l -cur EUR
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="n">supplychainpy</span> <span class="n">filename</span><span class="o">.</span><span class="n">csv</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">loc</span> <span class="o">~/</span><span class="n">absolute</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">current</span><span class="o">/</span><span class="n">directory</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">cur</span> <span class="n">EUR</span>
 </pre></div>
 </div>
 <p><strong>Windows</strong></p>
-<div class="code bash highlight-python"><div class="highlight"><pre>supplychainpy filename.csv -a -loc drive:\absolute\path\to\current\directory -l -cur EUR
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="n">supplychainpy</span> <span class="n">filename</span><span class="o">.</span><span class="n">csv</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">loc</span> <span class="n">drive</span><span class="p">:</span>\<span class="n">absolute</span>\<span class="n">path</span>\<span class="n">to</span>\<span class="n">current</span>\<span class="n">directory</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">cur</span> <span class="n">EUR</span>
 </pre></div>
 </div>
-<p>Importantly the the currency flag (-cur) if unspecified will default to USD. Other optional arguments include the host (&#8211;host default: 127.0.0.1 ) and port (-p default: 5000) arguments. Setting the host and ports allows the <cite>-l</cite> arguments can be replaced by the <cite>-lx</cite>. The <cite>-l</cite> arguments launch a small intermediary GUI for setting the port before launching the reports in a web browser. The <cite>-lx</cite> argument start the reporting process but does not launch a GUI or a browser window and instead expects the user to open the browser and navigate to the address hosting the reports as specified in the CLI.</p>
+<p>Importantly the the currency flag (-cur) if unspecified will default to USD. Other optional arguments include the host (–host default: 127.0.0.1 ) and port (-p default: 5000) arguments. Setting the host and ports allows the <cite>-l</cite> arguments can be replaced by the <cite>-lx</cite>. The <cite>-l</cite> arguments launch a small intermediary GUI for setting the port before launching the reports in a web browser. The <cite>-lx</cite> argument start the reporting process but does not launch a GUI or a browser window and instead expects the user to open the browser and navigate to the address hosting the reports as specified in the CLI.</p>
 </div>
 <div class="section" id="reporting-suite-walk-through">
 <h2>Reporting Suite Walk Through<a class="headerlink" href="#reporting-suite-walk-through" title="Permalink to this headline">¶</a></h2>
-<p>The reporting suite launches on the &#8216;Dashboard&#8217; page. The Dashboard is split into three section: Classification Breakdown, Top 10 Shortages and Top 10 Excess.
+<p>The reporting suite launches on the ‘Dashboard’ page. The Dashboard is split into three section: Classification Breakdown, Top 10 Shortages and Top 10 Excess.
 The Dashboard hosts three toggle switches at the top of the screen for toggling each section in and out of view.</p>
 <div class="section" id="navigation">
 <h3>Navigation<a class="headerlink" href="#navigation" title="Permalink to this headline">¶</a></h3>
-<p>The Navigation panel is hidden to the left of the browser and can be toggled into view by clicking on the &#8216;supplychainpy&#8217; logo icon.</p>
+<p>The Navigation panel is hidden to the left of the browser and can be toggled into view by clicking on the ‘supplychainpy’ logo icon.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="31%" />
@@ -222,7 +250,7 @@ interrogating the data using natural language.</td>
 </div>
 <div class="section" id="the-head-up-display-hud">
 <h3>The Head up Display (HUD)<a class="headerlink" href="#the-head-up-display-hud" title="Permalink to this headline">¶</a></h3>
-<p>The reports use what we like to refer to as a &#8220;Heads up Display&#8221; (HUD) to highlight key values and KPIs.
+<p>The reports use what we like to refer to as a “Heads up Display” (HUD) to highlight key values and KPIs.
 As seen below, the HUD is a row of boxes (Slates), that sits on top of the main charts, analysis and tabular breakdowns.</p>
 <img alt="_images/hud.png" src="_images/hud.png" />
 </div>
@@ -262,15 +290,18 @@ contribution the SKU makes to revenue and the variability in demand respectively
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="inventory.html" class="btn btn-neutral float-right" title="Inventory Modeling and Analysis Made Easy with Supplychainpy" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="inventory.html" class="btn btn-neutral float-right" title="Inventory Modeling and Analysis Made Easy with Supplychainpy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="quickstart.html" class="btn btn-neutral" title="Quick Guide" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="quickstart.html" class="btn btn-neutral" title="Quick Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -304,13 +335,14 @@ contribution the SKU makes to revenue and the variability in demand respectively
             VERSION:'0.0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

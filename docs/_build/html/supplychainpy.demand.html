@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -30,6 +32,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="supplychainpy 0.0.4 documentation" href="index.html"/> 
 
   
@@ -39,6 +44,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -79,7 +85,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
@@ -87,7 +96,7 @@
 <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory Modeling and Analysis Made Easy with Supplychainpy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pandas.html">Using supplychainpy with Pandas, Jupyter and Matplotlib</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ahp.html">Analytic Hierarchy Process</a></li>
-<li class="toctree-l1"><a class="reference internal" href="monte_carlo_simulation.html">Monte Carlo simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo_simulation.html">Monte Carlo Simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Supplychainpy with Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
 </ul>
@@ -102,8 +111,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">supplychainpy</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">supplychainpy</a>
+        
       </nav>
 
 
@@ -116,19 +127,36 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>supplychainpy.demand package</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>supplychainpy.demand package</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/supplychainpy.demand.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/supplychainpy.demand.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -148,15 +176,15 @@
 <p>Linear Regression Statistics</p>
 <dl class="method">
 <dt id="supplychainpy.demand.regression.LinearRegression.least_squared_error">
-<code class="descname">least_squared_error</code><span class="sig-paren">(</span><em>slice_end: int=0</em>, <em>slice_start: int=0</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.regression.LinearRegression.least_squared_error" title="Permalink to this definition">¶</a></dt>
+<code class="descname">least_squared_error</code><span class="sig-paren">(</span><em>slice_end: int = 0</em>, <em>slice_start: int = 0</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.demand.regression.LinearRegression.least_squared_error" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate simple linear regression values and two_tail pvalue to determine linearity.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>slice_end</strong> &#8211; Start value for slicing the orders list. Default value is zero.</li>
-<li><strong>slice_start</strong> &#8211; End value for slicing the orders list. Default value is Zero. The length of the orders list
+<li><strong>slice_end</strong> – Start value for slicing the orders list. Default value is zero.</li>
+<li><strong>slice_start</strong> – End value for slicing the orders list. Default value is Zero. The length of the orders list
 as supplied to the constructor is then used as the length of the orders.</li>
 </ul>
 </td>
@@ -172,8 +200,8 @@ as supplied to the constructor is then used as the length of the orders.</li>
 <p>Examples:
 &gt;&gt;&gt; from supplychainpy.demand._forecast_demand import Forecast
 &gt;&gt;&gt; orders = [165, 171, 147, 143, 164, 160, 152, 150, 159, 169, 173, 203, 169, 166, 162, 147,
-...           188, 161, 162, 169, 185, 188, 200, 229, 189, 218, 185, 199, 210, 193, 211, 208, 216, 218,
-...           264, 304]
+…           188, 161, 162, 169, 185, 188, 200, 229, 189, 218, 185, 199, 210, 193, 211, 208, 216, 218,
+…           264, 304]
 &gt;&gt;&gt; total_orders = 0
 &gt;&gt;&gt; for order in orders[:12]:
 &gt;&gt;&gt;     total_orders += order
@@ -193,6 +221,9 @@ as supplied to the constructor is then used as the length of the orders.</li>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -227,13 +258,14 @@ as supplied to the constructor is then used as the length of the orders.</li>
             VERSION:'0.0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

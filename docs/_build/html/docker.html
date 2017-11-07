@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -30,9 +32,12 @@
   
 
   
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="supplychainpy 0.0.4 documentation" href="index.html"/>
         <link rel="next" title="Formulas and Equations" href="calculations.html"/>
-        <link rel="prev" title="Monte Carlo simulation" href="monte_carlo_simulation.html"/> 
+        <link rel="prev" title="Monte Carlo Simulation" href="monte_carlo_simulation.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -41,6 +46,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -81,7 +87,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
@@ -89,8 +98,8 @@
 <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory Modeling and Analysis Made Easy with Supplychainpy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pandas.html">Using supplychainpy with Pandas, Jupyter and Matplotlib</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ahp.html">Analytic Hierarchy Process</a></li>
-<li class="toctree-l1"><a class="reference internal" href="monte_carlo_simulation.html">Monte Carlo simulation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Supplychainpy with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo_simulation.html">Monte Carlo Simulation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Supplychainpy with Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
 </ul>
 
@@ -104,8 +113,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">supplychainpy</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">supplychainpy</a>
+        
       </nav>
 
 
@@ -118,19 +129,36 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Supplychainpy with Docker</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Supplychainpy with Docker</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/docker.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/docker.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -139,27 +167,30 @@
   <div class="section" id="supplychainpy-with-docker">
 <h1>Supplychainpy with Docker<a class="headerlink" href="#supplychainpy-with-docker" title="Permalink to this headline">¶</a></h1>
 <p>The docker image for supplychainpy uses the continuumio/anaconda3 image, with a pre-installed version of supplychainpy and all the dependencies.</p>
-<div class="highlight-python"><div class="highlight"><pre>docker run -ti -v directory/on/client:directory/in/container --name fruit-smoothie -p5000:5000 supplychainpy/suchpy bash
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">ti</span> <span class="o">-</span><span class="n">v</span> <span class="n">directory</span><span class="o">/</span><span class="n">on</span><span class="o">/</span><span class="n">client</span><span class="p">:</span><span class="n">directory</span><span class="o">/</span><span class="ow">in</span><span class="o">/</span><span class="n">container</span> <span class="o">--</span><span class="n">name</span> <span class="n">fruit</span><span class="o">-</span><span class="n">smoothie</span> <span class="o">-</span><span class="n">p5000</span><span class="p">:</span><span class="mi">5000</span> <span class="n">supplychainpy</span><span class="o">/</span><span class="n">suchpy</span> <span class="n">bash</span>
 </pre></div>
 </div>
 <p>The port, container name and directories can be changed as needed. Use a shared volume (as shown above) to present a CSV to the container for generating the report.</p>
-<p>Make sure you specify the host as &#8220;0.0.0.0&#8221; for the reporting instance running in the container.</p>
-<div class="highlight-python"><div class="highlight"><pre>supplychainpy data.csv -a -loc / -lx --host 0.0.0.0
+<p>Make sure you specify the host as “0.0.0.0” for the reporting instance running in the container.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">supplychainpy</span> <span class="n">data</span><span class="o">.</span><span class="n">csv</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">loc</span> <span class="o">/</span> <span class="o">-</span><span class="n">lx</span> <span class="o">--</span><span class="n">host</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span>
 </pre></div>
 </div>
 </div>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="calculations.html" class="btn btn-neutral float-right" title="Formulas and Equations" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="calculations.html" class="btn btn-neutral float-right" title="Formulas and Equations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="monte_carlo_simulation.html" class="btn btn-neutral" title="Monte Carlo simulation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="monte_carlo_simulation.html" class="btn btn-neutral" title="Monte Carlo Simulation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -193,13 +224,14 @@
             VERSION:'0.0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

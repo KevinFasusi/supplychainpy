@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -30,6 +32,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="supplychainpy 0.0.4 documentation" href="index.html"/> 
 
   
@@ -39,6 +44,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -79,7 +85,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
@@ -87,7 +96,7 @@
 <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory Modeling and Analysis Made Easy with Supplychainpy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pandas.html">Using supplychainpy with Pandas, Jupyter and Matplotlib</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ahp.html">Analytic Hierarchy Process</a></li>
-<li class="toctree-l1"><a class="reference internal" href="monte_carlo_simulation.html">Monte Carlo simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo_simulation.html">Monte Carlo Simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Supplychainpy with Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
 </ul>
@@ -102,8 +111,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">supplychainpy</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">supplychainpy</a>
+        
       </nav>
 
 
@@ -116,19 +127,36 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>supplychainpy.reporting package</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>supplychainpy.reporting package</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/supplychainpy.reporting.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/supplychainpy.reporting.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -154,114 +182,72 @@
 </div>
 <div class="section" id="module-supplychainpy.reporting.config">
 <span id="supplychainpy-reporting-config-module"></span><h2>supplychainpy.reporting.config module<a class="headerlink" href="#module-supplychainpy.reporting.config" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="supplychainpy.reporting.config.Config">
-<em class="property">class </em><code class="descclassname">supplychainpy.reporting.config.</code><code class="descname">Config</code><a class="headerlink" href="#supplychainpy.reporting.config.Config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-</dd></dl>
-
-<dl class="class">
-<dt id="supplychainpy.reporting.config.DevConfig">
-<em class="property">class </em><code class="descclassname">supplychainpy.reporting.config.</code><code class="descname">DevConfig</code><a class="headerlink" href="#supplychainpy.reporting.config.DevConfig" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#supplychainpy.reporting.config.Config" title="supplychainpy.reporting.config.Config"><code class="xref py py-class docutils literal"><span class="pre">supplychainpy.reporting.config.Config</span></code></a></p>
-<dl class="attribute">
-<dt id="supplychainpy.reporting.config.DevConfig.DEBUG">
-<code class="descname">DEBUG</code><em class="property"> = False</em><a class="headerlink" href="#supplychainpy.reporting.config.DevConfig.DEBUG" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.config.DevConfig.PWD">
-<code class="descname">PWD</code><em class="property"> = '/Users/Fasusi/Projects/supplychainlibraries/python/supplychainpy/docs'</em><a class="headerlink" href="#supplychainpy.reporting.config.DevConfig.PWD" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.config.DevConfig.SECRET_KEY">
-<code class="descname">SECRET_KEY</code><em class="property"> = '|~GÞ§\x9b\x1aKaZ-«k8\x0b\x12î)àà\x8b\x0cÙ\x1d'</em><a class="headerlink" href="#supplychainpy.reporting.config.DevConfig.SECRET_KEY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.config.DevConfig.SESSION_PROTECTION">
-<code class="descname">SESSION_PROTECTION</code><em class="property"> = 'strong'</em><a class="headerlink" href="#supplychainpy.reporting.config.DevConfig.SESSION_PROTECTION" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.config.DevConfig.SQLALCHEMY_DATABASE_URI">
-<code class="descname">SQLALCHEMY_DATABASE_URI</code><em class="property"> = 'sqlite:////Users/Fasusi/Projects/supplychainlibraries/python/supplychainpy/docs/reporting.db'</em><a class="headerlink" href="#supplychainpy.reporting.config.DevConfig.SQLALCHEMY_DATABASE_URI" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.config.DevConfig.SQLALCHEMY_ECHO">
-<code class="descname">SQLALCHEMY_ECHO</code><em class="property"> = False</em><a class="headerlink" href="#supplychainpy.reporting.config.DevConfig.SQLALCHEMY_ECHO" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.config.DevConfig.SQLALCHEMY_TRACK_MODIFICATIONS">
-<code class="descname">SQLALCHEMY_TRACK_MODIFICATIONS</code><em class="property"> = True</em><a class="headerlink" href="#supplychainpy.reporting.config.DevConfig.SQLALCHEMY_TRACK_MODIFICATIONS" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="supplychainpy.reporting.config.ProdConfig">
-<em class="property">class </em><code class="descclassname">supplychainpy.reporting.config.</code><code class="descname">ProdConfig</code><a class="headerlink" href="#supplychainpy.reporting.config.ProdConfig" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#supplychainpy.reporting.config.Config" title="supplychainpy.reporting.config.Config"><code class="xref py py-class docutils literal"><span class="pre">supplychainpy.reporting.config.Config</span></code></a></p>
-</dd></dl>
-
 </div>
 <div class="section" id="module-supplychainpy.reporting.extensions">
 <span id="supplychainpy-reporting-extensions-module"></span><h2>supplychainpy.reporting.extensions module<a class="headerlink" href="#module-supplychainpy.reporting.extensions" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-supplychainpy.reporting.forms">
 <span id="supplychainpy-reporting-forms-module"></span><h2>supplychainpy.reporting.forms module<a class="headerlink" href="#module-supplychainpy.reporting.forms" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="supplychainpy.reporting.forms.DataForm">
-<em class="property">class </em><code class="descclassname">supplychainpy.reporting.forms.</code><code class="descname">DataForm</code><span class="sig-paren">(</span><em>formdata=None</em>, <em>obj=None</em>, <em>prefix=''</em>, <em>data=None</em>, <em>meta=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.forms.DataForm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">wtforms.form.Form</span></code></p>
-<dl class="attribute">
-<dt id="supplychainpy.reporting.forms.DataForm.orders">
-<code class="descname">orders</code><em class="property"> = &lt;UnboundField(FileField, ('You data:',), {'validators': [&lt;flask_wtf.file.FileRequired object at 0x10da830f0&gt;, &lt;flask_wtf.file.FileAllowed object at 0x10da83160&gt;]})&gt;</em><a class="headerlink" href="#supplychainpy.reporting.forms.DataForm.orders" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.forms.DataForm.submit">
-<code class="descname">submit</code><em class="property"> = &lt;UnboundField(SubmitField, ('Send',), {})&gt;</em><a class="headerlink" href="#supplychainpy.reporting.forms.DataForm.submit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="supplychainpy.reporting.forms.SettingsForm">
-<em class="property">class </em><code class="descclassname">supplychainpy.reporting.forms.</code><code class="descname">SettingsForm</code><span class="sig-paren">(</span><em>formdata=None</em>, <em>obj=None</em>, <em>prefix=''</em>, <em>data=None</em>, <em>meta=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.forms.SettingsForm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">wtforms.form.Form</span></code></p>
-<dl class="attribute">
-<dt id="supplychainpy.reporting.forms.SettingsForm.database_location">
-<code class="descname">database_location</code><em class="property"> = &lt;UnboundField(StringField, ('database location',), {'validators': [&lt;wtforms.validators.InputRequired object at 0x10dc17ef0&gt;]})&gt;</em><a class="headerlink" href="#supplychainpy.reporting.forms.SettingsForm.database_location" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.forms.SettingsForm.first_name">
-<code class="descname">first_name</code><em class="property"> = &lt;UnboundField(StringField, ('First Name',), {'validators': [&lt;wtforms.validators.InputRequired object at 0x10dc03860&gt;]})&gt;</em><a class="headerlink" href="#supplychainpy.reporting.forms.SettingsForm.first_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.reporting.forms.upload">
-<code class="descclassname">supplychainpy.reporting.forms.</code><code class="descname">upload</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.forms.upload" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </div>
 <div class="section" id="module-supplychainpy.reporting.load">
 <span id="supplychainpy-reporting-load-module"></span><h2>supplychainpy.reporting.load module<a class="headerlink" href="#module-supplychainpy.reporting.load" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="supplychainpy.reporting.load.currency_codes">
-<code class="descclassname">supplychainpy.reporting.load.</code><code class="descname">currency_codes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.load.currency_codes" title="Permalink to this definition">¶</a></dt>
+<dt id="supplychainpy.reporting.load.batch">
+<code class="descclassname">supplychainpy.reporting.load.</code><code class="descname">batch</code><span class="sig-paren">(</span><em>analysis</em>, <em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.load.batch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yield n-sized batches from analysis.
+:param analysis:
+:param n:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.reporting.load.build_results_pickle">
+<code class="descclassname">supplychainpy.reporting.load.</code><code class="descname">build_results_pickle</code><span class="sig-paren">(</span><em>ses_forecast_results: dict</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.load.build_results_pickle" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="supplychainpy.reporting.load.load">
-<code class="descclassname">supplychainpy.reporting.load.</code><code class="descname">load</code><span class="sig-paren">(</span><em>file_path: str</em>, <em>location: str=None</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.load.load" title="Permalink to this definition">¶</a></dt>
+<dt id="supplychainpy.reporting.load.cleanup_pickled_files">
+<code class="descclassname">supplychainpy.reporting.load.</code><code class="descname">cleanup_pickled_files</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.load.cleanup_pickled_files" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.reporting.load.currency_codes">
+<code class="descclassname">supplychainpy.reporting.load.</code><code class="descname">currency_codes</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#supplychainpy.reporting.load.currency_codes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrives HTML Entity (decimal) for currency symbol.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Currency Symbols.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.reporting.load.load">
+<code class="descclassname">supplychainpy.reporting.load.</code><code class="descname">load</code><span class="sig-paren">(</span><em>file_path: str</em>, <em>location: str = None</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.load.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads analysis and forecast into local database for reporting suite.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>file_path</strong> (<em>str</em>) – File path to source file containing data for analysis.</li>
+<li><strong>location</strong> (<em>str</em>) – Location of database to populate.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.reporting.load.load_currency">
+<code class="descclassname">supplychainpy.reporting.load.</code><code class="descname">load_currency</code><span class="sig-paren">(</span><em>fx_codes: {'ANG': ('Netherlands Antilles Guilder'</em>, <em>'&amp;#402')</em>, <em>'GBP': ('United Kingdom Pound'</em>, <em>'&amp;#163;')</em>, <em>'AED': ('United Arab Emirates Dirham'</em>, <em>'&amp;#92;&amp;#117;&amp;#48;&amp;#54;&amp;#50;&amp;#102;&amp;#46;')</em>, <em>'USD': ('United States Dollar'</em>, <em>'&amp;#36;')</em>, <em>'EUR': ('Euro Member Countries'</em>, <em>'&amp;#8364;')}</em>, <em>ctx: &lt;SQLAlchemy engine=None&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.load.load_currency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads Currency Symbols</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="supplychainpy.reporting.load.load_profile_recommendations">
@@ -273,6 +259,76 @@
 <code class="descclassname">supplychainpy.reporting.load.</code><code class="descname">load_recommendations</code><span class="sig-paren">(</span><em>summary</em>, <em>forecast</em>, <em>analysed_order</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.load.load_recommendations" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="function">
+<dt id="supplychainpy.reporting.load.parallelise_htc">
+<code class="descclassname">supplychainpy.reporting.load.</code><code class="descname">parallelise_htc</code><span class="sig-paren">(</span><em>batched_analysis: list</em>, <em>core_count: int</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.load.parallelise_htc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute the Holts’ trend corrected smoothing forecast in parallel.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>batched_analysis</strong> – Uncertain demand objects batched for appropriate number of cores available on the host machine</li>
+<li><strong>core_count</strong> – Number of cores available on the host machine, minus one.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.reporting.load.parallelise_ses">
+<code class="descclassname">supplychainpy.reporting.load.</code><code class="descname">parallelise_ses</code><span class="sig-paren">(</span><em>pickled_ses_batch_files: list</em>, <em>core_count: int</em><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#supplychainpy.reporting.load.parallelise_ses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute the exponential smoothing forecast in parallel.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pickled_ses_batch_files</strong> – Uncertain demand objects batched for appropriate number of cores available on
+the host machine</li>
+<li><strong>core_count</strong> – Number of cores available on the host machine, minus one.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.reporting.load.pickle_ses_forecast">
+<code class="descclassname">supplychainpy.reporting.load.</code><code class="descname">pickle_ses_forecast</code><span class="sig-paren">(</span><em>batched_analysis: list</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#supplychainpy.reporting.load.pickle_ses_forecast" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.reporting.load.read_pickle">
+<code class="descclassname">supplychainpy.reporting.load.</code><code class="descname">read_pickle</code><span class="sig-paren">(</span><em>batch_path: str</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.load.read_pickle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read pickled data from file</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.reporting.load.remove_pickle">
+<code class="descclassname">supplychainpy.reporting.load.</code><code class="descname">remove_pickle</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.load.remove_pickle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.reporting.load.retrieve_results_pickle">
+<code class="descclassname">supplychainpy.reporting.load.</code><code class="descname">retrieve_results_pickle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.load.retrieve_results_pickle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="supplychainpy.reporting.load.write_pickle">
+<code class="descclassname">supplychainpy.reporting.load.</code><code class="descname">write_pickle</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#supplychainpy.reporting.load.write_pickle" title="Permalink to this definition">¶</a></dt>
+<dd><p>pickle data to file</p>
+</dd></dl>
+
 </div>
 <div class="section" id="supplychainpy-reporting-manage-module">
 <h2>supplychainpy.reporting.manage module<a class="headerlink" href="#supplychainpy-reporting-manage-module" title="Permalink to this headline">¶</a></h2>
@@ -280,752 +336,8 @@
 <div class="section" id="supplychainpy-reporting-migrate-module">
 <h2>supplychainpy.reporting.migrate module<a class="headerlink" href="#supplychainpy-reporting-migrate-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-supplychainpy.reporting.views">
-<span id="supplychainpy-reporting-views-module"></span><h2>supplychainpy.reporting.views module<a class="headerlink" href="#module-supplychainpy.reporting.views" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="supplychainpy.reporting.views.Currency">
-<em class="property">class </em><code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">Currency</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.Currency" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">flask_sqlalchemy.Model</span></code></p>
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.Currency.country">
-<code class="descname">country</code><a class="headerlink" href="#supplychainpy.reporting.views.Currency.country" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.Currency.currency_code">
-<code class="descname">currency_code</code><a class="headerlink" href="#supplychainpy.reporting.views.Currency.currency_code" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.Currency.fx">
-<code class="descname">fx</code><a class="headerlink" href="#supplychainpy.reporting.views.Currency.fx" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.Currency.id">
-<code class="descname">id</code><a class="headerlink" href="#supplychainpy.reporting.views.Currency.id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.Currency.symbol">
-<code class="descname">symbol</code><a class="headerlink" href="#supplychainpy.reporting.views.Currency.symbol" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="supplychainpy.reporting.views.Forecast">
-<em class="property">class </em><code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">Forecast</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.Forecast" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">flask_sqlalchemy.Model</span></code></p>
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.Forecast.analysis_id">
-<code class="descname">analysis_id</code><a class="headerlink" href="#supplychainpy.reporting.views.Forecast.analysis_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.Forecast.create_date">
-<code class="descname">create_date</code><a class="headerlink" href="#supplychainpy.reporting.views.Forecast.create_date" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.Forecast.forecast_quantity">
-<code class="descname">forecast_quantity</code><a class="headerlink" href="#supplychainpy.reporting.views.Forecast.forecast_quantity" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.Forecast.forecast_type_id">
-<code class="descname">forecast_type_id</code><a class="headerlink" href="#supplychainpy.reporting.views.Forecast.forecast_type_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.Forecast.forecasts">
-<code class="descname">forecasts</code><a class="headerlink" href="#supplychainpy.reporting.views.Forecast.forecasts" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.Forecast.id">
-<code class="descname">id</code><a class="headerlink" href="#supplychainpy.reporting.views.Forecast.id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.Forecast.period">
-<code class="descname">period</code><a class="headerlink" href="#supplychainpy.reporting.views.Forecast.period" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.Forecast.type">
-<code class="descname">type</code><a class="headerlink" href="#supplychainpy.reporting.views.Forecast.type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="supplychainpy.reporting.views.ForecastBreakdown">
-<em class="property">class </em><code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">ForecastBreakdown</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.ForecastBreakdown" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">flask_sqlalchemy.Model</span></code></p>
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastBreakdown.analysis_id">
-<code class="descname">analysis_id</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastBreakdown.analysis_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastBreakdown.breakdown">
-<code class="descname">breakdown</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastBreakdown.breakdown" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastBreakdown.estimates">
-<code class="descname">estimates</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastBreakdown.estimates" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastBreakdown.forecast_error">
-<code class="descname">forecast_error</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastBreakdown.forecast_error" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastBreakdown.forecast_type_id">
-<code class="descname">forecast_type_id</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastBreakdown.forecast_type_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastBreakdown.id">
-<code class="descname">id</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastBreakdown.id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastBreakdown.level_estimates">
-<code class="descname">level_estimates</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastBreakdown.level_estimates" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastBreakdown.one_step_forecast">
-<code class="descname">one_step_forecast</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastBreakdown.one_step_forecast" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastBreakdown.period">
-<code class="descname">period</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastBreakdown.period" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastBreakdown.regression">
-<code class="descname">regression</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastBreakdown.regression" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastBreakdown.squared_error">
-<code class="descname">squared_error</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastBreakdown.squared_error" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastBreakdown.trend">
-<code class="descname">trend</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastBreakdown.trend" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="supplychainpy.reporting.views.ForecastStatistics">
-<em class="property">class </em><code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">ForecastStatistics</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.ForecastStatistics" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">flask_sqlalchemy.Model</span></code></p>
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastStatistics.analysis_id">
-<code class="descname">analysis_id</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastStatistics.analysis_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastStatistics.details">
-<code class="descname">details</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastStatistics.details" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastStatistics.forecast_type_id">
-<code class="descname">forecast_type_id</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastStatistics.forecast_type_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastStatistics.id">
-<code class="descname">id</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastStatistics.id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastStatistics.intercept">
-<code class="descname">intercept</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastStatistics.intercept" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastStatistics.mape">
-<code class="descname">mape</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastStatistics.mape" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastStatistics.optimal_alpha">
-<code class="descname">optimal_alpha</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastStatistics.optimal_alpha" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastStatistics.optimal_gamma">
-<code class="descname">optimal_gamma</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastStatistics.optimal_gamma" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastStatistics.p_value">
-<code class="descname">p_value</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastStatistics.p_value" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastStatistics.slope">
-<code class="descname">slope</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastStatistics.slope" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastStatistics.slope_standard_error">
-<code class="descname">slope_standard_error</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastStatistics.slope_standard_error" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastStatistics.standard_residuals">
-<code class="descname">standard_residuals</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastStatistics.standard_residuals" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastStatistics.test_statistic">
-<code class="descname">test_statistic</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastStatistics.test_statistic" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastStatistics.trending">
-<code class="descname">trending</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastStatistics.trending" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="supplychainpy.reporting.views.ForecastType">
-<em class="property">class </em><code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">ForecastType</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.ForecastType" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">flask_sqlalchemy.Model</span></code></p>
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastType.forecast_breakdown_id">
-<code class="descname">forecast_breakdown_id</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastType.forecast_breakdown_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastType.forecast_id">
-<code class="descname">forecast_id</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastType.forecast_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastType.forecast_statistic_id">
-<code class="descname">forecast_statistic_id</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastType.forecast_statistic_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastType.id">
-<code class="descname">id</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastType.id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ForecastType.type">
-<code class="descname">type</code><a class="headerlink" href="#supplychainpy.reporting.views.ForecastType.type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis">
-<em class="property">class </em><code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">InventoryAnalysis</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">flask_sqlalchemy.Model</span></code></p>
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.abc_xyz_classification">
-<code class="descname">abc_xyz_classification</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.abc_xyz_classification" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.average_orders">
-<code class="descname">average_orders</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.average_orders" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.currency">
-<code class="descname">currency</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.currency" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.currency_id">
-<code class="descname">currency_id</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.currency_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.date">
-<code class="descname">date</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.date" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.demand_variability">
-<code class="descname">demand_variability</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.demand_variability" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.economic_order_quantity">
-<code class="descname">economic_order_quantity</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.economic_order_quantity" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.economic_order_variable_cost">
-<code class="descname">economic_order_variable_cost</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.economic_order_variable_cost" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.excess_cost">
-<code class="descname">excess_cost</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.excess_cost" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.excess_rank">
-<code class="descname">excess_rank</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.excess_rank" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.excess_stock">
-<code class="descname">excess_stock</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.excess_stock" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.forecast_breakdown_id">
-<code class="descname">forecast_breakdown_id</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.forecast_breakdown_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.forecast_id">
-<code class="descname">forecast_id</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.forecast_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.gross_profit_margin">
-<code class="descname">gross_profit_margin</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.gross_profit_margin" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.id">
-<code class="descname">id</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.inventory_turns">
-<code class="descname">inventory_turns</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.inventory_turns" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.log">
-<code class="descname">log</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.log" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.markup_percentage">
-<code class="descname">markup_percentage</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.markup_percentage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.max_order">
-<code class="descname">max_order</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.max_order" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.min_order">
-<code class="descname">min_order</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.min_order" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.orders_id">
-<code class="descname">orders_id</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.orders_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.percentage_contribution_revenue">
-<code class="descname">percentage_contribution_revenue</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.percentage_contribution_revenue" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.quantity_on_hand">
-<code class="descname">quantity_on_hand</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.quantity_on_hand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.recommendation_id">
-<code class="descname">recommendation_id</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.recommendation_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.reorder_level">
-<code class="descname">reorder_level</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.reorder_level" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.reorder_quantity">
-<code class="descname">reorder_quantity</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.reorder_quantity" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.retail_price">
-<code class="descname">retail_price</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.retail_price" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.revenue">
-<code class="descname">revenue</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.revenue" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.revenue_rank">
-<code class="descname">revenue_rank</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.revenue_rank" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.safety_stock">
-<code class="descname">safety_stock</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.safety_stock" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.safety_stock_cost">
-<code class="descname">safety_stock_cost</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.safety_stock_cost" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.safety_stock_rank">
-<code class="descname">safety_stock_rank</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.safety_stock_rank" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.serialize">
-<code class="descname">serialize</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.serialize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return object data in easily serializeable format</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.shortage_cost">
-<code class="descname">shortage_cost</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.shortage_cost" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.shortage_rank">
-<code class="descname">shortage_rank</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.shortage_rank" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.shortages">
-<code class="descname">shortages</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.shortages" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.sku">
-<code class="descname">sku</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.sku" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.sku_id">
-<code class="descname">sku_id</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.sku_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.standard_deviation">
-<code class="descname">standard_deviation</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.standard_deviation" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.traffic_light">
-<code class="descname">traffic_light</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.traffic_light" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.transaction_log_id">
-<code class="descname">transaction_log_id</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.transaction_log_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.InventoryAnalysis.unit_cost">
-<code class="descname">unit_cost</code><a class="headerlink" href="#supplychainpy.reporting.views.InventoryAnalysis.unit_cost" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="supplychainpy.reporting.views.MasterSkuList">
-<em class="property">class </em><code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">MasterSkuList</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.MasterSkuList" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">flask_sqlalchemy.Model</span></code></p>
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.MasterSkuList.analysis">
-<code class="descname">analysis</code><a class="headerlink" href="#supplychainpy.reporting.views.MasterSkuList.analysis" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.MasterSkuList.id">
-<code class="descname">id</code><a class="headerlink" href="#supplychainpy.reporting.views.MasterSkuList.id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.MasterSkuList.sku_id">
-<code class="descname">sku_id</code><a class="headerlink" href="#supplychainpy.reporting.views.MasterSkuList.sku_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="supplychainpy.reporting.views.Orders">
-<em class="property">class </em><code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">Orders</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.Orders" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">flask_sqlalchemy.Model</span></code></p>
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.Orders.analysis_id">
-<code class="descname">analysis_id</code><a class="headerlink" href="#supplychainpy.reporting.views.Orders.analysis_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.Orders.demand">
-<code class="descname">demand</code><a class="headerlink" href="#supplychainpy.reporting.views.Orders.demand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.Orders.id">
-<code class="descname">id</code><a class="headerlink" href="#supplychainpy.reporting.views.Orders.id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.Orders.order_quantity">
-<code class="descname">order_quantity</code><a class="headerlink" href="#supplychainpy.reporting.views.Orders.order_quantity" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.Orders.rank">
-<code class="descname">rank</code><a class="headerlink" href="#supplychainpy.reporting.views.Orders.rank" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="supplychainpy.reporting.views.ProfileRecommendation">
-<em class="property">class </em><code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">ProfileRecommendation</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.ProfileRecommendation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">flask_sqlalchemy.Model</span></code></p>
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ProfileRecommendation.id">
-<code class="descname">id</code><a class="headerlink" href="#supplychainpy.reporting.views.ProfileRecommendation.id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ProfileRecommendation.profile">
-<code class="descname">profile</code><a class="headerlink" href="#supplychainpy.reporting.views.ProfileRecommendation.profile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ProfileRecommendation.statement">
-<code class="descname">statement</code><a class="headerlink" href="#supplychainpy.reporting.views.ProfileRecommendation.statement" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.ProfileRecommendation.transaction_id">
-<code class="descname">transaction_id</code><a class="headerlink" href="#supplychainpy.reporting.views.ProfileRecommendation.transaction_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="supplychainpy.reporting.views.Recommendations">
-<em class="property">class </em><code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">Recommendations</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.Recommendations" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">flask_sqlalchemy.Model</span></code></p>
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.Recommendations.analysis_id">
-<code class="descname">analysis_id</code><a class="headerlink" href="#supplychainpy.reporting.views.Recommendations.analysis_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.Recommendations.id">
-<code class="descname">id</code><a class="headerlink" href="#supplychainpy.reporting.views.Recommendations.id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.Recommendations.rec">
-<code class="descname">rec</code><a class="headerlink" href="#supplychainpy.reporting.views.Recommendations.rec" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.Recommendations.statement">
-<code class="descname">statement</code><a class="headerlink" href="#supplychainpy.reporting.views.Recommendations.statement" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="supplychainpy.reporting.views.TransactionLog">
-<em class="property">class </em><code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">TransactionLog</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.TransactionLog" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">flask_sqlalchemy.Model</span></code></p>
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.TransactionLog.date">
-<code class="descname">date</code><a class="headerlink" href="#supplychainpy.reporting.views.TransactionLog.date" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.TransactionLog.id">
-<code class="descname">id</code><a class="headerlink" href="#supplychainpy.reporting.views.TransactionLog.id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.TransactionLog.profile_recommendation">
-<code class="descname">profile_recommendation</code><a class="headerlink" href="#supplychainpy.reporting.views.TransactionLog.profile_recommendation" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="supplychainpy.reporting.views.TransactionLog.transaction">
-<code class="descname">transaction</code><a class="headerlink" href="#supplychainpy.reporting.views.TransactionLog.transaction" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.reporting.views.about">
-<code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">about</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.about" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.reporting.views.abxyz">
-<code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">abxyz</code><span class="sig-paren">(</span><em>classification: str=None</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.abxyz" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.reporting.views.bot">
-<code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">bot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.bot" title="Permalink to this definition">¶</a></dt>
-<dd><p>the route for Dash the chat bot.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.reporting.views.chat">
-<code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">chat</code><span class="sig-paren">(</span><em>message: str=None</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.chat" title="Permalink to this definition">¶</a></dt>
-<dd><p>Rest api for chat bot</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>message</strong> &#8211; User query to chat bot.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Response from chat bot.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">json</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.reporting.views.convert_datetime">
-<code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">convert_datetime</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.convert_datetime" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deserialize datetime object into string</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.reporting.views.currency">
-<code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">currency</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.currency" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.reporting.views.dashboard">
-<code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">dashboard</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.dashboard" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.reporting.views.feed">
-<code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">feed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.feed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.reporting.views.get_classification_summary">
-<code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">get_classification_summary</code><span class="sig-paren">(</span><em>classification: str=None</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.get_classification_summary" title="Permalink to this definition">¶</a></dt>
-<dd><p>route for restful summary of costs by abcxyz classifications</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.reporting.views.lexicon">
-<code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">lexicon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.lexicon" title="Permalink to this definition">¶</a></dt>
-<dd><p>The route for displaying examples for interacting with the chat bot.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">html</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.reporting.views.raw_data">
-<code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">raw_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.raw_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Route for the raw data from the analysis.</p>
-<p>Returns:</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.reporting.views.recommended">
-<code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">recommended</code><span class="sig-paren">(</span><em>sku_id: str=None</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.recommended" title="Permalink to this definition">¶</a></dt>
-<dd><p>The route to the rest api for retrieving recommendations for a SKU.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sku_id</strong> &#8211; The SKU ID for a product.</td>
-</tr>
-</tbody>
-</table>
-<p>Returns:</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.reporting.views.settings">
-<code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">settings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.settings" title="Permalink to this definition">¶</a></dt>
-<dd><p>Route to settings view.</p>
-<p>Returns:</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.reporting.views.sku">
-<code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">sku</code><span class="sig-paren">(</span><em>sku_id: str=None</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.sku" title="Permalink to this definition">¶</a></dt>
-<dd><p>route for restful sku detail, whole content limited by most recent date or individual sku</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.reporting.views.sku_detail">
-<code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">sku_detail</code><span class="sig-paren">(</span><em>sku_id: str=None</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.sku_detail" title="Permalink to this definition">¶</a></dt>
-<dd><p>Route for restful sku detail, whole content limited by most recent date or individual sku</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sku_id</strong> &#8211; </td>
-</tr>
-</tbody>
-</table>
-<p>Returns:</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.reporting.views.top_excess">
-<code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">top_excess</code><span class="sig-paren">(</span><em>rank: int=10</em>, <em>classification: str=None</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.top_excess" title="Permalink to this definition">¶</a></dt>
-<dd><p>route for restful summary of top skus</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.reporting.views.top_shortages">
-<code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">top_shortages</code><span class="sig-paren">(</span><em>rank: int=10</em>, <em>classification: str=None</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.top_shortages" title="Permalink to this definition">¶</a></dt>
-<dd><p>route for restful summary of top skus</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.reporting.views.total_inventory">
-<code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">total_inventory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.total_inventory" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="supplychainpy.reporting.views.uploaded_file">
-<code class="descclassname">supplychainpy.reporting.views.</code><code class="descname">uploaded_file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.reporting.views.uploaded_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<div class="section" id="supplychainpy-reporting-views-module">
+<h2>supplychainpy.reporting.views module<a class="headerlink" href="#supplychainpy-reporting-views-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-supplychainpy.reporting">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-supplychainpy.reporting" title="Permalink to this headline">¶</a></h2>
@@ -1033,6 +345,9 @@
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -1067,13 +382,14 @@
             VERSION:'0.0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

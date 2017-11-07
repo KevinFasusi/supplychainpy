@@ -1,12 +1,35 @@
 Change Log
 ==========
 
+0.0.5
+-----
+
+Application
+^^^^^^^^^^^
+-   [Bug Fix] Using Flask's web server for the Dashboard on a public route on a standalone server (--host 0.0.0.0)
+-   [Bug Fix] Javascript error while loading dashboard.
+-   [Bug Fix] Pip install error (Log.txt FileNotFound)
+-   [New Feature] Basic ability to run Monte Carlo Simulation and view summarised results in reporting suite.
+-   [Update] Load scripts use multi-processing for forecast calculations when processing data file.
+-   [Update] Load scripts using batch process.
+-   [Update] Debug commandline argument for viewing logging output `--debug'.
+-   [Update] Use Chat Bot from commandline with `-c` flag. EXPERIMENTAL
+-   [Update] Recommendation generator takes into account forecasts
+-   [Update] Flask Blueprints used for reporting views.
+
+
+Documentation
+^^^^^^^^^^^^^
+-   [New] Wiki started on GitHub for more responsive updates to documentation including changes to source during development.
+-   [Update] Tutorial.
+
+
 
 0.0.4
 -----
 Release 0.0.4 has breaking API changes. Namespaces have changed in this release. All the modules previously in the
 "demand" package are now inside the "inventory" package. If you have been using the "model_inventory" module, then nothing has
-changed, and there will not be any break in contracts.
+changed, there will not be any break in contracts.
 
 
 Application
@@ -98,4 +121,55 @@ Documentation
 -   Added Quick Guide.
 -   Added Tutorial.
 -   Added Installation.
+
+Options
+-----
+
+Currently using the reporting suite feature, requires the command line. Using a nix or PowerShell console, the typical command issued for processing a file and generating a report would be:
+
+`$ supplychainpy <filename> -a -loc <absolute-path-to-current-directory> -l`
+
+
+The command line arguments can be viewed by using the `--help` command in the cli.
+
+- `-l, --launch`
+
+	- Launches supplychainpy reporting GUI for setting port and launching the default browser. The reporting suite is hosted inside the browser and defaults to port 5000. The GUI provides the opportunity to change the port if necessary. The `-l` flag is a boolean flag, and its inclusion is essential if the aim is to launch into the reporting suite.
+
+- `-loc`
+
+	- Flag for the aboslute path to the current directory. The path is required to locate a current reporting.db or a store as the new location in the settings.
+
+-  `-a, --analyse`
+
+	-  Initiates the analyisis of the file name supplied as the first argument directly after the `supplychainpy` command e.g.:
+
+		`$ supplychainpy <filename> -a -loc <absolute-path-to-current-directory> -l`
+
+- `-lx, --launch-console`
+
+	- Launches supplychainpy reporting on the default port, without GUI interface. Uses default port (5000) unless another port is specified. Appropriate for running the reports on a sever. Currently, this is only for testing. The Werkzeug web server that supplied with flask serves the pages for the reports. Werkzeug is not a production web server. It is sufficient as a local web server for the reporting application on a client system. In the coming releases deployment using a more robust web server such as Nginx or Gunicorn will be documented for Server type implementation.
+
+- `-cur`
+
+	- The flag Sets the currency for the analysis and should match the raw data. IMPORTANT: Currency conversion does not occur by setting this flag. The default currency is US Dollars (USD).
+
+- `--host`
+
+	- Sets the host for the server (defaults 127.0.0.1).
+
+
+- `--debug`
+
+	- Runs in debug mode.
+
+
+- `-p, --port`
+
+	- Specify Port to use for local server e.g. 8080 (default: 5000).
+
+- `-c`
+
+	- Enter chat mode with the Dash bot from the command line.
+
 

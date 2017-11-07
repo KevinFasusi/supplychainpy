@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -30,6 +32,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="supplychainpy 0.0.4 documentation" href="index.html"/> 
 
   
@@ -39,6 +44,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -79,7 +85,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Guide</a></li>
@@ -87,7 +96,7 @@
 <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory Modeling and Analysis Made Easy with Supplychainpy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pandas.html">Using supplychainpy with Pandas, Jupyter and Matplotlib</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ahp.html">Analytic Hierarchy Process</a></li>
-<li class="toctree-l1"><a class="reference internal" href="monte_carlo_simulation.html">Monte Carlo simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo_simulation.html">Monte Carlo Simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Supplychainpy with Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculations.html">Formulas and Equations</a></li>
 </ul>
@@ -102,8 +111,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">supplychainpy</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">supplychainpy</a>
+        
       </nav>
 
 
@@ -116,19 +127,36 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>supplychainpy.inventory package</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>supplychainpy.inventory package</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/supplychainpy.inventory.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/supplychainpy.inventory.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -228,7 +256,7 @@
 <span id="supplychainpy-inventory-analyse-uncertain-demand-module"></span><h2>supplychainpy.inventory.analyse_uncertain_demand module<a class="headerlink" href="#module-supplychainpy.inventory.analyse_uncertain_demand" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand">
-<em class="property">class </em><code class="descclassname">supplychainpy.inventory.analyse_uncertain_demand.</code><code class="descname">UncertainDemand</code><span class="sig-paren">(</span><em>orders: dict</em>, <em>sku: str</em>, <em>currency: str</em>, <em>lead_time: decimal.Decimal</em>, <em>unit_cost: decimal.Decimal</em>, <em>reorder_cost: decimal.Decimal</em>, <em>z_value: decimal.Decimal=Decimal('1.2800000000000000266453525910037569701671600341796875')</em>, <em>holding_cost: decimal.Decimal=0.0</em>, <em>retail_price: decimal.Decimal=0.0</em>, <em>period: str='months'</em>, <em>quantity_on_hand: decimal.Decimal=0.0</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">supplychainpy.inventory.analyse_uncertain_demand.</code><code class="descname">UncertainDemand</code><span class="sig-paren">(</span><em>orders: dict</em>, <em>sku: str</em>, <em>currency: str</em>, <em>lead_time: decimal.Decimal</em>, <em>unit_cost: decimal.Decimal</em>, <em>reorder_cost: decimal.Decimal</em>, <em>z_value: decimal.Decimal = Decimal('1.2800000000000000266453525910037569701671600341796875')</em>, <em>holding_cost: decimal.Decimal = 0.0</em>, <em>retail_price: decimal.Decimal = 0.0</em>, <em>period: str = 'months'</em>, <em>quantity_on_hand: decimal.Decimal = 0.0</em>, <em>backlog: decimal.Decimal = 0.0</em><span class="sig-paren">)</span><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Models inventory profile calculating economic order quantity, variable cost, reorder quantity and
 ABCXYZ classification</p>
@@ -250,12 +278,17 @@ ABCXYZ classification</p>
 
 <dl class="method">
 <dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.average_order_row">
-<code class="descname">average_order_row</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; decimal.Decimal<a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.average_order_row" title="Permalink to this definition">¶</a></dt>
+<code class="descname">average_order_row</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; decimal.Decimal<a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.average_order_row" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.average_orders">
 <code class="descname">average_orders</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.average_orders" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.backlog">
+<code class="descname">backlog</code><a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.backlog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -325,12 +358,12 @@ ABCXYZ classification</p>
 
 <dl class="method">
 <dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.orders_summary">
-<code class="descname">orders_summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.orders_summary" title="Permalink to this definition">¶</a></dt>
+<code class="descname">orders_summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.orders_summary" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.orders_summary_simple">
-<code class="descname">orders_summary_simple</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.orders_summary_simple" title="Permalink to this definition">¶</a></dt>
+<code class="descname">orders_summary_simple</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#supplychainpy.inventory.analyse_uncertain_demand.UncertainDemand.orders_summary_simple" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -456,16 +489,16 @@ ABCXYZ classification</p>
 
 <dl class="method">
 <dt id="supplychainpy.inventory.summarise.Inventory.abc_xyz_summary">
-<code class="descname">abc_xyz_summary</code><span class="sig-paren">(</span><em>classification: tuple=('AX'</em>, <em>'AY'</em>, <em>'AZ'</em>, <em>'BX'</em>, <em>'BY'</em>, <em>'BZ'</em>, <em>'CX'</em>, <em>'CY'</em>, <em>'CZ')</em>, <em>category: tuple=('excess_stock'</em>, <em>'shortages'</em>, <em>'revenue')</em>, <em>value: str='currency'</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.inventory.summarise.Inventory.abc_xyz_summary" title="Permalink to this definition">¶</a></dt>
+<code class="descname">abc_xyz_summary</code><span class="sig-paren">(</span><em>classification: tuple = ('AX'</em>, <em>'AY'</em>, <em>'AZ'</em>, <em>'BX'</em>, <em>'BY'</em>, <em>'BZ'</em>, <em>'CX'</em>, <em>'CY'</em>, <em>'CZ')</em>, <em>category: tuple = ('excess_stock'</em>, <em>'shortages'</em>, <em>'revenue')</em>, <em>value: str = 'currency'</em><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#supplychainpy.inventory.summarise.Inventory.abc_xyz_summary" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve currency value or units for key metrics by classification. Defaults to currency unless units stated.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>classification</strong> (<em>tuple</em>) &#8211; ABCXYZ inventory classification of sku.</li>
-<li><strong>category</strong> (<em>tuple</em>) &#8211; Category with which to aggregate the SKU classification.</li>
-<li><strong>value</strong> (<em>str</em>) &#8211; Defaults to aggregating classification on currency unless units are specified.</li>
+<li><strong>classification</strong> (<em>tuple</em>) – ABCXYZ inventory classification of sku.</li>
+<li><strong>category</strong> (<em>tuple</em>) – Category with which to aggregate the SKU classification.</li>
+<li><strong>value</strong> (<em>str</em>) – Defaults to aggregating classification on currency unless units are specified.</li>
 </ul>
 </td>
 </tr>
@@ -482,13 +515,13 @@ currency value or units.</p>
 
 <dl class="method">
 <dt id="supplychainpy.inventory.summarise.Inventory.describe_sku">
-<code class="descname">describe_sku</code><span class="sig-paren">(</span><em>*args: str</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.inventory.summarise.Inventory.describe_sku" title="Permalink to this definition">¶</a></dt>
+<code class="descname">describe_sku</code><span class="sig-paren">(</span><em>*args: str</em><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#supplychainpy.inventory.summarise.Inventory.describe_sku" title="Permalink to this definition">¶</a></dt>
 <dd><p>Summarise SKU using descriptive statistics, key performance indicators, financial fundamentals and rankings</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>*args</strong> (<em>str</em>) &#8211; SKU unique identification</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>*args</strong> (<em>str</em>) – SKU unique identification</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Summary of SKU.</td>
 </tr>
@@ -500,16 +533,16 @@ currency value or units.</p>
 
 <dl class="method">
 <dt id="supplychainpy.inventory.summarise.Inventory.rank_summary">
-<code class="descname">rank_summary</code><span class="sig-paren">(</span><em>attribute: str</em>, <em>count: int=0</em>, <em>reverse: bool=True</em><span class="sig-paren">)</span> &rarr; dict<a class="headerlink" href="#supplychainpy.inventory.summarise.Inventory.rank_summary" title="Permalink to this definition">¶</a></dt>
+<code class="descname">rank_summary</code><span class="sig-paren">(</span><em>attribute: str</em>, <em>count: int = 0</em>, <em>reverse: bool = True</em><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#supplychainpy.inventory.summarise.Inventory.rank_summary" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ranks any SKU in the profile by an attribute from the UncertainDemand objects orders_summary method.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>attribute</strong> (<em>str</em>) &#8211; SKU attribute from analysed orders in UncertainDemand object</li>
-<li><strong>count</strong> (<em>int</em>) &#8211; The running count required e.g. 10 for top 10.</li>
-<li><strong>reverse</strong> (<em>bool</em>) &#8211; Reverse the rank order e.g. top 10 or bottom 10</li>
+<li><strong>attribute</strong> (<em>str</em>) – SKU attribute from analysed orders in UncertainDemand object</li>
+<li><strong>count</strong> (<em>int</em>) – The running count required e.g. 10 for top 10.</li>
+<li><strong>reverse</strong> (<em>bool</em>) – Reverse the rank order e.g. top 10 or bottom 10</li>
 </ul>
 </td>
 </tr>
@@ -591,6 +624,9 @@ currency value or units.</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
@@ -624,13 +660,14 @@ currency value or units.</p>
             VERSION:'0.0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
