@@ -439,49 +439,50 @@ def load(file_path: str, location: str = None):
                     orders_data.analysis_id = inva.id
                     db.session.add(orders_data)
                     # need to select sku id
-                for i, forecasted_demand in enumerate(simple_forecast, 1):
-                    if forecasted_demand == item['sku']:
-                        forecast_stats = ForecastStatistics()
-                        forecast_stats.analysis_id = inva.id
-                        forecast_stats.mape = simple_forecast.get(forecasted_demand)['mape']
-                        forecast_stats.forecast_type_id = ses_id.id
-                        forecast_stats.slope = simple_forecast.get(forecasted_demand)['statistics']['slope']
-                        forecast_stats.p_value = simple_forecast.get(forecasted_demand)['statistics']['pvalue']
-                        forecast_stats.test_statistic = simple_forecast.get(forecasted_demand)['statistics'][
-                            'test_statistic']
-                        forecast_stats.slope_standard_error = simple_forecast.get(forecasted_demand)['statistics'][
-                            'slope_standard_error']
-                        forecast_stats.intercept = simple_forecast.get(forecasted_demand)['statistics']['intercept']
-                        forecast_stats.standard_residuals = simple_forecast.get(forecasted_demand)['statistics'][
-                            'std_residuals']
-                        forecast_stats.trending = simple_forecast.get(forecasted_demand)['statistics']['trend']
-                        forecast_stats.optimal_alpha = simple_forecast.get(forecasted_demand)['optimal_alpha']
-                        forecast_stats.optimal_gamma = 0
-                        db.session.add(forecast_stats)
-                        for p in range(0, len(simple_forecast.get(forecasted_demand)['forecast'])):
-                            forecast_data = Forecast()
-                            forecast_data.forecast_quantity = simple_forecast.get(forecasted_demand)['forecast'][p]
-                            forecast_data.analysis_id = inva.id
-                            forecast_data.forecast_type_id = ses_id.id
-                            forecast_data.period = p + 1
-                            forecast_data.create_date = date_now
-                            db.session.add(forecast_data)
-                        for q, sesf in enumerate(simple_forecast.get(forecasted_demand)['forecast_breakdown']):
-                            forecast_breakdown = ForecastBreakdown()
-                            forecast_breakdown.analysis_id = inva.id
-                            forecast_breakdown.forecast_type_id = ses_id.id
-                            forecast_breakdown.trend = 0
-                            forecast_breakdown.period = sesf['t']
-                            forecast_breakdown.level_estimates = \
-                                sesf['level_estimates']
-                            forecast_breakdown.one_step_forecast = \
-                                sesf['one_step_forecast']
-                            forecast_breakdown.forecast_error = \
-                                sesf['forecast_error']
-                            forecast_breakdown.squared_error = sesf['squared_error']
-                            forecast_breakdown.regression = simple_forecast.get(forecasted_demand)['regression'][q]
-                            db.session.add(forecast_breakdown)
-                        break
+                if simple_forecast is not None:
+                    for i, forecasted_demand in enumerate(simple_forecast, 1):
+                        if forecasted_demand == item['sku']:
+                            forecast_stats = ForecastStatistics()
+                            forecast_stats.analysis_id = inva.id
+                            forecast_stats.mape = simple_forecast.get(forecasted_demand)['mape']
+                            forecast_stats.forecast_type_id = ses_id.id
+                            forecast_stats.slope = simple_forecast.get(forecasted_demand)['statistics']['slope']
+                            forecast_stats.p_value = simple_forecast.get(forecasted_demand)['statistics']['pvalue']
+                            forecast_stats.test_statistic = simple_forecast.get(forecasted_demand)['statistics'][
+                                'test_statistic']
+                            forecast_stats.slope_standard_error = simple_forecast.get(forecasted_demand)['statistics'][
+                                'slope_standard_error']
+                            forecast_stats.intercept = simple_forecast.get(forecasted_demand)['statistics']['intercept']
+                            forecast_stats.standard_residuals = simple_forecast.get(forecasted_demand)['statistics'][
+                                'std_residuals']
+                            forecast_stats.trending = simple_forecast.get(forecasted_demand)['statistics']['trend']
+                            forecast_stats.optimal_alpha = simple_forecast.get(forecasted_demand)['optimal_alpha']
+                            forecast_stats.optimal_gamma = 0
+                            db.session.add(forecast_stats)
+                            for p in range(0, len(simple_forecast.get(forecasted_demand)['forecast'])):
+                                forecast_data = Forecast()
+                                forecast_data.forecast_quantity = simple_forecast.get(forecasted_demand)['forecast'][p]
+                                forecast_data.analysis_id = inva.id
+                                forecast_data.forecast_type_id = ses_id.id
+                                forecast_data.period = p + 1
+                                forecast_data.create_date = date_now
+                                db.session.add(forecast_data)
+                            for q, sesf in enumerate(simple_forecast.get(forecasted_demand)['forecast_breakdown']):
+                                forecast_breakdown = ForecastBreakdown()
+                                forecast_breakdown.analysis_id = inva.id
+                                forecast_breakdown.forecast_type_id = ses_id.id
+                                forecast_breakdown.trend = 0
+                                forecast_breakdown.period = sesf['t']
+                                forecast_breakdown.level_estimates = \
+                                    sesf['level_estimates']
+                                forecast_breakdown.one_step_forecast = \
+                                    sesf['one_step_forecast']
+                                forecast_breakdown.forecast_error = \
+                                    sesf['forecast_error']
+                                forecast_breakdown.squared_error = sesf['squared_error']
+                                forecast_breakdown.regression = simple_forecast.get(forecasted_demand)['regression'][q]
+                                db.session.add(forecast_breakdown)
+                            break
 
                 for i, holts_forecast_demand in enumerate(holts_forecast, 1):
                     if holts_forecast_demand == item['sku']:
