@@ -350,7 +350,6 @@ def load(file_path: str, location: str = None):
                 simple_forecast = parallelise_ses(pickled_ses_batch_files=pickled_paths, core_count=cores)
             except:
                 simple_forecast = {}
-
             cleanup_pickled_files()
 
             try:
