@@ -187,6 +187,7 @@ def parallelise_ses(pickled_ses_batch_files: list, core_count: int) -> dict:
             parallelise_ses(pickled_ses_batch_files=list(pickled_ses_batch_files_remaining), core_count=core_count)
         else:
             print('The forecasting calculation process was unable to complete. Please check the source file.')
+            return {}
     except OSError as err:
         print(err)
 
