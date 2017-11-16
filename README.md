@@ -174,7 +174,7 @@ BSD-3-Clause
 
 ## Change Log
 
-### 0.0.5
+### 0.0.5 [8 Nov 2017]
 
 **Application**
 

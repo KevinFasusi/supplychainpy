@@ -32,6 +32,7 @@ import logging
 
 from supplychainpy._csv_management._csv_manager import _Orchestrate
 from supplychainpy._csv_management._model._db_setup import create_management_db
+from supplychainpy._gui.launch import home
 from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_APPLICATION_CONFIG
 from supplychainpy._helpers._decorators import quiet_console
 from supplychainpy._helpers._pickle_config import serialise_config, deserialise_config
@@ -254,7 +255,7 @@ def main():
                 print('Dash> ', i)
             msg = input("> ")
     else:
-        launch_report()
+        home()
 
 if __name__ == '__main__':
     main()
