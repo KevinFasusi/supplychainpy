@@ -1,18 +1,37 @@
-import threading
-import tkinter as tk
-from tkinter import ttk
+# Copyright (c)2015-2017, The Authors and Contributors
+# <see AUTHORS file>
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+# following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the
+# following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+# following disclaimer in the documentation and/or other materials provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote
+# products derived from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+# INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+# DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+# SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
+# USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 
 import os
-
 import pickle
-
-import sys
-
-import time
+import threading
+import tkinter as tk
+import webbrowser
+from tkinter import ttk
 
 from supplychainpy._gui.controller.validate import port, host
 from supplychainpy._gui.views._error import ErrorWindow
-from supplychainpy._gui.views._stdout import StdoutWindow, StdoutPipe
 from supplychainpy._helpers._config_file_paths import ABS_FILE_PICKLE, ABS_FILE_PATH_APPLICATION_CONFIG
 from supplychainpy._helpers._pickle_config import serialise_config
 from supplychainpy.launch_reports import launch_report_server, load_db, launch_report
@@ -139,10 +158,15 @@ class MainWindow(tk.Tk):
         self.data_source_lbl.img = self.data_source_lbl.img.subsample(2, 2)
         self.data_source_lbl.config(image=self.data_source_lbl.img, compound='left')
 
-        self.data_source_lbl.grid(row=0, column=1, pady=(0, 10))
+        self.data_source_lbl.grid(row=0, column=1, pady=(0, 0))
         self.data_entry = ttk.Entry(self.data_lbl_frm, width=30)
         self.data_entry.bind('<FocusOut>', lambda e: self.data_source_focusout())
-        self.data_entry.grid(row=0, column=2, columnspan=2, pady=(0, 10))
+        self.data_entry.grid(row=0, column=2, columnspan=2, pady=(0, 0))
+        self.data_entry_var = tk.StringVar()
+        self.data_entry_var.set("")
+        self.data_entry_validation = ttk.Label(self.data_lbl_frm, textvariable=self.data_entry_var)
+        self.data_entry_validation.grid(row=1, column=2, columnspan=2, pady=(0, 0))
+        self.data_entry_validation.config(foreground="red")
 
         db_rel_path = '../reporting/static/images/db.gif'
         db_logo_path = os.path.abspath(os.path.join(app_dir, '..', db_rel_path))
@@ -152,9 +176,9 @@ class MainWindow(tk.Tk):
         self.database_lbl.img = self.db_source_img
         self.database_lbl.img = self.database_lbl.img.subsample(2, 2)
         self.database_lbl.config(image=self.database_lbl.img, compound='left')
-        self.database_lbl.grid(row=1, column=1, pady=(0, 10))
+        self.database_lbl.grid(row=2, column=1, pady=(0, 10))
         self.database_entry = ttk.Entry(self.data_lbl_frm, width=30)
-        self.database_entry.grid(row=1, column=2, columnspan=2, pady=(0, 10))
+        self.database_entry.grid(row=2, column=2, columnspan=2, pady=(0, 10))
         self.database_entry.state(['disabled'])
 
         socket_rel_path = '../reporting/static/images/socket.gif'
@@ -165,9 +189,14 @@ class MainWindow(tk.Tk):
         self.port_lbl.img = self.socket_source_img
         self.port_lbl.config(image=self.port_lbl.img, compound='left')
 
-        self.port_lbl.grid(row=0, column=1, pady=(0, 10))
+        self.port_lbl.grid(row=0, column=1, pady=(0, 0))
         self.port_entry = ttk.Entry(self.settings_lbl_frm, width=30)
-        self.port_entry.grid(row=0, column=2, columnspan=2, pady=(0, 10))
+        self.port_entry.grid(row=0, column=2, columnspan=2, pady=(0, 0))
+        self.port_entry_var = tk.StringVar()
+        self.port_entry_var.set("")
+        self.port_entry_validation = ttk.Label(self.settings_lbl_frm, textvariable=self.port_entry_var)
+        self.port_entry_validation.grid(row=1, column=2, columnspan=2)
+        self.port_entry_validation.config(foreground="red")
 
         host_rel_path = '../reporting/static/images/server.gif'
         host_logo_path = os.path.abspath(os.path.join(app_dir, '..', host_rel_path))
@@ -177,33 +206,52 @@ class MainWindow(tk.Tk):
         self.host_lbl.img = self.host_img
         self.host_lbl.img = self.host_lbl.img.subsample(2, 2)
         self.host_lbl.config(image=self.host_lbl.img, compound='left')
-        self.host_lbl.grid(row=1, column=1, pady=(0, 10))
+        self.host_lbl.grid(row=2, column=1, pady=(0, 0))
         self.host_entry = ttk.Entry(self.settings_lbl_frm, width=30, text='127.0.0.1')
-        self.host_entry.grid(row=1, column=2, columnspan=2, pady=(0, 10))
+        self.host_entry.grid(row=2, column=2, columnspan=2, pady=(0, 0))
+        self.host_entry_var = tk.StringVar()
+        self.host_entry_var.set("")
+        self.host_entry_validation = ttk.Label(self.settings_lbl_frm, textvariable=self.host_entry_var)
+        self.host_entry_validation.grid(row=3, column=2, columnspan=2)
+        self.host_entry_validation.config(foreground="red")
 
         self.analysis_var = tk.BooleanVar()
         self.analysis_var.set(True)
         self.analysis_btn = ttk.Checkbutton(self.settings_lbl_frm, onvalue=True, offvalue=False,
                                             variable=self.analysis_var,
                                             command=self.toggle_analysis_check, text='Run Analysis')
-        self.analysis_btn.grid(row=2, column=2, pady=(10, 10))
+        self.analysis_btn.grid(row=4, column=2, pady=(10, 0))
 
         self.launch_var = tk.BooleanVar()
         self.launch_var.set(True)
         self.launch_btn = ttk.Checkbutton(self.settings_lbl_frm, onvalue=True, offvalue=False, variable=self.launch_var,
                                           command=self.toggle_launch_check, text='Launch Reports')
-        self.launch_btn.grid(row=2, column=3, pady=(10, 10))
+        self.launch_btn.grid(row=4, column=3, pady=(10, 0))
+
+        self.settings_checkbox_var = tk.StringVar()
+        self.settings_checkbox_var.set("")
+        self.settings_checkbox_validation = ttk.Label(self.settings_lbl_frm, textvariable=self.settings_checkbox_var)
+        self.settings_checkbox_validation.grid(row=5, column=2, columnspan=2)
+        self.settings_checkbox_validation.config(foreground="red")
 
         self.reset_btn = ttk.Button(self.main_frame, text='Reset')
-        self.reset_btn.grid(row=5, column=9)
+        self.reset_btn.grid(row=6, column=9)
         self.reset_btn.config(command=self.reset_data_entry)
 
         self.finished_btn = ttk.Button(self.main_frame, text='Finished')
         self.finished_btn.config(command=self.finished)
-        self.finished_btn.grid(row=5, column=11, )
+        self.finished_btn.grid(row=6, column=11, )
 
         self.error_window_live = tk.BooleanVar()
         self.error_window_live.set(value=False)
+
+        self.hyperlink = tk.StringVar()
+        self.hyperlink_text = ttk.Label(self.main_frame, textvariable=self.hyperlink)
+        self.hyperlink_text.config( foreground='lightblue', font=('courier', 11, 'underline'))
+        self.hyperlink_text.config(textvariable=self.hyperlink)
+        self.hyperlink_text.bind("<Button-1>", lambda e, url=str(self.hyperlink): launch_browser(e, url))
+        self.hyperlink_text.grid(row=7, column=1, columnspan=2)
+
 
     def toggle_analysis_check(self):
         if not self.analysis_var.get():
@@ -279,8 +327,7 @@ class MainWindow(tk.Tk):
         if self.source_file_path_entered.set(True):
             pass
 
-    def data_source_focusout(self, ):
-        print(self.data_entry.get())
+    def data_source_focusout(self):
         self.check_valid_path(self.data_entry.get())
 
     def check_valid_path(self, path: str) -> bool:
@@ -289,11 +336,12 @@ class MainWindow(tk.Tk):
             ErrorWindow(self.parent)
             self.error_window_live.set(True)
             return False
-
         if os.path.exists(os.path.dirname(path)):
             print('path present')
             self.update_db_path(path)
             return True
+        else:
+            return False
 
             # launch dialog box explaining that path does not exist and requesting if the user would like the path to be created.
             # use the path without the reporting.db at the end.
@@ -301,8 +349,36 @@ class MainWindow(tk.Tk):
     def finished(self):
         start_pbar = threading.Thread(target=self.start_progressbar)
         start_pbar.start()
-        start_validate = threading.Thread(target=self.validate_completed_form)
-        start_validate.start()
+        if self.validate_completed_form():
+            user_entered_path = self.data_entry.get()
+            report_check = self.analysis_var.get()
+            port_num = self.port_entry.get()
+            host_address = self.host_entry.get()
+            database_dir = self.db_dir(user_entered_path)
+
+            # address currency selection
+            app_settings = {
+                'database_path': database_dir,
+                'host': self.host_entry.get(),
+                'currency': 'USD'
+            }
+            serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
+            if report_check:
+
+                # self.stdout = tk.Text(self.main_panel, wrap='word', height=320)
+                # self.stdout.grid(column=0, row=0, columnspan=2, sticky='NSWE', padx=5, pady=5)
+                # sys.stdout = StdoutPipe(self.stdout)
+                # sys.stderr = StdoutPipe(self.stdout)
+                start_load_db = threading.Thread(target=self.load_database, args=(user_entered_path, database_dir,
+                                                                                  port_num, host_address))
+                start_load_db.start()
+                start_load_db.join()
+                self.hyperlink.set('http://{}:{}'.format(host_address, port_num))
+        else:
+            self.stop_progressbar()
+
+    def launch_report_gui(self, database_dir, port_num, host_address):
+        launch_report_server(location=database_dir, port=port_num, host=host_address)
 
     def validate_completed_form(self):
         user_entered_path = self.data_entry.get()
@@ -310,64 +386,91 @@ class MainWindow(tk.Tk):
         host_address = self.host_entry.get()
         launch_check = self.launch_var.get()
         report_check = self.analysis_var.get()
-        filename = self.file_name(user_entered_path)
 
-        if not port(port_num) and not self.error_window_live.get():
+        if not self.validate_path(user_entered_path):
+            return False
+        elif not self.check_valid_file(user_entered_path):
+            return False
+        elif not self.validate_port(port_num):
+            return False
+        elif not self.validate_host(host_address):
+            return False
+        elif not self.validate_settings_check_buttons(launch_check, report_check):
+            return False
+        else:
+            self.validate_unique_path_to_cache(user_entered_path)
+            return True
+
+    def check_valid_file(self, path: str) -> bool:
+        if not os.path.isfile(path):
+            self.error_window_live.set(True)
+            ErrorWindow(self.parent, window_live=self.error_window_live, msg='Enter a valid path to source file')
+            self.data_entry_var.set("File not found")
+            return False
+        else:
+            return True
+
+    def validate_path(self, user_entered_path) -> bool:
+        if len(user_entered_path) == 0:
+            self.error_window_live.set(True)
+            ErrorWindow(self.parent, window_live=self.error_window_live, msg='Enter a valid path')
+            self.data_entry_var.set("Please enter a valid path")
+            return False
+        else:
+            self.data_entry_var.set("")
+            return True
+
+    def validate_port(self, port_number) -> bool:
+        if not port(port_number) and not self.error_window_live.get():
             self.error_window_live.set(True)
             ErrorWindow(self.parent, window_live=self.error_window_live, msg='Enter a valid port number')
-        elif not host(host_address):
+            self.port_entry_var.set("Please enter a valid port number")
+            return False
+        else:
+            self.port_entry_var.set("")
+            return True
+
+    def validate_host(self, host_address) -> bool:
+        if not host(host_address):
             self.error_window_live.set(True)
             ErrorWindow(self.parent, window_live=self.error_window_live, msg='Enter a valid host address')
-        elif not launch_check and not report_check:
+            self.host_entry_var.set("Please enter a valid host address")
+            return False
+        else:
+            self.host_entry_var.set("")
+            return True
+
+    def validate_settings_check_buttons(self, launch_check, report_check) -> bool:
+        if not launch_check and not report_check:
             self.error_window_live.set(True)
             ErrorWindow(self.parent, window_live=self.error_window_live,
-                        msg='Select a valid option, \'Lanuch Reports\' or \'Run Analysis\'')
-        elif self.check_valid_path(user_entered_path) and self.cache_unique():
+                        msg='Select a valid option, \'Launch Reports\' or \'Run Analysis\'')
+            self.settings_checkbox_var.set("Select one or more of the settings options")
+            return False
+        else:
+            self.settings_checkbox_var.set("")
+            return True
+
+    def validate_unique_path_to_cache(self, user_entered_path):
+        if self.check_valid_path(user_entered_path) and self.cache_unique() and self.check_valid_file(user_entered_path):
             self.write_source_file_path_cache()
-
-        database_dir = self.db_dir(user_entered_path)
-        print(database_dir)
-
-        # address currency selection
-        app_settings = {
-            'database_path': database_dir,
-            'host': self.host_entry.get(),
-            'currency': 'USD'
-        }
-        serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
-
-        if report_check:
-            #self.stdout = tk.Text(self.main_panel, wrap='word', height=320)
-            #self.stdout.grid(column=0, row=0, columnspan=2, sticky='NSWE', padx=5, pady=5)
-            #sys.stdout = StdoutPipe(self.stdout)
-            #sys.stderr = StdoutPipe(self.stdout)
-            start_load_db = threading.Thread(target=self.load_database, args=(user_entered_path, database_dir))
-            start_load_db.start()
-            start_load_db.join()
-            self.progressbar.stop()
-            launch_report_server(location=database_dir, port=port_num, host=host_address)
-            #start_nav = threading.Thread(target=self.launch_nav)
-            #start_nav.start()
-            #launcher = tk.Tk()
-            #app_launch = StdoutWindow(launcher, user_entered_path, database_dir, port_num, host_address)
-            #app_launch.spawn.run()
-
-    #def lauch_nav(self):
-    #    launch_report()
 
     def start_progressbar(self):
         self.progressbar.state(['!disabled'])
         self.progressbar.start()
 
-    def load_database(self,user_entered_path, database_dir):
-        load_db(file=user_entered_path, location=database_dir)
+    def stop_progressbar(self):
+        self.progressbar.stop()
+        self.progressbar.state(['disabled'])
 
-    # def check_reporting_db(self):
-       # pass
+    def load_database(self, user_entered_path, database_dir, port_num, host_address):
+        load_db(file=user_entered_path, location=database_dir)
+        self.launch_report_gui(database_dir, port_num, host_address)
+
 
     # check if reporting database already exists if so inform user move to an archieve directory in the same directory and continue
     # append date. In future version add the ability to search archive of reporting databases.
-    # if user choses no to archieving the database then only offer lanuching the reports and disable the analyse the reports checkbutton
+    # if user chooses no to archieving the database then only offer lanuching the reports and disable the analyse the reports checkbutton
 
 
 
@@ -382,9 +485,12 @@ class MainWindow(tk.Tk):
             str:    Path to create database
 
         """
-        split_path = path.split(os.sep)
-        path_components = [i for i in split_path if len(i) > 0]
-        return path_components[-1:][0]
+        try:
+            split_path = path.split(os.sep)
+            path_components = [i for i in split_path if len(i) > 0]
+            return path_components[-1:][0]
+        except IndexError as err:
+            return ''
 
     @staticmethod
     def db_dir(path: str) -> str:
@@ -468,12 +574,8 @@ class MainWindow(tk.Tk):
         except OSError as err:
             pass
 
-    def stop_progressbar(self):
-        pass
-
-    def verify_source_file(self):
-        pass
-        # checks source file is still present before populating the listbox
-
+def launch_browser(event, url: str):
+    """Launches web browser"""
+    webbrowser.open_new(str(url))
 
 # make sure tkinter theme is aware of mac vs windows and linux.
