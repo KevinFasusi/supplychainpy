@@ -41,6 +41,7 @@ class StdoutPipe():
         self.text_output.see('end')
 
 
+
 class Launcher(threading.Thread):
     """Launches reporting lauch panel """
 

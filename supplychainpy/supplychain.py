@@ -247,6 +247,7 @@ def main():
                 print('Dash> ', i)
             msg = input("> ")
     else:
+        print("Launched graphical user interface")
         home()
 
 if __name__ == '__main__':

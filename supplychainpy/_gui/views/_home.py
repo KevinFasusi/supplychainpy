@@ -30,6 +30,10 @@ import tkinter as tk
 import webbrowser
 from tkinter import ttk
 
+import sys
+
+from supplychainpy._gui.views._stdout import StdoutPipe
+
 from supplychainpy._gui.controller.validate import port, host
 from supplychainpy._gui.views._error import ErrorWindow
 from supplychainpy._helpers._config_file_paths import ABS_FILE_PICKLE, ABS_FILE_PATH_APPLICATION_CONFIG
@@ -43,7 +47,7 @@ class MainWindow(tk.Tk):
     def __init__(self, master: tk.Tk, *args, **kwargs):
         # launches second pane
         master.title('SUPPLYCHAINPY (Community Edition)')
-        master.resizable(True, True)
+        master.resizable(False, True)
         self.parent = master
         master.option_add('*tearoff', False)
         self.menubar = tk.Menu(master)
@@ -132,13 +136,14 @@ class MainWindow(tk.Tk):
         # binding to listbox
         self.listbox.bind('<<ListboxSelect>>', lambda e: self.data_source_entry(e))
         self.progress_frame = ttk.Frame(master)
-        self.progress_frame.pack(side=tk.RIGHT)
-
+        self.progress_frame.pack(side=tk.RIGHT, expand=tk.YES)
+        self.progress_frame.config(height=100)
         self.progressbar = ttk.Progressbar(self.progress_frame, style='black.Horizontal.TProgressbar',
                                            orient=tk.HORIZONTAL, length=200)
         self.progressbar.pack()
         self.progressbar.config(mode='indeterminate')
         self.progressbar.state(['disabled'])
+        self.progressbar.config()
         # self.progressbar.start()
 
         # adding frames and labels to the main_frame
@@ -246,12 +251,13 @@ class MainWindow(tk.Tk):
         self.error_window_live.set(value=False)
 
         self.hyperlink = tk.StringVar()
+        self.hyperlink.set("hello world")
         self.hyperlink_text = ttk.Label(self.main_frame, textvariable=self.hyperlink)
-        self.hyperlink_text.config( foreground='lightblue', font=('courier', 11, 'underline'))
-        self.hyperlink_text.config(textvariable=self.hyperlink)
+        self.hyperlink_text.config(foreground='lightblue', font=('courier', 11, 'underline'))
+        self.hyperlink_text.config(text=self.hyperlink ,textvariable=self.hyperlink)
         self.hyperlink_text.bind("<Button-1>", lambda e, url=str(self.hyperlink): launch_browser(e, url))
         self.hyperlink_text.grid(row=7, column=1, columnspan=2)
-
+        self.std_out_text = tk.Text(self.main_panel, wrap='word', height=320, width=600)
 
     def toggle_analysis_check(self):
         if not self.analysis_var.get():
@@ -347,11 +353,14 @@ class MainWindow(tk.Tk):
             # use the path without the reporting.db at the end.
 
     def finished(self):
-        start_pbar = threading.Thread(target=self.start_progressbar)
-        start_pbar.start()
+        # check if main thread has been cancelled and quit
+        self.start_progressbar()
         if self.validate_completed_form():
+            self.pipe_stdout()
             user_entered_path = self.data_entry.get()
             report_check = self.analysis_var.get()
+            launch_check =self.launch_var.get()
+            print(launch_check)
             port_num = self.port_entry.get()
             host_address = self.host_entry.get()
             database_dir = self.db_dir(user_entered_path)
@@ -364,21 +373,28 @@ class MainWindow(tk.Tk):
             }
             serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
             if report_check:
-
-                # self.stdout = tk.Text(self.main_panel, wrap='word', height=320)
-                # self.stdout.grid(column=0, row=0, columnspan=2, sticky='NSWE', padx=5, pady=5)
-                # sys.stdout = StdoutPipe(self.stdout)
-                # sys.stderr = StdoutPipe(self.stdout)
                 start_load_db = threading.Thread(target=self.load_database, args=(user_entered_path, database_dir,
                                                                                   port_num, host_address))
+                start_load_db.daemon = True
                 start_load_db.start()
-                start_load_db.join()
-                self.hyperlink.set('http://{}:{}'.format(host_address, port_num))
+            elif launch_check:
+                start_load_db = threading.Thread(target=self.load_database, args=(user_entered_path, database_dir,                                                                      port_num, host_address,False))
+                start_load_db.daemon = True
+                start_load_db.start()
+
         else:
             self.stop_progressbar()
 
-    def launch_report_gui(self, database_dir, port_num, host_address):
-        launch_report_server(location=database_dir, port=port_num, host=host_address)
+    def pipe_stdout(self):
+        #root = tk.Toplevel()
+        out_text = self.std_out_text
+        sys.stdout = StdoutPipe(out_text)
+        #sys.stderr = StdoutPipe(out_text)
+        out_text.grid(column=0, row=0, columnspan=2, sticky='NSWE', padx=5, pady=5)
+
+
+    #def launch_report_gui(self, database_dir, port_num, host_address):
+
 
     def validate_completed_form(self):
         user_entered_path = self.data_entry.get()
@@ -463,9 +479,11 @@ class MainWindow(tk.Tk):
         self.progressbar.stop()
         self.progressbar.state(['disabled'])
 
-    def load_database(self, user_entered_path, database_dir, port_num, host_address):
-        load_db(file=user_entered_path, location=database_dir)
-        self.launch_report_gui(database_dir, port_num, host_address)
+    def load_database(self, user_entered_path, database_dir, port_num, host_address, load:bool = True):
+        if load:
+            load_db(file=user_entered_path, location=database_dir)
+        else:
+            launch_report_server(location=database_dir, port=port_num, host=host_address,server=True)
 
 
     # check if reporting database already exists if so inform user move to an archieve directory in the same directory and continue

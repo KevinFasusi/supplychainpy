@@ -41,13 +41,14 @@ log.addHandler(logging.NullHandler())
 class ReportsLauncher(threading.Thread):
     """Launches reporting lauch panel """
 
-    def __init__(self):
+    def __init__(self, server: bool=False):
         threading.Thread.__init__(self)
         self.message = "launching reports"
         self.name = "reports"
         self.port = 5000
         self.host = '127.0.0.1'
         self.app = create_app()
+        self.server = server
 
     def print_message(self):
         """Prints launch message"""
@@ -60,6 +61,9 @@ class ReportsLauncher(threading.Thread):
         config['host'] = self.host
         serialise_config(config, ABS_FILE_PATH_APPLICATION_CONFIG)
         # print(self.port)
+        url = 'http://{}:{}'.format(self.host,self.port)
+        if self.server:
+            webbrowser.open_new(str(url))
         self.app.run(host=self.host, port=int(self.port))
 
 
@@ -257,7 +261,7 @@ def load_db(file: str, location: str = None):
         load.load(file)
 
 
-def launch_report_server(location: str = None, port: int = 5000, host: str = '127.0.0.1'):
+def launch_report_server(location: str = None, port: int = 5000, host: str = '127.0.0.1',server:bool =False):
     app = create_app()
     if location is not None and os.name in ['posix', 'mac']:
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/reporting.db'.format(location)
@@ -268,6 +272,28 @@ def launch_report_server(location: str = None, port: int = 5000, host: str = '12
     app_launch = ReportsLauncher()
     app_launch.port = port
     app_launch.host = host
+    app_launch.server = server
     app_launch.run()
 
+
+
+def load_db_launch_report_server(file: str, location: str = None, port: int = 5000, host: str = '127.0.0.1'):
+    from supplychainpy.reporting import load
+
+    app = create_app()
+    if location is not None and os.name in ['posix', 'mac']:
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/reporting.db'.format(location)
+    elif location is not None and os.name == 'nt':
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}\\reporting.db'.format(location)
+    with app.app_context():
+        db.create_all()
+    if location is not None:
+        load.load(file, location)
+    else:
+        load.load(file)
+
+    app_launch = ReportsLauncher()
+    app_launch.port = port
+    app_launch.host = host
+    app_launch.run()
 
