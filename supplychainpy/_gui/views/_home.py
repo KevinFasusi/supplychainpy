@@ -378,7 +378,7 @@ class MainWindow(tk.Tk):
                 start_load_db.daemon = True
                 start_load_db.start()
             elif launch_check:
-                start_load_db = threading.Thread(target=self.load_database, args=(user_entered_path, database_dir,                                                                      port_num, host_address,False))
+                start_load_db = threading.Thread(target=self.load_database, args=(user_entered_path, database_dir, port_num, host_address,False))
                 start_load_db.daemon = True
                 start_load_db.start()
 
@@ -542,7 +542,7 @@ class MainWindow(tk.Tk):
         path_components = [i for i in split_path if len(i) > 0]
         path_stem = ['{}{}'.format(os.sep, i) for i in path_components[:-1]]
         reconstituted_path = ''.join(path_stem)
-        database_path = '{}/reporting.db'.format(reconstituted_path)
+        database_path = '{}{}reporting.db'.format(reconstituted_path,os.path.sep)
         return database_path
 
     def write_source_file_path_cache(self):
