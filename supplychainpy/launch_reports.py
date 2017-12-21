@@ -39,7 +39,7 @@ log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
 
 class ReportsLauncher(threading.Thread):
-    """Launches reporting lauch panel """
+    """Launches reporting launch panel """
 
     def __init__(self, server: bool=False):
         threading.Thread.__init__(self)
@@ -247,11 +247,12 @@ def load_db(file: str, location: str = None):
 
     app = create_app()
 
-    if location is not None and os.name in ['posix', 'mac']:
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/reporting.db'.format(location)
+    if location is not None and os.name == 'nt':
+        db_uri = '{}{}reporting.db'.format(location, os.path.sep).lstrip(os.path.sep)
+    else:
+        db_uri = '{}{}reporting.db'.format(location, os.path.sep)
 
-    elif location is not None and os.name == 'nt':
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}\\reporting.db'.format(location)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(db_uri)
 
     with app.app_context():
         db.create_all()
@@ -263,10 +264,12 @@ def load_db(file: str, location: str = None):
 
 def launch_report_server(location: str = None, port: int = 5000, host: str = '127.0.0.1',server:bool =False):
     app = create_app()
-    if location is not None and os.name in ['posix', 'mac']:
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/reporting.db'.format(location)
-    elif location is not None and os.name == 'nt':
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}\\reporting.db'.format(location)
+    if location is not None and os.name == 'nt':
+        db_uri = '{}{}reporting.db'.format(location, os.path.sep).lstrip(os.path.sep)
+    else:
+        db_uri = '{}{}reporting.db'.format(location, os.path.sep)
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(db_uri)
     with app.app_context():
         db.create_all()
     app_launch = ReportsLauncher()

@@ -306,11 +306,12 @@ def load(file_path: str, location: str = None):
     try:
         app = create_app()
         db.init_app(app)
-        if location is not None and os.name in ['posix', 'mac']:
-            app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/reporting.db'.format(location)
+        if location is not None and os.name == 'nt':
+            db_uri = '{}{}reporting.db'.format(location, os.path.sep).lstrip(os.path.sep)
+        else:
+            db_uri = '{}{}reporting.db'.format(location, os.path.sep)
 
-        elif location is not None and os.name == 'nt':
-            app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}\\reporting.db'.format(location)
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(db_uri)
 
         log.log(logging.DEBUG, 'Loading data analysis for reporting suite... \n')
 
@@ -375,7 +376,6 @@ def load(file_path: str, location: str = None):
             htces_id = db.session.query(ForecastType.id).filter(ForecastType.type == forecast_types[1]).first()
             current_msk = db.session.query(MasterSkuList.sku_id).all()
             match_sku = [str(i) for i in current_msk]
-            print(match_sku)
             print('Calculating Forecasts...[COMPLETED]\n')
             log.log(logging.DEBUG, 'loading database ...\n')
             print('loading database ...\n')

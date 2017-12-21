@@ -4,24 +4,24 @@ from tkinter import ttk
 from supplychainpy._gui.views._error import ErrorWindow
 
 
-def host(address: str)-> bool:
+def host(address: str) -> bool:
     address = str(address)
     try:
         sc.inet_aton(address)
-        print("address : {}".format(address))
+        #print("address : {}".format(address))
         return True
     except sc.error:
         return False
 
-def db_path(path: str)->bool:
+def db_path(path: str) -> bool:
     pass
 
-def port(port_num: int)->bool:
+def port(port_num: int) -> bool:
     print("validating port")
 
     try:
         if int(port_num):
-            print("port present: {}".format(port_num))
+            #print("port present: {}".format(port_num))
             return True
     except ValueError as err:
             return False

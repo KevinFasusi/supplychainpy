@@ -31,6 +31,7 @@ import webbrowser
 from tkinter import ttk
 
 import sys
+from typing import Optional
 
 from supplychainpy._gui.views._stdout import StdoutPipe
 
@@ -41,11 +42,53 @@ from supplychainpy._helpers._pickle_config import serialise_config
 from supplychainpy.launch_reports import launch_report_server, load_db, launch_report
 
 
+def _load_database(user_entered_path: str, database_dir: str, port_num: int, host_address: str, load: bool = True):
+    """
+
+    Args:
+        user_entered_path:
+        database_dir:
+        port_num:
+        host_address:
+        load:
+
+    Returns:
+
+    """
+    if load:
+        load_db(file=user_entered_path, location=database_dir)
+        launch_report_server(location=database_dir, port=port_num, host=host_address, server=True)
+    else:
+        launch_report_server(location=database_dir, port=port_num, host=host_address, server=True)
+
+
+def file_name(path: str) -> Optional[str]:
+    """ Creates path to database in the same folder as source file.
+
+    Args:
+        path (str):
+
+    Returns:
+        str:    Path to create database
+
+    """
+    try:
+        split_path = path.split(os.sep)
+        path_components = [i for i in split_path if len(i) > 0]
+        return path_components[-1:][0]
+    except IndexError as err:
+        return None
+
+
 class MainWindow(tk.Tk):
-    CACHED_FILE_PATHS = 'cached_paths'
+    CACHED_FILE_PATHS = "cached_paths"
+    HOST_VALIDATION = "Please enter a valid host address "
+    PORT_VALIDATION = "Please enter a valid port number "
+    PATH_VALIDATION = "Please enter a valid path "
+    CHECKBOX_VALIDATION = "Select one or more of the settings options "
 
     def __init__(self, master: tk.Tk, *args, **kwargs):
-        # launches second pane
+        #super().__init__()
         master.title('SUPPLYCHAINPY (Community Edition)')
         master.resizable(False, True)
         self.parent = master
@@ -71,6 +114,7 @@ class MainWindow(tk.Tk):
         self.file_menu.add_command(label='Save', command=lambda: print("Testing"))
         self.file_menu.add_command(label='Close', command=lambda: print("Testing"))
         self.file_menu.add_separator()
+        self.file_menu.add_command(label='Reset', command=lambda: print("Testing"))
         self.file_menu.add_command(label='Settings', command=lambda: print("Testing"))
         self.file_menu.add_separator()
         self.file_menu.add_command(label='Synchronise', command=lambda: print("Testing"))
@@ -254,40 +298,38 @@ class MainWindow(tk.Tk):
         self.hyperlink.set("hello world")
         self.hyperlink_text = ttk.Label(self.main_frame, textvariable=self.hyperlink)
         self.hyperlink_text.config(foreground='lightblue', font=('courier', 11, 'underline'))
-        self.hyperlink_text.config(text=self.hyperlink ,textvariable=self.hyperlink)
+        self.hyperlink_text.config(text=self.hyperlink, textvariable=self.hyperlink)
         self.hyperlink_text.bind("<Button-1>", lambda e, url=str(self.hyperlink): launch_browser(e, url))
         self.hyperlink_text.grid(row=7, column=1, columnspan=2)
         self.std_out_text = tk.Text(self.main_panel, wrap='word', height=320, width=600)
 
-    def toggle_analysis_check(self):
+    def toggle_analysis_check(self) -> None:
+        """ Toggle the check button for running analysis.
+
+        Returns:
+            (None)
+        """
         if not self.analysis_var.get():
             self.analysis_var.set(False)
         else:
             self.analysis_var.set(True)
 
-    def toggle_launch_check(self):
+    def toggle_launch_check(self) -> None:
+        """ Toggle the check button for running launcher.
+
+        Returns:
+            (None)
+        """
         if not self.launch_var.get():
             self.launch_var.set(False)
         else:
             self.launch_var.set(True)
 
-    def show_frame(self, page_name):
-        """ Show a frame for the given page name
-
-        Args:
-            page_name:
-
-        Returns:
-
-        """
-        frame = self.frames[page_name]
-        frame.tkraise()
-
-    def data_source_entry(self, e):
+    def data_source_entry(self, e: tk.Event) -> None:
         """ Populates data_entry widget form current selection in list selection
 
         Args:
-            e:
+            e(tk.Event):
 
         Returns:
 
@@ -304,7 +346,7 @@ class MainWindow(tk.Tk):
         except IndexError as err:
             pass
 
-    def update_db_path(self, selected_path: str):
+    def update_db_path(self, selected_path: str) -> None:
         """ Updates the database path entry widget and disables input from user.
 
         Args:
@@ -333,7 +375,12 @@ class MainWindow(tk.Tk):
         if self.source_file_path_entered.set(True):
             pass
 
-    def data_source_focusout(self):
+    def data_source_focusout(self) -> None:
+        """
+
+        Returns:
+
+        """
         self.check_valid_path(self.data_entry.get())
 
     def check_valid_path(self, path: str) -> bool:
@@ -352,15 +399,20 @@ class MainWindow(tk.Tk):
             # launch dialog box explaining that path does not exist and requesting if the user would like the path to be created.
             # use the path without the reporting.db at the end.
 
-    def finished(self):
+    def finished(self) -> None:
+        """
+
+        Returns:
+            (None)
+        """
         # check if main thread has been cancelled and quit
         self.start_progressbar()
         if self.validate_completed_form():
             self.pipe_stdout()
             user_entered_path = self.data_entry.get()
             report_check = self.analysis_var.get()
-            launch_check =self.launch_var.get()
-            print(launch_check)
+            launch_check = self.launch_var.get()
+            # print(launch_check)
             port_num = self.port_entry.get()
             host_address = self.host_entry.get()
             database_dir = self.db_dir(user_entered_path)
@@ -373,30 +425,38 @@ class MainWindow(tk.Tk):
             }
             serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
             if report_check:
-                start_load_db = threading.Thread(target=self.load_database, args=(user_entered_path, database_dir,
-                                                                                  port_num, host_address))
+                start_load_db = threading.Thread(target=_load_database, args=(user_entered_path, database_dir,
+                                                                              port_num, host_address))
                 start_load_db.daemon = True
                 start_load_db.start()
             elif launch_check:
-                start_load_db = threading.Thread(target=self.load_database, args=(user_entered_path, database_dir, port_num, host_address,False))
+                start_load_db = threading.Thread(target=_load_database,
+                                                 args=(user_entered_path, database_dir, port_num, host_address, False))
                 start_load_db.daemon = True
                 start_load_db.start()
 
         else:
             self.stop_progressbar()
 
-    def pipe_stdout(self):
-        #root = tk.Toplevel()
+    def pipe_stdout(self) -> None:
+        """
+
+        Returns:
+            (None)
+
+        """
+        # root = tk.Toplevel()
         out_text = self.std_out_text
         sys.stdout = StdoutPipe(out_text)
-        #sys.stderr = StdoutPipe(out_text)
+        # sys.stderr = StdoutPipe(out_text)
         out_text.grid(column=0, row=0, columnspan=2, sticky='NSWE', padx=5, pady=5)
 
+    def validate_completed_form(self) -> bool:
+        """ Validates user input
 
-    #def launch_report_gui(self, database_dir, port_num, host_address):
-
-
-    def validate_completed_form(self):
+        Returns:
+            (bool)
+        """
         user_entered_path = self.data_entry.get()
         port_num = self.port_entry.get()
         host_address = self.host_entry.get()
@@ -426,89 +486,108 @@ class MainWindow(tk.Tk):
         else:
             return True
 
-    def validate_path(self, user_entered_path) -> bool:
+    def validate_path(self, user_entered_path: str) -> bool:
+        """ Validates path entered by user.
+
+        Args:
+            user_entered_path (str):
+
+        Returns:
+
+        """
         if len(user_entered_path) == 0:
             self.error_window_live.set(True)
             ErrorWindow(self.parent, window_live=self.error_window_live, msg='Enter a valid path')
-            self.data_entry_var.set("Please enter a valid path")
+            self.data_entry_var.set(self.PATH_VALIDATION)
             return False
         else:
             self.data_entry_var.set("")
             return True
 
-    def validate_port(self, port_number) -> bool:
+    def validate_port(self, port_number: int) -> bool:
+        """
+
+        Args:
+            port_number (int):
+
+        Returns:
+
+        """
         if not port(port_number) and not self.error_window_live.get():
             self.error_window_live.set(True)
             ErrorWindow(self.parent, window_live=self.error_window_live, msg='Enter a valid port number')
-            self.port_entry_var.set("Please enter a valid port number")
+            self.port_entry_var.set(self.PORT_VALIDATION)
             return False
         else:
             self.port_entry_var.set("")
             return True
 
-    def validate_host(self, host_address) -> bool:
+    def validate_host(self, host_address: str) -> bool:
+        """
+
+        Args:
+            host_address (str):
+
+        Returns:
+
+        """
         if not host(host_address):
             self.error_window_live.set(True)
             ErrorWindow(self.parent, window_live=self.error_window_live, msg='Enter a valid host address')
-            self.host_entry_var.set("Please enter a valid host address")
+            self.host_entry_var.set(self.HOST_VALIDATION)
             return False
         else:
             self.host_entry_var.set("")
             return True
 
     def validate_settings_check_buttons(self, launch_check, report_check) -> bool:
+        """
+
+        Args:
+            launch_check:
+            report_check:
+
+        Returns:
+
+        """
         if not launch_check and not report_check:
             self.error_window_live.set(True)
             ErrorWindow(self.parent, window_live=self.error_window_live,
                         msg='Select a valid option, \'Launch Reports\' or \'Run Analysis\'')
-            self.settings_checkbox_var.set("Select one or more of the settings options")
+            self.settings_checkbox_var.set(self.CHECKBOX_VALIDATION)
             return False
         else:
             self.settings_checkbox_var.set("")
             return True
 
-    def validate_unique_path_to_cache(self, user_entered_path):
-        if self.check_valid_path(user_entered_path) and self.cache_unique() and self.check_valid_file(user_entered_path):
+    def validate_unique_path_to_cache(self, user_entered_path: str) -> None:
+        """
+        Args:
+            user_entered_path (str):
+
+        Returns:
+        """
+        if self.check_valid_path(user_entered_path) and self.cache_unique() and self.check_valid_file(
+                user_entered_path):
             self.write_source_file_path_cache()
 
-    def start_progressbar(self):
+    def start_progressbar(self) -> None:
+        """
+
+        Returns:
+
+        """
         self.progressbar.state(['!disabled'])
         self.progressbar.start()
 
-    def stop_progressbar(self):
-        self.progressbar.stop()
-        self.progressbar.state(['disabled'])
-
-    def load_database(self, user_entered_path, database_dir, port_num, host_address, load:bool = True):
-        if load:
-            load_db(file=user_entered_path, location=database_dir)
-        else:
-            launch_report_server(location=database_dir, port=port_num, host=host_address,server=True)
-
-
-    # check if reporting database already exists if so inform user move to an archieve directory in the same directory and continue
-    # append date. In future version add the ability to search archive of reporting databases.
-    # if user chooses no to archieving the database then only offer lanuching the reports and disable the analyse the reports checkbutton
-
-
-
-    @staticmethod
-    def file_name(path: str) -> str:
-        """ Creates path to database in the same folder as source file.
-
-        Args:
-            path (str):
+    def stop_progressbar(self) -> None:
+        """
 
         Returns:
-            str:    Path to create database
 
         """
-        try:
-            split_path = path.split(os.sep)
-            path_components = [i for i in split_path if len(i) > 0]
-            return path_components[-1:][0]
-        except IndexError as err:
-            return ''
+        self.progressbar.stop()
+        self.progressbar.state(['disabled'])
 
     @staticmethod
     def db_dir(path: str) -> str:
@@ -542,10 +621,18 @@ class MainWindow(tk.Tk):
         path_components = [i for i in split_path if len(i) > 0]
         path_stem = ['{}{}'.format(os.sep, i) for i in path_components[:-1]]
         reconstituted_path = ''.join(path_stem)
-        database_path = '{}{}reporting.db'.format(reconstituted_path,os.path.sep)
+        if os.name == 'nt':
+            database_path = '{}{}reporting.db'.format(reconstituted_path, os.path.sep).lstrip(os.path.sep)
+        else:
+            database_path = '{}{}reporting.db'.format(reconstituted_path, os.path.sep)
         return database_path
 
-    def write_source_file_path_cache(self):
+    def write_source_file_path_cache(self) -> None:
+        """
+
+        Returns:
+
+        """
         user_entered_path = self.data_entry.get()
 
         cache_me = {}
@@ -565,6 +652,11 @@ class MainWindow(tk.Tk):
             pass
 
     def read_source_file_path_cache(self) -> dict:
+        """
+
+        Returns:
+
+        """
         try:
             with open(os.path.join(ABS_FILE_PICKLE, self.CACHED_FILE_PATHS), "r+b") as cache:
                 retrieved_cache = pickle.load(cache)
@@ -582,7 +674,7 @@ class MainWindow(tk.Tk):
             current_cache = self.read_source_file_path_cache().items()
             user_entered_path = self.data_entry.get()
             current_cache = [i[1] for i in current_cache]
-            print(current_cache, user_entered_path)
+            # print(current_cache, user_entered_path)
             if user_entered_path in current_cache:
                 return False
             else:
@@ -592,8 +684,15 @@ class MainWindow(tk.Tk):
         except OSError as err:
             pass
 
-def launch_browser(event, url: str):
-    """Launches web browser"""
-    webbrowser.open_new(str(url))
 
-# make sure tkinter theme is aware of mac vs windows and linux.
+def launch_browser(event: tk.Event, url: str) -> None:
+    """ Launches web browser
+
+    Args:
+        event (tk.Event):
+        url (str):
+
+    Returns:
+
+    """
+    webbrowser.open_new(str(url))

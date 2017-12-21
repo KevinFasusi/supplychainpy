@@ -23,11 +23,12 @@
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import tkinter as tk
+from typing import Optional
 
 from supplychainpy._gui.views._home import MainWindow
 
 
-def home():
+def home(test: bool=False) -> Optional[MainWindow]:
     launcher = tk.Tk()
     app_launch = MainWindow(launcher)
     screen_width = app_launch.parent.winfo_screenwidth()
@@ -38,7 +39,10 @@ def home():
     app_y_pos = int((screen_height - app_height) / 2)
     app_launch.parent.geometry('{}x{}+{}+{}'.format(app_width, app_height, app_x_pos, app_y_pos))
     app_launch.parent.configure()
-    launcher.mainloop()
+    if test:
+        return app_launch
+    else:
+        launcher.mainloop()
 
 
 if __name__ == '__main__':
