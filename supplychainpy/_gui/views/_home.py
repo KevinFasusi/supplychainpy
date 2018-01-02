@@ -419,10 +419,11 @@ class MainWindow(tk.Tk):
 
             # address currency selection
             app_settings = {
-                'database_path': database_dir,
+                'database_path': database_dir.lstrip(os.path.sep),
                 'host': self.host_entry.get(),
                 'currency': 'USD'
             }
+
             serialise_config(app_settings, ABS_FILE_PATH_APPLICATION_CONFIG)
             if report_check:
                 start_load_db = threading.Thread(target=_load_database, args=(user_entered_path, database_dir,
