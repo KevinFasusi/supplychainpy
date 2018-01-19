@@ -180,7 +180,7 @@ class MainWindow(tk.Tk):
         # binding to listbox
         self.listbox.bind('<<ListboxSelect>>', lambda e: self.data_source_entry(e))
         self.progress_frame = ttk.Frame(master)
-        self.progress_frame.pack(side=tk.RIGHT, expand=tk.YES)
+        self.progress_frame.pack(side=tk.RIGHT, expand=tk.NO)
         self.progress_frame.config(height=100)
         self.progressbar = ttk.Progressbar(self.progress_frame, style='black.Horizontal.TProgressbar',
                                            orient=tk.HORIZONTAL, length=200)
