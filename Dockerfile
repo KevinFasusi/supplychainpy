@@ -5,10 +5,10 @@ RUN apt-get -y update
 
 RUN apt-get -y install gcc
 
-ADD /dist/supplychainpy-0.0.5.tar.gz /
-ADD LOG.txt /supplychainpy-0.0.5
+ADD /dist/supplychainpy-0.0.6.tar.gz /
+ADD LOG.txt /supplychainpy-0.0.6
 
-WORKDIR /supplychainpy-0.0.5/
+WORKDIR /supplychainpy-0.0.6/
 
 ADD requirements.txt requirements.txt
 RUN pip install -r requirements.txt
@@ -16,11 +16,11 @@ RUN python -m textblob.download_corpora
 
 RUN python setup.py sdist
 
-WORKDIR /supplychainpy-0.0.5/dist
+WORKDIR /supplychainpy-0.0.6/dist
 
-RUN pip install supplychainpy-0.0.5.tar.gz
+RUN pip install supplychainpy-0.0.6.tar.gz
 
-RUN cp /supplychainpy-0.0.5/supplychainpy/sample_data/complete_dataset_xsmall.csv /
+RUN cp /supplychainpy-0.0.6/supplychainpy/sample_data/complete_dataset_xsmall.csv /
 
 WORKDIR /
 

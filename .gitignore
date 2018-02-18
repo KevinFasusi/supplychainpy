@@ -27,5 +27,6 @@ scratch.py
 _archive/*
 .vscode/
 setup_mac_installer.py
+setup_windows_installer.py
 crate.icns
 dist/supplychain.app/*
