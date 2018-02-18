@@ -176,7 +176,6 @@ def parallelise_ses(pickled_ses_batch_files: list, core_count: int) -> dict:
 
         return simple_forecast
     except concurrent.futures.TimeoutError as err:
-        print(err)
         attempts +=1
         pickled_ses_batch_files_remaining = set(pickled_ses_batch_files) -  set(pickled_ses_batch_files_completed)
         log.log(logging.INFO, 'ERROR processing batch. Retrying remaining batch files: {}'.format(pickled_ses_batch_files_remaining))
@@ -189,7 +188,7 @@ def parallelise_ses(pickled_ses_batch_files: list, core_count: int) -> dict:
             print('The forecasting calculation process was unable to complete. Please check the source file.')
             return {}
     except OSError as err:
-        print(err)
+        pass
 
 
 def parallelise_htc(batched_analysis: list, core_count: int):
@@ -226,7 +225,6 @@ def write_pickle(**kwargs) -> str:
                 pickle.dump(v, ses)
             return path
     except OSError as err:
-        print(err)
         return ''
 
 
@@ -239,7 +237,6 @@ def read_pickle(batch_path: str):
             retrieved_pickle.append(pickle.load(ses))
         return retrieved_pickle
     except OSError as err:
-        print(err)
         return retrieved_pickle
 
 
@@ -247,7 +244,7 @@ def remove_pickle(path: str):
     try:
         os.remove(path=path)
     except OSError as err:
-        print('file not present. {}'.format(err))
+        log.log(logging.INFO,'file not present. {}'.format(err))
         pass
 
 
@@ -293,10 +290,9 @@ def cleanup_pickled_files():
                 remove_pickle(path)
 
     except FileNotFoundError as err:
-        print(err)
         pass
     except OSError as err:
-        print(err)
+        pass
 
 
 def load(file_path: str, location: str = None):
@@ -310,11 +306,12 @@ def load(file_path: str, location: str = None):
     try:
         app = create_app()
         db.init_app(app)
-        if location is not None and os.name in ['posix', 'mac']:
-            app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/reporting.db'.format(location)
+        if location is not None and os.name == 'nt':
+            db_uri = '{}{}reporting.db'.format(location, os.path.sep).lstrip(os.path.sep)
+        else:
+            db_uri = '{}{}reporting.db'.format(location, os.path.sep)
 
-        elif location is not None and os.name == 'nt':
-            app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}\\reporting.db'.format(location)
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(db_uri)
 
         log.log(logging.DEBUG, 'Loading data analysis for reporting suite... \n')
 
@@ -379,7 +376,6 @@ def load(file_path: str, location: str = None):
             htces_id = db.session.query(ForecastType.id).filter(ForecastType.type == forecast_types[1]).first()
             current_msk = db.session.query(MasterSkuList.sku_id).all()
             match_sku = [str(i) for i in current_msk]
-            print(match_sku)
             print('Calculating Forecasts...[COMPLETED]\n')
             log.log(logging.DEBUG, 'loading database ...\n')
             print('loading database ...\n')

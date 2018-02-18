@@ -23,17 +23,10 @@
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import argparse
-import os
-import pickle
-
-import sys
-
 import logging
 
-from supplychainpy._csv_management._csv_manager import _Orchestrate
-from supplychainpy._csv_management._model._db_setup import create_management_db
+from supplychainpy._gui.launch import home
 from supplychainpy._helpers._config_file_paths import ABS_FILE_PATH_APPLICATION_CONFIG
-from supplychainpy._helpers._decorators import quiet_console
 from supplychainpy._helpers._pickle_config import serialise_config, deserialise_config
 from supplychainpy.bot.dash import ChatBot
 from supplychainpy.launch_reports import launch_load_report, launch_report_server
@@ -254,7 +247,8 @@ def main():
                 print('Dash> ', i)
             msg = input("> ")
     else:
-        launch_report()
+        print("Launched graphical user interface")
+        home()
 
 if __name__ == '__main__':
     main()
