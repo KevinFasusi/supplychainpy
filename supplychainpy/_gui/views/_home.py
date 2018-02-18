@@ -117,7 +117,7 @@ class MainWindow(tk.Tk):
         self.file_menu.add_command(label='Reset', command=lambda: print("Testing"))
         self.file_menu.add_command(label='Settings', command=lambda: print("Testing"))
         self.file_menu.add_separator()
-        self.file_menu.add_command(label='Synchronise', command=lambda: print("Testing"))
+        self.file_menu.add_command(label='Quit', command=lambda: quit)
 
         # adding accelerators based on operating system
         self.file_menu.entryconfig(index='New Project', accelerator='Command-n')
@@ -408,7 +408,7 @@ class MainWindow(tk.Tk):
         # check if main thread has been cancelled and quit
         self.start_progressbar()
         if self.validate_completed_form():
-            self.pipe_stdout()
+            #self.pipe_stdout()
             user_entered_path = self.data_entry.get()
             report_check = self.analysis_var.get()
             launch_check = self.launch_var.get()
@@ -419,7 +419,7 @@ class MainWindow(tk.Tk):
 
             # address currency selection
             app_settings = {
-                'database_path': database_dir.lstrip(os.path.sep),
+                'database_path': database_dir,
                 'host': self.host_entry.get(),
                 'currency': 'USD'
             }
