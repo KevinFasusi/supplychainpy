@@ -98,8 +98,10 @@ class TestModelDemand(TestCase):
 
     def test_simple_exponential_smoothing_key(self):
         ses = simple_exponential_smoothing_forecast(demand=self._orders, alpha=0.5, forecast_length=6, initial_period=18)
+        print(ses)
         for k in ses:
             self.assertIn(k, self.ses_components)
+
 
 if __name__ == "__main__":
     unittest.main()

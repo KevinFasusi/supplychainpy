@@ -58,7 +58,7 @@ def clean_orders_data_col_txt(file) -> dict:
         item_list[item[0]] = Decimal(item[1].strip())
     return item_list
 
-
+# added comments
 # TODO-feature make csv version of clean_orders also take into account column number add tests (create csv file)
 def clean_orders_data_col_csv(file) -> dict:
     item_list = {}
