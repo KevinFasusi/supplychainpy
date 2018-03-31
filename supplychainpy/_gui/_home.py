@@ -28,18 +28,19 @@ import pickle
 import threading
 import tkinter as tk
 import webbrowser
+from pathlib import Path
 from tkinter import ttk
 
 import sys
 from typing import Optional
 
-from supplychainpy._gui.views._stdout import StdoutPipe
+from supplychainpy._gui._stdout import StdoutPipe
 
-from supplychainpy._gui.controller.validate import port, host
-from supplychainpy._gui.views._error import ErrorWindow
+from supplychainpy._gui.validate import port, host
+from supplychainpy._gui._error import ErrorWindow
 from supplychainpy._helpers._config_file_paths import ABS_FILE_PICKLE, ABS_FILE_PATH_APPLICATION_CONFIG
 from supplychainpy._helpers._pickle_config import serialise_config
-from supplychainpy.launch_reports import launch_report_server, load_db, launch_report
+from supplychainpy.launch_reports import launch_report_server, load_db
 
 
 def _load_database(user_entered_path: str, database_dir: str, port_num: int, host_address: str, load: bool = True):
@@ -129,7 +130,7 @@ class MainWindow(tk.Tk):
         self.frame_header.pack()
         app_dir = os.path.dirname(__file__, )
         rel_path = '../reporting/static/images/logo.gif'
-        logo_path = os.path.abspath(os.path.join(app_dir, '..', rel_path))
+        logo_path = os.path.abspath(os.path.join(app_dir, rel_path))
         logo = tk.PhotoImage(file=logo_path)
         self.style = ttk.Style()
         self.style.configure('TCheckbutton', background='black')
@@ -199,7 +200,7 @@ class MainWindow(tk.Tk):
         self.settings_lbl_frm.grid(column=0, columnspan=12, row=4, sticky='nsew', pady=(20, 20))
 
         source_rel_path = '../reporting/static/images/source.gif'
-        source_logo_path = os.path.abspath(os.path.join(app_dir, '..', source_rel_path))
+        source_logo_path = os.path.abspath(os.path.join(app_dir, source_rel_path))
         self.data_source_img = tk.PhotoImage(file=source_logo_path)
 
         self.data_source_lbl = ttk.Label(self.data_lbl_frm, text='Source File:')
@@ -218,7 +219,7 @@ class MainWindow(tk.Tk):
         self.data_entry_validation.config(foreground="red")
 
         db_rel_path = '../reporting/static/images/db.gif'
-        db_logo_path = os.path.abspath(os.path.join(app_dir, '..', db_rel_path))
+        db_logo_path = os.path.abspath(os.path.join(app_dir, db_rel_path))
         self.db_source_img = tk.PhotoImage(file=db_logo_path)
 
         self.database_lbl = ttk.Label(self.data_lbl_frm, text='Database:')
@@ -231,7 +232,7 @@ class MainWindow(tk.Tk):
         self.database_entry.state(['disabled'])
 
         socket_rel_path = '../reporting/static/images/socket.gif'
-        socket_logo_path = os.path.abspath(os.path.join(app_dir, '..', socket_rel_path))
+        socket_logo_path = os.path.abspath(os.path.join(app_dir, socket_rel_path))
         self.socket_source_img = tk.PhotoImage(file=socket_logo_path)
 
         self.port_lbl = ttk.Label(self.settings_lbl_frm, text='Port:')
@@ -248,7 +249,7 @@ class MainWindow(tk.Tk):
         self.port_entry_validation.config(foreground="red")
 
         host_rel_path = '../reporting/static/images/server.gif'
-        host_logo_path = os.path.abspath(os.path.join(app_dir, '..', host_rel_path))
+        host_logo_path = os.path.abspath(os.path.join(app_dir,  host_rel_path))
         self.host_img = tk.PhotoImage(file=host_logo_path)
 
         self.host_lbl = ttk.Label(self.settings_lbl_frm, text='Host:')
@@ -601,11 +602,8 @@ class MainWindow(tk.Tk):
             str:    Path to create database
 
         """
-        split_path = path.split(os.sep)
-        path_components = [i for i in split_path if len(i) > 0]
-        path_stem = ['{}{}'.format(os.sep, i) for i in path_components[:-1]]
-        reconstituted_path = ''.join(path_stem)
-        return reconstituted_path
+        db_dir_path = Path(path).parents[0]
+        return db_dir_path
 
     @staticmethod
     def db_path(path: str) -> str:
@@ -616,17 +614,11 @@ class MainWindow(tk.Tk):
 
         Returns:
             str:    Path to create database
-
+ 
         """
-        split_path = path.split(os.sep)
-        path_components = [i for i in split_path if len(i) > 0]
-        path_stem = ['{}{}'.format(os.sep, i) for i in path_components[:-1]]
-        reconstituted_path = ''.join(path_stem)
-        if os.name == 'nt':
-            database_path = '{}{}reporting.db'.format(reconstituted_path, os.path.sep).lstrip(os.path.sep)
-        else:
-            database_path = '{}{}reporting.db'.format(reconstituted_path, os.path.sep)
-        return database_path
+        database_path = Path(path)
+        print(str(database_path))
+        return str(database_path)
 
     def write_source_file_path_cache(self) -> None:
         """

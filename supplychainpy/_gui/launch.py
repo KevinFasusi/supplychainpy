@@ -25,7 +25,7 @@
 import tkinter as tk
 from typing import Optional
 
-from supplychainpy._gui.views._home import MainWindow
+from supplychainpy._gui._home import MainWindow
 
 
 def home(test: bool=False) -> Optional[MainWindow]:

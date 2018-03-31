@@ -1,7 +1,4 @@
 import socket as sc
-import tkinter as tk
-from tkinter import ttk
-from supplychainpy._gui.views._error import ErrorWindow
 
 
 def host(address: str) -> bool:
