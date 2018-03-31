@@ -617,7 +617,9 @@ class MainWindow(tk.Tk):
  
         """
         database_path = Path(path)
-        print(str(database_path))
+        database_path = database_path.parents[0]
+        database_path = Path(database_path)
+        database_path = database_path.joinpath('reporting.db')
         return str(database_path)
 
     def write_source_file_path_cache(self) -> None:
